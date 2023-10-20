@@ -10,7 +10,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.html_preview.outputs.url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
