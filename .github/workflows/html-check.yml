@@ -1,9 +1,6 @@
 name: Kiểm tra
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+on: [push, pull_request]
 
 jobs:
   # Single deploy job since we're just deploying
