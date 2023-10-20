@@ -15,10 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Check HTML
-        uses: chabad360/htmlproofer@master
+      - name: HTML Preview
+        id: html_preview
+        uses: pavi2410/html-preview-action@v2
         with:
-          directory: "."
-          # The directory to scan
-          arguments: --allow-missing-href
-          # The arguments to pass to HTMLProofer
+          html_file: 'index.html'
