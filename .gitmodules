@@ -1,9 +1,15 @@
 [submodule "libot-leaderboard"]
 	path = libot-leaderboard
 	url = https://github.com/Thi-Vua-Lay-Tot/libot-leaderboard
-[submodule "tournaments-leaderboard"]
-	path = tournaments-leaderboard
-	url = https://github.com/Thi-Vua-Lay-Tot/tournaments-leaderboard
 [submodule "blog"]
 	path = blog
 	url = https://github.com/Thi-Vua-Lay-Tot/blog
+[submodule "game"]
+	path = game
+	url = https://github.com/Thi-Vua-Lay-Tot/game
+[submodule "vlog"]
+	path = vlog
+	url = https://github.com/Thi-Vua-Lay-Tot/vlog
+[submodule "tournaments-leaderboard"]
+	path = tournaments-leaderboard
+	url = https://github.com/Thi-Vua-Lay-Tot/tournaments-leaderboard
