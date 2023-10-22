@@ -6,7 +6,7 @@ jobs:
   # Single deploy job since we're just deploying
   deploy:
     environment:
-      name: github-pages
+      name: test-pages
       url: ${{ steps.html_preview.outputs.url }}
     runs-on: ubuntu-latest
     steps:
