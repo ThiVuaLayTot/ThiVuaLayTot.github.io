@@ -9,4 +9,4 @@
 6. Cảm ơn [@CSSandHTMLonly](https://github.com/CSSandHTMLonly) với trò chơi `Cờ Caro` từ https://github.com/CSSandHTMLonly/TicTacToe của anh ấy
 7. Cảm ơn [@mojombo](https://github.com/mojombo) vì phần trang web `Blog` và `Vlog` được lấy từ https://github.com/mojombo/mojombo.github.io của anh ấy.
 
-[![GitHub contributors](https://contrib.rocks/image?repo=Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io)]
+![GitHub contributors](https://contrib.rocks/image?repo=Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io)
