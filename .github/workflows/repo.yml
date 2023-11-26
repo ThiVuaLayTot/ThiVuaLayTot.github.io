@@ -1,0 +1,23 @@
+name: Tự động cập nhật các kho lưu trữ
+
+on:
+  schedule:
+    - cron: "33 */33 * * *"
+  workflow_dispatch:
+
+jobs:
+  updating:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cập nhật cam kết
+        run: |
+          git submodule update --remote
+      - name: Cam kết & Đẩy tệp
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m " "
+          git push --force
