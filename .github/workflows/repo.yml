@@ -1,6 +1,9 @@
 name: Tự động cập nhật các kho lưu trữ
 
-on: [push]
+on:
+  schedule:
+    - cron: "33 */33 * * *"
+  workflow_dispatch:
 
 jobs:
   updating:
