@@ -2,7 +2,7 @@ name: Tự động cập nhật các kho lưu trữ
 
 on:
   schedule:
-    - cron: "33 */33 * * *"
+    - cron: "14 */03 */20 */09 *"
   workflow_dispatch:
 
 jobs:
