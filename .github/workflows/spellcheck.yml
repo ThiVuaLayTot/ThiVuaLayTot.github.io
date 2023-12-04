@@ -1,4 +1,4 @@
-name: Jekyll site CI
+name: Kiểm tra chính tả HTML
 
 on: [push, pull_request]
 
@@ -11,4 +11,4 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Spell Check
-           uses: UnicornGlobal/spellcheck-github-actions@master
+      uses: UnicornGlobal/spellcheck-github-actions@master
