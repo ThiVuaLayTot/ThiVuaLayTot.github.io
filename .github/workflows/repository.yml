@@ -16,8 +16,8 @@ jobs:
           git submodule update --remote
       - name: Cam kết & Đẩy tệp
         run: |
-          git config --local user.email "Thi-Vua-Lay-Tot-Admin@users.noreply.github.com"
-          git config --local user.username "Thi-Vua-Lay-Tot-Admin"
+          git config --local user.email "142654223+TVLT-Admin@users.noreply.github.com"
+          git config --local user.name "TVLT-Admin"
           git add -A
           git commit -m " "
           git push --force
