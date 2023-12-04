@@ -20,6 +20,6 @@ jobs:
           git submodule update --remote --recursive
           git submodule update
           git submodule update --remote
-          git add
-          git commit -m "Update"
+          git add .
+          git commit -m "Cập nhật"
           git push
