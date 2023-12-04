@@ -10,5 +10,5 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Spell Check
-      uses: UnicornGlobal/spellcheck-github-actions@master
+    - name: Check Spelling
+      uses: check-spelling/check-spelling@v0.0.22
