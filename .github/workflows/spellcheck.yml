@@ -3,12 +3,14 @@ name: Kiểm tra chính tả HTML
 on: [push, pull_request]
 
 jobs:
-  build:
-
+  conformance:
+    name: Check document-conformance
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Check Spelling
-      uses: check-spelling/check-spelling@v0.0.22
+      - uses: actions/checkout@v2
+        with:
+          repository: marcuslindblom/w3cvalidator
+      - uses: marcuslindblom/w3cvalidator@main
+        with:
+          url: ${{ secrets.URL }}
+          level: error
