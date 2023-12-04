@@ -14,8 +14,6 @@ jobs:
       - name: Cập nhật cam kết
         run: |
           git submodule update --remote
-      - name: Cam kết & Đẩy tệp
-        run: |
           git config --local user.email "142654223+TVLT-Admin@users.noreply.github.com"
           git config --local user.name "TVLT-Admin"
           git add -A
