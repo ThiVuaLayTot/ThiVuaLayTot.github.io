@@ -22,4 +22,4 @@ jobs:
           git submodule update --remote
           git add .
           git commit -m "Cập nhật"
-          git push
+          git push origin HEAD:main
