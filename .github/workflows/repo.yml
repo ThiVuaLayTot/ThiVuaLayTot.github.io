@@ -10,10 +10,12 @@ env:
 
 jobs:
   updating:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.TOKEN }}
       - name: Cập nhật cam kết
         run: |
           git config --global user.email "actions@github.com"
