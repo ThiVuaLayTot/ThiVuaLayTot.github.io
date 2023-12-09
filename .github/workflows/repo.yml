@@ -26,5 +26,5 @@ jobs:
           git submodule update
           git submodule update --remote
           git add .
-          git commit -m " "
+          git commit -m "Cập nhật các kho lưu trữ"
           git push origin HEAD:main
