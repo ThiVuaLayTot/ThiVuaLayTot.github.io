@@ -1,4 +1,5 @@
 # [Thí Vua Lấy Tốt web](https://thi-vua-lay-tot.github.io/)
+[![Kiểm tra](https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/actions/workflows/html-check.yml/badge.svg)](https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/actions/workflows/html-check.yml) [![Kiểm tra chính tả HTML](https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/actions/workflows/spellcheck.yml/badge.svg?event=push)](https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/actions/workflows/spellcheck.yml) 
 
 # Cảm ơn
 1. Cảm ơn [@lenguyenthanh](https://github.com/lenguyenthanh) vì trang web được lấy ý tưởng từ mã trang web của anh ấy https://github.com/lenguyenthanh/lenguyenthanh.github.io và chủ đề trang trí web từ [@TheYoBots](https://github.com/TheYoBots) ở https://github.com/TheYoBots/libot-lb
