@@ -1,4 +1,4 @@
-name: Tự động cập nhật các kho lưu trữ
+name: Cập nhật các repository liên quan
 
 on:
   schedule:
@@ -10,7 +10,7 @@ env:
 
 jobs:
   updating:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -26,5 +26,5 @@ jobs:
           git submodule update
           git submodule update --remote
           git add .
-          git commit -m "Cập nhật các kho lưu trữ"
+          git commit -m "Cập nhật các repository liên quan"
           git push origin HEAD:main

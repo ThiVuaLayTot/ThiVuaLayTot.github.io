@@ -1,4 +1,4 @@
-name: Kiểm tra chính tả HTML
+name: Test chính tả HTML
 
 on: [push, pull_request]
 
@@ -7,7 +7,7 @@ jobs:
     name: Check document-conformance
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           repository: marcuslindblom/w3cvalidator
       - uses: marcuslindblom/w3cvalidator@main
