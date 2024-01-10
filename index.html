@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+	<link href="https://cobaohieu.github.io/assets/css/style.css" rel="stylesheet">
         <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon" />
   </head>
   <body>
@@ -56,6 +57,52 @@
             <a href="https://discord.gg/7vYq2gRCrv"><img src="https://dcbadge.vercel.app/api/server/7vYq2gRCrv?style=flat" target="_blank"> </a>
 	    <p>
     </main>
+<script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+
+        // Check if it's daytime (before noon) and enable dark mode
+        const currentTime = new Date();
+        const isDaytime = currentTime.getHours() > 16;
+
+        if (isDaytime && isDarkMode) {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'disabled');
+            darkModeToggle.checked = false;
+        } else if (!isDaytime && !isDarkMode) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+            darkModeToggle.checked = true;
+        }
+
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+		var btn = $('#back2top');
+		$(window).scroll(function () {
+			if ($(window).scrollTop() > 300) {
+				btn.addClass('show');
+			} else {
+				btn.removeClass('show');
+			}
+		});
+
+		btn.on('click', function (e) {
+			e.preventDefault();
+			$('html, body').animate({ scrollTop: 0 }, '800');
+		});
+
+
+
+	</script>
     <footer align="center">
         <p>
             <a href="https://github.com/orgs/Thi-Vua-Lay-Tot/people">
