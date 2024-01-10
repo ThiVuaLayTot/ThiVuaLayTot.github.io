@@ -1,18 +1,8 @@
-import datetime
-import logging
-import logging.handlers
-import os
-import os.path
-import re
-import subprocess
-import sys
 
-
-css_styles = """
 <head>
   <style>
 	body{
-		background-color: #f0A51;
+		background-color: rgba(13, 92, 219, 0.899);
 	}
   </style>
   <title>Bảng xếp hạng giải đấu</title>
@@ -69,14 +59,42 @@ css_styles = """
     }
   </style>
 </head>
-"""
-
-information = """
+<h1 align="center">Bảng xếp hạng Cbtt</h1>
+      <p align="right"><i>Lần cuối cập nhật: 14:37:16 UTC, ngày 2 tháng 1 năm 2024</i></p>
   <p><strong>Ghi chú:</strong> Nếu <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Chính thức"> nghĩa là giải chính thức được tổ chức bởi chủ sở hữu/quản lí giải đấu, còn <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Không chính thức"> là giải tạo bởi một Admin khác.</p>
   <p> Nếu trước tên người dùng có: ❓ nghĩa là người chơi này có khả năng không được đạt giải và đang chờ xác thực, <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png"> là người dùng bị đóng tài khoản nhưng vẫn được xác minh được nhận giải, <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi bị đóng tài khoản và xác nhận là gian lận.</p>
-"""
-
-footer_styles = """
+<table class="styled-table">
+  <tr>
+    <th>Tên giải</th>
+    <th>Ngày tổ chức🕗</th>
+    <th>Thể lệ♟️</th>
+    <th>Giải nhất 🥇</th>
+    <th>Giải nhì 🥈</th>
+    <th>Giải ba🥉</th>
+    <th>Tổng số kì thủ</th>
+    <th>Link giải</th>
+  </tr>
+  <tr>
+    <td>Tháng 11/2023<img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Giải chính thức"></td>
+    <td>19/11/2023</td>
+    <td>3+1 Blitz, Swiss 11 vòng</td>
+    <td><a href="https://www.chess.com/member/MaCUONG123" title="Xem tài khoản Chess.com của MaCUONG123">MaCUONG123</a></td>
+    <td><a href="https://www.chess.com/member/PresidentExpress28" title="Xem tài khoản Chess.com của PresidentExpress28">PresidentExpress28</a></td>
+    <td><a href="https://www.chess.com/member/meowf1" title="Xem tài khoản Chess.com của meowf1">meowf1</a></td>
+    <td>81</td>
+    <td><a href="https://www.chess.com/play/tournament/4388644" title="Nhấn để xem kết quả của giải này">Link!</a></td>
+  </tr>
+  <tr>
+    <td>Tháng 12/2023<img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Giải chính thức"></td>
+    <td>17/12/2023</td>
+    <td>3+1 Blitz, Swiss 11 vòng</td>
+    <td><a href="https://www.chess.com/member/TokudaShigeoJr" title="Xem tài khoản Chess.com của TokudaShigeoJr">TokudaShigeoJr</a></td>
+    <td><a href="https://www.chess.com/member/anhtuanka42007" title="Xem tài khoản Chess.com của anhtuanka42007">anhtuanka42007</a></td>
+    <td><a href="https://www.chess.com/member/LightInMyEye" title="Xem tài khoản Chess.com của LightInMyEye">LightInMyEye</a></td>
+    <td>83</td>
+    <td><a href="https://www.chess.com/play/tournament/4451780" title="Nhấn để xem kết quả của giải này">Link!</a></td>
+  </tr>
+</table>
 <div id="footer">
     <div class="container">
         <div class="footer-container">
@@ -95,73 +113,3 @@ footer_styles = """
   </div>
 </div>
 </footer>
-"""
-
-def generate_h1_tag(filename):
-    title = os.path.splitext(filename)[0].capitalize()
-    utc_datetime = datetime.datetime.utcnow()
-    h1_tag = f"""<h1 align="center">Bảng xếp hạng {title}</h1>
-      <p align="right"><i>Lần cuối cập nhật: {utc_datetime.hour}:{utc_datetime.minute}:{utc_datetime.second} UTC, ngày {utc_datetime.day} tháng {utc_datetime.month} năm {utc_datetime.year}</i></p>"""
-    return h1_tag
-
-def markdown_table_to_html(markdown_table):
-    chesscom = f'https://www.chess.com'
-    lichess = f'https://lichess.org'
-    rows = markdown_table.strip().split('\n')
-    html_table = '<table class="styled-table">\n'
-    for i, row in enumerate(rows):
-        if '---|---|---|---|---|---|---|---' in row:
-            continue
-
-        tag = 'th' if i == 0 else 'td'
-        cells = re.split(r'\s*\|\s*', row)
-
-        if len(cells) == 1 and cells[0] == '':
-            continue
-        
-        html_table += '  <tr>\n'
-        for cell in cells:
-            if cell.startswith('?'):
-                username = cell[2:]
-                cell_content = f'<{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
-            elif cell.startswith('@'):
-                username = cell[1:]
-                cell_content = f'<{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a></{tag}>'
-            elif cell.startswith('$'):
-                username = cell[1:]
-                cell_content = f'<{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username}</a></{tag}>'
-            elif cell.startswith('%'):
-                link = cell[1:]
-                cell_content = f'<{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
-            elif cell.startswith('/'):
-                idlink = cell[1:]
-                cell_content = f'<{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
-            elif cell.startswith('*'):
-                name = cell[2:]
-                cell_content = f'<{tag}>{name}<img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Giải chính thức"></{tag}>'
-            elif cell.startswith('`'):
-                name = cell[2:]
-                cell_content = f'<{tag}>{name}<img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Giải không chính thức"></{tag}>'
-            else:
-                cell_content = f'<{tag}>{cell}</{tag}>'
-            html_table += f'    {cell_content}\n'
-        html_table += '  </tr>\n'
-    html_table += '</table>'
-    return html_table
-
-directories = ['tournament-leaderboard/leaderboard', 'tournament-leaderboard/top']
-
-for directory in directories:
-    for filename in os.listdir(directory):
-        if filename.endswith('.md'):
-            with open(os.path.join(directory, filename), 'r') as md_file:
-                h1_tag = generate_h1_tag(filename)
-                
-                markdown_table = md_file.read()
-                html_table = markdown_table_to_html(markdown_table)
-
-                styled_html_table = css_styles + h1_tag + information + html_table + footer_styles
-
-                html_filename = os.path.splitext(filename)[0] + '.html'
-                with open(os.path.join(directory, html_filename), 'w') as html_file:
-                    html_file.write(styled_html_table)
