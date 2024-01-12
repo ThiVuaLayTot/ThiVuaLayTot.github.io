@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'tournament-leaderboard/md2html.py'
+      - 'md2html.py'
       - 'tournament-leaderboard/top/*.md'
       - 'tournament-leaderboard/leaderboard/*.md'
 
