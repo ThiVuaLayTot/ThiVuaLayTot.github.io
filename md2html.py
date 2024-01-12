@@ -10,11 +10,6 @@ import sys
 
 css_styles = """
 <head>
-  <style>
-	body{
-		background-color: #f0A51;
-	}
-  </style>
   <title>Bảng xếp hạng giải đấu</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,10 +19,10 @@ css_styles = """
   <link rel="stylesheet" href="https://typelevel.org/typelevel.github.com/css/main.css">
   <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon" />
   <header>
-            <nav>
-                <a href="https://thi-vua-lay-tot.github.io/tournaments-leaderboard/">< Quay lại</a>
-            </nav>
-        </header>
+      <nav>
+          <a href="https://thi-vua-lay-tot.github.io/tournaments-leaderboard/">< Quay lại</a>
+      </nav>
+  </header>
   <style>
     .styled-table {
       font-family: HelveBold;
