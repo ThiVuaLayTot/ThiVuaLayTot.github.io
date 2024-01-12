@@ -20,9 +20,9 @@
                 <a href="./vlogs">Vlog</a>
                 <a href="./game">Game</a>
                 <a href="./team">Đội của chúng tôi</a>
-                <label class="mode" align="right">
+                <label class="mode">
                     <input type="checkbox" id="darkModeToggle">
-                    <i class='bx bxs-moon'></i>
+                    <i id="moon" class='bx bxs-moon'></i>
                 </label>
             </nav>
         </header>
@@ -98,23 +98,6 @@
                 localStorage.setItem('darkMode', 'disabled');
             }
         });
-
-		var btn = $('#back2top');
-		$(window).scroll(function () {
-			if ($(window).scrollTop() > 300) {
-				btn.addClass('show');
-			} else {
-				btn.removeClass('show');
-			}
-		});
-
-		btn.on('click', function (e) {
-			e.preventDefault();
-			$('html, body').animate({ scrollTop: 0 }, '800');
-		});
-
-
-
 	</script>
   </body>
 </html>
