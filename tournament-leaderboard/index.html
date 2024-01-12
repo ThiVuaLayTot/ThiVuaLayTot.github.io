@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<style>
-		body{
-			background-color: rgba(254, 254, 254, 0.333);
-	}
-        </style>
         <title> Bảng xếp hạng giải đấu</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cobaohieu.github.io/assets/css/intro.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon" />
 	<header>
             <nav>
                 <a href="https://thi-vua-lay-tot.github.io/">< Quay lại trang chủ</a>
             </nav>
+            <label class="mode">
+                <input type="checkbox" id="darkModeToggle">
+                <i id="moon" class='bx bxs-moon'></i>
+            </label>
         </header>
         <style>
             body,h1,h2,h3,h4,h5 {
@@ -72,4 +73,33 @@
             <p><i>Được cập nhật thường xuyên bởi <a href="https://www.chess.com/clubs/members/thi-vua-lay-tot-tungjohn-playing-chess?filterBy=isAdmin">Các QTV CLB Thí Vua Lấy Tốt</a></i>.</p>
         </footer>
     </body>
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+
+        // Check if it's daytime (before noon) and enable dark mode
+        const currentTime = new Date();
+        const isDaytime = currentTime.getHours() > 16;
+
+        if (isDaytime && isDarkMode) {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'disabled');
+            darkModeToggle.checked = false;
+        } else if (!isDaytime && !isDarkMode) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+            darkModeToggle.checked = true;
+        }
+
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+	</script>
 </html>
