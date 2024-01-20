@@ -18,6 +18,7 @@ jobs:
     # Path of the files to test
           root: ./
     # Format for logging output. Valid values: gnu, xml, json, text
+          format: gnu
     # Logging Level. Valid values: DEBUG, INFO, WARNING. Default: WARNING
           log_level: WARNING
     # Checks css as well
