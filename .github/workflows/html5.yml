@@ -10,10 +10,10 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
-      - name: HTML5 Validator
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+      - name: HTML5 Validator
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
         with:
     # Path of the files to test
           root: ./
