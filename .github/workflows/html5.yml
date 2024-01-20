@@ -1,0 +1,30 @@
+name: "Kiểm tra mã HTML"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+    - name: HTML5 Validator
+  # You may pin to the exact commit or the version.
+  # uses: Cyb3r-Jak3/html5validator-action@41633d488eb36e18fd1a95ffc83daf1bf22a75bd
+    - uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+      with:
+    # Path of the files to test
+        root: ./
+    # Format for logging output. Valid values: gnu, xml, json, text
+        format: text
+    # Logging Level. Valid values: DEBUG, INFO, WARNING. Default: WARNING
+        log_level: WARNING
+    # Checks css as well
+        css: true
+    - uses: actions/upload-artifact@v3
+      with:
+        name: log
+        path: log.log
+        skip_git_check: # optional
