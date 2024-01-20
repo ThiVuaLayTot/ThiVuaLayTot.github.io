@@ -27,4 +27,3 @@ jobs:
         with:
           name: log
           path: log.log
-        skip_git_check: # optional
