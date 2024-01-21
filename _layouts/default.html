@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <title>{{ page.title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cobaohieu.github.io/assets/css/intro.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="./">Trang chủ</a>
+            <a href="./list.html">Các danh sách</a>
+            <a href="./webs.html">Các trang mạng</a>
+            <a href="./blogs">Blog</a>
+            <a href="./vlogs">Vlog</a>
+            <a href="./game">Game</a>
+            <a href="./team">Đội của chúng tôi</a>
+            <label class="mode">
+                <input type="checkbox" id="darkModeToggle">
+                <i id="moon" class='bx bxs-moon'></i>
+            </label>
+        </nav>
+    </header>
+    <style>
+        .github-logo {
+            width: 1.5em;
+            height: auto;
+            vertical-align: middle;
+        }
+        
+        footer {
+            padding: 4.5px;
+            margin-left: auto;
+            margin-top: auto;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+        }
+    </style>
+
+    {{ content }}
+
+    <footer align="center">
+        <p>
+            <a href="https://github.com/orgs/Thi-Vua-Lay-Tot/people">
+                <img class="github-logo" src="https://github.com/fluidicon.png" alt="GitHub Icon">
+            </a>
+            Được xây dựng bởi <a href="https://www.chess.com/clubs/members/thi-vua-lay-tot-tungjohn-playing-chess?filterBy=isAdmin">Các
+                quản trị viên câu lạc bộ Thí Vua Lấy Tốt</a>
+        </p>
+    </footer>
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+
+        // Check if it's daytime (before noon) and enable dark mode
+        const currentTime = new Date();
+        const isDaytime = currentTime.getHours() > 16;
+
+        if (isDaytime && isDarkMode) {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'disabled');
+            darkModeToggle.checked = false;
+        } else if (!isDaytime && !isDarkMode) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+            darkModeToggle.checked = true;
+        }
+
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
+</body>
+
+</html>
