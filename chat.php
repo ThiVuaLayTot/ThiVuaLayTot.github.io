@@ -22,10 +22,10 @@ mysql_close();
 }
 }
 ?>
-<form action="minichat.php" method= "post">
+<form action="chat.php" method= "post">
 <p>
-Nickname : <input type="text" name= "nickname" /><br>
-Message : <input type="text" name= "message" /><br>
+Tên : <input type="text" name= "nickname" /><br>
+Tin nhắn : <input type="text" name= "message" /><br>
 <input type="submit" value="Send">
 </p>
 </form>
