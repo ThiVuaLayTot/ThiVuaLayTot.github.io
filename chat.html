@@ -22,15 +22,14 @@ mysql_close();
 }
 }
 ?>
-<form action="chat.php" method= "post">
+<form action="chat.html" method= "post">
 <p>
 Tên : <input type="text" name= "nickname" /><br>
 Tin nhắn : <input type="text" name= "message" /><br>
-<input type="submit" value="Send">
+<input type="submit" value="Gửi">
 </p>
 </form>
 <?php
-//Cho hiển thị 10 nội dung mới nhất
 mysql_connect("localhost", "root", "");
 mysql_select_db("tên_CSDL");
 $source = mysql_query("SELECT * FROM minichat ORDER BY ID DESC LIMIT 0,10");
@@ -43,7 +42,6 @@ while ($data = mysql_fetch_array($source) )
 </p>
 <?php
 }
-// Xong
 ?>
     </body>
 </html>
