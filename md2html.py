@@ -8,8 +8,7 @@ import subprocess
 import sys
 
 
-css_styles = """
----
+css_styles = """---
 layout: default
 title: Những kì thủ đạt giải
 ---
