@@ -20,7 +20,7 @@ jobs:
     # Format for logging output. Valid values: gnu, xml, json, text
           format: text
     # Logging Level. Valid values: DEBUG, INFO, WARNING. Default: WARNING
-          log_level: WARNING
+          log_level: DEBUG
     # Checks css as well
           css: true
       - uses: actions/upload-artifact@v3
