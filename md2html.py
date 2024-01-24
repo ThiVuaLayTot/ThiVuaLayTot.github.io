@@ -23,15 +23,15 @@ information = """
 def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0].capitalize()
     utc_datetime = datetime.datetime.utcnow()
-    h1_tag = f"""<h1 align="center">Bảng xếp hạng {title}</h1>
-      <p align="right"><i>Lần cuối cập nhật: {utc_datetime.hour}:{utc_datetime.minute}:{utc_datetime.second} UTC, ngày {utc_datetime.day} tháng {utc_datetime.month} năm {utc_datetime.year}</i></p>"""
+    h1_tag = f"""   <h1 align="center">Bảng xếp hạng {title}</h1>
+        <p align="right"><i>Lần cuối cập nhật: {utc_datetime.hour}:{utc_datetime.minute}:{utc_datetime.second} UTC, ngày {utc_datetime.day} tháng {utc_datetime.month} năm {utc_datetime.year}</i></p>"""
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
     chesscom = f'https://www.chess.com'
     lichess = f'https://lichess.org'
     rows = markdown_table.strip().split('\n')
-    html_table = '<table class="styled-table">\n'
+    html_table = '  <table class="styled-table">\n'
     for i, row in enumerate(rows):
         if '---|---|---|---|---|---|---|---' in row:
             continue
