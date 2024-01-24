@@ -14,7 +14,6 @@ layout: default
 title: Những kì thủ đạt giải
 ---
 
-  
 """
 
 information = """
