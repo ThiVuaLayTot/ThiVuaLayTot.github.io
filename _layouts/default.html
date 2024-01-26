@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cobaohieu.github.io/assets/css/intro.css">
     <link rel="stylesheet" href="https://typelevel.org/typelevel.github.com/css/main.css">
-    <script async src="https://stats.chessnibble.com/script.js" data-website-id="8205b599-208b-4d50-be05-5a4bb2f3775d"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon" />
 </head>
@@ -20,11 +19,11 @@
                 <div class="container">
                   <div class="navbar" id="navbar-main">
                     <div class="navbar-brand">
-                      <a href="https://thi-vua-lay-tot.github.io"><img src="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" title="TVLT"></a>
+                      <a href="https://thi-vua-lay-tot.github.io"><img src="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
                     </div>
                     <label class="mode">
                         <input type="checkbox" id="darkModeToggle">
-                        <i id="moon" class='bx bxs-moon'></i>
+                        <i id="moon" class='bx bxs-moon' title="Bật/Tắt chế độ tối"></i>
                     </label>
                     <ul class="navbar-nav">
                       <li>
@@ -126,7 +125,6 @@
         const darkModeToggle = document.getElementById('darkModeToggle');
         const body = document.body;
         const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-
         // Check if it's daytime (before noon) and enable dark mode
         const currentTime = new Date();
         const isDaytime = currentTime.getHours() > 16;
