@@ -70,7 +70,7 @@ def markdown_table_to_html(markdown_table):
             html_table += f'    {cell_content}\n'
         html_table += '  </tr>\n'
     html_table += '''   </table>
-    '''
+'''
     return html_table
 
 directories = ['tournament-leaderboard/leaderboard', 'tournament-leaderboard/top']
