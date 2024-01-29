@@ -16,8 +16,8 @@ title: Những kì thủ đạt giải
 """
 
 information = """
-    <p><strong>Ghi chú:</strong> Nếu <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Chính thức"> nghĩa là giải chính thức được tổ chức bởi chủ sở hữu/quản lí giải đấu, còn <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Không chính thức"> là giải tạo bởi một Admin khác.</p>
-    <p> Nếu trước tên tài khoản có: ❓ nghĩa là người chơi này có khả năng không được đạt giải và đang chờ xác thực, <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png"> là người dùng bị đóng tài khoản nhưng vẫn được xác minh được nhận giải, <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi bị đóng tài khoản và xác nhận là gian lận.</p>
+        <p><strong>Ghi chú:</strong> Nếu <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Chính thức"> nghĩa là giải chính thức được tổ chức bởi chủ sở hữu/quản lí giải đấu, còn <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Không chính thức"> là giải tạo bởi một Admin khác.</p>
+        <p> Nếu trước tên tài khoản có: ❓ nghĩa là người chơi này có khả năng không được đạt giải và đang chờ xác thực, <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png"> là người dùng bị đóng tài khoản nhưng vẫn được xác minh được nhận giải, <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi bị đóng tài khoản và xác nhận là gian lận.</p>
 """
 
 def generate_h1_tag(filename):
@@ -31,7 +31,7 @@ def markdown_table_to_html(markdown_table):
     chesscom = f'https://www.chess.com'
     lichess = f'https://lichess.org'
     rows = markdown_table.strip().split('\n')
-    html_table = '  <table class="styled-table">\n'
+    html_table = '      <table class="styled-table">\n'
     for i, row in enumerate(rows):
         if '---|---|---|---|---|---|---|---' in row:
             continue
@@ -69,7 +69,8 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'<{tag}>{cell}</{tag}>'
             html_table += f'    {cell_content}\n'
         html_table += '  </tr>\n'
-    html_table += '</table>'
+    html_table += '''   </table>
+    '''
     return html_table
 
 directories = ['tournament-leaderboard/leaderboard', 'tournament-leaderboard/top']
