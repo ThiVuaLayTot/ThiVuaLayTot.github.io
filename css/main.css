@@ -30,8 +30,8 @@
   }
 
   #footer {
-  padding: $footer-padding-y 0;
-  background: rgba($gray-primary, 0.04);
+  padding: footer-padding-y 0;
+  background: rgba(gray-primary, 0.04);
   .footer-container {
     @include grid;
     @include col-3;
@@ -40,7 +40,7 @@
       font-size: 1.143rem;
       li {
         &:not(:last-child) {
-          margin-bottom: $base-point-grid;
+          margin-bottom: base-point-grid;
         }
       }
     }
@@ -53,7 +53,7 @@
         font-size: 1.209rem;
 
         &:not(:last-child) {
-          margin-right: $base-point-grid * 4;
+          margin-right: base-point-grid * 4;
         }
       }
     }
