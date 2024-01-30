@@ -33,7 +33,7 @@
   background: rgba($gray-primary, 0.04);
   .footer-container {
     @include grid;
-    @include col-4;
+    @include col-3;
 
     a {
       color: $base-font-color;
@@ -57,20 +57,6 @@
         &:not(:last-child) {
           margin-right: $base-point-grid * 4;
         }
-      }
-    }
-  }
-}
-
-// Responsive
-
-
-@include bp(medium) {
-  #footer {
-    .footer-container {
-      @include col-1;
-      .footer-social {
-        justify-content: flex-start;
       }
     }
   }
