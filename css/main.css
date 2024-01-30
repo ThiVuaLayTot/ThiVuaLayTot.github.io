@@ -28,6 +28,7 @@
   .styled-table th {
     background-color: rgba(255, 0, 85, 0.996);
   }
+
   #footer {
   padding: $footer-padding-y 0;
   background: rgba($gray-primary, 0.04);
@@ -35,9 +36,6 @@
     @include grid;
     @include col-3;
 
-    a {
-      color: $base-font-color;
-    }
     .footer-nav {
       font-size: 1.143rem;
       li {
