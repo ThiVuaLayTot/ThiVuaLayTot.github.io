@@ -1,8 +1,6 @@
 name: Cập nhật các repository liên quan
 
 on:
-  schedule:
-    - cron: "14 */03 */20 */09 *"
   workflow_dispatch:
 
 env:
