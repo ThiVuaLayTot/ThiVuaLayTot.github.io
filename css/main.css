@@ -37,12 +37,12 @@
   background-color: rgba(255, 0, 85, 0.996);
 }
 
-#footer {
+.footer {
   padding: footer-padding-y 0;
   background: rgba(gray-primary, 0.04);
   .footer-container {
-    @include grid;
-    @include col-3;
+    display: grid;
+    display: col-3;
 
     .footer-nav {
       font-size: 1.143rem;
