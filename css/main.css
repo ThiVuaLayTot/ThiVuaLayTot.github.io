@@ -28,13 +28,13 @@
 }
 
 .styled-table th, .styled-table td {
-  border: 1px solid #f10e0e;
+  border: 1px solid #00e11e;
   padding: 8px;
   text-align: left;
 }
 
 .styled-table th {
-  background-color: rgba(255, 0, 85, 0.996);
+  background-color: rgba(0, 170, 255, 0.996);
 }
 
 .footer {
@@ -42,7 +42,7 @@
   background: rgba(gray-primary, 0.04);
   .footer-container {
     display: grid;
-    display: col-3;
+    column-count: 3;
 
     .footer-nav {
       font-size: 1.143rem;
