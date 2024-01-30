@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 
-css_styles = """<!DOCTYOE html>
+css_styles = """<!DOCTYPE html>
 <html lang="vi">
 <head>
     <title>Các thành viên đạt giải</title>
@@ -50,15 +50,15 @@ css_styles = """<!DOCTYOE html>
                       <a href="https://thi-vua-lay-tot.github.io/team">Mods</a>
                     </li>
                   </ul>
-		        <div>
+		<div>
                     <label class="mode">
                       <input type="checkbox" id="darkModeToggle">
                         <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
                     </label>
-		            <label>
-        		        <a id="back2top" href="#top" title="Trở lại đầu trang này"></a>
-		            </label>
-		        </div>
+                    <label>
+        		<a id="back2top" href="#top" title="Trở lại đầu trang này"></a>
+                    </label>
+		</div>
             </div>
     </header>
 """
@@ -67,9 +67,6 @@ footer_style = """
     <div id="footer">
         <div class="container">
             <div class="footer-container">
-                <div class="footer-brand">
-                    <a href="https://thi-vua-lay-tot.github.io"><img width="88" src="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
-                </div>
                 <div class="footer-nav">
                   <h3><a href="https://thi-vua-lay-tot.github.io">Thí Vua Lấy Tốt</a></h3>
                     <p><a href="https://thi-vua-lay-tot.github.io/webs">Các trang mạng</a></p>
@@ -119,7 +116,7 @@ def markdown_table_to_html(markdown_table):
     chesscom = f'https://www.chess.com'
     lichess = f'https://lichess.org'
     rows = markdown_table.strip().split('\n')
-    html_table = '      <table>\n'
+    html_table = '      <table class="styled-table">\n'
     for i, row in enumerate(rows):
         if '---|---|---|---|---|---|---|---' in row:
             continue
