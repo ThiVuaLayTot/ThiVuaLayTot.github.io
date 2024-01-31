@@ -39,16 +39,16 @@
 
 .footer {
   padding: 0;
-  background-color: rgb(29, 29, 30);
+  background-color: rgb(29, 29, 29);
   .footer-container {
     column-count: 3;
 
     .footer-nav {
-      font-size: 14px;
+      font-size: 1.4px;
     }
 
     .footer-social {
-      font-size: 14px;
+      font-size: 1.4px;
     }
   }
 }
