@@ -37,7 +37,7 @@
   background-color: rgba(0, 170, 255, 0.996);
 }
 
-#footer {
+.footer {
   padding: 0;
   background-color: rgba(0, 170, 255, 0.105);
   .footer-container {
