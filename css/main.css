@@ -40,8 +40,9 @@
 .footer {
   padding: 0;
   .footer-container {
-    column-count: 3;
-    column-rule-width: 14px;
-    column-width: 209px;
+    display: grid;
+    grid-template-columns: 143px 209px 301px;
+    grid-template-rows: 500px;
+    grid-gap: 14px;
   }
 }
