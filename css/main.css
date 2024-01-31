@@ -41,6 +41,7 @@
   padding: 0;
   .footer-container {
     column-count: 3;
-    column-width: 100px;
+    column-rule-width: 14px;
+    column-width: 209px;
   }
 }
