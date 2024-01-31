@@ -41,7 +41,7 @@
   padding: 0;
   .footer-container {
     display: grid;
-    /*grid-template-columns: 143px 209px 301px;*/
+    grid-template-columns: 700px 700px 700px;
     grid-template-rows: 500px;
     grid-gap: 14px;
   }
