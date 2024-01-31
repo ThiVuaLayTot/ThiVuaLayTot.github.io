@@ -48,8 +48,6 @@
     }
 
     .footer-social {
-      display: flex;
-      justify-content: flex-end;
       font-size: 143px;
       }
     }
