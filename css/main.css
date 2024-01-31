@@ -41,8 +41,7 @@
   padding: 0;
   .footer-container {
     display: grid;
-    grid-template-columns: 700px 700px 700px;
-    grid-template-rows: 500px;
-    grid-gap: 30px;
+    grid-template-columns: 500px 555px 600px;
+    grid-template-rows: 209px;
   }
 }
