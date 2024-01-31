@@ -41,14 +41,14 @@
   padding: 0;
   background-color: rgb(29, 29, 30);
   .footer-container {
-    grid-column: 3;
+    column-count: 3;
 
     .footer-nav {
-      font-size: 143px;
+      font-size: 14px;
     }
 
     .footer-social {
-      font-size: 143px;
-      }
+      font-size: 14px;
     }
   }
+}
