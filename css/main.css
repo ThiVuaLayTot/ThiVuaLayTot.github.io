@@ -38,16 +38,16 @@
 }
 
 .footer {
-  padding: footer-padding-y 0;
-  background: rgba(gray-primary, 0.04);
+  padding: 0;
+  background-color: rgba(0, 170, 255, 0.105);
   .footer-container {
     display: grid;
-
+    grid-column: 3;
     .footer-nav {
-      font-size: 1.143rem;
+      font-size: 12px;
       li {
         &:not(:last-child) {
-          margin-bottom: base-point-grid;
+          margin-bottom: 4rem;
         }
       }
     }
@@ -57,10 +57,10 @@
       justify-content: flex-end;
 
       li {
-        font-size: 1.209rem;
+        font-size: 14px;
 
         &:not(:last-child) {
-          margin-right: base-point-grid * 4;
+          margin-right: .4rem;
         }
       }
     }
