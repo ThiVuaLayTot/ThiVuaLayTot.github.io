@@ -39,16 +39,8 @@
 
 .footer {
   padding: 0;
-  background-color: gray-primary, 0.04;
   .footer-container {
-    display: grid;
     column-count: 3;
-    .footer-nav {
-      font-size: 1.125rem;
-    }
-
-    .footer-social {
-      font-size: 1.143rem;
-    }
+    column-width: 100px;
   }
 }
