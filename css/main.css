@@ -39,7 +39,7 @@
 
 .footer {
   padding: 0;
-  background-color: rgba(67, 84, 82, 0.209);
+  background-color: rgba(67, 84, 82, 1);
   .footer-container {
     display: grid;
     grid-template-columns: 500px 555px 600px;
