@@ -45,7 +45,7 @@
   object-fit: cover;
   object-position: center top;
   width: 209px;
-  height: 143px;
+  height: 209px;
 }
 
 .people {
@@ -56,7 +56,7 @@
 
 .list-item-people {
   display: inline-block;
-  width: 250px;
+  width: 300px;
   height: 175px;
 }
 
@@ -65,11 +65,8 @@
   margin-top: 1.43em;
 }
 
-.list-post-title .name {
-  font-size: 18px;
-}
-
-.list-post-title {
+.list-name-mods {
+  font-size: 20px;
   color: rgb(236, 2, 80);
 }
 
@@ -78,7 +75,7 @@
   color: #0232de;
 }
 
-.list-item a:hover, .list-post-title:hover .name, .list-post-title .name:hover {
+.list-name-mods, .list-post-title:hover .name, .list-post-title .name:hover {
     color: #2996c4;
 }
 
