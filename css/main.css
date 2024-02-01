@@ -44,8 +44,8 @@
 .profile-thumbnail {
   object-fit: cover;
   object-position: center top;
-  width: 300px;
-  height: 200px;
+  width: 209px;
+  height: 143px;
 }
 
 .people {
@@ -56,8 +56,8 @@
 
 .list-item-people {
   display: inline-block;
-  width: 209px;
-  height: 150px;
+  width: 250px;
+  height: 175px;
 }
 
 .list-post-title img {
