@@ -56,20 +56,14 @@
     text-transform: uppercase;
   }
 }
-.profile-thumbnail {
-  object-fit: cover;
-  object-position: center top;
-  width: 143px;
-  height: 143px;
-}
 .pos_header {
   margin-left: 2rem;
 }
 .profile-thumbnail {
   object-fit: cover;
   object-position: center top;
-  width: 200px;
-  height: 200px;
+  width: 143px;
+  height: 143px;
 }
 .people {
   margin: auto;
@@ -84,7 +78,7 @@
 
 .list-post-title img {
   margin-bottom: 0.75em;
-  margin-top: 1.25em;
+  margin-top: 1.43em;
 }
 
 .list-post-title .name {
@@ -106,7 +100,7 @@
 
 .footer {
   padding: 0;
-  background-color: rgba(80, 84, 99, 0.143);
+  background-color: rgba(88, 88, 88, 0.143);
   .footer-container {
     display: grid;
     grid-template-columns: 500px 555px 600px;
