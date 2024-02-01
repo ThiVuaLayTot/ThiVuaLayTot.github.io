@@ -37,6 +37,73 @@
   background-color: rgba(0, 170, 255, 0.996);
 }
 
+.list {
+  &-post-title {
+    margin-bottom: .25rem;
+
+    a {
+      color: #333;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+  &-post-date {
+    margin-bottom: 1rem;
+    font-size: .75rem;
+    text-transform: uppercase;
+  }
+}
+.profile-thumbnail {
+  object-fit: cover;
+  object-position: center top;
+  width: 143px;
+  height: 143px;
+}
+.pos_header {
+  margin-left: 2rem;
+}
+.profile-thumbnail {
+  object-fit: cover;
+  object-position: center top;
+  width: 200px;
+  height: 200px;
+}
+.people {
+  margin: auto;
+  text-align: center;
+  margin-top: 0.75em;
+}
+
+.list-item-people {
+  display: inline-block;
+  padding-right: 1em;
+}
+
+.list-post-title img {
+  margin-bottom: 0.75em;
+  margin-top: 1.25em;
+}
+
+.list-post-title .name {
+  font-size: 18px;
+}
+
+.list-post-title {
+  color: black;
+}
+
+.list-detail {
+  font-size: 15px;
+  color: #0232de;
+}
+
+.list-item a:hover, .list-post-title:hover .name, .list-post-title .name:hover {
+    color: #2996c4;
+}
+
 .footer {
   padding: 0;
   background-color: rgba(80, 84, 99, 0.143);
