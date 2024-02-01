@@ -44,20 +44,20 @@
 .profile-thumbnail {
   object-fit: cover;
   object-position: center top;
-  width: 143px;
-  height: 143px;
+  width: 300px;
+  height: 200px;
 }
 
 .people {
   margin: auto;
   text-align: center;
-  margin-top: 0.75em;
+  margin-top: 0.80em;
 }
 
 .list-item-people {
   display: inline-block;
-  width: 209px;
-  height: 143px;
+  width: 300px;
+  height: 200px;
 }
 
 .list-post-title img {
@@ -70,7 +70,7 @@
 }
 
 .list-post-title {
-  color: rgb(17, 88, 231);
+  color: rgb(236, 2, 80);
 }
 
 .list-detail {
