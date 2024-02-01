@@ -97,6 +97,8 @@ footer_style = """
     <script src="https://thi-vua-lay-tot.github.io/js/main.js"></script>
 </body>
 
+</html>
+
 """
 
 information = """
