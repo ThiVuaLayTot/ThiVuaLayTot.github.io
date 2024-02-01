@@ -75,7 +75,7 @@
   color: #0232de;
 }
 
-.list-name-mods, .list-post-title:hover .name, .list-post-title .name:hover {
+.list-post-title:hover .name, .list-post-title .name:hover {
     color: #2996c4;
 }
 
