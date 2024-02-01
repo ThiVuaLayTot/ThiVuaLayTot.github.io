@@ -44,8 +44,8 @@
 .profile-thumbnail {
   object-fit: cover;
   object-position: center top;
-  width: 209px;
-  height: 209px;
+  width: 235px;
+  height: 235px;
 }
 
 .people {
@@ -65,13 +65,13 @@
   margin-top: 1.43em;
 }
 
-.list-name-mods {
+.list-post-title .name {
   font-size: 20px;
   color: rgb(236, 2, 80);
 }
 
 .list-detail {
-  font-size: 14px;
+  font-size: 16px;
   color: #0232de;
 }
 
