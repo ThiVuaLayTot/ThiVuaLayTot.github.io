@@ -64,7 +64,7 @@ css_styles = """<!DOCTYPE html>
 """
 
 footer_style = """
-    <div id="footer">
+    <div class="footer">
         <div class="container">
             <div class="footer-container">
                 <div class="footer-nav">
