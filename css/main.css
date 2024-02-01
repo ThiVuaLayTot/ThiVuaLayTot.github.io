@@ -56,8 +56,8 @@
 
 .list-item-people {
   display: inline-block;
-  width: 300px;
-  height: 200px;
+  width: 209px;
+  height: 150px;
 }
 
 .list-post-title img {
@@ -85,9 +85,9 @@
 .footer {
   padding: 0;
   background-color: rgba(88, 88, 88, 0.143);
-  margin-left: 3rem;
   .footer-container {
     display: grid;
+    margin-left: 3rem;
     grid-template-columns: 500px 555px 600px;
     grid-template-rows: 209px;
   }
