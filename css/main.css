@@ -71,10 +71,6 @@ ul {
     overflow: hidden;
 }
 
-a {
-  background: rgb(53, 123, 252);
-}
-
 li a {
     display: inline-block;
     padding: .3rem 1rem;
@@ -93,6 +89,7 @@ li a {
 
 ul li a {
     position: relative;
+    background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
 }
 
 ul li a::before {
