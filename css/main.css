@@ -34,6 +34,10 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+a {
+  color: linear-gradient(to right, #06ef21 0%, #35c9fc 100%)
+}
+
 /* Nav */
 header {
     position: relative;
@@ -89,7 +93,6 @@ li a {
 
 ul li a {
     position: relative;
-    background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
 }
 
 ul li a::before {
