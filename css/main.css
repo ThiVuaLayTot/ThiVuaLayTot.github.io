@@ -34,10 +34,6 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-a {
-  color: linear-gradient(to right, #06ef21 0%, #35c9fc 100%)
-}
-
 /* Nav */
 header {
     position: relative;
@@ -278,12 +274,6 @@ li a.active, li a:hover {
 
 .images img {
     position: relative;
-}
-
-a {
-    text-decoration: none;
-    /* color: black; */
-    -webkit-background-clip: text;
 }
 
 .main .btn {
