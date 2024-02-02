@@ -155,7 +155,8 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'<{tag}>{cell}</{tag}>'
             html_table += f'    {cell_content}\n'
         html_table += '  </tr>\n'
-    html_table += '</table>'
+    html_table += '''</table>
+                     <br><br><hr>'''
     return html_table
 
 directories = ['tournament-leaderboard/leaderboard', 'tournament-leaderboard/top']
