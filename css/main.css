@@ -331,7 +331,7 @@ a {
     border-radius: 30px;
 } */
 
-#back2top {
+.back2top {
     display: inline-block;
     background-color: #FF9800;
     width: 50px;
@@ -348,7 +348,7 @@ a {
     z-index: 99;
 }
 
-#back2top::after {
+.back2top::after {
     content: "\f077";
     font-family: FontAwesome;
     font-weight: normal;
@@ -358,16 +358,16 @@ a {
     display: block;
 }
 
-#back2top:hover {
+.back2top:hover {
     cursor: pointer;
     background-color: #333;
 }
 
-#back2top:active {
+.back2top:active {
     background-color: #555;
 }
 
-#back2top.show {
+.back2top.show {
     opacity: 1;
     visibility: visible;
 }
