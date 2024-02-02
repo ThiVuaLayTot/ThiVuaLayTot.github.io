@@ -612,6 +612,10 @@ hr {
   text-align: left;
 }
 
+.styled-table a {
+  background: rgb(53, 123, 252);
+}
+
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
 }

@@ -49,13 +49,13 @@ css_styles = """<!DOCTYPE html>
                       <a href="https://thi-vua-lay-tot.github.io/team">Mods</a>
                     </li>
                   </ul>
-		<div>
+		        <div>
                     <label class="mode">
                       <input type="checkbox" id="darkModeToggle">
                         <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
         		        <a id="back2top" class="bx bxs-to-top" href="#top" title="Trở lại đầu trang này"></a>
                     </label>
-		</div>
+		        </div>
             </div>
     </header>
 """
