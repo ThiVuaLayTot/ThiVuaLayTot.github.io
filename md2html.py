@@ -53,8 +53,6 @@ css_styles = """<!DOCTYPE html>
                     <label class="mode">
                       <input type="checkbox" id="darkModeToggle">
                         <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
-                    </label>
-                    <label>
         		        <a id="back2top" class="bx bxs-to-top" href="#top" title="Trở lại đầu trang này"></a>
                     </label>
 		</div>
