@@ -278,7 +278,7 @@ li a.active, li a:hover {
 
 a {
   text-decoration: none;
-  color: linear-gradient(to right, #06ef21 0%, #35c9fc 100%)
+  color: linear-gradient(to right, #06ef21 0%, #35c9fc 100%);
   -webkit-background-clip: text;
 }
 
