@@ -55,7 +55,7 @@ css_styles = """<!DOCTYPE html>
                         <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
                     </label>
                     <label>
-        		<a id="back2top" href="#top" title="Trở lại đầu trang này"></a>
+        		        <a id="back2top" class="bx bxs-to-top" href="#top" title="Trở lại đầu trang này"></a>
                     </label>
 		</div>
             </div>
@@ -89,6 +89,9 @@ footer_style = """
                 <div>
                     <p>Web được xây dựng bởi QTV <a href="https://thi-vua-lay-tot.github.io/team">Đinh Hoàng Việt</a>.</p>
                     <p>Mã nguồn trên <a href="https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io"><img class="github-logo" src="https://github.com/fluidicon.png" alt="GitHub Icon"></a></p>
+                    <label>
+        	        	<a id="back2top" class="bx bxs-to-top" href="#top" title="Trở lại đầu trang này"></a>
+                    </label>
                 </div>
             </div>
         </div>
