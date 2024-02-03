@@ -372,6 +372,9 @@ a {
     visibility: visible;
 }
 
+a {
+    color: rgb(199, 252, 53)
+}
 hr {
     height: 3px;
     border: 0;
