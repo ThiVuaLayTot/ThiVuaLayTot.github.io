@@ -599,7 +599,7 @@ hr {
 }
 
 .styled-table {
-  font-family: "Times New Roman", Serif;
+  font-family: "Times New Roman", Times, serif;
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #05fe09;
@@ -615,6 +615,10 @@ hr {
 
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
+}
+
+.styled-table a {
+  color: rgba(174, 0, 255, 0.996);;
 }
 
 .pos_header {
