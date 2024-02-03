@@ -138,12 +138,18 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('@'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a></{tag}>'
-            elif cell.startswith('#'):
+            elif cell.startswith('!'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{unverified_icon} title="Tài khoản gian lận"></a></{tag}>'
+            elif cell.startswith('-'):
+                username = cell[1:]
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{verified_icon} title="Tài khoản không gian lận"></a></{tag}>'
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username}</a></{tag}>'
+            elif cell.startswith('#'):
+                username = cell[1:]
+                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username} <img class="unverified" src="{unverified_icon} title="Tài khoản gian lận"></a></{tag}>'
             elif cell.startswith('%'):
                 link = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'

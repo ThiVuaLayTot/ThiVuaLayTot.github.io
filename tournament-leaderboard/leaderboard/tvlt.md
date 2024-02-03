@@ -3,7 +3,7 @@ Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Số kì thủ|Giải nhất 
 * Lần 1|15/10/2022|10+0 Rapid, Arena 2h|964|@congnguyen1406|@Luffy_murom|@hackert38|/arena/2171704
 * Lần 2|22/10/2022|5+0 Blitz, Arena 2h|1351|@playerkhoa|@phongdeptraiqua|@PhanPhucDinh|/arena/2183785
 * Lần 3|06/11/2022|10+0 Rapid, Arena 2h|535|@Littlegirl2006|@Mehechanic|@Wibu2k1|/arena/2218000
-* Lần 4|20/11/2022|3+2 Blitz, Swiss 15 vòng|459|@thangthukquantrong|@phantom00308|@PhuongLmao|/tournament/3535839
+* Lần 4|20/11/2022|3+2 Blitz, Swiss 15 vòng|459|- @thangthukquantrong|@phantom00308|@PhuongLmao|/tournament/3535839
 * Lần 5|27/11/2022|5+0 Chess960, Swiss 12 vòng|485|@GMTranHung|@vvhung|@PoniMikenco|/tournament/3548920
 * Lần 6|04/12/2022|5+2 Blitz, Arena 2h|662|$maynho-04|$DTHtiendung2010|$danieltony3555|%tournament/2E6v5uld
 * Lần 7|11/12/2022|3+0 3Check, Swiss 15 vòng|411|@Samurice_vn|@ShinichiKhoa|@vuquangminhtv|/tournament/7--3584492
