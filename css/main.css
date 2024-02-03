@@ -581,25 +581,25 @@ hr {
 }
 
 .github-logo {
-  width: 1.5em;
+  width: 3em;
   height: auto;
   vertical-align: middle;
 }
 
 .verified {
-  width: 1.5em;
+  width: 1.4em;
   height: auto;
   vertical-align: middle;
 }
 
 .unverified {
-  width: 1.5em;
+  width: 1.4em;
   height: auto;
   vertical-align: middle;
 }
 
 .styled-table {
-  font-family: "Raleway", sans-serif;
+  font-family: "Times New Roman", Serif;
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #05fe09;
@@ -610,6 +610,7 @@ hr {
   border: 1px solid #00e11e;
   padding: 8px;
   text-align: left;
+  font-size: 14px
 }
 
 .styled-table th {
