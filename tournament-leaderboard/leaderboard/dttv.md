@@ -40,4 +40,5 @@ Lần|Ngày tổ chức🕗|Thể lệ♟️|Giải nhất 🥇|Giải nhì 🥈
 * #38|16/12/2023|15+1 Rapid, Arena 2h|@Vqvinh2002|@Henry080812|@haikhoa1102|60|/arena/3069603
 * #39|23/12/2023|1+1 3Check, Arena 2h|@TokudaShigeoJr|@anhduyph|@tungjohn1999|38|/arena/3126538
 * #40|24/12/2023|10+0 Rapid, Arena 2h|@Vinhcodoc|@him321123|@nvvvgn|66|/arena/3127073
-* #41|30/12/2023|10+0 Rapid, Arena 24h|@ThangLieu4|@iLOVEMONEY1306|@Pahmkhanh2009|140|/tournament/4487445
+* #41|31/12/2023|10+0 Chess960, Swiss 8 vòng|@thebloodprince|@nguyenthanhquoc|@Hoang-skin|56|/arena/3128897
+* #42|30/12/2023|10+0 Rapid, Arena 24h|@ThangLieu41|@iLOVEMONEY1306|@Pahmkhanh2009|140|/tournament/3128897

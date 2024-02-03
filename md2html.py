@@ -110,8 +110,7 @@ def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0].capitalize()
     utc_datetime = datetime.datetime.utcnow()
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải</h1>
-            <p align="right"><i>Lần cuối cập nhật: {utc_datetime.hour}:{utc_datetime.minute}:{utc_datetime.second} UTC, ngày {utc_datetime.day} tháng {utc_datetime.month} năm {utc_datetime.year}</i></p>
-    """
+        <p align="right"><i>Lần cuối cập nhật: {utc_datetime.hour}:{utc_datetime.minute}:{utc_datetime.second} UTC, ngày {utc_datetime.day} tháng {utc_datetime.month} năm {utc_datetime.year}</i></p>"""
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
@@ -129,35 +128,35 @@ def markdown_table_to_html(markdown_table):
         if len(cells) == 1 and cells[0] == '':
             continue
         
-        html_table += '  <tr>\n'
+        html_table += '         <tr>\n'
         for cell in cells:
             if cell.startswith('?'):
                 username = cell[2:]
-                cell_content = f'<{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
+                cell_content = f'   <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
-                cell_content = f'<{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a></{tag}>'
+                cell_content = f'   <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a></{tag}>'
             elif cell.startswith('$'):
                 username = cell[1:]
-                cell_content = f'<{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username}</a></{tag}>'
+                cell_content = f'   <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username}</a></{tag}>'
             elif cell.startswith('%'):
                 link = cell[1:]
-                cell_content = f'<{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
+                cell_content = f'   <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
             elif cell.startswith('/'):
                 idlink = cell[1:]
-                cell_content = f'<{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
+                cell_content = f'   <{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
             elif cell.startswith('*'):
                 name = cell[2:]
-                cell_content = f'<{tag}>{name}<img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Giải chính thức"></{tag}>'
+                cell_content = f'   <{tag}>{name}<img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Giải chính thức"></{tag}>'
             elif cell.startswith('`'):
                 name = cell[2:]
-                cell_content = f'<{tag}>{name}<img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Giải không chính thức"></{tag}>'
+                cell_content = f'   <{tag}>{name}<img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Giải không chính thức"></{tag}>'
             else:
-                cell_content = f'<{tag}>{cell}</{tag}>'
+                cell_content = f'   <{tag}>{cell}</{tag}>'
             html_table += f'    {cell_content}\n'
         html_table += '  </tr>\n'
-    html_table += '''</table>
-                     <br><br><hr>'''
+    html_table += '''   </table>
+            <br><br><hr>'''
     return html_table
 
 directories = ['tournament-leaderboard/leaderboard', 'tournament-leaderboard/top']
