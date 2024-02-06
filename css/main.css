@@ -616,12 +616,12 @@ hr {
 .styled-table th, .styled-table td {
   border: 1px solid #00e11e;
   padding: 8px;
-  text-align: left;
   font-size: 14px
 }
 
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
+  max-width: 20px;
 }
 
 .pos_header {
