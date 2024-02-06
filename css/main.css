@@ -621,7 +621,7 @@ hr {
 
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
-  max-width: 20px;
+  width: 17px;
 }
 
 .pos_header {
