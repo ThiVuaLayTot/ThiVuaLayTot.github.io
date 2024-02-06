@@ -624,7 +624,7 @@ hr {
   width: 17px;
 }
 
-.styled-table th:hover {
+.styled-table tr:hover {
   background-color: rgba(101, 121, 132, 0.437);
   cursor:pointer;
 }
