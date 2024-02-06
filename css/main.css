@@ -624,6 +624,11 @@ hr {
   width: 17px;
 }
 
+.styled-table td:hover {
+  background-color:#504e715b;
+  cursor:pointer;
+}
+
 .pos_header {
   margin-left: 2rem;
 }
