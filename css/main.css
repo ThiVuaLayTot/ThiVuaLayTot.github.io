@@ -621,9 +621,12 @@ hr {
 
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
-  width: 17px;
+  max-width: 17px;
 }
 
+.styled-table td {
+  width: 14px;
+}
 .styled-table tr:hover {
   background-color: rgba(101, 121, 132, 0.437);
   cursor:pointer;
