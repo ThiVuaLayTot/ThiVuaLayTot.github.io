@@ -621,7 +621,6 @@ hr {
 
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
-  max-width: 3px;
 }
 
 .styled-table td {
