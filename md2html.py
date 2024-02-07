@@ -132,9 +132,9 @@ def markdown_table_to_html(markdown_table):
         
         html_table += '         <tr>\n'
         for cell in cells:
-            if cell == 'Tên giải':
+            if cell := 'Tên giải':
                 text = cell[0:]
-                cell_content = f'       <{tag} width="100000">{text}</{tag}>'
+                cell_content = f'       <{tag} max-width="1">{text}</{tag}>'
             if cell.startswith('?'):
                 username = cell[2:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
