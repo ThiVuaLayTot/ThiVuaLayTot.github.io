@@ -133,7 +133,7 @@ def markdown_table_to_html(markdown_table):
         
         html_table += '         <tr>\n'
         for cell in cells:
-            if cell.endswith('Tên giải')
+            if cell.endswith('Tên giải'):
                 text = cell[0:]
                 cell_content = f'       <{tag} max-width="1">{text}</{tag}>'
             elif cell.startswith('?'):
