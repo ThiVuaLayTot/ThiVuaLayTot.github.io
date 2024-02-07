@@ -135,7 +135,22 @@ def markdown_table_to_html(markdown_table):
         for cell in cells:
             if cell.endswith('Tên giải'):
                 text = cell[0:]
-                cell_content = f'       <{tag} max-width="1">{text}</{tag}>'
+                cell_content = f'       <{tag} class="name-tour">{text}</{tag}>'
+            elif cell.endswith('🕗'):
+                text = cell[0:]
+                cell_content = f'       <{tag} class="organization-day">{text}</{tag}>'
+            elif cell.endswith('♟️'):
+                text = cell[0:]
+                cell_content = f'       <{tag} class="rules">{text}</{tag}>'
+            elif cell.endswith('🥇','🥉','🥈'):
+                text = cell[0:]
+                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
+            elif cell.endswith('Link giải'):
+                text = cell[0:]
+                cell_content = f'       <{tag} class="link">{text}</{tag}>'
+            elif cell.endswith('Số kì thủ'):
+                text = cell[0:]
+                cell_content = f'       <{tag} class="players">{text}</{tag}>'
             elif cell.startswith('?'):
                 username = cell[2:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
