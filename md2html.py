@@ -85,6 +85,7 @@ footer_style = """
                     <a href="https://discord.gg/WUhW5Cs9gB"><img src="https://dcbadge.vercel.app/api/server/WUhW5Cs9gB?style=flat" target="_blank"></a></li>
                 </div>
                 <div>
+                    <br><br>
                     <p>Web được xây dựng bởi QTV <a href="https://thi-vua-lay-tot.github.io/team">Đinh Hoàng Việt</a>.</p>
                     <p>Mã nguồn trên <a href="https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io"><img class="github-logo" src="https://github.com/fluidicon.png" alt="GitHub Icon"></a></p>
                     <label>
@@ -134,8 +135,8 @@ def markdown_table_to_html(markdown_table):
         for cell in cells:
             if cell := 'Tên giải':
                 text = cell[0:]
-                cell_content = f'       <{tag} max-width="1">{text}</{tag}>'
-            if cell.startswith('?'):
+                cell_content = f'       <{tag} ="1">{text}</{tag}>'
+            elif cell.startswith('?'):
                 username = cell[2:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
             elif cell.startswith('@'):
