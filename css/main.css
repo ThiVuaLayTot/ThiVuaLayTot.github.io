@@ -611,6 +611,25 @@ hr {
   width: 100%;
   border: 1px solid #05fe09;
   font-size: 16px;
+  .name-tour {
+    max-width: 1.1px;
+  }
+
+  .organization-day {
+    max-width: 1.4px;
+  }
+
+  .rules {
+    max-width: 2px;
+  }
+
+  .winner {
+    max-width: 3px;
+  }
+
+  .players, .link {
+    max-width: 0.6px;
+  }
 }
 
 .styled-table th, .styled-table td {
@@ -621,21 +640,6 @@ hr {
 
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
-  .name-tour {
-    max-width: 1.1px;
-  }
-  .organization-day {
-    max-width: 1.4px;
-  }
-  .rules {
-    max-width: 2px;
-  }
-  .winner {
-    max-width: 3px;
-  }
-  .players, .link {
-    max-width: 0.6px;
-  }
 }
 
 .styled-table td {
