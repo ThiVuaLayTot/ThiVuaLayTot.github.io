@@ -373,11 +373,11 @@ a {
 }
 
 a {
-    color: rgba(251, 19, 62, 0.922);
+    color: rgba(19, 120, 251, 0.922);
 }
 
 a:hover {
-    color:rgba(12, 235, 57, 0.94);
+    color:rgba(12, 235, 23, 0.94);
 }
 hr {
     height: 3px;
@@ -631,6 +631,16 @@ hr {
 
 .styled-table td:hover {
   background-color:#6d6c865b;
+  cursor:pointer;
+}
+
+.styled-table a {
+  background-color:#f6043ce6;
+  cursor:pointer;
+}
+
+.styled-table a:hover {
+  background-color:#0aedc4ed;
   cursor:pointer;
 }
 
