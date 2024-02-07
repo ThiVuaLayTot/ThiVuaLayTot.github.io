@@ -123,8 +123,8 @@ def markdown_table_to_html(markdown_table):
     for i, row in enumerate(rows):
         if '---|---|---|---|---|---|---|---' in row:
             continue
+        if i == 0 = 'th'
 
-        tag = 'th' if i == 0 else 'td'
         cells = re.split(r'\s*\|\s*', row)
 
         if len(cells) == 1 and cells[0] == '':
@@ -134,36 +134,36 @@ def markdown_table_to_html(markdown_table):
         for cell in cells:
             if cell.startswith('?'):
                 username = cell[2:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
+                cell_content = f'       <td><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</td>'
             elif cell.startswith('@'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a></{tag}>'
+                cell_content = f'       <td><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a></td>'
             elif cell.startswith('!'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
+                cell_content = f'       <td><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></td>'
             elif cell.startswith('-'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
+                cell_content = f'       <td><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{verified_icon}" title="Tài khoản không gian lận"></a></td>'
             elif cell.startswith('$'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username}</a></{tag}>'
+                cell_content = f'       <td><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username}</a></td>'
             elif cell.startswith('#'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
+                cell_content = f'       <td><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></td>'
             elif cell.startswith('%'):
                 link = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
+                cell_content = f'       <td><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này">Link!</a></td>'
             elif cell.startswith('/'):
                 idlink = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
+                cell_content = f'       <td><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này">Link!</a></td>'
             elif cell.startswith('*'):
                 name = cell[2:]
-                cell_content = f'       <{tag}>{name}<img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                cell_content = f'       <td>{name}<img class="verified" src="{verified_icon}" title="Giải chính thức"></td>'
             elif cell.startswith('`'):
                 name = cell[2:]
-                cell_content = f'       <{tag}>{name}<img class="unverified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+                cell_content = f'       <td>{name}<img class="unverified" src="{unverified_icon}" title="Giải không chính thức"></td>'
             else:
-                cell_content = f'       <{tag}>{cell}</{tag}>'
+                cell_content = f'       <td>{cell}</td>'
             html_table += f'    {cell_content}\n'
         html_table += '         </tr>\n'
     html_table += '''   </table>
@@ -171,7 +171,7 @@ def markdown_table_to_html(markdown_table):
     '''
     return html_table
 
-directories = ['tournament-leaderboard/leaderboard', 'tournament-leaderboard/top']
+directories = ['tournament-leaderboard/leaderboard']
 
 for directory in directories:
     for filename in os.listdir(directory):
