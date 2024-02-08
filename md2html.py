@@ -111,7 +111,7 @@ information = """
 def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0].capitalize()
     VN_TZ = pytz.timezone('Asia/Ho_Chi_Minh')
-    date_time_vntz_now = date_time_utc_now.astimezone(VN_TZ)
+    date_time_vntz_now = date_time_vntz_now.astimezone(VN_TZ)
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>
         <p align="right"><i>Lần cuối cập nhật: {date_time_vntz_now.hour}:{date_time_vntz_now.minute}:{date_time_vntz_now.second}, ngày {date_time_vntz_now.day} tháng {date_time_vntz_now.month} năm {date_time_vntz_now.year}</i></p>"""
     return h1_tag
