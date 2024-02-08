@@ -634,7 +634,7 @@ hr {
   }
 
   .winner {
-    width: 3px;
+    max-width: 3px;
   }
 
   .players, .link {
