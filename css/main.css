@@ -622,29 +622,29 @@ hr {
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
   .name-tour {
-    max-width: 1.1px;
+    width: 1.1px;
   }
 
   .organization-day {
-    max-width: 1.4px;
+    width: 1.4px;
   }
 
   .rules {
-    max-width: 2px;
+    width: 2px;
   }
 
   .winner {
-    max-width: 3px;
+    width: 3px;
   }
 
   .players, .link {
-    max-width: 0.6px;
+    width: 0.6px;
   }
 }
 
-.styled-table td {
+/*.styled-table td {
   max-width: 3px;
-}
+}*/
 
 .styled-table tr:hover {
   background-color: rgba(101, 121, 132, 0.437);
