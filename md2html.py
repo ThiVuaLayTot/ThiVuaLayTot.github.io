@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+import pytz
 import logging
 import logging.handlers
 import os
@@ -109,9 +110,10 @@ information = """
 
 def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0].capitalize()
-    utc_datetime = datetime.datetime.utcnow()
+    VN_TZ = pytz.timezone('Asia/Ho_Chi_Minh')
+    date_time_vntz_now = date_time_utc_now.astimezone(VN_TZ)
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-        <p align="right"><i>Lần cuối cập nhật: {utc_datetime.hour}:{utc_datetime.minute}:{utc_datetime.second} UTC, ngày {utc_datetime.day} tháng {utc_datetime.month} năm {utc_datetime.year}</i></p>"""
+        <p align="right"><i>Lần cuối cập nhật: {date_time_vntz_now.hour}:{date_time_vntz_now.minute}:{date_time_vntz_now.second}, ngày {date_time_vntz_now.day} tháng {date_time_vntz_now.month} năm {date_time_vntz_now.year}</i></p>"""
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
@@ -122,7 +124,7 @@ def markdown_table_to_html(markdown_table):
     rows = markdown_table.strip().split('\n')
     html_table = '      <table class="styled-table">\n'
     for i, row in enumerate(rows):
-        if '---|---|---|---|---|---|---|---' in row:
+        if '---|---|---|---|---|---|---|---|---|---' in row:
             continue
 
         tag = 'th' if i == 0 else 'td'
@@ -133,6 +135,7 @@ def markdown_table_to_html(markdown_table):
         
         html_table += '         <tr>\n'
         for cell in cells:
+            # Dành cho dòng đầu tiên
             if cell.endswith('Tên giải'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="name-tour">{text}</{tag}>'
@@ -151,12 +154,22 @@ def markdown_table_to_html(markdown_table):
             elif cell.endswith('🥉'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="winner">{text}</{tag}>'
+            elif cell.endswith('🏅'):
+                text = cell[0:]
+                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
+            elif cell.endswith('🎖️'):
+                text = cell[0:]
+                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
+            elif cell.endswith('🌟'):
+                text = cell[0:]
+                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
             elif cell.endswith('Link giải'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="link">{text}</{tag}>'
             elif cell.endswith('Số kì thủ'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="players">{text}</{tag}>'
+            # Dành cho tài khoản trên Chess.com
             elif cell.startswith('?'):
                 username = cell[2:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
@@ -164,17 +177,19 @@ def markdown_table_to_html(markdown_table):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a></{tag}>'
             elif cell.startswith('!'):
-                username = cell[1:]
+                username = cell[2:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
             elif cell.startswith('-'):
-                username = cell[1:]
+                username = cell[2:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
+            # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username}</a></{tag}>'
             elif cell.startswith('#'):
-                username = cell[1:]
+                username = cell[2:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
+            # Dành cho các link giải
             elif cell.startswith('%'):
                 link = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
@@ -187,6 +202,7 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('`'):
                 name = cell[2:]
                 cell_content = f'       <{tag}>{name}<img class="unverified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+            # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
             html_table += f'    {cell_content}\n'

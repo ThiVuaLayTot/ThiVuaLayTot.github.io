@@ -1,18 +1,18 @@
 Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Giải nhất 🥇|Giải nhì 🥈|Giải ba🥉|Số kì thủ|Link giải
 ---|---|---|---|---|---|---|---
-* Lần 1|17/12/2022|10+0 3Check, Swiss 5 vòng|@Ez-haha|@longgr29|@darknam119|101|/tournament/3629394
-* Lần 2|24/12/2022|5+0 Crazyhouse, Arena 2h|@M-DinhHoangViet|@baonguyen007|@datnguyensy|106|/arena/2353520
-* Lần 3|19/01/2023|10+5 FEN, Arena 2h|@trihau0108|@M-DinhHoangViet|@newtoplaychess1234|98|/arena/2391595
-* Lần 4|28/01/2023|10+5 FEN, Arena 2h|@DH1410|@luagagiaidau|@lttquoc|48|/arena/2415207
-* Lần 5|04/02/2023|10+5 FEN, Arena 2h|@Dvg22|@vgt187|@Tony2442|94|/arena/2457599
-* Lần 6|11/02/2023|10+5 FEN, Arena 2h|@Dragon-Chess12|@luagagiaidau|@DH1410|47|/arena/2500438
-* Lần 7|18/02/2023|¼+1 Bullet, Swiss 3 vòng|$SkUiCeVmAl|$studychess2009|$Chesslivestream2013|05|%swiss/bfLmd9FU
-* Lần 8|25/02/2023|⅙+1 Bullet, Arena 2h|@danghuutin|@M-DinhHoangViet|@duongnm2407|71|/arena/2514918
-* Lần 9|04/03/2023|5+2 FEN, Arena 2h|@nguoibian1234|@Walkerxvn|@adolfnguyen2008|92|/arena/2537060
-* Lần 10|12/03/2023|3+2 Chess960, Arena 2h|@WuanBipp|@M-DinhHoangViet|@TranBaoAnh|58|/arena/2570938
-* Lần 11|18/03/2023|10+5 FEN, Arena 2h|@BaoYT303|@NguyenNgocThaoNguyen|@245iiooklVN|47|/arena/2571958
-* Lần 12|25/03/2023|5+2 KOTH, Arena 2h|@KhoaTranB|@NguyenNgocThaoNguyen|@sovietunion1922|71|/arena/2595797
-* Lần 13|08/04/2023|5+2 Crazyhouse, Arena 2h|@Timed_Chess|@chickenvds|@anhkhanhdeptrainhatthe|52|/arena/2621423
+* Lần 1|17/12/2022|10+0 3Check, Swiss 5 vòng|@Ez-haha|@longgr29|@darknam119|@Chien_ca|@Hopeful_Boy|@xD-69-lol|101|/tournament/3629394
+* Lần 2|24/12/2022|5+0 Crazyhouse, Arena 2h|- @M-DinhHoangViet|@baonguyen007|! @tranquangphat2345|@datnguyensy|@YZH_D|@nghiaduypham2008|106|/arena/2353520
+* Lần 3|19/01/2023|10+5 FEN, Arena 2h|@trihau0108|- @M-DinhHoangViet|@newtoplaychess1234|@AnhTu_PlayChess|? @GMDanielgoodchess|- @quanMadara|98|/arena/2391595
+* Lần 4|28/01/2023|10+5 FEN, Arena 2h|@DH1410|@luagagiaidau|@lttquoc|@Cr10-goal|@dinhtuantu1911|@M-DinhHoangViet|48|/arena/2415207
+* Lần 5|04/02/2023|10+5 FEN, Arena 2h|! @tranquangphat2345|@Dvg22|@vgt187|@Tony2442|@noidodahnho|! @heiulij17|94|/arena/2457599
+* Lần 6|11/02/2023|10+5 FEN, Arena 2h|@Dragon-Chess12|@luagagiaidau|@DH1410|@Gamekhobome|- @M-DinhHoangViet|@badaochua34|47|/arena/2500438
+* Lần 7|18/02/2023|¼+1 Bullet, Swiss 3 vòng|$SkUiCeVmAl|$studychess2009|$Chesslivestream2013|$M_DinhHoangViet|$minhmega2k12|Kho cống|%swiss/bfLmd9FU
+* Lần 8|25/02/2023|⅙+1 Bullet, Arena 2h|@danghuutin|! @Masterbirzlt2|@M-DinhHoangViet|@duongnm2407|@Tony2442|? @nngmei|71|/arena/2514918
+* Lần 9|04/03/2023|5+2 FEN, Arena 2h|! @GMcuong0|@nguoibian1234|! @GMChessXuanVinh|! @anvanvuong2k11|@Walkerxvn|@adolfnguyen2008|92|/arena/2537060
+* Lần 10|12/03/2023|3+2 Chess960, Arena 2h|@WuanBipp|- @M-DinhHoangViet|@TranBaoAnh|! @MuLiveeechess|@sontamdong14|@BARUTA123|58|/arena/2570938
+* Lần 11|18/03/2023|10+5 FEN, Arena 2h|@BaoYT303|@NguyenNgocThaoNguyen|@245iiooklVN|@namngaocuckiluon|@nghiaduypham2008|@Anhsi333|47|/arena/2571958
+* Lần 12|25/03/2023|5+2 KOTH, Arena 2h|@KhoaTranB|@NguyenNgocThaoNguyen|@sovietunion1922|! @VCBBK|@bnnghia0506|@tranbaoanh|71|/arena/2595797
+* Lần 13|08/04/2023|5+2 Crazyhouse, Arena 2h|@Timed_Chess|@chickenvds|@anhkhanhdeptrainhatthe|@NguyenNgocThaoNguyen|- @M-DinhHoangViet|@MrNoob9|52|/arena/2621423
 * Lần 14|29/04/2023|10+5 Bughouse, Arena 2h|@M-DinhHoangViet|@Bongcloud0403|@CaiNitCungChangCon|51|/arena/2659721
 * Lần 15|07/05/2023|5+5 Chess960, Arena 2h|@TNDuyMinh|@Bongcloud0403|@NguyenPanAnhTuan2k9|81|/arena/2683469
 * Lần 16|17/06/2023|10+5 3Check, Arena 1h30p|@Tony2442|@locbughouse|@TrongVinh123|41|/arena/2736589
