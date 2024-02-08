@@ -110,10 +110,10 @@ information = """
 
 def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0].capitalize()
-    VN_TZ = pytz.timezone('Asia/Ho_Chi_Minh')
-    date_time_vntz_now = date_time_vntz_now.astimezone(VN_TZ)
+    tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
+    datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-        <p align="right"><i>Lần cuối cập nhật: {date_time_vntz_now.hour}:{date_time_vntz_now.minute}:{date_time_vntz_now.second}, ngày {date_time_vntz_now.day} tháng {date_time_vntz_now.month} năm {date_time_vntz_now.year}</i></p>"""
+        <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
