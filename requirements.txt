@@ -1,3 +1,4 @@
 orjson==3.9.2
 flask==2.2.5
 gunicorn==21.2.0
+pytz==2018.4
