@@ -611,6 +611,16 @@ hr {
   width: 100%;
   border: 1px solid #05fe09;
   font-size: 16px;
+}
+
+.styled-table th, .styled-table td {
+  border: 1px solid #00e11e;
+  padding: 8px;
+  font-size: 14px
+}
+
+.styled-table th {
+  background-color: rgba(0, 170, 255, 0.996);
   .name-tour {
     max-width: 1.1px;
   }
@@ -630,16 +640,6 @@ hr {
   .players, .link {
     max-width: 0.6px;
   }
-}
-
-.styled-table th, .styled-table td {
-  border: 1px solid #00e11e;
-  padding: 8px;
-  font-size: 14px
-}
-
-.styled-table th {
-  background-color: rgba(0, 170, 255, 0.996);
 }
 
 .styled-table td {
@@ -707,7 +707,7 @@ hr {
 }
 
 .list-post-title:hover .name, .list-post-title .name:hover {
-    color: #2996c4;
+  color: #2996c4;
 }
 
 .footer {
