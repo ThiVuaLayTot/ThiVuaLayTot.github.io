@@ -621,23 +621,23 @@ hr {
 
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
-  .name-tour2 {
+  .name-tour {
     width: 7%;
   }
 
-  .organization-day2 {
+  .organization-day {
     width: 5%;
   }
 
-  .rules2 {
+  .rules {
     width: 7%;
   }
 
-  .winner2 {
+  .winner {
     width: 15%;
   }
 
-  .players2, .link2 {
+  .players, .link {
     width: 3%;
   }
 }
