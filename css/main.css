@@ -616,35 +616,31 @@ hr {
 .styled-table th, .styled-table td {
   border: 1px solid #00e11e;
   padding: 8px;
-  font-size: 14px
+  font-size: 14px;
 }
 
 .styled-table th {
   background-color: rgba(0, 170, 255, 0.996);
-  .name-tour {
-    width: 1.1px;
+  .name-tour2 {
+    width: 7%;
   }
 
-  .organization-day {
-    width: 1.4px;
+  .organization-day2 {
+    width: 5%;
   }
 
-  .rules {
-    width: 2px;
+  .rules2 {
+    width: 7%;
   }
 
-  .winner {
-    max-width: 3px;
+  .winner2 {
+    width: 15%;
   }
 
-  .players, .link {
-    width: 0.6px;
+  .players2, .link2 {
+    width: 3%;
   }
 }
-
-/*.styled-table td {
-  max-width: 3px;
-}*/
 
 .styled-table tr:hover {
   background-color: rgba(101, 121, 132, 0.437);
