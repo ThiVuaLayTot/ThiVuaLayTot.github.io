@@ -1,7 +1,7 @@
         const darkModeToggle = document.getElementById('darkModeToggle');
         const body = document.body;
         const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-        // Check if it's daytime (before noon) and enable dark mode
+        // Kiểm tra xem đang là ban ngày (trước buổi trưa) và bật chế độ tối
         const currentTime = new Date();
         const isDaytime = currentTime.getHours() > 16;
 

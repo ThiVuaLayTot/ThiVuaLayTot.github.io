@@ -106,6 +106,7 @@ footer_style = """
 information = """
       <p><strong>Ghi chú:</strong> Nếu <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Chính thức"> nghĩa là giải chính thức được tổ chức bởi chủ sở hữu/quản lí giải đấu, còn <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Không chính thức"> là giải tạo bởi một Admin khác.</p>
       <p> Nếu trước tên người dùng có: ❓ nghĩa là người chơi này có khả năng không được đạt giải và đang chờ xác thực, <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png"> là người dùng bị đóng tài khoản nhưng vẫn được xác minh được nhận giải, <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi bị đóng tài khoản và xác nhận là gian lận.</p>
+      <p> Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
 """
 
 def generate_h1_tag(filename):
@@ -171,23 +172,26 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'       <{tag} class="players">{text}</{tag}>'
             # Dành cho tài khoản trên Chess.com
             elif cell.startswith('?'):
-                username = cell[2:]
+                username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a>❓</{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username}</a></{tag}>'
             elif cell.startswith('!'):
-                username = cell[2:]
+                username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
             elif cell.startswith('-'):
-                username = cell[2:]
+                username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}">{username} <img class="unverified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username}</a></{tag}>'
+            elif cell.startswith('_'):
+                username = cell[3:]
+                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username} <img class="verified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
             elif cell.startswith('#'):
-                username = cell[2:]
+                username = cell[3:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
             # Dành cho các link giải
             elif cell.startswith('%'):
