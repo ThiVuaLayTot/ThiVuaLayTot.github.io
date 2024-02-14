@@ -34,3 +34,4 @@ Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Số kì thủ|Giải nhất 
 * Tháng 12/2023|03/12/2023|3+1 Blitz, Swiss 11 vòng|251|@Krinit_6174|@Phamtienduc1|@oliebuonngu|? @vupham08|@thangnaht|Kho cống|/tournament/4426328
 * Tết Dương Lịch 2024|01/01/2024|3+1 Blitz, Swiss 11 vòng|398|@Nguyen_Si_Trong_Duc|@QuynhQT|@nth_2402|@Chess_Who_Lmao|@depzai81|@proobNB|/tournament/4486332
 * Chào Xuân Giáp Thìn|04/02/2024|3+1 Blitz, Swiss 11 vòng|452|@Mr_Dainn|@ShinichiKhoa|@NQB26|@ngogiahuy|! @vupham08|@3zBongSoMa|/tournament/4548307
+* Lì Xì Đầu Xuân Giáp Thìn|18/02/2024|3+2 Blitz, Swiss 11 vòng|?|?|?|?|?|?|?|/tournament/4577626
