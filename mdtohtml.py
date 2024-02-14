@@ -18,6 +18,7 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://thi-vua-lay-tot.github.io/css/main.css">
+    <link rel="stylesheet" href="https://thi-vua-lay-tot.github.io/css/topwinner.css">
     <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon" />
 </head>
@@ -26,7 +27,7 @@ css_styles = """<!DOCTYPE html>
         <div class="page-header">
 		    <div class="logo">
                     <a href="https://thi-vua-lay-tot.github.io"><img src="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
-                </div>
+            </div>
                   <ul class="navbar-nav">
                     <li>
                       <a href="https://thi-vua-lay-tot.github.io">Trang chủ</a>
@@ -50,14 +51,14 @@ css_styles = """<!DOCTYPE html>
                       <a href="https://thi-vua-lay-tot.github.io/team">Mods</a>
                     </li>
                   </ul>
-		        <div>
-                    <label class="mode">
-                      <input type="checkbox" id="darkModeToggle">
-                        <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
-        		        <a id="back2top" class="bx bxs-to-top" href="#top" title="Trở lại đầu trang này"></a>
-                    </label>
-		        </div>
-            </div>
+		    <div>
+                <label class="mode">
+                    <input type="checkbox" id="darkModeToggle">
+                    <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
+        		    <a id="back2top" class="bx bxs-to-top" href="#top" title="Trở lại đầu trang này"></a>
+                </label>
+		    </div>
+        </div>
     </header>
 """
 
@@ -137,39 +138,15 @@ def markdown_table_to_html(markdown_table):
         html_table += '         <tr>\n'
         for cell in cells:
             # Dành cho dòng đầu tiên
-            if cell.endswith('Tên giải'):
+            if cell.endswith('Hạng'):
                 text = cell[0:]
-                cell_content = f'       <{tag} class="name-tour">{text}</{tag}>'
-            elif cell.endswith('🕗'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="organization-day">{text}</{tag}>'
-            elif cell.endswith('♟️'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="rules">{text}</{tag}>'
-            elif cell.endswith('🥇'):
+                cell_content = f'       <{tag} class="stt">{text}</{tag}>'
+            elif cell.endswith('👑'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🥈'):
+            elif cell.endswith('Đạt giải trong'):
                 text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🥉'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🏅'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🎖️'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🌟'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('Link giải'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="link">{text}</{tag}>'
-            elif cell.endswith('Số kì thủ'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="players">{text}</{tag}>'
+                cell_content = f'       <{tag} class="winner-in-tour">{text}</{tag}>'
             # Dành cho tài khoản trên Chess.com
             elif cell.startswith('?'):
                 username = cell[3:]
@@ -177,35 +154,10 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('@'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
-            elif cell.startswith('!'):
-                username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
-            elif cell.startswith('-'):
-                username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="unverified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
-            elif cell.startswith('_'):
-                username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} <img class="verified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
-            elif cell.startswith('#'):
-                username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
-            # Dành cho các link giải
-            elif cell.startswith('%'):
-                link = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('/'):
-                idlink = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('*'):
-                name = cell[2:]
-                cell_content = f'       <{tag}>{name}<img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
-            elif cell.startswith('`'):
-                name = cell[2:]
-                cell_content = f'       <{tag}>{name}<img class="unverified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
@@ -216,7 +168,7 @@ def markdown_table_to_html(markdown_table):
     '''
     return html_table
 
-directories = ['tournament-leaderboard/leaderboard']
+directories = ['tournament-leaderboard/top']
 
 for directory in directories:
     for filename in os.listdir(directory):
