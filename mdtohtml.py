@@ -126,7 +126,7 @@ def markdown_table_to_html(markdown_table):
     rows = markdown_table.strip().split('\n')
     html_table = '      <table class="styled-table">\n'
     for i, row in enumerate(rows):
-        if '---|---|---|---|---|---|---|---|---|---' in row:
+        if '---|---|---' in row:
             continue
 
         tag = 'th' if i == 0 else 'td'
