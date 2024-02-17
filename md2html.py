@@ -218,7 +218,7 @@ def markdown_table_to_html(markdown_table):
     '''
     return html_table
 
-directories = ['tournament-leaderboard/leaderboard']
+directories = ['tournament-winner/list-winner']
 
 for directory in directories:
     for filename in os.listdir(directory):
