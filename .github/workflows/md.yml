@@ -6,8 +6,8 @@ on:
     paths:
       - 'md2html.py'
       - 'mdtohtml.py'
-      - 'tournament-leaderboard/list-winner/*.md'
-      - 'tournament-leaderboard/top/*.md'
+      - 'tournament-winner/list-winner/*.md'
+      - 'tournament-winner/top/*.md'
 
 env:
   TOKEN: ${{ secrets.TOKEN }}
