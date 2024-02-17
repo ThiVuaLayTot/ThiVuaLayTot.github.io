@@ -72,7 +72,7 @@ footer_style = """
                     <p><a href="https://thi-vua-lay-tot.github.io/blogs">Các Blog</a></p>
                     <p><a href="https://thi-vua-lay-tot.github.io/vlogs">Các Vlog</a></p>
                     <p><a href="https://thi-vua-lay-tot.github.io/game">Trò chơi</a></p>
-                    <p><a href="https://thi-vua-lay-tot.github.io/list">Các danh sách</a></p>
+                    <p><a href="https://thi-vua-lay-tot.github.io/list">Danh sách</a></p>
                     <p><a href="https://thi-vua-lay-tot.github.io/team">Ban cán sự của TVLT</a></p>
                 </div>
                 <div class="footer-nav">
@@ -105,9 +105,8 @@ footer_style = """
 """
 
 information = """
-      <p><strong>Ghi chú:</strong> Nếu <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Chính thức"> nghĩa là giải chính thức được tổ chức bởi chủ sở hữu/quản lí giải đấu, còn <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Không chính thức"> là giải tạo bởi một Admin khác.</p>
-      <p> Nếu trước tên người dùng có: ❓ nghĩa là người chơi này có khả năng không được đạt giải và đang chờ xác thực, <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png"> là người dùng bị đóng tài khoản nhưng vẫn được xác minh được nhận giải, <img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi bị đóng tài khoản và xác nhận là gian lận.</p>
-      <p> Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
+      <p>  Nếu trước tên người dùng có: ❓ nghĩa là người chơi này có khả năng không được đạt giải hoặc đạt giải khác và đang chờ xác thực,<img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi đã nhận phần thưởng nhưng sau đó đã xác nhận là gian lận.</p>
+      <p>  Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
 """
 
 def generate_h1_tag(filename):
@@ -148,7 +147,7 @@ def markdown_table_to_html(markdown_table):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="winner-in-tour">{text}</{tag}>'
             # Dành cho tài khoản trên Chess.com
-            elif cell.startswith('?'):
+            elif cell.startswith('? @'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a>❓</{tag}>'
             elif cell.startswith('@'):

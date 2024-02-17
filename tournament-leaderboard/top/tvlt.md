@@ -3,7 +3,7 @@ Hạng|Kỳ thủ|Các lần đạt giải
 #1|! @lecongdat1122|🥇(TVLT 4),🥇(TVLT 5),🥈(TVLT 7),🥇(TVLT 8),🥈(TVLT 14)
 #2|@Nghi-21012012|🥇(TVLT 18),🥇(TVLT 20),🥇(TVLT Tháng 7/2023)
 #3|@nhattandl185|🥇(TVLT 13),🥉(TVLT 15),🥇(TVLT 16)
-#4|? Moitapchoi_k15|🥈(TVLT 13),🥇(TVLT 25),🥉(TVLT Tháng 8/2023)
+#4|? @Moitapchoi_k15|🥈(TVLT 13),🥇(TVLT 25),🥉(TVLT Tháng 8/2023)
 #5|@Vchhabinhan1234|🥈(TVLT 16),🥈(TVLT 18),🥉(TVLT Tháng 9/2023)
 #5|@ShinichiKhoa|🥉(TVLT 7),🥈(TVLT 17),🥈(TVLT Chào Xuân Giáp Thìn 2024)
 #6|@Nguyen_Si_Trong_Duc|🥇(TVLT Tháng 8/2023),🥇(TVLT Tháng 1/2024)

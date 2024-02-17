@@ -72,7 +72,7 @@ footer_style = """
                     <p><a href="https://thi-vua-lay-tot.github.io/blogs">Các Blog</a></p>
                     <p><a href="https://thi-vua-lay-tot.github.io/vlogs">Các Vlog</a></p>
                     <p><a href="https://thi-vua-lay-tot.github.io/game">Trò chơi</a></p>
-                    <p><a href="https://thi-vua-lay-tot.github.io/list">Các danh sách</a></p>
+                    <p><a href="https://thi-vua-lay-tot.github.io/list">Danh sách</a></p>
                     <p><a href="https://thi-vua-lay-tot.github.io/team">Ban cán sự của TVLT</a></p>
                 </div>
                 <div class="footer-nav">
@@ -172,26 +172,26 @@ def markdown_table_to_html(markdown_table):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="players">{text}</{tag}>'
             # Dành cho tài khoản trên Chess.com
-            elif cell.startswith('?'):
+            elif cell.startswith('? @'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a>❓</{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
-            elif cell.startswith('!'):
+            elif cell.startswith('! @'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
-            elif cell.startswith('-'):
+            elif cell.startswith('- @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="unverified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="verified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
-            elif cell.startswith('_'):
+            elif cell.startswith('- $'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} <img class="verified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
-            elif cell.startswith('#'):
+            elif cell.startswith('! $'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
             # Dành cho các link giải
@@ -204,7 +204,7 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('*'):
                 name = cell[2:]
                 cell_content = f'       <{tag}>{name}<img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
-            elif cell.startswith('`'):
+            elif cell.startswith('_'):
                 name = cell[2:]
                 cell_content = f'       <{tag}>{name}<img class="unverified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
             # Dành cho các ô/dòng còn lại
