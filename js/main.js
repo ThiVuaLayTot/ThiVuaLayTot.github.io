@@ -1,15 +1,12 @@
         const darkModeToggle = document.getElementById('darkModeToggle');
         const body = document.body;
         const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-        // Kiểm tra xem đang là ban ngày (trước buổi trưa) và bật chế độ tối
-        const currentTime = new Date();
-        const isDaytime = currentTime.getHours() > 16;
 
-        if (isDaytime && isDarkMode) {
+        if (isDarkMode) {
             body.classList.remove('dark-mode');
             localStorage.setItem('darkMode', 'disabled');
             darkModeToggle.checked = false;
-        } else if (!isDaytime && !isDarkMode) {
+        } else if (!isDarkMode) {
             body.classList.add('dark-mode');
             localStorage.setItem('darkMode', 'enabled');
             darkModeToggle.checked = true;
