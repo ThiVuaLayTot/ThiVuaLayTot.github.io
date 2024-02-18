@@ -6,12 +6,12 @@ const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
 function setDarkMode(isEnabled) {
     if (isEnabled) {
         body.classList.add('dark-mode');
-        moonIcon.classList.remove('bxs-moon');
+        moonIcon.classList.remove('bx', 'bxs-moon');
         moonIcon.classList.add('bx', 'bxs-sun');
     } else {
         body.classList.remove('dark-mode');
         moonIcon.classList.remove('bx', 'bxs-sun');
-        moonIcon.classList.add('bxs-moon');
+        moonIcon.classList.add('bx', 'bxs-moon');
     }
 }
 
