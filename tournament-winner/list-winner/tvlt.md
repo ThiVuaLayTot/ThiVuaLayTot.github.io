@@ -5,14 +5,14 @@ Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Số kì thủ|Giải nhất 
 * Lần 3|06/11/2022|10+0 Rapid, Arena 2h|535|! @nguyen10t2|? @h24laval|! @HoangAnhNhi2002|? @Littlegirl2006|@Mehechanic|Kho cống|/arena/2218000
 * Lần 4|20/11/2022|3+2 Blitz, Swiss 15 vòng|459|! @lecongdat1122|- @thangthukquantrong|@phantom00308|! @nhatanhnguyen1002|@PhuongLmao|Kho cống|/tournament/3535839
 * Lần 5|27/11/2022|5+0 Chess960, Swiss 12 vòng|485|! @lecongdat1122|@GMTranHung|@vvhung|! @hackertuoilon|- @Tungngonlu|Kho cống|/tournament/3548920
-* Lần 6|04/12/2022|5+2 Blitz, Arena 2h|662|_ $maynho-04|$DTHtiendung2010|$danieltony3555|$haloc|$nguyensyduc|Kho cống|%tournament/2E6v5uld
+* Lần 6|04/12/2022|5+2 Blitz, Arena 2h|662|- $maynho-04|$DTHtiendung2010|$danieltony3555|$haloc|$nguyensyduc|Kho cống|%tournament/2E6v5uld
 * Lần 7|11/12/2022|3+0 3Check, Swiss 15 vòng|411|@Samurice_vn|! @lecongdat1122|@ShinichiKhoa|@vuquangminhtv|@tdung2010|Kho cống|/tournament/3584492
 * Lần 8|18/12/2022|3+1 Blitz, Swiss 12 vòng|368|! @lecongdat1122|@nguyentruong2311|! @ThePowerGem|? @SparkleDreamer|@Cr10-goal|Kho cống|/tournament/3618872
 * Lần 9|25/12/2022|3+1 Blitz, Swiss 12 vòng|457|$zendatran|! $Binh_Phong_Nhi_Tue_9|! $mikejapan161|! $SlavaUkraine_1|$CTHNannhhuycv2010|Kho cống|%swiss/9qFzoWXU
 * Lần 10|08/01/2023|3+1 Blitz, Swiss 12 vòng|452|@the_evil_cats|@Cr10-goal|? @GMZQUEst|@danieltony123|! @nhatanhnguyen1002|Kho cống|/tournament/3688038
-* Lần 11|15/01/2023|3+1 Crazyhouse, Arena 2h|378|$Redofblue|$M_DinhHoangViet|$HCMThanhLong2k8|$Bbao23|_ $Ly_KieuTrang|Kho cống|%tournament/0PagYmhJ
+* Lần 11|15/01/2023|3+1 Crazyhouse, Arena 2h|378|$Redofblue|$M_DinhHoangViet|$HCMThanhLong2k8|$Bbao23|- $Ly_KieuTrang|Kho cống|%tournament/0PagYmhJ
 * Lần 12|29/01/2023|3+1 Blitz, Swiss 12 vòng|437|! @nhatanhnguyen1002|! @ElsaHung|@vgt187|@NgAnhHuy2010|- @M-DinhHoangViet|Kho cống|/tournament/3719886
-* Lần 13|12/02/2023|3+1 FEN, Swiss 12 vòng|406|! @thien1115|@nhattandl185|! Moitapchoi_k15|@phuonganximi|@Nguyen_Si_Trong_Duc|Kho cống|/tournament/3807224
+* Lần 13|12/02/2023|3+1 FEN, Swiss 12 vòng|406|! @thien1115|@nhattandl185|? @Moitapchoi_k15|@phuonganximi|@Nguyen_Si_Trong_Duc|Kho cống|/tournament/3807224
 * Lần 14|19/02/2023|3+1 Blitz, Swiss 12 vòng|403|$Con-Ga-Biet-Bay|! $letrungttpytn|! $lecongdatt|$CTHNannhhuycv2010|$nhattan185|Kho cống|%swiss/wDTxvfMV
 * Lần 15|26/02/2023|1+1 Bullet, Swiss 15 vòng|501|- @nngmei|@boat2009|@nhattandl185|? @Tungngonlu|! @Pixie306-inactive|Kho cống|/tournament/3846898
 * Lần 16|12/03/2023|3+1 Chess960, Swiss 12 vòng|336|$nhattan185|$HduHabinhan2011|$pohlestoff|$Chessaholic2k2|$PhamMinhHieuTHCSLQD|Kho cống|%swiss/SuLNRcUf
@@ -34,4 +34,4 @@ _ Lần 25|18/06/2023|3+1 3Check, Swiss 10 vòng|53|? @Moitapchoi_k15|@vinhnguye
 * Tháng 12/2023|03/12/2023|3+1 Blitz, Swiss 11 vòng|251|@Krinit_6174|@Phamtienduc1|@oliebuonngu|? @vupham08|@thangnaht|Kho cống|/tournament/4426328
 * Tết Dương Lịch 2024|01/01/2024|3+1 Blitz, Swiss 11 vòng|398|@Nguyen_Si_Trong_Duc|@QuynhQT|@nth_2402|@Chess_Who_Lmao|@depzai81|@proobNB|/tournament/4486332
 * Chào Xuân Giáp Thìn|04/02/2024|3+1 Blitz, Swiss 11 vòng|452|@Mr_Dainn|@ShinichiKhoa|@NQB26|@ngogiahuy|! @vupham08|@3zBongSoMa|/tournament/4548307
-* Lì Xì Đầu Xuân Giáp Thìn|18/02/2024|3+2 Blitz, Swiss 11 vòng|?|?|?|?|?|?|?|/tournament/4577626
+* Lì Xì Đầu Xuân Giáp Thìn|18/02/2024|3+2 Blitz, Swiss 11 vòng|445|?|?|?|?|?|?|/tournament/4577626

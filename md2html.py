@@ -111,7 +111,7 @@ information = """
 """
 
 def generate_h1_tag(filename):
-    title = os.path.splitext(filename)[0].capitalize()
+    title = os.path.splitext(filename)[0]
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>

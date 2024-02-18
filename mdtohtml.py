@@ -110,7 +110,7 @@ information = """
 """
 
 def generate_h1_tag(filename):
-    title = os.path.splitext(filename)[0].capitalize()
+    title = os.path.splitext(filename)[0]
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>
@@ -151,6 +151,9 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('? @'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a>❓</{tag}>'
+            elif cell.startswith('! @'):
+                username = cell[3:]
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
