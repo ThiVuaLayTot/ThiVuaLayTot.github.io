@@ -10,7 +10,7 @@ function toggleDarkMode() {
     } else {
         body.classList.remove('dark-mode');
         localStorage.setItem('darkMode', 'disabled');
-        document.getElementById('icon').oggle('bx', 'bxs-moon');
+        document.getElementById('icon').toggle('bx', 'bxs-moon');
     }
 }
 
