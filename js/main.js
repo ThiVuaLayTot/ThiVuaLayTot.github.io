@@ -7,23 +7,22 @@ function toggleDarkMode() {
     if (darkModeToggle.checked && icon) {
         body.classList.add('dark-mode');
         localStorage.setItem('darkMode', 'enabled');
-        icon.classList.add('bx', 'bxs-sun');
-        icon.classList.remove('bx', 'bxs-moon');
+        icon.classList.add('bx bxs-sun');
+        icon.classList.remove('bx bxs-moon');
     } else if (icon) {
         body.classList.remove('dark-mode');
         localStorage.setItem('darkMode', 'disabled');
-        icon.classList.remove('bx', 'bxs-sun');
-        icon.classList.add('bx', 'bxs-moon');
+        icon.classList.remove('bx bxs-sun');
+        icon.classList.add('bx bxs-moon');
     }
 }
 
 if (isDarkMode) {
     toggleDarkMode();
-    darkModeToggle.checked = false;
+    darkModeToggle.checked = true; // Đặt trạng thái của checkbox dựa trên dữ liệu trong localStorage
 }
 
 darkModeToggle.addEventListener('change', toggleDarkMode);
-
 
 var btn = $('#back2top');
 $(window).scroll(function () {
