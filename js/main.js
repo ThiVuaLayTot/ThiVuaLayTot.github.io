@@ -6,21 +6,21 @@
             body.classList.remove('dark-mode');
             localStorage.setItem('darkMode', 'disabled');
             darkModeToggle.checked = false;
-            document.i.classList.add('bx bxs-sun');
         } else if (!isDarkMode) {
             body.classList.add('dark-mode');
             localStorage.setItem('darkMode', 'enabled');
             darkModeToggle.checked = true;
-            document.i.classList.add('bx bxs-moon');
         }
 
         darkModeToggle.addEventListener('change', () => {
             if (darkModeToggle.checked) {
                 body.classList.add('dark-mode');
                 localStorage.setItem('darkMode', 'enabled');
+                document.i.classList.add('bx bxs-sun');
             } else {
                 body.classList.remove('dark-mode');
                 localStorage.setItem('darkMode', 'disabled');
+                document.i.classList.add('bx bxs-moon');
             }
         });
 
