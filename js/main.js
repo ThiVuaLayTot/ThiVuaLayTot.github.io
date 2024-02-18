@@ -1,28 +1,27 @@
-	    const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+const darkModeToggle = document.getElementById('darkModeToggle');
+const body = document.body;
+const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
 
-        if (isDarkMode) {
-            body.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', 'disabled');
-            darkModeToggle.checked = false;
-        } else if (!isDarkMode) {
-            body.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
-            darkModeToggle.checked = true;
-        }
+function toggleDarkMode() {
+    if (darkModeToggle.checked) {
+        body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+        document.getElementById('icon').classList.add('bx', 'bxs-sun');
+        document.getElementById('icon').classList.remove('bx', 'bxs-moon');
+    } else {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+        document.getElementById('icon').classList.add('bx', 'bxs-moon');
+        document.getElementById('icon').classList.remove('bx', 'bxs-sun');
+    }
+}
 
-        darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) {
-                body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-                document.i.classList.toggle('bx bxs-sun');
-            } else {
-                body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
-                document.i.classList.toggle('bx bxs-moon');
-            }
-        });
+if (isDarkMode) {
+    toggleDarkMode();
+    darkModeToggle.checked = false;
+}
+
+darkModeToggle.addEventListener('change', toggleDarkMode);
 
         var btn = $('#back2top');
 		$(window).scroll(function () {
