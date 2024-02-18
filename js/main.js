@@ -1,4 +1,4 @@
-        const darkModeToggle = document.getElementById('darkModeToggle');
+	const darkModeToggle = document.getElementById('darkModeToggle');
         const body = document.body;
         const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
 
@@ -16,9 +16,11 @@
             if (darkModeToggle.checked) {
                 body.classList.add('dark-mode');
                 localStorage.setItem('darkMode', 'enabled');
+		document.i.classList.add('bx bxs-sun');
             } else {
                 body.classList.remove('dark-mode');
                 localStorage.setItem('darkMode', 'disabled');
+		document.i.classList.add('bx bxs-moon');
             }
         });
 
