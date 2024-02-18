@@ -1,16 +1,19 @@
 const darkModeToggle = document.getElementById('darkModeToggle');
 const body = document.body;
+const icon = document.getElementById('icon');
 const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
 
 function toggleDarkMode() {
     if (darkModeToggle.checked) {
         body.classList.add('dark-mode');
         localStorage.setItem('darkMode', 'enabled');
-        document.getElementById('icon').toggle('bx', 'bxs-sun');
+        icon.classList.add('bx', 'bxs-sun');
+        icon.classList.remove('bx', 'bxs-moon');
     } else {
         body.classList.remove('dark-mode');
         localStorage.setItem('darkMode', 'disabled');
-        document.getElementById('icon').toggle('bx', 'bxs-moon');
+        icon.classList.remove('bx', 'bxs-sun');
+        icon.classList.add('bx', 'bxs-moon');
     }
 }
 
