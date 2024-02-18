@@ -6,12 +6,12 @@ const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
 function setDarkMode(isEnabled) {
     if (isEnabled) {
         body.classList.add('dark-mode');
+        moonIcon.classList.remove('bxs-moon');
         moonIcon.classList.add('bx', 'bxs-sun');
-        moonIcon.classList.remove('bx', 'bxs-moon');
     } else {
         body.classList.remove('dark-mode');
         moonIcon.classList.remove('bx', 'bxs-sun');
-        moonIcon.classList.add('bx', 'bxs-moon');
+        moonIcon.classList.add('bxs-moon');
     }
 }
 
@@ -28,14 +28,6 @@ darkModeToggle.checked = isDarkMode;
 // Xử lý sự kiện thay đổi chế độ tối
 darkModeToggle.addEventListener('change', toggleDarkMode);
 
-var btn = $('#back2top');
-$(window).scroll(function () {
-	if ($(window).scrollTop() > 300) {
-		btn.addClass('show');
-	} else {
-		btn.removeClass('show');
-	}
-});
 
 btn.on('click', function (e) {
 	e.preventDefault();
