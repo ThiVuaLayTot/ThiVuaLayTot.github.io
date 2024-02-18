@@ -16,11 +16,11 @@
             if (darkModeToggle.checked) {
                 body.classList.add('dark-mode');
                 localStorage.setItem('darkMode', 'enabled');
-                document.i.classList.add('bx bxs-sun');
+                document.i.classList.toggle('bx bxs-sun');
             } else {
                 body.classList.remove('dark-mode');
                 localStorage.setItem('darkMode', 'disabled');
-                document.i.classList.add('bx bxs-moon');
+                document.i.classList.toggle('bx bxs-moon');
             }
         });
 
