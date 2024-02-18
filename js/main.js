@@ -1,27 +1,31 @@
 const darkModeToggle = document.getElementById('darkModeToggle');
 const body = document.body;
-const icon = document.getElementById('moon'); // Thay đổi 'icon' thành 'moon'
+const moonIcon = document.getElementById('moon');
 const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
 
-function toggleDarkMode() {
-    if (darkModeToggle.checked && icon) {
+function setDarkMode(isEnabled) {
+    if (isEnabled) {
         body.classList.add('dark-mode');
-        localStorage.setItem('darkMode', 'enabled');
-        icon.classList.add('bx', 'bxs-sun');
-        icon.classList.remove('bx', 'bxs-moon');
-    } else if (icon) {
+        moonIcon.classList.add('bx', 'bxs-sun');
+        moonIcon.classList.remove('bx', 'bxs-moon');
+    } else {
         body.classList.remove('dark-mode');
-        localStorage.setItem('darkMode', 'disabled');
-        icon.classList.remove('bx', 'bxs-sun');
-        icon.classList.add('bx', 'bxs-moon');
+        moonIcon.classList.remove('bx', 'bxs-sun');
+        moonIcon.classList.add('bx', 'bxs-moon');
     }
 }
 
-if (isDarkMode) {
-    toggleDarkMode();
-    darkModeToggle.checked = true; // Đặt trạng thái của checkbox dựa trên dữ liệu trong localStorage
+function toggleDarkMode() {
+    const isEnabled = darkModeToggle.checked;
+    localStorage.setItem('darkMode', isEnabled ? 'enabled' : 'disabled');
+    setDarkMode(isEnabled);
 }
 
+// Khởi tạo trạng thái ban đầu
+setDarkMode(isDarkMode);
+darkModeToggle.checked = isDarkMode;
+
+// Xử lý sự kiện thay đổi chế độ tối
 darkModeToggle.addEventListener('change', toggleDarkMode);
 
 var btn = $('#back2top');
