@@ -587,22 +587,43 @@ hr {
     }
 }
 
+.loader {
+    border: 16px solid #fff;
+    border-radius: 50%;
+    border-top: 16px solid rgb(244, 212, 6);
+    border-bottom: 16px solid blue;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+  
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(143deg); }
+    100% { -webkit-transform: rotate(1403deg); }
+}
+  
+@keyframes spin {
+    0% { transform: rotate(143deg); }
+    100% { transform: rotate(1403deg); }
+}
+
 .github-logo {
   width: 3em;
   height: auto;
   vertical-align: middle;
 }
 
-.verified {
+.verified, .unverified {
   width: 1.4em;
   height: auto;
   vertical-align: middle;
 }
 
-.unverified {
-  width: 1.4em;
-  height: auto;
-  vertical-align: middle;
+.admin, .mod {
+    width: 1em;
+    height: auto;
+    vertical-align: middle;
 }
 
 .pos_header {
