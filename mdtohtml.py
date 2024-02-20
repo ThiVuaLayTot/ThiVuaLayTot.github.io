@@ -33,10 +33,10 @@ css_styles = """<!DOCTYPE html>
                       <a href="https://thi-vua-lay-tot.github.io">Trang chủ</a>
                     </li>
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io/blogs">Blog</a>
+                      <a href="https://thi-vua-lay-tot.github.io/blogs">Blogs</a>
                     </li>
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io/vlogs">Vlog</a>
+                      <a href="https://thi-vua-lay-tot.github.io/vlogs">Vlogs</a>
                     </li>
                     <li>
                       <a href="https://thi-vua-lay-tot.github.io/webs">Các trang mạng</a>
@@ -105,7 +105,7 @@ footer_style = """
 """
 
 information = """
-      <p>  Nếu trước tên người dùng có: ❓ nghĩa là người chơi này có khả năng không được đạt giải hoặc đạt giải khác và đang chờ xác thực,<img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi đã nhận phần thưởng nhưng sau đó đã xác nhận là gian lận.</p>
+      <p>  Nếu trước tên người dùng có: <span class="loader"></span> nghĩa là người chơi này có khả năng không được đạt giải hoặc đạt giải khác và đang chờ xác thực,<img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi đã nhận phần thưởng nhưng sau đó đã xác nhận là gian lận.</p>
       <p>  Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
 """
 
@@ -150,7 +150,7 @@ def markdown_table_to_html(markdown_table):
             # Dành cho tài khoản trên Chess.com
             elif cell.startswith('? @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> {username} <span class="loader"></span></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> <span class="loader"></span></{tag}>'
             elif cell.startswith('! @'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
