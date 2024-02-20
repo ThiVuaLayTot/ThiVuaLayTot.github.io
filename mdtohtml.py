@@ -150,7 +150,7 @@ def markdown_table_to_html(markdown_table):
             # Dành cho tài khoản trên Chess.com
             elif cell.startswith('? @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a>❓</{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> {username} <span class="loader"></span></{tag}>'
             elif cell.startswith('! @'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
