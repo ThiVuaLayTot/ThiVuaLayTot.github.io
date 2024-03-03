@@ -648,9 +648,24 @@ hr {
 }
 
 .list-item-people {
-  display: inline-block;
-  width: 314px;
-  height: 314px;
+    background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    color: #244D61;
+    font-size: 1.5rem;
+    border: 1.6px solid #244D61;
+    border-radius: 50%;
+    padding: 0.39rem;
+    text-align: center;
+    opacity: 0;
+    animation: SocialAni 1s ease forwards;
+    animation-delay: calc(.2s * var(--socialAni));
+    display: inline-block;
+    width: 314px;
+    height: 314px;
 }
 
 .list-post-title img {
