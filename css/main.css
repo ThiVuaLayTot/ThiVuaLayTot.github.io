@@ -649,13 +649,13 @@ hr {
 
 .list-item-people {
   display: inline-block;
- /* width: 314px;
-  max-height: 300px;*/
+  width: 314px;
+  max-height: 300px;
 }
 
 .list-post-title img {
-  margin-bottom: 0.80em;
-  margin-top: 1.43em;
+  /*margin-bottom: 0.80em;
+  margin-top: 1.43em; */
   text-align: center;
 }
 
@@ -670,7 +670,7 @@ hr {
 }
 
 .list-post-title:hover .name, .list-post-title .name:hover {
-  color: #8dfc05;
+  color: #fc0568;
 }
 
 .footer {
