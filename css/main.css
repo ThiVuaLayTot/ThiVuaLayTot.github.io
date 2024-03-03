@@ -194,7 +194,6 @@ li a.active, li a:hover {
     flex-wrap: wrap;
     gap: 1.4rem;
     margin-top: 1.7rem;
-    text-align: center;
 }
 
 .button a {
@@ -213,6 +212,11 @@ li a.active, li a:hover {
     opacity: 0;
     animation: SocialAni 1s ease forwards;
     animation-delay: calc(.2s * var(--socialAni));
+}
+
+.button a img {
+    width: 22px;
+    height: 22px;
 }
 
 .button a:hover {
@@ -645,8 +649,8 @@ hr {
 
 .list-item-people {
   display: inline-block;
-  width: 300px;
-  height: 175px;
+  width: 314px;
+  max-height: 300px;
 }
 
 .list-post-title img {
