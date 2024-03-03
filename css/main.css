@@ -649,8 +649,8 @@ hr {
 
 .list-item-people {
   display: inline-block;
-  width: 314px;
-  max-height: 300px;
+ /* width: 314px;
+  max-height: 300px;*/
 }
 
 .list-post-title img {
@@ -660,7 +660,6 @@ hr {
 }
 
 .list-post-title .name {
-  font-size: 14px;
   text-align: center;
   color: rgb(2, 131, 236);
 }
