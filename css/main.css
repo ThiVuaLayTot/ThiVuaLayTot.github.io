@@ -189,14 +189,15 @@ li a.active, li a:hover {
     animation-delay: .2s;
 }
 
-.social {
+.button {
     display: flex;
     flex-wrap: wrap;
     gap: 1.4rem;
     margin-top: 1.7rem;
+    text-align: center;
 }
 
-.social a {
+.button a {
     background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -214,7 +215,7 @@ li a.active, li a:hover {
     animation-delay: calc(.2s * var(--socialAni));
 }
 
-.social a:hover {
+.button a:hover {
     color: #fff;
     background-color: #244D61;
     -webkit-background-clip: text;
@@ -400,7 +401,7 @@ hr {
     color: #ffffff;
 }
 
-.dark-mode .social a:hover {
+.dark-mode .button a:hover {
     color: var(--primary-dark);
     background-color: var(--primary-color);
 }
