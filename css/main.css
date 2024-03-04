@@ -194,6 +194,7 @@ li a.active, li a:hover {
     flex-wrap: wrap;
     gap: 1.4rem;
     margin-top: 1.7rem;
+    text-align: center;
 }
 
 .button a {
@@ -680,4 +681,8 @@ hr {
     grid-template-columns: 431px 555px 600px;
     grid-template-rows: 209px;
   }
+}
+
+.center {
+    text-align: center;
 }
