@@ -191,6 +191,7 @@ li a.active, li a:hover {
 
 .button {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 1.4rem;
     margin-top: 1.7rem;
