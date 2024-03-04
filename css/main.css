@@ -684,5 +684,6 @@ hr {
 }
 
 .center {
+    margin: auto;
     text-align: center;
 }
