@@ -686,5 +686,10 @@ hr {
 
 .center {
     margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    margin-top: 1.7rem;
     text-align: center;
 }
