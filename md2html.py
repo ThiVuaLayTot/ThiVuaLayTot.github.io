@@ -11,6 +11,7 @@ import sys
 
 css_styles = """<!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <title>Các thành viên đạt giải</title>
     <meta charset="UTF-8">
@@ -22,78 +23,78 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon" />
 </head>
+
 <body>
     <header class="container">
         <div class="page-header">
-		    <div class="logo">
-                    <a href="https://thi-vua-lay-tot.github.io"><img src="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
-                </div>
+		        <div class="logo">
+                  <a href="https://thi-vua-lay-tot.github.io" title="Thí Vua Lấy Tốt"><img src="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
+            </div>
                   <ul class="navbar-nav">
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io">Trang chủ</a>
+                      <a href="https://thi-vua-lay-tot.github.io" title="Trang chủ TVLT">Trang chủ</a>
                     </li>
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io/blogs">Blog</a>
+                      <a href="https://thi-vua-lay-tot.github.io/blogs" title="Các bài Blog quan trọng của TVLT">Blogs</a>
                     </li>
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io/vlogs">Vlog</a>
+                      <a href="https://thi-vua-lay-tot.github.io/vlogs" title="Các Video quan trọng của TVLT">Vlogs</a>
                     </li>
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io/webs">Các trang mạng</a>
+                      <a href="https://thi-vua-lay-tot.github.io/webs" title="Social media links">Xã hội</a>
                     </li>
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io/game">Trò chơi</a>
+                      <a href="https://thi-vua-lay-tot.github.io/game" title="Các trò chơi đơn giản">Games</a>
                     </li>
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io/list">Danh sách</a>
+                      <a href="https://thi-vua-lay-tot.github.io/list" title="Các danh sách/bảng quan trọng">Danh sách</a>
                     </li>
                     <li>
-                      <a href="https://thi-vua-lay-tot.github.io/team">Mods</a>
+                      <a href="https://thi-vua-lay-tot.github.io/team" title="Ban cán sự của TVLT">Mods</a>
                     </li>
                   </ul>
 		        <div>
-                    <label class="mode">
-                      <input type="checkbox" id="darkModeToggle">
-                        <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
-        		        <a href="#top"><i id="back2top" class="bx bxs-to-top" title="Trở lại đầu trang này"></i></a>
-                    </label>
+                <label class="mode">
+                  <input type="checkbox" id="darkModeToggle">
+                    <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
+	                  <a href="#top"><i id="back2top" class="bx bxs-to-top" title="Trở lại đầu trang này"></i></a>
+         		    </label>
 		        </div>
-            </div>
+        </div>
     </header>
 """
 
 footer_style = """
     <div class="footer">
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-nav">
-                  <h3><a href="https://thi-vua-lay-tot.github.io">Thí Vua Lấy Tốt</a></h3>
-                    <p><a href="https://thi-vua-lay-tot.github.io/webs">Các trang mạng</a></p>
-                    <p><a href="https://thi-vua-lay-tot.github.io/blogs">Các Blog</a></p>
-                    <p><a href="https://thi-vua-lay-tot.github.io/vlogs">Các Vlog</a></p>
-                    <p><a href="https://thi-vua-lay-tot.github.io/game">Trò chơi</a></p>
-                    <p><a href="https://thi-vua-lay-tot.github.io/list">Danh sách</a></p>
-                    <p><a href="https://thi-vua-lay-tot.github.io/team">Ban cán sự của TVLT</a></p>
+        <div class="footer-container">
+            <div>
+                <h3><a href="https://thi-vua-lay-tot.github.io" title="Trang web Thí Vua Lấy Tốt">Thí Vua Lấy Tốt</a></h3>
+                  <p><a href="https://thi-vua-lay-tot.github.io/webs" title="Social media links">Các trang mạng</a></p>
+                  <p><a href="https://thi-vua-lay-tot.github.io/blogs" title="Các bài Blog quan trọng của TVLT">Các Blog</a></p>
+                  <p><a href="https://thi-vua-lay-tot.github.io/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
+                  <p><a href="https://thi-vua-lay-tot.github.io/game" title="Các trò chơi đơn giản">Trò chơi</a></p>
+                  <p><a href="https://thi-vua-lay-tot.github.io/list" title="Các danh sách/bảng quan trọng">Danh sách</a></p>
+                  <p><a href="https://thi-vua-lay-tot.github.io/team" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
+            </div>
+            <div>
+                <h3><a href="https://thi-vua-lay-tot.github.io/webs">Social meadia links</a></h3>
+                <div class="button">
+                  <a href="https://www.youtube.com/@TungJohnPlayingChess" target="_blank" title="Kênh Youtube của TungJohn"><i class="bx bxl-youtube"></i></a>
+                  <a href="https://www.tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><i class="bx bxl-tiktok"></i></a>
+                  <a href="https://clubs.chess.com/GkQy" target="_blank" title="Câu lạc bộ Thí Vua Lấy Tốt trên Chess.com"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
+                  <a href="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank" title="Đội Thí Vua Lấy Tốt trên Lichess"><img src="https://thi-vua-lay-tot.github.io/images/lichesslogo.png"></a></a>
+                  <a href="https://www.facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn Playing Chess"><i class="bx bxl-facebook"></i></a></li>
+                  <a href="https://zalo.me/g/zhrwtn779" target="_blank" title="Nhóm chat của Thí Vua Lấy Tốt trên Zalo"><img width="14" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
+                  <a href="https://discord.gg/WUhW5Cs9gB" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><i class="bx bxl-discord"></i></a>
                 </div>
-                <div class="footer-nav">
-                  <h3><a href="https://thi-vua-lay-tot.github.io/webs">Các trang mạng</a></h3>
-                    <a href="https://www.youtube.com/@TungJohnPlayingChess" target="_blank"><img src="https://img.shields.io/badge/-Youtube-EA4335?style=flat-square&logo=Youtube&logoColor=white"></a></li>
-                    <a href="https://clubs.chess.com/GkQy" target="_blank"><img width="88" src="https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/NathanielGreen/php0hWd9E.png"></a></li>
-                    <a href="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank"><img src="https://img.shields.io/badge/-Lichess-050505?style=flat-square&logo=Lichess&logoColor=white"></a></li>
-                    <a href="https://lishogi.org/team/thi-vua-lay-tot-tungjohn-playing-shogi" target="_blank"><img src="https://img.shields.io/badge/-Lishogi-050505?style=flat-square&logo=Lishogi&logoColor=white"></a></li>
-                    <a href="https://lidraughts.org/team/thi-vua-lay-quan-tungjohn-playing-draughts" target="_blank"><img src="https://img.shields.io/badge/-Lidraughts-050505?style=flat-square&logo=Lidraughts&logoColor=white"></a></li>
-                    <a href="https://playstrategy.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank"><img src="https://img.shields.io/badge/-PlayStrategy-050505?style=flat-square&logo=PlayStrategy&logoColor=white"></a></li>
-                    <a href="https://www.facebook.com/TungJohn2005" target="_blank"><img src="https://img.shields.io/badge/-Facebook-00B2FF?style=flat-square&logo=Facebook&logoColor=white"></a></li>
-                    <a href="https://discord.gg/WUhW5Cs9gB" target="_blank"><img src="https://dcbadge.vercel.app/api/server/WUhW5Cs9gB?style=flat"></a></li>
-                </div>
-                <div>
-                    <br><br>
-                    <p>Web được xây dựng bởi QTV <a href="https://thi-vua-lay-tot.github.io/team">Đinh Hoàng Việt</a>.</p>
-                    <p>Mã nguồn trên <a href="https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io"><img class="github-logo" src="https://github.com/fluidicon.png" alt="GitHub Icon"></a></p>
-                    <label>
-        	        	<a href="#top"><i id="back2top" class="bx bxs-to-top" title="Trở lại đầu trang này"></i></a>
-                    </label>
-                </div>
+            </div>
+            <div>
+                <br><br>
+                  <p>Web được xây dựng bởi QTV <a href="https://thi-vua-lay-tot.github.io/team#admins" title="Các quản trị viên">Đinh Hoàng Việt</a>.</p>
+                  <p>Mã nguồn trên <a href="https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io" title="Mã nguồn của web trên Github"><img class="github-logo" src="https://github.com/fluidicon.png" alt="GitHub Icon"></a></p>
+                  <label>
+	                  <a href="#top"><i id="back2top" class="bx bxs-to-top" title="Trở lại đầu trang này"></i></a>
+         		      </label>
             </div>
         </div>
     </div>
