@@ -21,7 +21,7 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://thi-vua-lay-tot.github.io/css/main.css">
     <link rel="stylesheet" href="https://thi-vua-lay-tot.github.io/css/listwinner.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-    <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
