@@ -32,6 +32,7 @@ _ Lần 25|18/06/2023|3+1 3Check, Swiss 10 vòng|53|? @Moitapchoi_k15|@vinhnguye
 * Tháng 10/2023|08/10/2023|3+1 Blitz, Swiss 11 vòng|369|! @Michale_Tran0701|@trongvinh123|! @fanGMworld|? @vupham08|@chikien08|Kho cống|/tournament/4319009
 * Tháng 11/2023|05/11/2023|3+1 Chess960, Swiss 11 vòng|194|@Crab1234|@Wingstw|@duongnm2407|@Hoang_PNP|@Moitapchoi_k15|Kho cống|/tournament/4374307
 * Tháng 12/2023|03/12/2023|3+1 Blitz, Swiss 11 vòng|251|@Krinit_6174|@Phamtienduc1|@oliebuonngu|? @vupham08|@thangnaht|Kho cống|/tournament/4426328
-* Tết Dương Lịch 2024|01/01/2024|3+1 Blitz, Swiss 11 vòng|398|@Nguyen_Si_Trong_Duc|@QuynhQT|@nth_2402|@Chess_Who_Lmao|@depzai81|@proobNB|/tournament/4486332
+* Tháng 1/2024|01/01/2024|3+1 Blitz, Swiss 11 vòng|398|@Nguyen_Si_Trong_Duc|@QuynhQT|@nth_2402|@Chess_Who_Lmao|@depzai81|@proobNB|/tournament/4486332
 * Chào Xuân Giáp Thìn|04/02/2024|3+1 Blitz, Swiss 11 vòng|452|@Mr_Dainn|@ShinichiKhoa|@NQB26|@ngogiahuy|! @vupham08|@3zBongSoMa|/tournament/4548307
 * Lì Xì Đầu Xuân Giáp Thìn|18/02/2024|3+2 Blitz, Swiss 11 vòng|445|! @chila1conga1911|! @Kieran88888|! @LamLe2011|! @taolacutue01|! @DuyTsuyuri|ngvuong2008 HGHFDTGKJKNJNJN|/tournament/4577626
+* Tháng 3/2024|10/03/2024|3+1 Chess960, Swiss 11 vòng|||||||Kho cống|/tournament/4620734
