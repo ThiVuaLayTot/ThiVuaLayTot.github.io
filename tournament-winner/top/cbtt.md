@@ -1,6 +1,6 @@
 Hạng|Kỳ thủ|Các lần đạt giải
 ---|---|---
-#1|@MaCUONG123|🥇(Tháng 11/2023)
+#1|@MrKaitoJay|🥇(Tháng 11/2023)
 #1|@TokudaShigeoJr|🥇(Tháng 12/2023)
 #1|@QuynhQT|🥇(Tháng 1/2024)
 #2|@PresidentExpress28|🥈(Tháng 11/2023)

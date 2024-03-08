@@ -22,7 +22,7 @@ Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Giải nhất 🥇|Giải nh�
 * Lần 20|16/07/2023|5+5 Crazyhouse, Arena 2h|@TieuCongChua|@tienthanh2020|@HuongKhiet|@SuaNgonConBoCuoi|@Deathdescends040312|@QuangDung2408|50|/arena/2828662
 * Lần 21|29/07/2023|5+5 Chess960, Arena 2h|@TokudaShigeoJr|@BaoYT303|@thanhtinh2009|@Tuconhau12|@NQB26|@doandinhlam22|39|/arena/2843048
 * Lần 22|05/08/2023|3+2 3Check, Swiss 7 vòng|@TokudaShigeoJr|@Duong_Nhat|@TrongVinh123|@dao_hoang_anh_tam|! @VNMPROGAMING1412|@nguyenanhtung13|40|/tournament/4210551
-* Lần 23|12/08/2023|1+1 Chess960, Arena 2h|! @manhthichchoicodz|@Hiep_Le2011|@MaCUONG123|@khointa|@trongvinh123|! @Badboy_k00|61|/arena/2877907
+* Lần 23|12/08/2023|1+1 Chess960, Arena 2h|! @manhthichchoicodz|@Hiep_Le2011|@MrKaitoJay|@khointa|@trongvinh123|! @Badboy_k00|61|/arena/2877907
 * Lần 24|13/08/2023|1+1 3Check|@TokudaShigeoJr|@trongvinh123|@tungjohn1999|@thanhtinh2009|@NgocMinh1234543210|? @LongaodaFF_2708|45|/arena/2877908
 * Lần 25|09/09/2023|10+0 FEN, Arena 4h|@Namsomot|@TokudaShigeoJr|@doandinhlam22|@kiennguyen5114|@Longkhuatt|@SGPPhus|83|/arena/2916621
 * Lần 26|10/09/2023|10+5 FEN, Arena 2h|@TokudaShigeoJr|@ThanhBinhHaNam|@MinhBlack2808|@doandinhlam22|@gravityrarl123|@Nhienchess|60|/arena/2917392
