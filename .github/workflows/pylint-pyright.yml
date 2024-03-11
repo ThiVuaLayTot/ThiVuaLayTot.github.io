@@ -2,7 +2,10 @@ name: Pylint & Pyright
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'md2html.py'
+      - 'mdtohtml.py'
+  pull_request:
     paths:
       - 'md2html.py'
       - 'mdtohtml.py'
