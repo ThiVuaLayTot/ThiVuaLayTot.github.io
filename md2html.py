@@ -151,7 +151,7 @@ def markdown_table_to_html(markdown_table):
                 name = idtour[2:]
                 content += f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
         
-        html_table += f'         <tr id="{i}">\n'
+        html_table += f'         <tr id="{content}">\n'
 
         for cell in cells:
             # Dành cho dòng đầu tiên
