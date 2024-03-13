@@ -204,7 +204,7 @@ def markdown_table_to_html(markdown_table):
                 idlink = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('* Lần'):
-                urlId = cell[5:]
+                urlId = cell[6:]
                 tour_name = cell[2:]
                 cell_content = f'       <div id="{urlId}"><{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}></div>'
             elif cell.startswith('* Tháng'):
