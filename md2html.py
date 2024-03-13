@@ -138,7 +138,7 @@ def markdown_table_to_html(markdown_table):
             continue
         
         for id in cells:
-            elif id.startswith('* Lần'):
+            if id.startswith('* Lần'):
                 urlId = cell[6:]
                 tour_name = cell[2:]
                 content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
