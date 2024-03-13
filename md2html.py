@@ -137,7 +137,7 @@ def markdown_table_to_html(markdown_table):
         if len(cells) == 1 and cells[0] == '':
             continue
         
-        html_table += '         <tr>\n'
+        html_table += '         <tr id="content">\n'
         for cell in cells:
             # Dành cho dòng đầu tiên
             if cell.endswith('Tên giải'):
@@ -191,14 +191,14 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('* Lần'):
                 urlId = cell[6:]
                 tour_name = cell[2:]
-                cell_content = f'       <div id="{urlId}"></div><{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
             elif cell.startswith('* Tháng'):
                 urlId = cell[8:]
                 tour_name = cell[2:]
-                cell_content = f'       <div id="{urlId}"></div><{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
             elif cell.startswith('_'):
                 name = cell[2:]
-                cell_content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+                content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
