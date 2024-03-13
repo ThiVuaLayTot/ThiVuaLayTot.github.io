@@ -138,7 +138,7 @@ def markdown_table_to_html(markdown_table):
         if len(cells) == 1 and cells[0] == '':
             continue
         
-        html_table += '         <tr>'
+        html_table += f'         <tr>\n'
 
         for cell in cells:
             # Dành cho dòng đầu tiên
