@@ -137,6 +137,19 @@ def markdown_table_to_html(markdown_table):
         if len(cells) == 1 and cells[0] == '':
             continue
         
+        for id in cells:
+            elif cell.startswith('* Lần'):
+                urlId = cell[6:]
+                tour_name = cell[2:]
+                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+            elif cell.startswith('* Tháng'):
+                urlId = cell[8:]
+                tour_name = cell[2:]
+                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+            elif cell.startswith('_'):
+                name = cell[2:]
+                content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+        html_table += f' <tr id="{content}">\n'
         for cell in cells:
             # Dành cho dòng đầu tiên
             if cell.endswith('Tên giải'):
@@ -180,29 +193,17 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('! $'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} <img class="verified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
-            # Dành cho các link & tên giải
+            # Dành cho các link giải
             elif cell.startswith('%'):
                 link = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('/'):
                 idlink = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('* Lần'):
-                urlId = cell[6:]
-                tour_name = cell[2:]
-                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
-            elif cell.startswith('* Tháng'):
-                urlId = cell[8:]
-                tour_name = cell[2:]
-                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
-            elif cell.startswith('_'):
-                name = cell[2:]
-                content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
             html_table += f'    {cell_content}\n'
-        html_table += f' <tr id="{content}">'
         html_table += '         </tr>\n'
     html_table += '''   </table>
         <br><br><hr>
