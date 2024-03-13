@@ -142,16 +142,17 @@ def markdown_table_to_html(markdown_table):
             if idtour.startswith('* Lần'):
                 urlId = idtour[6:]
                 tour_name = idtour[2:]
-                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                content += f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
             elif idtour.startswith('* Tháng'):
                 urlId = idtour[8:]
                 tour_name = idtour[2:]
-                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                content += f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
             elif idtour.startswith('_'):
                 name = idtour[2:]
-                content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+                content += f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
 
-        html_table += f'         <tr id="{content}">\n'
+        html_table += f'         <tr id="{i}">\n'
+        html_table += content
         
         for cell in cells:
             # Dành cho dòng đầu tiên
