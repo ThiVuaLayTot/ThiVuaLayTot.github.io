@@ -208,7 +208,7 @@ def markdown_table_to_html(markdown_table):
                 tour_name = cell[2:]
                 cell_content = f'       <div id="{urlId}"><{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}></div>'
             elif cell.startswith('* Tháng'):
-                urlId = cell[7:]
+                urlId = cell[8:]
                 tour_name = cell[2:]
                 cell_content = f'       <div id="{urlId}"><{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}></div>'
             elif cell.startswith('_'):
