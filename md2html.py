@@ -137,17 +137,17 @@ def markdown_table_to_html(markdown_table):
         if len(cells) == 1 and cells[0] == '':
             continue
         
-        for id in cells:
-            if id.startswith('* Lần'):
-                urlId = cell[6:]
-                tour_name = cell[2:]
+        for idtour in cells:
+            if idtour.startswith('* Lần'):
+                urlId = idtour[6:]
+                tour_name = idtour[2:]
                 content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
-            elif id.startswith('* Tháng'):
-                urlId = cell[8:]
-                tour_name = cell[2:]
+            elif idtour.startswith('* Tháng'):
+                urlId = idtour[8:]
+                tour_name = idtour[2:]
                 content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
-            elif id.startswith('_'):
-                name = cell[2:]
+            elif idtour.startswith('_'):
+                name = idtour[2:]
                 content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
         html_table += f' <tr id="{content}">\n'
         for cell in cells:
