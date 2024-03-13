@@ -192,10 +192,10 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'       <{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             if cell.startswith('*'):
                 name = cell[2:]
-                content += f'       <{tag} title="Thí Vua Lấy Tốt {name}">{name} <img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                cell_content += f'       <{tag} title="Thí Vua Lấy Tốt {name}">{name} <img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
             elif cell.startswith('_'):
                 name = cell[2:]
-                content += f'       <{tag} title="Thí Vua Lấy Tốt {name}">{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+                cell_content += f'       <{tag} title="Thí Vua Lấy Tốt {name}">{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
