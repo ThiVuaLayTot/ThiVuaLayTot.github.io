@@ -149,22 +149,7 @@ def markdown_table_to_html(markdown_table):
             elif cell.endswith('♟️'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="rules">{text}</{tag}>'
-            elif cell.endswith('🥇'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🥈'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🥉'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🏅'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🎖️'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('🌟'):
+            elif cell.endswith('🥇') or cell.endswith('🥈') or cell.endswith('🥉') or cell.endswith('🏅') or cell.endswith('🎖️') or cell.endswith('🌟'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="winner">{text}</{tag}>'
             elif cell.endswith('Link giải'):
