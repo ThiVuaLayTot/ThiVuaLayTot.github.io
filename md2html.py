@@ -137,7 +137,6 @@ def markdown_table_to_html(markdown_table):
         if len(cells) == 1 and cells[0] == '':
             continue
         
-        html_table += f' <tr id="{content}">'
         for cell in cells:
             # Dành cho dòng đầu tiên
             if cell.endswith('Tên giải'):
@@ -203,6 +202,7 @@ def markdown_table_to_html(markdown_table):
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
             html_table += f'    {cell_content}\n'
+        html_table += f' <tr id="{content}">'
         html_table += '         </tr>\n'
     html_table += '''   </table>
         <br><br><hr>
