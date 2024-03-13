@@ -106,7 +106,7 @@ footer_style = """
 """
 
 information = """
-      <p>  Nếu sau tên người dùng có: <span class="loader"></span> nghĩa là người chơi này có khả năng không được đạt giải hoặc đạt giải khác và đang chờ xác thực,<img class="unverified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi đã nhận phần thưởng nhưng sau đó đã xác nhận là gian lận.</p>
+      <p>  Nếu sau tên người dùng có: <span class="loader"></span> nghĩa là người chơi này có khả năng không được đạt giải hoặc đạt giải khác và đang chờ xác thực,<img class="verified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi đã nhận phần thưởng nhưng sau đó đã xác nhận là gian lận.</p>
       <p>  Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
 """
 
@@ -146,7 +146,7 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'       <{tag} class="winner">{text}</{tag}>'
             elif cell.endswith('Các lần đạt giải'):
                 text = cell[0:]
-                cell_content = f'       <{tag} class="winner-in-tour">{text}</{tag}>'
+                cell_content = f'       <{tag}>{text}</{tag}>'
             # Dành cho tài khoản trên Chess.com
             elif cell.startswith('? @'):
                 username = cell[3:]
