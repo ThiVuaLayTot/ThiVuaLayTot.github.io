@@ -121,10 +121,10 @@ def generate_h1_tag(filename):
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
-    chesscom = f'https://www.chess.com'
-    lichess = f'https://lichess.org'
-    verified_icon = f'https://s3.vio.edu.vn/assets/img/correct_icon_2.png'
-    unverified_icon = f'https://s3.vio.edu.vn/assets/img/wrong_icon_2.png'
+    chesscom = 'https://www.chess.com'
+    lichess = 'https://lichess.org'
+    verified_icon = 'https://s3.vio.edu.vn/assets/img/correct_icon_2.png'
+    unverified_icon = 'https://s3.vio.edu.vn/assets/img/wrong_icon_2.png'
     rows = markdown_table.strip().split('\n')
     html_table = '      <table class="styled-table">\n'
     for i, row in enumerate(rows):
@@ -137,19 +137,22 @@ def markdown_table_to_html(markdown_table):
         if len(cells) == 1 and cells[0] == '':
             continue
         
+        content = ''
         for idtour in cells:
             if idtour.startswith('* Lần'):
                 urlId = idtour[6:]
                 tour_name = idtour[2:]
-                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                content += f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
             elif idtour.startswith('* Tháng'):
                 urlId = idtour[8:]
                 tour_name = idtour[2:]
-                content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                content += f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
             elif idtour.startswith('_'):
                 name = idtour[2:]
-                content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+                content += f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+
         html_table += f' <tr id="{content}">\n'
+        
         for cell in cells:
             # Dành cho dòng đầu tiên
             if cell.endswith('Tên giải'):
