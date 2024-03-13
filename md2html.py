@@ -138,15 +138,15 @@ def markdown_table_to_html(markdown_table):
             continue
         
         for id in cells:
-            elif cell.startswith('* Lần'):
+            elif id.startswith('* Lần'):
                 urlId = cell[6:]
                 tour_name = cell[2:]
                 content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
-            elif cell.startswith('* Tháng'):
+            elif id.startswith('* Tháng'):
                 urlId = cell[8:]
                 tour_name = cell[2:]
                 content = f'       <{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
-            elif cell.startswith('_'):
+            elif id.startswith('_'):
                 name = cell[2:]
                 content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
         html_table += f' <tr id="{content}">\n'
