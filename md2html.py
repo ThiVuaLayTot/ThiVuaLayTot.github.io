@@ -196,19 +196,24 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('! $'):
                 username = cell[3:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
-            # Dành cho các link giải
+            # Dành cho các link & tên giải
             elif cell.startswith('%'):
                 link = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('/'):
                 idlink = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/play/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('*'):
-                name = cell[2:]
-                cell_content = f'       <{tag}>{name}<img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+            elif cell.startswith('* Lần'):
+                urlId = cell[5:]
+                tour_name = cell[2:]
+                cell_content = f'       <div id="{urlId}"><{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}></div>'
+            elif cell.startswith('* Tháng'):
+                urlId = cell[7:]
+                tour_name = cell[2:]
+                cell_content = f'       <div id="{urlId}"><{tag}><a href="#{urlId}" title="Thí Vua Lấy Tốt {tour_name}">{tour_name}</a><img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}></div>'
             elif cell.startswith('_'):
                 name = cell[2:]
-                cell_content = f'       <{tag}>{name}<img class="unverified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+                cell_content = f'       <{tag}>{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'

@@ -620,7 +620,7 @@ hr {
   vertical-align: middle;
 }
 
-.verified, .unverified {
+.verified {
   width: 1.4em;
   height: auto;
   vertical-align: middle;

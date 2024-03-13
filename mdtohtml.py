@@ -122,7 +122,6 @@ def generate_h1_tag(filename):
 def markdown_table_to_html(markdown_table):
     chesscom = f'https://www.chess.com'
     lichess = f'https://lichess.org'
-    verified_icon = f'https://s3.vio.edu.vn/assets/img/correct_icon_2.png'
     unverified_icon = f'https://s3.vio.edu.vn/assets/img/wrong_icon_2.png'
     rows = markdown_table.strip().split('\n')
     html_table = '      <table class="styled-table">\n'
@@ -145,7 +144,7 @@ def markdown_table_to_html(markdown_table):
             elif cell.endswith('👑'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('Đạt giải trong'):
+            elif cell.endswith('Các lần đạt giải'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="winner-in-tour">{text}</{tag}>'
             # Dành cho tài khoản trên Chess.com
@@ -154,7 +153,7 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> <span class="loader"></span></{tag}>'
             elif cell.startswith('! @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="unverified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="verified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
