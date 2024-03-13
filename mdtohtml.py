@@ -13,7 +13,7 @@ css_styles = """<!DOCTYPE html>
 <html lang="vi">
 
 <head>
-    <title>Các thành viên đạt giải</title>
+    <title>Top kỳ đạt giải</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -27,41 +27,42 @@ css_styles = """<!DOCTYPE html>
 <body>
     <header class="container">
         <div class="page-header">
-		        <div class="logo">
-                  <a href="https://thi-vua-lay-tot.github.io" title="Thí Vua Lấy Tốt"><img src="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
+            <div class="logo">
+                <a href="https://thi-vua-lay-tot.github.io" title="Thí Vua Lấy Tốt"><img src="https://raw.githubusercontent.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io/main/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
             </div>
-                  <ul class="navbar-nav">
-                    <li>
-                      <a href="https://thi-vua-lay-tot.github.io" title="Trang chủ TVLT">Trang chủ</a>
-                    </li>
-                    <li>
-                      <a href="https://thi-vua-lay-tot.github.io/blogs" title="Các bài Blog quan trọng của TVLT">Blogs</a>
-                    </li>
-                    <li>
-                      <a href="https://thi-vua-lay-tot.github.io/vlogs" title="Các Video quan trọng của TVLT">Vlogs</a>
-                    </li>
-                    <li>
-                      <a href="https://thi-vua-lay-tot.github.io/webs" title="Social media links">Xã hội</a>
-                    </li>
-                    <li>
-                      <a href="https://thi-vua-lay-tot.github.io/game" title="Các trò chơi đơn giản">Trò chơi</a>
-                    </li>
-                    <li>
-                      <a href="https://thi-vua-lay-tot.github.io/list" title="Các danh sách/bảng quan trọng">Danh sách</a>
-                    </li>
-                    <li>
-                      <a href="https://thi-vua-lay-tot.github.io/team" title="Ban cán sự của TVLT">Mods</a>
-                    </li>
-                  </ul>
-		        <div>
+            <ul class="navbar-nav">
+                <li>
+                    <a href="https://thi-vua-lay-tot.github.io" title="Trang chủ TVLT">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="https://thi-vua-lay-tot.github.io/blogs" title="Các bài Blog quan trọng của TVLT">Blogs</a>
+                </li>
+                <li>
+                    <a href="https://thi-vua-lay-tot.github.io/vlogs" title="Các Video quan trọng của TVLT">Vlogs</a>
+                </li>
+                <li>
+                    <a href="https://thi-vua-lay-tot.github.io/webs" title="Social media links">Xã hội</a>
+                </li>
+                <li>
+                    <a href="https://thi-vua-lay-tot.github.io/game" title="Các trò chơi đơn giản">Games</a>
+                </li>
+                <li>
+                    <a href="https://thi-vua-lay-tot.github.io/list" title="Các danh sách/bảng quan trọng">Danh sách</a>
+                </li>
+                <li>
+                    <a href="https://thi-vua-lay-tot.github.io/team" title="Ban cán sự của TVLT">Mods</a>
+                </li>
+            </ul>
+		    <div>
                 <label class="mode">
-                  <input type="checkbox" id="darkModeToggle">
+                    <input type="checkbox" id="darkModeToggle">
                     <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
-	                  <a href="#top"><i id="back2top" class="bx bxs-to-top" title="Trở lại đầu trang này"></i></a>
-         		    </label>
-		        </div>
+                    <a href="#top"><i id="back2top" class="bx bxs-to-top" title="Trở lại đầu trang này"></i></a>
+                </label>
+            </div>
         </div>
     </header>
+
 """
 
 footer_style = """
@@ -72,7 +73,7 @@ footer_style = """
                   <p><a href="https://thi-vua-lay-tot.github.io/webs" title="Social media links">Các trang mạng</a></p>
                   <p><a href="https://thi-vua-lay-tot.github.io/blogs" title="Các bài Blog quan trọng của TVLT">Các Blog</a></p>
                   <p><a href="https://thi-vua-lay-tot.github.io/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
-                  <p><a href="https://thi-vua-lay-tot.github.io/game" title="Các trò chơi đơn giản">Trò chơi</a></p>
+                  <p><a href="https://thi-vua-lay-tot.github.io/game" title="Các trò chơi đơn giản">Các trò chơi đơn giản</a></p>
                   <p><a href="https://thi-vua-lay-tot.github.io/list" title="Các danh sách/bảng quan trọng">Danh sách</a></p>
                   <p><a href="https://thi-vua-lay-tot.github.io/team" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
             </div>
@@ -89,12 +90,12 @@ footer_style = """
                 </div>
             </div>
             <div>
-                <br><br>
-                  <p>Web được xây dựng bởi QTV <a href="https://thi-vua-lay-tot.github.io/team#admins" title="Các quản trị viên">Đinh Hoàng Việt</a>.</p>
-                  <p>Mã nguồn trên <a href="https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io" title="Mã nguồn của web trên Github"><img class="github-logo" src="https://github.com/fluidicon.png" alt="GitHub Icon"></a></p>
-                  <label>
-	                  <a href="#top"><i id="back2top" class="bx bxs-to-top" title="Trở lại đầu trang này"></i></a>
-         		      </label>
+            <br><br>
+                <p>Web được xây dựng bởi QTV <a href="https://thi-vua-lay-tot.github.io/team#admins" title="Các quản trị viên">Đinh Hoàng Việt</a>.</p>
+                <p>Mã nguồn trên <a href="https://github.com/Thi-Vua-Lay-Tot/Thi-Vua-Lay-Tot.github.io" title="Mã nguồn của web trên Github"><img class="github-logo" src="https://github.com/fluidicon.png" alt="GitHub Icon"></a></p>
+                <label>
+                    <a href="#top"><i id="back2top" class="bx bxs-to-top" title="Trở lại đầu trang này"></i></a>
+                </label>
             </div>
         </div>
     </div>
@@ -114,9 +115,9 @@ def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0]
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
-    h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-        <h2 align="center">Bạn có thể xem danh sách các kỳ thủ đạt giải {title} <a href="https://thi-vua-lay-tot.github.io/tournament-winner/list/{title}">Ở đây</a>.</h2>
-        <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
+    h1_tag = f"""    <h1 align="center">Top kỳ thủ đạt giải {title}</h1>
+    <h2 align="center">Bạn có thể xem danh sách các kỳ thủ đạt giải {title} <a href="https://thi-vua-lay-tot.github.io/tournament-winner/list/{title}">Ở đây</a>.</h2>
+    <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
