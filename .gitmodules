@@ -7,3 +7,6 @@
 [submodule "tournament-history"]
 	path = tournament-history
 	url = https://github.com/Thi-Vua-Lay-Tot/tournament-history
+[submodule "blog"]
+	path = blog
+	url = https://github.com/Thi-Vua-Lay-Tot/blog
