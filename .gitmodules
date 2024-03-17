@@ -4,3 +4,6 @@
 [submodule "libot-leaderboard"]
 	path = libot-leaderboard
 	url = https://github.com/Thi-Vua-Lay-Tot/libot-leaderboard
+[submodule "tournament-history"]
+	path = tournament-history
+	url = https://github.com/Thi-Vua-Lay-Tot/tournament-history
