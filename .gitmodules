@@ -1,0 +1,12 @@
+[submodule "game"]
+	path = game
+	url = https://github.com/ThiVuaLayTot/game
+[submodule "libot-leaderboard"]
+	path = libot-leaderboard
+	url = https://github.com/ThiVuaLayTot/libot-leaderboard
+[submodule "tournament-history"]
+	path = tournament-history
+	url = https://github.com/ThiVuaLayTot/tournament-history
+[submodule "blog"]
+	path = blog
+	url = https://github.com/ThiVuaLayTot/blog
