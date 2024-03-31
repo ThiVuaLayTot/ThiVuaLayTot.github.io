@@ -1,4 +1,0 @@
-orjson==3.10.0
-flask==3.0.2
-gunicorn==21.2.0
-pytz==2024.1
