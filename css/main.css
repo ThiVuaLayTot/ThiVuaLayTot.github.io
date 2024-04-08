@@ -58,8 +58,6 @@ header {
   
   .dropdown .dropbtn {
     outline: none;
-    padding: 14px 16px;
-    background-color: inherit;
     font-family: inherit;
     margin: 0;
   }
@@ -74,7 +72,6 @@ header {
   
   .dropdown-content a {
     float: none;
-    padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
