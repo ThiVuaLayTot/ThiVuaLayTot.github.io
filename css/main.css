@@ -51,25 +51,6 @@ header {
     padding: 1rem 0;
 }
 
-.page-header a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  
-  .active {
-    background-color: #04AA6D;
-    color: white;
-  }
-  
-  .page-header .icon {
-    display: none;
-  }
-  
   .dropdown {
     float: left;
     overflow: hidden;
@@ -97,14 +78,13 @@ header {
   
   .dropdown-content a {
     float: none;
-    color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
   }
   
-  .page-header a:hover, .dropdown:hover .dropbtn {
+  .dropdown:hover .dropbtn {
     background-color: #555;
     color: white;
   }
