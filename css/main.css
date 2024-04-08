@@ -51,10 +51,10 @@ header {
     padding: 1rem 0;
 }
 
-  .dropdown {
+/*  .dropdown {
     float: left;
     overflow: hidden;
-  }
+  } */
   
   .dropdown .dropbtn {
     outline: none;
