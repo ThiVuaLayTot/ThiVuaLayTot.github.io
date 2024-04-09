@@ -61,7 +61,7 @@ header {
     display: none;
     position: absolute;
     min-width: 160px;
-    background: linear-gradient(to right, #0838f7f3 0%, #06ef21(8, 247, 72);
+    background-color: linear-gradient(to right, #0838f7f3 0%, #06ef21(8, 247, 72);
     box-shadow: 0px 8px 16px 0px rgba(27, 232, 255, 0.745);
     z-index: 1;
   }
