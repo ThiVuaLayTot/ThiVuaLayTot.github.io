@@ -29,24 +29,25 @@ darkModeToggle.checked = isDarkMode;
 darkModeToggle.addEventListener('change', toggleDarkMode);
 
 var btn = ('#back2top');
-$(window).scroll(function () {
-	if ($(window).scrollTop() > 300) {
-		btn.addClass('show');
-	} else {
-		btn.removeClass('show');
-	}
+$(window).scroll(function() {
+    if ($(window).scrollTop() > 300) {
+        btn.addClass('show');
+    } else {
+        btn.removeClass('show');
+    }
 });
 
-btn.on('click', function (e) {
-	e.preventDefault();
-	$('html, body').animate({ scrollTop: 0 }, '800');
+btn.on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '800');
 });
 
+// Topnav
 function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "page-header") {
-    x.className += " responsive";
-  } else {
-    x.className = "page-header";
-  }
+    var x = document.getElementById("myTopnav");
+    if (x.className === "page-header") {
+        x.className += " responsive";
+    } else {
+        x.className = "page-header";
+    }
 }

@@ -6,34 +6,35 @@
     font-size: 16px;
 }
 
-.styled-table th, .styled-table td {
+.styled-table th,
+.styled-table td {
     border: 1px solid #00e11e;
     padding: 8px;
     font-size: 14px;
 }
 
 .styled-table th {
-    background-color: rgba(0, 170, 255, 0.996);
+    background-color: rgba(0, 170, 255, 0.905);
 }
 
 .styled-table tr:hover {
     background-color: rgba(101, 121, 132, 0.437);
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .styled-table td:hover {
-    background-color:#6d6c865b;
-    cursor:pointer;
+    background-color: #6d6c865b;
+    cursor: pointer;
 }
 
 .styled-table a {
-    background-color:#f6043ce6;
-    cursor:pointer;
+    background-color: #f6043ce6;
+    cursor: pointer;
 }
 
 .styled-table a:hover {
-    background-color:#0aedc4ed;
-    cursor:pointer;
+    background-color: #0aedc4ed;
+    cursor: pointer;
 }
 
 .name-tour {
@@ -52,6 +53,7 @@
     width: 15%;
 }
 
-.players, .link {
-      width: 3%;
+.players,
+.link {
+    width: 3%;
 }
