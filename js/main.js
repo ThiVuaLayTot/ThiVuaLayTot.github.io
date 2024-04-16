@@ -41,3 +41,12 @@ btn.on('click', function (e) {
 	e.preventDefault();
 	$('html, body').animate({ scrollTop: 0 }, '800');
 });
+
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "page-header") {
+    x.className += " responsive";
+  } else {
+    x.className = "page-header";
+  }
+}
