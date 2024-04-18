@@ -684,21 +684,8 @@ hr {
     }
 }
 
-.github-logo {
-    width: 3em;
-    height: auto;
-    vertical-align: middle;
-}
-
 .verified {
     width: 1.4em;
-    height: auto;
-    vertical-align: middle;
-}
-
-.admin,
-.mod {
-    width: 1em;
     height: auto;
     vertical-align: middle;
 }
@@ -740,9 +727,8 @@ hr {
     color: #04fa6f;
 }
 
-.list-post-title:hover .name,
-.list-post-title .name:hover {
-    color: #fc0568;
+.list-post-title:hover .name, .list-post-title .name:hover {
+    color: #fc0570;
 }
 
 .footer {
