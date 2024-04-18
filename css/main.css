@@ -53,6 +53,10 @@ nav {
     padding: 1rem 0;
 }
 
+.page-header ul {
+    display: flex;
+}
+
 .dropdown .dropbtn {
     outline: none;
     font-family: inherit;
@@ -130,7 +134,6 @@ nav {
 }
 
 ul {
-    display: flex;
     gap: .6rem;
     list-style-type: none;
     background-color: transparent;
