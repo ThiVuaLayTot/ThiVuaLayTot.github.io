@@ -45,7 +45,7 @@ class Quote:
         self.author = author
 
 # Đọc tệp .csv
-df = pd.read_csv('quotes.csv')
+df = pd.read_csv('quote/quotes.csv')
 
 # Chuyển DataFrame thành danh sách các đối tượng Quote
 quotes = [Quote(text, author) for text, author in zip(df['text'], df['author'])]
