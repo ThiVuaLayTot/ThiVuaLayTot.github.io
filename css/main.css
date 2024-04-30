@@ -731,6 +731,26 @@ hr {
     color: #fc0570;
 }
 
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 131, 253, 0.955);
+    color: rgb(6, 248, 26);
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+}
+  
+#myBtn:hover {
+    background-color: #ff04cd;
+}
+
 .footer {
     padding: 0;
     background-color: rgba(88, 88, 88, 0.143);
