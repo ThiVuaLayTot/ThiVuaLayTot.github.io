@@ -2,4 +2,3 @@ orjson==3.10.1
 flask==3.0.3
 gunicorn==22.0.0
 pytz==2024.1
-pandas==2.2.2
