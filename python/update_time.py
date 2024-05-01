@@ -1,7 +1,6 @@
 import os
 from datetime import datetime
 import pytz
-import yaml
 
 def time():
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
