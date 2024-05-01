@@ -28,10 +28,10 @@ darkModeToggle.checked = isDarkMode;
 // Xử lý sự kiện thay đổi chế độ tối
 darkModeToggle.addEventListener('change', toggleDarkMode);
 
-// Get the button
+// Nút Backtotop
 let mybutton = document.getElementById("myBtn");
 
-// When the user scrolls down 20px from the top of the document, show the button
+// Khi cuộn xuống 20px
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
@@ -42,7 +42,7 @@ function scrollFunction() {
   }
 }
 
-// When the user clicks on the button, scroll to the top of the document
+// Khi click vào nút 
 function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
