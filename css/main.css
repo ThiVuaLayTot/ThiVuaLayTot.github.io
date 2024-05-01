@@ -748,7 +748,8 @@ hr {
 }
   
 #myBtn:hover {
-    background-color: #ff04cd;
+    background-color: #b30de5ec;
+    color: #ff006f;
 }
 
 .footer {

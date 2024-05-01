@@ -1,11 +1,11 @@
-name: Cập nhật tệp .md sang tệp .html
+name: Ngày cập nhật
 
 on:
   workflow_dispatch:
   push:
     branches: [ master ]
-    paths:
-      - 'quote/quote.csv'
+    paths-ignore:
+      - '_includes/updated.html'
 
 env:
   TOKEN: ${{ secrets.TOKEN }}
@@ -34,5 +34,5 @@ jobs:
           git config --local user.email "vietdinh856@gmail.com"
           git config --local user.name "Thi-Vua-Lay-Tot"
           git add -A
-          git commit -m "Cập nhật danh sách lên web"
+          git commit -m "Update"
           git push --force

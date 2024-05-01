@@ -3,6 +3,9 @@ layout: default
 title: Các câu nói nổi tiếng về cờ vua
 ---
 
+{{ page.title }}
+================
+
 <blockquote>"When you see a good move, look for a better one. - <b> "Emanuel Lasker" </b></blockquote>
 <blockquote>"Nothing excites jaded Grandmasters more than a theoretical novelty. - <b> "Dominic Lawson" </b>
 </blockquote>
