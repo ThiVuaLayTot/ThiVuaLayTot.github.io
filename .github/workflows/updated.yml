@@ -28,6 +28,8 @@ jobs:
       - name: Cập nhật Bảng xếp hạng
         run: |
           python3 python/update_time.py
+          python3 python/bestplayers.py
+          python3 python/tournaments.py
       - name: Cam kết & Đẩy tệp
         run: |
           git config --local user.email "vietdinh856@gmail.com"
