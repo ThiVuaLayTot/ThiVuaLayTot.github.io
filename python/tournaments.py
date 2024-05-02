@@ -71,7 +71,7 @@ css_styles = """<!DOCTYPE html>
                       <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a class="active" href="https://thivualaytot.github.io/tournament-history">Danh sách tổng hợp các giải đấu</a>
+                        <a class="active" href="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
                         <a href="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
                         <a href="https://chess.com/clubs/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess">Danh sách các tài khoản vi phạm</a>
                     </div>
