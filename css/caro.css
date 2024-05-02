@@ -1,0 +1,72 @@
+body {background: lightgray;}
+.tic-tac-toe-board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  margin-bottom: 20px;
+    background: var(--bg-color2);
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #e606b9d7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2em;
+  font-weight: bold;
+  cursor: pointer;
+}
+.cell:hover {box-shadow: inset 0 0 10px -5px rgba(223, 11, 156, 0.886);}
+
+.player-cell {
+  background-color: lightgreen;
+}
+
+.opponent-cell {
+  background-color: lightcoral;
+}
+
+.highlight {
+  background-color: lightblue;
+}
+
+.result {
+  background: #2def9b;
+  padding: 2em;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  font-size: 1.2em;
+  margin-top: 10px;
+  text-align: center;
+}
+.Main-Flex-Container {display: flex; width: 100%; justify-content: center;}
+@media (max-width: 799px) and (orientation: portrait) { .Main-Flex-Container {flex-flow: columns;} }
+
+button.again-btn {
+margin: 2em;
+align-items: center;
+background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+border: 0;
+border-radius: 8px;
+box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+box-sizing: border-box;
+color: #FFFFFF;
+display: flex;
+font-family: Phantomsans, sans-serif;
+font-size: 20px;
+justify-content: center;
+line-height: 1em;
+max-width: 100%;
+min-width: 140px;
+padding: 19px 24px;
+text-decoration: none;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+white-space: nowrap;
+cursor: pointer;
+}
+Main-Flex-Container > div {
+flex-basis: 50%;
+}

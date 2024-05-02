@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="https://thivualaytot.github.io/css/main.css">
-  <link rel="stylesheet" href="https://thivualaytot.github.io/css/game.css">
+  <link rel="stylesheet" href="https://thivualaytot.github.io/css/2048.css">
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
   <link rel="stylesheet" href="https://daocloud.github.io/dao-2048/style/main.css" type="text/css">
   <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico"
@@ -23,7 +23,80 @@
 </head>
 
 <body>
-  {% include navbar.html %}
+  <header class="container">
+    <div class="page-header">
+        <div class="logo">
+            <a href="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt"><img src="/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
+        </div>
+        <ul class="navbar-nav">
+            <li>
+                <a href="https://thivualaytot.github.io" title="Trang chủ TVLT">Trang chủ</a>
+            </li>
+            <li>
+                <a href="https://thivualaytot.github.io/blog" title="Các thông báo/bài đăng quan trọng của TVLT">Thông báo/Tin tức</a>
+            </li>
+            <li>
+                <a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Vlogs</a>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn" href="https://thivualaytot.github.io/social" title="Social media links">Xã hội
+                      <i class="bx bx-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a>
+                        <a href="https://thivualaytot.github.io/social#chat">Các đoạn chat của Thí Vua Lấy Tốt</a>
+                        <a href="https://thivualaytot.github.io/social#group">Các nhóm/CLB/máy chủ của Thí Vua Lấy Tốt</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn" href="https://thivualaytot.github.io/game" title="Các trò chơi đơn giản">MiniGames
+                      <i class="bx bx-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="https://thivualaytot.github.io/game/caro">Cờ Caro 3x3</a>
+                        <a href="https://thivualaytot.github.io/game/chesspursuit">ChessPursuit</a>
+                        <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a>
+                        <a href="https://thivualaytot.github.io/game/2048">2048</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu
+                      <i class="bx bx-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
+                        <a href="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
+                        <a href="https://chess.com/clubs/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess">Danh sách các tài khoản vi phạm</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn" href="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">Leaders
+                      <i class="bx bx-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="https://thivualaytot.github.io/leaders#admins">Administrators/Các Quản trị viên</a>
+                        <a href="https://thivualaytot.github.io/leaders#mods">Moderators/Các điều hành viên</a>
+                        <a href="https://thivualaytot.github.io/leaders#sponsors">Các nhà tài trợ/hợp tác với giải</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div>
+            <label class="mode">
+                <input type="checkbox" id="darkModeToggle">
+                <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
+            </label>
+        </div>
+    </div>
+</header>
+
 
   <div class="container">
     <div class="heading">
@@ -92,7 +165,48 @@
     </p>
   </div>
 
-  {% include footer.html %}
+  <div class="footer">
+    <div class="footer-container">
+        <div>
+            <h3><a href="https://thivualaytot.github.io" title="Trang web Thí Vua Lấy Tốt">Thí Vua Lấy Tốt</a></h3>
+            <p><a href="https://thivualaytot.github.io/social" title="Social media links">Các trang mạng</a></p>
+            <p><a href="https://thivualaytot.github.io/blog" title="Các bài Blog quan trọng của TVLT">Các thông báo & tin tức</a></p>
+            <p><a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
+            <p><a href="https://thivualaytot.github.io/game" title="Các trò chơi đơn giản">Các trò chơi đơn giản</a></p>
+            <p><a href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu</a></p>
+            <p><a href="https://thivualaytot.github.io/leaders" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
+        </div>
+        <div>
+            <h3 align="center"><a href="https://thivualaytot.github.io/social">Social meadia links</a></h3>
+            <strong><a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a></strong>
+            <div class="button">
+                <a href="https://youtube.com/@TungJohnPlayingChess" target="_blank" title="Kênh Youtube của TungJohn"><i class="bx bxl-youtube"></i></a>
+                <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><i class="bx bxl-facebook"></i></a>
+                <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><i class="bx bxl-twitch"></i></a>
+                <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><i class="bx bxl-tiktok"></i></a>
+                <a href="https://chess.com/member/tungjohn2005" target="_blank" title="Tài khoản Chess.com của TungJohn"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
+                <a href="https://lichess.org/@/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img src="/images/lichesslogo.png"></a>
+                <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><i class="bx bxs-shopping-bag"></i></a>
+            </div>
+            <hr>
+            <strong><a href="https://thivualaytot.github.io/social#group">Các Nhóm, Câu Lạc Bộ, Máy Chủ Của Thí Vua Lấy Tốt</a></strong>
+            <div class="button">
+                <a href="https://clubs.chess.com/GkQy" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
+                <a href="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank" title="Đội Thí Vua Lấy Tốt trên Lichess"><img width="22" src="/images/lichesslogo.png"></a>
+                <a href="https://zalo.me/g/zhrwtn779" target="_blank" title="Nhóm chat Thí Vua Lấy Tốt trên Zalo"><img width="14" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
+                <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><i class="bx bxl-facebook"></i></a>
+                <a href="https://discord.gg/WUhW5Cs9gB" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><i class="bx bxl-discord"></i></a>
+            </div>
+        </div>
+        <div>
+            <br><br>
+            <p>Web được xây dựng bởi Quản trị viên <a href="https://thivualaytot.github.io/leaders#admins" title="Các quản trị viên">Đinh Hoàng Việt</a>.</p>
+            <p>Mã nguồn trên <a href="https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io" title="Mã nguồn của web trên Github"><i class="bx bxl-github"></i></a></p>
+            {% include updated.html %}
+        </div>
+    </div>
+</div>
+
 
   <script src="https://daocloud.github.io/dao-2048/js/bind_polyfill.js"></script>
   <script src="https://daocloud.github.io/dao-2048/js/classlist_polyfill.js"></script>
