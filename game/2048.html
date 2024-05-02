@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>2048</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://thivualaytot.github.io/css/main.css">
+  <link rel="stylesheet" href="https://thivualaytot.github.io/css/game.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="https://daocloud.github.io/dao-2048/style/main.css" type="text/css">
+  <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico"
+    type="image/x-icon">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport"
+    content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+  {% include navbar.html %}
+
+  <div class="container">
+    <div class="heading">
+      <h1 class="title">2048</h1>
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+
+    <div class="above-game">
+      <p class="game-intro">Tham gia các con số và nhận được <strong>ô số 2048!</strong></p>
+      <a class="restart-button">Ván mới</a>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+          <a class="keep-playing-button">Tiếp tục</a>
+          <a class="retry-button">Chơi lại</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container">
+
+      </div>
+    </div>
+    <div id="podinfo" class="game-explanation">
+    </div>
+    <hr>
+    <p class="game-explanation">
+      <strong class="important">Cách chơi:</strong> Sử dụng <strong>các phím mũi tên (↑,↓,→,←)</strong> của bạn để di
+      chuyển. Khi hai ô có cùng số chạm nhau, chúng sẽ <strong>hợp nhất thành tổng của 2 số đó!</strong>
+    </p>
+    <hr>
+    <p>
+      Trò chơi được tạo bởi <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a>
+    </p>
+  </div>
+
+  {% include footer.html %}
+
+  <script src="https://daocloud.github.io/dao-2048/js/bind_polyfill.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/classlist_polyfill.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/animframe_polyfill.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/keyboard_input_manager.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/html_actuator.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/grid.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/tile.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/local_storage_manager.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/game_manager.js"></script>
+  <script src="https://daocloud.github.io/dao-2048/js/application.js"></script>
+  <script src="https://thivualaytot.github.io/js/main.js"></script>
+</body>
+
+</html>

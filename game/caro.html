@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <title>TVLT - Cờ Caro 3x3</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://thivualaytot.github.io/css/main.css">
+  <link rel="stylesheet" href="https://thivualaytot.github.io/css/game.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico"
+    type="image/x-icon">
+</head>
+
+<body>
+  {% include navbar.html %}
+
+  <h1>Tic-Tac-Toe</h1>
+  <div class="Main-Flex-Container">
+    <div>
+      <div class="tic-tac-toe-board" id="board">
+        <div class="cell" onclick="makeMove(0, 0)" id="cell-0"></div>
+        <div class="cell" onclick="makeMove(0, 1)" id="cell-1"></div>
+        <div class="cell" onclick="makeMove(0, 2)" id="cell-2"></div>
+        <div class="cell" onclick="makeMove(1, 0)" id="cell-3"></div>
+        <div class="cell" onclick="makeMove(1, 1)" id="cell-4"></div>
+        <div class="cell" onclick="makeMove(1, 2)" id="cell-5"></div>
+        <div class="cell" onclick="makeMove(2, 0)" id="cell-6"></div>
+        <div class="cell" onclick="makeMove(2, 1)" id="cell-7"></div>
+        <div class="cell" onclick="makeMove(2, 2)" id="cell-8"></div>
+      </div>
+    </div>
+    <div style="padding: 2em;">
+      <div class="result" id="result"></div>
+      <button class="again-btn" onclick="resetGame()">Chơi lại</button>
+    </div>
+  </div>
+  <script src="js/caro.js"></script>
+
+  {% include footer.html %}
+  <script src="https://thivualaytot.github.io/js/main.js"></script>
+</body>
+
+</html>

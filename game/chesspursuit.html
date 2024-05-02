@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <title>Trò chơi ChessPursuit</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://thivualaytot.github.io/css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    {% include navbar.html %}
+	  <style>
+	    #game {
+    	    width: 333px;
+      }
+ 	    @media only screen and (max-width: 333px) {
+    	#game {
+        	width: 70%;
+	      }
+      }
+
+  </style>
+  <h1 align="center">ChessPursuit</h1>
+  <p align="center">Hãy cho vua đen tiến về phía trước sao cho đừng bị quân trắng chiếu để giải cứu hoàng hậu</p>
+
+  <div class="game">
+    <p align="center">
+      <iframe src="https://m-dinhhoangviet.github.io/ChessPursuit/bin-release/index.html" frameborder="0" width="423" height="555" credentialless="credentialless"></iframe>
+    </p>
+  </div>
+  <br><br><hr>
+  {% include footer.html %}
+<script src="https://thivualaytot.github.io/js/main.js"></script>
+</body>
+
+</html>
