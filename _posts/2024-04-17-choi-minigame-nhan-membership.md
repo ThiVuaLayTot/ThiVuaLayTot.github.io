@@ -11,9 +11,9 @@ tổ chức thể lệ cuộc thi như sau:
 
 Bất cứ ai trong câu lạc bộ Thí Vua Lấy Tốt đều có thể tham gia cuộc thi này. Thể lệ gồm 3 giải:
 <ul>
-  <li>💎1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a> với số lượt di chuyển ít nhất.</li>
-  <li>💎 1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/2048">2048</a> với số điểm cao nhất.</li>
-  <li>💎 1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/2048">2048</a> và <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a> với yêu cầu như trên.</li>
+  <li>💎1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a> với số lượt di chuyển ít nhất.</li>[Đã hết]
+  <li>💎 1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/2048">2048</a> với số điểm cao nhất.</li>[Đã hết]
+  <li>💎 1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/2048">2048</a> và <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a> với yêu cầu như trên.</li>[Đang còn]
 </ul>
 
 Nếu có kỳ thủ bằng điểm hoặc cùng chiến thắng với kết quả như nhau thì sẽ chọn người gửi chiến thắng đầu tiên. 
