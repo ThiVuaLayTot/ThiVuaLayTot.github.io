@@ -28,64 +28,64 @@ css_styles = """<!DOCTYPE html>
     <header class="container">
     <div class="page-header">
         <div class="logo">
-            <a href="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt"><img src="/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
+            <a hre="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt"><img src="/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
         </div>
         <ul class="navbar-nav">
             <li>
-                <a href="https://thivualaytot.github.io" title="Trang chủ TVLT">Trang chủ</a>
+                <a hre="https://thivualaytot.github.io" title="Trang chủ TVLT">Trang chủ</a>
             </li>
             <li>
-                <a href="https://thivualaytot.github.io/blog" title="Các thông báo/bài đăng quan trọng của TVLT">Thông báo/Tin tức</a>
+                <a hre="https://thivualaytot.github.io/blog" title="Các thông báo/bài đăng quan trọng của TVLT">Thông báo/Tin tức</a>
             </li>
             <li>
-                <a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Vlogs</a>
+                <a hre="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Vlogs</a>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/social" title="Social media links">Xã hội
+                    <a class="dropbtn" hre="https://thivualaytot.github.io/social" title="Social media links">Xã hội
                       <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a>
-                        <a href="https://thivualaytot.github.io/social#chat">Các đoạn chat của Thí Vua Lấy Tốt</a>
-                        <a href="https://thivualaytot.github.io/social#group">Các nhóm/CLB/máy chủ của Thí Vua Lấy Tốt</a>
+                        <a hre="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a>
+                        <a hre="https://thivualaytot.github.io/social#chat">Các đoạn chat của Thí Vua Lấy Tốt</a>
+                        <a hre="https://thivualaytot.github.io/social#group">Các nhóm/CLB/máy chủ của Thí Vua Lấy Tốt</a>
                     </div>
                 </div>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/game" title="Các trò chơi đơn giản">MiniGames
+                    <a class="dropbtn" hre="https://thivualaytot.github.io/game" title="Các trò chơi đơn giản">MiniGames
                       <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/game/caro">Cờ Caro 3x3</a>
-                        <a href="https://thivualaytot.github.io/game/chesspursuit">ChessPursuit</a>
-                        <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a>
-                        <a href="https://thivualaytot.github.io/game/2048">2048</a>
+                        <a hre="https://thivualaytot.github.io/game/caro">Cờ Caro 3x3</a>
+                        <a hre="https://thivualaytot.github.io/game/chesspursuit">ChessPursuit</a>
+                        <a hre="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a>
+                        <a hre="https://thivualaytot.github.io/game/2048">2048</a>
                     </div>
                 </div>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn, active" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu
+                    <a class="dropbtn, active" hre="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu
                       <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a class="active" href="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
-                        <a href="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
-                        <a href="https://chess.com/clubs/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess">Danh sách các tài khoản vi phạm</a>
+                        <a class="active" hre="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
+                        <a hre="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
+                        <a hre="https://chess.com/clubs/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess">Danh sách các tài khoản vi phạm</a>
                     </div>
                 </div>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">Leaders
+                    <a class="dropbtn" hre="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">Leaders
                       <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/leaders#admins">Administrators/Các Quản trị viên</a>
-                        <a href="https://thivualaytot.github.io/leaders#mods">Moderators/Các điều hành viên</a>
-                        <a href="https://thivualaytot.github.io/leaders#sponsors">Các nhà tài trợ/hợp tác với giải</a>
+                        <a hre="https://thivualaytot.github.io/leaders#admins">Administrators/Các Quản trị viên</a>
+                        <a hre="https://thivualaytot.github.io/leaders#mods">Moderators/Các điều hành viên</a>
+                        <a hre="https://thivualaytot.github.io/leaders#sponsors">Các nhà tài trợ/hợp tác với giải</a>
                     </div>
                 </div>
             </li>
@@ -106,38 +106,38 @@ footer_style = """
 <div class="footer">
     <div class="footer-container">
         <div>
-            <h3><a href="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt Website">Thí Vua Lấy Tốt</a></h3>
-            <p><a href="https://thivualaytot.github.io/social" title="Social media links">Các trang mạng</a></p>
-            <p><a href="https://thivualaytot.github.io/blog" title="Các bài Blog quan trọng của TVLT">Các thông báo & tin tức</a></p>
-            <p><a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
-            <p><a href="https://thivualaytot.github.io/game" title="Các trò chơi đơn giản">Các trò chơi đơn giản</a></p>
-            <p><a href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu</a></p>
-            <p><a href="https://thivualaytot.github.io/leaders" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
+            <h3><a hre="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt Website">Thí Vua Lấy Tốt</a></h3>
+            <p><a hre="https://thivualaytot.github.io/social" title="Social media links">Các trang mạng</a></p>
+            <p><a hre="https://thivualaytot.github.io/blog" title="Các bài Blog quan trọng của TVLT">Các thông báo & tin tức</a></p>
+            <p><a hre="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
+            <p><a hre="https://thivualaytot.github.io/game" title="Các trò chơi đơn giản">Các trò chơi đơn giản</a></p>
+            <p><a hre="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu</a></p>
+            <p><a hre="https://thivualaytot.github.io/leaders" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
         </div>
         <div>
-            <h3 align="center"><a href="https://thivualaytot.github.io/social">Social meadia links</a></h3>
-            <strong><a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a></strong>
+            <h3 align="center"><a hre="https://thivualaytot.github.io/social">Social meadia links</a></h3>
+            <strong><a hre="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a></strong>
             <div class="button">
-                <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><i class="bx bxl-youtube"></i></a>
-                <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><i class="bx bxl-facebook"></i></a>
-                <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><i class="bx bxl-twitch"></i></a>
-                <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><i class="bx bxl-tiktok"></i></a>
-                <a href="https://chess.com/member/tungjohn2005" target="_blank" title="Tài khoản Chess.com của TungJohn"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
-                <a href="https://lichess.org/@/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img src="/images/lichesslogo.png"></a>
-                <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><i class="bx bxs-shopping-bag"></i></a>
+                <a hre="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><i class="bx bxl-youtube"></i></a>
+                <a hre="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><i class="bx bxl-facebook"></i></a>
+                <a hre="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><i class="bx bxl-twitch"></i></a>
+                <a hre="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><i class="bx bxl-tiktok"></i></a>
+                <a hre="https://chess.com/member/tungjohn2005" target="_blank" title="Tài khoản Chess.com của TungJohn"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
+                <a hre="https://lichess.org/@/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img src="/images/lichesslogo.png"></a>
+                <a hre="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><i class="bx bxs-shopping-bag"></i></a>
             </div>
-            <strong><a href="https://thivualaytot.github.io/social#group">Các Nhóm, Câu Lạc Bộ, Máy Chủ Của Thí Vua Lấy Tốt</a></strong>
+            <strong><a hre="https://thivualaytot.github.io/social#group">Các Nhóm, Câu Lạc Bộ, Máy Chủ Của Thí Vua Lấy Tốt</a></strong>
             <div class="button">
-                <a href="https://clubs.chess.com/GkQy" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
-                <a href="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank" title="Đội Thí Vua Lấy Tốt trên Lichess"><img width="22" src="/images/lichesslogo.png"></a>
-                <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><i class="bx bxl-facebook"></i></a>
-                <a href="https://discord.gg/WUhW5Cs9gB" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><i class="bx bxl-discord"></i></a>
+                <a hre="https://clubs.chess.com/GkQy" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
+                <a hre="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank" title="Đội Thí Vua Lấy Tốt trên Lichess"><img width="22" src="/images/lichesslogo.png"></a>
+                <a hre="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><i class="bx bxl-facebook"></i></a>
+                <a hre="https://discord.gg/WUhW5Cs9gB" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><i class="bx bxl-discord"></i></a>
             </div>
         </div>
         <div>
             <br><br>
-            <p>Web được xây dựng bởi Quản trị viên <a href="https://thivualaytot.github.io/leaders#admins" title="Các quản trị viên">Đinh Hoàng Việt</a>.</p>
-            <p>Mã nguồn trên <a href="https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io" title="Mã nguồn của web trên Github"><i class="bx bxl-github"></i></a></p>
+            <p>Web được xây dựng bởi Quản trị viên <a hre="https://thivualaytot.github.io/leaders#admins" title="Các quản trị viên">Đinh Hoàng Việt</a>.</p>
+            <p>Mã nguồn trên <a hre="https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io" title="Mã nguồn của web trên Github"><i class="bx bxl-github"></i></a></p>
         </div>
     </div>
 </div>
@@ -158,7 +158,7 @@ def generate_h1_tag(filename):
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title} nhiều nhất</h1>
-    <h2 align="center">Bạn có thể xem danh sách các kỳ thủ đạt giải {title} <a href="https://thivualaytot.github.io/tournaments/tournaments/{title}">Ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem danh sách các kỳ thủ đạt giải {title} <a hre="https://thivualaytot.github.io/tournaments/tournaments/{title}">Ở đây</a>.</h2>
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 
@@ -193,17 +193,17 @@ def markdown_table_to_html(markdown_table):
             # Dành cho tài khoản trên Chess.com
             elif cell.startswith('? @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> <span class="loader"></span></{tag}>'
+                cell_content = f'       <{tag}><a hre="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> <span class="loader"></span></{tag}>'
             elif cell.startswith('! @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="verified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
+                cell_content = f'       <{tag}><a hre="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="verified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
+                cell_content = f'       <{tag}><a hre="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
+                cell_content = f'       <{tag}><a hre="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
