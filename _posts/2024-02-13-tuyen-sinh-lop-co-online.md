@@ -28,4 +28,4 @@ title: Tuyển sinh lớp cờ vua online
 <p>👉 HLV tận tình, nhiệt huyết, đã giúp nhiều bạn trỏe đạt thành tích cao cấp huyện, cấp tỉnh.</p>
 
 Các bạn có thể liên hệ trực tiếp với <a hre="https://thivualaytot.github.io/webs" target="_blank">TungJohn</a> qua số điện thoại 0904245944 hoặc đăng ký qua biểu mẫu sau: <a hre="https://forms.gle/CfpPP5o36diFcV6g7">https://forms.gle/CfpPP5o36diFcV6g7</a>. TungJohn sẽ liên hệ test trình độ và xếp lớp phù hợp.
-<p align="center"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfbaL6FiOjfGRMWU5zuEB6YmdV3ncs6nSZWr3c_BW00UPLBGQ/viewform?embedded=true" width="1403" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe></p>
+<p align="center"><iframe srcc="https://docs.google.com/forms/d/e/1FAIpQLSfbaL6FiOjfGRMWU5zuEB6YmdV3ncs6nSZWr3c_BW00UPLBGQ/viewform?embedded=true" width="1403" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe></p>
