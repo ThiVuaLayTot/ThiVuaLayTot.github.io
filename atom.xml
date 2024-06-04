@@ -4,8 +4,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Đinh Hoàng Việt</title>
- <link hre="https://thivualaytot.github.io/atom.xml" rel="self"/>
- <link hre="https://thivualaytot.github.io/blog/"/>
+ <link href="https://thivualaytot.github.io/atom.xml" rel="self"/>
+ <link href="https://thivualaytot.github.io/blog/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
  <id>https://thivualaytot.github.io/</id>
  <author>
@@ -16,7 +16,7 @@
  {% for post in site.posts %}
  <entry>
    <title>{{ post.title }}</title>
-   <link hre="https://thivualaytot.github.io/{{ post.url }}"/>
+   <link href="https://thivualaytot.github.io/{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
    <id>https://thivualaytot.github.io/blog{{ post.id }}</id>
    <content type="html">{{ post.content | xml_escape }}</content>

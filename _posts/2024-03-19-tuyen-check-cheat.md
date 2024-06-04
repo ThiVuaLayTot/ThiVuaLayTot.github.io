@@ -12,6 +12,6 @@ Nghiêm cấm các hành vi vi phạm luật. Mục đích là giúp cho các gi
 
 <strong>Lưu ý:</strong> Bạn muốn tham gia thì cần trải qua các bài kiểm tra để chứng tỏ khả năng phát hiện cheat của bạn. Do đó, bạn cần có trình độ để có thể vô đội.
 
-Nếu bạn muốn gia nhập thì hãy điền vào biểu mẫu sau: <a hre="https://forms.gle/yqnXAJBHuuJ7PPsp9">https://forms.gle/yqnXAJBHuuJ7PPsp9</a>
+Nếu bạn muốn gia nhập thì hãy điền vào biểu mẫu sau: <a href="https://forms.gle/yqnXAJBHuuJ7PPsp9">https://forms.gle/yqnXAJBHuuJ7PPsp9</a>
 
-<p align="center"><iframe srcc="https://docs.google.com/forms/d/e/1FAIpQLSflgWRBWaLcJmt4XFllLdiF2FztPvMRZS7H7iiiJvPHjtEEhA/viewform?embedded=true" width="1403" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe></p>
+<p align="center"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSflgWRBWaLcJmt4XFllLdiF2FztPvMRZS7H7iiiJvPHjtEEhA/viewform?embedded=true" width="1403" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe></p>
