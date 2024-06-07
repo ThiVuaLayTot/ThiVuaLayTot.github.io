@@ -1,7 +1,7 @@
 Hạng|Kỳ thủ|Các lần đạt giải
 ---|---|---
 #1|! @lecongdat1122|🥇(TVLT 4),🥇(TVLT 5),🥈(TVLT 7),🥇(TVLT 8),🥈(TVLT 14)
-#2|@ShinichiKhoa|🥉(TVLT 7),🥈(TVLT 17),🥈(TVLT Chào Xuân Giáp Thìn 2024),🥇(TVLT Tháng 4.2024)
+#2|@ShinichiKhoa|🥉(TVLT 7),🥈(TVLT 17),🥈(TVLT Chào Xuân Giáp Thìn 2024),🥇(TVLT Tháng 4.2024),🥇(TVLT Tháng 5.2024)
 #3|@Vchhabinhan1234|🥈(TVLT 16),🥈(TVLT 18),🥉(TVLT Tháng 9.2023),🥈(TVLT Tháng 3.2024)
 #4|@Spaghetticf|🥇(TVLT 18),🥇(TVLT 20),🥇(TVLT Tháng 7.2023)
 #5|@nhattandl185|🥇(TVLT 13),🥉(TVLT 15),🥇(TVLT 16)
@@ -51,6 +51,7 @@ Hạng|Kỳ thủ|Các lần đạt giải
 #13|@Wingstw|🥈(TVLT Tháng 11.2023)
 #13|@Phamtienduc1|🥈(TVLT Tháng 12.2023)
 #13|@incognito_speedruner121|🥈(TVLT Tháng 4.2024)
+#13|@giahung303210|🥈(TVLT Tháng 5.2024)
 #14|@hackert38|🥉(TVLT 1)
 #14|@PhanPhucDinh|🥉(TVLT 2)
 #14|@Wibu2k1|🥉(TVLT 3)
@@ -71,3 +72,4 @@ Hạng|Kỳ thủ|Các lần đạt giải
 #14|@NQB26|🥉(TVLT Tháng 1.2024)
 #14|@vietanhhar232|🥉(TVLT Tháng 3.2024)
 #14|@DeKaySS|🥉(TVLT Tháng 4.2024)
+#14|@TokudaShigeoJr|🥉(TVLT Tháng 5.2024)
