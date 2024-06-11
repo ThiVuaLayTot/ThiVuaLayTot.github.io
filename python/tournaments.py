@@ -32,18 +32,22 @@ css_styles = """<!DOCTYPE html>
         </div>
         <ul class="navbar-nav">
             <li>
-                <a href="https://thivualaytot.github.io" title="Trang chủ TVLT">Trang chủ</a>
+                <a href="https://thivualaytot.github.io" title="Trang chủ"><i class="bx bxs-home"></i></a>
             </li>
             <li>
-                <a href="https://thivualaytot.github.io/blog" title="Các thông báo/bài đăng quan trọng của TVLT">Thông báo/Tin tức</a>
+                <a href="https://thivualaytot.github.io/blog" title="Các thông báo/bài đăng quan trọng của TVLT">
+                    <i class="bx bxs-news"></i>Thông báo/Tin tức
+                </a>
             </li>
             <li>
-                <a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Vlogs</a>
+                <a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">
+                    <i class="bx bx-play-circle"></i>Vlogs
+                </a>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/social" title="Social media links">Xã hội
-                      <i class="bx bx-caret-down"></i>
+                    <a class="dropbtn" href="https://thivualaytot.github.io/social" title="Social media links">
+                        <i class="bx bx-link"></i>Xã hội <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
                         <a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a>
@@ -67,11 +71,11 @@ css_styles = """<!DOCTYPE html>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn, active" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu
-                      <i class="bx bx-caret-down"></i>
+                    <a class="dropbtn, active" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">
+                        <i class="bx bx-list-plus"></i>Danh sách/Tài liệu <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a class="active" href="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
+                        <a href="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
                         <a href="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
                         <a href="https://chess.com/clubs/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess">Danh sách các tài khoản vi phạm</a>
                     </div>
@@ -79,8 +83,8 @@ css_styles = """<!DOCTYPE html>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">Leaders
-                      <i class="bx bx-caret-down"></i>
+                    <a class="dropbtn" href="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">
+                        <i class="bx bx-shield-quarter"></i>Leaders <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
                         <a href="https://thivualaytot.github.io/leaders#admins">Administrators/Các Quản trị viên</a>
@@ -98,7 +102,6 @@ css_styles = """<!DOCTYPE html>
         </div>
     </div>
     </header>
-    <button onclick="topFunction()" id="myBtn"  title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
 
 """
 
@@ -152,6 +155,7 @@ information = """
       <p><strong>Ghi chú:</strong> Nếu <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Chính thức"> nghĩa là giải chính thức được tổ chức bởi chủ sở hữu/quản lí giải đấu, còn <img class="verified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Không chính thức"> là giải tạo bởi một Admin khác.</p>
       <p> Nếu sau tên người dùng có: <span class="loader"></span> nghĩa là người chơi này có khả năng không được đạt giải và đang chờ xác thực, <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png"> là người dùng bị đóng tài khoản nhưng vẫn được xác minh được nhận giải, <img class="verified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi bị đóng tài khoản và xác nhận là gian lận.</p>
       <p> Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
+      <b> Bạn có thể tìm kiếm một kỳ thủ đạt giải trong đây bằng cách sử dụng tổ hợp phím Ctrl+F (trên máy tính). Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây hay đã đổi tên tài khoản thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
 """
 
 def generate_h1_tag(filename):
@@ -231,7 +235,10 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('/'):
                 idlink = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/play/live/redirect-to/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/tournament/live/redirect-to/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
+            elif cell.startswith('/'):
+                idlink = cell[1:]
+                cell_content = f'       <{tag}><a href="{chesscom}/tournament/live/arena/redirect-to/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('*'):
                 name = cell[2:]
                 cell_content = f'       <{tag} title="Thí Vua Lấy Tốt {name}">{name} <img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
