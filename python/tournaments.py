@@ -236,8 +236,8 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('/'):
                 idlink = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/tournament/live/redirect-to/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('/'):
-                idlink = cell[1:]
+            elif cell.startswith('/arena'):
+                idlink = cell[6:]
                 cell_content = f'       <{tag}><a href="{chesscom}/tournament/live/arena/redirect-to/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('*'):
                 name = cell[2:]
