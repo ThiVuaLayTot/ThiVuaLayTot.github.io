@@ -6,6 +6,7 @@ title: Chơi MiniGames nhận Diamond Membership
 {{ page.title }}
 ================
 
+[Đã kết thúc]
 Để tạo cơ hội cho mọi người có thể nhận <a href="https://www.chess.com/membership">Membership Chess.com</a>, <a href="https://thivualaytot.github.io/team#admins"><i class="bx bx-user"></i>Admin Đinh Hoàng Việt</a>
 tổ chức thể lệ cuộc thi như sau:
 
