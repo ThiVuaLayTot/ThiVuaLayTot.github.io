@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Đã kết thúc] Chơi MiniGames nhận Diamond Membership
+title: Chơi MiniGames nhận Diamond Membership
 ---
 
 {{ page.title }}
@@ -13,7 +13,7 @@ Bất cứ ai trong câu lạc bộ Thí Vua Lấy Tốt đều có thể tham g
 <ul>
   <li>💎1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a> với số lượt di chuyển ít nhất.</li> <b>Người chiến thắng:</b> nhatnguyen123okla
   <li>💎 1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/2048">2048</a> với số điểm cao nhất.</li> <b>Người chiến thắng:</b> I_Love_Chess_2oo7 
-  <li>💎 1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/2048">2048</a> và <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a> với yêu cầu như trên.</li> <b>Người chiến thắng:</b> Le-Huynh-Hai-Nam-2010 (Đây là giải thưởng của giải thứ nhất bởi không có ai đạt giải thứ 3 này)
+  <li>💎 1 month Diamond Membership (1 tháng tư cách hành viên kim cương): Người chiến thắng trong trò chơi <a href="https://thivualaytot.github.io/game/2048">2048</a> và <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a> với yêu cầu như trên.</li> <b>Không có người chiến thắng nào.</b>
 </ul>
 
 Nếu có kỳ thủ bằng điểm hoặc cùng chiến thắng với kết quả như nhau thì sẽ chọn người gửi chiến thắng đầu tiên. 
