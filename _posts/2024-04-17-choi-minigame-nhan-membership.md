@@ -7,7 +7,7 @@ title: Chơi MiniGames nhận Diamond Membership
 ================
 
 [Đã kết thúc]
-Để tạo cơ hội cho mọi người có thể nhận <a href="https://www.chess.com/membership">Membership Chess.com</a>, <a href="https://thivualaytot.github.io/team#admins"><i class="bx bx-user"></i>Admin Đinh Hoàng Việt</a>
+Để tạo cơ hội cho mọi người có thể nhận <a href="https://chess.com/membership">Membership Chess.com</a>, <a href="https://thivualaytot.github.io/team#admins"><i class="bx bx-user"></i>Admin Đinh Hoàng Việt</a>
 tổ chức thể lệ cuộc thi như sau:
 
 Bất cứ ai trong câu lạc bộ Thí Vua Lấy Tốt đều có thể tham gia cuộc thi này. Thể lệ gồm 3 giải:
