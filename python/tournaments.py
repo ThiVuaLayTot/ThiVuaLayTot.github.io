@@ -102,6 +102,7 @@ css_styles = """<!DOCTYPE html>
         </div>
     </div>
     </header>
+    <button onclick="topFunction()" id="myBtn"  title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
 
 """
 
@@ -164,7 +165,7 @@ def generate_h1_tag(filename):
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/tournament/bestplayers/{title}">Ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/tournaments/bestplayers/{title}">Ở đây</a>.</h2>
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 
@@ -236,10 +237,10 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('/'):
                 idlink = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/tournament/live/redirect-to/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('/arena'):
-                idlink = cell[6:]
-                cell_content = f'       <{tag}><a href="{chesscom}/tournament/live/arena/redirect-to/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/play/tournament/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
+            elif cell.startswith('a/'):
+                idlink = cell[3:]
+                cell_content = f'       <{tag}><a href="{chesscom}/play/arena/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('*'):
                 name = cell[2:]
                 cell_content = f'       <{tag} title="Thí Vua Lấy Tốt {name}">{name} <img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'

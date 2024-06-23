@@ -1,8 +1,8 @@
 Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Số kì thủ|Giải nhất 🥇|Giải nhì 🥈|Giải ba 🥉|Giải tư 🏅|Giải năm 🎖️|Giải may mắn 🌟|Link giải
 ---|---|---|---|---|---|---|---|---|---
-* Lần 1|15/10/2022|10+0 Rapid, Arena 2h|964|@congnguyen1406|! @VNQuang123|! @Cazonw|! @cakhothanchuong|! @dellbiettchsco||/arena/2171704
-* Lần 2|22/10/2022|5+0 Blitz, Arena 2h|1351|! @chessspeakforitself2014|! @covuanhudb|! @Only_BongCloud_VN|! @ancomv|@playerkhoa||/arena/2183785
-* Lần 3|06/11/2022|10+0 Rapid, Arena 2h|535|! @nguyen10t2|? @h24laval|! @HoangAnhNhi2002|? @Littlegirl2006|@Mehechanic||/arena/2218000
+* Lần 1|15/10/2022|10+0 Rapid, Arena 2h|964|@congnguyen1406|! @VNQuang123|! @Cazonw|! @cakhothanchuong|! @dellbiettchsco||a/2171704
+* Lần 2|22/10/2022|5+0 Blitz, Arena 2h|1351|! @chessspeakforitself2014|! @covuanhudb|! @Only_BongCloud_VN|! @ancomv|@playerkhoa||a/2183785
+* Lần 3|06/11/2022|10+0 Rapid, Arena 2h|535|! @nguyen10t2|? @h24laval|! @HoangAnhNhi2002|? @Littlegirl2006|@Mehechanic||a/2218000
 * Lần 4|20/11/2022|3+2 Blitz, Swiss 15 vòng|459|! @lecongdat1122|- @thangthukquantrong|@phantom00308|! @nhatanhnguyen1002|@PhuongLmao||/3535839
 * Lần 5|27/11/2022|5+0 Chess960, Swiss 12 vòng|485|! @lecongdat1122|@GMTranHung|@vvhung|! @hackertuoilon|- @Tungngonlu||/3548920
 * Lần 6|04/12/2022|5+2 Blitz, Arena 2h|662|- $maynho-04|$DTHtiendung2010|$danieltony3555|$haloc|$nguyensyduc||%tournament/2E6v5uld
