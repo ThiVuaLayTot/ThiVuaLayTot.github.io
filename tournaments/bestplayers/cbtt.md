@@ -1,13 +1,13 @@
 Hạng|Kỳ thủ|Các lần đạt giải
 ---|---|---
 #1|@TokudaShigeoJr|🥇(Tháng 12.2023),🥉(Tháng 3.2024),🥈(Tháng 4.2024),🥇(Tháng 5.2024)
-#2|@thuytran2026|🥉(Tháng 5.2024), 🥈(Tháng 6.2024)
+#2|@Thuytrannonumber|🥉(Tháng 5.2024), 🥈(Tháng 6.2024)
 #3|@MrKaitoJay|🥇(Tháng 11.2023)
 #3|@QuynhQT|🥇(Tháng 1.2024)
 #3|@ctp3101|🥇(Tháng 3.2024)
 #3|@Nguyen_Si_Trong_Duc|🥇(Tháng 4.2024)
 #3|@buhinjvmckdnjfv|🥇(Tháng 6.2024)
-#4|@Moitapchoi_k15|🥈(Tháng 11.2023)
+#4|@Ngtro_fake|🥈(Tháng 11.2023)
 #4|@anhtuanka42007|🥈(Tháng 12.2023)
 #4|@GMTranHung|🥈(Tháng 1.2024)
 #4|@AgileSquirrel10|🥈(Tháng 3.2024)
