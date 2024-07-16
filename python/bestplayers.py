@@ -32,18 +32,22 @@ css_styles = """<!DOCTYPE html>
         </div>
         <ul class="navbar-nav">
             <li>
-                <a href="https://thivualaytot.github.io" title="Trang chủ TVLT">Trang chủ</a>
+                <a href="https://thivualaytot.github.io" title="Trang chủ"><i class="bx bxs-home"></i></a>
             </li>
             <li>
-                <a href="https://thivualaytot.github.io/blog" title="Các thông báo/bài đăng quan trọng của TVLT">Thông báo/Tin tức</a>
+                <a href="https://thivualaytot.github.io/blog" title="Các thông báo/bài đăng quan trọng của TVLT">
+                    <i class="bx bxs-news"></i>Thông báo/Tin tức
+                </a>
             </li>
             <li>
-                <a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Vlogs</a>
+                <a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">
+                    <i class="bx bx-play-circle"></i>Vlogs
+                </a>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/social" title="Social media links">Xã hội
-                      <i class="bx bx-caret-down"></i>
+                    <a class="dropbtn" href="https://thivualaytot.github.io/social" title="Social media links">
+                        <i class="bx bx-link"></i>Truyền thông <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
                         <a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a>
@@ -67,11 +71,11 @@ css_styles = """<!DOCTYPE html>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn, active" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu
-                      <i class="bx bx-caret-down"></i>
+                    <a class="dropbtn, active" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">
+                        <i class="bx bx-list-plus"></i>Danh sách/Tài liệu <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a class="active" href="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
+                        <a href="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
                         <a href="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
                         <a href="https://chess.com/clubs/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess">Danh sách các tài khoản vi phạm</a>
                     </div>
@@ -79,8 +83,8 @@ css_styles = """<!DOCTYPE html>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">Leaders
-                      <i class="bx bx-caret-down"></i>
+                    <a class="dropbtn" href="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">
+                        <i class="bx bx-shield-quarter"></i>Leaders <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
                         <a href="https://thivualaytot.github.io/leaders#admins">Administrators/Các Quản trị viên</a>

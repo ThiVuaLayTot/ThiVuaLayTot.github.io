@@ -47,7 +47,7 @@ css_styles = """<!DOCTYPE html>
             <li>
                 <div class="dropdown">
                     <a class="dropbtn" href="https://thivualaytot.github.io/social" title="Social media links">
-                        <i class="bx bx-link"></i>Xã hội <i class="bx bx-caret-down"></i>
+                        <i class="bx bx-link"></i>Truyền thông <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
                         <a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a>
