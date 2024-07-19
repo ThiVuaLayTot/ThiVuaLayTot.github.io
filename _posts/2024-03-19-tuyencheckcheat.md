@@ -14,4 +14,4 @@ Nghiêm cấm các hành vi vi phạm luật. Mục đích là giúp cho các gi
 
 Nếu bạn muốn gia nhập thì hãy điền vào biểu mẫu sau: <a href="https://forms.gle/yqnXAJBHuuJ7PPsp9">https://forms.gle/yqnXAJBHuuJ7PPsp9</a>
 
-<p align="center"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSflgWRBWaLcJmt4XFllLdiF2FztPvMRZS7H7iiiJvPHjtEEhA/viewform?embedded=true" width="1403" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe></p>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSflgWRBWaLcJmt4XFllLdiF2FztPvMRZS7H7iiiJvPHjtEEhA/viewform?embedded=true" align="center" width="1403" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
