@@ -6,7 +6,7 @@ title: Thông báo sự kiện hàng tháng Chiến Trường Thí Quân
 {{ page.title }}
 ================
 
-<i>Đây là một giải được tạo bởi <a href="thivualaytot.github.io/leaders#admins">Admin dinhhoangviet</a>.</i>
+<i>Đây là một giải được tạo bởi <a href="https//thivualaytot.github.io/leaders#admins">Admin dinhhoangviet</a>.</i>
 
 Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới được tổ chức hàng tháng với thể lệ như sau:
 
@@ -20,8 +20,6 @@ Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới đư
 
 🍀Bạn phải tham gia ít nhất 2 giải trở lên của sự kiện tháng đó thì mới có thể được nhận giải.
 
-<br<hr><br>
-
 <b>Giải thưởng</b>
 
 Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ được nhận giải thưởng cho 3 người có tổng điểm cao nhất là:
@@ -30,11 +28,9 @@ Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ đư�
 
 <u>Lưu ý tuân thủ theo các luật lệ sau nếu không sẽ không được nhận giải và thậm chí bị phạt theo luật:</u>
 
-🔴 Không vi phạm <a href="https://chess.com/news/luat-club-demo">Luật câu lạc bộ và</a> và <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot">Luật Fair Play</a>.
+🔴 Không vi phạm <a href="https://chess.com/news/luat-club-demo">Luật câu lạc bộ</a> và <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot">Luật Fair Play</a>.
 
 🟢 Sau khi kết thúc sự kiện tháng bạn phải làm theo cách nhận giải phía dưới.
-
-<br><hr><br>
 
 <b><i> Cách nhận giải</i></b>: Điền vào form này để có thể nhận giải: <a href="https://forms.gle/cVX7JNKAfqjxEnj58">https://forms.gle/cVX7JNKAfqjxEnj58</a>
 
