@@ -1,10 +1,9 @@
 ---
 layout: post
 title: Thông báo sự kiện hàng tháng Chiến Trường Thí Quân
-image: /images/cttq.jpg
 ---
 
-<img src="/images/cttq.jpg">
+<img src="https://images.chesscomfiles.com/uploads/v1/article/30931.8c32bcee.668x375o.aebb5cada5c0.png" width="500" height="600">
 
 {{ page.title }}
 ================
