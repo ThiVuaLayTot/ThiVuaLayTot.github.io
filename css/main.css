@@ -240,7 +240,7 @@ h2 {
 }
 
 h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 600;
     opacity: 0;
     animation: leftSideAni 1s ease forwards;
@@ -646,7 +646,7 @@ hr {
     height: 450px;
 }
 
-.list-post-title .img {
+.list-post-title img {
     text-align: center;
 }
 
