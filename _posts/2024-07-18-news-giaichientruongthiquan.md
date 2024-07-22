@@ -1,11 +1,10 @@
 ---
 layout: post
 title: Thông báo sự kiện hàng tháng Chiến Trường Thí Quân
-image: /images/cttq.jpg
 ---
 
 {{ page.title }}
-================
+
 <img src="/images/cttq.jpg">
 
 <i>Đây là một giải được tạo bởi <a href="https://thivualaytot.github.io/leaders#admins">an Admin</a>.</i>
