@@ -3,10 +3,10 @@ layout: post
 title: Thông báo sự kiện hàng tháng Chiến Trường Thí Quân
 ---
 
-{{ page.title }}
+{{ ![page](https://www.bing.com/images/create/a-background-image-of-chess-has-the-word-22sacrific/1-669de1eb70634f26b5f64e7e48ebab86?id=QJifmDwk2j%2f47va%2fviyb6Q%3d%3d&view=detailv2&idpp=genimg&thId=OIG4.sM6NXnQmiTy2UnS0ajeB&FORM=GCRIDP&mode=overlay).title }}
 ================
 
-<i>Đây là một giải được tạo bởi <a href="https//thivualaytot.github.io/leaders#admins">Admin dinhhoangviet</a>.</i>
+<i>Đây là một giải được tạo bởi <a href="https://thivualaytot.github.io/leaders#admins">an Admin</a>.</i>
 
 Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới được tổ chức hàng tháng với thể lệ như sau:
 
