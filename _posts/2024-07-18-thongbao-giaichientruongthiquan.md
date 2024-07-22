@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Thông báo sự kiện hàng tháng Chiến Trường Thí Quân
-imagine: https://th.bing.com/th/id/OIG4.OGmvz7stS0wKR.O3C.gm
+imagne: https://th.bing.com/th/id/OIG4.OGmvz7stS0wKR.O3C.gm
 ---
 
-{{ page.title }}
+{{ page.imagne }}{{ page.title }}
 ================
 
 <i>Đây là một giải được tạo bởi <a href="https://thivualaytot.github.io/leaders#admins">an Admin</a>.</i>
