@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Social media links - Thí Vua Lấy Tốt
+title: Social media links
 ---
 
-<h1 align="center">SOCIAL MEDIA LINKS</h1>
-<br>
+{{ page.title }}
+================
+
 <h3 align="center">Các Tài Khoản Mạng Xã Hội Của TungJohn</h3>
 <div id="social" class="button">
     <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><i

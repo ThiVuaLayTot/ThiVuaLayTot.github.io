@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Các thông báo và tin tức của TVLT
+title: Các thông báo quan trọng và các bài đăng nổi bật
 ---
 
-<div>
-  <h1>Các thông báo quan trọng và các bài đăng nổi bật</h1>
+{{ page.title }}
+================
+
   <p align="right"><a href="https://thivualaytot.github.io/atom.xml"><i id="moon" class="bx bx-rss" title="Atom RSS"></i></a></p>
   <ol class="posts">
     {% for post in site.posts %}
@@ -15,4 +16,3 @@ title: Các thông báo và tin tức của TVLT
     <li><span>5 Mar, 2024</span><strong> &raquo; </strong><a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" target="_blank" title="Nhấn vào để đọc Luật trên Chess.com">Chính sách Chơi Công Bằng chính thức của Thí Vua Lấy Tốt</a></li>
     <li><span>Đã kết thúc</span><strong> &raquo; </strong><a href="https://chess.com/news/thong-bao-tuyen-dieu-phoi-vien-cho-cau-lac-bo-lan-2" target="_blank" title="Nhấn vào để đọc bài này trên Chess.com">Thông báo tuyển điều phối viên cho câu lạc bộ</a></li>
   </ol>
-</div>

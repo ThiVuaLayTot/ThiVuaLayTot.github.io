@@ -3,7 +3,9 @@ layout: default
 title: Ban cán sự của Thí Vua Lấy Tốt
 ---
 
-<h1 align="center">Các thành viên của tổ chức</h1>
+{{ page.title }}
+================
+
 <div id="owner" class="pos_header">
     <h3><a href="#owner" title="Người sáng lập Thí Vua Lấy Tốt"><span class="bx bxs-user-check"></span>Chủ kênh</a></h3>
     <div class="content list people">
@@ -96,7 +98,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
         </div>
         <div class="list-item-people">
             <div class="list-post-title" title="Quản trị viên Đinh Hoàng Việt">
-                <div>
+                <div class="avatar">
                     <a href="https://chess.com/member/m-dinhhoangviet" target="_blank"><img
                             class="profile-thumbnail"
                             src="https://avatars.githubusercontent.com/u/134517889"></a>
@@ -109,7 +111,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                     <p><b>🟢</b> Đang hoạt động</p>
                     <p><b>Chức vụ: </b>Quản Trị Viên, Phát triển web, Phát triển club, Quản lý giải <a href="tournaments/tournaments/cttq">Chiến Trường Thí Quân</a></p>
                 </div>
-                <div class="button">
+                <div class="button, btn">
                     <a href="https://lichess.org/@/M_DinhHoangViet" target="_blank"
                         title="Tài khoản Lichess của Đinh Hoàng Việt"><img src="/images/lichesslogo.png"></a>
                     <a href="https://chess.com/member/m-dinhhoangviet" target="_blank"

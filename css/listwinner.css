@@ -6,8 +6,7 @@
     font-size: 16px;
 }
 
-.styled-table th,
-.styled-table td {
+.styled-table th, .styled-table td {
     border: 1px solid #00e11e;
     padding: 8px;
     font-size: 14px;
@@ -19,17 +18,16 @@
 
 .styled-table tr:hover {
     background-color: rgba(101, 121, 132, 0.437);
-    cursor: pointer;
 }
 
 .styled-table td:hover {
     background-color: #6d6c865b;
-    cursor: pointer;
 }
 
 .styled-table a {
     background-color: #f6043ce6;
     cursor: pointer;
+    animation: endSideAni 1s ease forwards;
 }
 
 .styled-table a:hover {
