@@ -1,12 +1,12 @@
 ---
 layout: post
 title: Thông báo sự kiện hàng tháng Chiến Trường Thí Quân
-imagne: 
+image: /images/cttq.jpg
 ---
 
 {{ page.title }}
 ================
-![alt text](../images/sac_cttv.jpg)
+<img src="/images/cttq.jpg">
 
 <i>Đây là một giải được tạo bởi <a href="https://thivualaytot.github.io/leaders#admins">an Admin</a>.</i>
 
@@ -34,6 +34,8 @@ Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ đư�
 
 🟢 Sau khi kết thúc sự kiện tháng bạn phải làm theo cách nhận giải phía dưới.
 
-<b><i> Cách nhận giải</i></b>: Điền vào form này để có thể nhận giải: <a href="https://forms.gle/cVX7JNKAfqjxEnj58">https://forms.gle/cVX7JNKAfqjxEnj58</a>
+<b><i> Cách nhận giải</i></b>: Điền vào form này để có thể nhận giải: <a href="https://forms.gle/cVX7JNKAfqjxEnj58">https://forms.gle/cVX7JNKAfqjxEnj58</a>.
+
+Xem kết quả của các tháng <a href="/tournaments/tournaments/cttq">tại đây</a>.
 
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScVQFk5zuU1UC6GYHV17jTmDuv4uEkrkgH9Fxdc9C1s9r6_aA/viewform?embedded=true" width="1000" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>

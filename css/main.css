@@ -665,23 +665,18 @@ hr {
 }
 
 .loader {
-    width: 5px;
-    height: 5px;
-    border: 5px solid;
-    border-color: #ff5900 transparent;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+   width: 24px;
+   height: 24px;
+   border-radius: 50%;
+   background: conic-gradient(#0000 10%,#4996f2);
+   -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3.8px),#000 0);
+   animation: spinner-zp9dbg 1s infinite linear;
 }
 
-@keyframes rotation {
-    0% {
-        transform: rotate(143deg);
-    }
-    100% {
-        transform: rotate(1403deg);
-    }
+@keyframes spinner-zp9dbg {
+   to {
+      transform: rotate(1turn);
+   }
 }
 
 .verified {
