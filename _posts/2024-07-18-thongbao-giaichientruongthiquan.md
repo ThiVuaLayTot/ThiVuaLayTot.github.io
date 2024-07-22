@@ -1,9 +1,10 @@
 ---
 layout: post
 title: Thông báo sự kiện hàng tháng Chiến Trường Thí Quân
+imagine: https://th.bing.com/th/id/OIG4.OGmvz7stS0wKR.O3C.gm
 ---
 
-{{ ![page](https://www.bing.com/images/create/a-background-image-of-chess-has-the-word-22sacrific/1-669de1eb70634f26b5f64e7e48ebab86?id=QJifmDwk2j%2f47va%2fviyb6Q%3d%3d&view=detailv2&idpp=genimg&thId=OIG4.sM6NXnQmiTy2UnS0ajeB&FORM=GCRIDP&mode=overlay).title }}
+{{ page.title }}
 ================
 
 <i>Đây là một giải được tạo bởi <a href="https://thivualaytot.github.io/leaders#admins">an Admin</a>.</i>
