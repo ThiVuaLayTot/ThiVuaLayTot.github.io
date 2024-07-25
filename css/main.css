@@ -702,7 +702,7 @@ hr {
 }
 
 .card {
-    max-width: 400px;
+    max-width: 600px;
     max-height: 555px;
     transition: box-shadow 150ms;
     background: var(--c-bg-zebra);
@@ -717,7 +717,7 @@ hr {
 
 .card__image {
     width: 100%;
-    height: auto;
+    height: 400px;
     opacity: .7;
     transition: opacity 150ms
 }
