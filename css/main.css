@@ -262,6 +262,11 @@ p {
     animation-delay: .2s;
 }
 
+i {
+    opacity: 0;
+    animation: leftSideAni 1s ease forwards;
+}
+
 .button {
     display: flex;
     justify-content: center;
@@ -696,13 +701,50 @@ hr {
     }
 }
 
-.test0 {
-    padding: 0;
-    height: 100%;
-    .test1 {
-        height: 70%;
-    }
-    .test2 {
-        height: 30%;
-    }
+.card {
+    max-width: 400px;
+    max-height: 555px;
+    transition: box-shadow 150ms;
+    background: var(--c-bg-zebra);
+    color: var(--c-font);
+    position: relative;
+    direction: ltr;
+    text-align: center;
+    display: inline-block;
+    padding: 5px;
+    margin-bottom: 1em;
+    border: 2px solid rgb(100, 150, 250)
+}
+
+.card__image {
+    width: 100%;
+    height: auto;
+    opacity: .7;
+    transition: opacity 150ms
+}
+
+.card__live {
+    flex: 1;
+    color: var(--c-live);
+    font-weight: bold
+}
+
+.card__title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    margin: .2em 0 .3em 0;
+    font-weight: 30px;
+    color: var(--c-font-clearer);
+    font-size: 1em
+}
+
+.card__dav {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--c-font-dim)
 }
