@@ -5,12 +5,10 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
 
 <h1>Các thông báo quan trọng và các bài đăng nổi bật</h1>
   <p align="right"><a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a></p>
-  <ol class="posts">
     {% for post in site.posts %}
-    <a href="{{ post.url }}"><img src="./images/{{ post.date }}.png" class="card__image"><h4 class="card__title">{{ post.title }}</h4><i class="card__dav">{{ post.date | date_to_string }}</i></a>
+    <a href="{{ post.url }}" class="card"><img src="./images/{{ post.date }}.png" class="card__image"><h4 class="card__title">{{ post.title }}</h4><i class="card__dav">{{ post.date | date_to_string }}</i></a>
     {% endfor %}
-    <a href="/quotes"><img src="" class="card__image"><h4 class="card__title">Các câu nói nổi tiếng về cờ vua</h4><i class="card__dav">1 May, 2024</i></a>
-    <a href="https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024" target="_blank"><img src="" class="card__image"><h4 class="card__title">Luật câu lạc bộ Thí Vua Lấy Tốt chính thức</h4><i class="card__dav">16 Feb, 2023</i></a>
-    <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" target="_blank"><img src="" class="card__image"><h4 class="card__title">Chính sách Chơi Công Bằng chính thức của Thí Vua Lấy Tốt</h4><i class="card__dav">5 Mar, 2024</i></a>
-    <a href="https://chess.com/news/thong-bao-tuyen-dieu-phoi-vien-cho-cau-lac-bo-lan-2" target="_blank"><img src="" class="card__image"><h4 class="card__title">Thông báo tuyển điều phối viên cho câu lạc bộ</h4><i class="card__dav">Đã kết thúc</i></a>
-  </ol>
+    <a href="/quotes" class="card"><img src="" class="card__image"><h4 class="card__title">Các câu nói nổi tiếng về cờ vua</h4><i class="card__dav">1 May, 2024</i></a>
+    <a href="https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024" target="_blank" class="card"><img src="https://images.chesscomfiles.com/uploads/v1/news/1447745.59c40bc3.668x375o.d96fb1f62f12.png" class="card__image"><h4 class="card__title">Luật câu lạc bộ Thí Vua Lấy Tốt chính thức</h4><i class="card__dav">16 Feb, 2023</i></a>
+    <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" class="card" target="_blank"><img src="" class="card__image"><h4 class="card__title">Chính sách Chơi Công Bằng chính thức của Thí Vua Lấy Tốt</h4><i class="card__dav">5 Mar, 2024</i></a>
+    <a href="https://chess.com/news/thong-bao-tuyen-dieu-phoi-vien-cho-cau-lac-bo-lan-2" class="card" target="_blank"><img src="" class="card__image"><h4 class="card__title">Thông báo tuyển điều phối viên cho câu lạc bộ</h4><i class="card__dav">Đã kết thúc</i></a>
