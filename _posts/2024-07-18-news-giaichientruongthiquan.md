@@ -8,7 +8,7 @@ title: Sự kiện hàng tháng Chiến Trường Thí Quân
 {{ page.title }}
 ================
 
-<i>Hãy tham gia câu lạc bộ trên 2 nền tảng cờ vua sau để có thể tham gia các sự kiện: <a href="https://link.chess.com/club/0CVQh6">Chess.com</a> & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
+<i>Hãy tham gia câu lạc bộ trên 2 nền tảng cờ vua sau để có thể tham gia các sự kiện: [Chess.com](https://link.chess.com/club/0CVQh6) & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
 
 Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới được tổ chức hàng tháng với thể lệ như sau:
 
@@ -18,7 +18,7 @@ Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới đư
 
 🍀Các giải thường sẽ được tổ chức vào tối thứ 7 và chủ nhật hàng tuần (trừ tuần cuối cùng của tháng và nếu không có các sự kiện khác).
 
-🍀Các giải trong sự kiện sẽ được luân phiên thay đổi tổ chức theo các biến thể cờ vua khác nhau trên <a href="https://chess.com/article/view/chess-variants" target="_blank">Chess.com</a> và <a href="https://lichess.org/variant" target="_blank">Lichess</a>.
+🍀Các giải trong sự kiện sẽ được luân phiên thay đổi tổ chức theo các biến thể cờ vua khác nhau trên [Chess.com](https://chess.com/article/view/chess-variants) và [Lichess](https://lichess.org/variant).
 
 🍀Bạn phải tham gia ít nhất 2 giải trở lên của sự kiện tháng đó thì mới có thể được nhận giải.
 
@@ -30,15 +30,15 @@ Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới đư
 
 Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ được nhận giải thưởng cho 3 người có tổng điểm cao nhất là:
 
-<strong><a href="https://chess.com/membership" target="_blank">💎 1 tháng Tư cách thành viên kim cương Chess.com</a></strong>
+<strong>[💎 1 tháng Tư cách thành viên kim cương Chess.com](https://chess.com/membership)</strong>
 
 <u>Lưu ý tuân thủ theo các luật lệ sau nếu không sẽ không được nhận giải và thậm chí bị phạt theo luật:</u>
 
-🔴 Không vi phạm <a href="https://chess.com/news/luat-club-demo" target="_blank">Luật câu lạc bộ</a> và <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" target="_blank">Luật Fair Play</a>.
+🔴 Không vi phạm [Luật câu lạc bộ](https://chess.com/news/luat-club-demo) và [Luật Fair Play](https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot).
 
 🟢 Sau khi kết thúc sự kiện tháng bạn phải làm theo cách nhận giải phía dưới.
 
-<b><i> Cách nhận giải</i></b>: Điền vào form này để có thể nhận giải: <a href="https://forms.gle/cVX7JNKAfqjxEnj58">https://forms.gle/cVX7JNKAfqjxEnj58</a>.
+<b><i> Cách nhận giải</i></b>: Điền vào form này để có thể nhận giải: [https://forms.gle/cVX7JNKAfqjxEnj58](https://forms.gle/cVX7JNKAfqjxEnj58).
 
 Xem kết quả của các tháng <a href="/tournaments/tournaments/cttq">tại đây</a>.
 

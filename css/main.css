@@ -718,12 +718,6 @@ hr {
     transition: opacity 150ms
 }
 
-.card__live {
-    flex: 1;
-    color: var(--c-live);
-    font-weight: bold
-}
-
 .card__title {
     display: -webkit-box;
     -webkit-line-clamp: 2;
