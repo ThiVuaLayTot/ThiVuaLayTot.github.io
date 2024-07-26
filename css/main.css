@@ -262,11 +262,6 @@ p {
     animation-delay: .2s;
 }
 
-i {
-    opacity: 0;
-    animation: leftSideAni 1s ease forwards;
-}
-
 .button {
     display: flex;
     justify-content: center;
@@ -703,20 +698,21 @@ hr {
 
 .card {
     width: 500px;
-    height: 375px;
+    height: 400px;
     transition: box-shadow 150ms;
     background: var(--c-bg-zebra);
     color: var(--c-font);
     position: relative;
     direction: ltr;
     display: inline-block;
+    text-align: center;
     padding: 5px;
     margin-bottom: 1em;
     border: 2px solid rgb(100, 150, 250)
 }
 
 .card__image {
-    width: 475px;
+    width: 485px;
     height: 309px;
     opacity: .7;
     transition: opacity 150ms
@@ -734,10 +730,14 @@ hr {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     margin: .2em 0 .3em 0;
-    text-align: center;
-    font-weight: 30px;
+    font-weight: bold;
     color: var(--c-font-clearer);
-    font-size: 1em
+    font-size: 1.2em
+}
+
+.card__title a {
+    background: #F7086C;
+    background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
 }
 
 .card__dav {
@@ -747,5 +747,6 @@ hr {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: right;
-    color: var(--c-font-dim)
+    color: var(--c-font-dim);
+    font-size: 10px
 }
