@@ -701,7 +701,6 @@ hr {
     height: 400px;
     transition: box-shadow 150ms;
     background: var(--c-bg-zebra);
-    color: var(--c-font);
     position: relative;
     direction: ltr;
     display: inline-block;
