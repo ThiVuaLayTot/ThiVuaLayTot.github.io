@@ -692,7 +692,7 @@ hr {
         display: grid;
         margin-left: 3rem;
         grid-template-columns: 431px 555px 600px;
-        grid-template-rows: 250px;
+        grid-template-rows: auto;
     }
 }
 
@@ -700,7 +700,7 @@ hr {
     width: 500px;
     height: 400px;
     transition: box-shadow 150ms;
-    background: var(--c-bg-zebra);
+    background: #3370ee0d;
     position: relative;
     direction: ltr;
     display: inline-block;

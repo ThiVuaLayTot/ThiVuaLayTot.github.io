@@ -20,9 +20,7 @@ Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới đư
 
 🍀Bạn phải tham gia ít nhất 2 giải trở lên của sự kiện tháng đó thì mới có thể được nhận giải.
 
-<h3>Lịch tổ chức theo từng biến thể</h3>
-
-1. Tiêu chuẩn -> 2. 3-Check -> 3. [Antichess](https://lichess.org/variant/antichess) -> 4. [Bughouse](https://chess.com/article/chess-variants#bughouse) -> 5. [Chess960](https://chess.com/article/chess-variants#Chess960) -> 6. [Crazyhouse](https://chess.com/article/chess-variants#crazyhouse) -> 7. [Atomic](https://lichess.org/variant/atomic) -> 8. [King of the Hill](https://chess.com/article/chess-variants#KOTH) -> 9. [Horde](https://lichess.org/variant/horde) -> 10. [Khai cuộc](https://chess.com/openings) -> 11. [Racing Kings](https://lichess.org/variant/racingKings)
+<h3>Lịch tổ chức theo từng biến thể</h3>: 1. Tiêu chuẩn -> 2. [3-Check](https://lichess.org/variant/threeCheck) -> 3. [Antichess](https://lichess.org/variant/antichess) -> 4. [Bughouse](https://chess.com/article/chess-variants#bughouse) -> 5. [Chess960](https://chess.com/article/chess-variants#Chess960) -> 6. [Crazyhouse](https://chess.com/article/chess-variants#crazyhouse) -> 7. [Atomic](https://lichess.org/variant/atomic) -> 8. [King of the Hill](https://chess.com/article/chess-variants#KOTH) -> 9. [Horde](https://lichess.org/variant/horde) -> 10. [Khai cuộc](https://chess.com/openings) -> 11. [Racing Kings](https://lichess.org/variant/racingKings)
 
 <h2>Giải thưởng</h2>
 
