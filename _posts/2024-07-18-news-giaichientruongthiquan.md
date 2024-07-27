@@ -22,7 +22,7 @@ Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới đư
 
 <h3>Lịch tổ chức theo từng biến thể</h3>
 
-1. Tiêu chuẩn -> 2. 3-Check -> 3. Antichess -> 4. Bughouse -> 5. Chess960 -> 6. Crazyhouse -> 7. Atomic -> 8. King of the Hill -> 9. Horde -> 10. Khai cuộc -> 11. Racing Kings
+1. Tiêu chuẩn -> 2. 3-Check -> 3. [Antichess](https://lichess.org/variant/antichess) -> 4. [Bughouse](https://chess.com/article/chess-variants#bughouse) -> 5. [Chess960](https://chess.com/article/chess-variants#Chess960) -> 6. [Crazyhouse](https://chess.com/article/chess-variants#crazyhouse) -> 7. [Atomic](https://lichess.org/variant/atomic) -> 8. [King of the Hill](https://chess.com/article/chess-variants#KOTH) -> 9. [Horde](https://lichess.org/variant/horde) -> 10. [Khai cuộc](https://chess.com/openings) -> 11. [Racing Kings](https://lichess.org/variant/racingKings)
 
 <h2>Giải thưởng</h2>
 
@@ -32,12 +32,12 @@ Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ đư�
 
 <u>Lưu ý tuân thủ theo các luật lệ sau nếu không sẽ không được nhận giải và thậm chí bị phạt theo luật:</u>
 
-🔴 Không vi phạm [Luật câu lạc bộ](https://chess.com/news/luat-club-demo) và [Luật Fair Play](https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot).
+🔴 Không vi phạm [Luật câu lạc bộ](https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024) và [Luật Fair Play](https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot).
 
 🟢 Sau khi kết thúc sự kiện tháng bạn phải làm theo cách nhận giải phía dưới.
 
 <b><i> Cách nhận giải</i></b>: Điền vào form này để có thể nhận giải: [https://forms.gle/cVX7JNKAfqjxEnj58](https://forms.gle/cVX7JNKAfqjxEnj58).
 
-Xem kết quả của các tháng <a href="/tournaments/tournaments/cttq">tại đây</a>.
+Xem kết quả của các tháng <a href="/events/tournaments/cttq">tại đây</a>.
 
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScVQFk5zuU1UC6GYHV17jTmDuv4uEkrkgH9Fxdc9C1s9r6_aA/viewform?embedded=true" width="1000" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>

@@ -75,7 +75,7 @@ css_styles = """<!DOCTYPE html>
                         <i class="bx bx-list-plus"></i>Danh sách/Tài liệu <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/tournaments">Danh sách tổng hợp các giải đấu</a>
+                        <a href="https://thivualaytot.github.io/events">Danh sách tổng hợp các giải đấu</a>
                         <a href="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
                         <a href="https://chess.com/clubs/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess">Danh sách các tài khoản vi phạm</a>
                     </div>
@@ -166,7 +166,7 @@ def generate_h1_tag(filename):
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/tournaments/bestplayers/{title}">Ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/events/bestplayers/{title}">Ở đây</a>.</h2>
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 
@@ -258,7 +258,7 @@ def markdown_table_to_html(markdown_table):
     '''
     return html_table
 
-directories = ['tournaments/tournaments']
+directories = ['events/tournaments']
 
 for directory in directories:
     for filename in os.listdir(directory):
