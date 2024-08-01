@@ -613,7 +613,7 @@ hr {
 
 @keyframes spinner-zp9dbg {
    to {
-      transform: rotate(1);
+      transform: rotate(1turn);
    }
 }
 
