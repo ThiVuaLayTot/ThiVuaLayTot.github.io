@@ -202,7 +202,7 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> <span class="loader"></span></{tag}>'
             elif cell.startswith('! @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="verified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} ❌</a></{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'

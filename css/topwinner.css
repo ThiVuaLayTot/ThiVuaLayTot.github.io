@@ -27,7 +27,7 @@
 .styled-table a {
     background-color: #f6043ce6;
     opacity: 0;
-    animation: rightSideAni 1s ease forwards;
+    animation: topSideAni 1s ease forwards;
 }
 
 .styled-table a:hover {

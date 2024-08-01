@@ -22,6 +22,10 @@ Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới đư
 
 <h3>Lịch tổ chức theo từng biến thể</h3>: 1. Tiêu chuẩn -> 2. [3-Check](https://lichess.org/variant/threeCheck) -> 3. [Antichess](https://lichess.org/variant/antichess) -> 4. [Bughouse](https://chess.com/article/chess-variants#bughouse) -> 5. [Chess960](https://chess.com/article/chess-variants#Chess960) -> 6. [Crazyhouse](https://chess.com/article/chess-variants#crazyhouse) -> 7. [Atomic](https://lichess.org/variant/atomic) -> 8. [King of the Hill](https://chess.com/article/chess-variants#KOTH) -> 9. [Horde](https://lichess.org/variant/horde) -> 10. [Khai cuộc](https://chess.com/openings) -> 11. [Racing Kings](https://lichess.org/variant/racingKings)
 
+<h3>Link giải hàng tháng được cập nhật [tại forum này](https://chess.com/forum/view/link-giai-chien-truong-thi-quan).</h3>
+
+Kết quả hàng tháng được sắp xếp trên [Google Sheets](https://docs.google.com/spreadsheets/d/1vrqSTaguOmHH6go_VqZgzkPDfM8akdZc3MET1vxn96g) và được công bố kết quả của các tháng <a href="/events/tournaments/cttq">tại đây</a>.
+
 <h2>Giải thưởng</h2>
 
 Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ được nhận giải thưởng cho 3 người có tổng điểm cao nhất là:
@@ -35,7 +39,5 @@ Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ đư�
 🟢 Sau khi kết thúc sự kiện tháng bạn phải làm theo cách nhận giải phía dưới.
 
 <b><i> Cách nhận giải</i></b>: Điền vào form này để có thể nhận giải: [https://forms.gle/cVX7JNKAfqjxEnj58](https://forms.gle/cVX7JNKAfqjxEnj58).
-
-Xem kết quả của các tháng <a href="/events/tournaments/cttq">tại đây</a>.
 
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScVQFk5zuU1UC6GYHV17jTmDuv4uEkrkgH9Fxdc9C1s9r6_aA/viewform?embedded=true" width="1000" height="1403" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>

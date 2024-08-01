@@ -11,7 +11,7 @@ Hạng|Kỳ thủ|Các lần đạt giải
 #8|@MetropolitanCheckers|🥉(TVLT 20),🥇(TVLT 21)
 #9|@Mehechanic|🥈(TVLT 3),🥈(TVLT 19)
 #9|$CTHNannhhuycv2010|🥈(TVLT 9),🥈(TVLT 14)
-#9|@George-Walker-Bush|🥈(TVLT 12),🥈(TVLT Tháng 8.2023)
+#9|@NguyenAnhHuy15|🥈(TVLT 12),🥈(TVLT Tháng 8.2023)
 #10|@Cr10-goal|🥉(TVLT 8),🥈(TVLT 10)
 #10|@M-DinhHoangViet|🥈(TVLT 11),🥉(TVLT 12)
 #10|@RicacdoMilos|🥉(TVLT Tháng 6.2023),🥈(TVLT Tháng 7.2023)

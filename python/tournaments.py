@@ -218,20 +218,20 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('! @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="verified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} ❌</a></{tag}>'
             elif cell.startswith('- @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} <img class="verified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} ✅</a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('- $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} <img class="verified" src="{verified_icon}" title="Tài khoản không gian lận"></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} ✅</a></{tag}>'
             elif cell.startswith('! $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} <img class="verified" src="{unverified_icon}" title="Tài khoản gian lận"></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} ❌</a></{tag}>'
             # Dành cho các link giải
             elif cell.startswith('%'):
                 link = cell[1:]
@@ -240,14 +240,17 @@ def markdown_table_to_html(markdown_table):
                 idlink = cell[1:]
                 cell_content = f'       <{tag}><a href="{chesscom}/play/tournament/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
             elif cell.startswith('a/'):
-                idlink = cell[3:]
+                idlink = cell[2:]
                 cell_content = f'       <{tag}><a href="{chesscom}/play/arena/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
+            elif cell.startswith('f-'):
+                idlink = cell[2:]
+                cell_content = f'       <{tag}><a href="{chesscom}/forum/view/link-giai-chien-truong-thi-quan#comment-{idlink}" title="Nhấn để xem kết quả của giải này">Link!</a></{tag}>'
             elif cell.startswith('*'):
                 name = cell[2:]
-                cell_content = f'       <{tag} title="Thí Vua Lấy Tốt {name}">{name} <img class="verified" src="{verified_icon}" title="Giải chính thức"></{tag}>'
+                cell_content = f'       <{tag}>{name} ✅</{tag}>'
             elif cell.startswith('_'):
                 name = cell[2:]
-                cell_content = f'       <{tag} title="Thí Vua Lấy Tốt {name}">{name}<img class="verified" src="{unverified_icon}" title="Giải không chính thức"></{tag}>'
+                cell_content = f'       <{tag}>{name} ❌</{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
