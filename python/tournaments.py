@@ -223,13 +223,13 @@ def markdown_table_to_html(markdown_table):
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('- $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username} ✅</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username} ✅</a></{tag}>'
             elif cell.startswith('! $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username} ❌</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username} ❌</a></{tag}>'
             # Dành cho các link giải
             elif cell.startswith('%'):
                 link = cell[1:]

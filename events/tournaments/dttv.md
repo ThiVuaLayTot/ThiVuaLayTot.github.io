@@ -6,7 +6,7 @@ Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Giải nhất 🥇|Giải nh�
 * Lần 4|28/01/2023|10+5 FEN, Arena 2h|@DH1410|@luagagiaidau|@lttquoc|@Cr10-goal|@dinhtuantu1911|@M-DinhHoangViet|48|a/2415207
 * Lần 5|04/02/2023|10+5 FEN, Arena 2h|! @tranquangphat2345|@Dvg22|@vgt187|@Tony2442|@noidodahnho|! @heiulij17|94|a/2457599
 * Lần 6|11/02/2023|10+5 FEN, Arena 2h|@Dragon-Chess12|@luagagiaidau|@DH1410|@Gamekhobome|- @M-DinhHoangViet|@badaochua34|47|a/2500438
-* Lần 7|18/02/2023|¼+1 Bullet, Swiss 3 vòng|$SkUiCeVmAl|$studychess2009|$Chesslivestream2013|$M_DinhHoangViet|$minhmega2k12|Kho cống|%swiss/bfLmd9FU
+* Lần 7|18/02/2023|¼+1 Bullet, Swiss 3 vòng|$SkUiCeVmAl|$studychess2009|$Chesslivestream2013|$M_DinhHoangViet|$minhmega2k12||5|%swiss/bfLmd9FU
 * Lần 8|25/02/2023|⅙+1 Bullet, Arena 2h|@danghuutin|! @Masterbirzlt2|@M-DinhHoangViet|@duongnm2407|@Tony2442|- @nngmei|71|a/2514918
 * Lần 9|04/03/2023|5+2 FEN, Arena 2h|! @GMcuong0|@nguoibian1234|! @GMChessXuanVinh|! @anvanvuong2k11|@Walkerxvn|@adolfnguyen2008|92|a/2537060
 * Lần 10|12/03/2023|3+2 Chess960, Arena 2h|@WuanBipp|- @M-DinhHoangViet|@TranBaoAnh|! @MuLiveeechess|@sontamdong14|@BARUTA123|58|a/2570938
