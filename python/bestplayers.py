@@ -155,15 +155,14 @@ footer_style = """
 """
 
 information = """
-      <p>Nếu sau tên người dùng có: <span class="loader"></span> nghĩa là người chơi này có khả năng không được đạt giải hoặc đạt giải khác và đang chờ xác thực,<img class="verified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi đã nhận phần thưởng nhưng sau đó đã xác nhận là gian lận.</p>
-      <p>Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
+      <p>Nếu sau tên người dùng có: ❌ tức là kỳ thủ này gian lận, ✅ là kỳ thủ đã bị/tự đóng tài khoản nhưng được nhận thưởng, ❎ là kỳ thủ đã nhận giải nhưng sau đó bị xác định là gian lận.</p>
 """
 
 def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0]
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
-    h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title} nhiều nhất</h1>
+    h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title} nhiều nhất</h1>
     <h2 align="center">Bạn có thể xem danh sách các kỳ thủ đạt giải {title} <a href="https://thivualaytot.github.io/events/tournaments/{title}">Ở đây</a>.</h2>
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag

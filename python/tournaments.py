@@ -156,8 +156,8 @@ footer_style = """
 
 information = """
       <p><strong>Ghi chú:</strong> Nếu <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Chính thức"> nghĩa là giải chính thức được tổ chức bởi chủ sở hữu/quản lí giải đấu, còn <img class="verified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Không chính thức"> là giải tạo bởi một Admin khác.</p>
-      <p> Nếu sau tên người dùng có: <span class="loader"></span> nghĩa là người chơi này có khả năng không được đạt giải và đang chờ xác thực, <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png"> là người dùng bị đóng tài khoản nhưng vẫn được xác minh được nhận giải, <img class="verified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png"> là người chơi bị đóng tài khoản và xác nhận là gian lận.</p>
-      <p> Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
+      <p>Nếu sau tên người dùng có: ❌ tức là kỳ thủ này gian lận, ✅ là kỳ thủ đã bị/tự đóng tài khoản nhưng được nhận thưởng, ❎ là kỳ thủ đã nhận giải nhưng sau đó bị xác định là gian lận.</p>
+      <p>Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
       <b> Bạn có thể tìm kiếm một kỳ thủ đạt giải trong đây bằng cách sử dụng tổ hợp phím Ctrl+F (trên máy tính). Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây hay đã đổi tên tài khoản thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
 """
 
@@ -165,7 +165,7 @@ def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0]
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
-    h1_tag = f"""    <h1 align="center">Các kỳ thủ đạt giải {title}</h1>
+    h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
     <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/events/bestplayers/{title}">Ở đây</a>.</h2>
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
@@ -173,8 +173,6 @@ def generate_h1_tag(filename):
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
     lichess = 'https://lichess.org'
-    verified_icon = 'https://s3.vio.edu.vn/assets/img/correct_icon_2.png'
-    unverified_icon = 'https://s3.vio.edu.vn/assets/img/wrong_icon_2.png'
     rows = markdown_table.strip().split('\n')
     html_table = '      <table class="styled-table">\n'
     for i, row in enumerate(rows):
@@ -212,26 +210,26 @@ def markdown_table_to_html(markdown_table):
             # Dành cho tài khoản trên Chess.com
             elif cell.startswith('? @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> <span class="loader"></span></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Tài khoản Chess.com của {username}" target="_blank">{username}</a> ❎</{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('! @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} ❌</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Tài khoản Chess.com của {username}" target="_blank">{username} ❌</a></{tag}>'
             elif cell.startswith('- @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} ✅</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Tài khoản Chess.com của {username}" target="_blank">{username} ✅</a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('- $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} ✅</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username} ✅</a></{tag}>'
             elif cell.startswith('! $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username} ❌</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/@/{username}" title="Tài khoản Lichess của {username}" target="_blank">{username} ❌</a></{tag}>'
             # Dành cho các link giải
             elif cell.startswith('%'):
                 link = cell[1:]
