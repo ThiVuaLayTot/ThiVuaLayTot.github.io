@@ -35,7 +35,7 @@ Hạng|Kỳ thủ|Các lần đạt giải
 #12|@Crab1234|🥇(TVLT Tháng 11.2023)
 #12|@Krinit_6174|🥇(TVLT Tháng 12.2023)
 #12|@Mr_Dainn|🥇(TVLT Chào Xuân Giáp Thìn 2024)
-#12|Champsfuturetth2k5|🥇(TVLT Tháng 3.2024)
+#12|@Champsfuturetth2k5|🥇(TVLT Tháng 3.2024)
 #13|@Luffy_murom|🥈(TVLT 1)
 #13|@phongdeptraiqua|🥈(TVLT 2)
 #13|@thangthukquantrong|🥈(TVLT 4)

@@ -692,8 +692,8 @@ hr {
 }
 
 .card {
-    width: 500px;
-    height: 400px;
+    width: 410px;
+    height: 300px;
     transition: box-shadow 150ms;
     background: #3370ee0d;
     position: relative;
@@ -706,8 +706,8 @@ hr {
 }
 
 .card__image {
-    width: 485px;
-    height: 309px;
+    width: 400px;
+    height: 250px;
     opacity: .7;
     transition: opacity 150ms
 }
