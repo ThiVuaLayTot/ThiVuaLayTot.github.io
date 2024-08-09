@@ -693,7 +693,7 @@ hr {
 
 .card {
     width: 410px;
-    height: 300px;
+    height: auto;
     transition: box-shadow 150ms;
     background: #3370ee0d;
     position: relative;
@@ -720,7 +720,7 @@ hr {
     margin: .2em 0 .3em 0;
     font-weight: bold;
     color: var(--c-font-clearer);
-    font-size: 1.2em
+    font-size: 1.1em
 }
 
 .card__title a {
