@@ -70,6 +70,57 @@ nav {
     background-color: rgba(4, 145, 232, 0.838);
     box-shadow: 0px 8px 16px 0px rgba(27, 232, 255, 0.745);
     z-index: 1;
+    ul {
+        gap: .6rem;
+        list-style-type: none;
+        background-color: transparent;
+        overflow: hidden;
+    }
+    
+    li a {
+        display: inline-block;
+        padding: .3rem 1rem;
+        color: var(--nav-text);
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 600;
+        letter-spacing: .7px;
+        border-radius: 36px;
+        line-height: 2;
+        transition: .3s;
+        opacity: 0;
+        animation: navani .3s ease forwards;
+        animation-delay: calc(.15s * var(--navAni));
+    }
+    
+    ul li a {
+        position: relative;
+    }
+    
+    ul li a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: calc(100% - 2rem);
+        height: 3px;
+        background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
+    }
+    
+    ul li a::before {
+        transform: scale(0, 1);
+        transition: transform .3s ease;
+    }
+    
+    ul li a:hover::before {
+        transform: scale(1, 1);
+    }
+    
+    li a.active, li a:hover {
+        background: #F7086C;
+        background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 }
 
 .dropdown-content a {
@@ -131,58 +182,6 @@ nav {
 .logo a {
     color: #244D61;
     text-decoration: none;
-}
-
-ul {
-    gap: .6rem;
-    list-style-type: none;
-    background-color: transparent;
-    overflow: hidden;
-}
-
-li a {
-    display: inline-block;
-    padding: .3rem 1rem;
-    color: var(--nav-text);
-    text-decoration: none;
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: .7px;
-    border-radius: 36px;
-    line-height: 2;
-    transition: .3s;
-    opacity: 0;
-    animation: navani .3s ease forwards;
-    animation-delay: calc(.15s * var(--navAni));
-}
-
-ul li a {
-    position: relative;
-}
-
-ul li a::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: calc(100% - 2rem);
-    height: 3px;
-    background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
-}
-
-ul li a::before {
-    transform: scale(0, 1);
-    transition: transform .3s ease;
-}
-
-ul li a:hover::before {
-    transform: scale(1, 1);
-}
-
-li a.active, li a:hover {
-    background: #F7086C;
-    background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 #click {
