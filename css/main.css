@@ -53,7 +53,7 @@ nav {
     padding: 1rem 0;
 }
 
-.page-header ul {
+.page-header ol {
     display: flex;
 }
 
@@ -133,7 +133,7 @@ nav {
     text-decoration: none;
 }
 
-ul {
+ol {
     gap: .6rem;
     list-style-type: none;
     background-color: transparent;
@@ -156,11 +156,11 @@ li a {
     animation-delay: calc(.15s * var(--navAni));
 }
 
-ul li a {
+ol li a {
     position: relative;
 }
 
-ul li a::before {
+ol li a::before {
     content: "";
     position: absolute;
     bottom: 0;
@@ -169,12 +169,12 @@ ul li a::before {
     background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
 }
 
-ul li a::before {
+ol li a::before {
     transform: scale(0, 1);
     transition: transform .3s ease;
 }
 
-ul li a:hover::before {
+ol li a:hover::before {
     transform: scale(1, 1);
 }
 
@@ -692,8 +692,8 @@ hr {
 }
 
 .card {
-    width: 500px;
-    height: 400px;
+    width: 410px;
+    height: auto;
     transition: box-shadow 150ms;
     background: #3370ee0d;
     position: relative;
@@ -706,8 +706,8 @@ hr {
 }
 
 .card__image {
-    width: 485px;
-    height: 309px;
+    width: 400px;
+    height: 250px;
     opacity: .7;
     transition: opacity 150ms
 }
@@ -720,7 +720,7 @@ hr {
     margin: .2em 0 .3em 0;
     font-weight: bold;
     color: var(--c-font-clearer);
-    font-size: 1.2em
+    font-size: 1.1em
 }
 
 .card__title a {

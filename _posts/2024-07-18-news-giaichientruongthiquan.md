@@ -24,7 +24,7 @@ Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới đư
 
 Link giải hàng tháng được cập nhật [tại forum này](https://chess.com/forum/view/link-giai-chien-truong-thi-quan).
 
-Kết quả hàng tháng được sắp xếp trên [Google Sheets](https://docs.google.com/spreadsheets/d/1vrqSTaguOmHH6go_VqZgzkPDfM8akdZc3MET1vxn96g) và được công bố kết quả của các tháng <a href="/events/tournaments/cttq">tại đây</a>.
+Kết quả hàng tháng được sắp xếp trên [Google Sheets](https://docs.google.com/spreadsheets/d/e/2PACX-1vTv-McrY28TZUKK5CCim-uBHyGls6pRgEx3BNePMKXNY2smuFLYelN7aw-jDoqj4cQMmUzWIprVIA9v/pubhtml) và được công bố kết quả của các tháng [tại đây](/events/tournaments/cttq).
 
 <h2>Giải thưởng</h2>
 
