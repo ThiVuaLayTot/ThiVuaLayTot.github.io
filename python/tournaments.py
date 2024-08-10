@@ -30,7 +30,7 @@ css_styles = """<!DOCTYPE html>
         <div class="logo">
             <a href="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt"><img src="/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
         </div>
-        <ul class="navbar-nav">
+        <ol class="navbar-nav">
             <li>
                 <a href="https://thivualaytot.github.io" title="Trang chủ"><i class="bx bxs-home"></i></a>
             </li>
@@ -93,7 +93,7 @@ css_styles = """<!DOCTYPE html>
                     </div>
                 </div>
             </li>
-        </ul>
+        </ol>
         <div>
             <label class="mode">
                 <input type="checkbox" id="darkModeToggle">
