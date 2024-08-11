@@ -16,7 +16,7 @@ css_styles = """<!DOCTYPE html>
     <title>Các kỳ thủ đạt giải nhiều nhất</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://thivualaytot.github.io/css/main.css">
     <link rel="stylesheet" href="https://thivualaytot.github.io/css/listwinner.css">
@@ -35,18 +35,18 @@ css_styles = """<!DOCTYPE html>
                 <a href="https://thivualaytot.github.io" title="Trang chủ"><i class="bx bxs-home"></i></a>
             </li>
             <li>
-                <a href="https://thivualaytot.github.io/blog" title="Các thông báo/bài đăng quan trọng của TVLT">
+                <a href="https://thivualaytot.github.io/blog" title="Các thông báo">
                     <i class="bx bxs-news"></i>Thông báo/Tin tức
                 </a>
             </li>
             <li>
-                <a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">
+                <a href="https://thivualaytot.github.io/vlogs" title="Các Video">
                     <i class="bx bx-play-circle"></i>Vlogs
                 </a>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/social" title="Social media links">
+                    <a class="dropbtn" href="https://thivualaytot.github.io/social">
                         <i class="bx bx-link"></i>Truyền thông <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
@@ -58,26 +58,13 @@ css_styles = """<!DOCTYPE html>
             </li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/game" title="Các trò chơi đơn giản">MiniGames
-                      <i class="bx bx-caret-down"></i>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/game/caro">Cờ Caro 3x3</a>
-                        <a href="https://thivualaytot.github.io/game/chesspursuit">ChessPursuit</a>
-                        <a href="https://thivualaytot.github.io/game/sliding">Shogi Sliding-Puzzles</a>
-                        <a href="https://thivualaytot.github.io/game/2048">2048</a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="dropdown">
-                    <a class="dropbtn, active" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">
+                    <a class="dropbtn,active" href="https://thivualaytot.github.io/lists">
                         <i class="bx bx-list-plus"></i>Danh sách/Tài liệu <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
                         <a href="https://thivualaytot.github.io/events">Danh sách tổng hợp các giải đấu</a>
                         <a href="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
-                        <a href="https://chess.com/clubs/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess">Danh sách các tài khoản vi phạm</a>
+                        <a href="https://chess.com/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess" target="_blank">Danh sách các tài khoản vi phạm</a>
                     </div>
                 </div>
             </li>
@@ -93,16 +80,26 @@ css_styles = """<!DOCTYPE html>
                     </div>
                 </div>
             </li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn" href="https://thivualaytot.github.io/contact-donate">
+                        <i class="bx-donate-blood"></i>Liên hệ & Ủng hộ<i class="bx bx-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="https://thivualaytot.github.io/contract-donate#contact">Liên hệ</a>
+                        <a href="https://thivualaytot.github.io/contract-donate#donate">Ủng hộ</a>
+                    </div>
+                </div>
+            </li>
         </ol>
         <div>
             <label class="mode">
                 <input type="checkbox" id="darkModeToggle">
                 <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
-            </label>
+            </label> 
         </div>
     </div>
-    </header>
-    <button onclick="topFunction()" id="myBtn"  title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
+</header>
 
 """
 
