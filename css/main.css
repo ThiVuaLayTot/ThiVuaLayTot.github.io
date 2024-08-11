@@ -140,7 +140,7 @@ ol {
     overflow: hidden;
 }
 
-li a {
+ol li a {
     display: inline-block;
     padding: .3rem 1rem;
     color: var(--nav-text);
@@ -178,8 +178,8 @@ ol li a:hover::before {
     transform: scale(1, 1);
 }
 
-li a.active,
-li a:hover {
+ol li a.active,
+ol li a:hover {
     background: #F7086C;
     background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
     -webkit-background-clip: text;
