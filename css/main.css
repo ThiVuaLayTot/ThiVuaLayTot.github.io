@@ -178,7 +178,8 @@ ol li a:hover::before {
     transform: scale(1, 1);
 }
 
-li a.active, li a:hover {
+li a.active,
+li a:hover {
     background: #F7086C;
     background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
     -webkit-background-clip: text;
@@ -304,14 +305,6 @@ p {
     transition: all .3s ease-in-out;
 }
 
-
-/* .detail span {
-    background: #F7086C;
-    background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-} */
-
 .images img {
     position: relative;
 }
@@ -333,11 +326,6 @@ p {
     transform: translateX(-50%);
     /* background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%); */
     /* border-radius: 6px; */
-}
-
-.images::before {
-    /* background: linear-gradient(145deg, #e2e8ec, #ffffff); */
-    /* box-shadow: 5px 5px 15px #D1D9E6, -5px -5px 15px #ffffff; */
 }
 
 .images {
@@ -602,19 +590,19 @@ hr {
 }
 
 .loader {
-   width: 24px;
-   height: 24px;
-   border-radius: 50%;
-   background: conic-gradient(#0000 10%,#4996f2);
-   -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3.8px),#000 0);
-   animation: spinner-zp9dbg 1s infinite linear;
-   display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: conic-gradient(#0000 10%, #4996f2);
+    -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 3.8px), #000 0);
+    animation: spinner-zp9dbg 1s infinite linear;
+    display: inline-block;
 }
 
 @keyframes spinner-zp9dbg {
-   to {
-      transform: rotate(1turn);
-   }
+    to {
+        transform: rotate(1turn);
+    }
 }
 
 .pos_header {
@@ -635,9 +623,15 @@ hr {
 }
 
 .list-item-people {
-    display: inline-block;
-    width: 333px;
-    height: 450px;
+    display: inline-grid;
+    width: 300px;
+    height: 543px;
+    padding: 5px;
+}
+
+.list-item-people active,
+.list-item-people a:hover {
+    border: 2px solid rgb(100 164 250 / 50%)
 }
 
 .list-post-title img {
@@ -654,7 +648,8 @@ hr {
     color: #04fa6f;
 }
 
-.list-post-title:hover .name, .list-post-title .name:hover {
+.list-post-title:hover .name,
+.list-post-title .name:hover {
     color: #fc0570;
 }
 
@@ -674,10 +669,31 @@ hr {
     border-radius: 25px;
     transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
 }
-  
+
 #myBtn:hover {
     color: #3595fc;
     background-color: #F7086C;
+}
+
+.warn {
+    height: 30px;
+    background-color: #ff0000;
+}
+
+.clickbutton {
+    margin: 2em;
+    align-items: center;
+    background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    justify-content: center;
+    line-height: 1em;
+    padding: 19px 24px;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
 }
 
 .footer {
