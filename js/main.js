@@ -58,33 +58,30 @@ function myFunction() {
     }
 }
 
+// Lấy các phần tử từ DOM
 const upButton = document.getElementById("btnDetails");
 const updateButton = document.getElementById("buttonDetails");
 const cancelButton = document.getElementById("cancel");
 const dialog = document.getElementById("typeDialog");
+
 dialog.returnValue = "typeDialog";
 
-function openCheck(dialog) {
-    if (dialog.open) {
-        console.log("Dialog open");
-    } else {
-        console.log("Dialog closed");
-    }
+// Hàm kiểm tra trạng thái của dialog và ghi log
+function openCheck() {
+    console.log(dialog.open ? "Dialog open" : "Dialog closed");
 }
 
-// Update button opens a modeless dialog
-updateButton.addEventListener("click", () => {
+function openDialog() {
     dialog.show();
-    openCheck(dialog);
-});
+    openCheck();
+}
 
-upButton.addEventListener("click", () => {
-  dialog.show();
-  openCheck(dialog);
-});
-
-// Form cancel button closes the dialog box
-cancelButton.addEventListener("click", () => {
+function closeDialog() {
     dialog.close("typeNotChosen");
-    openCheck(dialog);
-});
+    openCheck();
+}
+
+// Gán sự kiện cho các nút
+updateButton.addEventListener("click", openDialog);
+upButton.addEventListener("click", openDialog);
+cancelButton.addEventListener("click", closeDialog);

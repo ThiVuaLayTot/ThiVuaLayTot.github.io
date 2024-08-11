@@ -86,8 +86,8 @@ css_styles = """<!DOCTYPE html>
                         <i class="bx-donate-blood"></i>Liên hệ & Ủng hộ<i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/contract-donate#contact">Liên hệ</a>
-                        <a href="https://thivualaytot.github.io/contract-donate#donate">Ủng hộ</a>
+                        <a href="https://thivualaytot.github.io/contact-donate#contact">Liên hệ</a>
+                        <a href="https://thivualaytot.github.io/contact-donate#donate">Ủng hộ</a>
                     </div>
                 </div>
             </li>
