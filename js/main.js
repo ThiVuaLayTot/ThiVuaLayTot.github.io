@@ -59,29 +59,35 @@ function myFunction() {
 }
 
 // Lấy các phần tử từ DOM
-const upButton = document.getElementById("btnDetails");
 const updateButton = document.getElementById("buttonDetails");
-const cancelButton = document.getElementById("cancel");
-const dialog = document.getElementById("typeDialog");
+const upButton = document.getElementById("btnDetails");
+const callDialog = document.querySelector("#typeDialog:nth-of-type(1)");
+const donateDialog = document.querySelector("#typeDialog:nth-of-type(2)");
+const cancelCallButton = callDialog.querySelector("#cancel");
+const cancelDonateButton = donateDialog.querySelector("#cancel");
 
-dialog.returnValue = "typeDialog";
-
-// Hàm kiểm tra trạng thái của dialog và ghi log
-function openCheck() {
+// Kiểm tra trạng thái mở/đóng của dialog
+function openCheck(dialog) {
     console.log(dialog.open ? "Dialog open" : "Dialog closed");
 }
 
-function openDialog() {
-    dialog.show();
-    openCheck();
-}
+updateButton.addEventListener("click", () => {
+    callDialog.showModal();
+    openCheck(callDialog);
+});
 
-function closeDialog() {
-    dialog.close("typeNotChosen");
-    openCheck();
-}
+upButton.addEventListener("click", () => {
+    donateDialog.showModal();
+    openCheck(donateDialog);
+});
 
-// Gán sự kiện cho các nút
-updateButton.addEventListener("click", openDialog);
-upButton.addEventListener("click", openDialog);
-cancelButton.addEventListener("click", closeDialog);
+cancelCallButton.addEventListener("click", () => {
+    callDialog.close("typeNotChosen");
+    openCheck(callDialog);
+});
+
+cancelDonateButton.addEventListener("click", () => {
+    donateDialog.close("typeNotChosen");
+    openCheck(donateDialog);
+});
+
