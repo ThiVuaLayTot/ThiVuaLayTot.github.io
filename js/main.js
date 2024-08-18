@@ -58,36 +58,38 @@ function myFunction() {
     }
 }
 
-// Lấy các phần tử từ DOM
 const updateButton = document.getElementById("buttonDetails");
 const upButton = document.getElementById("btnDetails");
-const callDialog = document.querySelector("#typeDialog:nth-of-type(1)");
-const donateDialog = document.querySelector("#typeDialog:nth-of-type(2)");
-const cancelCallButton = callDialog.querySelector("#cancel");
-const cancelDonateButton = donateDialog.querySelector("#cancel");
+const callDialog = document.getElementById("callDialog"); // Dialog cho nút Gọi điện cho TungJohn
+const donateDialog = document.getElementById("donateDialog"); // Dialog cho nút Ủng hộ cho Stream của TungJohn
+const cancelCallButton = document.getElementById("cancelCall");
+const cancelDonateButton = document.getElementById("cancelDonate");
 
 // Kiểm tra trạng thái mở/đóng của dialog
 function openCheck(dialog) {
     console.log(dialog.open ? "Dialog open" : "Dialog closed");
 }
 
+// Mở dialog gọi điện cho TungJohn
 updateButton.addEventListener("click", () => {
     callDialog.showModal();
     openCheck(callDialog);
 });
 
+// Mở dialog ủng hộ cho Stream của TungJohn
 upButton.addEventListener("click", () => {
     donateDialog.showModal();
     openCheck(donateDialog);
 });
 
+// Đóng dialog gọi điện
 cancelCallButton.addEventListener("click", () => {
     callDialog.close("typeNotChosen");
     openCheck(callDialog);
 });
 
+// Đóng dialog ủng hộ
 cancelDonateButton.addEventListener("click", () => {
     donateDialog.close("typeNotChosen");
     openCheck(donateDialog);
 });
-
