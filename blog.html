@@ -6,7 +6,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
 <h1>Các thông báo quan trọng và các bài đăng nổi bật</h1>
   <h2><a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a></h2>
     {% for post in site.posts %}
-    <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image"><h4 class="card__title">{{ post.title }}</h4><i class="card__dav">{{ post.date | date_to_string }}</i></a>
+    <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image"><h4 class="card__title">{{ post.title }}</h4><i class="card__dav">{{ post.date | date:"%d-%m-20%y"  }}</i></a>
     {% endfor %}
   <h2>Các bài đăng khác</h2>
     <a href="/quotes" class="card"><img src="" class="card__image"><h4 class="card__title">Các câu nói nổi tiếng về cờ vua</h4><i class="card__dav">1 May, 2024</i></a>
