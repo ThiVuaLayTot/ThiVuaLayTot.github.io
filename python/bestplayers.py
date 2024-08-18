@@ -167,7 +167,6 @@ def generate_h1_tag(filename):
 def markdown_table_to_html(markdown_table):
     chesscom = f'https://chess.com'
     lichess = f'https://lichess.org'
-    unverified_icon = f'https://s3.vio.edu.vn/assets/img/wrong_icon_2.png'
     rows = markdown_table.strip().split('\n')
     html_table = '      <table class="styled-table">\n'
     for i, row in enumerate(rows):
@@ -195,17 +194,17 @@ def markdown_table_to_html(markdown_table):
             # Dành cho tài khoản trên Chess.com
             elif cell.startswith('? @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a> <span class="loader"></span></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a> <span class="loader"></span></{tag}>'
             elif cell.startswith('! @'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username} ❌</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} ❌</a></{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" title="Xem tài khoản Chess.com của {username}" target="_blank">{username}</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/{username}" title="Xem tài khoản Lichess của {username}" target="_blank">{username}</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username}</a></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'

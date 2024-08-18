@@ -6,19 +6,18 @@ title: Sự kiện hàng tháng Chiến Trường Thí Quân
 {{ page.title }}
 ================
 
+*Bài viết được thay đổi vào tháng 9/2024*
 <i>Hãy tham gia câu lạc bộ trên 2 nền tảng cờ vua sau để có thể tham gia các sự kiện: [Chess.com](https://link.chess.com/club/0CVQh6) & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
 
 Sự kiện <b>Chiến Trường Thí Quân</b> là một sự kiện mới được tổ chức hàng tháng với thể lệ như sau:
 
-🍀Mỗi tháng sẽ có số giải từ 2-5 giải và kết quả là tổng điểm của các giải cho nên không phải ai nhất giải này chưa chắc là sẽ được giải.
+🍀Mỗi tháng sẽ có số giải từ 2-6 giải và kết quả là tổng điểm của các giải cho nên không phải ai nhất giải này chưa chắc là sẽ được giải.
 
 🍀Các giải của sự kiện này đều được tổ chức theo thể thức Arena.
 
 🍀Các giải thường sẽ được tổ chức vào tối thứ 7 và chủ nhật hàng tuần (trừ tuần cuối cùng của tháng và nếu không có các sự kiện khác).
 
-🍀Các giải trong sự kiện sẽ được luân phiên thay đổi tổ chức theo các biến thể cờ vua khác nhau trên [Chess.com](https://chess.com/article/view/chess-variants) và [Lichess](https://lichess.org/variant).
-
-🍀Bạn phải tham gia ít nhất 2 giải trở lên của sự kiện tháng đó thì mới có thể được nhận giải.
+🍀Các giải trong sự kiện sẽ được luân phiên thay đổi tổ chức theo các biến thể cờ vua khác nhau trên [Chess.com](https://chess.com/article/view/chess-variants) và [Lichess](https://lichess.org/variant) (Chủ yếu là cờ tiêu chuẩn, khai cuộc và Chess960).
 
 <h3>Lịch tổ chức theo từng biến thể:</h3> 1. Tiêu chuẩn -> 2. [3-Check](https://lichess.org/variant/threeCheck) -> 3. [Antichess](https://lichess.org/variant/antichess) -> 4. [Bughouse](https://chess.com/article/chess-variants#bughouse) -> 5. [Chess960](https://chess.com/article/chess-variants#Chess960) -> 6. [Crazyhouse](https://chess.com/article/chess-variants#crazyhouse) -> 7. [Atomic](https://lichess.org/variant/atomic) -> 8. [King of the Hill](https://chess.com/article/chess-variants#KOTH) -> 9. [Horde](https://lichess.org/variant/horde) -> 10. [Khai cuộc](https://chess.com/openings) -> 11. [Racing Kings](https://lichess.org/variant/racingKings)
 
@@ -28,7 +27,7 @@ Kết quả hàng tháng được sắp xếp trên [Google Sheets](https://docs
 
 <h2>Giải thưởng</h2>
 
-Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ được nhận giải thưởng cho 3 người có tổng điểm cao nhất là:
+Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ được nhận giải thưởng cho 2 người có tổng điểm cao nhất là:
 
 <strong>[💎 1 tháng Tư cách thành viên kim cương Chess.com](https://chess.com/membership)</strong>
 
