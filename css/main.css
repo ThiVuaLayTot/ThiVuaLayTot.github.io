@@ -676,8 +676,21 @@ hr {
 }
 
 .warn {
-    height: 30px;
-    background-color: #ff0000;
+    height: 300px;
+    background-color: red;
+    .click {
+        margin: 2em;
+        align-items: center;
+        background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #1ef03a);
+        border: 0;
+        border-radius: 8px;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        box-sizing: border-box;
+        justify-content: center;
+        line-height: 1em;
+        padding: 19px 24px;
+        touch-action: manipulation;
+    }
 }
 
 .clickbutton {
