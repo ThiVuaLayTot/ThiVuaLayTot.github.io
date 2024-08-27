@@ -1,5 +1,6 @@
 Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Số kì thủ|Giải nhất 🥇|Giải nhì 🥈|Giải ba 🥉|Giải tư 🏅|Giải năm 🎖️|Giải may mắn 🌟|Link giải
 ---|---|---|---|---|---|---|---|---|---
+* Tháng 8.2024|07/08/2024|3+1 Blitz, Swiss 11 vòng|324|@Huongkhiet|! @Bright2021|! @PhnTung|@NghiaVoNang|@cuphantuo||/5011291
 * Tháng 7.2024|07/07/2024|3+1 Blitz, Swiss 11 vòng|207|@Ngtro_fake|@Thuytrannonumber|! @TorchVersion2|@Huongkhiet|@iLOVEMONEY1306||/4897591
 * Tháng 5.2024|05/05/2024|3+1 3Check, Swiss 11 vòng|151|@ShinichiKhoa|@giahung303210|@TokudaShigeoJr|@L6789|@Wibu_2k11||/4756726
 * Tháng 4.2024|07/04/2024|3+1 KOTH, Swiss 11 vòng|241|@ShinichiKhoa|@incognito_speedruner121|@DeKaySS|@Nguyen_Si_Trong_Duc|@locbughouse||/4689591

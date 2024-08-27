@@ -1,3 +1,14 @@
+// Topnav
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "page-header") {
+        x.className += " responsive";
+    } else {
+        x.className = "page-header";
+    }
+}
+
+
 const darkModeToggle = document.getElementById('darkModeToggle');
 const body = document.body;
 const moonIcon = document.getElementById('moon');
@@ -48,16 +59,6 @@ function topFunction() {
   document.documentElement.scrollTop = 0;
 }
 
-// Topnav
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "page-header") {
-        x.className += " responsive";
-    } else {
-        x.className = "page-header";
-    }
-}
-
 const updateButton = document.getElementById("buttonDetails");
 const upButton = document.getElementById("btnDetails");
 const callDialog = document.getElementById("callDialog"); // Dialog cho nút Gọi điện cho TungJohn
@@ -70,25 +71,21 @@ function openCheck(dialog) {
     console.log(dialog.open ? "Dialog open" : "Dialog closed");
 }
 
-// Mở dialog gọi điện cho TungJohn
 updateButton.addEventListener("click", () => {
     callDialog.showModal();
     openCheck(callDialog);
 });
 
-// Mở dialog ủng hộ cho Stream của TungJohn
 upButton.addEventListener("click", () => {
     donateDialog.showModal();
     openCheck(donateDialog);
 });
 
-// Đóng dialog gọi điện
 cancelCallButton.addEventListener("click", () => {
     callDialog.close("typeNotChosen");
     openCheck(callDialog);
 });
 
-// Đóng dialog ủng hộ
 cancelDonateButton.addEventListener("click", () => {
     donateDialog.close("typeNotChosen");
     openCheck(donateDialog);
