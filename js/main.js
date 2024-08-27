@@ -61,8 +61,8 @@ function topFunction() {
 
 const updateButton = document.getElementById("buttonDetails");
 const upButton = document.getElementById("btnDetails");
-const callDialog = document.getElementById("callDialog"); // Dialog cho nút Gọi điện cho TungJohn
-const donateDialog = document.getElementById("donateDialog"); // Dialog cho nút Ủng hộ cho Stream của TungJohn
+const callDialog = document.getElementById("callDialog");
+const donateDialog = document.getElementById("donateDialog");
 const cancelCallButton = document.getElementById("cancelCall");
 const cancelDonateButton = document.getElementById("cancelDonate");
 

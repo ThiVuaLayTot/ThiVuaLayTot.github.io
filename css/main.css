@@ -605,6 +605,7 @@ hr {
     }
 }
 
+/* Style cho leaders */
 .pos_header {
     margin-left: 2rem;
 }
@@ -653,6 +654,7 @@ hr {
     color: #fc0570;
 }
 
+/* Style các nút */
 #myBtn {
     display: none;
     position: fixed;
@@ -709,6 +711,7 @@ hr {
     cursor: pointer;
 }
 
+/* Style cho footer */
 .footer {
     padding: 0;
     background-color: rgba(88, 88, 88, 0.143);
@@ -720,6 +723,7 @@ hr {
     }
 }
 
+/* Style cho thẻ */
 .card {
     width: 410px;
     height: auto;
@@ -766,4 +770,41 @@ hr {
     text-align: right;
     color: var(--c-font-dim);
     font-size: 10px
+}
+
+/* Style cho bảng */
+.styled-table {
+    font-family: "Times New Roman", Times, serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #05fe09;
+    font-size: 16px;
+}
+
+.styled-table th, .styled-table td {
+    border: 1px solid #00e11e;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.styled-table th {
+    background-color: rgba(0, 170, 255, 0.905);
+}
+
+.styled-table tr:hover {
+    background-color: rgba(101, 121, 132, 0.437);
+}
+
+.styled-table td:hover {
+    background-color: #6d6c865b;
+}
+
+.styled-table a {
+    background-color: #f6043ce6;
+    opacity: 0;
+    animation: topSideAni 1s ease forwards;
+}
+
+.styled-table a:hover {
+    background-color: #0aedc4ed;
 }

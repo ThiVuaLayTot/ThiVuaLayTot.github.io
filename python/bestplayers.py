@@ -19,7 +19,7 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://thivualaytot.github.io/css/main.css">
-    <link rel="stylesheet" href="https://thivualaytot.github.io/css/topwinner.css">
+    <link rel="stylesheet" href="https://thivualaytot.github.io/css/eventwinner.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
