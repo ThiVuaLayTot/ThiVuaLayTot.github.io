@@ -20,15 +20,15 @@ title: Trang chủ - Thí Vua Lấy Tốt
         </p>
     </div>
 </section>
+{% for post in site.posts %}
 <section id="blog">
     <div>
         <h2><a href="/blog">Thông báo & Tin tức</h1>
-                        {% for post in site.posts %}
-                        {% if post.category == "news" %}
-                        <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
-                            <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Tin tức</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
+            {% if post.category == "news" %}
+            <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
+                <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Tin tức</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
+            {% endif %}
     </div>
-    {% endif %}
 </section>
 <section id="chess">
     <div>
@@ -36,9 +36,9 @@ title: Trang chủ - Thí Vua Lấy Tốt
         {% if post.category == "chess" %}
         <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
             <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Cờ vua</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
-    </div>
-    {% endif %} {% endfor %}
+    {% endif %}</div>
 </section>
+{% endfor %}
 <section id="social">
     <div>
         <h2><a href="/social">Các Trang Truyền Thông</a>/<a href="/leaders#admins">Ban Quản Trị</a>/<a href="/contact-donate">Liên hệ</a></h2>

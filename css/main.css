@@ -762,6 +762,7 @@ hr {
 }
 
 .card__tag {
+    display: -webkit-box;
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     text-transform: uppercase;
