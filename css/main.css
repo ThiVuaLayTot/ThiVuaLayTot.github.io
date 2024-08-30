@@ -761,6 +761,13 @@ hr {
     background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
 }
 
+.card__tag {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: left;
+}
+
 .card__dav {
     display: -webkit-box;
     -webkit-line-clamp: 2;
