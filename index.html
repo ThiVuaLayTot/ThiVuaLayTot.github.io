@@ -1,27 +1,43 @@
----
-layout: default
-title: Trang chủ - Thí Vua Lấy Tốt
----
+--- layout: default title: Trang chủ - Thí Vua Lấy Tốt ---
 
-<h1>Chào mừng bạn đã ghé thăm trang web Thí Vua Lấy Tốt</h1>
-<h3 align="center">Hello, xin chào các bạn, rất cảm ơn vì bạn đã ghé thăm. Chúng ta ở đây để cùng chia sẻ một niềm đam mê, đó là cờ vua. Bạn có thể tìm mọi thứ hấp dẫn về bộ môn cờ vua, từ tin tức cờ vua, các ván đấu nổi tiếng, các mẹo, thủ thuật chơi cờ vua.</h3>
-<p align="center">Hãy xem phần giới thiệu về TungJohn ở Video phía dưới</p>
-<p align="center"><iframe width="555" height="314"
-        src="https://youtube.com/embed/E7RW7r4mJts" title="YouTube video" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe></p>
-<p align="center">Hãy đăng ký kênh hoặc theo dõi nếu bạn thích nhé!</p>
-<script src="https://apis.google.com/js/platform.js"></script>
-<p align="center"><div class="g-ytsubscribe" data-channelid="UCvNW1NAWWjblgrP6JQI4MbQ" data-layout="full" data-count="hidden"></div></p>
-<div class="button">
-    <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><i
-            class="bx bxl-facebook"></i></a>
-    <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><i
-            class="bx bxl-twitch"></i></a>
-    <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><i
-            class="bx bxl-tiktok"></i></a>
-    <a href="https://lichess.org/@/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img
-            src="/images/lichesslogo.png"></a>
-    <a href="https://chess.com/member/tungjohn2005" target="_blank" title="Tài khoản Chess.com của TungJohn"><img
-            src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
-</div>
+<section id="welcome">
+    <div>
+        <h1>Chào mừng bạn đã ghé thăm trang web Thí Vua Lấy Tốt</h1>
+        <p align="center">Hello, xin chào các bạn, rất cảm ơn vì bạn đã ghé thăm. Chúng ta ở đây để cùng chia sẻ một niềm đam mê, đó là cờ vua. Bạn có thể tìm mọi thứ hấp dẫn về bộ môn cờ vua, từ tin tức cờ vua, các ván đấu nổi tiếng, các mẹo, thủ thuật chơi cờ vua.</p>
+    </div>
+</section>
+<section id="about">
+    <div>
+        <h2>Giới thiệu</h2>
+        <p>Thí Vua Lấy Tốt là một nhóm/câu lạc bộ cờ vua trực tuyến với đông đảo kỳ thủ khắp Việt Nam. Đứng đầu là <a href="/leaders#owner">Mr.TungJohn</a> với kênh youtube gần 100k người đăng ký.</p>
+        <p align="center">
+            <script src="https://apis.google.com/js/platform.js"></script>
+            <div class="g-ytsubscribe" data-channelid="UCvNW1NAWWjblgrP6JQI4MbQ" data-layout="full" data-count="hidden"></div>
+        </p>
+    </div>
+</section>
+<section id="blog">
+    <div>
+        <h2><a href="/blog">Thông báo & Tin tức</h1>
+                        {% for post in site.posts %}
+                        {% if post.category == "news" %}
+                        <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
+                            <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Tin tức</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
+    </div>
+    {% endif %}
+</section>
+<section id="chess">
+    <div>
+        <h2>Kiến thức cờ vua</h2>
+        {% if post.category == "chess" %}
+        <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
+            <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Cờ vua</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
+    </div>
+    {% endif %} {% endfor %}
+</section>
+<section id="social">
+    <div>
+        <h2><a href="/social">Các Trang Truyền Thông</a>/<a href="/leaders#admins">Ban Quản Trị</a>/<a href="/contact-donate">Liên hệ</a></h2>
+        <p></p>
+    </div>
+</section>

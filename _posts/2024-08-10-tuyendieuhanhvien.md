@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Tuyển điều hành viên
+category: announcement
 ---
 
 {{ page.title }}
