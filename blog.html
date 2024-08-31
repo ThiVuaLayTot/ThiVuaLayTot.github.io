@@ -9,8 +9,8 @@ permalink: /blog/
 {% for post in site.posts %}
 <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
     <h4 class="card__title">{{ post.title }}</h4></a>
-          <a href="/{{ post.tags }}" class="card__tag">{{ post.tags }}</a>
-        {% endfor %}<i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
+    <a href="/{{ post.tags }}" class="card__tag">{{ post.tags }}</a>
+    <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
 {% endfor %}
 
 <h2>Các bài đăng khác</h2>
