@@ -7,8 +7,33 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
 <h2><a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a></h2>
 {% for post in site.posts %}
 <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
-    <h4 class="card__title">{{ post.title }}</h4><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
+    <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Cờ vua</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
 {% endfor %}
+<script>
+    // Filter cards on ?tag=value
+    $(document).ready(function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      if (urlParams.has("tag") && urlParams.get("tag") != "") {
+        const tag = urlParams.get("tag"); // Will return 1st tag value + decode URI
+        const cleanTag = $.trim(tag.toLowerCase()); // Create tag as written in .card data-tags
+        
+        $(".card").each(function() {
+          const cardTags = $(this).data("tags").split("|");
+          // Hide card if it does not contain the selected tag
+          if (!cardTags.includes(cleanTag)) {
+            $(this).parent().addClass("d-none");
+          }
+        });
+  
+        $(".header .tags").append(
+          '<a href="{{ site.archive_permalink | relative_url }}">' + 
+          tag + 
+          '</a>'
+        );
+      }
+    });
+  </script>
 <h2>Các bài đăng khác</h2>
 <a href="/quotes" class="card"><img src="" class="card__image">
     <h4 class="card__title">Các câu nói nổi tiếng về cờ vua</h4><i class="card__dav">1 May, 2024</i></a>
