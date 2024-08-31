@@ -13,31 +13,7 @@ permalink: /blog/
           <a href="{{ site.blog_permalink | relative_url }}?tag={{ tag | url_encode }}">{{ tag }}</a>
         {% endfor %}<i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
 {% endfor %}
-<script>
-    // Filter cards on ?tag=value
-    $(document).ready(function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      
-      if (urlParams.has("tag") && urlParams.get("tag") != "") {
-        const tag = urlParams.get("tag"); // Will return 1st tag value + decode URI
-        const cleanTag = $.trim(tag.toLowerCase()); // Create tag as written in .card data-tags
-        
-        $(".card").each(function() {
-          const cardTags = $(this).data("tags").split("|");
-          // Hide card if it does not contain the selected tag
-          if (!cardTags.includes(cleanTag)) {
-            $(this).parent().addClass("d-none");
-          }
-        });
-  
-        $(".header .tags").append(
-          '<a href="{{ site.archive_permalink | relative_url }}">' + 
-          tag + 
-          '</a>'
-        );
-      }
-    });
-  </script>
+
 <h2>Các bài đăng khác</h2>
 <a href="/quotes" class="card"><img src="" class="card__image">
     <h4 class="card__title">Các câu nói nổi tiếng về cờ vua</h4><i class="card__dav">1 May, 2024</i></a>
