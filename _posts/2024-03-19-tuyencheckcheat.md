@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Tuyển thành viên vào đội Check Cheat của Câu Lạc Bộ Thí Vua Lấy Tốt
-category: announcement
+tags: announcement
 ---
 
 {{ page.title }}

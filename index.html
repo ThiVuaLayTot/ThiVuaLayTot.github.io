@@ -24,7 +24,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
     <div>
         <h2><a href="/blog">Thông báo & Tin tức</h1>
             {% for post in site.posts %}
-            {% if post.category == "news" %}
+            {% if post.tags == "news" %}
             <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
                 <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Tin tức</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
             {% endif %}
@@ -35,7 +35,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
     <div>
         <h2>Kiến thức cờ vua</h2>
         {% for post in site.posts %}
-        {% if post.category == "chess" %}
+        {% if post.tags == "chess" %}
         <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
             <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Cờ vua</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
         {% endif %}</div>
