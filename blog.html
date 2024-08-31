@@ -1,13 +1,17 @@
 ---
 layout: default
 title: Các thông báo quan trọng và các bài đăng nổi bật
+permalink: /blog/
 ---
 
 <h1>Các thông báo quan trọng và các bài đăng nổi bật</h1>
 <h2><a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a></h2>
 {% for post in site.posts %}
 <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
-    <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Cờ vua</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
+    <h4 class="card__title">{{ post.title }}</h4><div class="card__tag">
+        {% for tag in item.tags %}
+          <a href="{{ site.blog_permalink | relative_url }}?tag={{ tag | url_encode }}">{{ tag }}</a>
+        {% endfor %}<i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
 {% endfor %}
 <script>
     // Filter cards on ?tag=value
