@@ -728,12 +728,12 @@ hr {
     width: 400px;
     height: auto;
     transition: box-shadow 150ms;
-    background: #a6b9e263;
+    background: #fff;
     position: relative;
     direction: ltr;
     display: inline-block;
     text-align: center;
-    padding: 5px;
+    padding: 15px;
     margin-bottom: 1em;
 }
 
@@ -748,6 +748,7 @@ hr {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    background: var(--c-bg-zebra);
     text-overflow: ellipsis;
     margin: .2em 0 .3em 0;
     font-weight: bold;
@@ -761,15 +762,18 @@ hr {
 }
 
 .card__tag {
-    display: -webkit-box;
+    display: -webkit-inline-box;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
+    font-weight: 500;
     text-transform: uppercase;
     text-align: left;
+    background: rgba(69, 235, 99, 0.13);
+    border-radius: 6.25rem;
 }
 
 .card__dav {
     display: -webkit-box;
+    padding: 0 1.75rem 1.75rem;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -828,6 +832,10 @@ hr {
     font-size: 1.125rem;
     font-family: "Open Sans Condensed", sans-serif;
     text-transform: uppercase
+}
+
+.tab li:not(:last-child) {
+    margin-right: 3rem;
 }
 
 .tab li a:after {
