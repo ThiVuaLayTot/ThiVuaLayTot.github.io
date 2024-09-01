@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Tuyển điều hành viên
-tags: announcement
+category: announcement
+tags: Thông báo
 ---
 
 {{ page.title }}

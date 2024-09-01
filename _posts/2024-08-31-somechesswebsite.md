@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Một vài trang web chơi cờ vua trực tuyến
-tags: chess
+category: chess
+tags: Cờ vua
 ---
 
 {{ page.title }}

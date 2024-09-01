@@ -12,7 +12,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
 </section>
 <section id="about">
     <div>
-        <h2>Giới thiệu</h2>
+        <h3>Giới thiệu</h3>
         <p>Thí Vua Lấy Tốt là một nhóm/câu lạc bộ cờ vua trực tuyến với đông đảo kỳ thủ khắp Việt Nam. Đứng đầu là <a href="/leaders#owner">Mr.TungJohn</a> với kênh youtube gần 100k người đăng ký.</p>
         <p align="center">
             <script src="https://apis.google.com/js/platform.js"></script>
@@ -22,28 +22,28 @@ title: Trang chủ - Thí Vua Lấy Tốt
 </section>
 <section id="blog">
     <div>
-        <h2><a href="/blog">Thông báo & Tin tức</h1>
+        <h3><a href="/blog">Thông báo & Tin tức</h3>
             {% for post in site.posts %}
-            {% if post.tags == "news" %}
+            {% if post.category == "news" %}
             <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
-                <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Tin tức</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
+                <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">{{ post.tags }}</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
             {% endif %}
             {% endfor %}
     </div>
 </section>
 <section id="chess">
     <div>
-        <h2>Kiến thức cờ vua</h2>
+        <h3>Kiến thức cờ vua</h3>
         {% for post in site.posts %}
-        {% if post.tags == "chess" %}
+        {% if post.category == "chess" %}
         <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
-            <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">Cờ vua</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
+            <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">{{ post.tags }}</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
         {% endif %}</div>
         {% endfor %}
 </section>
 <section id="social">
     <div>
-        <h2><a href="/social">Các Trang Truyền Thông</a>/<a href="/leaders#admins">Ban Quản Trị</a>/<a href="/contact-donate">Liên hệ</a></h2>
+        <h3><a href="/social">Các Trang Truyền Thông</a>/<a href="/leaders#admins">Ban Quản Trị</a>/<a href="/contact-donate">Liên hệ</a></h3>
         <p></p>
     </div>
 </section>

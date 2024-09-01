@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Sự kiện hàng tháng Chiến Trường Thí Quân
-tags: news
+category: news
+tags: Tin tức
 ---
 
 {{ page.title }}
