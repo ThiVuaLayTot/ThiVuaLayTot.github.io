@@ -2,14 +2,25 @@
 layout: default
 ---
 
+
 <div id="post">
   <p align="right"><a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a></p>
 {{ content }}
+<a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a>
+<ul class="tab">
+    <li><a href="/" class="active">Tất cả bài đăng</a></li>
+    <li><a href="/{{ post.category }}">{{ post.tags }}</a></li>
+</ul>
 </div>
 
 <div id="related">
   <h3>Các bài đăng khác</h3>
     {% for post in site.related_posts limit:3 %}
-    <a href="{{ post.url }}" class="card"><img src="https://thivualaytot.github.io/images/{{ post.id }}.png" class="card__image"><h4 class="card__title">{{ post.title }}</h4><i class="card__dav">{{ post.date | date:"%d thg %m, %20y" }}</i></a>
+    {% for post in site.posts %}
+    <div class="card"><a href="{{ post.url }}"><img src="..../images/{{ post.id }}.png" class="card__image">
+    <h4 class="card__title">{{ post.title }}</h4></a>
+    <a href="/{{ post.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i>{{ post.tags }}</a>
+    <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
+    {% endfor %}
     {% endfor %}
 </div>

@@ -8,7 +8,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
         <h1>Chào mừng bạn đã ghé thăm trang web Thí Vua Lấy Tốt</h1>
         <p align="center">Hello, xin chào các bạn, rất cảm ơn vì bạn đã ghé thăm. Chúng ta ở đây để cùng chia sẻ một niềm đam mê, đó là cờ vua. Bạn có thể tìm mọi thứ hấp dẫn về bộ môn cờ vua, từ tin tức cờ vua, các ván đấu nổi tiếng, các mẹo, thủ thuật chơi cờ vua.</p>
     </div>
-    <div><a href="#about">Giới thiệu</a> | <a href="#blog">Tin tức</a> | <a href="#chess">Kiến thức cờ vua</a> | <a href="#social">Liên hệ & Truyền thông</a></div>
+    <ul class="tab"><li><a href="#about">Giới thiệu</a> | <a href="#blog">Tin tức</a></li> <li><a href="#chess">Kiến thức cờ vua</a></li> <li><a href="#social">Liên hệ & Truyền thông</a></li></ul>
 </section>
 <section id="about">
     <div>
@@ -16,7 +16,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
         <p>Thí Vua Lấy Tốt là một nhóm/câu lạc bộ cờ vua trực tuyến với đông đảo kỳ thủ khắp Việt Nam. Đứng đầu là <a href="/leaders#owner">Mr.TungJohn</a> với kênh youtube gần 100k người đăng ký.</p>
         <p align="center">
             <script src="https://apis.google.com/js/platform.js"></script>
-            <div class="g-ytsubscribe" data-channelid="UCvNW1NAWWjblgrP6JQI4MbQ" data-layout="full" data-count="hidden"></div>
+            <div class="g-ytsubscribe" data-channelid="UCvNW1NAWWjblgrP6JQI4MbQ" data-count="hidden"></div>
         </p>
     </div>
 </section>
@@ -25,10 +25,11 @@ title: Trang chủ - Thí Vua Lấy Tốt
         <h3><a href="/blog">Thông báo & Tin tức</h3>
             {% for post in site.posts %}
             {% if post.category == "news" %}
-            <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
-                <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">{{ post.tags }}</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
-            {% endif %}
-            {% endfor %}
+            <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
+            <h4 class="card__title">{{ post.title }}</h4></a>
+            <a href="/{{ post.category }}" class="card__tag"><i class="bx-purchase-tag"></i>{{ post.tags }}</a>
+            <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
+            {% endif %} {% endfor %}
     </div>
 </section>
 <section id="chess">
@@ -36,10 +37,11 @@ title: Trang chủ - Thí Vua Lấy Tốt
         <h3>Kiến thức cờ vua</h3>
         {% for post in site.posts %}
         {% if post.category == "chess" %}
-        <a href="{{ post.url }}" class="card"><img src="./images/{{ post.id }}.png" class="card__image">
-            <h4 class="card__title">{{ post.title }}</h4><u class="card__tag">{{ post.tags }}</u><i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></a>
-        {% endif %}</div>
-        {% endfor %}
+        <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
+        <h4 class="card__title">{{ post.title }}</h4></a>
+        <a href="/{{ post.category }}" class="card__tag"><i class="bx-purchase-tag"></i>{{ post.tags }}</a>
+        <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
+        {% endif %} {% endfor %}
 </section>
 <section id="social">
     <div>

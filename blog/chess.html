@@ -1,0 +1,26 @@
+---
+layout: default
+title: Kiến thức cờ vua
+---
+
+<h1>Các kiến thức cờ vua</h1>
+<a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a>
+<ul class="tab">
+    <li><a href="/">Tất cả bài đăng</a></li>
+    <li><a href="/chess" class="active">Kiến thức cờ vua</a></li>
+    <li><a href="/news">Thông báo/Tin tức</a></li>
+</ul>
+{% for post in site.posts %}
+<div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
+    <h4 class="card__title">{{ post.title }}</h4></a>
+    <a href="/{{ post.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i>{{ post.tags }}</a>
+    <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
+{% endfor %}
+
+<h2>Các bài đăng khác</h2>
+<a href="/quotes" class="card"><img src="" class="card__image">
+    <h4 class="card__title">Các câu nói nổi tiếng về cờ vua</h4><i class="card__dav">1 May, 2024</i></a>
+<a href="https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024" target="_blank" class="card"><img src="https://images.chesscomfiles.com/uploads/v1/news/1447745.59c40bc3.668x375o.d96fb1f62f12.png" class="card__image">
+    <h4 class="card__title">Luật câu lạc bộ Thí Vua Lấy Tốt chính thức</h4><i class="card__dav">25 thg 7, 2024</i></a>
+<a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" class="card" target="_blank"><img src="" class="card__image">
+    <h4 class="card__title">Chính sách Chơi Công Bằng chính thức của Thí Vua Lấy Tốt</h4><i class="card__dav">5 thg 3, 2024</i></a>

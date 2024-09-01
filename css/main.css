@@ -725,21 +725,20 @@ hr {
 
 /* Style cho thẻ */
 .card {
-    width: 410px;
+    width: 400px;
     height: auto;
     transition: box-shadow 150ms;
-    background: #3370ee0d;
+    background: #a6b9e263;
     position: relative;
     direction: ltr;
     display: inline-block;
     text-align: center;
     padding: 5px;
     margin-bottom: 1em;
-    border: 2px solid rgb(100, 150, 250)
 }
 
 .card__image {
-    width: 400px;
+    width: 370px;
     height: 250px;
     opacity: .7;
     transition: opacity 150ms
@@ -815,4 +814,52 @@ hr {
 
 .styled-table a:hover {
     background-color: #0aedc4ed;
+}
+
+/*Style cho tag*/
+.tab {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap
+}
+
+.tab li {
+    font-size: 1.125rem;
+    font-family: "Open Sans Condensed", sans-serif;
+    text-transform: uppercase
+}
+
+.tab li a:after {
+    display: block;
+    content: '';
+    border-bottom: .125rem solid #FE465B;
+    transform: scaleX(0);
+    transition: transform 350ms ease
+}
+
+.tab li a.active:after {
+    display: block;
+    content: '';
+    border-bottom: .125rem solid #FE465B;
+    transform: scaleX(1)
+}
+
+.tab li a:hover {
+    text-decoration: none
+}
+
+.tab li a:hover:after {
+    transform: scaleX(1)
+}
+
+@media (max-width: 48rem) {
+    .tab li {
+        padding:0 1rem;
+        margin-bottom: .5rem
+    }
+
+    .tab li:not(:last-child) {
+        margin-right: 0
+    }
 }
