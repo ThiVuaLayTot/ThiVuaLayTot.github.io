@@ -728,7 +728,8 @@ hr {
     width: 400px;
     height: auto;
     transition: box-shadow 150ms;
-    background: #fff;
+    background: rgba(43, 112, 99, 0.496);
+    box-shadow: 0 1.25rem 3rem rgba(49, 84, 94, 0.253);
     position: relative;
     direction: ltr;
     display: inline-block;
@@ -830,6 +831,7 @@ hr {
 
 .tab li {
     font-size: 1.125rem;
+    list-style-type: none;
     font-family: "Open Sans Condensed", sans-serif;
     text-transform: uppercase
 }

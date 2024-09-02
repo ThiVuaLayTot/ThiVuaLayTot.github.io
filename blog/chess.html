@@ -10,7 +10,7 @@ permalink: /chess/
     <li><a href="/blog">Tất cả bài đăng</a></li>
     <li><a href="/chess" class="active">Kiến thức cờ vua</a></li>
     <li><a href="/news">Thông báo/Tin tức</a></li>
-</ul>
+</ul><br>
 {% for post in site.posts %}
 {% if post.category == "chess" %}
 <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">

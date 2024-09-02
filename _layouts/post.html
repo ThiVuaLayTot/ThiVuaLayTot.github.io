@@ -8,6 +8,7 @@ layout: default
 <a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a>
 <ul class="tab">
     <li><a href="/" class="active">Tất cả bài đăng</a></li>
+    {% for post in site.posts %}
     <li><a href="/{{ post.category }}">{{ post.tags }}</a></li>
 </ul>
 </div>
@@ -18,5 +19,5 @@ layout: default
     <div class="card"><a href="{{ post.url }}"><img src="..../images/{{ post.id }}.png" class="card__image">
     <h4 class="card__title">{{ post.title }}</h4></a>
     <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
-    {% endfor %}
+    {% endfor %} {% endfor %}
 </div>
