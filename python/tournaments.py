@@ -25,7 +25,7 @@ css_styles = """<!DOCTYPE html>
 </head>
 
 <body>
-    <header class="container">
+    <nav class="container">
     <div class="page-header">
         <div class="logo">
             <a href="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt"><img src="/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
@@ -99,7 +99,7 @@ css_styles = """<!DOCTYPE html>
             </label> 
         </div>
     </div>
-</header>
+</nav>
 
 """
 
