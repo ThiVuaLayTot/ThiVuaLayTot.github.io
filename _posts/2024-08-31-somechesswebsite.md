@@ -5,9 +5,6 @@ category: chess
 tags: Cờ vua
 ---
 
-{{ page.title }}
-================
-
 Với sự phát triển của mạng xã hội và nền tảng cờ vua cũng có một số cải thiện. Ngoài những trận cờ vua trực tiếp đời thực thì cũng có những trận đấu toàn thế giới. Và sau đây chúng tôi sẽ giới thiệu một vài trang web chơi cờ vua cho bạn:
 
 1 - [Chess.com](https://chess.com)

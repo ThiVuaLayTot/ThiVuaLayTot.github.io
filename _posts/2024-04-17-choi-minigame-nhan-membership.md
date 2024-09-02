@@ -5,9 +5,6 @@ category: news
 tags: Tin tức
 ---
 
-{{ page.title }}
-================
-
 [Đã kết thúc]
 Để tạo cơ hội cho mọi người có thể nhận [Membership Chess.com](https://chess.com/membership), <i class="bx bx-user"></i>[Admin Đinh Hoàng Việt](https://thivualaytot.github.io/team#admins)
 tổ chức thể lệ cuộc thi như sau:

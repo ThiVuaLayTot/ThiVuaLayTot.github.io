@@ -5,9 +5,6 @@ category: news
 tags: Thông báo
 ---
 
-{{ page.title }}
-================
-
 Trong các giải đấu của câu lạc bộ TVLT thì việc có cheat là điều không thể tránh nên cần những người phát hiện gian lận. Đây là thông báo rất nghiêm túc nên không dành cho ai vào để lấy lòng tin, giả dối,... chỉ dành cho những người thật sự nghiêm túc và chuyên nghiệp thôi. Khi bạn tham gia đội check cheat thì bạn sẽ nhận được một số quyền lợi nhưng bạn phải tuân thủ các điều luật của đội !
 
 Nghiêm cấm các hành vi vi phạm luật. Mục đích là giúp cho các giải đấu trong câu lạc bộ ổn định, công bằng, không để các cheater lộng hành, giúp mọi người vui vẻ khi chơi giải.
