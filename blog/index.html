@@ -10,12 +10,14 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
     <li><a href="/chess">Kiến thức cờ vua</a></li>
     <li><a href="/news">Thông báo/Tin tức</a></li>
 </ul><br>
+<div class="card-list">
 {% for post in site.posts %}
 <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
     <h4 class="card__title">{{ post.title }}</h4></a>
     <a href="/{{ post.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i>{{ post.tags }}</a>
     <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
 {% endfor %}
+</div>
 
 <h2>Các bài đăng khác</h2>
 <a href="/quotes" class="card"><img src="" class="card__image">
