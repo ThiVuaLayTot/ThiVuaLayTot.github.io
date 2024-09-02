@@ -17,7 +17,6 @@ layout: default
     {% for post in site.related_posts limit:3 %}
     <div class="card"><a href="{{ post.url }}"><img src="..../images/{{ post.id }}.png" class="card__image">
     <h4 class="card__title">{{ post.title }}</h4></a>
-    <a href="/{{ post.category }}" class="card__tag">
     <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
     {% endfor %}
 </div>
