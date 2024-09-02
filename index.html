@@ -23,25 +23,29 @@ title: Trang chủ - Thí Vua Lấy Tốt
 <section id="blog">
     <div>
         <h3><a href="/blog">Thông báo & Tin tức</h3>
+            <div class="card-list">
             {% for post in site.posts %}
             {% if post.category == "news" %}
             <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
             <h4 class="card__title">{{ post.title }}</h4></a>
-            <a href="/{{ post.category }}" class="card__tag"><i class="bx-purchase-tag"></i>{{ post.tags }}</a>
+            <a href="/{{ post.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i>{{ post.tags }}</a>
             <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
             {% endif %} {% endfor %}
+            </div>
     </div>
 </section>
 <section id="chess">
     <div>
         <h3>Kiến thức cờ vua</h3>
+        <div class="card-list">
         {% for post in site.posts %}
         {% if post.category == "chess" %}
         <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
         <h4 class="card__title">{{ post.title }}</h4></a>
-        <a href="/{{ post.category }}" class="card__tag"><i class="bx-purchase-tag"></i>{{ post.tags }}</a>
+        <a href="/{{ post.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i>{{ post.tags }}</a>
         <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
         {% endif %} {% endfor %}
+        </div>
 </section>
 <section id="social">
     <div>

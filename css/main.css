@@ -726,7 +726,7 @@ hr {
 /* Style cho thẻ */
 .card-list {
     display: grid;
-    gap: 2rem;
+    gap: 1rem;
     grid-template-columns: repeat(3, 1fr);
 }
 
@@ -734,8 +734,7 @@ hr {
     width: 400px;
     height: auto;
     transition: box-shadow 150ms;
-    background: rgba(43, 112, 99, 0.496);
-    box-shadow: 0 1.25rem 3rem rgba(49, 84, 94, 0.253);
+    box-shadow: 0 1.25rem 3rem rgba(95, 165, 185, 0.334);
     position: relative;
     direction: ltr;
     display: inline-block;

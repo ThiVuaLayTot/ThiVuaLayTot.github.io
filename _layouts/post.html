@@ -12,10 +12,9 @@ layout: default
   <h3>Các bài đăng khác</h3>
   <div class="card-list">
     {% for post in site.related_posts limit:3 %}
-    {% for post in site.posts %}
     <div class="card"><a href="{{ post.url }}"><img src="..../images/{{ post.id }}.png" class="card__image">
     <h4 class="card__title">{{ post.title }}</h4></a>
     <i class="card__dav">{{ post.date | date:"%d thg %m, 20%y" }}</i></div>
-    {% endfor %} {% endfor %}
+    {% endfor %}
     </div>
 </div>
