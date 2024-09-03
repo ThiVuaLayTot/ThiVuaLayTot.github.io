@@ -1,7 +1,7 @@
 ---
 ---
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="http://w3.org/2005/Atom">
 
  <title>Đinh Hoàng Việt</title>
  <link href="https://thivualaytot.github.io/atom.xml" rel="self"/>
@@ -9,8 +9,7 @@
  <updated>{{ site.time | date_to_xmlschema }}</updated>
  <id>https://thivualaytot.github.io/</id>
  <author>
-   <name>Đinh Hoàng Việt</name>
-   <email>vietblue1403@gmail.com</email>
+   <name>Unknown</name>
  </author>
 
  {% for post in site.posts %}
