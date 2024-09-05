@@ -20,7 +20,7 @@ body {
 /* Genral */
 
 .container {
-    padding: 0 8.4rem;
+    padding: 0 5rem;
 }
 
 .img-w {
@@ -38,9 +38,9 @@ body {
 /* Nav */
 
 nav {
-    position: relative;
-    box-shadow: 0 4px 17px rgb(80 80 80 / 30%);
     position: sticky;
+    box-shadow: 0 4px 17px rgb(80 80 80 / 30%);
+    padding: 0 4rem;
     top: 0;
     z-index: 1;
 }
