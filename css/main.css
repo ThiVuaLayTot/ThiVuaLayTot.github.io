@@ -40,7 +40,6 @@ body {
 nav {
     position: sticky;
     box-shadow: 0 4px 17px rgb(80 80 80 / 30%);
-    padding: 0 4rem;
     top: 0;
     z-index: 1;
 }
@@ -49,7 +48,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem 4rem;
 }
 
 .page-header ol {
