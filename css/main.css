@@ -677,7 +677,7 @@ hr {
 }
 
 .warn {
-    height: 300px;
+    height: 200px;
     background-color: red;
     .click {
         margin: 2em;

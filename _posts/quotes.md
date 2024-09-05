@@ -1,10 +1,9 @@
 ---
-layout: default
-title: Các câu nói nổi tiếng về cờ vua
+layout: post
+title: Các câu nói cờ vua nổi tiếng
+category: chess
+tags: Cờ vua
 ---
-
-{{ page.title }}
-================
 
 <blockquote>"When you see a good move, look for a better one. - <b> "Emanuel Lasker" </b></blockquote>
 <blockquote>"Nothing excites jaded Grandmasters more than a theoretical novelty. - <b> "Dominic Lawson" </b>
@@ -1931,4 +1930,4 @@ imagination. - <b>
   "The good thing about chess is that everyone can learn how to play at any age. - <b>
     "Mariya Muzychuk"
   </b></blockquote>
-<blockquote>"I never lose. I either win or learn. - <b> "Nelson Mandela")
+<blockquote>"I never lose. I either win or learn. - <b> "Nelson Mandela</b>
