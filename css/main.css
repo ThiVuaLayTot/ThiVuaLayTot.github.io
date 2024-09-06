@@ -221,6 +221,7 @@ h4 {
     font-weight: normal;
     opacity: 0;
     animation: topSideAni 1s ease forwards;
+    padding: 0 0.5rem;
 }
 
 h3 {
@@ -228,6 +229,7 @@ h3 {
     opacity: 0;
     animation: rightSideAni 1s ease forwards;
     margin-bottom: 1.5rem;
+    padding: 0.2rem 0.5rem;
 }
 
 h2 {
@@ -235,6 +237,7 @@ h2 {
     font-weight: 600;
     opacity: 0;
     animation: bottomSideAni 1s ease forwards;
+    padding: 0.1 0.5rem;
 }
 
 h1 {
