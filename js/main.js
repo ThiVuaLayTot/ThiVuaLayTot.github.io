@@ -8,15 +8,6 @@ function myFunction() {
     }
 }
 
-function toggleMenu() {
-    var x = document.querySelector(".topnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    } else {
-      x.className = "topnav";
-    }
-}
-
 
 const darkModeToggle = document.getElementById('darkModeToggle');
 const body = document.body;
