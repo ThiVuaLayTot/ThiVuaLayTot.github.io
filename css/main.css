@@ -609,50 +609,46 @@ hr {
 /* Style cho leaders */
 .pos_header {
     margin-left: 2rem;
-}
-
-.profile-thumbnail {
-    object-fit: cover;
-    object-position: center top;
-    width: 235px;
-    height: 235px;
-}
-
-.people {
-    margin: auto;
-    text-align: center;
-    margin-top: 0.80em;
-}
-
-.list-item-people {
-    display: inline-grid;
-    width: 300px;
-    height: 543px;
-    padding: 5px;
-}
-
-.list-item-people active,
-.list-item-people a:hover {
-    border: 2px solid rgb(100 164 250 / 50%)
-}
-
-.list-post-title img {
-    text-align: center;
-}
-
-.list-post-title .name {
-    text-align: center;
-    color: rgb(2, 131, 236);
-}
-
-.list-detail {
-    font-size: 16px;
-    color: #04fa6f;
-}
-
-.list-post-title:hover .name,
-.list-post-title .name:hover {
-    color: #fc0570;
+    .people {
+        margin: auto;
+        text-align: center;
+        margin-top: 1em;
+        .list-item-people {
+        display: inline-grid;
+        width: 300px;
+        height: 555px;
+        padding: 5px;
+        }
+        .list-item-people a:hover {
+            border: 2px solid rgb(100 164 250 / 50%)
+        }
+        .list-post-title img {
+            text-align: center;
+        }
+        .list-post-title .name {
+            text-align: center;
+            color: rgb(2, 131, 236);
+            padding: 0.5rem 0;
+        }
+        .list-detail {
+            font-size: 16px;
+            color: #a242f3;
+            height: 90px;
+            padding: 0.5rem 1rem;
+        }
+        .list-post-title:hover .name, .list-post-title .name:hover {
+            color: #fc0570;
+        }
+        .profile-thumbnail {
+            object-fit: cover;
+            object-position: center top;
+            width: 235px;
+            height: 235px;
+        }
+        .social {
+            padding: 0.5rem 0;
+        }
+    }
 }
 
 /* Style các nút */

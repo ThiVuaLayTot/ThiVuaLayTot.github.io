@@ -13,8 +13,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
 <section id="about">
     <div>
         <h2>Giới thiệu</h2>
-        <p>Thí Vua Lấy Tốt là một nhóm/câu lạc bộ cờ vua trực tuyến với đông đảo kỳ thủ khắp Việt Nam. Đứng đầu là <a href="/leaders#owner">Mr.TungJohn</a> với kênh youtube gần 100k người đăng ký.</p>
-        <p align="center">
+        <p>Thí Vua Lấy Tốt là một nhóm/câu lạc bộ cờ vua trực tuyến với đông đảo kỳ thủ khắp Việt Nam. Đứng đầu là <a href="/leaders#owner">Mr.TungJohn</a> với kênh youtube gần 100k người đăng ký.
             <script src="https://apis.google.com/js/platform.js"></script>
             <div class="g-ytsubscribe" data-channelid="UCvNW1NAWWjblgrP6JQI4MbQ" data-count="hidden"></div>
         </p>
@@ -24,7 +23,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
     <div>
         <h2><a href="/blog">Thông báo & Tin tức</a></h2>
             <div class="card-list">
-            {% for post in site.posts limit:3 %}
+            {% for post in site.posts limit:4 %}
             {% if post.category == "news" %}
             <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
             <h4 class="card__title">{{ post.title }}</h4></a>

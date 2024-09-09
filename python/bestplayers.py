@@ -25,10 +25,9 @@ css_styles = """<!DOCTYPE html>
 </head>
 
 <body>
-    <nav class="container">
-    <div class="page-header">
+    <nav class="page-header">
         <div class="logo">
-            <a href="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt"><img src="/images/favicon.ico" title="Thí Vua Lấy Tốt"></a>
+            <a href="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt"><img src="/images/favicon.ico"></a>
         </div>
         <ol class="navbar-nav">
             <li>
@@ -98,7 +97,6 @@ css_styles = """<!DOCTYPE html>
                 <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
             </label> 
         </div>
-    </div>
 </nav>
 
 """
