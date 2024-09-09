@@ -55,6 +55,30 @@ nav {
     display: flex;
 }
 
+.topnav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .topnav a {
+    padding: 14px 20px;
+    display: block;
+    text-decoration: none;
+  }
+  
+  @media (max-width: 600px) {
+    .topnav {
+      flex-direction: column; /* Chuyển thành cột dọc */
+      align-items: flex-start;
+    }
+  
+    .topnav a {
+      padding: 10px;
+      width: 100%; /* Đảm bảo các link trải dài theo chiều rộng */
+    }
+  }
+
 .dropdown .dropbtn {
     outline: none;
     font-family: inherit;
@@ -544,7 +568,7 @@ hr {
 }
 
 @media screen and (max-width:600px) {
-    header {
+    nav {
         height: auto;
     }
     ul {
