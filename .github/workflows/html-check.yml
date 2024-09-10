@@ -1,4 +1,4 @@
-name: Check
+name: HTML Preview check
 
 on: 
   push:
