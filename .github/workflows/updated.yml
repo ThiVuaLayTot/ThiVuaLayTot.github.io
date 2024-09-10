@@ -1,4 +1,4 @@
-name: Ngày cập nhật
+name: Update time
 
 on:
   workflow_dispatch:

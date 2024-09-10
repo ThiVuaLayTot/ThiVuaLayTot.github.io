@@ -27,23 +27,16 @@ css_styles = """<!DOCTYPE html>
 <body>
     <nav class="page-header">
         <div class="logo">
-            <a href="https://thivualaytot.github.io" title="Thí Vua Lấy Tốt"><img src="/images/favicon.ico"></a>
+            <a href="https://thivualaytot.github.io"><img src="/images/favicon.ico"></a>
         </div>
-        <ol class="navbar-nav">
-            <li>
-                <a href="https://thivualaytot.github.io" title="Trang chủ"><i class="bx bxs-home"></i></a>
-            </li>
-            <li>
-                <a href="https://thivualaytot.github.io/blog" title="Các thông báo">
+        <div class="topnav">
+                <a href="https://thivualaytot.github.io"><i class="bx bxs-home"></i></a>
+                <a href="https://thivualaytot.github.io/blog">
                     <i class="bx bxs-news"></i>Thông báo/Tin tức
                 </a>
-            </li>
-            <li>
-                <a href="https://thivualaytot.github.io/vlogs" title="Các Video">
+                <a href="https://thivualaytot.github.io/vlogs">
                     <i class="bx bx-play-circle"></i>Vlogs
                 </a>
-            </li>
-            <li>
                 <div class="dropdown">
                     <a class="dropbtn" href="https://thivualaytot.github.io/social">
                         <i class="bx bx-link"></i>Truyền thông <i class="bx bx-caret-down"></i>
@@ -54,10 +47,8 @@ css_styles = """<!DOCTYPE html>
                         <a href="https://thivualaytot.github.io/social#group">Các nhóm/CLB/máy chủ của Thí Vua Lấy Tốt</a>
                     </div>
                 </div>
-            </li>
-            <li>
                 <div class="dropdown">
-                    <a class="dropbtn,active" href="https://thivualaytot.github.io/lists">
+                    <a class="dropbtn" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">
                         <i class="bx bx-list-plus"></i>Danh sách/Tài liệu <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
@@ -66,8 +57,6 @@ css_styles = """<!DOCTYPE html>
                         <a href="https://chess.com/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess" target="_blank">Danh sách các tài khoản vi phạm</a>
                     </div>
                 </div>
-            </li>
-            <li>
                 <div class="dropdown">
                     <a class="dropbtn" href="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">
                         <i class="bx bx-shield-quarter"></i>Leaders <i class="bx bx-caret-down"></i>
@@ -78,8 +67,6 @@ css_styles = """<!DOCTYPE html>
                         <a href="https://thivualaytot.github.io/leaders#sponsors">Các nhà tài trợ/hợp tác với giải</a>
                     </div>
                 </div>
-            </li>
-            <li>
                 <div class="dropdown">
                     <a class="dropbtn" href="https://thivualaytot.github.io/contact-donate">
                         <i class="bx bx-donate-blood"></i>Liên hệ & Ủng hộ<i class="bx bx-caret-down"></i>
@@ -89,15 +76,15 @@ css_styles = """<!DOCTYPE html>
                         <a href="https://thivualaytot.github.io/contact-donate#donate">Ủng hộ</a>
                     </div>
                 </div>
-            </li>
-        </ol>
+                <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">☰</a></li>
+        </div>
         <div>
             <label class="mode">
                 <input type="checkbox" id="darkModeToggle">
                 <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
             </label> 
         </div>
-</nav>
+    </nav>
 
 """
 
