@@ -55,6 +55,7 @@ nav {
     display: flex;
 }
 
+
 .topnav {
     display: flex;
     justify-content: space-between;
@@ -568,7 +569,7 @@ hr {
 }
 
 @media screen and (max-width:600px) {
-    nav {
+    header {
         height: auto;
     }
     ul {
@@ -757,7 +758,7 @@ hr {
 .card-list {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(28em, 1fr));
 }
 
 .card {
