@@ -815,6 +815,7 @@ hr {
     width: 100%;
     border: 1px solid #05fe09;
     font-size: 16px;
+    table-layout: fixed;
 }
 
 .styled-table th, .styled-table td {
@@ -829,6 +830,10 @@ hr {
 
 .styled-table tr:hover {
     background-color: rgba(101, 121, 132, 0.437);
+}
+
+.styled-table td {
+    word-wrap: break-word;
 }
 
 .styled-table td:hover {

@@ -14,10 +14,6 @@
     width: 15%;
 }
 
-.players, .link {
-    width: 3%;
-}
-
-.stt {
+.players, .link, .stt {
     width: 3%;
 }
