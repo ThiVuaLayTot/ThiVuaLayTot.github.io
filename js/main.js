@@ -1,15 +1,5 @@
-// Topnav
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "page-header") {
-        x.className += " responsive";
-    } else {
-        x.className = "page-header";
-    }
-}
-
 function toggleMenu() {
-    var x = document.querySelector(".topnav");
+    var x = document.getElementById(".topnav");
     if (x.className === "topnav") {
       x.className += " responsive";
     } else {
