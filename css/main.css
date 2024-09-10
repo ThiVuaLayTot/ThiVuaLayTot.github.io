@@ -188,12 +188,12 @@ nav {
 .logo {
     font-size: 1.5rem;
     font-weight: 800;
+    box-shadow: 0px 8px 16px 8px rgba(37, 118, 248, 0.647);
     opacity: 0;
     animation: leftSideAni 1s ease forwards;
 }
 
 .logo a {
-    color: #244D61;
     text-decoration: none;
 }
 
@@ -626,14 +626,14 @@ hr {
         margin: auto;
         text-align: center;
         margin-top: 1em;
+
         .list-item-people {
         display: inline-grid;
         width: 300px;
         height: 555px;
         padding: 5px;
-        }
-        .list-item-people a:hover {
-            border: 2px solid rgb(100 164 250 / 50%)
+        margin: 10px;
+        box-shadow: 8px 8px 8px 8px rgba(255, 255, 255, 0.200);
         }
         .list-post-title img {
             text-align: center;
@@ -645,7 +645,7 @@ hr {
         }
         .list-detail {
             font-size: 16px;
-            color: #a242f3;
+            color: #f72828;
             height: 90px;
             padding: 0.5rem 1rem;
         }
