@@ -1,10 +1,9 @@
-// Topnav
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "page-header") {
-        x.className += " responsive";
+function toggleMenu() {
+    var x = document.getElementById(".topnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
     } else {
-        x.className = "page-header";
+      x.className = "topnav";
     }
 }
 
