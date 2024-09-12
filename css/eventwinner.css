@@ -1,19 +1,19 @@
 .name-tour {
-    width: 7%;
-}
-
-.organization-day {
-    width: 5%;
-}
-
-.rules {
     width: 8%;
 }
 
-.winner {
-    width: 15%;
+.organization-day {
+    width: 7%;
 }
 
-.players, .link, .stt {
-    width: 3%;
+.rules {
+    width: 10%;
+}
+
+.winner {
+    width: 20%;
+}
+
+.stt {
+    width: 5%;
 }

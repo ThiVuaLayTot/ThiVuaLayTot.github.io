@@ -1,4 +1,4 @@
-name: Update time
+name: Cập nhật nội dung
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ env:
   TOKEN: ${{ secrets.TOKEN }}
 
 jobs:
-  updated:
+  updates:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,12 +28,13 @@ jobs:
       - name: Cập nhật Bảng xếp hạng
         run: |
           python3 python/update_time.py
-          python3 python/bestplayers.py
-          python3 python/tournaments.py
+          python3 python/api2md.py
+          python3 python/md2thml_bestplayers.py
+          python3 python/md2html_tournaments.py
       - name: Cam kết & Đẩy tệp
         run: |
           git config --local user.email "vietdinh856@gmail.com"
           git config --local user.name "Thi-Vua-Lay-Tot"
           git add -A
-          git commit -m "Update"
+          git commit -m "Update contents"
           git push --force
