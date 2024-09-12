@@ -2,7 +2,6 @@ import urllib.request
 import orjson
 import json
 import os
-import re
 import sys
 
 
@@ -10,9 +9,6 @@ def read_urls_from_txt(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in f.readlines()]
     return urls
-
-def get_file_name():
-    return './test.md'
 
 def fetch_tournament_data(url):
     req = urllib.request.Request(url, method='GET')
@@ -57,43 +53,51 @@ def parse_tournament_data(data):
     }
     return parsed_data
 
+directories = ['events/tournaments']
+
+for directory in directories:
+    for filename in os.listdir(directory):
+        if filename.endswith('.md'):
+
 def write_tournament_data_to_file(parsed_data):
-    """Append the parsed tournament data into a Markdown file."""
     file_name = get_file_name()
-    with open(file_name, 'w', encoding='utf-8') as f:
-        f.write(f"""<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['time_control']} """)
+    for directory in directories:
+        for filename in os.listdir(directory):
+            if filename.endswith('.md'):
+                with open(file_name, 'a', encoding='utf-8') as f:
+                    f.write(f"""<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['time_control']} """)
 
-        if parsed_data['time_class'].lower() == 'bullet':
-            f.write("Bullet, ")
-        elif parsed_data['time_class'].lower() == 'blitz':
-            f.write("Blitz, ")
-        else:
-            f.write("Rapid, ")
+                    if parsed_data['time_class'].lower() == 'bullet':
+                        f.write("Bullet, ")
+                    elif parsed_data['time_class'].lower() == 'blitz':
+                        f.write("Blitz, ")
+                    else:
+                        f.write("Rapid, ")
 
-        if parsed_data['type'].lower() == 'standard':
-            f.write("Arena")
-        else:
-            f.write(f"Swiss {parsed_data['total_rounds']} vòng")
+                    if parsed_data['type'].lower() == 'standard':
+                        f.write("Arena")
+                    else:
+                        f.write(f"Swiss {parsed_data['total_rounds']} vòng")
 
-        if parsed_data['rules'].lower() == 'chess960':
-            f.write(" Chess960")
-        elif parsed_data['rules'].lower() == 'kingofthehill':
-            f.write(" KOTH")
-        elif parsed_data['rules'].lower() == 'crazyhouse':
-            f.write(" Crazyhouse")
-        elif parsed_data['rules'].lower() == 'bughouse':
-            f.write(" Bughouse")
-        elif parsed_data['rules'].lower() == 'threecheck':
-            f.write(" 3 Chiếu")
-        else:
-            f.write(" ")
+                    if parsed_data['rules'].lower() == 'chess960':
+                        f.write(" Chess960")
+                    elif parsed_data['rules'].lower() == 'kingofthehill':
+                        f.write(" KOTH")
+                    elif parsed_data['rules'].lower() == 'crazyhouse':
+                        f.write(" Crazyhouse")
+                    elif parsed_data['rules'].lower() == 'bughouse':
+                        f.write(" Bughouse")
+                    elif parsed_data['rules'].lower() == 'threecheck':
+                        f.write(" 3 Chiếu")
+                    else:
+                        f.write(" ")
 
-        for player in parsed_data['players']:
-            f.write(f"|{player}")
+                    for player in parsed_data['players']:
+                        f.write(f"|{player}")
 
-        f.write("\n")
+                    f.write("\n")
 
-    print(f"Data for {parsed_data['name']} written to {file_name}")
+                print(f"Data for {parsed_data['name']} written to {file_name}")
 
 
 if __name__ == "__main__":
@@ -102,14 +106,12 @@ if __name__ == "__main__":
         urls = read_urls_from_txt(url_file_path)  # Read URLs from the file
         
         for url in urls:
-            # Fetch the tournament data
             tournament_data = fetch_tournament_data(url)
             
-            # Parse the relevant information
-            parsed_data = parse_tournament_data(tournament_data)
-            
-            # Write the data into a markdown file
-            write_tournament_data_to_file(parsed_data)
+            if tournament_data:  # Ensure that data is fetched successfully
+                parsed_data = parse_tournament_data(tournament_data)
+
+                write_tournament_data_to_file(parsed_data)
 
     except KeyboardInterrupt:
         print("Process interrupted.")
