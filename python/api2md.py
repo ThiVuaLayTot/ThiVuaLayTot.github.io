@@ -4,6 +4,9 @@ import os
 import sys
 from datetime import datetime
 
+
+special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
+
 def read_urls_from_txt(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in f.readlines()]
@@ -96,7 +99,15 @@ def write_tournament_data_to_file(parsed_data, md_filename):
             f.write(f"Swiss {parsed_data['total_rounds']} vòng")
 
         for player in parsed_data['players']:
-            f.write(f"|@{player}")
+            if player in special_players:
+                if player == 'm_dinhhoangviet':
+                    f.write(f"|@M-DinhHoangViet")
+                elif player == 'tungjohn_playing_chess':
+                    f.write(f"|@M-DinhHoangViet")
+                elif player == 'thangthukquantrong':
+                    f.write(f"|@{players}")
+            else:
+                f.write(f"|@{player}")
 
         f.write("\n")
 
