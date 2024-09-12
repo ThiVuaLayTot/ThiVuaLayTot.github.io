@@ -2,6 +2,7 @@ import urllib.request
 import orjson
 import os
 import sys
+from datetime import datetime
 
 def read_urls_from_txt(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -46,11 +47,18 @@ def parse_tournament_data(data):
     else:
         total_minutes = 'N/A'
 
+    start_time_unix = data.get('start_time', 'N/A')
+    if start_time_unix:
+        start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%D/%M/%Y')
+    else:
+        start_time = 'N/A'
+
     parsed_data = {
         'name': data.get('name', 'N/A'),
         'url': data.get('url', 'N/A'),
         'type': data.get('settings', {}).get('type', 'N/A'),
         'rules': data.get('settings', {}).get('rules', 'N/A'),
+        'start_time': start_time,
         'total_rounds': data.get('settings', {}).get('total_rounds', 'N/A'),
         'time_class': data.get('settings', {}).get('time_class', 'N/A'),
         'time_control': total_minutes,
@@ -61,7 +69,7 @@ def parse_tournament_data(data):
 def write_tournament_data_to_file(parsed_data, md_filename):
     with open(md_filename, 'a', encoding='utf-8') as f:
         f.write('Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟\n')
-        f.write(f"""<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['time_control']} """)
+        f.write(f"""<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['start_time']}|{parsed_data['time_control']} """)
         if parsed_data['time_class'].lower() == 'bullet':
             f.write("Bullet, ")
         elif parsed_data['time_class'].lower() == 'blitz':
@@ -86,7 +94,6 @@ def write_tournament_data_to_file(parsed_data, md_filename):
             f.write("Arena")
         else:
             f.write(f"Swiss {parsed_data['total_rounds']} vòng")
-
 
         for player in parsed_data['players']:
             f.write(f"|@{player}")
