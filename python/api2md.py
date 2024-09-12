@@ -8,6 +8,13 @@ def read_urls_from_txt(file_path):
         urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in f.readlines()]
     return urls
 
+def preserve_last_6_lines(md_filename):
+    if os.path.exists(md_filename):
+        with open(md_filename, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            return lines[-6:] if len(lines) >= 6 else lines
+    return []
+
 def fetch_tournament_data(url):
     req = urllib.request.Request(url, method='GET')
     try:
@@ -18,7 +25,7 @@ def fetch_tournament_data(url):
         return {}
 
 def parse_tournament_data(data):
-    players = [player.get('username', 'N/A') for player in data.get('players', [])]
+    players = [player.get('username', 'N/A') for player in data.get('players', [])][:6]
     time_control = data.get('settings', {}).get('time_control', 'N/A')
 
     if isinstance(time_control, str) and '+' in time_control:
@@ -85,6 +92,9 @@ def write_tournament_data_to_file(parsed_data, md_filename):
             f.write(f"|@{player}")
 
         f.write("\n")
+
+        for line in last_6_lines:
+            f.write(line)
 
     print(f"Data for {parsed_data['name']} written to {md_filename}")
 
