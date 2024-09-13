@@ -7,6 +7,7 @@ import os.path
 import re
 import subprocess
 import sys
+import requests
 
 
 css_styles = """<!DOCTYPE html>
@@ -152,6 +153,19 @@ def generate_h1_tag(filename):
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 
+def get_chesscom_status(username):
+    """Fetch status from Chess.com API for a given username."""
+    url = f'https://api.chess.com/pub/player/{username}'
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        data = response.json()
+        if 'status' in data:
+            return data['status']  # or other status field if available
+    except requests.RequestException as e:
+        logging.error(f"Error fetching status for {username}: {e}")
+    return None
+
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
     lichess = 'https://lichess.org'
@@ -183,25 +197,14 @@ def markdown_table_to_html(markdown_table):
             elif cell.endswith('🥇') or cell.endswith('🥈') or cell.endswith('🥉') or cell.endswith('🏅') or cell.endswith('🎖️') or cell.endswith('🌟'):
                 text = cell[0:]
                 cell_content = f'       <{tag} class="winner">{text}</{tag}>'
-            elif cell.endswith('Link giải'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="link">{text}</{tag}>'
-            elif cell.endswith('Số kì thủ'):
-                text = cell[0:]
-                cell_content = f'       <{tag} class="players">{text}</{tag}>'
             # Dành cho tài khoản trên Chess.com
-            elif cell.startswith('? @'):
-                username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a> ❎</{tag}>'
             elif cell.startswith('@'):
                 username = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a></{tag}>'
-            elif cell.startswith('! @'):
-                username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} ❌</a></{tag}>'
-            elif cell.startswith('- @'):
-                username = cell[3:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} ✅</a></{tag}>'
+                status = get_chesscom_status(username)
+                if status == 'closed:':
+                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}{status}</a></{tag}>'
+                else:
+                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}{status}</a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
@@ -215,28 +218,7 @@ def markdown_table_to_html(markdown_table):
             # Dành cho các link giải
             elif cell.startswith('%'):
                 link = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/{link}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('/'):
-                idlink = cell[1:]
-                cell_content = f'       <{tag}><a href="{chesscom}/play/tournament/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('a/'):
-                idlink = cell[2:]
-                cell_content = f'       <{tag}><a href="{chesscom}/play/arena/{idlink}" title="Nhấn để xem kết quả của giải này" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('f-'):
-                idcmt = cell[2:]
-                cell_content = f'       <{tag}><a href="{chesscom}/forum/view/link-giai-chien-truong-thi-quan#comment-{idcmt}">Link giải!</a></{tag}>'
-            elif cell.startswith('b/'):
-                idcmt = cell[2:]
-                cell_content = f'       <{tag}><a href="{chesscom}/forum/view/tvlt-game-of-months#comment-{idcmt}" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('c/'):
-                idcmt = cell[2:]
-                cell_content = f'       <{tag}><a href="{chesscom}/forum/view/game-of-the-month-{idcmt}-contest" target="_blank">Link!</a></{tag}>'
-            elif cell.startswith('*'):
-                name = cell[2:]
-                cell_content = f'       <{tag}>{name} ✅</{tag}>'
-            elif cell.startswith('_'):
-                name = cell[2:]
-                cell_content = f'       <{tag}>{name} ❌</{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{link}" target="_blank">Link!</a></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
