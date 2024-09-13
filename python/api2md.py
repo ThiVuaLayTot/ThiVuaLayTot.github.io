@@ -70,14 +70,13 @@ def parse_tournament_data(data):
     return parsed_data
 
 def check_if_data_exists(parsed_data, md_filename):
-    """Kiểm tra xem giải đấu đã tồn tại trong tệp Markdown hay chưa bằng cách đọc từng dòng"""
+    """Kiểm tra xem giải đấu đã tồn tại trong tệp Markdown hay chưa"""
     if os.path.exists(md_filename):
         with open(md_filename, 'r', encoding='utf-8') as f:
-            for line in f:
-                if parsed_data['name'] in line:  # Kiểm tra tên giải đấu trong mỗi dòng
-                    return True
+            content = f.read()
+            # Kiểm tra nếu tên giải đấu và các thông tin đã tồn tại trong tệp
+            return parsed_data['name'] in content
     return False
-
 
 def write_tournament_data_to_file(parsed_data, md_filename):
     if check_if_data_exists(parsed_data, md_filename):
@@ -113,7 +112,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         else:
             f.write(f"Swiss {parsed_data['total_rounds']} vòng")
 
-        for player in parsed_data['players']:
+        for i, player in enumerate(parsed_data['players']):
             if player in special_players:
                 if player == 'm_dinhhoangviet':
                     f.write(f"|@M-DinhHoangViet")
@@ -129,7 +128,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         for line in last_6_lines(md_filename):  # Call the function to get the last 6 lines
             f.write(line)
 
-    print(f"Data for {parsed_data['name']} written to")
+    print(f"Data for {parsed_data['name']} written to {md_filename}")
 
 if __name__ == "__main__":
     try:
