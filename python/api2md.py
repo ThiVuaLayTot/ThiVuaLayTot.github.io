@@ -71,8 +71,7 @@ def parse_tournament_data(data):
 
 def write_tournament_data_to_file(parsed_data, md_filename):
     with open(md_filename, 'a', encoding='utf-8') as f:
-        f.write('Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟\n')
-        f.write(f"""<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['start_time']}|{parsed_data['time_control']} """)
+        f.write(f"""\n<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['start_time']}|{parsed_data['time_control']} """)
         if parsed_data['time_class'].lower() == 'bullet':
             f.write("Bullet")
         elif parsed_data['time_class'].lower() == 'blitz':
