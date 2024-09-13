@@ -52,7 +52,7 @@ def parse_tournament_data(data):
 
     start_time_unix = data.get('start_time', 'N/A')
     if start_time_unix:
-        start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%D/%M/%Y')
+        start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%D-%M-%Y')
     else:
         start_time = 'N/A'
 
@@ -70,11 +70,11 @@ def parse_tournament_data(data):
     return parsed_data
 
 def write_tournament_data_to_file(parsed_data, md_filename):
-    with open(md_filename, 'w', encoding='utf-8') as f:
+    with open(md_filename, 'a', encoding='utf-8') as f:
         f.write('Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟\n')
         f.write(f"""<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['start_time']}|{parsed_data['time_control']} """)
         if parsed_data['time_class'].lower() == 'bullet':
-            f.write("Bullet, ")
+            f.write("Bullet")
         elif parsed_data['time_class'].lower() == 'blitz':
             f.write("Blitz")
         else:
@@ -91,14 +91,14 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         elif parsed_data['rules'].lower() == 'threecheck':
             f.write(" 3 Chiếu, ")
         else:
-            f.write(" ,")
+            f.write(",")
 
         if parsed_data['type'].lower() == 'standard':
             f.write("Arena")
         else:
             f.write(f"Swiss {parsed_data['total_rounds']} vòng")
 
-        for player in parsed_data['players']:
+        for i, player in enumerate(parsed_data['players'], 1):
             if player in special_players:
                 if player == 'm_dinhhoangviet':
                     f.write(f"|@M-DinhHoangViet")
@@ -107,7 +107,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 elif player == 'thangthukquantrong':
                     f.write(f"|@thangthukquantrong")
             else:
-                f.write(f"|@{parsed_data['players']}")
+                f.write(f"|@{player}")
 
         f.write("\n")
 
