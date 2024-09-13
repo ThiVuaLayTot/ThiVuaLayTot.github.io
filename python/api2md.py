@@ -69,21 +69,8 @@ def parse_tournament_data(data):
     }
     return parsed_data
 
-def check_if_data_exists(parsed_data, md_filename):
-    """Kiểm tra xem giải đấu đã tồn tại trong tệp Markdown hay chưa bằng cách đọc từng dòng"""
-    if os.path.exists(md_filename):
-        with open(md_filename, 'r', encoding='utf-8') as f:
-            for line in f:
-                if parsed_data['name'] in line:  # Kiểm tra tên giải đấu trong mỗi dòng
-                    return True
-    return False
-
 
 def write_tournament_data_to_file(parsed_data, md_filename):
-    if check_if_data_exists(parsed_data, md_filename):
-        print(f"Data for {parsed_data['name']} already exists in {md_filename}. Skipping.")
-        return
-
     with open(md_filename, 'a', encoding='utf-8') as f:
         f.write('Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟\n')
         f.write(f"""<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['start_time']}|{parsed_data['time_control']} """)
