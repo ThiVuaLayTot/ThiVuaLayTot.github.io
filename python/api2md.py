@@ -105,7 +105,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 elif player == 'tungjohn_playing_chess':
                     f.write(f"|@M-DinhHoangViet")
                 elif player == 'thangthukquantrong':
-                    f.write(f"|@{players}")
+                    f.write(f"|@thangthukquantrong")
             else:
                 f.write(f"|@{parsed_data['players']}")
 
