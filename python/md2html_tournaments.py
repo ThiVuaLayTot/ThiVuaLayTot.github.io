@@ -234,11 +234,11 @@ directories = ['events/tournaments']
 for directory in directories:
     for filename in os.listdir(directory):
         if filename.endswith('.md'):
-            with open(os.path.join(directory, filename), 'r') as md_file:
+            with open(os.path.join(directory, filename), 'r', encoding='utf-8') as md_file:
                 h1_tag = generate_h1_tag(filename)
                 markdown_table = md_file.read()
                 html_table = markdown_table_to_html(markdown_table)
                 styled_html_table = css_styles + h1_tag + information + html_table + footer_style
                 html_filename = os.path.splitext(filename)[0] + '.html'
-                with open(os.path.join(directory, html_filename), 'w') as html_file:
+                with open(os.path.join(directory, html_filename), 'w', encoding='utf-8') as html_file:
                     html_file.write(styled_html_table)

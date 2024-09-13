@@ -211,5 +211,5 @@ for directory in directories:
                 html_table = markdown_table_to_html(markdown_table)
                 styled_html_table = css_styles + h1_tag + information + html_table + footer_style
                 html_filename = os.path.splitext(filename)[0] + '.html'
-                with open(os.path.join(directory, html_filename), 'w') as html_file:
+                with open(os.path.join(directory, html_filename), 'w', encoding='utf-8') as html_file:
                     html_file.write(styled_html_table)

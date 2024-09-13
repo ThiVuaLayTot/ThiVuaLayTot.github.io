@@ -129,7 +129,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         for line in last_6_lines(md_filename):  # Call the function to get the last 6 lines
             f.write(line)
 
-    print(f"Data for {parsed_data['name']} written to {md_filename}")
+    print(f"Data for {parsed_data['name']} written to")
 
 if __name__ == "__main__":
     try:
