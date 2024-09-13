@@ -1,3 +1,2 @@
 Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟
----|---|---|---|---|---|---|---|---
-
+<a href="https://www.chess.com/tournament/live/c-b-th-tt---thng-112023-4388644">Cờ Bí Thí Tốt - Tháng 11/2023</a>|11/19/23/21/2023|3+1 Blitz ,Swiss 11 vòng|@['mrkaitojay', 'wibu_2k11', 'meowf1', 'thebloodprince', 'm-dinhhoangviet', 'dien_2511']|@['mrkaitojay', 'wibu_2k11', 'meowf1', 'thebloodprince', 'm-dinhhoangviet', 'dien_2511']|@['mrkaitojay', 'wibu_2k11', 'meowf1', 'thebloodprince', 'm-dinhhoangviet', 'dien_2511']|@['mrkaitojay', 'wibu_2k11', 'meowf1', 'thebloodprince', 'm-dinhhoangviet', 'dien_2511']|@['mrkaitojay', 'wibu_2k11', 'meowf1', 'thebloodprince', 'm-dinhhoangviet', 'dien_2511']|@['mrkaitojay', 'wibu_2k11', 'meowf1', 'thebloodprince', 'm-dinhhoangviet', 'dien_2511']

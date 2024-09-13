@@ -1,3 +1,2 @@
 Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟
----|---|---|---|---|---|---|---|---
-
+<a href="https://www.chess.com/tournament/live/gii-ph-random---3-check--ln-1-3629394">Giải phụ (RANDOM) - 3 check | LẦN 1</a>|12/17/22/01/2022|10+0 Rapid 3 Chiếu, Swiss 5 vòng|@['dream_toxic', 'longgr29', 'darknam119', 'chien_ca', 'hopeful_boy', 'khanhyamate']|@['dream_toxic', 'longgr29', 'darknam119', 'chien_ca', 'hopeful_boy', 'khanhyamate']|@['dream_toxic', 'longgr29', 'darknam119', 'chien_ca', 'hopeful_boy', 'khanhyamate']|@['dream_toxic', 'longgr29', 'darknam119', 'chien_ca', 'hopeful_boy', 'khanhyamate']|@['dream_toxic', 'longgr29', 'darknam119', 'chien_ca', 'hopeful_boy', 'khanhyamate']|@['dream_toxic', 'longgr29', 'darknam119', 'chien_ca', 'hopeful_boy', 'khanhyamate']
