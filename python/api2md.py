@@ -52,7 +52,7 @@ def parse_tournament_data(data):
 
     start_time_unix = data.get('start_time', 'N/A')
     if start_time_unix:
-        start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%D-%M-%Y')
+        start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%D/%M/%Y')
     else:
         start_time = 'N/A'
 
@@ -68,7 +68,6 @@ def parse_tournament_data(data):
         'players': players
     }
     return parsed_data
-
 
 def write_tournament_data_to_file(parsed_data, md_filename):
     with open(md_filename, 'a', encoding='utf-8') as f:
@@ -109,7 +108,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 elif player == 'thangthukquantrong':
                     f.write(f"|@thangthukquantrong")
             else:
-                f.write(f"|@{player}")
+                f.write(f"|@{parsed_data['players']}")
 
         f.write("\n")
 
