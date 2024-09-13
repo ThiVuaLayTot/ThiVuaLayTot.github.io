@@ -2,6 +2,6 @@ orjson==3.10.7
 flask==3.0.3
 gunicorn==23.0.0
 pytz==2024.1
-requests==2.12.1
+requests==2.32.2
 requests-oauthlib==0.7.0
 urllib3==1.26.19
