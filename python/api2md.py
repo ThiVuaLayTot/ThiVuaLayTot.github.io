@@ -94,15 +94,16 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         else:
             f.write("Rapid")
 
-        if parsed_data['rules'].lower() == 'chess960':
+        rule = parsed_data['rules'].lower()
+        if rule == 'chess960':
             f.write(" Chess960, ")
-        elif parsed_data['rules'].lower() == 'kingofthehill':
+        elif rule == 'kingofthehill':
             f.write(" KOTH, ")
-        elif parsed_data['rules'].lower() == 'crazyhouse':
+        elif rule == 'crazyhouse':
             f.write(" Crazyhouse, ")
-        elif parsed_data['rules'].lower() == 'bughouse':
+        elif rule == 'bughouse':
             f.write(" Bughouse, ")
-        elif parsed_data['rules'].lower() == 'threecheck':
+        elif rule == 'threecheck':
             f.write(" 3 Chiếu, ")
         else:
             f.write(",")
@@ -112,7 +113,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         else:
             f.write(f"Swiss {parsed_data['total_rounds']} vòng")
 
-        for i, player in enumerate(parsed_data['players']):
+        for player in parsed_data['players']:
             if player in special_players:
                 if player == 'm_dinhhoangviet':
                     f.write(f"|@M-DinhHoangViet")
