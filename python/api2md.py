@@ -16,7 +16,7 @@ def last_6_lines(md_filename):
     if os.path.exists(md_filename):
         with open(md_filename, 'r', encoding='utf-8') as f:
             lines = f.readlines()
-            return lines[:6] if len(lines) < 2 else lines
+            return lines[:2] if len(lines) < 3 else lines
     return []
 
 def fetch_tournament_data(url):

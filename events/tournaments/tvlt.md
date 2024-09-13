@@ -1,2 +1,4 @@
 Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟
-<a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-2171704">Thí Vua Lấy Tốt</a>|10/15/22/00/2022|10+0 Rapid ,Arena|@['congnguyen1406', 'vnquang123', 'cazonw', 'cakhothanchuong', 'dellbiettchsco', 'luffy_murom']|@['congnguyen1406', 'vnquang123', 'cazonw', 'cakhothanchuong', 'dellbiettchsco', 'luffy_murom']|@['congnguyen1406', 'vnquang123', 'cazonw', 'cakhothanchuong', 'dellbiettchsco', 'luffy_murom']|@['congnguyen1406', 'vnquang123', 'cazonw', 'cakhothanchuong', 'dellbiettchsco', 'luffy_murom']|@['congnguyen1406', 'vnquang123', 'cazonw', 'cakhothanchuong', 'dellbiettchsco', 'luffy_murom']|@['congnguyen1406', 'vnquang123', 'cazonw', 'cakhothanchuong', 'dellbiettchsco', 'luffy_murom']
+---|---|---|---|---|---|---|---|---
+
+
