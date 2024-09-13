@@ -16,7 +16,7 @@ def last_6_lines(md_filename):
     if os.path.exists(md_filename):
         with open(md_filename, 'r', encoding='utf-8') as f:
             lines = f.readlines()
-            return lines[-6:] if len(lines) >= 6 else lines
+            return lines[:6] if len(lines) < 2 else lines
     return []
 
 def fetch_tournament_data(url):
@@ -70,7 +70,7 @@ def parse_tournament_data(data):
     return parsed_data
 
 def write_tournament_data_to_file(parsed_data, md_filename):
-    with open(md_filename, 'a', encoding='utf-8') as f:
+    with open(md_filename, 'w', encoding='utf-8') as f:
         f.write('Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟\n')
         f.write(f"""<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['start_time']}|{parsed_data['time_control']} """)
         if parsed_data['time_class'].lower() == 'bullet':
