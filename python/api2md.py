@@ -120,7 +120,7 @@ if __name__ == "__main__":
     try:
         for filename in os.listdir('events/tournaments'):
             if filename.endswith('.txt'):
-                file_path = os.path.join('./', filename)
+                file_path = os.path.join('events/tournaments', filename)
                 urls = read_urls_from_txt(file_path)
                 
                 # Generate corresponding .md filename
