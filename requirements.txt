@@ -4,4 +4,4 @@ gunicorn==23.0.0
 pytz==2024.1
 requests==2.12.1
 requests-oauthlib==0.7.0
-urllib3==1.26.15
+urllib3==1.26.19
