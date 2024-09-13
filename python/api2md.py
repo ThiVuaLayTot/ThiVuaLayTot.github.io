@@ -12,7 +12,7 @@ def read_urls_from_txt(file_path):
         urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in f.readlines()]
     return urls
 
-def preserve_last_6_lines(md_filename):
+def last_6_lines(md_filename):
     if os.path.exists(md_filename):
         with open(md_filename, 'r', encoding='utf-8') as f:
             lines = f.readlines()
