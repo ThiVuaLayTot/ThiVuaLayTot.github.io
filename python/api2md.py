@@ -66,45 +66,45 @@ def parse_tournament_data(data):
 
 def write_tournament_data_to_file(parsed_data, md_filename):
     with open(md_filename, 'a', encoding='utf-8') as f:
-        f.write(f"""\n<a href="{parsed_data['url']}">{parsed_data['name']}</a>|{parsed_data['start_time']}|{parsed_data['time_control']} """)
+        f.write(f'\n<a href="{parsed_data["url"]}">{parsed_data["name"]}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} ')
         if parsed_data['time_class'].lower() == 'bullet':
-            f.write("Bullet")
+            f.write('Bullet')
         elif parsed_data['time_class'].lower() == 'blitz':
-            f.write("Blitz")
+            f.write('Blitz')
         else:
-            f.write("Rapid")
+            f.write('Rapid')
 
         rule = parsed_data['rules'].lower()
         if rule == 'chess960':
-            f.write(" Chess960, ")
+            f.write(' Chess960, ')
         elif rule == 'kingofthehill':
-            f.write(" KOTH, ")
+            f.write(' KOTH, ')
         elif rule == 'crazyhouse':
-            f.write(" Crazyhouse, ")
+            f.write(' Crazyhouse, ')
         elif rule == 'bughouse':
-            f.write(" Bughouse, ")
+            f.write(' Bughouse, ')
         elif rule == 'threecheck':
-            f.write(" 3 Chiếu, ")
+            f.write(' 3 Chiếu, ')
         else:
-            f.write(",")
+            f.write(',')
 
         if parsed_data['type'].lower() == 'standard':
-            f.write("Arena")
+            f.write('Arena')
         else:
-            f.write(f"Swiss {parsed_data['total_rounds']} vòng")
+            f.write(f'Swiss {parsed_data["total_rounds"]} vòng')
 
-        for i, player in enumerate(parsed_data['players']):
+        for player in parsed_data['players']:
             if player in special_players:
-                if player == 'm_dinhhoangviet' or player == 'tungjohn_playing_chess':
-                    f.write(f"|@M-DinhHoangViet")
+                if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
+                    f.write('|@M-DinhHoangViet')
                 elif player == 'thangthukquantrong':
-                    f.write(f"|@thangthukquantrong")
+                    f.write('|@thangthukquantrong')
             else:
-                f.write(f"|@{player}")
+                f.write(f'|@{player}')
 
-        f.write("\n")
+        f.write('\n')
 
-        for line in last_6_lines(md_filename):  # Call the function to get the last 6 lines
+        for line in last_6_lines(md_filename):
             f.write(line)
 
     print(f"Data for {parsed_data['name']} written to {md_filename}")
