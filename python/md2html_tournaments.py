@@ -158,13 +158,17 @@ def get_chesscom_status(username):
     url = f'https://api.chess.com/pub/player/{username}'
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raise an exception for HTTP errors
+        response.raise_for_status()
         data = response.json()
-        if 'status' in data:
-            return data['status']  # or other status field if available
+        status = data.get('status', 'Status not available')
+        return status
     except requests.RequestException as e:
         logging.error(f"Error fetching status for {username}: {e}")
-    return None
+        return 'Error fetching status'
+    except ValueError as e:
+        logging.error(f"Error decoding JSON response for {username}: {e}")
+        return 'Error decoding response'
+
 
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
