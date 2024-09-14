@@ -6,6 +6,8 @@ from datetime import datetime
 
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
 
+sys.stdout.reconfigure(encoding='utf-8')
+
 def read_urls_from_txt(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in f.readlines()]
@@ -63,12 +65,6 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         "---|---|---|---|---|---|---|---|---\n"
     ]
 
-    if os.path.exists(md_filename):
-        with open(md_filename, 'r', encoding='utf-8') as f:
-            existing_content = f.read()
-    else:
-        existing_content = ""
-
     new_line = f'<a href="{parsed_data["url"]}">{parsed_data["name"]}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} '
     
     if parsed_data['time_class'].lower() == 'bullet':
@@ -106,18 +102,25 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         else:
             new_line += f'|@{player}'
 
+    file_exists = os.path.exists(md_filename)
+    if file_exists:
+        with open(md_filename, 'r', encoding='utf-8') as f:
+            existing_content = f.read()
+    else:
+        existing_content = ""
+
     if new_line.strip() in existing_content:
         print(f"Data for {parsed_data['name']} already exists in {md_filename}. Skipping.")
         return
 
-    if not os.path.exists(md_filename) or os.path.getsize(md_filename) == 0:
+    if not file_exists or os.path.getsize(md_filename) == 0:
         with open(md_filename, 'w', encoding='utf-8') as f:
             f.writelines(header_lines)
 
     with open(md_filename, 'a', encoding='utf-8') as f:
         f.write(new_line)
 
-    print(f"Data for {parsed_data['name']} written to {md_filename}".encode('utf-8', errors='ignore').decode('utf-8'))
+    print(f"Data for {parsed_data['name']} written to {md_filename}")
 
 if __name__ == "__main__":
     try:
@@ -126,13 +129,12 @@ if __name__ == "__main__":
                 file_path = os.path.join('events/tournaments', filename)
                 urls = read_urls_from_txt(file_path)
                 
-                # Generate corresponding .md filename
                 md_filename = file_path.replace('.txt', '.md')
 
                 for url in urls:
                     tournament_data = fetch_tournament_data(url)
                     
-                    if tournament_data:  # Ensure that data is fetched successfully
+                    if tournament_data:
                         parsed_data = parse_tournament_data(tournament_data)
 
                         write_tournament_data_to_file(parsed_data, md_filename)
