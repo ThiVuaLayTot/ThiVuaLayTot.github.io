@@ -11,13 +11,6 @@ def read_urls_from_txt(file_path):
         urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in f.readlines()]
     return urls
 
-def last_6_lines(md_filename):
-    if os.path.exists(md_filename):
-        with open(md_filename, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-            return lines[:2] if len(lines) < 3 else lines
-    return []
-
 def fetch_tournament_data(url):
     req = urllib.request.Request(url, method='GET')
     try:
@@ -65,47 +58,64 @@ def parse_tournament_data(data):
     return parsed_data
 
 def write_tournament_data_to_file(parsed_data, md_filename):
+    header_lines = [
+        "Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟\n",
+        "---|---|---|---|---|---|---|---|---\n"
+    ]
+
+    if os.path.exists(md_filename):
+        with open(md_filename, 'r', encoding='utf-8') as f:
+            existing_content = f.read()
+    else:
+        existing_content = ""
+
+    new_line = f'<a href="{parsed_data["url"]}">{parsed_data["name"]}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} '
+    
+    if parsed_data['time_class'].lower() == 'bullet':
+        new_line += 'Bullet'
+    elif parsed_data['time_class'].lower() == 'blitz':
+        new_line += 'Blitz'
+    else:
+        new_line += 'Rapid'
+
+    rule = parsed_data['rules'].lower()
+    if rule == 'chess960':
+        new_line += ' Chess960, '
+    elif rule == 'kingofthehill':
+        new_line += ' KOTH, '
+    elif rule == 'crazyhouse':
+        new_line += ' Crazyhouse, '
+    elif rule == 'bughouse':
+        new_line += ' Bughouse, '
+    elif rule == 'threecheck':
+        new_line += ' 3 Chiếu, '
+    else:
+        new_line += ','
+
+    if parsed_data['type'].lower() == 'standard':
+        new_line += 'Arena'
+    else:
+        new_line += f'Swiss {parsed_data["total_rounds"]} vòng'
+
+    for player in parsed_data['players']:
+        if player in special_players:
+            if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
+                new_line += '|@M-DinhHoangViet'
+            elif player == 'thangthukquantrong':
+                new_line += '|@thangthukquantrong'
+        else:
+            new_line += f'|@{player}'
+
+    if new_line.strip() in existing_content:
+        print(f"Data for {parsed_data['name']} already exists in {md_filename}. Skipping.")
+        return
+
+    if not os.path.exists(md_filename) or os.path.getsize(md_filename) == 0:
+        with open(md_filename, 'w', encoding='utf-8') as f:
+            f.writelines(header_lines)
+
     with open(md_filename, 'a', encoding='utf-8') as f:
-        f.write(f'\n<a href="{parsed_data["url"]}">{parsed_data["name"]}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} ')
-        if parsed_data['time_class'].lower() == 'bullet':
-            f.write('Bullet')
-        elif parsed_data['time_class'].lower() == 'blitz':
-            f.write('Blitz')
-        else:
-            f.write('Rapid')
-
-        rule = parsed_data['rules'].lower()
-        if rule == 'chess960':
-            f.write(' Chess960, ')
-        elif rule == 'kingofthehill':
-            f.write(' KOTH, ')
-        elif rule == 'crazyhouse':
-            f.write(' Crazyhouse, ')
-        elif rule == 'bughouse':
-            f.write(' Bughouse, ')
-        elif rule == 'threecheck':
-            f.write(' 3 Chiếu, ')
-        else:
-            f.write(',')
-
-        if parsed_data['type'].lower() == 'standard':
-            f.write('Arena')
-        else:
-            f.write(f'Swiss {parsed_data["total_rounds"]} vòng')
-
-        for player in parsed_data['players']:
-            if player in special_players:
-                if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
-                    f.write('|@M-DinhHoangViet')
-                elif player == 'thangthukquantrong':
-                    f.write('|@thangthukquantrong')
-            else:
-                f.write(f'|@{player}')
-
-        f.write('\n')
-
-        for line in last_6_lines(md_filename):
-            f.write(line)
+        f.write(new_line)
 
     print(f"Data for {parsed_data['name']} written to {md_filename}")
 
