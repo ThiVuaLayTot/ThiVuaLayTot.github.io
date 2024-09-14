@@ -102,6 +102,8 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         else:
             new_line += f'|@{player}'
 
+    new_line += f'\n'
+
     file_exists = os.path.exists(md_filename)
     if file_exists:
         with open(md_filename, 'r', encoding='utf-8') as f:
