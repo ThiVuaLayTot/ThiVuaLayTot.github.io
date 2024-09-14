@@ -117,7 +117,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     with open(md_filename, 'a', encoding='utf-8') as f:
         f.write(new_line)
 
-    print(f"Data for {parsed_data['name']} written to {md_filename}")
+    print(f"Data for {parsed_data['name']} written to {md_filename}".encode('utf-8', errors='ignore').decode('utf-8'))
 
 if __name__ == "__main__":
     try:
