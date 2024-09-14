@@ -4,7 +4,6 @@ import os
 import sys
 from datetime import datetime
 
-
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
 
 def read_urls_from_txt(file_path):
@@ -35,14 +34,10 @@ def parse_tournament_data(data):
     if isinstance(time_control, str) and '+' in time_control:
         parts = time_control.split('+')
         if len(parts) == 2:
-            minutes = parts[0]
-            seconds = parts[1]
             try:
-                minutes = int(minutes)
-                seconds = int(seconds)
-                additional_secs = minutes / 60
-                min = round(additional_secs)
-                total_minutes = f'{min}+{seconds}'
+                minutes = int(parts[0])
+                seconds = int(parts[1])
+                total_minutes = f'{minutes}+{seconds}'
             except ValueError:
                 total_minutes = 'N/A'
         else:
@@ -52,7 +47,7 @@ def parse_tournament_data(data):
 
     start_time_unix = data.get('start_time', 'N/A')
     if start_time_unix:
-        start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%D-%M-%Y')
+        start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%d-%m-%Y')
     else:
         start_time = 'N/A'
 
@@ -100,9 +95,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
 
         for i, player in enumerate(parsed_data['players']):
             if player in special_players:
-                if player == 'm_dinhhoangviet':
-                    f.write(f"|@M-DinhHoangViet")
-                elif player == 'tungjohn_playing_chess':
+                if player == 'm_dinhhoangviet' or player == 'tungjohn_playing_chess':
                     f.write(f"|@M-DinhHoangViet")
                 elif player == 'thangthukquantrong':
                     f.write(f"|@thangthukquantrong")
