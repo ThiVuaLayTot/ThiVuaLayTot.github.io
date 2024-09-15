@@ -8,6 +8,7 @@ import re
 import subprocess
 import sys
 import requests
+from bs4 import BeautifulSoup
 
 
 css_styles = """<!DOCTYPE html>
@@ -153,29 +154,23 @@ def generate_h1_tag(filename):
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 
-def get_chesscom_status(username, token):
-    """Fetch status from Chess.com API for a given username using a token."""
-    url = f'https://api.chess.com/pub/player/{username}'
-    headers = {
-        'Authorization': f'Bearer {token}'
-    }
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        data = response.json()
-        status = data.get('status', 'Status not available')
-        return status
-    except requests.RequestException as e:
-        logging.error(f"Error fetching status for {username}: {e}")
-        return 'Error fetching status'
-    except ValueError as e:
-        logging.error(f"Error decoding JSON response for {username}: {e}")
-        return 'Error decoding response'
+def get_chesscom_status(username):
+    url = f'https://www.chess.com/member/{username}'
+    response = requests.get(url)
 
-# Use your token and username
-token = 'gJxHp4pebBSgqjFMlOlaiOAN'
-status = get_chesscom_status('some_username', token)
-print(status)
+    if response.status_code != 200:
+        return 'Không thể truy cập trang người dùng'
+
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    if "Community Guidelines" in soup.text:
+        return 'Tài khoản vi phạm TOS'
+    elif "Fair Play Policy" in soup.text:
+        return 'Fair Play Policy'
+    elif "Page not found" in soup.text or "404" in soup.title.string:
+        return 'Không tìm thấy trang, có thể tài khoản không tồn tại'
+    else:
+        return 'Tài khoản bình thường'
 
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
@@ -212,20 +207,25 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('@'):
                 username = cell[1:]
                 status = get_chesscom_status(username)
-                if status == 'closed':
-                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}{status}</a></{tag}>'
+                if status == 'Fair Play':
+                    cell_content = f'       <{tag} class="ban"><a href="{chesscom}/member/{username}" target="_blank">{username}<span class="closed"></span></a></{tag}>'
+                if status == 'Abuse':
+                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="closed">✕</span></a></{tag}>'
                 else:
-                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}{status}</a></{tag}>'
+                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a></{tag}>'
+            elif cell.startswith('!@'):
+                username = cell[2:]
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="special">✓</span></a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('- $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} ✅</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="special">✓</span></a></{tag}>'
             elif cell.startswith('! $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} ❌</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="closed">✕</span></</a></{tag}>'
             # Dành cho các link giải
             elif cell.startswith('%'):
                 link = cell[1:]

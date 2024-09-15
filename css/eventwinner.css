@@ -17,3 +17,11 @@
 .stt {
     width: 5%;
 }
+
+.closed, .ban {
+    color: red;
+}
+
+.special {
+    color: green;
+}

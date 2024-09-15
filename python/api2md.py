@@ -30,8 +30,9 @@ def parse_tournament_data(data):
         parts = time_control.split('+')
         if len(parts) == 2:
             try:
-                minutes = int(parts[0])
+                minutes_seconds = int(parts[0])
                 seconds = int(parts[1])
+                minutes = round(minutes_seconds / 60)
                 total_minutes = f'{minutes}+{seconds}'
             except ValueError:
                 total_minutes = 'N/A'
