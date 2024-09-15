@@ -172,8 +172,10 @@ def get_chesscom_status(username, token):
         logging.error(f"Error decoding JSON response for {username}: {e}")
         return 'Error decoding response'
 
-    token = 'gJxHp4pebBSgqjFMlOlaiOAN'
-    status = get_chesscom_status('some_username', token)
+# Use your token and username
+token = 'gJxHp4pebBSgqjFMlOlaiOAN'
+status = get_chesscom_status('some_username', token)
+print(status)
 
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
