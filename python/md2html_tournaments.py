@@ -153,11 +153,14 @@ def generate_h1_tag(filename):
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 
-def get_chesscom_status(username):
-    """Fetch status from Chess.com API for a given username."""
+def get_chesscom_status(username, token):
+    """Fetch status from Chess.com API for a given username using a token."""
     url = f'https://api.chess.com/pub/player/{username}'
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
     try:
-        response = requests.get(url)
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         data = response.json()
         status = data.get('status', 'Status not available')
@@ -169,6 +172,8 @@ def get_chesscom_status(username):
         logging.error(f"Error decoding JSON response for {username}: {e}")
         return 'Error decoding response'
 
+    token = 'gJxHp4pebBSgqjFMlOlaiOAN'
+    status = get_chesscom_status('some_username', token)
 
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
