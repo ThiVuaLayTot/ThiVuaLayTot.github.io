@@ -834,6 +834,9 @@ hr {
 
 .styled-table td {
     word-wrap: break-word;
+    .ban {
+        background-color: red;
+    }
 }
 
 .styled-table td:hover {

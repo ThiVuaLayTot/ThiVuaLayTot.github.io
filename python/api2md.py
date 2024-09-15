@@ -30,9 +30,8 @@ def parse_tournament_data(data):
         parts = time_control.split('+')
         if len(parts) == 2:
             try:
-                minutes_seconds = int(parts[0])
+                minutes = int(parts[0])
                 seconds = int(parts[1])
-                minutes = round(minutes_seconds / 60)
                 total_minutes = f'{minutes}+{seconds}'
             except ValueError:
                 total_minutes = 'N/A'
@@ -105,22 +104,20 @@ def write_tournament_data_to_file(parsed_data, md_filename):
 
     new_line += f'\n'
 
-    file_exists = os.path.exists(md_filename)
-    if file_exists:
+    existing_lines = set()
+    if os.path.exists(md_filename):
         with open(md_filename, 'r', encoding='utf-8') as f:
-            existing_content = f.read()
-    else:
-        existing_content = ""
+            existing_lines = set(line.strip() for line in f.readlines())
 
-    if new_line.strip() in existing_content:
+    if new_line.strip() in existing_lines:
         print(f"Data for {parsed_data['name']} already exists in {md_filename}. Skipping.")
         return
 
-    if not file_exists or os.path.getsize(md_filename) == 0:
-        with open(md_filename, 'w', encoding='utf-8') as f:
+    with open(md_filename, 'w', encoding='utf-8') as f:
+        if not existing_lines:
             f.writelines(header_lines)
-
-    with open(md_filename, 'a', encoding='utf-8') as f:
+        else:
+            f.writelines(line + '\n' for line in existing_lines)
         f.write(new_line)
 
     print(f"Data for {parsed_data['name']} written to {md_filename}")
