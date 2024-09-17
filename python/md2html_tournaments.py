@@ -10,6 +10,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+sys.stdout.reconfigure(encoding='utf-8')
 
 css_styles = """<!DOCTYPE html>
 <html lang="vi">
