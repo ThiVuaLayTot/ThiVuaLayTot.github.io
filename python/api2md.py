@@ -60,21 +60,23 @@ def parse_tournament_data(data):
     return parsed_data
 
 def write_tournament_data_to_file(parsed_data, md_filename):
+    rule = parsed_data['rules'].lower()
+    time_class = parsed_data['time_class'].lower()
+    name = parsed_data["name"].replace(' || TungJohn Playing Chess', ' ')
     header_lines = [
         "Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟\n",
         "---|---|---|---|---|---|---|---|---\n"
     ]
 
-    new_line = f'<a href="{parsed_data["url"]}">{parsed_data["name"]}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} '
+    new_line = f'<a href="{parsed_data["url"]}">{name}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} '
     
-    if parsed_data['time_class'].lower() == 'bullet':
+    if time_class == 'bullet':
         new_line += 'Bullet'
-    elif parsed_data['time_class'].lower() == 'blitz':
+    elif time_class == 'blitz':
         new_line += 'Blitz'
     else:
         new_line += 'Rapid'
 
-    rule = parsed_data['rules'].lower()
     if rule == 'chess960':
         new_line += ' Chess960, '
     elif rule == 'kingofthehill':

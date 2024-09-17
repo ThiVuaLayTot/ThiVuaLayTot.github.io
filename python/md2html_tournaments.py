@@ -151,11 +151,12 @@ def generate_h1_tag(filename):
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
     <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/events/bestplayers/{title}">Ở đây</a>.</h2>
-    <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
+    <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>
+    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>"""
     return h1_tag
 
 def get_chesscom_status(username):
-    url = f'https://www.chess.com/member/{username}'
+    url = f'https://chess.com/member/{username}'
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -167,8 +168,6 @@ def get_chesscom_status(username):
         return 'Tài khoản vi phạm TOS'
     elif "Fair Play Policy" in soup.text:
         return 'Fair Play Policy'
-    elif "Page not found" in soup.text or "404" in soup.title.string:
-        return 'Không tìm thấy trang, có thể tài khoản không tồn tại'
     else:
         return 'Tài khoản bình thường'
 
