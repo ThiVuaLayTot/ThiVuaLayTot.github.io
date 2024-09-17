@@ -2,10 +2,7 @@ name: Cập nhật nội dung
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-    paths-ignore:
-      - '_includes/updated.html'
+  schedule: [{cron: "20 * */7 * *"}]
 
 env:
   TOKEN: ${{ secrets.TOKEN }}
