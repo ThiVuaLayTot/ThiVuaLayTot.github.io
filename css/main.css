@@ -829,7 +829,6 @@ hr {
 }
 
 .styled-table a {
-    background-color: #f6043ce6;
     opacity: 0;
     animation: topSideAni 1s ease forwards;
 }
