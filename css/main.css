@@ -621,7 +621,7 @@ hr {
         height: 555px;
         padding: 5px;
         margin: 10px;
-        box-shadow: 8px 8px 8px 8px rgba(67, 53, 53, 0.166);
+        box-shadow: 5px 5px 5px 5px rgba(53, 58, 67, 0.20);
         }
         .list-post-title img {
             text-align: center;

@@ -151,16 +151,17 @@ def generate_h1_tag(filename):
     elif title == 'cbtt':
         title = 'Cờ Bí Thí Tốt'
     elif title == 'cttq':
-        title 'Chiến Trường Thí Quân'
+        title = 'Chiến Trường Thí Quân'
     elif title == 'tvlt':
-        title 'Đấu Trường Thí Vua'
+        title = 'Đấu Trường Thí Vua'
     else:
-        title 'được tổ chức trên Lichess'
+        title = 'được tổ chức trên Lichess'
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
     <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/events/bestplayers/{title}">ở đây</a>.</h2>
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>
+    <ul class="tab"><li><a href="events/tournaments/tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="#about">Cờ Bí Thí Tốt</a></li> <li><a href="events/tournaments/cttq">Chiến Trường Thí Quân</a></li> <li><a href="events/tournaments/dttv">Đấu Trường Thí Vua</a></li> <li><a href="events/tournaments/lichess">Các giải tổ chức trên Lichess</a></li></ul>
     <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>"""
     return h1_tag
 
