@@ -22,6 +22,10 @@
     color: red;
 }
 
+.ban {
+    background-color: #f82121;
+}
+
 .special {
     color: green;
 }

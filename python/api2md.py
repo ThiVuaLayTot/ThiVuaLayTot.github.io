@@ -5,7 +5,6 @@ import sys
 from datetime import datetime
 
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
-
 sys.stdout.reconfigure(encoding='utf-8')
 
 def read_urls_from_txt(file_path):
@@ -30,8 +29,9 @@ def parse_tournament_data(data):
         parts = time_control.split('+')
         if len(parts) == 2:
             try:
-                minutes = int(parts[0])
+                minutes_seconds = int(parts[0])
                 seconds = int(parts[1])
+                minutes = round(minutes_seconds / 60)
                 total_minutes = f'{minutes}+{seconds}'
             except ValueError:
                 total_minutes = 'N/A'
@@ -63,10 +63,12 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     rule = parsed_data['rules'].lower()
     time_class = parsed_data['time_class'].lower()
     name = parsed_data["name"].replace(' || TungJohn Playing Chess', ' ')
-    header_lines = [
-        "Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟\n",
-        "---|---|---|---|---|---|---|---|---\n"
-    ]
+
+    if os.path.exists(md_filename):
+        with open(md_filename, 'r', encoding='utf-8') as f:
+            existing_content = f.read()
+    else:
+        existing_content = ""
 
     new_line = f'<a href="{parsed_data["url"]}">{name}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} '
     
@@ -104,22 +106,13 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         else:
             new_line += f'|@{player}'
 
-    new_line += f'\n'
+    new_line += '\n'
 
-    existing_lines = set()
-    if os.path.exists(md_filename):
-        with open(md_filename, 'r', encoding='utf-8') as f:
-            existing_lines = set(line.strip() for line in f.readlines())
-
-    if new_line.strip() in existing_lines:
+    if new_line.strip() in existing_content:
         print(f"Data for {parsed_data['name']} already exists in {md_filename}. Skipping.")
         return
 
-    with open(md_filename, 'w', encoding='utf-8') as f:
-        if not existing_lines:
-            f.writelines(header_lines)
-        else:
-            f.writelines(line + '\n' for line in existing_lines)
+    with open(md_filename, 'a', encoding='utf-8') as f:
         f.write(new_line)
 
     print(f"Data for {parsed_data['name']} written to {md_filename}")

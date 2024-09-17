@@ -78,7 +78,7 @@ css_styles = """<!DOCTYPE html>
                         <a href="https://thivualaytot.github.io/contact-donate#donate">Ủng hộ</a>
                     </div>
                 </div>
-                <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">☰</a></li>
+                <a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><i class="bx bx-menu"></i></a></li>
         </div>
         <div>
             <label class="mode">
@@ -139,37 +139,53 @@ footer_style = """
 """
 
 information = """
-      <p><strong>Ghi chú:</strong> Nếu <img class="verified" src="https://s3.vio.edu.vn/assets/img/correct_icon_2.png" title="Chính thức"> nghĩa là giải chính thức được tổ chức bởi chủ sở hữu/quản lí giải đấu, còn <img class="verified" src="https://s3.vio.edu.vn/assets/img/wrong_icon_2.png" title="Không chính thức"> là giải tạo bởi một Admin khác.</p>
-      <p>Nếu sau tên người dùng có: ❌ tức là kỳ thủ này gian lận, ✅ là kỳ thủ đã bị/tự đóng tài khoản nhưng được nhận thưởng, ❎ là kỳ thủ đã nhận giải nhưng sau đó bị xác định là gian lận.</p>
-      <p>Và nếu tài khoản đó bị đóng do gian lận thì chuyển giải sang người đứng thứ hạng phía sau.</p>
-      <b> Bạn có thể tìm kiếm một kỳ thủ đạt giải trong đây bằng cách sử dụng tổ hợp phím Ctrl+F (trên máy tính). Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây hay đã đổi tên tài khoản thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
+    <p>Các điều quan trọng trong bảng phía dưới: Nếu người chơi có ô màu đỏ và có biểu tượng <span class="closed">✕</span> thì tài khoản đó đã bị đóng do gian lận (có thể không gian lận ở giải đó), nếu chỉ có <span class="closed">✕</span> thì tài khoản đó bị đóng do lăng mạ hoặc lý do khác, nếu có <span class="special">✓</span></a> thì người chơi đó mặc dù bị đóng tài khoản nhưng xác nhận được giải.</p>
+    <b>Bạn có thể tìm kiếm một kỳ thủ đạt giải trong đây bằng cách sử dụng tổ hợp phím Ctrl+F (trên máy tính). Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây hay đã đổi tên tài khoản thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
+    <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins">Admin</a></i>
 """
 
 def generate_h1_tag(filename):
     title = os.path.splitext(filename)[0]
+    if title == 'tvlt':
+        title = 'Thí Vua Lấy Tốt'
+    elif title == 'cbtt':
+        title = 'Cờ Bí Thí Tốt'
+    elif title == 'cttq':
+        title 'Chiến Trường Thí Quân'
+    elif title == 'tvlt':
+        title 'Đấu Trường Thí Vua'
+    else:
+        title 'được tổ chức trên Lichess'
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/events/bestplayers/{title}">Ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/events/bestplayers/{title}">ở đây</a>.</h2>
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>
     <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>"""
     return h1_tag
 
 def get_chesscom_status(username):
     url = f'https://chess.com/member/{username}'
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
 
-    if response.status_code != 200:
-        return 'Không thể truy cập trang người dùng'
-
-    soup = BeautifulSoup(response.content, 'html.parser')
-
-    if "Community Guidelines" in soup.text:
-        return 'Tài khoản vi phạm TOS'
-    elif "Fair Play Policy" in soup.text:
-        return 'Fair Play Policy'
-    else:
-        return 'Tài khoản bình thường'
+        if 'Closed: Abuse' in soup.text:
+            print(f'Tài khoản {username} đã bị đóng: Abuse')
+            return 'Abuse'
+        if 'Closed: Fair Play' in soup.text:
+            print(f'Tài khoản {username} đã bị đóng: Fair Play')
+            return 'Fair Play'
+        else:
+            print(f'Tài khoản {username} vẫn hoạt động')
+            return 'Tài khoản vẫn hoạt động'
+    except requests.HTTPError as e:
+        print(f'Không tìm thấy trang cho {username}, có thể tài khoản không tồn tại')
+        return 'Không tìm thấy trang, có thể tài khoản không tồn tại'
+    except Exception as e:
+        print(f'Đã xảy ra lỗi khi kiểm tra tài khoản {username}: {e}')
+        return 'Đã xảy ra lỗi'
 
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
@@ -207,8 +223,8 @@ def markdown_table_to_html(markdown_table):
                 username = cell[1:]
                 status = get_chesscom_status(username)
                 if status == 'Fair Play':
-                    cell_content = f'       <{tag} class="ban"><a href="{chesscom}/member/{username}" target="_blank">{username}</a><i class="closed">✕</i></{tag}>'
-                if status == 'Abuse':
+                    cell_content = f'       <{tag} class="ban"><a href="{chesscom}/member/{username}" target="_blank">{username}</a><span class="closed">✕</span></{tag}>'
+                elif status == 'Abuse':
                     cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="closed">✕</span></a></{tag}>'
                 else:
                     cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a></{tag}>'
