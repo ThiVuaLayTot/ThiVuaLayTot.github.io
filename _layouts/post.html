@@ -2,14 +2,14 @@
 layout: default
 ---
 
-<ul class="tab"></ul>
-    <li><a href="/blog">Tất cả bài đăng</a></li>
-    <li><a href="/chess">Kiến thức cờ vua</a></li>
-    <li><a href="/news">Thông báo/Tin tức</a></li>
-</ul><br>
 <div id="post">
     <h1>{{ page.title }}</h1>
     <p align="center"><a href="/{{ page.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i> {{ page.tags }}</a></p>
+    <ul class="tab">
+        <li><a href="/blog">Tất cả bài đăng</a></li>
+        <li><a href="/chess">Kiến thức cờ vua</a></li>
+        <li><a href="/news">Thông báo/Tin tức</a></li>
+    </ul>
     <hr><br>
 {{ content }}
 </div>
