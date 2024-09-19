@@ -63,7 +63,7 @@ def parse_tournament_data(data):
 def write_tournament_data_to_file(parsed_data, md_filename):
     rule = parsed_data['rules'].lower()
     time_class = parsed_data['time_class'].lower()
-    name = parsed_data["name"].replace(' |', '-')
+    name = parsed_data['name'].replace('||', '-').replace('|', '-')
 
     if os.path.exists(md_filename):
         with open(md_filename, 'r', encoding='utf-8') as f:
