@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
-sys.stdout.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
 def read_urls_from_txt(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:

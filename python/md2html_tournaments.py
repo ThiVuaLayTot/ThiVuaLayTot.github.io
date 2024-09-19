@@ -7,8 +7,10 @@ import subprocess
 import sys
 import requests
 from bs4 import BeautifulSoup
+import urllib.error
 
-sys.stdout.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
+
 
 head_content = """<!DOCTYPE html>
 <html lang="vi">
