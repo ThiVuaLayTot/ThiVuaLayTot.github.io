@@ -36,8 +36,8 @@ def footer_content():
 
 information = """
     <p>Các điều quan trọng trong bảng phía dưới: Nếu người chơi có ô màu đỏ và có biểu tượng <span class="closed">✕</span> thì tài khoản đó đã bị đóng do gian lận (có thể không gian lận ở giải đó), nếu chỉ có <span class="closed">✕</span> thì tài khoản đó bị đóng do lăng mạ hoặc lý do khác, nếu có <span class="special">✓</span></a> thì người chơi đó mặc dù bị đóng tài khoản nhưng xác nhận được giải.</p>
-    <b>Bạn có thể tìm kiếm một kỳ thủ đạt giải trong đây bằng cách sử dụng tổ hợp phím Ctrl+F (trên máy tính). Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây hay đã đổi tên tài khoản thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
-    <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins">Admin</a></i>
+    <b>Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
+    <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins">quản trị viên</a>.</i>
 """
 
 def generate_h1_tag(filename):
@@ -55,7 +55,11 @@ def generate_h1_tag(filename):
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
     <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/events/bestplayers/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li> <li><a href="lichess">Các giải tổ chức trên Lichess</a></li></ul>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>"""
+    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
+    <input type="text" id="searchInput" class="search-bar"> onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu">
+    <script src="/js/search-events.js"></script>
+
+    """
     return h1_tag
 
 def get_chesscom_status(username):
