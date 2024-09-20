@@ -18,8 +18,8 @@ css_styles = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://thivualaytot.github.io/css/main.css">
-    <link rel="stylesheet" href="https://thivualaytot.github.io/css/eventwinner.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/eventwinner.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
@@ -27,53 +27,53 @@ css_styles = """<!DOCTYPE html>
 <body>
     <nav class="page-header">
         <div class="logo">
-            <a href="https://thivualaytot.github.io"><img src="/images/favicon.ico"></a>
+            <a href="/"><img src="/images/favicon.ico"></a>
         </div>
         <div class="topnav">
-                <a href="https://thivualaytot.github.io"><i class="bx bxs-home"></i></a>
-                <a href="https://thivualaytot.github.io/blog">
+                <a href="/"><i class="bx bxs-home"></i></a>
+                <a href="/blog">
                     <i class="bx bxs-news"></i>Thông báo/Tin tức
                 </a>
-                <a href="https://thivualaytot.github.io/vlogs">
+                <a href="/vlogs">
                     <i class="bx bx-play-circle"></i>Vlogs
                 </a>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/social">
+                    <a class="dropbtn" href="/social">
                         <i class="bx bx-link"></i>Truyền thông <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a>
-                        <a href="https://thivualaytot.github.io/social#chat">Các đoạn chat của Thí Vua Lấy Tốt</a>
-                        <a href="https://thivualaytot.github.io/social#group">Các nhóm/CLB/máy chủ của Thí Vua Lấy Tốt</a>
+                        <a href="/social#social">Các tài khoản MXH của TungJohn</a>
+                        <a href="/social#chat">Các đoạn chat của Thí Vua Lấy Tốt</a>
+                        <a href="/social#group">Các nhóm/CLB/máy chủ của Thí Vua Lấy Tốt</a>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">
+                    <a class="dropbtn" href="/lists" title="Các danh sách/bảng quan trọng">
                         <i class="bx bx-list-plus"></i>Danh sách/Tài liệu <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/events">Danh sách tổng hợp các giải đấu</a>
-                        <a href="https://thivualaytot.github.io/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
+                        <a href="/events">Danh sách tổng hợp các giải đấu</a>
+                        <a href="/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
                         <a href="https://chess.com/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess" target="_blank">Danh sách các tài khoản vi phạm</a>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">
+                    <a class="dropbtn" href="/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">
                         <i class="bx bx-shield-quarter"></i>Leaders <i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/leaders#admins">Administrators/Các Quản trị viên</a>
-                        <a href="https://thivualaytot.github.io/leaders#mods">Moderators/Các điều hành viên</a>
-                        <a href="https://thivualaytot.github.io/leaders#sponsors">Các nhà tài trợ/hợp tác với giải</a>
+                        <a href="/leaders#admins">Administrators/Các Quản trị viên</a>
+                        <a href="/leaders#mods">Moderators/Các điều hành viên</a>
+                        <a href="/leaders#sponsors">Các nhà tài trợ/hợp tác với giải</a>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a class="dropbtn" href="https://thivualaytot.github.io/contact-donate">
+                    <a class="dropbtn" href="/contact-donate">
                         <i class="bx bx-donate-blood"></i>Liên hệ & Ủng hộ<i class="bx bx-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="https://thivualaytot.github.io/contact-donate#contact">Liên hệ</a>
-                        <a href="https://thivualaytot.github.io/contact-donate#donate">Ủng hộ</a>
+                        <a href="/contact-donate#contact">Liên hệ</a>
+                        <a href="/contact-donate#donate">Ủng hộ</a>
                     </div>
                 </div>
                 <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">☰</a></li>
@@ -92,17 +92,17 @@ footer_style = """
 <div class="footer">
     <div class="footer-container">
         <div>
-            <h3><strong><a href="https://thivualaytot.github.io" title="Trang web Thí Vua Lấy Tốt">Thí Vua Lấy Tốt</a></strong></h3>
-            <p><a href="https://thivualaytot.github.io/social" title="Social media links">Các trang mạng/truyền thông</a></p>
-            <p><a href="https://thivualaytot.github.io/blog" title="Các bài Blog quan trọng của TVLT">Các thông báo & tin tức</a></p>
-            <p><a href="https://thivualaytot.github.io/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
-            <p><a href="https://thivualaytot.github.io/game" title="Các trò chơi đơn giản">Các trò chơi đơn giản</a></p>
-            <p><a href="https://thivualaytot.github.io/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu</a></p>
-            <p><a href="https://thivualaytot.github.io/leaders" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
+            <h3><strong><a href="/" title="Trang web Thí Vua Lấy Tốt">Thí Vua Lấy Tốt</a></strong></h3>
+            <p><a href="/social" title="Social media links">Các trang mạng/truyền thông</a></p>
+            <p><a href="/blog" title="Các bài Blog quan trọng của TVLT">Các thông báo & tin tức</a></p>
+            <p><a href="/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
+            <p><a href="/game" title="Các trò chơi đơn giản">Các trò chơi đơn giản</a></p>
+            <p><a href="/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu</a></p>
+            <p><a href="/leaders" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
         </div>
         <div>
-            <h3 align="center"><a href="https://thivualaytot.github.io/social">Social meadia links</a></h3>
-            <strong><a href="https://thivualaytot.github.io/social#social">Các tài khoản MXH của TungJohn</a></strong>
+            <h3 align="center"><a href="/social">Social meadia links</a></h3>
+            <strong><a href="/social#social">Các tài khoản MXH của TungJohn</a></strong>
             <div class="button">
                 <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><i class="bx bxl-youtube"></i></a>
                 <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><i class="bx bxl-facebook"></i></a>
@@ -113,7 +113,7 @@ footer_style = """
                 <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><i class="bx bxs-shopping-bag"></i></a>
             </div>
             <hr>
-            <strong><a href="https://thivualaytot.github.io/social#group">Các Nhóm, Câu Lạc Bộ, Máy Chủ Của Thí Vua Lấy Tốt</a></strong>
+            <strong><a href="/social#group">Các Nhóm, Câu Lạc Bộ, Máy Chủ Của Thí Vua Lấy Tốt</a></strong>
             <div class="button">
                 <a href="https://link.chess.com/club/0CVQh6" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
                 <a href="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank" title="Đội Thí Vua Lấy Tốt trên Lichess"><img width="22" src="/images/lichesslogo.png"></a>
@@ -124,12 +124,12 @@ footer_style = """
         </div>
         <div>
             <br><br>
-            <p>Web được xây dựng bởi Quản trị viên <a href="https://thivualaytot.github.io/leaders#admins" title="Các quản trị viên">Đinh Hoàng Việt</a>.</p>
+            <p>Web được xây dựng bởi Quản trị viên <a href="//leaders#admins" title="Các quản trị viên">Đinh Hoàng Việt</a>.</p>
             <p>Mã nguồn trên <a href="https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io" title="Mã nguồn của web trên Github"><i class="bx bxl-github"></i></a></p>
         </div>
     </div>
 </div>
-    <script src="https://thivualaytot.github.io/js/main.js"></script>
+    <script src="//js/main.js"></script>
 </body>
 
 </html>
@@ -145,7 +145,7 @@ def generate_h1_tag(filename):
     tz_VI = pytz.timezone('Asia/Ho_Chi_Minh')
     datetime_VI = datetime.now(tz_VI)
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title} nhiều nhất</h1>
-    <h2 align="center">Bạn có thể xem danh sách các kỳ thủ đạt giải {title} <a href="https://thivualaytot.github.io/events/tournaments/{title}">Ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem danh sách các kỳ thủ đạt giải {title} <a href="//events/tournaments/{title}">Ở đây</a>.</h2>
     <p align="right"><i>Lần cuối cập nhật: {datetime_VI.hour}:{datetime_VI.minute}:{datetime_VI.second}, ngày {datetime_VI.day} tháng {datetime_VI.month} năm {datetime_VI.year}</i></p>"""
     return h1_tag
 

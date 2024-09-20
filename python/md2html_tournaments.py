@@ -21,8 +21,8 @@ head_content = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://thivualaytot.github.io/css/main.css">
-    <link rel="stylesheet" href="https://thivualaytot.github.io/css/eventwinner.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/eventwinner.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
@@ -55,11 +55,9 @@ def generate_h1_tag(filename):
     else:
         title = 'được tổ chức trên Lichess'
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="https://thivualaytot.github.io/events/bestplayers/{namefile}">ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="/events/bestplayers/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li> <li><a href="lichess">Các giải tổ chức trên Lichess</a></li></ul>
     <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
-    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu">
-    <script src="/js/search-events.js"></script>
 
     """
     return h1_tag
@@ -91,7 +89,7 @@ def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
     lichess = 'https://lichess.org'
     rows = markdown_table.strip().split('\n')
-    html_table = '      <table class="styled-table">\n'
+    html_table = '      <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu"><script src="/js/search-events.js"></script> <table class="styled-table">\n'
     for i, row in enumerate(rows):
         if '---|---|---|---|---|---|---|---|---' in row:
             continue
