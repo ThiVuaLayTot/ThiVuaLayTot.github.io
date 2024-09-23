@@ -89,7 +89,7 @@ def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
     lichess = 'https://lichess.org'
     rows = markdown_table.strip().split('\n')
-    html_table = '      <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu"><script src="/js/search-events.js"></script> <table class="styled-table">\n'
+    html_table = '<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu (Càng chi tiết càng tốt)"><script src="/js/search-events.js"></script> <table class="styled-table">\n'
     for i, row in enumerate(rows):
         if '---|---|---|---|---|---|---|---|---' in row:
             continue

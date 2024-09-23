@@ -83,7 +83,6 @@ def find_non_violating_player(index, substitutes):
                 return potential_replacement, j
     return None, -1
 
-
 def parse_markdown_table(markdown_table):
     players = defaultdict(lambda: {"gold": 0, "silver": 0, "bronze": 0, "achievements": [], "status": "Active"})
     rows = markdown_table.strip().split('\n')
@@ -123,6 +122,9 @@ def parse_markdown_table(markdown_table):
                 username = player[1:]
                 players[username]["status"] = get_chesscom_status(username)
                 rank = ['🥇', '🥈', '🥉'][i]
+                if not isinstance(players[username]["achievements"], list):
+                    players[username]["achievements"] = []
+
                 players[username]["achievements"].append(f"{rank}({event_date})")
                 if rank == '🥇':
                     players[username]["gold"] += 3
@@ -146,7 +148,7 @@ def sort_players(players):
 def generate_html_output(rankings, title):
     html_output = """
     <h1 align="center">Bảng xếp hạng các kỳ thủ đạt giải</h1>
-    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu"><script src="/js/search-events.js"></script>
+    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu (Càng chi tiết càng tốt)"><script src="/js/search-events.js"></script>
     <table class="styled-table">
         <thead>
             <tr>
@@ -163,7 +165,7 @@ def generate_html_output(rankings, title):
         html_output += f"""
         <tr>
             <td>#{rank}</td>
-            <td><a href="https://chess.com/member/{player}>{player}</></td>
+            <td><a href="https://chess.com/member/{player}">{player}</a></td>
             <td>{achievements_display}</td>
         </tr>
         """
