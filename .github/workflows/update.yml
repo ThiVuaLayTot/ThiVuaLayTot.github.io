@@ -6,7 +6,7 @@ on:
     branches: [ main ]
     paths:
       - 'events/tournaments/**.txt'
-  schedule: [{cron: "*30 0 */5 * *"}]
+  schedule: [{cron: "*0 */50 * * *"}]
 
 env:
   TOKEN: ${{ secrets.TOKEN }}
