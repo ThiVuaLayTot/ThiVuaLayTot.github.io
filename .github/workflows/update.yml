@@ -2,7 +2,11 @@ name: Cập nhật nội dung
 
 on:
   workflow_dispatch:
-  schedule: [{cron: "20 * */7 * *"}]
+  push:
+    branches: [ main ]
+    paths:
+      - 'events/tournaments/**.txt'
+  schedule: [{cron: "*30 0 */5 * *"}]
 
 env:
   TOKEN: ${{ secrets.TOKEN }}
@@ -24,10 +28,10 @@ jobs:
           pip install -r requirements.txt
       - name: Cập nhật nội dung
         run: |
-          python3 python/update_time.py
           python3 python/api2md.py
-          python3 python/md2html_bestplayers.py
           python3 python/md2html_tournaments.py
+          python3 python/md2html_bestplayers.py
+          python3 python/update_time.py
       - name: Cam kết & Đẩy tệp
         run: |
           git config --local user.email "vietdinh856@gmail.com"

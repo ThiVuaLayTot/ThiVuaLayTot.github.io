@@ -16,7 +16,7 @@ head_content = """<!DOCTYPE html>
 <html lang="vi">
 
 <head>
-    <title>Các kỳ thủ đạt giải nhiều nhất</title>
+    <title>Bảng thống kê các giải</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
@@ -50,7 +50,7 @@ def generate_h1_tag(filename):
         title = 'Cờ Bí Thí Tốt'
     elif namefile == 'cttq':
         title = 'Chiến Trường Thí Quân'
-    elif namefile == 'tvlt':
+    elif namefile == 'dttv':
         title = 'Đấu Trường Thí Vua'
     else:
         title = 'được tổ chức trên Lichess'
