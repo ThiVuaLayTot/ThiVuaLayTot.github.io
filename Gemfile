@@ -11,7 +11,7 @@ gem 'countries', '~> 6.0'
 gem 'icalendar', '~> 2.10'
 
 group :jekyll_plugins do
-   gem "jekyll-paginate"
+  gem "jekyll-paginate"
   gem 'jekyll-feed'
 end
 
