@@ -17,16 +17,16 @@
         <a href="/"><img src="/images/favicon.ico"></a>
     </div>
     <div class="topnav">
-        <a href="/"><i class="bx bxs-home"></i></a>
+        <a href="/"><span class="fa fa-home"></span></a>
         <a href="/blog">
-            <i class="bx bxs-news"></i>Các bài đăng
+            <span class="fa fa-news"></span>Các bài đăng
         </a>
         <a href="/vlogs">
-            <i class="bx bx-play-circle"></i>Vlogs
+            <span class="fa fa-play-circle"></span>Vlogs
         </a>
         <div class="dropdown">
             <a class="dropbtn" href="/social">
-                <i class="bx bx-link"></i>Truyền thông <i class="bx bx-caret-down"></i>
+                <span class="fa fa-link"></span>Truyền thông <span class="fa fa-caret-down"></span>
             </a>
             <div class="dropdown-content">
                 <a href="/social#social">Các tài khoản MXH của TungJohn</a>
@@ -36,7 +36,7 @@
         </div>
         <div class="dropdown">
             <a class="dropbtn" href="/lists">
-                <i class="bx bx-list-plus"></i>Danh sách/Tài liệu <i class="bx bx-caret-down"></i>
+                <span class="fa fa-list-plus"></span>Danh sách/Tài liệu <span class="fa fa-caret-down"></span>
             </a>
             <div class="dropdown-content">
                 <a href="/events">Danh sách tổng hợp các giải đấu</a>
@@ -46,7 +46,7 @@
         </div>
         <div class="dropdown">
             <a class="dropbtn" href="/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">
-                <i class="bx bx-shield-quarter"></i>Ban lãnh đạo <i class="bx bx-caret-down"></i>
+                <span class="fa fa-shield-quarter"></span>Ban lãnh đạo <span class="fa fa-caret-down"></span>
             </a>
             <div class="dropdown-content">
                 <a href="/leaders#admins">Administrators/Các Quản trị viên</a>
@@ -56,130 +56,147 @@
         </div>
         <div class="dropdown">
             <a class="dropbtn" href="/contact-donate">
-                <i class="bx bx-donate-blood"></i>Liên hệ & Ủng hộ<i class="bx bx-caret-down"></i>
+                <span class="fa fa-donate-blood"></span>Liên hệ & Ủng hộ<span class="fa fa-caret-down"></span>
             </a>
             <div class="dropdown-content">
                 <a href="/contact-donate#contact">Liên hệ</a>
                 <a href="/contact-donate#donate">Ủng hộ</a>
             </div>
         </div>
-        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><i class="bx bx-menu"></i></a></li>
+        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><span class="fa fa-menu"></span></a></li>
     </div>
     <div>
         <label class="mode">
                 <input type="checkbox" id="darkModeToggle">
-                <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
+                <i id="moon" class="fa fa-moon" title="Bật/Tắt chế độ tối"></span>
             </label>
     </div>
-</nav><h1 align="center">Các kỳ thủ đạt giải được tổ chức trên Lichess</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải được tổ chức trên Lichess nhiều nhất <a href="/events/bestplayers/lichess">ở đây</a>.</h2>
-    <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li> <li><a href="lichess">Các giải tổ chức trên Lichess</a></li></ul>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
+</nav>
+<h1 align="center">Các kỳ thủ đạt giải được tổ chức trên Lichess</h1>
+<h2 align="center">Bạn có thể xem các kỳ thủ đạt giải được tổ chức trên Lichess nhiều nhất <a href="/events/bestplayers/lichess">ở đây</a>.</h2>
+<ul class="tab">
+    <li><a href="tvlt">Thí Vua Lấy Tốt</a></li>
+    <li><a href="cbtt">Cờ Bí Thí Tốt</a></li>
+    <li><a href="cttq">Chiến Trường Thí Quân</a></li>
+    <li><a href="dttv">Đấu Trường Thí Vua</a></li>
+    <li><a href="lichess">Các giải tổ chức trên Lichess</a></li>
+</ul>
+<button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="fa fa-to-top"></span></button>
 
-    
-    <p>Các điều quan trọng trong bảng phía dưới: Nếu người chơi có ô màu đỏ và có biểu tượng <span class="closed">✕</span> thì tài khoản đó đã bị đóng do gian lận (có thể không gian lận ở giải đó), nếu chỉ có <span class="closed">✕</span> thì tài khoản đó bị đóng do lăng mạ hoặc lý do khác, nếu có <span class="special">✓</span></a> thì người chơi đó mặc dù bị đóng tài khoản nhưng xác nhận được giải.</p>
-    <b>Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
-    <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins">quản trị viên</a>.</i>
-<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu (Càng chi tiết càng tốt)"><script src="/js/search-events.js"></script> <table class="styled-table">
-         <tr>
-           <th class="name-tour">Tên giải</th>
-           <th class="organization-day">Ngày tổ chức🕗</th>
-           <th class="rules">Thể lệ♟️</th>
-           <th class="winner">Hạng nhất 🥇</th>
-           <th class="winner">Hạng nhì 🥈</th>
-           <th class="winner">Hạng ba 🥉</th>
-           <th class="winner">Hạng 4 🏅</th>
-           <th class="winner">Hạng 5 🎖️</th>
-           <th class="winner">Hạng 6 🌟</th>
-           <th>Link giải</th>
-         </tr>
-         <tr>
-           <td>Thí Vua Lấy Tốt lần 16</td>
-           <td>12/03/2023</td>
-           <td>3+1 Chess960, Swiss 12 vòng</td>
-           <td><a href="https://lichess.org/nhattan185" target="_blank">nhattan185</a></td>
-           <td><a href="https://lichess.org/HduHabinhan2011" target="_blank">HduHabinhan2011</a></td>
-           <td><a href="https://lichess.org/pohlestoff" target="_blank">pohlestoff</a></td>
-           <td><a href="https://lichess.org/Chessaholic2k2" target="_blank">Chessaholic2k2</a></td>
-           <td><a href="https://lichess.org/PhamMinhHieuTHCSLQD" target="_blank">PhamMinhHieuTHCSLQD</a></td>
-           <td><a href="https://lichess.org/nguyensyduc" target="_blank">nguyensyduc</a></td>
-           <td><a href="https://lichess.org/swiss/SuLNRcUf" target="_blank">Link!</a></td>
-         </tr>
-         <tr>
-           <td>Thí Vua Lấy Tốt lần 14</a></td>
-           <td>19/02/2023</td>
-           <td>3+1 Blitz, Swiss 12 vòng</td>
-           <td><a href="https://lichess.org/Con-Ga-Biet-Bay" target="_blank">Con-Ga-Biet-Bay</a></td>
-           <td><a href="https://lichess.org/letrungttpytn" target="_blank">letrungttpytn <span class="closed">✕</span></</a></td>
-           <td><a href="https://lichess.org/lecongdatt" target="_blank">lecongdatt <span class="closed">✕</span></</a></td>
-           <td><a href="https://lichess.org/CTHNannhhuycv2010" target="_blank">CTHNannhhuycv2010</a></td>
-           <td><a href="https://lichess.org/AndriseDao2009" target="_blank">AndriseDao2009</a></td>
-           <td><a href="https://lichess.org/nhattan185" target="_blank">nhattan185</a></td>
-           <td><a href="https://lichess.org/swiss/wDTxvfMV" target="_blank">Link!</a></td>
-         </tr>
-         <tr>
-           <td>Thí Vua Lấy Tốt lần 11</a></td>
-           <td>15/01/2023</td>
-           <td>3+1 Crazyhouse, Arena 2h</td>
-           <td><a href="https://lichess.org/Redofblue" target="_blank">Redofblue</a></td>
-           <td><a href="https://lichess.org/M_DinhHoangViet" target="_blank">M_DinhHoangViet</a></td>
-           <td><a href="https://lichess.org/HCMThanhLong2k8" target="_blank">HCMThanhLong2k8</a></td>
-           <td><a href="https://lichess.org/Bbao23" target="_blank">Bbao23</a></td>
-           <td><a href="https://lichess.org/Ly_KieuTrang" target="_blank">Ly_KieuTrang <span class="special">✓</span></a></td>
-           <td><a href="https://lichess.org/tranxuanthai" target="_blank">tranxuanthai</a></td>
-           <td><a href="https://lichess.org/tournament/0PagYmhJ" target="_blank">Link!</a></td>
-         </tr>
-         <tr>
-           <td>Thí Vua Lấy Tốt lần 6</a></td>
-           <td>04/12/2022</td>
-           <td>5+2 Blitz, Arena 2h</td>
-           <td><a href="https://lichess.org/maynho-04" target="_blank">maynho-04 <span class="special">✓</span></a></td>
-           <td><a href="https://lichess.org/DTHtiendung2010" target="_blank">DTHtiendung2010</a></td>
-           <td><a href="https://lichess.org/danieltony3555" target="_blank">danieltony3555</a></td>
-           <td><a href="https://lichess.org/haloc" target="_blank">haloc</a></td>
-           <td><a href="https://lichess.org/nguyensyduc" target="_blank">nguyensyduc</a></td>
-           <td><a href="https://lichess.org/CC_Si" target="_blank">CC_Si</a></td>
-           <td><a href="https://lichess.org/tournament/2E6v5uld" target="_blank">Link!</a></td>
-         </tr>
-         <tr>
-           <td>Thí Vua Lấy Tốt lần 9</a></td>
-           <td>25/12/2022</td>
-           <td>3+1 Blitz, Swiss 12 vòng</td>
-           <td><a href="https://lichess.org/zendatran" target="_blank">zendatran</a></td>
-           <td><a href="https://lichess.org/Binh_Phong_Nhi_Tue_9" target="_blank">Binh_Phong_Nhi_Tue_9 <span class="closed">✕</span></</a></td>
-           <td><a href="https://lichess.org/mikejapan161" target="_blank">mikejapan161 <span class="closed">✕</span></</a></td>
-           <td><a href="https://lichess.org/SlavaUkraine_1" target="_blank">SlavaUkraine_1 <span class="closed">✕</span></</a></td>
-           <td><a href="https://lichess.org/CTHNannhhuycv2010" target="_blank">CTHNannhhuycv2010</a></td>
-           <td><a href="https://lichess.org/chess-super" target="_blank">chess-super</a></td>
-           <td><a href="https://lichess.org/swiss/9qFzoWXU" target="_blank">Link!</a></td>
-         </tr>
-         <tr>
-           <td>Thí Vua Lấy Tốt lần 6</a></td>
-           <td>04/12/2022</td>
-           <td>5+2 Blitz, Arena 2h</td>
-           <td><a href="https://lichess.org/maynho-04" target="_blank">maynho-04 <span class="special">✓</span></a></td>
-           <td><a href="https://lichess.org/DTHtiendung2010" target="_blank">DTHtiendung2010</a></td>
-           <td><a href="https://lichess.org/danieltony3555" target="_blank">danieltony3555</a></td>
-           <td><a href="https://lichess.org/haloc" target="_blank">haloc</a></td>
-           <td><a href="https://lichess.org/nguyensyduc" target="_blank">nguyensyduc</a></td>
-           <td><a href="https://lichess.org/CC_Si" target="_blank">CC_Si</a></td>
-           <td><a href="https://lichess.org/tournament/E6v5uld" target="_blank">Link!</a></td>
-         </tr>
-         <tr>
-           <td>Đấu Trường Thí Vua lần 7</a></td>
-           <td>18/02/2023</td>
-           <td>¼+1 Bullet, Swiss 3 vòng</td>
-           <td><a href="https://lichess.org/SkUiCeVmAl" target="_blank">SkUiCeVmAl</a></td>
-           <td><a href="https://lichess.org/studychess2009" target="_blank">studychess2009</a></td>
-           <td><a href="https://lichess.org/Chesslivestream2013" target="_blank">Chesslivestream2013</a></td>
-           <td><a href="https://lichess.org/M_DinhHoangViet" target="_blank">M_DinhHoangViet</a></td>
-           <td><a href="https://lichess.org/minhmega2k12" target="_blank">minhmega2k12</a></td>
-           <td></td>
-           <td><a href="https://lichess.org/swiss/bfLmd9FU" target="_blank">Link!</a></td>
-         </tr>
-   </table>
-        <br><br><hr>
-    <div class="footer">
+
+<p>Các điều quan trọng trong bảng phía dưới: Nếu người chơi có ô màu đỏ và có biểu tượng <span class="closed">✕</span> thì tài khoản đó đã bị đóng do gian lận (có thể không gian lận ở giải đó), nếu chỉ có <span class="closed">✕</span> thì tài khoản đó bị
+    đóng do lăng mạ hoặc lý do khác, nếu có <span class="special">✓</span></a> thì người chơi đó mặc dù bị đóng tài khoản nhưng xác nhận được giải.</p>
+<b>Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
+<i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins">quản trị viên</a>.</i>
+<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu (Càng chi tiết càng tốt)">
+<script src="/js/search-events.js"></script>
+<table class="styled-table">
+    <tr>
+        <th class="name-tour">Tên giải</th>
+        <th class="organization-day">Ngày tổ chức🕗</th>
+        <th class="rules">Thể lệ♟️</th>
+        <th class="winner">Hạng nhất 🥇</th>
+        <th class="winner">Hạng nhì 🥈</th>
+        <th class="winner">Hạng ba 🥉</th>
+        <th class="winner">Hạng 4 🏅</th>
+        <th class="winner">Hạng 5 🎖️</th>
+        <th class="winner">Hạng 6 🌟</th>
+        <th>Link giải</th>
+    </tr>
+    <tr>
+        <td>Thí Vua Lấy Tốt lần 16</td>
+        <td>12/03/2023</td>
+        <td>3+1 Chess960, Swiss 12 vòng</td>
+        <td><a href="https://lichess.org/nhattan185" target="_blank">nhattan185</a></td>
+        <td><a href="https://lichess.org/HduHabinhan2011" target="_blank">HduHabinhan2011</a></td>
+        <td><a href="https://lichess.org/pohlestoff" target="_blank">pohlestoff</a></td>
+        <td><a href="https://lichess.org/Chessaholic2k2" target="_blank">Chessaholic2k2</a></td>
+        <td><a href="https://lichess.org/PhamMinhHieuTHCSLQD" target="_blank">PhamMinhHieuTHCSLQD</a></td>
+        <td><a href="https://lichess.org/nguyensyduc" target="_blank">nguyensyduc</a></td>
+        <td><a href="https://lichess.org/swiss/SuLNRcUf" target="_blank">Link!</a></td>
+    </tr>
+    <tr>
+        <td>Thí Vua Lấy Tốt lần 14</a>
+        </td>
+        <td>19/02/2023</td>
+        <td>3+1 Blitz, Swiss 12 vòng</td>
+        <td><a href="https://lichess.org/Con-Ga-Biet-Bay" target="_blank">Con-Ga-Biet-Bay</a></td>
+        <td><a href="https://lichess.org/letrungttpytn" target="_blank">letrungttpytn <span class="closed">✕</span></</a></td>
+        <td><a href="https://lichess.org/lecongdatt" target="_blank">lecongdatt <span class="closed">✕</span></</a></td>
+        <td><a href="https://lichess.org/CTHNannhhuycv2010" target="_blank">CTHNannhhuycv2010</a></td>
+        <td><a href="https://lichess.org/AndriseDao2009" target="_blank">AndriseDao2009</a></td>
+        <td><a href="https://lichess.org/nhattan185" target="_blank">nhattan185</a></td>
+        <td><a href="https://lichess.org/swiss/wDTxvfMV" target="_blank">Link!</a></td>
+    </tr>
+    <tr>
+        <td>Thí Vua Lấy Tốt lần 11</a>
+        </td>
+        <td>15/01/2023</td>
+        <td>3+1 Crazyhouse, Arena 2h</td>
+        <td><a href="https://lichess.org/Redofblue" target="_blank">Redofblue</a></td>
+        <td><a href="https://lichess.org/M_DinhHoangViet" target="_blank">M_DinhHoangViet</a></td>
+        <td><a href="https://lichess.org/HCMThanhLong2k8" target="_blank">HCMThanhLong2k8</a></td>
+        <td><a href="https://lichess.org/Bbao23" target="_blank">Bbao23</a></td>
+        <td><a href="https://lichess.org/Ly_KieuTrang" target="_blank">Ly_KieuTrang <span class="special">✓</span></a></td>
+        <td><a href="https://lichess.org/tranxuanthai" target="_blank">tranxuanthai</a></td>
+        <td><a href="https://lichess.org/tournament/0PagYmhJ" target="_blank">Link!</a></td>
+    </tr>
+    <tr>
+        <td>Thí Vua Lấy Tốt lần 6</a>
+        </td>
+        <td>04/12/2022</td>
+        <td>5+2 Blitz, Arena 2h</td>
+        <td><a href="https://lichess.org/maynho-04" target="_blank">maynho-04 <span class="special">✓</span></a></td>
+        <td><a href="https://lichess.org/DTHtiendung2010" target="_blank">DTHtiendung2010</a></td>
+        <td><a href="https://lichess.org/danieltony3555" target="_blank">danieltony3555</a></td>
+        <td><a href="https://lichess.org/haloc" target="_blank">haloc</a></td>
+        <td><a href="https://lichess.org/nguyensyduc" target="_blank">nguyensyduc</a></td>
+        <td><a href="https://lichess.org/CC_Si" target="_blank">CC_Si</a></td>
+        <td><a href="https://lichess.org/tournament/2E6v5uld" target="_blank">Link!</a></td>
+    </tr>
+    <tr>
+        <td>Thí Vua Lấy Tốt lần 9</a>
+        </td>
+        <td>25/12/2022</td>
+        <td>3+1 Blitz, Swiss 12 vòng</td>
+        <td><a href="https://lichess.org/zendatran" target="_blank">zendatran</a></td>
+        <td><a href="https://lichess.org/Binh_Phong_Nhi_Tue_9" target="_blank">Binh_Phong_Nhi_Tue_9 <span class="closed">✕</span></</a></td>
+        <td><a href="https://lichess.org/mikejapan161" target="_blank">mikejapan161 <span class="closed">✕</span></</a></td>
+        <td><a href="https://lichess.org/SlavaUkraine_1" target="_blank">SlavaUkraine_1 <span class="closed">✕</span></</a></td>
+        <td><a href="https://lichess.org/CTHNannhhuycv2010" target="_blank">CTHNannhhuycv2010</a></td>
+        <td><a href="https://lichess.org/chess-super" target="_blank">chess-super</a></td>
+        <td><a href="https://lichess.org/swiss/9qFzoWXU" target="_blank">Link!</a></td>
+    </tr>
+    <tr>
+        <td>Thí Vua Lấy Tốt lần 6</a>
+        </td>
+        <td>04/12/2022</td>
+        <td>5+2 Blitz, Arena 2h</td>
+        <td><a href="https://lichess.org/maynho-04" target="_blank">maynho-04 <span class="special">✓</span></a></td>
+        <td><a href="https://lichess.org/DTHtiendung2010" target="_blank">DTHtiendung2010</a></td>
+        <td><a href="https://lichess.org/danieltony3555" target="_blank">danieltony3555</a></td>
+        <td><a href="https://lichess.org/haloc" target="_blank">haloc</a></td>
+        <td><a href="https://lichess.org/nguyensyduc" target="_blank">nguyensyduc</a></td>
+        <td><a href="https://lichess.org/CC_Si" target="_blank">CC_Si</a></td>
+        <td><a href="https://lichess.org/tournament/E6v5uld" target="_blank">Link!</a></td>
+    </tr>
+    <tr>
+        <td>Đấu Trường Thí Vua lần 7</a>
+        </td>
+        <td>18/02/2023</td>
+        <td>¼+1 Bullet, Swiss 3 vòng</td>
+        <td><a href="https://lichess.org/SkUiCeVmAl" target="_blank">SkUiCeVmAl</a></td>
+        <td><a href="https://lichess.org/studychess2009" target="_blank">studychess2009</a></td>
+        <td><a href="https://lichess.org/Chesslivestream2013" target="_blank">Chesslivestream2013</a></td>
+        <td><a href="https://lichess.org/M_DinhHoangViet" target="_blank">M_DinhHoangViet</a></td>
+        <td><a href="https://lichess.org/minhmega2k12" target="_blank">minhmega2k12</a></td>
+        <td></td>
+        <td><a href="https://lichess.org/swiss/bfLmd9FU" target="_blank">Link!</a></td>
+    </tr>
+</table>
+<br><br>
+<hr>
+<div class="footer">
     <div class="footer-container">
         <div>
             <h3><strong><a href="/" title="Trang web Thí Vua Lấy Tốt">Thí Vua Lấy Tốt</a></strong></h3>
@@ -194,28 +211,28 @@
             <h3 align="center"><a href="/social">Các Liên Kết Mạng Xã Hội</a></h3>
             <strong><a href="/social#social">Các tài khoản mạng xã hội của TungJohn</a></strong>
             <div class="button">
-                <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><i class="bx bxl-youtube"></i></a>
-                <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><i class="bx bxl-facebook"></i></a>
-                <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><i class="bx bxl-twitch"></i></a>
-                <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><i class="bx bxl-tiktok"></i></a>
+                <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><span class="fa fa-youtube"></span></a>
+                <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><span class="fa fa-facebook"></span></a>
+                <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><span class="fa fa-twitch"></span></a>
+                <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><span class="fa fa-tiktok"></span></a>
                 <a href="https://chess.com/member/tungjohn2005" target="_blank" title="Tài khoản Chess.com của TungJohn"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
                 <a href="https://lichess.org/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img src="/images/lichesslogo.png"></a>
-                <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><i class="bx bxs-shopping-bag"></i></a>
+                <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><span class="fa fa-shopping-bag"></span></a>
             </div>
             <hr>
             <strong><a href="/social#group">Các nhóm, câu lạc bộ, máy chủ của Thí Vua Lấy Tốt</a></strong>
             <div class="button">
                 <a href="https://link.chess.com/club/0CVQh6" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
                 <a href="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank" title="Đội Thí Vua Lấy Tốt trên Lichess"><img width="22" src="/images/lichesslogo.png"></a>
-                <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><i class="bx bxl-facebook-circle"></i></a>
-                <a href="https://discord.gg/Fc9MBSMbBM" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><i class="bx bxl-discord"></i></a>
+                <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><span class="fa fa-facebook-circle"></span></a>
+                <a href="https://discord.gg/Fc9MBSMbBM" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><span class="fa fa-discord"></span></a>
                 <a href="https://zalo.me/g/zhrwtn779" title="Nhóm chat Thí Vua Lấy Tốt trên Zalo"><img width="14" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
             </div>
         </div>
         <div>
             <br><br>
             <p>Web được xây dựng bởi <a href="/leaders#admins" title="Các quản trị viên">Quản trị viên</a>.</p>
-            <p>Mã nguồn trên <a href="https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io"><i class="bx bxl-github"></i></a></p>
+            <p>Mã nguồn trên <a href="https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io"><span class="fa fa-github"></span></a></p>
             {% include updated.html %}
             <strong><a href="/contact-donate">Liên hệ & Đóng góp</a></strong>
         </div>

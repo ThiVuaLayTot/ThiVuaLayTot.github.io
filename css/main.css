@@ -12,8 +12,19 @@
     scroll-behavior: smooth;
 }
 
+.mode input {
+    display: none;
+}
+
 body {
     font-family: 'Outfit', sans-serif;
+    background-color: var(--primary-dark);
+    color: #ffffff;
+}
+
+header {
+    box-shadow: 0 4px 17px rgb(80 80 80 / 31%);
+    background: var(--primary-dark);
 }
 
 
@@ -139,11 +150,11 @@ nav {
 
 @media (max-width: 800px) {
     .topnav {
-      flex-direction: column;
-      align-items: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
     }
     .topnav a {
-      padding: 10px;
+        padding: 10px;
     }
 }
 
@@ -420,38 +431,6 @@ hr {
 /* Section 1 End */
 
 
-/* Dark Mode */
-
-.mode input {
-    display: none;
-}
-
-.dark-mode {
-    background-color: var(--primary-dark);
-    color: #ffffff;
-}
-
-.dark-mode .button a:hover {
-    color: var(--primary-dark);
-    background-color: var(--primary-color);
-}
-
-.dark-mode .logo a {
-    color: #fff;
-}
-
-.dark-mode .detail button {
-    background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: var(--primary-dark);
-}
-
-.dark-mode header {
-    box-shadow: 0 4px 17px rgb(80 80 80 / 31%);
-    background: var(--primary-dark);
-}
-
-
 /* Animation */
 
 @keyframes navani {
@@ -565,17 +544,15 @@ hr {
         font-size: 1.5rem;
         font-weight: bold;
         color: #244D61;
+        background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     #click:checked~ul {
         left: 0%;
         transition: all 0.3s ease;
     }
-    .dark-mode .menu {
-        background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .dark-mode ul {
+    ul {
         background: var(--primary-dark);
     }
     .mode {
@@ -607,21 +584,22 @@ hr {
     }
 }
 
+
 /* Style cho leaders */
+
 .pos_header {
     margin-left: 2rem;
     .people {
         margin: auto;
         text-align: center;
         margin-top: 1em;
-
         .list-item-people {
-        display: inline-grid;
-        width: 300px;
-        height: 555px;
-        padding: 5px;
-        margin: 10px;
-        box-shadow: 5px 5px 5px 5px rgba(53, 58, 67, 0.20);
+            display: inline-grid;
+            width: 300px;
+            height: 555px;
+            padding: 5px;
+            margin: 10px;
+            box-shadow: 5px 5px 5px 5px rgba(53, 58, 67, 0.20);
         }
         .list-post-title img {
             text-align: center;
@@ -637,7 +615,8 @@ hr {
             height: 90px;
             padding: 0.5rem 1rem;
         }
-        .list-post-title:hover .name, .list-post-title .name:hover {
+        .list-post-title:hover .name,
+        .list-post-title .name:hover {
             color: #fc0570;
         }
         .profile-thumbnail {
@@ -652,7 +631,9 @@ hr {
     }
 }
 
+
 /* Style các nút */
+
 #myBtn {
     display: none;
     position: fixed;
@@ -709,7 +690,9 @@ hr {
     cursor: pointer;
 }
 
+
 /* Style cho footer */
+
 .footer {
     padding: 2rem;
     background-color: rgba(88, 88, 88, 0.143);
@@ -722,15 +705,16 @@ hr {
 
 @media (max-width: 55rem) {
     .footer .footer-container {
-        grid-template-columns:1fr
+        grid-template-columns: 1fr
     }
-
     .footer .footer-container .footer-social {
         justify-content: flex-start
     }
 }
 
+
 /* Style cho thẻ */
+
 .card-list {
     display: grid;
     gap: 1rem;
@@ -750,14 +734,14 @@ hr {
     margin-bottom: 1em;
 }
 
-.card__image {
+.card_image {
     width: 370px;
     height: 250px;
     opacity: .7;
     transition: opacity 150ms
 }
 
-.card__title {
+.card_title {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -769,12 +753,12 @@ hr {
     font-size: 1.1em
 }
 
-.card__title a {
+.card_title a {
     background: #F7086C;
     background: linear-gradient(to right, #F7086C 0%, #35c9fc 100%);
 }
 
-.card__tag {
+.card_tag {
     display: -webkit-inline-box;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
@@ -784,7 +768,7 @@ hr {
     border-radius: 6.25rem;
 }
 
-.card__dav {
+.card_dav {
     display: -webkit-box;
     padding: 0 1.75rem 1.75rem;
     -webkit-line-clamp: 2;
@@ -796,7 +780,9 @@ hr {
     font-size: 10px
 }
 
+
 /* Style cho bảng */
+
 .styled-table {
     font-family: "Times New Roman", Times, serif;
     border-collapse: collapse;
@@ -806,7 +792,8 @@ hr {
     table-layout: fixed;
 }
 
-.styled-table th, .styled-table td {
+.styled-table th,
+.styled-table td {
     border: 1px solid #00e11e;
     padding: 8px;
     font-size: 14px;
@@ -837,7 +824,9 @@ hr {
     background-color: #0aedc4ed;
 }
 
+
 /*Style cho tag*/
+
 .tab {
     display: flex;
     text-align: center;
@@ -881,10 +870,9 @@ hr {
 
 @media (max-width: 48rem) {
     .tab li {
-        padding:0 1rem;
+        padding: 0 1rem;
         margin-bottom: .5rem
     }
-
     .tab li:not(:last-child) {
         margin-right: 0
     }

@@ -118,7 +118,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
 
     print(f"Data for {parsed_data['name']} written to {md_filename}")
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     try:
         for filename in os.listdir('events/tournaments'):
             if filename.endswith('.txt'):

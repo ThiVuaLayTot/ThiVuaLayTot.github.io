@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <title>Các kỳ thủ đạt giải nhiều nhất</title>
     <meta charset="UTF-8">
@@ -11,74 +12,83 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
+
 <body>
-<nav class="page-header">
-    <div class="logo">
-        <a href="/"><img src="/images/favicon.ico"></a>
-    </div>
-    <div class="topnav">
-        <a href="/"><i class="bx bxs-home"></i></a>
-        <a href="/blog">
-            <i class="bx bxs-news"></i>Các bài đăng
-        </a>
-        <a href="/vlogs">
-            <i class="bx bx-play-circle"></i>Vlogs
-        </a>
-        <div class="dropdown">
-            <a class="dropbtn" href="/social">
-                <i class="bx bx-link"></i>Truyền thông <i class="bx bx-caret-down"></i>
-            </a>
-            <div class="dropdown-content">
-                <a href="/social#social">Các tài khoản MXH của TungJohn</a>
-                <a href="/social#chat">Các đoạn chat của Thí Vua Lấy Tốt</a>
-                <a href="/social#group">Các nhóm/CLB/máy chủ của Thí Vua Lấy Tốt</a>
-            </div>
+    <nav class="page-header">
+        <div class="logo">
+            <a href="/"><img src="/images/favicon.ico"></a>
         </div>
-        <div class="dropdown">
-            <a class="dropbtn" href="/lists">
-                <i class="bx bx-list-plus"></i>Danh sách/Tài liệu <i class="bx bx-caret-down"></i>
+        <div class="topnav">
+            <a href="/"><span class="fa fa-home"></span></a>
+            <a href="/blog">
+                <span class="fa fa-news"></span>Các bài đăng
             </a>
-            <div class="dropdown-content">
-                <a href="/events">Danh sách tổng hợp các giải đấu</a>
-                <a href="/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
-                <a href="https://chess.com/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess" target="_blank">Danh sách các tài khoản vi phạm</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <a class="dropbtn" href="/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">
-                <i class="bx bx-shield-quarter"></i>Ban lãnh đạo <i class="bx bx-caret-down"></i>
+            <a href="/vlogs">
+                <span class="fa fa-play-circle"></span>Vlogs
             </a>
-            <div class="dropdown-content">
-                <a href="/leaders#admins">Administrators/Các Quản trị viên</a>
-                <a href="/leaders#mods">Moderators/Các điều hành viên</a>
-                <a href="/leaders#sponsors">Các nhà tài trợ/hợp tác với giải</a>
+            <div class="dropdown">
+                <a class="dropbtn" href="/social">
+                    <span class="fa fa-link"></span>Truyền thông <span class="fa fa-caret-down"></span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="/social#social">Các tài khoản MXH của TungJohn</a>
+                    <a href="/social#chat">Các đoạn chat của Thí Vua Lấy Tốt</a>
+                    <a href="/social#group">Các nhóm/CLB/máy chủ của Thí Vua Lấy Tốt</a>
+                </div>
             </div>
-        </div>
-        <div class="dropdown">
-            <a class="dropbtn" href="/contact-donate">
-                <i class="bx bx-donate-blood"></i>Liên hệ & Ủng hộ<i class="bx bx-caret-down"></i>
-            </a>
-            <div class="dropdown-content">
-                <a href="/contact-donate#contact">Liên hệ</a>
-                <a href="/contact-donate#donate">Ủng hộ</a>
+            <div class="dropdown">
+                <a class="dropbtn" href="/lists">
+                    <span class="fa fa-list-plus"></span>Danh sách/Tài liệu <span class="fa fa-caret-down"></span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="/events">Danh sách tổng hợp các giải đấu</a>
+                    <a href="/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
+                    <a href="https://chess.com/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess" target="_blank">Danh sách các tài khoản vi phạm</a>
+                </div>
             </div>
+            <div class="dropdown">
+                <a class="dropbtn" href="/leaders" title="Ban cán sự của Thí Vua Lấy Tốt">
+                    <span class="fa fa-shield-quarter"></span>Ban lãnh đạo <span class="fa fa-caret-down"></span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="/leaders#admins">Administrators/Các Quản trị viên</a>
+                    <a href="/leaders#mods">Moderators/Các điều hành viên</a>
+                    <a href="/leaders#sponsors">Các nhà tài trợ/hợp tác với giải</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a class="dropbtn" href="/contact-donate">
+                    <span class="fa fa-donate-blood"></span>Liên hệ & Ủng hộ<span class="fa fa-caret-down"></span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="/contact-donate#contact">Liên hệ</a>
+                    <a href="/contact-donate#donate">Ủng hộ</a>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><span class="fa fa-menu"></span></a></li>
         </div>
-        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><i class="bx bx-menu"></i></a></li>
-    </div>
-    <div>
-        <label class="mode">
+        <div>
+            <label class="mode">
                 <input type="checkbox" id="darkModeToggle">
-                <i id="moon" class="bx bxs-moon" title="Bật/Tắt chế độ tối"></i>
+                <i id="moon" class="fa fa-moon" title="Bật/Tắt chế độ tối"></span>
             </label>
-    </div>
-</nav><h1 align="center">Những kỳ thủ đạt giải Thí Vua Lấy Tốt nhiều nhất</h1>
+        </div>
+    </nav>
+    <h1 align="center">Những kỳ thủ đạt giải Thí Vua Lấy Tốt nhiều nhất</h1>
     <h2 align="center">Bạn có thể xem tổng hợp các giải Thí Vua Lấy Tốt <a href="/events/tournaments/tvlt">ở đây</a>.</h2>
-    <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li> <li><a href="lichess">Các giải tổ chức trên Lichess</a></li></ul>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
+    <ul class="tab">
+        <li><a href="tvlt">Thí Vua Lấy Tốt</a></li>
+        <li><a href="cbtt">Cờ Bí Thí Tốt</a></li>
+        <li><a href="cttq">Chiến Trường Thí Quân</a></li>
+        <li><a href="dttv">Đấu Trường Thí Vua</a></li>
+        <li><a href="lichess">Các giải tổ chức trên Lichess</a></li>
+    </ul>
+    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="fa fa-to-top"></span></button>
     <i>Tất cả thông tin phía dưới được sắp xếp tự động, sẽ có một số kỳ thủ bị đóng tài khoản nhưng không phải vi phạm không được hiển thị ở đây. Nếu muốn chính xác hơn, hãy đối chiếu với bảng thống kê các giải <a href="/events/tournaments/tvlt">Thí Vua Lấy Tốt</a>.</i>
-    
+
     <h1 align="center">Bảng xếp hạng các kỳ thủ đạt giải</h1>
-    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu"><script src="/js/search-events.js"></script>
+    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu">
+    <script src="/js/search-events.js"></script>
     <table class="styled-table">
         <thead>
             <tr>
@@ -88,308 +98,308 @@
             </tr>
         </thead>
         <tbody>
-    
-        <tr>
-            <td>#1</td>
-            <td><a href="https://chess.com/member/spaghetticf">spaghetticf</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-18--tungjohn-playing-chess-3921659">Thí Vua Lấy Tốt Lần Thứ 18 - TungJohn Playing Chess</a>), 🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-7-nm-2023-4111726">Thí Vua Lấy Tốt tháng 7 năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#2</td>
-            <td><a href="https://chess.com/member/nguyen_si_trong_duc">nguyen_si_trong_duc</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-8-nm-2023-4199460">Thí Vua Lấy Tốt tháng 8 năm 2023</a>), 🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-tt-dng-lch-01012024-4486332">Thí Vua Lấy Tốt Tết Dương Lịch 01.01.2024</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#3</td>
-            <td><a href="https://chess.com/member/nngmei">nngmei</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-15---chc-mng-clb-t-6000-thnh-vin--tungjohn-playing-chess-3846898">Thí Vua Lấy Tốt Lần 15 - Chúc mừng CLB đạt 6000 thành viên - TungJohn Playing Chess</a>), 🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-19--tungjohn-playing-chess-3935076">Thí Vua Lấy Tốt Lần Thứ 19 - TungJohn Playing Chess</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#4</td>
-            <td><a href="https://chess.com/member/congnguyen1406">congnguyen1406</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-2171704">Thí Vua Lấy Tốt</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#5</td>
-            <td><a href="https://chess.com/member/samurice_vn">samurice_vn</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-7--3584492">Thí Vua Lấy Tốt lần 7 </a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#6</td>
-            <td><a href="https://chess.com/member/the_evil_cats">the_evil_cats</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-10-3688038">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 10</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#7</td>
-            <td><a href="https://chess.com/member/nhattandl185">nhattandl185</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-13--trng--en--tungjohn-playing-chess-3807224">Thí Vua Lấy Tốt lần thứ 13 ♟️ Trắng ⇄ Đen - TungJohn Playing Chess</a>), 🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-15---chc-mng-clb-t-6000-thnh-vin--tungjohn-playing-chess-3846898">Thí Vua Lấy Tốt Lần 15 - Chúc mừng CLB đạt 6000 thành viên - TungJohn Playing Chess</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#8</td>
-            <td><a href="https://chess.com/member/tdung2010">tdung2010</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-17---thng-thua-nh-ng-i-3918891">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 17 - Thắng Thua Nhờ Đồng Đội</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#9</td>
-            <td><a href="https://chess.com/member/vchhabinhan1234">vchhabinhan1234</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-18--tungjohn-playing-chess-3921659">Thí Vua Lấy Tốt Lần Thứ 18 - TungJohn Playing Chess</a>), 🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-32024---freestyle-chess-challenge-4633816">Thí Vua Lấy Tốt tháng 3/2024 - Freestyle Chess Challenge</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#10</td>
-            <td><a href="https://chess.com/member/thegod-tactic">thegod-tactic</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-cho-h-thng-6---nm-2023-4059788">Thí Vua Lấy Tốt Chào Hè Tháng 6 - Năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#11</td>
-            <td><a href="https://chess.com/member/ricacdomilos">ricacdomilos</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-cho-h-thng-6---nm-2023-4059788">Thí Vua Lấy Tốt Chào Hè Tháng 6 - Năm 2023</a>), 🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-7-nm-2023-4111726">Thí Vua Lấy Tốt tháng 7 năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#12</td>
-            <td><a href="https://chess.com/member/duckchicken1234">duckchicken1234</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-9-nm-2023-4253176">Thí Vua Lấy Tốt tháng 9 năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#13</td>
-            <td><a href="https://chess.com/member/crab1234">crab1234</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-11-nm-2023-4374307">Thí Vua Lấy Tốt tháng 11 năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#14</td>
-            <td><a href="https://chess.com/member/mr_dainn">mr_dainn</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-2---cho-xun-gip-thn-2024-4548307">Siêu Giải Thí Vua Lấy Tốt Tháng 2 - Chào Xuân Giáp Thìn 2024</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#15</td>
-            <td><a href="https://chess.com/member/champsfuturetth2k5">champsfuturetth2k5</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-32024---freestyle-chess-challenge-4633816">Thí Vua Lấy Tốt tháng 3/2024 - Freestyle Chess Challenge</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#16</td>
-            <td><a href="https://chess.com/member/anhzai_sayno">anhzai_sayno</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-72024-4897591">Siêu Giải Thí Vua Lấy Tốt Tháng 7/2024</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#17</td>
-            <td><a href="https://chess.com/member/balsket_playchess441">balsket_playchess441</a></td>
-            <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-92024-5077723">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 9/2024</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#18</td>
-            <td><a href="https://chess.com/member/tranhung0103">tranhung0103</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-5-3548920">Thí Vua Lấy Tốt lần 5</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#19</td>
-            <td><a href="https://chess.com/member/nguyentruong2311">nguyentruong2311</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-8-3618872">Thí Vua Lấy Tốt Lần Thứ 8</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#20</td>
-            <td><a href="https://chess.com/member/cr10-goal">cr10-goal</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-10-3688038">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 10</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#21</td>
-            <td><a href="https://chess.com/member/boat2009">boat2009</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-15---chc-mng-clb-t-6000-thnh-vin--tungjohn-playing-chess-3846898">Thí Vua Lấy Tốt Lần 15 - Chúc mừng CLB đạt 6000 thành viên - TungJohn Playing Chess</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#22</td>
-            <td><a href="https://chess.com/member/mehechanic">mehechanic</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-19--tungjohn-playing-chess-3935076">Thí Vua Lấy Tốt Lần Thứ 19 - TungJohn Playing Chess</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#23</td>
-            <td><a href="https://chess.com/member/lams2010">lams2010</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-cho-h-thng-6---nm-2023-4059788">Thí Vua Lấy Tốt Chào Hè Tháng 6 - Năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#24</td>
-            <td><a href="https://chess.com/member/trongvinh123">trongvinh123</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-10-nm-2023-4319009">Thí Vua Lấy Tốt tháng 10 năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#25</td>
-            <td><a href="https://chess.com/member/wingstw">wingstw</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-11-nm-2023-4374307">Thí Vua Lấy Tốt tháng 11 năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#26</td>
-            <td><a href="https://chess.com/member/phamtienduc1">phamtienduc1</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-122023-4426328">Thí Vua Lấy Tốt Tháng 12.2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#27</td>
-            <td><a href="https://chess.com/member/incognito_speedruner121">incognito_speedruner121</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-42024---king-of-the-hill-4689591">Thí Vua Lấy Tốt Tháng 4.2024 - King Of The Hill</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#28</td>
-            <td><a href="https://chess.com/member/lephangiahungr07">lephangiahungr07</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-552024---3check-4756726">Siêu Giải Thí Vua lấy Tốt 5/5/2024 - 3Check</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#29</td>
-            <td><a href="https://chess.com/member/thuytrannonumber">thuytrannonumber</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-72024-4897591">Siêu Giải Thí Vua Lấy Tốt Tháng 7/2024</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#30</td>
-            <td><a href="https://chess.com/member/nghiavonang">nghiavonang</a></td>
-            <td>🥈(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-92024-5077723">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 9/2024</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#31</td>
-            <td><a href="https://chess.com/member/phantom00308">phantom00308</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-4---ngy-nh-gio-vit-nam-2011-3535839">Thí Vua Lấy Tốt Lần 4 - Ngày Nhà Giáo Việt Nam 20/11</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#32</td>
-            <td><a href="https://chess.com/member/vvhung">vvhung</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-5-3548920">Thí Vua Lấy Tốt lần 5</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#33</td>
-            <td><a href="https://chess.com/member/vgt187">vgt187</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/cn-mng-l-cn-tt---siu-gii-th-vua-ly-tt-ln-th-12--tungjohn-playing-chess-3719886">Còn Mùng là còn Tết - Siêu Giải Thí Vua Lấy Tốt Lần Thứ 12 - TungJohn Playing Chess</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#34</td>
-            <td><a href="https://chess.com/member/M-DinhHoangViet">M-DinhHoangViet</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-17---thng-thua-nh-ng-i-3918891">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 17 - Thắng Thua Nhờ Đồng Đội</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#35</td>
-            <td><a href="https://chess.com/member/nagisaxdd">nagisaxdd</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-20-3960496">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 20</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#36</td>
-            <td><a href="https://chess.com/member/chorachricon">chorachricon</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-9-nm-2023-4253176">Thí Vua Lấy Tốt tháng 9 năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#37</td>
-            <td><a href="https://chess.com/member/duongnm2407">duongnm2407</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-11-nm-2023-4374307">Thí Vua Lấy Tốt tháng 11 năm 2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#38</td>
-            <td><a href="https://chess.com/member/ryure149">ryure149</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-122023-4426328">Thí Vua Lấy Tốt Tháng 12.2023</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#39</td>
-            <td><a href="https://chess.com/member/nth_2402">nth_2402</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-tt-dng-lch-01012024-4486332">Thí Vua Lấy Tốt Tết Dương Lịch 01.01.2024</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#40</td>
-            <td><a href="https://chess.com/member/nqb26">nqb26</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-2---cho-xun-gip-thn-2024-4548307">Siêu Giải Thí Vua Lấy Tốt Tháng 2 - Chào Xuân Giáp Thìn 2024</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#41</td>
-            <td><a href="https://chess.com/member/bobby_misser46k">bobby_misser46k</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-42024---king-of-the-hill-4689591">Thí Vua Lấy Tốt Tháng 4.2024 - King Of The Hill</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#42</td>
-            <td><a href="https://chess.com/member/tokudashigeojr">tokudashigeojr</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-552024---3check-4756726">Siêu Giải Thí Vua lấy Tốt 5/5/2024 - 3Check</a>)</td>
-        </tr>
-        
-        <tr>
-            <td>#43</td>
-            <td><a href="https://chess.com/member/someoneidk2022">someoneidk2022</a></td>
-            <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-92024-5077723">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 9/2024</a>)</td>
-        </tr>
-        
+
+            <tr>
+                <td>#1</td>
+                <td><a href="https://chess.com/member/spaghetticf">spaghetticf</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-18--tungjohn-playing-chess-3921659">Thí Vua Lấy Tốt Lần Thứ 18 - TungJohn Playing Chess</a>), 🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-7-nm-2023-4111726">Thí Vua Lấy Tốt tháng 7 năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#2</td>
+                <td><a href="https://chess.com/member/nguyen_si_trong_duc">nguyen_si_trong_duc</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-8-nm-2023-4199460">Thí Vua Lấy Tốt tháng 8 năm 2023</a>), 🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-tt-dng-lch-01012024-4486332">Thí Vua Lấy Tốt Tết Dương Lịch 01.01.2024</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#3</td>
+                <td><a href="https://chess.com/member/nngmei">nngmei</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-15---chc-mng-clb-t-6000-thnh-vin--tungjohn-playing-chess-3846898">Thí Vua Lấy Tốt Lần 15 - Chúc mừng CLB đạt 6000 thành viên - TungJohn Playing Chess</a>), 🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-19--tungjohn-playing-chess-3935076">Thí Vua Lấy Tốt Lần Thứ 19 - TungJohn Playing Chess</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#4</td>
+                <td><a href="https://chess.com/member/congnguyen1406">congnguyen1406</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-2171704">Thí Vua Lấy Tốt</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#5</td>
+                <td><a href="https://chess.com/member/samurice_vn">samurice_vn</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-7--3584492">Thí Vua Lấy Tốt lần 7 </a>)</td>
+            </tr>
+
+            <tr>
+                <td>#6</td>
+                <td><a href="https://chess.com/member/the_evil_cats">the_evil_cats</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-10-3688038">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 10</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#7</td>
+                <td><a href="https://chess.com/member/nhattandl185">nhattandl185</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-13--trng--en--tungjohn-playing-chess-3807224">Thí Vua Lấy Tốt lần thứ 13 ♟️ Trắng ⇄ Đen - TungJohn Playing Chess</a>), 🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-15---chc-mng-clb-t-6000-thnh-vin--tungjohn-playing-chess-3846898">Thí Vua Lấy Tốt Lần 15 - Chúc mừng CLB đạt 6000 thành viên - TungJohn Playing Chess</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#8</td>
+                <td><a href="https://chess.com/member/tdung2010">tdung2010</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-17---thng-thua-nh-ng-i-3918891">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 17 - Thắng Thua Nhờ Đồng Đội</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#9</td>
+                <td><a href="https://chess.com/member/vchhabinhan1234">vchhabinhan1234</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-18--tungjohn-playing-chess-3921659">Thí Vua Lấy Tốt Lần Thứ 18 - TungJohn Playing Chess</a>), 🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-32024---freestyle-chess-challenge-4633816">Thí Vua Lấy Tốt tháng 3/2024 - Freestyle Chess Challenge</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#10</td>
+                <td><a href="https://chess.com/member/thegod-tactic">thegod-tactic</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-cho-h-thng-6---nm-2023-4059788">Thí Vua Lấy Tốt Chào Hè Tháng 6 - Năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#11</td>
+                <td><a href="https://chess.com/member/ricacdomilos">ricacdomilos</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-cho-h-thng-6---nm-2023-4059788">Thí Vua Lấy Tốt Chào Hè Tháng 6 - Năm 2023</a>), 🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-7-nm-2023-4111726">Thí Vua Lấy Tốt tháng 7 năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#12</td>
+                <td><a href="https://chess.com/member/duckchicken1234">duckchicken1234</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-9-nm-2023-4253176">Thí Vua Lấy Tốt tháng 9 năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#13</td>
+                <td><a href="https://chess.com/member/crab1234">crab1234</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-11-nm-2023-4374307">Thí Vua Lấy Tốt tháng 11 năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#14</td>
+                <td><a href="https://chess.com/member/mr_dainn">mr_dainn</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-2---cho-xun-gip-thn-2024-4548307">Siêu Giải Thí Vua Lấy Tốt Tháng 2 - Chào Xuân Giáp Thìn 2024</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#15</td>
+                <td><a href="https://chess.com/member/champsfuturetth2k5">champsfuturetth2k5</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-32024---freestyle-chess-challenge-4633816">Thí Vua Lấy Tốt tháng 3/2024 - Freestyle Chess Challenge</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#16</td>
+                <td><a href="https://chess.com/member/anhzai_sayno">anhzai_sayno</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-72024-4897591">Siêu Giải Thí Vua Lấy Tốt Tháng 7/2024</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#17</td>
+                <td><a href="https://chess.com/member/balsket_playchess441">balsket_playchess441</a></td>
+                <td>🥇(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-92024-5077723">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 9/2024</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#18</td>
+                <td><a href="https://chess.com/member/tranhung0103">tranhung0103</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-5-3548920">Thí Vua Lấy Tốt lần 5</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#19</td>
+                <td><a href="https://chess.com/member/nguyentruong2311">nguyentruong2311</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-8-3618872">Thí Vua Lấy Tốt Lần Thứ 8</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#20</td>
+                <td><a href="https://chess.com/member/cr10-goal">cr10-goal</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-10-3688038">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 10</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#21</td>
+                <td><a href="https://chess.com/member/boat2009">boat2009</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-15---chc-mng-clb-t-6000-thnh-vin--tungjohn-playing-chess-3846898">Thí Vua Lấy Tốt Lần 15 - Chúc mừng CLB đạt 6000 thành viên - TungJohn Playing Chess</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#22</td>
+                <td><a href="https://chess.com/member/mehechanic">mehechanic</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-19--tungjohn-playing-chess-3935076">Thí Vua Lấy Tốt Lần Thứ 19 - TungJohn Playing Chess</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#23</td>
+                <td><a href="https://chess.com/member/lams2010">lams2010</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-cho-h-thng-6---nm-2023-4059788">Thí Vua Lấy Tốt Chào Hè Tháng 6 - Năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#24</td>
+                <td><a href="https://chess.com/member/trongvinh123">trongvinh123</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-10-nm-2023-4319009">Thí Vua Lấy Tốt tháng 10 năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#25</td>
+                <td><a href="https://chess.com/member/wingstw">wingstw</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-11-nm-2023-4374307">Thí Vua Lấy Tốt tháng 11 năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#26</td>
+                <td><a href="https://chess.com/member/phamtienduc1">phamtienduc1</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-122023-4426328">Thí Vua Lấy Tốt Tháng 12.2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#27</td>
+                <td><a href="https://chess.com/member/incognito_speedruner121">incognito_speedruner121</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-42024---king-of-the-hill-4689591">Thí Vua Lấy Tốt Tháng 4.2024 - King Of The Hill</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#28</td>
+                <td><a href="https://chess.com/member/lephangiahungr07">lephangiahungr07</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-552024---3check-4756726">Siêu Giải Thí Vua lấy Tốt 5/5/2024 - 3Check</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#29</td>
+                <td><a href="https://chess.com/member/thuytrannonumber">thuytrannonumber</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-72024-4897591">Siêu Giải Thí Vua Lấy Tốt Tháng 7/2024</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#30</td>
+                <td><a href="https://chess.com/member/nghiavonang">nghiavonang</a></td>
+                <td>🥈(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-92024-5077723">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 9/2024</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#31</td>
+                <td><a href="https://chess.com/member/phantom00308">phantom00308</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-4---ngy-nh-gio-vit-nam-2011-3535839">Thí Vua Lấy Tốt Lần 4 - Ngày Nhà Giáo Việt Nam 20/11</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#32</td>
+                <td><a href="https://chess.com/member/vvhung">vvhung</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-5-3548920">Thí Vua Lấy Tốt lần 5</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#33</td>
+                <td><a href="https://chess.com/member/vgt187">vgt187</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/cn-mng-l-cn-tt---siu-gii-th-vua-ly-tt-ln-th-12--tungjohn-playing-chess-3719886">Còn Mùng là còn Tết - Siêu Giải Thí Vua Lấy Tốt Lần Thứ 12 - TungJohn Playing Chess</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#34</td>
+                <td><a href="https://chess.com/member/M-DinhHoangViet">M-DinhHoangViet</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-17---thng-thua-nh-ng-i-3918891">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 17 - Thắng Thua Nhờ Đồng Đội</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#35</td>
+                <td><a href="https://chess.com/member/nagisaxdd">nagisaxdd</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-20-3960496">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 20</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#36</td>
+                <td><a href="https://chess.com/member/chorachricon">chorachricon</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-9-nm-2023-4253176">Thí Vua Lấy Tốt tháng 9 năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#37</td>
+                <td><a href="https://chess.com/member/duongnm2407">duongnm2407</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-11-nm-2023-4374307">Thí Vua Lấy Tốt tháng 11 năm 2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#38</td>
+                <td><a href="https://chess.com/member/ryure149">ryure149</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-122023-4426328">Thí Vua Lấy Tốt Tháng 12.2023</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#39</td>
+                <td><a href="https://chess.com/member/nth_2402">nth_2402</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-tt-dng-lch-01012024-4486332">Thí Vua Lấy Tốt Tết Dương Lịch 01.01.2024</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#40</td>
+                <td><a href="https://chess.com/member/nqb26">nqb26</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-2---cho-xun-gip-thn-2024-4548307">Siêu Giải Thí Vua Lấy Tốt Tháng 2 - Chào Xuân Giáp Thìn 2024</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#41</td>
+                <td><a href="https://chess.com/member/bobby_misser46k">bobby_misser46k</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-42024---king-of-the-hill-4689591">Thí Vua Lấy Tốt Tháng 4.2024 - King Of The Hill</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#42</td>
+                <td><a href="https://chess.com/member/tokudashigeojr">tokudashigeojr</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-552024---3check-4756726">Siêu Giải Thí Vua lấy Tốt 5/5/2024 - 3Check</a>)</td>
+            </tr>
+
+            <tr>
+                <td>#43</td>
+                <td><a href="https://chess.com/member/someoneidk2022">someoneidk2022</a></td>
+                <td>🥉(<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-92024-5077723">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 9/2024</a>)</td>
+            </tr>
+
         </tbody>
     </table>
     <div class="footer">
-    <div class="footer-container">
-        <div>
-            <h3><strong><a href="/" title="Trang web Thí Vua Lấy Tốt">Thí Vua Lấy Tốt</a></strong></h3>
-            <p><a href="/social" title="Social media links">Các trang mạng/truyền thông</a></p>
-            <p><a href="/blog" title="Các bài Blog quan trọng của TVLT">Các thông báo & tin tức</a></p>
-            <p><a href="/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
-            <p><a href="/game" title="Các trò chơi đơn giản">Các trò chơi đơn giản</a></p>
-            <p><a href="/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu</a></p>
-            <p><a href="/leaders" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
-        </div>
-        <div>
-            <h3 align="center"><a href="/social">Các Liên Kết Mạng Xã Hội</a></h3>
-            <strong><a href="/social#social">Các tài khoản mạng xã hội của TungJohn</a></strong>
-            <div class="button">
-                <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><i class="bx bxl-youtube"></i></a>
-                <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><i class="bx bxl-facebook"></i></a>
-                <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><i class="bx bxl-twitch"></i></a>
-                <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><i class="bx bxl-tiktok"></i></a>
-                <a href="https://chess.com/member/tungjohn2005" target="_blank" title="Tài khoản Chess.com của TungJohn"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
-                <a href="https://lichess.org/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img src="/images/lichesslogo.png"></a>
-                <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><i class="bx bxs-shopping-bag"></i></a>
+        <div class="footer-container">
+            <div>
+                <h3><strong><a href="/" title="Trang web Thí Vua Lấy Tốt">Thí Vua Lấy Tốt</a></strong></h3>
+                <p><a href="/social" title="Social media links">Các trang mạng/truyền thông</a></p>
+                <p><a href="/blog" title="Các bài Blog quan trọng của TVLT">Các thông báo & tin tức</a></p>
+                <p><a href="/vlogs" title="Các Video quan trọng của TVLT">Các Vlog</a></p>
+                <p><a href="/game" title="Các trò chơi đơn giản">Các trò chơi đơn giản</a></p>
+                <p><a href="/lists" title="Các danh sách/bảng quan trọng">Danh sách/Tài liệu</a></p>
+                <p><a href="/leaders" title="Ban cán sự của TVLT">Ban cán sự của TVLT</a></p>
             </div>
-            <hr>
-            <strong><a href="/social#group">Các nhóm, câu lạc bộ, máy chủ của Thí Vua Lấy Tốt</a></strong>
-            <div class="button">
-                <a href="https://link.chess.com/club/0CVQh6" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
-                <a href="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank" title="Đội Thí Vua Lấy Tốt trên Lichess"><img width="22" src="/images/lichesslogo.png"></a>
-                <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><i class="bx bxl-facebook-circle"></i></a>
-                <a href="https://discord.gg/Fc9MBSMbBM" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><i class="bx bxl-discord"></i></a>
-                <a href="https://zalo.me/g/zhrwtn779" title="Nhóm chat Thí Vua Lấy Tốt trên Zalo"><img width="14" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
+            <div>
+                <h3 align="center"><a href="/social">Các Liên Kết Mạng Xã Hội</a></h3>
+                <strong><a href="/social#social">Các tài khoản mạng xã hội của TungJohn</a></strong>
+                <div class="button">
+                    <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><span class="fa fa-youtube"></span></a>
+                    <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><span class="fa fa-facebook"></span></a>
+                    <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><span class="fa fa-twitch"></span></a>
+                    <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><span class="fa fa-tiktok"></span></a>
+                    <a href="https://chess.com/member/tungjohn2005" target="_blank" title="Tài khoản Chess.com của TungJohn"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
+                    <a href="https://lichess.org/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img src="/images/lichesslogo.png"></a>
+                    <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><span class="fa fa-shopping-bag"></span></a>
+                </div>
+                <hr>
+                <strong><a href="/social#group">Các nhóm, câu lạc bộ, máy chủ của Thí Vua Lấy Tốt</a></strong>
+                <div class="button">
+                    <a href="https://link.chess.com/club/0CVQh6" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
+                    <a href="https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank" title="Đội Thí Vua Lấy Tốt trên Lichess"><img width="22" src="/images/lichesslogo.png"></a>
+                    <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><span class="fa fa-facebook-circle"></span></a>
+                    <a href="https://discord.gg/Fc9MBSMbBM" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><span class="fa fa-discord"></span></a>
+                    <a href="https://zalo.me/g/zhrwtn779" title="Nhóm chat Thí Vua Lấy Tốt trên Zalo"><img width="14" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
+                </div>
             </div>
-        </div>
-        <div>
-            <br><br>
-            <p>Web được xây dựng bởi <a href="/leaders#admins" title="Các quản trị viên">Quản trị viên</a>.</p>
-            <p>Mã nguồn trên <a href="https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io"><i class="bx bxl-github"></i></a></p>
-            {% include updated.html %}
-            <strong><a href="/contact-donate">Liên hệ & Đóng góp</a></strong>
+            <div>
+                <br><br>
+                <p>Web được xây dựng bởi <a href="/leaders#admins" title="Các quản trị viên">Quản trị viên</a>.</p>
+                <p>Mã nguồn trên <a href="https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io"><span class="fa fa-github"></span></a></p>
+                {% include updated.html %}
+                <strong><a href="/contact-donate">Liên hệ & Đóng góp</a></strong>
+            </div>
         </div>
     </div>
-</div>
 
-<script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>

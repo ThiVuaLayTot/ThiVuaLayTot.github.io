@@ -38,12 +38,14 @@ def generate_h1_tag(filename):
         title = 'Cờ Bí Thí Tốt'
     elif namefile == 'cttq':
         title = 'Chiến Trường Thí Quân'
-    else:
+    elif namefile == 'dttv':
         title = 'Đấu Trường Thí Vua'
+    else:
+        title = '<span class="loader"></span>'
     h1_tag = f"""<h1 align="center">Những kỳ thủ đạt giải {title} nhiều nhất</h1>
-    <h2 align="center">Bạn có thể xem tổng hợp các giải {title} <a href="/events/tournaments/{namefile}">ở đây</a>.</h2>
-    <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li> <li><a href="lichess">Các giải tổ chức trên Lichess</a></li></ul>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
+    <h2 align="center">Bạn có thể xem tổng hợp các giải {title} <a href="{namefile}">ở đây</a>.</h2>
+    <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
+    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="fa fa-to-top"></span></button>
     <i>Tất cả thông tin phía dưới được sắp xếp tự động, sẽ có một số kỳ thủ bị đóng tài khoản nhưng không phải vi phạm không được hiển thị ở đây. Nếu muốn chính xác hơn, hãy đối chiếu với bảng thống kê các giải <a href="/events/tournaments/{namefile}">{title}</a>.</i>
     """
     return h1_tag
@@ -147,7 +149,6 @@ def sort_players(players):
 
 def generate_html_output(rankings, title):
     html_output = """
-    <h1 align="center">Bảng xếp hạng các kỳ thủ đạt giải</h1>
     <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu (Càng chi tiết càng tốt)"><script src="/js/search-events.js"></script>
     <table class="styled-table">
         <thead>

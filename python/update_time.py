@@ -10,3 +10,4 @@ def time():
 
 with open('_includes/updated.html', 'w', encoding='utf-8') as html_file:
     html_file.write(time())
+    print(time())

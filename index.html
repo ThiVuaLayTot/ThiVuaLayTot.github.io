@@ -1,14 +1,16 @@
----
-layout: default
-title: Trang chủ - Thí Vua Lấy Tốt
----
+--- layout: default title: Trang chủ - Thí Vua Lấy Tốt ---
 
 <section id="welcome">
     <div>
         <h1>Chào mừng bạn đã ghé thăm trang web Thí Vua Lấy Tốt</h1>
         <p align="center">Hello, xin chào các bạn, rất cảm ơn vì bạn đã ghé thăm. Chúng ta ở đây để cùng chia sẻ một niềm đam mê, đó là cờ vua. Bạn có thể tìm mọi thứ hấp dẫn về bộ môn cờ vua, từ tin tức cờ vua, các ván đấu nổi tiếng, các mẹo, thủ thuật chơi cờ vua.</p>
     </div>
-    <ul class="tab"><li><a href="#about">Giới thiệu</a></li> <li><a href="#blog">Tin tức</a></li> <li><a href="#chess">Kiến thức cờ vua</a></li> <li><a href="#social">Liên hệ & Truyền thông</a></li></ul>
+    <ul class="tab">
+        <li><a href="#about">Giới thiệu</a></li>
+        <li><a href="#blog">Tin tức</a></li>
+        <li><a href="#chess">Kiến thức cờ vua</a></li>
+        <li><a href="#social">Liên hệ & Truyền thông</a></li>
+    </ul>
 </section>
 <section id="about">
     <div>
@@ -22,13 +24,14 @@ title: Trang chủ - Thí Vua Lấy Tốt
 <section id="blog">
     <div>
         <h2><a href="/blog">Thông báo & Tin tức</a></h2>
-            <div class="card-list">
-            {% for post in site.posts limit:4 %}
-            {% if post.category == "news" %}
-            <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
-            <h4 class="card__title">{{ post.title }}</h4></a>
-            <a href="/{{ post.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i> {{ post.tags }}</a>
-            <i class="card__dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
+        <div class="card-list">
+            {% for post in site.posts limit:4 %} {% if post.category == "news" %}
+            <div class="card">
+                <a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card_image">
+                    <h4 class="card_title">{{ post.title }}</h4>
+                </a>
+                <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-purchase-tag"></span> {{ post.tags }}</a>
+                <span class="card_dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
             {% endif %} {% endfor %}
             </div>
     </div>
@@ -39,10 +42,10 @@ title: Trang chủ - Thí Vua Lấy Tốt
         <div class="card-list">
         {% for post in site.posts limit:3 %}
         {% if post.category == "chess" %}
-        <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
-        <h4 class="card__title">{{ post.title }}</h4></a>
-        <a href="/{{ post.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i> {{ post.tags }}</a>
-        <i class="card__dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
+        <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card_image">
+        <h4 class="card_title">{{ post.title }}</h4></a>
+        <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-purchase-tag"></span> {{ post.tags }}</a>
+                <span class="card_dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
         {% endif %} {% endfor %}
         </div>
 </section>
