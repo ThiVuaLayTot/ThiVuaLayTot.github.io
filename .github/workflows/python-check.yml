@@ -5,6 +5,9 @@ on:
     branches: [ main ]
     paths:
       - 'python/**.py'
+  pull_request:
+    paths:
+      - 'python/**.py'
 
 jobs:
    analyse-pyright:
