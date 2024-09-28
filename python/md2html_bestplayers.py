@@ -1,10 +1,8 @@
-from datetime import datetime 
-import pytz
-import os
+from collections import defaultdict
 import re
+import os
 import requests
 from bs4 import BeautifulSoup
-from collections import defaultdict
 
 css_styles = """<!DOCTYPE html>
 <html lang="vi">
@@ -74,7 +72,6 @@ def get_chesscom_status(username):
         return 'Đã xảy ra lỗi'
 
 def find_non_violating_player(index, substitutes):
-    """Tìm người không vi phạm để thay thế"""
     for j in range(index, len(substitutes)):
         potential_replacement = substitutes[j].strip()
         if potential_replacement and not potential_replacement.startswith('@'):
@@ -93,7 +90,7 @@ def parse_markdown_table(markdown_table):
         cells = re.split(r'\s*\|\s*', row)
         if len(cells) < 9:
             continue
-        
+
         event_date = cells[0]
         gold_player, silver_player, bronze_player = cells[3:6]
         rank4, rank5, rank6 = cells[6:9]
@@ -144,24 +141,24 @@ def sort_players(players):
         player_list.append((player, total_points, data["achievements"]))
 
     player_list.sort(key=lambda x: -x[1])
-    
+
     return player_list
 
-def generate_html_output(rankings, title):
+def generate_html_output(rankings):
     html_output = """
     <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu (Càng chi tiết càng tốt)"><script src="/js/search-events.js"></script>
     <table class="styled-table">
         <thead>
             <tr>
-                <th>Hạng</th>
-                <th>Kỳ thủ</th>
+                <th class="stt">Hạng</th>
+                <th class="winner">Kỳ thủ</th>
                 <th>Các lần đạt giải</th>
             </tr>
         </thead>
         <tbody>
     """
     rank = 1
-    for player, points, achievements in rankings:
+    for player, achievements in rankings:
         achievements_display = ', '.join(achievements)
         html_output += f"""
         <tr>
@@ -171,17 +168,17 @@ def generate_html_output(rankings, title):
         </tr>
         """
         rank += 1
-    
+
     html_output += """
         </tbody>
     </table>
     """
     return html_output
 
-def markdown_table_to_html(markdown_table, title):
+def markdown_table_to_html(markdown_table):
     players = parse_markdown_table(markdown_table)
     sorted_players = sort_players(players)
-    html_table = generate_html_output(sorted_players, title)
+    html_table = generate_html_output(sorted_players)
     return html_table
 
 input_directory = 'events/tournaments'
@@ -196,10 +193,10 @@ for filename in files:
         with open(os.path.join(input_directory, filename), 'r', encoding='utf-8') as input_file:
             markdown_content = input_file.read()
 
-        html_content = css_styles + nav_content() + generate_h1_tag(filename) + markdown_table_to_html(markdown_content, filename) + footer_content()
+        html_content = css_styles + nav_content() + generate_h1_tag(filename) + markdown_table_to_html(markdown_content) + footer_content()
 
         output_filename = filename.replace('.md', '.html')
         with open(os.path.join(output_directory, output_filename), 'w', encoding='utf-8') as output_file:
             output_file.write(html_content)
-        
+
         print(f"Đã chuyển đổi {filename} thành HTML thành công!")
