@@ -44,20 +44,18 @@ information = """
 
 def generate_h1_tag(filename):
     namefile = os.path.splitext(filename)[0]
-    if namefile == 'tvlt':
-        title = 'Thí Vua Lấy Tốt'
-    elif namefile == 'cbtt':
-        title = 'Cờ Bí Thí Tốt'
-    elif namefile == 'cttq':
-        title = 'Chiến Trường Thí Quân'
-    elif namefile == 'dttv':
-        title = 'Đấu Trường Thí Vua'
-    else:
-        title = 'được tổ chức trên Lichess'
+    titles = {
+        'tvlt': 'Thí Vua Lấy Tốt',
+        'cbtt': 'Cờ Bí Thí Tốt',
+        'cttq': 'Chiến Trường Thí Quân',
+        'dttv': 'Đấu Trường Thí Vua',
+        'lichess': 'Các giải tổ chức trên Lichess'
+    }
+    title = titles.get(namefile)
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
     <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li> <li><a href="lichess">Các giải tổ chức trên Lichess</a></li></ul>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="fa fa-to-top"></span></button>
+    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span id="back2top" class="fa fa-to-top"></span></button>
 
     """
     return h1_tag
