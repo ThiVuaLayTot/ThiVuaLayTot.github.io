@@ -187,7 +187,10 @@ nav {
         float: none;
     }
     .topnav.responsive .dropdown-content {
-        position: relative;
+        display: none;
+    }
+    .topnav.responsive .dropdown-content a {
+        display: none;
     }
     .topnav.responsive .dropdown .dropbtn {
         display: block;

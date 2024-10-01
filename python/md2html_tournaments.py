@@ -120,7 +120,7 @@ def markdown_table_to_html(markdown_table):
                 username = cell[1:]
                 status = get_chesscom_status(username)
                 if status == 'Fair Play':
-                    cell_content = f'       <{tag} class="ban"><a href="{chesscom}/member/{username}" target="_blank">{username}</a><span class="closed">✕</span></{tag}>'
+                    cell_content = f'       <{tag} class="banned"><a href="{chesscom}/member/{username}" target="_blank">{username}</a><span class="fa fa-ban"></span></{tag}>'
                 elif status == 'Abuse':
                     cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="closed">✕</span></a></{tag}>'
                 else:
