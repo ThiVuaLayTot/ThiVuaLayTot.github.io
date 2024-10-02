@@ -158,8 +158,11 @@ DEPENDENCIES
   html-proofer
   icalendar (~> 2.10)
   jekyll
+  jekyll (~> 4.2)
   jekyll-feed
+  jekyll-paginate
   rake
+  webrick (~> 1.7)
 
 RUBY VERSION
   ruby 3.3.4p94
