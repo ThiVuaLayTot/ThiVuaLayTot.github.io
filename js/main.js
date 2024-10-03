@@ -7,17 +7,6 @@ function toggleMenu() {
     }
 }
 
-
-function toggleDarkMode() {
-    const isEnabled = darkModeToggle.checked;
-    localStorage.setItem('darkMode', isEnabled ? 'enabled' : 'disabled');
-    setDarkMode(isEnabled);
-}
-
-setDarkMode(isDarkMode);
-darkModeToggle.checked = isDarkMode;
-darkModeToggle.addEventListener('change', toggleDarkMode);
-
 // Nút Backtotop
 let mybutton = document.getElementById("myBtn");
 
