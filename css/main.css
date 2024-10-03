@@ -787,7 +787,6 @@ hr {
 /* Style cho bảng */
 
 .styled-table {
-    font-family: "Times New Roman", Times, serif;
     border-collapse: collapse;
     width: 100%;
     border: 1px solid #05fe09;

@@ -120,28 +120,24 @@ def markdown_table_to_html(markdown_table):
                 username = cell[1:]
                 status = get_chesscom_status(username)
                 if status == 'Fair Play':
-                    cell_content = f'       <{tag} class="banned"><a href="{chesscom}/member/{username}" target="_blank">{username}</a><span class="fa fa-ban"></span></{tag}>'
+                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a><span class="fa fa-ban closed"></span></{tag}>'
                 elif status == 'Abuse':
-                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="closed">✕</span></a></{tag}>'
+                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-remove closed"></span></a></{tag}>'
                 else:
                     cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('!@'):
                 username = cell[2:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="special">✓</span></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('- $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="special">✓</span></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
             elif cell.startswith('! $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="closed">✕</span></</a></{tag}>'
-            # Dành cho các link giải
-            elif cell.startswith('%'):
-                link = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/{link}" target="_blank">Link!</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="fa fa-ban closed"></span></a></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'
