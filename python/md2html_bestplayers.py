@@ -5,8 +5,6 @@ import re
 import os
 import requests
 from bs4 import BeautifulSoup
-import locale
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 @dataclass
 class Player:
@@ -72,13 +70,13 @@ def get_chesscom_status(username: str) -> str:
             print(f'Tài khoản {username} đã bị đóng: Fair Play')
             return 'Fair Play'
         else:
-            print(f'Tài khoản {username} vẫn hoạt động')
+            print(f'Tài khoản {username} vẫn hoạt động'.encode('utf-8').decode())
             return 'Tài khoản vẫn hoạt động'
     except requests.HTTPError:
         print(f'Không tìm thấy trang cho {username}, có thể tài khoản không tồn tại')
         return 'Không tìm thấy trang, có thể tài khoản không tồn tại'
     except Exception as e:
-        print(f'Đã xảy ra lỗi khi kiểm tra tài khoản {username}: {e}')
+        print(f'Đã xảy ra lỗi khi kiểm tra tài khoản {username}: {e}'.encode('utf-8').decode())
         return 'Đã xảy ra lỗi'
 
 def find_non_violating_player(index: int, substitutes: list) -> Tuple[Optional[str], int]:
