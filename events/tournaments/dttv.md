@@ -1,5 +1,6 @@
 Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟
 ---|---|---|---|---|---|---|---|---
+<a href="https://lichess.org/swiss/bfLmd9FU">Đấu Trường Thí Vua lần 7</a>|18/02/2023|¼+1 Bullet, Swiss 3 vòng|$SkUiCeVmAl|$studychess2009|$Chesslivestream2013|$M_DinhHoangViet|$minhmega2k12||
 <a href="https://www.chess.com/tournament/live/gii-ph-random---3-check--ln-1-3629394">Giải phụ (RANDOM) - 3 check - LẦN 1</a>|17-12-2022|10+0 Rapid 3 Chiếu, Swiss 5 vòng|@dream_toxic|@longgr29|@darknam119|@chien_ca|@hopeful_boy|@khanhyamate
 <a href="https://www.chess.com/tournament/live/arena/gii-ph-random---crazyhouse--ln-2-2353520">Giải phụ (RANDOM) - crazyhouse - LẦN 2</a>|24-12-2022|5+0 Blitz Crazyhouse, Arena|@M-DinhHoangViet|@baonguyen007|@tranquangphat2345|@datnguyensy|@yzh_d|@nghiaduypham2008
 <a href="https://www.chess.com/tournament/live/arena/gii-ph---c-fen--ln-3-2391595">Giải phụ - Cờ FEN - LẦN 3</a>|19-01-2023|10+5 Rapid,Arena|@trihau0108|@M-DinhHoangViet|@newtoplaychess1234|@anhtu_playchess|@gmdanielgoodchess|@quanmadara

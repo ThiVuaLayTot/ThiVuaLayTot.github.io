@@ -1,5 +1,10 @@
 Tên giải|Ngày tổ chức🕗|Thể lệ♟️|Hạng nhất 🥇|Hạng nhì 🥈|Hạng ba 🥉|Hạng 4 🏅|Hạng 5 🎖️|Hạng 6 🌟
 ---|---|---|---|---|---|---|---|---
+<a href="https://lichess.org/swiss/SuLNRcUf">Thí Vua Lấy Tốt lần 16|12/03/2023|3+1 Chess960, Swiss 12 vòng|$nhattan185|$HduHabinhan2011|$pohlestoff|$Chessaholic2k2|$PhamMinhHieuTHCSLQD|$nguyensyduc
+<a href="https://lichess.org/swiss/wDTxvfMV">Thí Vua Lấy Tốt lần 14</a>|19/02/2023|3+1 Blitz, Swiss 12 vòng|$Con-Ga-Biet-Bay|! $letrungttpytn|! $lecongdatt|$CTHNannhhuycv2010|$AndriseDao2009|$nhattan185
+<a href="https://lichess.org/tournament/0PagYmhJ">Thí Vua Lấy Tốt lần 11</a>|15/01/2023|3+1 Crazyhouse, Arena 2h|$Redofblue|$M_DinhHoangViet|$HCMThanhLong2k8|$Bbao23|- $Ly_KieuTrang|$tranxuanthai
+<a href="https://lichess.org/swiss/9qFzoWXU">Thí Vua Lấy Tốt lần 9</a>|25/12/2022|3+1 Blitz, Swiss 12 vòng|$zendatran|! $Binh_Phong_Nhi_Tue_9|! $mikejapan161|! $SlavaUkraine_1|$CTHNannhhuycv2010|$chess-super
+<a href="https://lichess.org/tournament/E6v5uld">Thí Vua Lấy Tốt lần 6</a>|04/12/2022|5+2 Blitz, Arena 2h|- $maynho-04|$DTHtiendung2010|$danieltony3555|$haloc|$nguyensyduc|$CC_Si
 <a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-2171704">Thí Vua Lấy Tốt</a>|15-10-2022|10+0 Rapid,Arena|@congnguyen1406|@vnquang123|@cazonw|@cakhothanchuong|@dellbiettchsco|@luffy_murom
 <a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-ln-2-2183785">Thí Vua Lấy Tốt Lần 2</a>|22-10-2022|5+0 Blitz,Arena|@chessspeakforitself2014|@covuanhudb|@only_bongcloud_vn|@ancomv|@playerkhoa|@phongdeptraiqua
 <a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-ln-th-3-2218000">Thí Vua Lấy Tốt Lần Thứ 3</a>|06-11-2022|10+0 Rapid,Arena|@nguyen10t2|@h24laval|@hoanganhnhi2002|@littlegirl2006|@mehechanic|@wibu2k1
