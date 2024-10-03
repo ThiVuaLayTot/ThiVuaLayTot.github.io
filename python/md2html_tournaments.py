@@ -23,7 +23,8 @@ head_content = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/eventwinner.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="/js/main.js"></script>
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
 """
@@ -44,20 +45,18 @@ information = """
 
 def generate_h1_tag(filename):
     namefile = os.path.splitext(filename)[0]
-    if namefile == 'tvlt':
-        title = 'Thí Vua Lấy Tốt'
-    elif namefile == 'cbtt':
-        title = 'Cờ Bí Thí Tốt'
-    elif namefile == 'cttq':
-        title = 'Chiến Trường Thí Quân'
-    elif namefile == 'dttv':
-        title = 'Đấu Trường Thí Vua'
-    else:
-        title = 'được tổ chức trên Lichess'
+    titles = {
+        'tvlt': 'Thí Vua Lấy Tốt',
+        'cbtt': 'Cờ Bí Thí Tốt',
+        'cttq': 'Chiến Trường Thí Quân',
+        'dttv': 'Đấu Trường Thí Vua',
+        'lichess': 'Các giải tổ chức trên Lichess'
+    }
+    title = titles.get(namefile)
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="/events/bestplayers/{namefile}">ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li> <li><a href="lichess">Các giải tổ chức trên Lichess</a></li></ul>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><i id="back2top" class="bx bxs-to-top"></i></button>
+    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span id="back2top" class="fa fa-to-top"></span></button>
 
     """
     return h1_tag
@@ -121,28 +120,24 @@ def markdown_table_to_html(markdown_table):
                 username = cell[1:]
                 status = get_chesscom_status(username)
                 if status == 'Fair Play':
-                    cell_content = f'       <{tag} class="ban"><a href="{chesscom}/member/{username}" target="_blank">{username}</a><span class="closed">✕</span></{tag}>'
+                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a><span class="fa fa-ban closed"></span></{tag}>'
                 elif status == 'Abuse':
-                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="closed">✕</span></a></{tag}>'
+                    cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-remove closed"></span></a></{tag}>'
                 else:
                     cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('!@'):
                 username = cell[2:]
-                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="special">✓</span></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
                 cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username}</a></{tag}>'
             elif cell.startswith('- $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="special">✓</span></a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
             elif cell.startswith('! $'):
                 username = cell[3:]
-                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="closed">✕</span></</a></{tag}>'
-            # Dành cho các link giải
-            elif cell.startswith('%'):
-                link = cell[1:]
-                cell_content = f'       <{tag}><a href="{lichess}/{link}" target="_blank">Link!</a></{tag}>'
+                cell_content = f'       <{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="fa fa-ban closed"></span></a></{tag}>'
             # Dành cho các ô/dòng còn lại
             else:
                 cell_content = f'       <{tag}>{cell}</{tag}>'

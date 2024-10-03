@@ -1,29 +1,12 @@
 function toggleMenu() {
     var x = document.querySelector(".topnav");
     if (x.className === "topnav") {
-      x.className += " responsive";
+        x.className += " responsive";
     } else {
-      x.className = "topnav";
+        x.className = "topnav";
     }
 }
 
-
-const darkModeToggle = document.getElementById('darkModeToggle');
-const body = document.body;
-const moonIcon = document.getElementById('moon');
-const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-
-function setDarkMode(isEnabled) {
-    if (isEnabled) {
-        body.classList.add('dark-mode');
-        moonIcon.classList.remove('bx', 'bxs-moon');
-        moonIcon.classList.add('bx', 'bxs-sun');
-    } else {
-        body.classList.remove('dark-mode');
-        moonIcon.classList.remove('bx', 'bxs-sun');
-        moonIcon.classList.add('bx', 'bxs-moon');
-    }
-}
 
 function toggleDarkMode() {
     const isEnabled = darkModeToggle.checked;
@@ -38,20 +21,20 @@ darkModeToggle.addEventListener('change', toggleDarkMode);
 // Nút Backtotop
 let mybutton = document.getElementById("myBtn");
 
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function() { scrollFunction() };
 
 function scrollFunction() {
-  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 111) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 111) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
 }
 
 // Khi click vào nút 
 function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 const updateButton = document.getElementById("buttonDetails");
@@ -81,29 +64,29 @@ setupDialog(upButton, donateDialog, cancelDonateButton);
 
 // Chức năng tìm kiếm
 function searchTable() {
-  var input = document.getElementById('searchInput');
-  var filter = input.value.toUpperCase();
-  var table = document.querySelector('.styled-table');
-  var rows = table.getElementsByTagName('tr');
+    var input = document.getElementById('searchInput');
+    var filter = input.value.toUpperCase();
+    var table = document.querySelector('.styled-table');
+    var rows = table.getElementsByTagName('tr');
 
-  for (var i = 1; i < rows.length; i++) {
-      var cells = rows[i].getElementsByTagName('td');
-      var match = false;
+    for (var i = 1; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName('td');
+        var match = false;
 
-      for (var j = 0; j < cells.length; j++) {
-          var cell = cells[j];
-          if (cell) {
-              if (cell.textContent.toUpperCase().indexOf(filter) > -1) {
-                  match = true;
-                  break;
-              }
-          }
-      }
+        for (var j = 0; j < cells.length; j++) {
+            var cell = cells[j];
+            if (cell) {
+                if (cell.textContent.toUpperCase().indexOf(filter) > -1) {
+                    match = true;
+                    break;
+                }
+            }
+        }
 
-      if (match) {
-          rows[i].style.display = '';
-      } else {
-          rows[i].style.display = 'none';
-      }
-  }
+        if (match) {
+            rows[i].style.display = '';
+        } else {
+            rows[i].style.display = 'none';
+        }
+    }
 }

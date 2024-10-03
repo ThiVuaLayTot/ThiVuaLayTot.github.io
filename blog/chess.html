@@ -5,18 +5,19 @@ permalink: /chess/
 ---
 
 <h1>Các kiến thức cờ vua</h1>
-<a href="https://thivualaytot.github.io/atom.xml"><i class="bx bx-rss" title="Atom RSS"></i></a>
+<a href="https://thivualaytot.github.io/atom.xml"><span class="fa fa-rss" title="Atom RSS"></span></a>
 <ul class="tab">
     <li><a href="/blog">Tất cả bài đăng</a></li>
     <li><a href="/chess" class="active">Kiến thức cờ vua</a></li>
     <li><a href="/news">Thông báo/Tin tức</a></li>
 </ul><br>
 <div class="card-list">
-{% for post in site.posts %}
-{% if post.category == "chess" %}
-<div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card__image">
-    <h4 class="card__title">{{ post.title }}</h4></a>
-    <a href="/{{ post.category }}" class="card__tag"><i class="bx bx-purchase-tag"></i> {{ post.tags }}</a>
-    <i class="card__dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
+    {% for post in site.posts %} {% if post.category == "chess" %}
+    <div class="card">
+        <a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card_image">
+            <h4 class="card_title">{{ post.title }}</h4>
+        </a>
+        <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-purchase-tag"></span> {{ post.tags }}</a>
+        <span class="card_dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
 {% endif %} {% endfor %}
 </div>
