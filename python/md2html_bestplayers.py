@@ -49,7 +49,7 @@ def generate_h1_tag(filename: str) -> str:
     }
     title = titles.get(namefile, '<span class="loader"></span>')
     h1_tag = f"""<h1 align="center">Những kỳ thủ đạt giải {title} nhiều nhất</h1>
-    <h2 align="center">Bạn có thể xem tổng hợp các giải {title} <a href="{namefile}">ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem tổng hợp các giải {title} <a href="/events/tournament/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
     <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span id="back2top" class="fa fa-top"></span></button>
     <i>Tất cả thông tin phía dưới được sắp xếp tự động, sẽ có một số kỳ thủ bị đóng tài khoản nhưng không phải vi phạm không được hiển thị ở đây. Nếu muốn chính xác hơn, hãy đối chiếu với bảng thống kê các giải <a href="/events/tournaments/{namefile}">{title}</a>.</i>
