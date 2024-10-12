@@ -28,7 +28,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
     <div>
         <h2><a href="/blog">Thông báo & Tin tức</a></h2>
         <div class="card-list">
-            {% for post in site.posts limit:4 %} {% if post.category == "news" %}
+            {% for post in site.posts limit:3 %} {% if post.category == "news" %}
             <div class="card">
                 <a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card_image">
                     <h4 class="card_title">{{ post.title }}</h4>
