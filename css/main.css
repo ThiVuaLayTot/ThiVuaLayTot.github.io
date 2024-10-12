@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Roboto:wght@100;300;400&display=swap');
 :root {
     --primary-color: #f9532d;
-    --primary-dark: #0d1021;
+    --primary-dark: #0c1530;
     --primary-font: 'Outfit', sans-serif;
 }
 
@@ -17,7 +17,7 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--primary-font);
     background-color: var(--primary-dark);
     color: #ffffff;
 }
@@ -255,7 +255,6 @@ h3 {
     font-size: 1.5rem;
     opacity: 0;
     animation: rightSideAni 1s ease forwards;
-    margin-bottom: 1.5rem;
     padding: 0.2rem 0.5rem;
 }
 
@@ -264,7 +263,6 @@ h2 {
     font-weight: 600;
     opacity: 0;
     animation: bottomSideAni 1s ease forwards;
-    margin-bottom: 20rem;
     padding: 0.1rem 0.5rem;
 }
 
@@ -503,8 +501,7 @@ hr {
     }
 }
 
-
-/* @keyframes ImgAni {
+@keyframes ImgAni {
     0% {
         transform: translateX(0);
     }
@@ -514,7 +511,7 @@ hr {
     100% {
         transform: translateX(0);
     }
-} */
+}
 
 @keyframes imageAni {
     0% {
@@ -851,7 +848,7 @@ hr {
 .tab li a:after {
     display: block;
     content: '';
-    border-bottom: .125rem solid #FE465B;
+    border-bottom: .125rem solid var(--primary-color);
     transform: scaleX(0);
     transition: transform 350ms ease
 }
@@ -859,7 +856,7 @@ hr {
 .tab li a.active:after {
     display: block;
     content: '';
-    border-bottom: .125rem solid #FE465B;
+    border-bottom: .125rem solid var(--primary-color);
     transform: scaleX(1)
 }
 
