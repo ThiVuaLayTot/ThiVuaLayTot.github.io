@@ -244,7 +244,7 @@ main {
 }
 
 h4 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: normal;
     opacity: 0;
     animation: topSideAni 1s ease forwards;
@@ -260,15 +260,16 @@ h3 {
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 600;
     opacity: 0;
     animation: bottomSideAni 1s ease forwards;
+    margin-bottom: 20rem;
     padding: 0.1 0.5rem;
 }
 
 h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 600;
     opacity: 0;
     animation: leftSideAni 1s ease forwards;
