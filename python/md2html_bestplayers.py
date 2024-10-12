@@ -24,6 +24,7 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/eventwinner.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="/js/main.js"></script>
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
@@ -51,7 +52,6 @@ def generate_h1_tag(filename: str) -> str:
     h1_tag = f"""<h1 align="center">Những kỳ thủ đạt giải {title} nhiều nhất</h1>
     <h2 align="center">Bạn có thể xem tổng hợp các giải {title} <a href="/events/tournament/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span id="back2top" class="fa fa-top"></span></button>
     <i>Tất cả thông tin phía dưới được sắp xếp tự động, sẽ có một số kỳ thủ bị đóng tài khoản nhưng không phải vi phạm không được hiển thị ở đây. Nếu muốn chính xác hơn, hãy đối chiếu với bảng thống kê các giải <a href="/events/tournaments/{namefile}">{title}</a>.</i>
     """
     return h1_tag
@@ -179,6 +179,7 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
     html_output += """
         </tbody>
     </table>
+    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span class="bx bxs-to-top"></span></button>
     """
     return html_output
 

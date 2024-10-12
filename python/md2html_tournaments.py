@@ -23,6 +23,7 @@ head_content = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/eventwinner.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="/js/main.js"></script>
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
@@ -55,7 +56,6 @@ def generate_h1_tag(filename):
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
     <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="/events/bestplayers/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span class="fa fa-to-top"></span></button>
 
     """
     return h1_tag
@@ -144,6 +144,7 @@ def markdown_table_to_html(markdown_table):
         html_table += '         </tr>\n'
     html_table += '''   </table>
         <br><br><hr>
+        <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span class="bx bxs-to-top"></span></button>
     '''
     return html_table
 
