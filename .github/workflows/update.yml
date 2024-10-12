@@ -7,7 +7,7 @@ on:
     paths:
       - 'events/tournaments/**.txt'
   schedule:
-    - cron: "33 */33 * * *"
+    - cron: "50 */50 * * *"
 
 env:
   TOKEN: ${{ secrets.TOKEN }}

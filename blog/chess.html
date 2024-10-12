@@ -5,7 +5,7 @@ permalink: /chess/
 ---
 
 <h1>Các kiến thức cờ vua</h1>
-<a href="https://thivualaytot.github.io/atom.xml"><span class="fa fa-rss" title="Atom RSS"></span></a>
+<a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a>
 <ul class="tab">
     <li><a href="/blog">Tất cả bài đăng</a></li>
     <li><a href="/chess" class="active">Kiến thức cờ vua</a></li>
@@ -17,7 +17,7 @@ permalink: /chess/
         <a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card_image">
             <h4 class="card_title">{{ post.title }}</h4>
         </a>
-        <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-purchase-tag"></span> {{ post.tags }}</a>
+        <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span> {{ post.tags }}</a>
         <span class="card_dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
 {% endif %} {% endfor %}
 </div>
