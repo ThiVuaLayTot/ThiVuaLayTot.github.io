@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/js/main.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Number Generator with Spin</title>
+    <title>Quay giải may mắn</title>
     <style>
         input,
         button {
@@ -91,6 +91,8 @@
         <div class="result" id="result"></div>
         <input class="search-bar" type="number" id="maxNumber" placeholder="Nhập số lượng kỳ thủ bạn muốn quay" />
         <button onclick="startSpinning()" class="clickbutton">Quay</button>
+        <audio id="spinSound" src="/sound/vong-quay-may-man.mp3"></audio>
+        <audio id="celebrationSound" src="/sound/chuc-mung-chien-thang.mp3"></audio>
         <p>Các giải đấu Thí Vua Lấy Tốt đã diễn ra được thống kê <a href="/events/tournaments/tvlt">tại đây</a>.</p>
     </div>
     <script>
@@ -102,6 +104,7 @@
             if (maxNumber > 0 && !spinning) {
                 spinning = true;
                 let counter = 0;
+                playSpinSound();
 
                 interval = setInterval(() => {
                     const randomNumber = Math.floor(Math.random() * maxNumber) + 1;
@@ -122,7 +125,9 @@
         function generateFinalNumber(maxNumber) {
             const finalNumber = Math.floor(Math.random() * maxNumber) + 1;
             document.getElementById('result').textContent = `Người may mắn: ${finalNumber}`;
+            stopSpinSound();
             triggerConfetti(); // Gọi hiệu ứng hoa giấy
+            playCelebrationSound();
         }
 
         function triggerConfetti() {
@@ -133,6 +138,23 @@
                     y: 0.6
                 }
             });
+        }
+
+        function playSpinSound() {
+            const spinSound = document.getElementById('spinSound');
+            spinSound.play();
+            spinSound.loop = true; // Lặp lại âm thanh khi đang quay
+        }
+
+        function stopSpinSound() {
+            const spinSound = document.getElementById('spinSound');
+            spinSound.pause();
+            spinSound.currentTime = 0; // Đặt lại âm thanh về 0 giây
+        }
+
+        function playCelebrationSound() {
+            const sound = document.getElementById('celebrationSound');
+            sound.play();
         }
     </script>
     <div class="footer">
