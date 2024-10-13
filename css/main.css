@@ -694,7 +694,7 @@ hr {
 
 /* Style cho footer */
 
-.footer {
+footer {
     padding: 2rem;
     background-color: rgba(88, 88, 88, 0.143);
     .footer-container {
@@ -705,10 +705,10 @@ hr {
 }
 
 @media (max-width: 55rem) {
-    .footer .footer-container {
+    footer .footer-container {
         grid-template-columns: 1fr
     }
-    .footer .footer-container .footer-social {
+    footer .footer-container .footer-social {
         justify-content: flex-start
     }
 }

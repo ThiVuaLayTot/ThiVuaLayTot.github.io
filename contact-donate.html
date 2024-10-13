@@ -1,7 +1,4 @@
----
-layout: default
-title: Liên hệ - Ủng hộ
----
+--- layout: default title: Liên hệ - Ủng hộ ---
 
 <h1 id="contact">Liên hệ</h1>
 <div>
@@ -32,3 +29,29 @@ title: Liên hệ - Ủng hộ
     <script src="https://apis.google.com/js/platform.js"></script>
     <div class="g-ytsubscribe" data-channelid="UCvNW1NAWWjblgrP6JQI4MbQ" data-count="hidden"></div>
 </dialog>
+<script>
+    const updateButton = document.getElementById("buttonDetails");
+    const upButton = document.getElementById("btnDetails");
+    const callDialog = document.getElementById("callDialog");
+    const donateDialog = document.getElementById("donateDialog");
+    const cancelCallButton = document.getElementById("cancelCall");
+    const cancelDonateButton = document.getElementById("cancelDonate");
+
+    function openCheck(dialog) {
+        console.log(dialog.open ? "Dialog open" : "Dialog closed");
+    }
+
+    function setupDialog(button, dialog, cancelButton) {
+        button.addEventListener("click", () => {
+            dialog.showModal();
+            openCheck(dialog);
+        });
+        cancelButton.addEventListener("click", () => {
+            dialog.close("typeNotChosen");
+            openCheck(dialog);
+        });
+    }
+
+    setupDialog(updateButton, callDialog, cancelCallButton);
+    setupDialog(upButton, donateDialog, cancelDonateButton);
+</script>
