@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Những lợi ích khi chơi cờ vua
-category: chess
-tags: [Cờ vua, Chiến thuật]
+category: [ Cờ vua, Chiến thuật ]
+tags: chess
 ---
 
 *Trò chơi cờ vua là trò chơi cờ trí tuệ cho bạn không hề gây bất cứ nguy hiếm nào đến thân thể. Hơn nữa, trò chơi này còn giúp tbạn phát triển trí thông minh toàn diện và hình thành tính cách tốt cho bạn.*
