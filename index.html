@@ -34,7 +34,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
                     <h4 class="card_title">{{ post.title }}</h4>
                 </a>
                 <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span> {{ post.tags }}</a>
-                <span class="card_dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
+                <span class="card_dav">{{ post.date | date:"%d thg %m,%Y" }}</i></div>
             {% endif %} {% endfor %}
             </div>
     </div>
@@ -48,7 +48,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
         <div class="card"><a href="{{ post.url }}"><img src="./images/{{ post.id }}.png" class="card_image">
         <h4 class="card_title">{{ post.title }}</h4></a>
         <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span> {{ post.tags }}</a>
-                <span class="card_dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
+                <span class="card_dav">{{ post.date | date:"%d thg %m, %Y" }}</i></div>
         {% endif %} {% endfor %}
         </div>
 </section>

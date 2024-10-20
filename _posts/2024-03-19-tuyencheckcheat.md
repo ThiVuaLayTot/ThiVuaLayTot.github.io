@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Tuyển thành viên vào đội Check Cheat của Câu Lạc Bộ Thí Vua Lấy Tốt
-category: Thông báo
-tags: news
+category: news
+tags: Thông báo
 ---
 
 Trong các giải đấu của câu lạc bộ TVLT thì việc có cheat là điều không thể tránh nên cần những người phát hiện gian lận. Đây là thông báo rất nghiêm túc nên không dành cho ai vào để lấy lòng tin, giả dối,... chỉ dành cho những người thật sự nghiêm túc và chuyên nghiệp thôi. Khi bạn tham gia đội check cheat thì bạn sẽ nhận được một số quyền lợi nhưng bạn phải tuân thủ các điều luật của đội !

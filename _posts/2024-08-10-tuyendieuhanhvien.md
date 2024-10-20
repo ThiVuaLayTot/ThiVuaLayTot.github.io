@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Tuyển điều hành viên
-category: Thông báo
-tags: news
+category: news
+tags: Thông báo
 ---
 
 Câu lạc bộ Thí Vua Lấy Tốt hiện đang tìm kiếm những người điều hành tình nguyện mới, hấp dẫn và nhiệt tình để giúp truyền cảm hứng cho cộng đồng bằng cách duy trì một môi trường tích cực trong khi vẫn giữ cho cộng đồng trong Thí Vua Lấy Tốt an toàn và thú vị. Nếu bạn quan tâm đến điều này, vui lòng tiếp tục đọc!

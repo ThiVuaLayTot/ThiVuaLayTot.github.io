@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Chơi MiniGames nhận Diamond Membership
-category: Tin tức
-tags: news
+category: news
+tags: Tin tức
 ---
 
 [Đã kết thúc]

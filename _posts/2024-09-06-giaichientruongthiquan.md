@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Sự kiện hàng tháng Chiến Trường Thí Quân
-category: [ Sự kiện, Thông báo ]
-tags: news
+category: news
+tags: [ Sự kiện, Thông báo ]
 ---
 
 <i>Hãy tham gia câu lạc bộ trên 2 nền tảng cờ vua sau để có thể tham gia các sự kiện: [Chess.com](https://link.chess.com/club/0CVQh6) & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)

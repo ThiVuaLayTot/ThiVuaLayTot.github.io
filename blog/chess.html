@@ -12,12 +12,12 @@ permalink: /chess/
     <li><a href="/news">Thông báo/Tin tức</a></li>
 </ul><br>
 <div class="card-list">
-    {% for post in site.posts %} {% if post.tags == "chess" %}
+    {% for post in site.posts %} {% if post.category == "chess" %}
     <div class="card">
         <a href="{{ post.url }}"><img src="/images/{{ post.id }}.png" class="card_image">
             <h4 class="card_title">{{ post.title }}</h4>
         </a>
-        <a href="/{{ post.tags }}" class="card_tag"><span class="fa fa-tag"></span> {{ post.category }}</a>
-        <span class="card_dav">{{ post.date | date:"%d-%m-%Y" }}</i></div>
+        <a href="/{{ post.tags }}" class="card_tag"><span class="fa fa-tag"></span> {{ post.tags }}</a>
+        <span class="card_dav">{{ post.date | date:"%d thg %m, %Y" }}</i></div>
 {% endif %} {% endfor %}
 </div>
