@@ -3,6 +3,7 @@ layout: post
 title: Tuyển điều hành viên
 category: news
 tags: Thông báo
+author: <a href="/leaders#admins">Các quản trị viên</a>
 ---
 
 Câu lạc bộ Thí Vua Lấy Tốt hiện đang tìm kiếm những người điều hành tình nguyện mới, hấp dẫn và nhiệt tình để giúp truyền cảm hứng cho cộng đồng bằng cách duy trì một môi trường tích cực trong khi vẫn giữ cho cộng đồng trong Thí Vua Lấy Tốt an toàn và thú vị. Nếu bạn quan tâm đến điều này, vui lòng tiếp tục đọc!
@@ -13,6 +14,7 @@ Câu lạc bộ Thí Vua Lấy Tốt hiện đang tìm kiếm những người �
 - Tạo các giải đấu (VD: Giải đấu [cờ hàng ngày](https://chess.com/tournaments/all), [cờ trực tuyến](https://chess.com/play/online/tournaments))
 - Tạo các trận đấu với câu lạc bộ khác (VD: [Daily Matches](https://support.chess.com/articles/8649115-what-are-club-matches), [Online Matches](https://chess.com/leaderboard/clubs/live-matches), [Multi-club Arena](https://support.chess.com/articles/8724653-how-can-i-create-a-multi-club-arena), [Cờ bỏ phiếu](https://support.chess.com/en/articles/8614177-how-do-i-play-vote-chess),..) với những câu lạc bộ lớn từ 150 thành viên trở lên
 - Quản lý và giám sát cộng đồng trong câu lạc bộ
+- Chiêu mộ thành viên biết đến Thí Vua Lấy Tốt
 - Giúp phát triển câu lạc bộ ở những [nền tảng khác](https://thivualaytot.github.io/social#group)
 - Người sáng tạo, đồ họa, viết nội dung cho [các Admin](https://thivualaytot.github.io/leaders#admins) nếu cần.
 

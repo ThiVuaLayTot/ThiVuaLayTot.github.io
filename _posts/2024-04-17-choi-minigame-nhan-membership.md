@@ -3,6 +3,7 @@ layout: post
 title: Chơi MiniGames nhận Diamond Membership
 category: news
 tags: Tin tức
+author: <a href="/leaders#admins3">Đinh Hoàng Việt</a>
 ---
 
 [Đã kết thúc]
