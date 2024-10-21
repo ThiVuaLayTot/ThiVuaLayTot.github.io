@@ -3,7 +3,7 @@ layout: post
 title: Tuyển thành viên vào đội Check Cheat của Câu Lạc Bộ Thí Vua Lấy Tốt
 category: news
 tags: Thông báo
-author: <a href="/leaders#admins">Các quản trị viên</a>
+author: Các quản trị viên
 description: Đã kết thúc
 ---
 

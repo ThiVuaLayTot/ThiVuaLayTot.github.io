@@ -3,7 +3,7 @@ layout: post
 title: Một vài trang web chơi cờ vua trực tuyến
 category: chess
 tags: Cờ vua
-author: <a href="/leaders#mod5">Lê Đình Cường</a>
+author: Điều hành viên Lê Đình Cường
 description: Một số trang web chơi cờ vua mà bạn nên biết.
 ---
 

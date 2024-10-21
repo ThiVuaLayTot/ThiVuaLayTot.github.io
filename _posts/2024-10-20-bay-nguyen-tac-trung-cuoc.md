@@ -3,7 +3,7 @@ layout: post
 title: 7 nguyên tắc trung cuộc
 category: chess
 tags: [Cờ vua, Chiến thuật]
-author: <a href="/leaders#mod5">Lê Đình Cường</a>
+author: Điều hành viên Lê Đình Cường
 description: Trung cuộc là một giai đoạn quan trọng của ván cờ. Sau đây là vài nguyên tắc trung cuộc mà bạn phải biết để xử lí tốt hơn.
 ---
 

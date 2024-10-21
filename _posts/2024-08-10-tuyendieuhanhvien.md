@@ -3,7 +3,7 @@ layout: post
 title: Tuyển điều hành viên
 category: news
 tags: Thông báo
-author: <a href="/leaders#admins">Các quản trị viên</a>
+author: Các quản trị viên
 description: Cần tuyển một điều hành viên tích cực, trách nhiệm và kỹ năng làm việc tốt.
 ---
 
