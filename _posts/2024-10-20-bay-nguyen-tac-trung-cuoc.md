@@ -33,7 +33,7 @@ Nhược điểm của tốt là điều có thể mang lại lợi thế ngay l
 
 - Tránh hình thành tốt lùn
 
-- Tránh hình thành cặp tốt chồng, đặc biệt là tốt chồng ba, chồng 4
+- Tránh hình thành cặp tốt chồng, đặc biệt là tốt chồng ba, chồng bốn
 
 4. Tránh tạo ra các ô yếu trong vị trí của bạn
 

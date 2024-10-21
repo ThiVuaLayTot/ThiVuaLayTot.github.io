@@ -18,6 +18,7 @@
     --color-green: #3fb950;
     --color-light-green: #1ef03a;
     --color-pink: #F7086C;
+    --color-red: #dc0707;
 }
 
 * {
@@ -773,6 +774,25 @@ footer {
     border-radius: 1.2em;
     background: linear-gradient(#191a4d, #043a52) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
     transition: all .3s ease-in-out;
+}
+
+.ribbon {position: absolute;right: 0;top: 0;z-index: 1;overflow: hidden;width: 75px;height: 75px;text-align: right;color: red;}
+
+    .ribbon span {
+ font-size: 10px;
+ color: #fff;
+ text-transform: uppercase;
+ text-align: center;
+ font-weight: bold;
+ line-height: 20px;
+ transform: rotate(45deg);
+ width: 100px;
+ display: block;
+ box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+ position: absolute;
+ top: 18px;
+ right: -22px;
+ background-color: var(--color-red);
 }
 
 .card_image {
