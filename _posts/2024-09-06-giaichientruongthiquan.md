@@ -2,8 +2,9 @@
 layout: post
 title: Sự kiện hàng tháng Chiến Trường Thí Quân
 category: news
-tags: [ Sự kiện, Thông báo ]
+tags: ['Sự kiện', 'Thông báo']
 author: <a href="/leaders#admin3">Đinh Hoàng Việt</a>
+description: Một sự kiện diễn ra trong câu lạc bộ Thí Vua Lấy Tốt và được tổ chức hàng tháng với giải thưởng là <a hred="https://chess.com/membership">tư cách thành viên kim cương Chess.com</a> 1 tháng.
 ---
 
 <i>Hãy tham gia câu lạc bộ trên 2 nền tảng cờ vua sau để có thể tham gia các sự kiện: [Chess.com](https://link.chess.com/club/0CVQh6) & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)

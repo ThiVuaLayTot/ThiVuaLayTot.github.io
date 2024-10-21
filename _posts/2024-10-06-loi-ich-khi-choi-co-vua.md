@@ -2,7 +2,7 @@
 layout: post
 title: Những lợi ích khi chơi cờ vua
 category: chess
-tags: [ Cờ vua, Chiến thuật ]
+tags: [Cờ vua, Chiến thuật]
 author: <a href="/leaders#mod5">Lê Đình Cường</a>
 ---
 

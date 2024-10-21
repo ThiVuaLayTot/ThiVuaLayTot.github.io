@@ -4,9 +4,9 @@ title: Chơi MiniGames nhận Diamond Membership
 category: news
 tags: Tin tức
 author: <a href="/leaders#admins3">Đinh Hoàng Việt</a>
+description: Đã kết thúc
 ---
 
-[Đã kết thúc]
 Để tạo cơ hội cho mọi người có thể nhận [Membership Chess.com](https://chess.com/membership), <span class="bx bx-user"></span>[Admin Đinh Hoàng Việt](https://thivualaytot.github.io/team#admins)
 tổ chức thể lệ cuộc thi như sau:
 

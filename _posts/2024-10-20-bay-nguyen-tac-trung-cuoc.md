@@ -2,8 +2,9 @@
 layout: post
 title: 7 nguyên tắc trung cuộc
 category: chess
-tags: [ Cờ vua, Chiến thuật ]
+tags: [Cờ vua, Chiến thuật]
 author: <a href="/leaders#mod5">Lê Đình Cường</a>
+description: Trung cuộc là một giai đoạn quan trọng của ván cờ. Sau đây là vài nguyên tắc trung cuộc mà bạn phải biết để xử lí tốt hơn.
 ---
 
 Cờ vua là một trong những trò chơi thú vị được nhiều người yêu thích nhất trên thế giới. Thông thường, một trận cờ vua sẽ diễn ra qua 3 giai đoạn: Khai cuộc, Trung cuộc, Tàn cuộc.
