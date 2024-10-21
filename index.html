@@ -34,7 +34,7 @@ title: Trang chủ - Thí Vua Lấy Tốt
                 <h4 class="card_title">{{ post.title }}</h4>
                 <i class="card_in4">{{ post.description }}</i></a>
                 <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span> {{ post.tags }}</a>
-                <span class="card_dav"><b class="card_author">{{ post.author }}</b> • <span class="card_date">{{ post.date | date:"%d thg %m, %Y" }</span>}</span></div>
+                <span class="card_dav"><b class="card_author">{{ post.author }}</b> • <span class="card_date">{{ post.date | date:"%d thg %m, %Y" }}</span></span></div>
             {% endif %} {% endfor %}
             </div>
     </div>
