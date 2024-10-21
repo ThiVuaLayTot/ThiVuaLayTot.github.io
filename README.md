@@ -3,4 +3,4 @@
 
 https://thivualaytot.github.io
 
-![GitHub contributors](https://contrib.rocks/image?repo=ThiVuaLayTot/ThiVuaLayTot.github.io)
+[![GitHub contributors](https://contrib.rocks/image?repo=ThiVuaLayTot/ThiVuaLayTot.github.io)](https://github.com/ThiVuaLayTot/ThiVuaLayTot.github.io/graphs/contributors)
