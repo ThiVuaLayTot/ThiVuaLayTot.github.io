@@ -8,16 +8,16 @@
     --primary-nav: #24588f;
     --primary-text: #fff;
     --primary-link: #1c9ded;
-    --primary-link-hover: #1bbae2;
+    --primary-link-hover: #12bfeb;
     --color-blue: #1c9ded;
     --nav-text: #ffffff;
     --primary-sucess: #00E676;
-    --primaty-warning: #FFB300;
+    --primary-warning: #FFB300;
     --color-purple: #8342f3;
     --color-grey: #8b949e;
     --color-green: #3fb950;
     --color-light-green: #1ef03a;
-    --color-pink: #F7086C;
+    --color-pink: #f708a7;
     --color-red: #dc0707;
 }
 
@@ -251,15 +251,12 @@ main {
 }
 
 h4 {
-    font-size: 1rem;
-    font-weight: normal;
     opacity: 0;
     animation: topSideAni 1s ease forwards;
     padding: 0 0.5rem;
 }
 
 h3 {
-    font-size: 1.5rem;
     opacity: 0;
     animation: rightSideAni 1s ease forwards;
     padding: 0.2rem 0.5rem;
@@ -274,7 +271,6 @@ h2 {
 }
 
 h1 {
-    font-size: 3rem;
     font-weight: 600;
     opacity: 0;
     animation: leftSideAni 1s ease forwards;
@@ -601,13 +597,16 @@ hr {
         margin: auto;
         text-align: center;
         margin-top: 1em;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
     }
 }
 
 .list-item-people {
     display: inline-grid;
     width: 300px;
-    height: 555px;
+    height: auto;
     padding: 5px;
     margin: 10px;
     border: max(1px, 0.1625rem) solid transparent;
@@ -672,7 +671,7 @@ hr {
     border: none;
     outline: none;
     background-color: #1a73e8;
-    color: var(--color--light-green);
+    color: var(--color-light-green);
     cursor: pointer;
     padding: 15px;
     border-radius: 25px;
@@ -685,7 +684,11 @@ hr {
 }
 
 .warn {
-    height: 200px;
+    width: 25%; 
+    height: 70%;
+    position: fixed;
+    top: 25%;
+    left:25%;
     background-color: var(--primary-warning);
     .click {
         margin: 2em;
@@ -700,22 +703,6 @@ hr {
         padding: 19px 24px;
         touch-action: manipulation;
     }
-}
-
-.clickbutton {
-    margin: 2em;
-    align-items: center;
-    background-image: linear-gradient(144deg, #AF40FF, #8f42f3 50%, #1e9ff0);
-    border: 0;
-    border-radius: 8px;
-    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-    box-sizing: border-box;
-    justify-content: center;
-    line-height: 1em;
-    padding: 19px 24px;
-    touch-action: manipulation;
-    white-space: nowrap;
-    cursor: pointer;
 }
 
 
@@ -763,15 +750,15 @@ footer {
     padding: 15px;
     margin-bottom: 1em;
     border-radius: 1em;
-    border: max(1px, 0.1625rem) solid transparent;
+    border: max(1px, 1px) solid transparent;
     border-radius: 1em;
     background: linear-gradient(#121339, #032f43) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
 }
 
 .card:hover {
-    border: max(2px, 0.2625rem) solid transparent;
+    border: max(2px, 2px) solid transparent;
     box-shadow: 1px 0.5rem 2rem rgba(80, 137, 153, 0.334);
-    border-radius: 1.2em;
+    border-radius: 1.1em;
     background: linear-gradient(#191a4d, #043a52) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
     transition: all .3s ease-in-out;
 }
@@ -816,10 +803,7 @@ footer {
 
 .card_in4 {
     display: -webkit-box;
-    height: 25px;
-    text-transform: uppercase;
     margin: .2em 0 .3em 0;
-    font-size: medium;
     color: var(--primary-text);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -831,9 +815,12 @@ footer {
     font-weight: 100;
     text-transform: uppercase;
     padding: 3px 9px;
-    background: linear-gradient(to right, var(--color-pink) 0%, #4335fc 100%);
     border: 1px solid var(--color-blue);
     border-radius: 1rem;
+}
+
+.card_tag:hover {
+    background: linear-gradient(to right, var(--color-pink) 0%, #4335fc 100%);
 }
 
 .card_dav {
@@ -869,7 +856,7 @@ footer {
 
 .styled-table th,
 .styled-table td {
-    border: 1px solid var(--color--light-green);
+    border: 1px solid var(--color-light-green);
     padding: 8px;
     font-size: 14px;
 }
