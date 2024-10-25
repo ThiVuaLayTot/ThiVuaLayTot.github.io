@@ -294,12 +294,38 @@ p {
 }
 
 .button {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.4rem;
-    margin-top: 1.7rem;
+    display: inline-block;
+    padding: 15px 25px;
+    cursor: pointer;
+    position: relative;
     text-align: center;
+    text-decoration: none;
+    outline: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    background: linear-gradient(144deg, #AF40FF, #8f42f3 50%, #1e9ff0);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 7px #9999993f;
+    -webkit-transition-duration: 0.4s; /* Safari */  transition-duration: 0.4s;
+}
+
+.button:after {
+    content: "";
+    background: #f1f1f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 1;
+    transition: all 0.8s;
+}
+
+.button:active {
+    box-shadow: 0 5px #66666638;
+    transform: translateY(4px);
 }
 
 .button a {
@@ -684,11 +710,11 @@ hr {
 }
 
 .warn {
-    width: 25%; 
+    width: 25%;
     height: 70%;
     position: fixed;
     top: 25%;
-    left:25%;
+    left: 25%;
     background-color: var(--primary-warning);
     .click {
         margin: 2em;
@@ -763,23 +789,33 @@ footer {
     transition: all .3s ease-in-out;
 }
 
-.ribbon {position: absolute;right: 0;top: 0;z-index: 1;overflow: hidden;width: 75px;height: 75px;text-align: right;color: red;}
+.ribbon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+    color: red;
+}
 
-    .ribbon span {
- font-size: 10px;
- color: #fff;
- text-transform: uppercase;
- text-align: center;
- font-weight: bold;
- line-height: 20px;
- transform: rotate(45deg);
- width: 100px;
- display: block;
- box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
- position: absolute;
- top: 18px;
- right: -22px;
- background-color: var(--color-red);
+.ribbon span {
+    font-size: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    line-height: 20px;
+    transform: rotate(45deg);
+    width: 100px;
+    display: block;
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 18px;
+    right: -22px;
+    background-color: var(--color-red);
 }
 
 .card_image {
