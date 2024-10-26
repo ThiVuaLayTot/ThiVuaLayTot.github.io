@@ -769,8 +769,8 @@ footer {
 }
 
 .card_image {
-    width: 370px;
-    height: 250px;
+    width: 350px;
+    height: 200px;
     opacity: .7;
     transition: opacity 1s;
     border-radius: 5px;
