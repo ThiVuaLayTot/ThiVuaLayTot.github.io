@@ -15,8 +15,8 @@ title: Trang chủ
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="/css/animation.css" rel="stylesheet">
-    <link href="/css/home.css" rel="stylesheet">
+    <link href="/homepage.css" rel="stylesheet">
+    <link href="/home.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 </head>
 
@@ -112,13 +112,13 @@ title: Trang chủ
         </div>
     </div>
     <!-- Hero End -->
-    <hr>
+    <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
     <!-- About Start -->
     <div class="about wow fadeInUp" data-wow-delay="0.1s" id="about">
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <div class="about-img">
+                    <div class="about-img wow flip">
                         <img src="https://images.chesscomfiles.com/uploads/v1/group/515437.8435c963.160x160o.57cc274de812.png" alt="TungJohn">
                     </div>
                 </div>
@@ -140,7 +140,7 @@ title: Trang chủ
         </div>
     </div>
     <!-- About End -->
-    <hr>
+    <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
     <!-- Service Start -->
     <div class="service" id="service">
         <div class="container">
@@ -197,7 +197,7 @@ title: Trang chủ
         </div>
     </div>
     <!-- Service End -->
-    <hr>
+    <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
     <!-- Experience Start -->
     <div class="experience" id="experience">
         <div class="container">
@@ -277,7 +277,7 @@ title: Trang chủ
         </div>
     </div>
     <!-- Job Experience End -->
-    <hr>
+    <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
     <!-- Blog Start -->
     <div class="blog" id="blog">
         <div class="container">
@@ -294,14 +294,13 @@ title: Trang chủ
                     <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span> {{ post.tags }}</a>
                     <span class="card_dav">{{ post.date | date:"%d-%m-%Y" }}</i>
                 </div>
-                {{% endfor %}}
             </div>
         </div>
     </div>
     <!-- Blog End -->
-     <hr>
+     <hr class="wow fadeIn">
     <!-- Footer Start -->
-    <footer>
+    <footer class="wow jackInTheBox" data-wow-delay="0.1s">
         <div class="footer-container">
             <div>
                 <h3><strong><a href="/" title="Trang web Thí Vua Lấy Tốt">Thí Vua Lấy Tốt</a></strong></h3>
@@ -324,7 +323,7 @@ title: Trang chủ
                     <a href="https://lichess.org/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img src="https://lichess1.org/assets/______2/flair/img/activity.lichess.webp"></a>
                     <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><span class="fa fa-shopping-bag"></span></a>
                 </div>
-                <hr>
+                <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
                 <strong><a href="/social#group">Các nhóm, câu lạc bộ, máy chủ của Thí Vua Lấy Tốt</a></strong>
                 <div class="button">
                     <a href="https://link.chess.com/club/0CVQh6" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
