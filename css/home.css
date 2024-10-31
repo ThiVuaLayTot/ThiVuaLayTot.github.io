@@ -1,32 +1,6 @@
-/*h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #414141;
-}
-
-a {
-    color: #313131;
-    transition: .3s;
-}
-
-a:hover,
-a:active,
-a:focus {
-    color: var(--color-blue);
-    outline: none;
-    text-decoration: none;
-}*/
-
 .btn:focus,
 .form-control:focus {
     box-shadow: none;
-}
-
-.container-fluid {
-    max-width: 1366px;
 }
 
 #loader {
@@ -107,24 +81,16 @@ a:focus {
 }
 
 
-/*******************************/
-
-
 /********** Hero CSS ***********/
-
-
-/*******************************/
 
 .hero {
     position: relative;
     width: 100%;
-    margin-bottom: 45px;
-    padding: 45px 0 0 0;
+    margin-bottom: -15px;
+    padding: 50px 15px 50px 15px;
     overflow: hidden;
-    background: url(https://scontent.fvii1-1.fna.fbcdn.net/v/t39.30808-6/285988435_7888861944464865_4601030101431399955_n.jpg);
+    background: url(/images/tvlt_bg2.jpg);
     background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .hero .container-fluid {
@@ -138,8 +104,8 @@ a:focus {
 }
 
 .hero .hero-image img {
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 90%;
+    max-height: 90%;
 }
 
 .hero .hero-content {
@@ -151,27 +117,18 @@ a:focus {
     flex-direction: column;
 }
 
-.hero .hero-text p {
-    color: #ffffff;
-    font-size: 25px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
 .hero .hero-text h1 {
-    color: #ffffff;
-    font-size: 60px;
+    color: var(--color-blue);
+    font-size: 36px;
     font-weight: 700;
-    letter-spacing: 3px;
     margin-bottom: 15px;
 }
 
-.hero .hero-text h2 {
+.hero .hero-text h3 {
     display: inline-block;
-    margin: 0;
-    height: 35px;
-    color: #ffffff;
-    font-size: 35px;
+    height: 24px;
+    color: var(--color-green);
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -185,7 +142,7 @@ a:focus {
     color: #ffffff;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 991px) {
     .hero {
         padding-top: 60px;
     }
@@ -241,13 +198,7 @@ a:focus {
 }
 
 
-/*******************************/
-
-
 /******* Section Header ********/
-
-
-/*******************************/
 
 .section-header {
     position: relative;
@@ -303,13 +254,7 @@ a:focus {
 }
 
 
-/*******************************/
-
-
 /********** About CSS **********/
-
-
-/*******************************/
 
 .about {
     position: relative;
@@ -357,13 +302,7 @@ a:focus {
 }
 
 
-/*******************************/
-
-
 /******* Experience CSS ********/
-
-
-/*******************************/
 
 .experience {
     position: relative;
@@ -410,7 +349,7 @@ a:focus {
     height: 16px;
     top: 48px;
     right: -8px;
-    background: #ffffff;
+    background: var(--color-blue);
     border: 2px solid var(--color-blue);
     border-radius: 16px;
     z-index: 1;
@@ -461,7 +400,7 @@ a:focus {
 
 .experience .timeline .timeline-text {
     padding: 30px;
-    background: #ffffff;
+    background: var(--color-blue);
     position: relative;
     border-right: 5px solid #dddddd;
     box-shadow: 0 0 60px rgba(0, 0, 0, .08);
@@ -488,6 +427,10 @@ a:focus {
 .experience .timeline .timeline-text p {
     margin: 0;
     font-size: 16px;
+}
+
+.experience .timeline .timeline-text a {
+    color: var(--color-light-green)
 }
 
 @media (max-width: 767.98px) {
@@ -531,13 +474,7 @@ a:focus {
 }
 
 
-/*******************************/
-
-
 /********* Service CSS *********/
-
-
-/*******************************/
 
 .service {
     position: relative;
@@ -618,13 +555,7 @@ a:focus {
 }
 
 
-/*******************************/
-
-
 /******** Portfolio CSS ********/
-
-
-/*******************************/
 
 .portfolio {
     position: relative;
@@ -730,13 +661,7 @@ a:focus {
 }
 
 
-/*******************************/
-
-
 /********* Banner CSS **********/
-
-
-/*******************************/
 
 .banner {
     position: relative;
@@ -793,13 +718,7 @@ a:focus {
 }
 
 
-/*******************************/
-
-
 /********* Pricing CSS *********/
-
-
-/*******************************/
 
 .price {
     position: relative;
@@ -995,7 +914,7 @@ a:focus {
     color: #ffffff;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
     .contact .container-fluid {
         background: none;
     }
