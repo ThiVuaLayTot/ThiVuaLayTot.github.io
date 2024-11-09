@@ -277,7 +277,7 @@
 
 .about .about-img img {
     position: relative;
-    width: 45%;
+    width: 50%;
     left: 25%;
     object-fit: cover;
     height: 45%;
@@ -400,7 +400,7 @@
 
 .experience .timeline .timeline-text {
     padding: 30px;
-    background: var(--color-blue);
+    background: #1363b3;
     position: relative;
     border-right: 5px solid #dddddd;
     box-shadow: 0 0 60px rgba(0, 0, 0, .08);
@@ -492,7 +492,7 @@
 }
 
 .service .service-item:hover {
-    box-shadow: inset 800px 0 0 0 var(--color-blue);
+    box-shadow: inset 800px 0 0 0 #176ec5;
     a {
         color: var(--color-green)
     }
@@ -506,7 +506,7 @@
     align-items: center;
     justify-content: center;
     border: 1px solid var(--color-blue);
-    background: #ffffff;
+    background: #1a3d62;
 }
 
 .service .service-icon i {
@@ -535,7 +535,7 @@
 
 .service .service-text p {
     margin: 0;
-    font-size: 16px;
+    font-size: 15px;
     transition: 1s;
 }
 
