@@ -291,7 +291,7 @@ p {
     cursor: pointer;
     background: linear-gradient(144deg, #AF40FF, #8f42f3 50%, #1e9ff0);
     border: none;
-    border-radius: 15px;
+    border-radius: 8px;
     box-shadow: 0 7px #9999993f;
     transition: .5s;
     color: #ffffff;
@@ -307,7 +307,8 @@ p {
     height: 100px;
     background-color: #fff;
     opacity: 0;
-    border-radius: 50%;
+    border-radius: 8px;
+    box-shadow: 0 2cap #9999993f;
     transform: scale(0);
     transform-origin: center;
     transition: transform 1s, opacity 1s;
@@ -315,6 +316,7 @@ p {
 
 .button:hover {
     background: linear-gradient(50deg, #AF40FF, #8f42f3 50%, #1e9ff0);
+    box-shadow: 0 5px #9999993f;
     opacity: .7;
     transition: all 1s;
 }
@@ -322,6 +324,7 @@ p {
 .button:active::after {
     transform: scale(4);
     opacity: 1;
+    box-shadow: 0 1px #9999993f;
     transition: transform 1s, opacity 1s;
     transform-origin: center center;
 }
@@ -592,8 +595,18 @@ footer {
         gap: 1rem;
         grid-template-columns: repeat(3, 1fr);
     }
+    h3 {
+        text-align: center;
+    }
     h3 a {
         border-bottom: .125rem solid var(--primary-sucess);
+    }
+    strong {
+        font-size: 18px;
+        margin-left: 1rem
+    }
+    ul li a {
+        font-size: 16px
     }
 }
 
