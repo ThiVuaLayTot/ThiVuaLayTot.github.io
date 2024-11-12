@@ -179,7 +179,7 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
     html_output += """
         </tbody>
     </table>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span class="bx bxs-to-top"></span></button>
+   <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>
     """
     return html_output
 
