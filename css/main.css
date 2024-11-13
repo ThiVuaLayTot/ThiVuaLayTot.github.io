@@ -478,9 +478,10 @@ hr {
 
 .list-item-people {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     width: 600px;
-    height: 200px;
+    height: auto;
     border: max(1px, 0.1625rem) solid transparent;
     border-radius: 1em;
     box-shadow: 5px 5px 5px rgba(53, 58, 67, 0.20);
@@ -498,7 +499,17 @@ hr {
     box-shadow: 10px 10px 15px rgba(67, 74, 85, 0.2);
 }
 
-.profile-thumbnail {
+.list-item-people .list-item-info {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.list-item-info .list-people-ava {
+    width: 20%;
+}
+
+.list-people-ava .profile-thumbnail {
     width: 100px;
     height: 100px;
     border-radius: 10%;
@@ -506,11 +517,8 @@ hr {
     margin-right: 10px;
 }
 
-.list-item-people .list-people-detail {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.5rem;
+.list-item-info .list-people-detail {
+    width: 70%;
 }
 
 .list-people-detail .name {
@@ -530,9 +538,11 @@ hr {
 }
 
 .list-item-people .social {
-    display: inline-flex;
-    align-items: center;
+    display: flex;
     justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 
