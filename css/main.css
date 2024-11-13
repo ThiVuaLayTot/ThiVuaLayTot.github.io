@@ -17,7 +17,7 @@
     --color-grey: #8b949e;
     --color-green: #26d23d;
     --color-light-green: #31ff4c;
-    --color-pink: #f708a7;
+    --color-pink: #c924f3;
     --color-red: #dc0707;
 }
 
@@ -704,7 +704,10 @@ footer {
 }
 
 .card_tag:hover {
+    border: 2px solid var(--color-light-green);
+    color: var(--color-light-green);
     background: linear-gradient(to right, var(--color-pink) 0%, #4335fc 100%);
+    transition: all .3s ease-in-out;
 }
 
 .card_dav {
