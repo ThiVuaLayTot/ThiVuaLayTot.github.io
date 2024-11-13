@@ -22,6 +22,7 @@ head_content = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/animation.css">
     <link rel="stylesheet" href="/css/eventwinner.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -39,8 +40,8 @@ def footer_content():
 
 information = """
     <p>Các điều quan trọng trong bảng phía dưới: Nếu người chơi có ô màu đỏ và có biểu tượng <span class="fa fa-ban closed"></span> thì tài khoản đó đã bị đóng do gian lận (có thể không gian lận ở giải đó), nếu chỉ có <span class="fa fa-remove closed"></span> thì tài khoản đó bị đóng do lăng mạ hoặc lý do khác, nếu có <span class="fa fa-check special"></span> thì người chơi đó mặc dù bị đóng tài khoản nhưng xác nhận được giải.</p>
-    <b>Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây thì hãy báo cáo với <a href="/leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
-    <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins">quản trị viên</a>.</i>
+    <b>Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây thì hãy báo cáo với <a href="leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
+    <i>Nếu có vấn đề thì xin hãy liên hệ <a href="leaders#admins">quản trị viên</a>.</i>
 """
 
 def generate_h1_tag(filename):
@@ -53,7 +54,7 @@ def generate_h1_tag(filename):
     }
     title = titles.get(namefile)
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="/events/bestplayers/{namefile}">ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="events/bestplayers/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
 
     """
@@ -143,7 +144,7 @@ def markdown_table_to_html(markdown_table):
         html_table += '         </tr>\n'
     html_table += '''   </table>
         <br><br><hr>
-        <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span class="bx bxs-to-top"></span></button>
+        <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>
     '''
     return html_table
 

@@ -23,7 +23,7 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/eventwinner.css">
+    <link rel="stylesheet" href="/css/animation.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="/js/main.js"></script>
@@ -179,7 +179,7 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
     html_output += """
         </tbody>
     </table>
-    <button onclick="topFunction()" id="myBtn" title="Trở lại đầu trang này"><span class="bx bxs-to-top"></span></button>
+   <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>
     """
     return html_output
 
