@@ -1,5 +1,5 @@
 beautifulsoup4==4.12.3
-orjson==3.10.11
+orjson==3.10.12
 flask==3.1.0
 gunicorn==23.0.0
 pytz==2024.2
