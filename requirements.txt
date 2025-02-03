@@ -1,4 +1,4 @@
-beautifulsoup4==4.12.3
+beautifulsoup4==4.13.1
 orjson==3.10.15
 flask==3.1.0
 gunicorn==23.0.0
