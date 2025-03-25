@@ -2,7 +2,7 @@ beautifulsoup4==4.13.3
 orjson==3.10.15
 flask==3.1.0
 gunicorn==23.0.0
-pytz==2025.1
+pytz==2025.2
 requests==2.32.3
 requests-oauthlib==2.0.0
 urllib3==2.3.0
