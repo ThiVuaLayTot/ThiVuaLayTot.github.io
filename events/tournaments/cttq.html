@@ -76,54 +76,57 @@
     <p>Các điều quan trọng trong bảng phía dưới: Nếu người chơi có ô màu đỏ và có biểu tượng <span class="fa fa-ban closed"></span> thì tài khoản đó đã bị đóng do gian lận (có thể không gian lận ở giải đó), nếu chỉ có <span class="fa fa-remove closed"></span> thì tài khoản đó bị đóng do lăng mạ hoặc lý do khác, nếu có <span class="fa fa-check special"></span> thì người chơi đó mặc dù bị đóng tài khoản nhưng xác nhận được giải.</p>
     <b>Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây thì hãy báo cáo với <a href="leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
     <i>Nếu có vấn đề thì xin hãy liên hệ <a href="leaders#admins">quản trị viên</a>.</i>
-<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu (Càng chi tiết càng tốt)"><script src="/js/search-events.js"></script> <table class="styled-table">
-         <tr>
-           <th class="name-tour">Tên giải</th>
-           <th class="organization-day">Ngày tổ chức🕗</th>
-           <th class="rules">Thể lệ♟️</th>
-           <th class="winner">Giải nhất 🥇</th>
-           <th class="winner">Giải nhì 🥈</th>
-           <th class="winner">Giải ba 🥉</th>
-           <th class="winner">Hạng 4 🏅</th>
-           <th class="winner">Hạng 5 🎖️</th>
-           <th>Link giải</th>
-         </tr>
-         <tr>
-           <td>Tháng 8/2024 [Beta]</td>
-           <td>01 - 30/08/2024</td>
-           <td>6 vòng</td>
-           <td><a href="https://chess.com/member/Thuytrannonumber" target="_blank">Thuytrannonumber</a></td>
-           <td><a href="https://chess.com/member/NghiaVoNang" target="_blank">NghiaVoNang</a><span class="fa fa-ban closed"></span></td>
-           <td><a href="https://chess.com/member/M-DinhHoangViet" target="_blank">M-DinhHoangViet</a></td>
-           <td></td>
-           <td></td>
-           <td>f-104782495</td>
-         </tr>
-         <tr>
-           <td>Tháng 9/2024</td>
-           <td>21-22/09/2024</td>
-           <td>2 vòng Blitz 3+1</td>
-           <td><a href="https://chess.com/member/NghiaVoNang" target="_blank">NghiaVoNang</a><span class="fa fa-ban closed"></span></td>
-           <td><a href="https://chess.com/member/LePhanGiaHungR07" target="_blank">LePhanGiaHungR07</a><span class="fa fa-ban closed"></span></td>
-           <td><a href="https://chess.com/member/MinhThuan2013" target="_blank">MinhThuan2013</a><span class="fa fa-ban closed"></span></td>
-           <td><a href="https://chess.com/member/huynhhuunhantt" target="_blank">huynhhuunhantt</a></td>
-           <td><a href="https://chess.com/member/quynhtrangtk" target="_blank">quynhtrangtk</a></td>
-           <td>f-105997051</td>
-         </tr>
-         <tr>
-           <td>Tháng 11/2024</td>
-           <td>16-17/11/2024</td>
-           <td>2 vòng Blitz 3+1</td>
-           <td><a href="https://chess.com/member/TrgSonVN" target="_blank">TrgSonVN</a></td>
-           <td><a href="https://chess.com/member/NghiaVoNang" target="_blank">NghiaVoNang</a><span class="fa fa-ban closed"></span></td>
-           <td><a href="https://chess.com/member/Casa_og" target="_blank">Casa_og</a></td>
-           <td><a href="https://chess.com/member/quynhtrangtk" target="_blank">quynhtrangtk</a></td>
-           <td><a href="https://chess.com/member/nanhvodich" target="_blank">nanhvodich</a></td>
-           <td>f-108266219</td>
-         </tr>
-   </table>
+<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
+    <div style="overflow-x:auto;">
+        <table class="styled-table">
+<tr>
+<th class="name-tour">Tên giải</th>
+<th class="organization-day">Ngày tổ chức🕗</th>
+<th class="rules">Thể lệ♟️</th>
+<th class="winner">Giải nhất 🥇</th>
+<th class="winner">Giải nhì 🥈</th>
+<th class="winner">Giải ba 🥉</th>
+<th class="winner">Hạng 4 🏅</th>
+<th class="winner">Hạng 5 🎖️</th>
+<th>Link giải</th>
+</tr>
+</thead><tbody><tr>
+<td>Tháng 8/2024 [Beta]</td>
+<td>01 - 30/08/2024</td>
+<td>6 vòng</td>
+<td><a href="https://chess.com/member/Thuytrannonumber" target="_blank">Thuytrannonumber</a></td>
+<td><a href="https://chess.com/member/NghiaVoNang" target="_blank" class="closed">NghiaVoNang</a><span class="fa fa-ban"></span></td>
+<td><a href="https://chess.com/member/M-DinhHoangViet" target="_blank">M-DinhHoangViet</a></td>
+<td></td>
+<td></td>
+<td>f-104782495</td>
+</tr>
+<tr>
+<td>Tháng 9/2024</td>
+<td>21-22/09/2024</td>
+<td>2 vòng Blitz 3+1</td>
+<td><a href="https://chess.com/member/NghiaVoNang" target="_blank" class="closed">NghiaVoNang</a><span class="fa fa-ban"></span></td>
+<td><a href="https://chess.com/member/LePhanGiaHungR07" target="_blank" class="closed">LePhanGiaHungR07</a><span class="fa fa-ban"></span></td>
+<td><a href="https://chess.com/member/MinhThuan2013" target="_blank" class="closed">MinhThuan2013</a><span class="fa fa-ban"></span></td>
+<td><a href="https://chess.com/member/huynhhuunhantt" target="_blank">huynhhuunhantt</a></td>
+<td><a href="https://chess.com/member/quynhtrangtk" target="_blank">quynhtrangtk</a></td>
+<td>f-105997051</td>
+</tr>
+<tr>
+<td>Tháng 11/2024</td>
+<td>16-17/11/2024</td>
+<td>2 vòng Blitz 3+1</td>
+<td><a href="https://chess.com/member/TrgSonVN" target="_blank">TrgSonVN</a></td>
+<td><a href="https://chess.com/member/NghiaVoNang" target="_blank" class="closed">NghiaVoNang</a><span class="fa fa-ban"></span></td>
+<td><a href="https://chess.com/member/Casa_og" target="_blank">Casa_og</a></td>
+<td><a href="https://chess.com/member/quynhtrangtk" target="_blank">quynhtrangtk</a></td>
+<td><a href="https://chess.com/member/nanhvodich" target="_blank">nanhvodich</a></td>
+<td>f-108266219</td>
+</tr>
+</tbody></table>
         <br><br><hr>
         <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>
+        <script src="/js/main.js"></script>
     <footer>
     <div class="footer-container">
         <div>
