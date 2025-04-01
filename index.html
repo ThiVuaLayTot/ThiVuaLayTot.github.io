@@ -16,6 +16,7 @@ title: Trang chủ
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="/css/animation.css" rel="stylesheet">
     <link href="/css/home.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
@@ -54,12 +55,11 @@ title: Trang chủ
                 </div>
             </div>
             <div class="section dropdown">
-                <a class="dropbtn" href="lists">
+                <a class="dropbtn">
                     <span class="bx bx-list-plus"></span>Danh sách/Tài liệu <span class="fa fa-caret-down"></span>
                 </a>
                 <div class="dropdown-content">
                     <a href="events">Danh sách tổng hợp các giải đấu</a>
-                    <a href="libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
                     <a href="https://chess.com/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess" target="_blank">Danh sách các tài khoản vi phạm</a>
                 </div>
             </div>
@@ -313,8 +313,10 @@ title: Trang chủ
                     <a href="{{ post.url }}"><img src="/images/{{ post.id }}.png" class="card_image">
                         <h4 class="card_title">{{ post.title }}</h4></a>
                         <i class="card_in4">{{ post.description }}</i>
-                        <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span>{{ post.tags }}</a>
-                        <span class="card_dav"><b class="card_author">{{ post.author }}</b> • <span class="card_date">{{ post.date | date:"%d thg %m, %Y" }}</span></span>
+                        <div class="card_detail">
+                            <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span>{{ post.tags }}</a>|
+                            <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b>|<span class="card_date"><span class="bx bx-time"></span>{{ post.date | date:"%d thg %m, %Y" }}</span>
+                        </div>
                 </div>
                 {% endfor %}
             </div>

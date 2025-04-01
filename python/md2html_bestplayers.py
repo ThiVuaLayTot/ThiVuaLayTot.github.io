@@ -26,7 +26,6 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="/css/animation.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="/js/main.js"></script>
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -153,7 +152,8 @@ def sort_players(players: defaultdict) -> List[Tuple[str, int, List[str]]]:
 
 def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> str:
     html_output = """
-    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm kỳ thủ hoặc tên giải đấu (Càng chi tiết càng tốt)"><script src="/js/search-events.js"></script>
+    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
+    <div style="overflow-x:auto;">
     <table class="styled-table">
         <thead>
             <tr>
@@ -179,7 +179,7 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
     html_output += """
         </tbody>
     </table>
-   <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>
+   <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button><script src="/js/main.js"></script>
     """
     return html_output
 

@@ -17,7 +17,10 @@ permalink: /chess/
         <a href="{{ post.url }}"><img src="/images/{{ post.id }}.png" class="card_image">
         <h4 class="card_title">{{ post.title }}</h4>
         <i class="card_in4">{{ post.description }}</i></a>
-        <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span> {{ post.tags }}</a>
-        <span class="card_dav"><b class="card_author">{{ post.author }}</b> • <span class="card_date">{{ post.date | date:"%d thg %m, %Y" }}</span></span></div>
+        <div class="card_detail">
+            <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span>{{ post.tags }}</a>|
+            <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b>|<span class="card_date"><span class="bx bx-time"></span>{{ post.date | date:"%d thg %m, %Y" }}</span>
+        </div>
+    </div>
 {% endif %} {% endfor %}
 </div>

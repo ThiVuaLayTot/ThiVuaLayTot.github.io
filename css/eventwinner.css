@@ -1,21 +1,66 @@
+.styled-table {
+    border-collapse: collapse;
+    width: 100rem;
+    border: 1px solid var(--color--light-green);
+    font-size: 16px;
+    overflow-x: auto;
+}
+.styled-table thead {
+    display: table-row-group !important;
+}
+
+.styled-table th,
+.styled-table td {
+    border: 1px solid var(--color-light-green);
+    padding: 8px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 1rem;
+}
+
+.styled-table th {
+    background-color: var(--color-blue);
+    height: 30px;
+}
+
+.styled-table tr:nth-child(even) {background-color: #4b4d4e3f;}
+
+.styled-table tr:hover {
+    background-color: rgba(101, 121, 132, 0.5);
+}
+
+.styled-table td:hover {
+    background-color: #6d6c865b;
+}
+
+.styled-table a {
+    opacity: 0;
+    animation: topSideAni 1s ease forwards;
+}
+
+.styled-table a:hover {
+    background-color: var(--primary-link-hover);
+}
+
 .name-tour {
-    width: 10%;
+    width: 250px;
 }
 
 .organization-day {
-    width: 7%;
+    width: 130px;
 }
 
-.rules {
-    width: 10%;
+.rules {     
+    width: 150px;
 }
 
 .winner {
-    width: 20%;
+    width: 200px;
 }
 
 .stt {
-    width: 5%;
+    width: 50px;
 }
 
 .closed {
@@ -27,31 +72,33 @@
 }
 
 .search-bar {
-    display: block;
-    width: 50%;
+    font-family: "Montserrat", sans-serif;
+    width: 75%;
     height: 45px;
-    padding: 6px 12px;
-    font-size: 18px;
-    line-height: 1.43;
-    color: var(--text);
-    background: darkgrey;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    box-shadow: inset 0 1px 1px rgba(187, 178, 178, 0.075);
+    padding-left: 2.5rem;
+    box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+    border: 0;
+    border-radius: 12px;
+    background-color: #485270;
+    outline: none;
+    color: #bdbecb;
+    transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+    cursor: text;
+    z-index: 0;
 }
 
-.search-bar:focus,
+.search-bar::placeholder {
+    color: #bdbecb;
+}
+
 .search-bar:hover {
-    border-color: rgb(4, 255, 109);
-    outline: 0;
-    box-shadow: 0px 6px 50px rgb(28 153 223 / 98%);
-    filter: opacity(0.6)
+    box-shadow: 0 0 0 2.5px #2f303d, 0px 0px 25px -15px #000;
 }
 
-.search-bar input[type=text] {
-    height: 45px;
-    padding: 10px 16px;
-    font-size: 17px;
-    line-height: 1.33;
-    border-radius: 6px
+.search-bar:active {
+    transform: scale(0.95);
+}
+
+.search-bar:focus {
+    box-shadow: 0 0 0 2.5px #2f303d;
 }
