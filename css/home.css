@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: #081229;
     opacity: 0;
     visibility: hidden;
     -webkit-transition: opacity .3s ease-out, visibility 0s linear .3s;
@@ -86,10 +86,10 @@
 .hero {
     position: relative;
     width: 100%;
-    margin-bottom: -15px;
+    margin-bottom: -16px;
     padding: 50px 15px 50px 15px;
     overflow: hidden;
-    background: url(/images/tvlt_bg2.jpg);
+    background: url(/images/tvlt/tvlt_bg.jpg);
     background-position: center;
 }
 
