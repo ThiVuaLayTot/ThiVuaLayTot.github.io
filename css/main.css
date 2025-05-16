@@ -827,27 +827,27 @@ footer {
     position: absolute;
     top: 0;
     left: 50%;
+    width: 250em;
+    height: 50em;
     transform: translateX(-50%);
     padding: 0.3em 0.6em;
     opacity: 0;
     pointer-events: none;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    background: var(--background);
+    background: #444466;
     z-index: -1;
     border-radius: 8px;
     scale: 0;
     transform-origin: 0 0;
     text-transform: capitalize;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
 }
 
 .tooltip::before {
     position: absolute;
     content: "";
-    height: 0.6em;
-    width: 0.6em;
     bottom: -0.2em;
     left: 50%;
     transform: translate(-50%) rotate(45deg);
