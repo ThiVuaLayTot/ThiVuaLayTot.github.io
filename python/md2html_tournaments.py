@@ -129,6 +129,9 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('!@'):
                 username = cell[2:]
                 cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
+            elif cell.startwith('f-'):
+                idtour = cell[2:]
+                cell_content = f'<{tag}><a href="{chesscom}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></{tag}>'
             # Dành cho tài khoản trên Lichess
             elif cell.startswith('$'):
                 username = cell[1:]
