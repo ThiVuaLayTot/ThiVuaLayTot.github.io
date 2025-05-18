@@ -1,6 +1,6 @@
 beautifulsoup4==4.13.4
 orjson==3.10.18
-flask==3.1.0
+flask==3.1.1
 gunicorn==23.0.0
 pytz==2025.2
 requests==2.32.3
