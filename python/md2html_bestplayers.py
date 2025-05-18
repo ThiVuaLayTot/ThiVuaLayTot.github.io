@@ -64,24 +64,25 @@ def parse_markdown_table(markdown_table: str) -> defaultdict:
             continue
 
         event_date = cells[0]
-        rank1, rank2, rank3, rank4, rank5, rank6 = cells[3:9]
-        player_list = [rank1, rank2, rank3, rank4, rank5, rank6]
+        candidate_players = cells[3:9]
 
-        for i, player in enumerate(player_list):
+        valid_players = []
+        for player in candidate_players:
             if player.startswith('@'):
                 username = player[1:]
-            if username.startswith('#') or username.startswith('!'):
-                continue
+                if not (username.startswith('#') or username.startswith('!')):
+                    valid_players.append(username)
 
-            rank = ['🥇', '🥈', '🥉'][i]
+        valid_players = valid_players[:3]
+        ranks = ['🥇', '🥈', '🥉']
 
-            players[username].achievements.append(f"{rank}({event_date})")
-
-            if rank == '🥇':
+        for i, username in enumerate(valid_players):
+            players[username].achievements.append(f"{ranks[i]}({event_date})")
+            if i == 0:
                 players[username].gold += 1
-            elif rank == '🥈':
+            elif i == 1:
                 players[username].silver += 1
-            elif rank == '🥉':
+            elif i == 2:
                 players[username].bronze += 1
 
     return players
@@ -122,7 +123,7 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
         """
         rank += 1
 
-        html_output += """
+    html_output += """
         </tbody>
         </table>
         <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button><script src="/js/main.js"></script></body></html>
