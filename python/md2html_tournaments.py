@@ -7,10 +7,6 @@ import subprocess
 import sys
 import requests
 from bs4 import BeautifulSoup
-import urllib.error
-
-sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
-
 
 head_content = """<!DOCTYPE html>
 <html lang="vi">
@@ -60,7 +56,7 @@ def generate_h1_tag(filename):
     """
     return h1_tag
 
-def get_chesscom_status(username):
+def get_chesscom_status(username: str) -> str:
     url = f'https://chess.com/member/{username}'
     try:
         response = requests.get(url)
@@ -68,20 +64,20 @@ def get_chesscom_status(username):
         soup = BeautifulSoup(response.content, 'html.parser')
 
         if 'Closed: Abuse' in soup.text:
-            print(f'Tài khoản {username} đã bị đóng: Abuse')
+            print(f'{username} has been closed: Abuse')
             return 'Abuse'
         if 'Closed: Fair Play' in soup.text:
-            print(f'Tài khoản {username} đã bị đóng: Fair Play')
+            print(f'{username} has been closed: Fair Play')
             return 'Fair Play'
         else:
-            print(f'Tài khoản {username} vẫn hoạt động')
-            return 'Tài khoản vẫn hoạt động'
-    except requests.HTTPError as e:
-        print(f'Không tìm thấy trang cho {username}, có thể tài khoản không tồn tại')
-        return 'Không tìm thấy trang, có thể tài khoản không tồn tại'
+            print(f'{username} is OK')
+            return 'Active'
+    except requests.HTTPError:
+        print(f'Page not found for {username}, account may not exist')
+        return 'Not Found'
     except Exception as e:
-        print(f'Đã xảy ra lỗi khi kiểm tra tài khoản {username}: {e}')
-        return 'Đã xảy ra lỗi'
+        print(f'An error occurred while checking account {username}')
+        return 'Error'
 
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
@@ -129,7 +125,7 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('!@'):
                 username = cell[2:]
                 cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
-            elif cell.startwith('f-'):
+            elif cell.startswith('f-'):
                 idtour = cell[2:]
                 cell_content = f'<{tag}><a href="{chesscom}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></{tag}>'
             # Dành cho tài khoản trên Lichess
@@ -169,3 +165,5 @@ for directory in directories:
                 html_filename = os.path.splitext(filename)[0] + '.html'
                 with open(os.path.join(directory, html_filename), 'w', encoding='utf-8') as html_file:
                     html_file.write(styled_html_table)
+                
+                print(f"Convered {filename} to HTML successful!")

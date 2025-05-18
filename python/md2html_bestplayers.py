@@ -63,20 +63,20 @@ def get_chesscom_status(username: str) -> str:
         soup = BeautifulSoup(response.content, 'html.parser')
 
         if 'Closed: Abuse' in soup.text:
-            print(f'Tài khoản {username} đã bị đóng: Abuse')
+            print(f'{username} has been closed: Abuse')
             return 'Abuse'
         if 'Closed: Fair Play' in soup.text:
-            print(f'Tài khoản {username} đã bị đóng: Fair Play')
+            print(f'{username} has been closed: Fair Play')
             return 'Fair Play'
         else:
-            print(f'Tài khoản {username} vẫn hoạt động'.encode('utf-8').decode())
-            return 'Tài khoản vẫn hoạt động'
+            print(f'{username} is OK')
+            return 'Active'
     except requests.HTTPError:
-        print(f'Không tìm thấy trang cho {username}, có thể tài khoản không tồn tại')
-        return 'Không tìm thấy trang, có thể tài khoản không tồn tại'
+        print(f'Page not found for {username}, account may not exist')
+        return 'Not Found'
     except Exception as e:
-        print(f'Đã xảy ra lỗi khi kiểm tra tài khoản {username}: {e}'.encode('utf-8').decode())
-        return 'Đã xảy ra lỗi'
+        print(f'An error occurred while checking account {username}')
+        return 'Error'
 
 def find_non_violating_player(index: int, substitutes: list) -> Tuple[Optional[str], int]:
     for j in range(index, len(substitutes)):
@@ -114,12 +114,12 @@ def parse_markdown_table(markdown_table: str) -> defaultdict:
             while status == "Fair Play":
                 replacement, index = find_non_violating_player(i + 3, substitutes)
                 if replacement:
-                    print(f"Thay thế {player} bởi {replacement}")
+                    print(f"Replace {player} by {replacement}")
                     player_list[i] = replacement
                     substitutes[index] = ""
                     status = get_chesscom_status(replacement[1:])
                 else:
-                    print(f"Không tìm thấy người thay thế cho {player}")
+                    print(f"No replacement found for {player}")
                     player_list[i] = ""
                     break
 
@@ -208,7 +208,7 @@ def main():
             with open(os.path.join(output_directory, output_filename), 'w', encoding='utf-8') as output_file:
                 output_file.write(html_content)
 
-            print(f"Đã chuyển đổi {filename} thành HTML thành công!")
+            print(f"Convered {filename} to HTML successful!")
 
 if __name__ == "__main__":
     main()
