@@ -3,8 +3,6 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Optional
 import re
 import os
-import requests
-from bs4 import BeautifulSoup
 
 @dataclass
 class Player:
@@ -24,6 +22,7 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/animation.css">
+    <link rel="stylesheet" href="/css/eventwinner.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
@@ -42,10 +41,10 @@ def footer_content():
 def generate_h1_tag(filename: str) -> str:
     namefile = os.path.splitext(filename)[0]
     titles = {
-        'tvlt': 'Thí Vua Lấy Tốt',
-        'cbtt': 'Cờ Bí Thí Tốt',
-        'cttq': 'Chiến Trường Thí Quân',
-        'dttv': 'Đấu Trường Thí Vua',
+    'tvlt': 'Thí Vua Lấy Tốt',
+    'cbtt': 'Cờ Bí Thí Tốt',
+    'cttq': 'Chiến Trường Thí Quân',
+    'dttv': 'Đấu Trường Thí Vua',
     }
     title = titles.get(namefile, '<span class="loader"></span>')
     h1_tag = f"""<h1 align="center">Những kỳ thủ đạt giải {title} nhiều nhất</h1>
@@ -54,40 +53,6 @@ def generate_h1_tag(filename: str) -> str:
     <i>Tất cả thông tin phía dưới được sắp xếp tự động, sẽ có một số kỳ thủ bị đóng tài khoản nhưng không phải vi phạm không được hiển thị ở đây. Nếu muốn chính xác hơn, hãy đối chiếu với bảng thống kê các giải <a href="/events/tournaments/{namefile}">{title}</a>.</i>
     """
     return h1_tag
-
-def get_chesscom_status(username: str) -> str:
-    url = f'https://chess.com/member/{username}'
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        if 'Closed: Abuse' in soup.text:
-            print(f'{username} has been closed: Abuse')
-            return 'Abuse'
-        if 'Closed: Fair Play' in soup.text:
-            print(f'{username} has been closed: Fair Play')
-            return 'Fair Play'
-        else:
-            print(f'{username} is OK')
-            return 'Active'
-    except requests.HTTPError:
-        print(f'Page not found for {username}, account may not exist')
-        return 'Not Found'
-    except Exception as e:
-        print(f'An error occurred while checking account {username}')
-        return 'Error'
-
-def find_non_violating_player(index: int, substitutes: list) -> Tuple[Optional[str], int]:
-    for j in range(index, len(substitutes)):
-        potential_replacement = substitutes[j].strip()
-        if potential_replacement and not potential_replacement.startswith('@'):
-            return potential_replacement, j
-        elif potential_replacement.startswith('@'):
-            status = get_chesscom_status(potential_replacement[1:])
-            if status != "Fair Play":
-                return potential_replacement, j
-    return None, -1
 
 def parse_markdown_table(markdown_table: str) -> defaultdict:
     players = defaultdict(Player)
@@ -99,44 +64,25 @@ def parse_markdown_table(markdown_table: str) -> defaultdict:
             continue
 
         event_date = cells[0]
-        gold_player, silver_player, bronze_player = cells[3:6]
-        rank4, rank5, rank6 = cells[6:9]
-        player_list = [gold_player, silver_player, bronze_player]
-        substitutes = [rank4, rank5, rank6]
-
-        for i, player in enumerate(player_list):
-            if not player or not player.startswith('@'):
-                continue
-
-            username = player[1:]
-            status = get_chesscom_status(username)
-
-            while status == "Fair Play":
-                replacement, index = find_non_violating_player(i + 3, substitutes)
-                if replacement:
-                    print(f"Replace {player} by {replacement}")
-                    player_list[i] = replacement
-                    substitutes[index] = ""
-                    status = get_chesscom_status(replacement[1:])
-                else:
-                    print(f"No replacement found for {player}")
-                    player_list[i] = ""
-                    break
+        rank1, rank2, rank3, rank4, rank5, rank6 = cells[3:9]
+        player_list = [rank1, rank2, rank3, rank4, rank5, rank6]
 
         for i, player in enumerate(player_list):
             if player.startswith('@'):
                 username = player[1:]
-                players[username].status = get_chesscom_status(username)
-                rank = ['🥇', '🥈', '🥉'][i]
-                
-                players[username].achievements.append(f"{rank}({event_date})")
-                
-                if rank == '🥇':
-                    players[username].gold += 1
-                elif rank == '🥈':
-                    players[username].silver += 1
-                elif rank == '🥉':
-                    players[username].bronze += 1
+            if username.startswith('#') or username.startswith('!'):
+                continue
+
+            rank = ['🥇', '🥈', '🥉'][i]
+
+            players[username].achievements.append(f"{rank}({event_date})")
+
+            if rank == '🥇':
+                players[username].gold += 1
+            elif rank == '🥈':
+                players[username].silver += 1
+            elif rank == '🥉':
+                players[username].bronze += 1
 
     return players
 
@@ -146,7 +92,7 @@ def sort_players(players: defaultdict) -> List[Tuple[str, int, List[str]]]:
         total_points = data.gold + data.silver + data.bronze
         player_list.append((player, total_points, data.achievements))
 
-    player_list.sort(key=lambda x: -x[1])
+        player_list.sort(key=lambda x: -x[1])
 
     return player_list
 
@@ -155,32 +101,32 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
     <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
     <div style="overflow-x:auto;">
     <table class="styled-table">
-        <thead>
-            <tr>
-                <th class="stt">Hạng</th>
-                <th class="winner">Kỳ thủ</th>
-                <th>Các lần đạt giải</th>
-            </tr>
-        </thead>
-        <tbody>
+    <thead>
+    <tr>
+    <th class="stt">Hạng</th>
+    <th class="winner">Kỳ thủ</th>
+    <th>Các lần đạt giải</th>
+    </tr>
+    </thead>
+    <tbody>
     """
     rank = 1
     for player, total_points, achievements in sorted_players:
         achievements_display = ', '.join(achievements)
         html_output += f"""
         <tr>
-            <td class="stt">#{rank}</td>
-            <td><a href="https://chess.com/member/{player}">{player}</a></td>
-            <td>{achievements_display}</td>
+        <td class="stt">#{rank}</td>
+        <td><a href="https://chess.com/member/{player}">{player}</a></td>
+        <td>{achievements_display}</td>
         </tr>
         """
         rank += 1
 
-    html_output += """
+        html_output += """
         </tbody>
-    </table>
-   <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button><script src="/js/main.js"></script>
-    """
+        </table>
+        <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button><script src="/js/main.js"></script></body></html>
+        """
     return html_output
 
 def markdown_table_to_html(markdown_table: str, title: str) -> str:
@@ -208,7 +154,4 @@ def main():
             with open(os.path.join(output_directory, output_filename), 'w', encoding='utf-8') as output_file:
                 output_file.write(html_content)
 
-            print(f"Convered {filename} to HTML successful!")
-
-if __name__ == "__main__":
-    main()
+        print(f"Convered {filename} to HTML successful!")
