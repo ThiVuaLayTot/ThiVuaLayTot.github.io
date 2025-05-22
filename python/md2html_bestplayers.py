@@ -41,10 +41,10 @@ def footer_content():
 def generate_h1_tag(filename: str) -> str:
     namefile = os.path.splitext(filename)[0]
     titles = {
-    'tvlt': 'Thí Vua Lấy Tốt',
-    'cbtt': 'Cờ Bí Thí Tốt',
-    'cttq': 'Chiến Trường Thí Quân',
-    'dttv': 'Đấu Trường Thí Vua',
+        'tvlt': 'Thí Vua Lấy Tốt',
+        'cbtt': 'Cờ Bí Thí Tốt',
+        'cttq': 'Chiến Trường Thí Quân',
+        'dttv': 'Đấu Trường Thí Vua',
     }
     title = titles.get(namefile, '<span class="loader"></span>')
     h1_tag = f"""<h1 align="center">Những kỳ thủ đạt giải {title} nhiều nhất</h1>
@@ -93,7 +93,7 @@ def sort_players(players: defaultdict) -> List[Tuple[str, int, List[str]]]:
         total_points = data.gold + data.silver + data.bronze
         player_list.append((player, total_points, data.achievements))
 
-        player_list.sort(key=lambda x: -x[1])
+    player_list.sort(key=lambda x: -x[1])
 
     return player_list
 
@@ -102,23 +102,23 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
     <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
     <div style="overflow-x:auto;">
     <table class="styled-table">
-    <thead>
-    <tr>
-    <th class="stt">Hạng</th>
-    <th class="winner">Kỳ thủ</th>
-    <th>Các lần đạt giải</th>
-    </tr>
-    </thead>
-    <tbody>
+        <thead>
+            <tr>
+                <th class="stt">Hạng</th>
+                <th class="winner">Kỳ thủ</th>
+                <th>Các lần đạt giải</th>
+            </tr>
+        </thead>
+        <tbody>
     """
     rank = 1
     for player, total_points, achievements in sorted_players:
         achievements_display = ', '.join(achievements)
         html_output += f"""
         <tr>
-        <td class="stt">#{rank}</td>
-        <td><a href="https://chess.com/member/{player}">{player}</a></td>
-        <td>{achievements_display}</td>
+            <td class="stt">#{rank}</td>
+            <td><a href="https://chess.com/member/{player}">{player}</a></td>
+            <td>{achievements_display}</td>
         </tr>
         """
         rank += 1
