@@ -3,10 +3,6 @@ import logging.handlers
 import os
 import os.path
 import re
-import subprocess
-import sys
-import requests
-from bs4 import BeautifulSoup
 
 head_content = """<!DOCTYPE html>
 <html lang="vi">
@@ -24,6 +20,7 @@ head_content = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
+<body>
 """
 
 def nav_content():
@@ -50,34 +47,11 @@ def generate_h1_tag(filename):
     }
     title = titles.get(namefile)
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="events/bestplayers/{namefile}">ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="/events/bestplayers/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
 
     """
     return h1_tag
-
-def get_chesscom_status(username: str) -> str:
-    url = f'https://chess.com/member/{username}'
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        if 'Closed: Abuse' in soup.text:
-            print(f'{username} has been closed: Abuse')
-            return 'Abuse'
-        if 'Closed: Fair Play' in soup.text:
-            print(f'{username} has been closed: Fair Play')
-            return 'Fair Play'
-        else:
-            print(f'{username} is OK')
-            return 'Active'
-    except requests.HTTPError:
-        print(f'Page not found for {username}, account may not exist')
-        return 'Not Found'
-    except Exception as e:
-        print(f'An error occurred while checking account {username}')
-        return 'Error'
 
 def markdown_table_to_html(markdown_table):
     chesscom = 'https://chess.com'
@@ -99,7 +73,7 @@ def markdown_table_to_html(markdown_table):
         html_table += f'<tr>\n'
 
         for cell in cells:
-            # Dành cho dòng đầu tiên
+            # For the first row
             if cell.endswith('Tên giải'):
                 text = cell[0:]
                 cell_content = f'<{tag} class="name-tour">{text}</{tag}>'
@@ -112,33 +86,32 @@ def markdown_table_to_html(markdown_table):
             elif cell.endswith('🥇') or cell.endswith('🥈') or cell.endswith('🥉') or cell.endswith('🏅') or cell.endswith('🎖️') or cell.endswith('🌟'):
                 text = cell[0:]
                 cell_content = f'<{tag} class="winner">{text}</{tag}>'
-            # Dành cho tài khoản trên Chess.com
+            # For Chess.com accounts
             elif cell.startswith('@'):
-                username = cell[1:]
-                status = get_chesscom_status(username)
-                if status == 'Fair Play':
-                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank" class="closed">{username}</a><span class="fa fa-ban"></span></{tag}>'
-                elif status == 'Abuse':
-                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank" class="closed">{username} <span class="fa fa-remove"></span></a></{tag}>'
-                else:
-                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank">{username}</a></{tag}>'
-            elif cell.startswith('!@'):
+                user = cell[1:]
                 username = cell[2:]
-                cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
+                if user.startswith('!'):
+                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank" class="closed">{username}</a><span class="fa fa-ban"></span></{tag}>'
+                elif user.startswith('#'):
+                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank" class="closed">{username} <span class="fa fa-remove"></span></a></{tag}>'
+                elif user.startswith('*'):
+                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
+                else:
+                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank">{user}</a></{tag}>'
             elif cell.startswith('f-'):
                 idtour = cell[2:]
                 cell_content = f'<{tag}><a href="{chesscom}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></{tag}>'
-            # Dành cho tài khoản trên Lichess
+            # For Lichess accounts
             elif cell.startswith('$'):
-                username = cell[1:]
-                cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank">{username}</a></{tag}>'
-            elif cell.startswith('- $'):
-                username = cell[3:]
-                cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
-            elif cell.startswith('! $'):
-                username = cell[3:]
-                cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank" class="closed">{username} <span class="fa fa-ban"></span></a></{tag}>'
-            # Dành cho các ô/dòng còn lại
+                user = cell[1:]
+                username = cell[2:]
+                if user.startswith('*'):
+                    cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
+                elif user.startswith('!'):
+                    cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank" class="closed">{username} <span class="fa fa-ban"></span></a></{tag}>'
+                else:
+                    cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank">{user}</a></{tag}>'
+            # Other rows, cell
             else:
                 cell_content = f'<{tag}>{cell}</{tag}>'
             html_table += f'{cell_content}\n'
@@ -149,6 +122,8 @@ def markdown_table_to_html(markdown_table):
         <br><br><hr>
         <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>
         <script src="/js/main.js"></script>
+        </body>
+        </html>
     '''
     return html_table
 
@@ -161,7 +136,7 @@ for directory in directories:
                 h1_tag = generate_h1_tag(filename)
                 markdown_table = md_file.read()
                 html_table = markdown_table_to_html(markdown_table)
-                styled_html_table = head_content + nav_content() + h1_tag + information + html_table + footer_content()
+                styled_html_table = head_content + nav_content() + '<div id="section-page"><div class="container">' + h1_tag + information + html_table + '</div></div>' + footer_content()
                 html_filename = os.path.splitext(filename)[0] + '.html'
                 with open(os.path.join(directory, html_filename), 'w', encoding='utf-8') as html_file:
                     html_file.write(styled_html_table)

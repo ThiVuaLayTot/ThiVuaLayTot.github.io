@@ -1,9 +1,15 @@
 import urllib.request
 import orjson
 import os
+import os.path
 import sys
+import subprocess
 from datetime import datetime
 import urllib.error
+import requests
+import logging
+import logging.handlers
+from bs4 import BeautifulSoup
 
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
@@ -50,18 +56,41 @@ def parse_tournament_data(data):
     parsed_data = {
         'name': data.get('name', 'N/A'),
         'url': data.get('url', 'N/A'),
-        'type': data.get('settings', {}).get('type', 'N/A'),
-        'rules': data.get('settings', {}).get('rules', 'N/A'),
+        'variant': data.get('settings', {}).get('rules', 'N/A'),
         'start_time': start_time,
         'total_rounds': data.get('settings', {}).get('total_rounds', 'N/A'),
         'time_class': data.get('settings', {}).get('time_class', 'N/A'),
         'time_control': total_minutes,
+        'players_count': data.get('settings', {}).get('registered_user_count', 'N/A'),
         'players': players
     }
     return parsed_data
 
+def get_chesscom_status(username: str) -> str:
+    url = f'https://chess.com/member/{username}'
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        if 'Closed: Abuse' in soup.text:
+            print(f'{username} has been closed: Abuse')
+            return 'Abuse'
+        if 'Closed: Fair Play' in soup.text:
+            print(f'{username} has been closed: Fair Play')
+            return 'Fair Play'
+        else:
+            print(f'{username} is OK')
+            return 'Active'
+    except requests.HTTPError:
+        print(f'Page not found for {username}, account may not exist')
+        return 'Not Found'
+    except Exception as e:
+        print(f'An error occurred while checking account {username}')
+        return 'Error'
+
 def write_tournament_data_to_file(parsed_data, md_filename):
-    rule = parsed_data['rules'].lower()
+    rule = parsed_data['variant'].lower()
     time_class = parsed_data['time_class'].lower()
     name = parsed_data['name'].replace('||', '-').replace('|', '-')
 
@@ -93,7 +122,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     else:
         new_line += ','
 
-    if parsed_data['type'].lower() == 'standard':
+    if parsed_data['total_rounds'] == 1:
         new_line += 'Arena'
     else:
         new_line += f'Swiss {parsed_data["total_rounds"]} vòng'
@@ -101,10 +130,14 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     for player in parsed_data['players']:
         if player in special_players:
             if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
-                new_line += '|@M-DinhHoangViet'
+                new_line += '|@M-DinhHoangViet*'
             elif player == 'thangthukquantrong':
-                new_line += '|@thangthukquantrong'
-        else:
+                new_line += '|@thangthukquantrong*'
+        elif get_chesscom_status(player) == 'Abuse':
+            new_line += f'|@{player}#'
+        elif get_chesscom_status(player) == 'Fair Play':
+            new_line += f'|@{player}!'
+        else:    
             new_line += f'|@{player}'
 
     new_line += '\n'
