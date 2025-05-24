@@ -136,7 +136,7 @@ for directory in directories:
                 h1_tag = generate_h1_tag(filename)
                 markdown_table = md_file.read()
                 html_table = markdown_table_to_html(markdown_table)
-                styled_html_table = head_content + nav_content() + h1_tag + information + html_table + footer_content()
+                styled_html_table = head_content + nav_content() + '<div id="section-page"><div class="container">' + h1_tag + information + html_table + '</div></div>' + footer_content()
                 html_filename = os.path.splitext(filename)[0] + '.html'
                 with open(os.path.join(directory, html_filename), 'w', encoding='utf-8') as html_file:
                     html_file.write(styled_html_table)
