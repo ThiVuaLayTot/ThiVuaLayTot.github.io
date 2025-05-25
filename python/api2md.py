@@ -145,10 +145,6 @@ def write_tournament_data_to_file(parsed_data, md_filename):
 
     new_line += '\n'
 
-    if new_line.strip() in existing_content:
-        print(f"Data for {parsed_data['name']} already exists in {md_filename}. Skipping.")
-        return
-
     with open(md_filename, 'a', encoding='utf-8') as f:
         f.write(new_line)
 
