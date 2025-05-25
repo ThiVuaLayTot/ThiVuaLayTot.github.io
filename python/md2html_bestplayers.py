@@ -3,8 +3,6 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Optional
 import re
 import os
-import requests
-from bs4 import BeautifulSoup
 
 @dataclass
 class Player:
@@ -24,6 +22,7 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/animation.css">
+    <link rel="stylesheet" href="/css/eventwinner.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
@@ -55,40 +54,6 @@ def generate_h1_tag(filename: str) -> str:
     """
     return h1_tag
 
-def get_chesscom_status(username: str) -> str:
-    url = f'https://chess.com/member/{username}'
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        if 'Closed: Abuse' in soup.text:
-            print(f'{username} has been closed: Abuse')
-            return 'Abuse'
-        if 'Closed: Fair Play' in soup.text:
-            print(f'{username} has been closed: Fair Play')
-            return 'Fair Play'
-        else:
-            print(f'{username} is OK')
-            return 'Active'
-    except requests.HTTPError:
-        print(f'Page not found for {username}, account may not exist')
-        return 'Not Found'
-    except Exception as e:
-        print(f'An error occurred while checking account {username}')
-        return 'Error'
-
-def find_non_violating_player(index: int, substitutes: list) -> Tuple[Optional[str], int]:
-    for j in range(index, len(substitutes)):
-        potential_replacement = substitutes[j].strip()
-        if potential_replacement and not potential_replacement.startswith('@'):
-            return potential_replacement, j
-        elif potential_replacement.startswith('@'):
-            status = get_chesscom_status(potential_replacement[1:])
-            if status != "Fair Play":
-                return potential_replacement, j
-    return None, -1
-
 def parse_markdown_table(markdown_table: str) -> defaultdict:
     players = defaultdict(Player)
     rows = markdown_table.strip().split('\n')
@@ -99,44 +64,26 @@ def parse_markdown_table(markdown_table: str) -> defaultdict:
             continue
 
         event_date = cells[0]
-        gold_player, silver_player, bronze_player = cells[3:6]
-        rank4, rank5, rank6 = cells[6:9]
-        player_list = [gold_player, silver_player, bronze_player]
-        substitutes = [rank4, rank5, rank6]
+        candidate_players = cells[3:9]
 
-        for i, player in enumerate(player_list):
-            if not player or not player.startswith('@'):
-                continue
-
-            username = player[1:]
-            status = get_chesscom_status(username)
-
-            while status == "Fair Play":
-                replacement, index = find_non_violating_player(i + 3, substitutes)
-                if replacement:
-                    print(f"Replace {player} by {replacement}")
-                    player_list[i] = replacement
-                    substitutes[index] = ""
-                    status = get_chesscom_status(replacement[1:])
-                else:
-                    print(f"No replacement found for {player}")
-                    player_list[i] = ""
-                    break
-
-        for i, player in enumerate(player_list):
+        valid_players = []
+        for player in candidate_players:
             if player.startswith('@'):
                 username = player[1:]
-                players[username].status = get_chesscom_status(username)
-                rank = ['🥇', '🥈', '🥉'][i]
-                
-                players[username].achievements.append(f"{rank}({event_date})")
-                
-                if rank == '🥇':
-                    players[username].gold += 1
-                elif rank == '🥈':
-                    players[username].silver += 1
-                elif rank == '🥉':
-                    players[username].bronze += 1
+                if not (username.startswith('#') or username.startswith('!')):
+                    valid_players.append(username)
+
+        valid_players = valid_players[:3]
+        ranks = ['🥇', '🥈', '🥉']
+
+        for i, username in enumerate(valid_players):
+            players[username].achievements.append(f"{ranks[i]}({event_date})")
+            if i == 0:
+                players[username].gold += 1
+            elif i == 1:
+                players[username].silver += 1
+            elif i == 2:
+                players[username].bronze += 1
 
     return players
 
@@ -153,7 +100,7 @@ def sort_players(players: defaultdict) -> List[Tuple[str, int, List[str]]]:
 def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> str:
     html_output = """
     <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
-    <div style="overflow-x:auto;">
+    <div class="table">
     <table class="styled-table">
         <thead>
             <tr>
@@ -178,9 +125,9 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
 
     html_output += """
         </tbody>
-    </table>
-   <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button><script src="/js/main.js"></script>
-    """
+        </table>
+        <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button><script src="/js/main.js"></script></body></html>
+        """
     return html_output
 
 def markdown_table_to_html(markdown_table: str, title: str) -> str:
@@ -202,13 +149,10 @@ def main():
             with open(os.path.join(input_directory, filename), 'r', encoding='utf-8') as input_file:
                 markdown_content = input_file.read()
 
-            html_content = css_styles + nav_content() + generate_h1_tag(filename) + markdown_table_to_html(markdown_content, filename) + footer_content()
+            html_content = css_styles + nav_content() + '<div id="section-page"><div class="container">'+ generate_h1_tag(filename) + markdown_table_to_html(markdown_content, filename) + '</div></div>' + footer_content()
 
             output_filename = filename.replace('.md', '.html')
             with open(os.path.join(output_directory, output_filename), 'w', encoding='utf-8') as output_file:
                 output_file.write(html_content)
 
-            print(f"Convered {filename} to HTML successful!")
-
-if __name__ == "__main__":
-    main()
+        print("Convered {filename} to HTML successful!")

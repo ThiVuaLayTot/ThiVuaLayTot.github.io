@@ -1,6 +1,7 @@
 import urllib.request
 import orjson
 import os
+import os.path
 import sys
 from datetime import datetime
 import urllib.error
@@ -13,7 +14,7 @@ def read_urls_from_txt(file_path):
         urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in f.readlines()]
     return urls
 
-def fetch_tournament_data(url):
+def fetch_data(url):
     req = urllib.request.Request(url, method='GET')
     try:
         with urllib.request.urlopen(req) as response:
@@ -21,6 +22,21 @@ def fetch_tournament_data(url):
     except urllib.error.URLError as e:
         print(f"Error fetching tournament data from {url}: {e}")
         return {}
+
+def parse_player_data(data):
+    status = data.get('status', 'N/A')
+    if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
+        parse_data = {
+            'status': status
+        }
+
+    else:
+        parse_data = {
+            'status': status,
+            'avatar': data.get('avatar', 'N/A'),
+            'folowers': data.get('folower', 'N/A')
+        }
+    return parse_data
 
 def parse_tournament_data(data):
     players = [player.get('username', 'N/A') for player in data.get('players', [])][:6]
@@ -50,28 +66,42 @@ def parse_tournament_data(data):
     parsed_data = {
         'name': data.get('name', 'N/A'),
         'url': data.get('url', 'N/A'),
-        'type': data.get('settings', {}).get('type', 'N/A'),
-        'rules': data.get('settings', {}).get('rules', 'N/A'),
+        'variant': data.get('settings', {}).get('rules', 'N/A'),
         'start_time': start_time,
         'total_rounds': data.get('settings', {}).get('total_rounds', 'N/A'),
         'time_class': data.get('settings', {}).get('time_class', 'N/A'),
         'time_control': total_minutes,
+        'players_count': data.get('settings', {}).get('registered_user_count', 'N/A'),
         'players': players
     }
     return parsed_data
 
-def write_tournament_data_to_file(parsed_data, md_filename):
-    rule = parsed_data['rules'].lower()
-    time_class = parsed_data['time_class'].lower()
-    name = parsed_data['name'].replace('||', '-').replace('|', '-')
-
-    if os.path.exists(md_filename):
-        with open(md_filename, 'r', encoding='utf-8') as f:
-            existing_content = f.read()
+def write_player_data(parse_data, player):
+    followers = parse_data['followers']
+    avatar = parse_data['avatar']
+    if parse_data['status'] == 'closed:abuse':
+        new_line = f'|@#{player}'
+    elif parse_data['status'] == 'closed:fair_play_violations':
+        new_line = f'|@!{player}'
+    elif parse_data['status'] == 'closed':
+        new_line = f'|@/{player}'
+    elif parse_data['status'] == 'premium':
+        new_line = f'|@&{player} {followers}'
     else:
-        existing_content = ""
+        new_line = f'|@{player} {followers} {avatar}'
+    return new_line
 
-    new_line = f'<a href="{parsed_data["url"]}">{name}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} '
+def write_tournament_data_to_file(parsed_data, md_filename):
+    rule = parsed_data['variant'].lower()
+    time_class = parsed_data['time_class'].lower()
+    url = parsed_data['url']
+    start_time = parsed_data['start_time']
+    time_control = parsed_data['time_control']
+    name = parsed_data['name'].replace('||', '-').replace('|', '-')
+    rounds = parsed_data['total_rounds']
+    player_count = parsed_data['players_count']
+
+    new_line = f'<a href="{url}">{name}</a>|{start_time}|{time_control} '
     
     if time_class == 'bullet':
         new_line += 'Bullet'
@@ -93,25 +123,27 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     else:
         new_line += ','
 
-    if parsed_data['type'].lower() == 'standard':
+    if rounds == 1:
         new_line += 'Arena'
     else:
-        new_line += f'Swiss {parsed_data["total_rounds"]} vòng'
+        new_line += f'Swiss {round} vòng'
+
+    new_line += f'{player_count}'
 
     for player in parsed_data['players']:
         if player in special_players:
             if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
-                new_line += '|@M-DinhHoangViet'
+                new_line += '|@*M-DinhHoangViet'
             elif player == 'thangthukquantrong':
-                new_line += '|@thangthukquantrong'
+                new_line += '|@*thangthukquantrong'
         else:
-            new_line += f'|@{player}'
+            urls = ['https://api.chess.com/pub/player/' + player]
+            player_data = fetch_data(urls)
+            if player_data:
+                parsed_data = parse_player_data(player_data)
+                new_line += write_player_data(parsed_data, player)
 
     new_line += '\n'
-
-    if new_line.strip() in existing_content:
-        print(f"Data for {parsed_data['name']} already exists in {md_filename}. Skipping.")
-        return
 
     with open(md_filename, 'a', encoding='utf-8') as f:
         f.write(new_line)
@@ -127,8 +159,11 @@ if __name__ == "__main__":
                 
                 md_filename = file_path.replace('.txt', '.md')
 
+                if os.path.exists(md_filename):
+                    os.remove(md_filename)
+
                 for url in urls:
-                    tournament_data = fetch_tournament_data(url)
+                    tournament_data = fetch_data(url)
                     
                     if tournament_data:
                         parsed_data = parse_tournament_data(tournament_data)
