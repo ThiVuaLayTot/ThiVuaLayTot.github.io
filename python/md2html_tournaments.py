@@ -58,7 +58,7 @@ def markdown_table_to_html(markdown_table):
     lc = 'https://lc.org'
     rows = markdown_table.strip().split('\n')
     html_table = '''<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
-    <div style="overflow-x:auto;">
+    <div class="table">
         <table class="styled-table">\n'''
     for i, row in enumerate(rows):
         if '---|---|---|---|---|---|---|---|---' in row:
@@ -95,14 +95,14 @@ def markdown_table_to_html(markdown_table):
                 if user.startswith('!'):
                     cell_content = f'''<{tag}><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
-      <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+      <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
             <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon"></span> <span> Closed: Gian lận</span></div></div></span>
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-fair"></span> <span> Closed: Gian lận</span></div></div></span>
         </div>
     </div>
 </div></{tag}>'''
@@ -116,7 +116,7 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon"></span> <span> Closed: Abuse</span></div></div></span>
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-abuse"></span> <span> Closed: Abuse</span></div></div></span>
         </div>
     </div>
 </div></{tag}>'''
@@ -130,8 +130,6 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon"></span> <span> Closed</span></div></div></span>
-            <span class="post-view-meta-separator">|</span>
             <span><span class="bx bx-user-check"> {followers}</span>
         </div>
     </div>
@@ -146,8 +144,8 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-inactive"><span class="user-badges-icon"></span> <span> Closed: Inactive</span></div></div></span>
-            <span class="post-view-meta-separator">|</span>
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-inactive"><span class="user-badges-icon-inactive"></span> <span> Closed: Inactive</span></div></div></span>
+            <span class="post-view-meta-separator"></span>
             <span><span class="bx bx-user-check"> {followers}</span>
         </div>
     </div>
@@ -162,8 +160,8 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="https://chess.com/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon"></span> <span> Chess.com Membership</span></div></div></span>
-            <span class="post-view-meta-separator">|</span>
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon-premium"></span> <span> Chess.com Membership</span></div></div></span>
+            <span class="post-view-meta-separator"></span>
             <span><span class="bx bx-user-check"> {followers}</span>
         </div>
     </div>
@@ -178,7 +176,6 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="https://chess.com/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span class="post-view-meta-separator">|</span>
             <span><span class="bx bx-user-check"> {followers}</span>
         </div>
     </div>

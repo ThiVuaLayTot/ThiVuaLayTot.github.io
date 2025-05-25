@@ -100,7 +100,7 @@ def sort_players(players: defaultdict) -> List[Tuple[str, int, List[str]]]:
 def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> str:
     html_output = """
     <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
-    <div style="overflow:auto;">
+    <div class="table">
     <table class="styled-table">
         <thead>
             <tr>
