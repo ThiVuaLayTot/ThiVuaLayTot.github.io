@@ -94,6 +94,9 @@ def write_player_data(parse_data, player):
 def write_tournament_data_to_file(parsed_data, md_filename):
     rule = parsed_data['variant'].lower()
     time_class = parsed_data['time_class'].lower()
+    url = parsed_data['url']
+    start_time = parsed_data['start_time']
+    time_control = parsed_data['time_control']
     name = parsed_data['name'].replace('||', '-').replace('|', '-')
     rounds = parsed_data['total_rounds']
 
@@ -103,7 +106,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     else:
         existing_content = ""
 
-    new_line = f'<a href="{parsed_data["url"]}">{name}</a>|{parsed_data["start_time"]}|{parsed_data["time_control"]} '
+    new_line = f'<a href="{url}">{name}</a>|{start_time}|{time_control} '
     
     if time_class == 'bullet':
         new_line += 'Bullet'
