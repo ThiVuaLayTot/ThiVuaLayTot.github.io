@@ -78,6 +78,7 @@ def parse_tournament_data(data):
 
 def write_player_data(parse_data, player):
     followers = parse_data['followers']
+    avatar = parse_data['avatar']
     if parse_data['status'] == 'closed:abuse':
         new_line = f'|@#{player}'
     elif parse_data['status'] == 'closed:fair_play_violations':
@@ -138,10 +139,10 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 new_line += '|@*thangthukquantrong'
         else:
             urls = ['https://api.chess.com/pub/player/' + player]
-            player_data = fetch_data(urls, player)
+            player_data = fetch_data(urls)
             if player_data:
                 parsed_data = parse_player_data(player_data)
-                new_line += write_player_data(parsed_data)
+                new_line += write_player_data(parsed_data, player)
 
     new_line += '\n'
 
