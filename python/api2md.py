@@ -95,6 +95,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     rule = parsed_data['variant'].lower()
     time_class = parsed_data['time_class'].lower()
     name = parsed_data['name'].replace('||', '-').replace('|', '-')
+    rounds = parsed_data['total_rounds']
 
     if os.path.exists(md_filename):
         with open(md_filename, 'r', encoding='utf-8') as f:
@@ -124,10 +125,10 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     else:
         new_line += ','
 
-    if parsed_data['total_rounds'] == 1:
+    if rounds == 1:
         new_line += 'Arena'
     else:
-        new_line += f'Swiss {parsed_data['total_rounds']} vòng'
+        new_line += f'Swiss {round} vòng'
 
     new_line += f'{parsed_data['players_count']}'
 
