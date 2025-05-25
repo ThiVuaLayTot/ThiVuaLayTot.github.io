@@ -54,8 +54,8 @@ def generate_h1_tag(filename):
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
-    chesscom = 'https://chess.com'
-    lichess = 'https://lichess.org'
+    cc = 'https://chess.com'
+    lc = 'https://lc.org'
     rows = markdown_table.strip().split('\n')
     html_table = '''<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
     <div style="overflow-x:auto;">
@@ -90,27 +90,112 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('@'):
                 user = cell[1:]
                 username = cell[2:]
+                splited_username = username.split()
+                followers, avatar = splited_username[1], splited_username[2]
                 if user.startswith('!'):
-                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank" class="closed">{username}</a><span class="fa fa-ban"></span></{tag}>'
+                    cell_content = f'''<{tag}><div class="post-user-component">
+    <a class="cc-avatar-component post-user-avatar">
+      <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+    </a>
+    <div class="post-user-details">
+        <div class="user-tagline-component">
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+        </div>
+        <div class="post-user-status">
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon"></span> <span> Closed: Gian lận</span></div></div></span>
+        </div>
+    </div>
+</div></{tag}>'''
                 elif user.startswith('#'):
-                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank" class="closed">{username} <span class="fa fa-remove"></span></a></{tag}>'
+                    cell_content = f'''<{tag}><div class="post-user-component">
+    <a class="cc-avatar-component post-user-avatar">
+      <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+    </a>
+    <div class="post-user-details">
+        <div class="user-tagline-component">
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+        </div>
+        <div class="post-user-status">
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon"></span> <span> Closed: Abuse</span></div></div></span>
+        </div>
+    </div>
+</div></{tag}>'''
                 elif user.startswith('*'):
-                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
+                    cell_content = f'''<{tag}><div class="post-user-component">
+    <a class="cc-avatar-component post-user-avatar">
+      <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+    </a>
+    <div class="post-user-details">
+        <div class="user-tagline-component">
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+        </div>
+        <div class="post-user-status">
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon"></span> <span> Closed</span></div></div></span>
+            <span class="post-view-meta-separator">|</span>
+            <span><span class="bx bx-user-check"> {followers}</span>
+        </div>
+    </div>
+</div></{tag}>'''
+                elif user.startswith('/'):
+                    cell_content = f'''<{tag}><div class="post-user-component">
+    <a class="cc-avatar-component post-user-avatar">
+      <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+    </a>
+    <div class="post-user-details">
+        <div class="user-tagline-component">
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+        </div>
+        <div class="post-user-status">
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-inactive"><span class="user-badges-icon"></span> <span> Closed: Inactive</span></div></div></span>
+            <span class="post-view-meta-separator">|</span>
+            <span><span class="bx bx-user-check"> {followers}</span>
+        </div>
+    </div>
+</div></{tag}>'''
+                elif user.startswith('&'):
+                    cell_content = f'''<{tag}><div class="post-user-component">
+    <a class="cc-avatar-component post-user-avatar">
+      <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
+    </a>
+    <div class="post-user-details">
+        <div class="user-tagline-component">
+            <a class="user-username-component user-tagline-username" href="https://chess.com/member/{username}">{username}</a>
+        </div>
+        <div class="post-user-status">
+            <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon"></span> <span> Chess.com Membership</span></div></div></span>
+            <span class="post-view-meta-separator">|</span>
+            <span><span class="bx bx-user-check"> {followers}</span>
+        </div>
+    </div>
+</div></{tag}>'''
                 else:
-                    cell_content = f'<{tag}><a href="{chesscom}/member/{username}" target="_blank">{user}</a></{tag}>'
+                    cell_content = f'''<div class="post-user-component">
+    <a class="cc-avatar-component post-user-avatar">
+      <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
+    </a>
+    <div class="post-user-details">
+        <div class="user-tagline-component">
+            <a class="user-username-component user-tagline-username" href="https://chess.com/member/{username}">{username}</a>
+        </div>
+        <div class="post-user-status">
+            <span class="post-view-meta-separator">|</span>
+            <span><span class="bx bx-user-check"> {followers}</span>
+        </div>
+    </div>
+</div>'''
             elif cell.startswith('f-'):
                 idtour = cell[2:]
-                cell_content = f'<{tag}><a href="{chesscom}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></{tag}>'
+                cell_content = f'<{tag}><a href="{cc}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></{tag}>'
             # For Lichess accounts
             elif cell.startswith('$'):
                 user = cell[1:]
                 username = cell[2:]
                 if user.startswith('*'):
-                    cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
+                    cell_content = f'<{tag}><a href="{lc}/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
                 elif user.startswith('!'):
-                    cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank" class="closed">{username} <span class="fa fa-ban"></span></a></{tag}>'
+                    cell_content = f'<{tag}><a href="{lc}/{username}" target="_blank" class="closed">{username} <span class="fa fa-ban"></span></a></{tag}>'
                 else:
-                    cell_content = f'<{tag}><a href="{lichess}/{username}" target="_blank">{user}</a></{tag}>'
+                    cell_content = f'<{tag}><a href="{lc}/{username}" target="_blank">{user}</a></{tag}>'
             # Other rows, cell
             else:
                 cell_content = f'<{tag}>{cell}</{tag}>'
@@ -141,4 +226,4 @@ for directory in directories:
                 with open(os.path.join(directory, html_filename), 'w', encoding='utf-8') as html_file:
                     html_file.write(styled_html_table)
                 
-                print(f"Convered {filename} to HTML successful!")
+                print("Convered {filename} to HTML successful!")

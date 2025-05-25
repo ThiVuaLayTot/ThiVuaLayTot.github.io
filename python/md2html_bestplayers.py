@@ -100,7 +100,7 @@ def sort_players(players: defaultdict) -> List[Tuple[str, int, List[str]]]:
 def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> str:
     html_output = """
     <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
-    <div style="overflow-x:auto;">
+    <div style="overflow:auto;">
     <table class="styled-table">
         <thead>
             <tr>
@@ -149,10 +149,10 @@ def main():
             with open(os.path.join(input_directory, filename), 'r', encoding='utf-8') as input_file:
                 markdown_content = input_file.read()
 
-            html_content = css_styles + nav_content() + '<div id="section-page"><div class="container">'+ generate_h1_tag(filename) + markdown_table_to_html(markdown_content, filename) + '</div></div>' footer_content()
+            html_content = css_styles + nav_content() + '<div id="section-page"><div class="container">'+ generate_h1_tag(filename) + markdown_table_to_html(markdown_content, filename) + '</div></div>' + footer_content()
 
             output_filename = filename.replace('.md', '.html')
             with open(os.path.join(output_directory, output_filename), 'w', encoding='utf-8') as output_file:
                 output_file.write(html_content)
 
-        print(f"Convered {filename} to HTML successful!")
+        print("Convered {filename} to HTML successful!")
