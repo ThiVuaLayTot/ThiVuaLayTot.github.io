@@ -101,12 +101,6 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     rounds = parsed_data['total_rounds']
     player_count = parsed_data['players_count']
 
-    if os.path.exists(md_filename):
-        with open(md_filename, 'r', encoding='utf-8') as f:
-            existing_content = f.read()
-    else:
-        existing_content = ""
-
     new_line = f'<a href="{url}">{name}</a>|{start_time}|{time_control} '
     
     if time_class == 'bullet':
@@ -168,6 +162,9 @@ if __name__ == "__main__":
                 urls = read_urls_from_txt(file_path)
                 
                 md_filename = file_path.replace('.txt', '.md')
+
+                if os.path.exists(md_filename):
+                    os.remove(md_filename)
 
                 for url in urls:
                     tournament_data = fetch_data(url)
