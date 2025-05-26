@@ -79,13 +79,14 @@ def write_player_data(parse_data):
     player = parse_data['username']
     followers = parse_data['followers']
     avatar = parse_data['avatar']
-    if parse_data['status'] == 'closed:abuse':
+    status = parse_data['status']
+    if status == 'closed:abuse':
         new_line = f'|@#{player}'
-    elif parse_data['status'] == 'closed:fair_play_violations':
+    elif status == 'closed:fair_play_violations':
         new_line = f'|@!{player}'
-    elif parse_data['status'] == 'closed':
+    elif status == 'closed':
         new_line = f'|@/{player}'
-    elif parse_data['status'] == 'premium':
+    elif status == 'premium':
         new_line = f'|@&{player} {followers}'
     else:
         new_line = f'|@{player} {followers} {avatar}'
@@ -126,10 +127,11 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     if rounds == 1:
         new_line += 'Arena'
     else:
-        new_line += f'Swiss {round} vòng'
+        new_line += f'Swiss {rounds} vòng'
 
     new_line += f'|{player_count}'
 
+    player_data_cache = {}
     for player in parsed_data['players']:
         if player in special_players:
             if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
@@ -137,11 +139,14 @@ def write_tournament_data_to_file(parsed_data, md_filename):
             elif player == 'thangthukquantrong':
                 new_line += '|@*thangthukquantrong'
         else:
-            urls = ['https://api.chess.com/pub/player/' + player]
-            player_data = fetch_data(urls)
-            if player_data:
-                parse_data = parse_player_data(player_data)
-                new_line += write_player_data(parse_data)
+            if player in player_data_cache:
+                player_data = player_data_cache[player]
+            else:
+                player_info = parse_player_data(fetch_data(f'https://api.chess.com/pub/player/{player}'))
+                player_data_cache[player] = player_data
+
+            new_line += write_player_data(player_data)
+            print(f'{player} info has written!')
 
     new_line += '\n'
 
