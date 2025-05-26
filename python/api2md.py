@@ -42,20 +42,17 @@ def parse_tournament_data(data):
     players = [player.get('username', 'N/A') for player in data.get('players', [])][:6]
     time_control = data.get('settings', {}).get('time_control', 'N/A')
 
-    if isinstance(time_control, str) and '+' in time_control:
-        parts = time_control.split('+')
-        if len(parts) == 2:
-            try:
-                minutes_seconds = int(parts[0])
-                seconds = int(parts[1])
-                minutes = round(minutes_seconds / 60)
-                total_minutes = f'{minutes}+{seconds}'
-            except ValueError:
-                total_minutes = 'N/A'
-        else:
+    parts = time_control.split('+')
+    if len(parts) == 2:
+        try:
+            minutes_seconds = int(parts[0])
+            seconds = int(parts[1])
+            minutes = round(minutes_seconds / 60)
+            total_minutes = f'{minutes}+{seconds}'
+        except ValueError:
             total_minutes = 'N/A'
     else:
-        total_minutes = 'N/A'
+        total_minutes = f'{int(parts[0])}'
 
     start_time_unix = data.get('start_time', 'N/A')
     if start_time_unix:
@@ -76,7 +73,8 @@ def parse_tournament_data(data):
     }
     return parsed_data
 
-def write_player_data(parse_data, player):
+def write_player_data(parse_data):
+    player = parse_data['username']
     followers = parse_data['followers']
     avatar = parse_data['avatar']
     if parse_data['status'] == 'closed:abuse':
@@ -128,7 +126,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     else:
         new_line += f'Swiss {round} vòng'
 
-    new_line += f'{player_count}'
+    new_line += f'|{player_count}'
 
     for player in parsed_data['players']:
         if player in special_players:
@@ -140,8 +138,8 @@ def write_tournament_data_to_file(parsed_data, md_filename):
             urls = ['https://api.chess.com/pub/player/' + player]
             player_data = fetch_data(urls)
             if player_data:
-                parsed_data = parse_player_data(player_data)
-                new_line += write_player_data(parsed_data, player)
+                parse_data = parse_player_data(player_data)
+                new_line += write_player_data(parse_data, player)
 
     new_line += '\n'
 

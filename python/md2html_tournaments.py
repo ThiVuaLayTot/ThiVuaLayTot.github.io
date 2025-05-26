@@ -90,8 +90,6 @@ def markdown_table_to_html(markdown_table):
             elif cell.startswith('@'):
                 user = cell[1:]
                 username = cell[2:]
-                splited_username = username.split()
-                followers, avatar = splited_username[1], splited_username[2]
                 if user.startswith('!'):
                     cell_content = f'''<{tag}><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
@@ -151,6 +149,8 @@ def markdown_table_to_html(markdown_table):
     </div>
 </div></{tag}>'''
                 elif user.startswith('&'):
+                    splited_username = username.split()
+                    followers, avatar = splited_username[1], splited_username[2]
                     cell_content = f'''<{tag}><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -167,6 +167,8 @@ def markdown_table_to_html(markdown_table):
     </div>
 </div></{tag}>'''
                 else:
+                    splited_username = username.split()
+                    followers, avatar = splited_username[1], splited_username[2]
                     cell_content = f'''<div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
