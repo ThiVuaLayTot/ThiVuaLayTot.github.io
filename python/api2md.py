@@ -77,8 +77,6 @@ def parse_tournament_data(data):
 
 def write_player_data(parse_data):
     player = parse_data['username']
-    followers = parse_data['followers']
-    avatar = parse_data['avatar']
     status = parse_data['status']
     if status == 'closed:abuse':
         new_line = f'|@#{player}'
@@ -87,8 +85,12 @@ def write_player_data(parse_data):
     elif status == 'closed':
         new_line = f'|@/{player}'
     elif status == 'premium':
-        new_line = f'|@&{player} {followers}'
+        followers = parse_data['followers']
+        avatar = parse_data['avatar']
+        new_line = f'|@&{player} {followers} {avatar}'
     else:
+        followers = parse_data['followers']
+        avatar = parse_data['avatar']
         new_line = f'|@{player} {followers} {avatar}'
     return new_line
 
