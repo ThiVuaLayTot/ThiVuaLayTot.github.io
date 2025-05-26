@@ -140,12 +140,14 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 new_line += '|@*thangthukquantrong'
         else:
             if player in player_data_cache:
-                player_data = player_data_cache[player]
+                parse_data = player_data_cache[player]
             else:
-                player_info = parse_player_data(fetch_data(f'https://api.chess.com/pub/player/{player}'))
-                player_data_cache[player] = player_data
-
-            new_line += write_player_data(player_data)
+                player_url = f'https://api.chess.com/pub/player/{player}'
+                player_data = fetch_data(player_url)
+                parse_data = parse_player_data(player_data)
+                player_data_cache[player] = parse_data
+    
+            new_line += write_player_data(parse_data)
             print(f'{player} info has written!')
 
     new_line += '\n'
