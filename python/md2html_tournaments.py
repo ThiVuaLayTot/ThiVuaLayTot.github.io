@@ -150,16 +150,16 @@ def markdown_table_to_html(markdown_table):
 </div></{tag}>'''
                 elif user.startswith('&'):
                     splited_username = username.split()
-                    followers, avatar = splited_username[1], splited_username[2]
-                    if avatar == 'N/A':
-                        avatar = f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    name = splited_username[0]
+                    followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
+                    avatar = splited_username[2] if len(splited_username) > 2 else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<{tag}><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="https://chess.com/member/{username}">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon-premium"></span> <span> Chess.com Membership</span></div></div></span>
@@ -170,22 +170,22 @@ def markdown_table_to_html(markdown_table):
 </div></{tag}>'''
                 else:
                     splited_username = username.split()
-                    followers, avatar = splited_username[1], splited_username[2]
-                    if avatar == 'N/A':
-                        avatar = f'{cc}/bundles/web/images/user-image.007dad08.svg'
-                    cell_content = f'''<div class="post-user-component">
-    <a class="cc-avatar-component post-user-avatar">
-      <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
-    </a>
-    <div class="post-user-details">
-        <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="https://chess.com/member/{username}">{username}</a>
-        </div>
-        <div class="post-user-status">
-            <span><span class="bx bx-user-check"> {followers}</span>
-        </div>
+                    name = splited_username[0]
+                    followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
+                    avatar = splited_username[2] if len(splited_username) > 2 else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    cell_content = f'''<{tag}><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="{cc}/member/{name}">{name}</a>
     </div>
-</div>'''
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> {followers}</span>
+    </div>
+</div>
+</div></{tag}>'''
             elif cell.startswith('f-'):
                 idtour = cell[2:]
                 cell_content = f'<{tag}><a href="{cc}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></{tag}>'
