@@ -83,7 +83,8 @@ def write_player_data(parse_data):
     elif status == 'closed:fair_play_violations':
         new_line = f'|@!{player}'
     elif status == 'closed':
-        new_line = f'|@/{player}'
+        followers = parse_data['followers']
+        new_line = f'|@/{player} {followers}'
     elif status == 'premium':
         followers = parse_data['followers']
         avatar = parse_data['avatar']
