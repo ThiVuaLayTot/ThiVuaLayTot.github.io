@@ -36,7 +36,7 @@ def parse_player_data(data):
             'username': data.get('username', 'N/A'),
             'status': status,
             'avatar': data.get('avatar', 'N/A'),
-            'folowers': data.get('folower', 'N/A')
+            'followers': data.get('followers', 'N/A')
         }
     return parse_data
 
