@@ -61,8 +61,6 @@ def markdown_table_to_html(markdown_table):
     <div class="table">
         <table class="styled-table">\n'''
     for i, row in enumerate(rows):
-        if '---|---|---|---|---|---|---|---|---' in row:
-            continue
 
         tag = 'th' if i == 0 else 'td'
         cells = re.split(r'\s*\|\s*', row)
@@ -158,32 +156,32 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}">{name}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon-premium"></span> <span> Chess.com Membership</span></div></div></span>
             <span class="post-view-meta-separator"></span>
-            <span><span class="bx bx-user-check"> {followers}</span>
+            <span><span class="bx bx-user-check"> {followers} followers</span>
         </div>
     </div>
 </div></{tag}>'''
                 else:
-                    splited_username = username.split()
+                    splited_username = user.split()
                     name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     avatar = splited_username[2] if len(splited_username) > 2 else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<{tag}><div class="post-user-component">
-<a class="cc-avatar-component post-user-avatar">
-  <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
-</a>
-<div class="post-user-details">
-    <div class="user-tagline-component">
-        <a class="user-username-component user-tagline-username" href="{cc}/member/{name}">{name}</a>
+    <a class="cc-avatar-component post-user-avatar">
+    <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
+    </a>
+    <div class="post-user-details">
+        <div class="user-tagline-component">
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}">{name}</a>
+        </div>
+        <div class="post-user-status">
+            <span><span class="bx bx-user-check"> {followers} followers</span>
+        </div>
     </div>
-    <div class="post-user-status">
-        <span><span class="bx bx-user-check"> {followers}</span>
-    </div>
-</div>
 </div></{tag}>'''
             elif cell.startswith('f-'):
                 idtour = cell[2:]

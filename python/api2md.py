@@ -54,7 +54,7 @@ def parse_tournament_data(data):
         except ValueError:
             total_minutes = 'N/A'
     else:
-        total_minutes = f'{int(parts[0])}'
+        total_minutes = f'{int(parts[0])/60}'
 
     start_time_unix = data.get('start_time', 'N/A')
     if start_time_unix:
@@ -114,22 +114,22 @@ def write_tournament_data_to_file(parsed_data, md_filename):
         new_line += 'Rapid'
 
     if rule == 'chess960':
-        new_line += ' Chess960, '
+        new_line += ' Chess960,'
     elif rule == 'kingofthehill':
-        new_line += ' KOTH, '
+        new_line += ' KOTH,'
     elif rule == 'crazyhouse':
-        new_line += ' Crazyhouse, '
+        new_line += ' Crazyhouse,'
     elif rule == 'bughouse':
-        new_line += ' Bughouse, '
+        new_line += ' Bughouse,'
     elif rule == 'threecheck':
         new_line += ' 3 Chiếu, '
     else:
         new_line += ','
 
     if rounds == 1:
-        new_line += 'Arena'
+        new_line += ' Arena'
     else:
-        new_line += f'Swiss {rounds} vòng'
+        new_line += f' Swiss {rounds} vòng'
 
     new_line += f'|{player_count}'
 
