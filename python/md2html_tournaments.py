@@ -130,13 +130,11 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><span class="bx bx-user-check"> {followers}</span>
+            <span><span class="bx bx-user-check"></span>
         </div>
     </div>
 </div></{tag}>'''
                 elif user.startswith('/'):
-                    splited_username = username.split()
-                    followers = splited_username[1]
                     cell_content = f'''<{tag}><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
@@ -147,8 +145,6 @@ def markdown_table_to_html(markdown_table):
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-inactive"><span class="user-badges-icon-inactive"></span> <span> Closed: Inactive</span></div></div></span>
-            <span class="post-view-meta-separator"></span>
-            <span><span class="bx bx-user-check"> {followers}</span>
         </div>
     </div>
 </div></{tag}>'''

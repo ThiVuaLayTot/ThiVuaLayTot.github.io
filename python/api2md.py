@@ -83,8 +83,7 @@ def write_player_data(parse_data):
     elif status == 'closed:fair_play_violations':
         new_line = f'|@!{player}'
     elif status == 'closed':
-        followers = parse_data['followers']
-        new_line = f'|@/{player} {followers}'
+        new_line = f'|@/{player}'
     elif status == 'premium':
         followers = parse_data['followers']
         avatar = parse_data['avatar']
@@ -151,7 +150,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 player_data_cache[player] = parse_data
     
             new_line += write_player_data(parse_data)
-            print(f'{player} info has written!')
+            print(f'{player} info was written!')
 
     new_line += '\n'
 
