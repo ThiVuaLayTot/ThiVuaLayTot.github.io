@@ -61,35 +61,32 @@ def markdown_table_to_html(markdown_table):
     <div class="table">
         <table class="styled-table">\n'''
     for i, row in enumerate(rows):
-
-        tag = 'th' if i == 0 else 'td'
         cells = re.split(r'\s*\|\s*', row)
 
         if len(cells) == 1 and cells[0] == '':
             continue
 
+        html_table += '''<thead>
+<tr>
+    <th class="name-tour">Tên giải</th>
+    <th class="organization-day">&#x1F557; Ngày tổ chức</th>
+    <th class="rules">&#x265F;&#xFE0F; Thể lệ</th>
+    <th class="winner">&#x1F947; Top 1</th>
+    <th class="winner">&#x1F948; Top 2</th>
+    <th class="winner">&#x1F949; Top 3</th>
+    <th class="winner">&#x1F396;&#xFE0F; Top 4</th>
+    <th class="winner">&#x1F3C5; Top 5</th>
+    <th class="winner">&#x1F31F; Top 6</th>
+</tr>'''
         html_table += f'<tr>\n'
 
         for cell in cells:
-            # For the first row
-            if cell.endswith('Tên giải'):
-                text = cell[0:]
-                cell_content = f'<{tag} class="name-tour">{text}</{tag}>'
-            elif cell.endswith('🕗'):
-                text = cell[0:]
-                cell_content = f'<{tag} class="organization-day">{text}</{tag}>'
-            elif cell.endswith('♟️'):
-                text = cell[0:]
-                cell_content = f'<{tag} class="rules">{text}</{tag}>'
-            elif cell.endswith('🥇') or cell.endswith('🥈') or cell.endswith('🥉') or cell.endswith('🏅') or cell.endswith('🎖️') or cell.endswith('🌟'):
-                text = cell[0:]
-                cell_content = f'<{tag} class="winner">{text}</{tag}>'
             # For Chess.com accounts
             elif cell.startswith('@'):
                 user = cell[1:]
                 username = cell[2:]
                 if user.startswith('!'):
-                    cell_content = f'''<{tag}><div class="post-user-component">
+                    cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
     </a>
@@ -101,9 +98,9 @@ def markdown_table_to_html(markdown_table):
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-fair"></span> <span> Closed: Gian lận</span></div></div></span>
         </div>
     </div>
-</div></{tag}>'''
+</div></td>'''
                 elif user.startswith('#'):
-                    cell_content = f'''<{tag}><div class="post-user-component">
+                    cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
     </a>
@@ -115,10 +112,10 @@ def markdown_table_to_html(markdown_table):
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-abuse"></span> <span> Closed: Abuse</span></div></div></span>
         </div>
     </div>
-</div></{tag}>'''
+</div></td>'''
                 elif user.startswith('*'):
                     splited_username = username.split()
-                    cell_content = f'''<{tag}><div class="post-user-component">
+                    cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
     </a>
@@ -130,9 +127,9 @@ def markdown_table_to_html(markdown_table):
             <span><span class="bx bx-user-check"></span>
         </div>
     </div>
-</div></{tag}>'''
+</div></td>'''
                 elif user.startswith('/'):
-                    cell_content = f'''<{tag}><div class="post-user-component">
+                    cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
     </a>
@@ -144,13 +141,13 @@ def markdown_table_to_html(markdown_table):
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-inactive"><span class="user-badges-icon-inactive"></span> <span> Closed: Inactive</span></div></div></span>
         </div>
     </div>
-</div></{tag}>'''
+</div></td>'''
                 elif user.startswith('&'):
                     splited_username = username.split()
                     name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     avatar = splited_username[2] if len(splited_username) > 2 else f'{cc}/bundles/web/images/user-image.007dad08.svg'
-                    cell_content = f'''<{tag}><div class="post-user-component">
+                    cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
     </a>
@@ -164,13 +161,13 @@ def markdown_table_to_html(markdown_table):
             <span><span class="bx bx-user-check"> {followers} followers</span>
         </div>
     </div>
-</div></{tag}>'''
+</div></td>'''
                 else:
                     splited_username = user.split()
                     name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     avatar = splited_username[2] if len(splited_username) > 2 else f'{cc}/bundles/web/images/user-image.007dad08.svg'
-                    cell_content = f'''<{tag}><div class="post-user-component">
+                    cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
     <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
     </a>
@@ -182,23 +179,23 @@ def markdown_table_to_html(markdown_table):
             <span><span class="bx bx-user-check"> {followers} followers</span>
         </div>
     </div>
-</div></{tag}>'''
+</div></td>'''
             elif cell.startswith('f-'):
                 idtour = cell[2:]
-                cell_content = f'<{tag}><a href="{cc}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></{tag}>'
+                cell_content = f'<td><a href="{cc}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></td>'
             # For Lichess accounts
             elif cell.startswith('$'):
                 user = cell[1:]
                 username = cell[2:]
                 if user.startswith('*'):
-                    cell_content = f'<{tag}><a href="{lc}/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></{tag}>'
+                    cell_content = f'<td><a href="{lc}/{username}" target="_blank">{username} <span class="fa fa-check special"></span></a></td>'
                 elif user.startswith('!'):
-                    cell_content = f'<{tag}><a href="{lc}/{username}" target="_blank" class="closed">{username} <span class="fa fa-ban"></span></a></{tag}>'
+                    cell_content = f'<td><a href="{lc}/{username}" target="_blank" class="closed">{username} <span class="fa fa-ban"></span></a></td>'
                 else:
-                    cell_content = f'<{tag}><a href="{lc}/{username}" target="_blank">{user}</a></{tag}>'
+                    cell_content = f'<td><a href="{lc}/{username}" target="_blank">{user}</a></td>'
             # Other rows, cell
             else:
-                cell_content = f'<{tag}>{cell}</{tag}>'
+                cell_content = f'<td>{cell}</td>'
             html_table += f'{cell_content}\n'
         html_table += '</tr>\n'
         if i == 0:
