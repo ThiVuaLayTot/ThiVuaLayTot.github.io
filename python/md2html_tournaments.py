@@ -82,7 +82,7 @@ def markdown_table_to_html(markdown_table):
 
         for cell in cells:
             # For Chess.com accounts
-            elif cell.startswith('@'):
+            if cell.startswith('@'):
                 user = cell[1:]
                 username = cell[2:]
                 if user.startswith('!'):
