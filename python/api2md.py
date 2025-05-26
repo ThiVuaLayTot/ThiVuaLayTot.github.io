@@ -27,11 +27,13 @@ def parse_player_data(data):
     status = data.get('status', 'N/A')
     if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
         parse_data = {
+            'username': data.get('username', 'N/A'),
             'status': status
         }
 
     else:
         parse_data = {
+            'username': data.get('username', 'N/A'),
             'status': status,
             'avatar': data.get('avatar', 'N/A'),
             'folowers': data.get('folower', 'N/A')
@@ -139,7 +141,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
             player_data = fetch_data(urls)
             if player_data:
                 parse_data = parse_player_data(player_data)
-                new_line += write_player_data(parse_data, player)
+                new_line += write_player_data(parse_data)
 
     new_line += '\n'
 
