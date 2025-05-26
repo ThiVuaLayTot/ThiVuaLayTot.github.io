@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
 </head>
+<body>
 <nav class="page-header">
     <div class="logo">
         <a href="/"><img src="/images/tvltlogo.png" alt="Thí Vua Lấy Tốt"></a>
@@ -50,8 +51,6 @@
             </a>
             <div class="dropdown-content">
                 <a href="/events">Danh sách tổng hợp các giải đấu</a>
-                <a href="/libot-leaderboard">Bảng xếp hạng các Bot trên Lichess</a>
-                <a href="https://chess.com/forum/view/quy-dinh-co-ban-cua-clb-tungjohn-playing-chess" target="_blank">Danh sách các tài khoản vi phạm</a>
             </div>
         </div>
         <div class="section dropdown">
@@ -68,8 +67,8 @@
     <div>
         <span class="fa fa-language"></span>
     </div>
-</nav><h1 align="center">Các kỳ thủ đạt giải Chiến Trường Thí Quân</h1>
-    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải Chiến Trường Thí Quân nhiều nhất <a href="events/bestplayers/cttq">ở đây</a>.</h2>
+</nav><div id="section-page"><div class="container"><h1 align="center">Các kỳ thủ đạt giải Chiến Trường Thí Quân</h1>
+    <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải Chiến Trường Thí Quân nhiều nhất <a href="/events/bestplayers/cttq">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
 
     
@@ -77,7 +76,7 @@
     <b>Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây thì hãy báo cáo với <a href="leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
     <i>Nếu có vấn đề thì xin hãy liên hệ <a href="leaders#admins">quản trị viên</a>.</i>
 <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
-    <div style="overflow-x:auto;">
+    <div class="table">
         <table class="styled-table">
 <tr>
 <th class="name-tour">Tên giải</th>
@@ -94,9 +93,45 @@
 <td>Tháng 8/2024 [Beta]</td>
 <td>01 - 30/08/2024</td>
 <td>6 vòng</td>
-<td><a href="https://chess.com/member/Thuytrannonumber" target="_blank">Thuytrannonumber</a></td>
-<td><a href="https://chess.com/member/NghiaVoNang" target="_blank" class="closed">NghiaVoNang</a><span class="fa fa-ban"></span></td>
-<td><a href="https://chess.com/member/M-DinhHoangViet" target="_blank">M-DinhHoangViet</a></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/huytrannonumber">huytrannonumber</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/ghiaVoNang">ghiaVoNang</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/-DinhHoangViet">-DinhHoangViet</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
 <td></td>
 <td></td>
 <td><a href="https://chess.com/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-104782495" target="_blank">104782495</a></td>
@@ -105,40 +140,222 @@
 <td>Tháng 9/2024</td>
 <td>21-22/09/2024</td>
 <td>2 vòng Blitz 3+1</td>
-<td><a href="https://chess.com/member/NghiaVoNang" target="_blank" class="closed">NghiaVoNang</a><span class="fa fa-ban"></span></td>
-<td><a href="https://chess.com/member/LePhanGiaHungR07" target="_blank" class="closed">LePhanGiaHungR07</a><span class="fa fa-ban"></span></td>
-<td><a href="https://chess.com/member/MinhThuan2013" target="_blank" class="closed">MinhThuan2013</a><span class="fa fa-ban"></span></td>
-<td><a href="https://chess.com/member/huynhhuunhantt" target="_blank">huynhhuunhantt</a></td>
-<td><a href="https://chess.com/member/quynhtrangtk" target="_blank">quynhtrangtk</a></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/ghiaVoNang">ghiaVoNang</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/ePhanGiaHungR07">ePhanGiaHungR07</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/inhThuan2013">inhThuan2013</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/uynhhuunhantt">uynhhuunhantt</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/uynhtrangtk">uynhtrangtk</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
 <td><a href="https://chess.com/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-105997051" target="_blank">105997051</a></td>
 </tr>
 <tr>
 <td>Tháng 11/2024</td>
 <td>16-17/11/2024</td>
 <td>2 vòng Blitz 3+1</td>
-<td><a href="https://chess.com/member/TrgSonVN" target="_blank">TrgSonVN</a></td>
-<td><a href="https://chess.com/member/NghiaVoNang" target="_blank" class="closed">NghiaVoNang</a><span class="fa fa-ban"></span></td>
-<td><a href="https://chess.com/member/Casa_og" target="_blank">Casa_og</a></td>
-<td><a href="https://chess.com/member/quynhtrangtk" target="_blank">quynhtrangtk</a></td>
-<td><a href="https://chess.com/member/nanhvodich" target="_blank">nanhvodich</a></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/rgSonVN">rgSonVN</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/ghiaVoNang">ghiaVoNang</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/asa_og">asa_og</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/uynhtrangtk">uynhtrangtk</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/anhvodich">anhvodich</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
 <td><a href="https://chess.com/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-108266219" target="_blank">108266219</a></td>
 </tr>
 <tr>
 <td>Tháng 4/2025</td>
 <td>28-30/04/2025</td>
 <td>3 vòng Blitz 3+0</td>
-<td><a href="https://chess.com/member/Nguyen_Si_Trong_Duc" target="_blank">Nguyen_Si_Trong_Duc</a></td>
-<td><a href="https://chess.com/member/Ken_2014" target="_blank">Ken_2014</a></td>
-<td><a href="https://chess.com/member/quynhtrangtk" target="_blank">quynhtrangtk</a></td>
-<td><a href="https://chess.com/member/InvicibleIsMe" target="_blank">InvicibleIsMe</a></td>
-<td><a href="https://chess.com/member/Friend_HnLtp" target="_blank">Friend_HnLtp</a></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/guyen_Si_Trong_Duc">guyen_Si_Trong_Duc</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/en_2014">en_2014</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/uynhtrangtk">uynhtrangtk</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/nvicibleIsMe">nvicibleIsMe</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
+<td><div class="post-user-component">
+<a class="cc-avatar-component post-user-avatar">
+  <img class="cc-avatar-img" src="https://chess.com/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+</a>
+<div class="post-user-details">
+    <div class="user-tagline-component">
+        <a class="user-username-component user-tagline-username" href="https://chess.com/member/riend_HnLtp">riend_HnLtp</a>
+    </div>
+    <div class="post-user-status">
+        <span><span class="bx bx-user-check"> N/A</span>
+    </div>
+</div>
+</div></td>
 <td><a href="https://chess.com/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-113856148" target="_blank">113856148</a></td>
 </tr>
 </tbody></table>
         <br><br><hr>
         <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>
         <script src="/js/main.js"></script>
-    <footer>
+        </body>
+        </html>
+    </div></div><footer>
     <div class="footer-container">
         <div>
             <h3><a href="">Thí Vua Lấy Tốt</a></h3>
