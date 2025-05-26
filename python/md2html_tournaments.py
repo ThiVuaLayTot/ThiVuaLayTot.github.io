@@ -155,6 +155,8 @@ def markdown_table_to_html(markdown_table):
                 elif user.startswith('&'):
                     splited_username = username.split()
                     followers, avatar = splited_username[1], splited_username[2]
+                    if avatar == 'N/A':
+                        avatar = f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<{tag}><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -173,6 +175,8 @@ def markdown_table_to_html(markdown_table):
                 else:
                     splited_username = username.split()
                     followers, avatar = splited_username[1], splited_username[2]
+                    if avatar == 'N/A':
+                        avatar = f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
