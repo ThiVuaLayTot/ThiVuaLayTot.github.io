@@ -59,25 +59,27 @@ def markdown_table_to_html(markdown_table):
     rows = markdown_table.strip().split('\n')
     html_table = '''<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
     <div class="table">
-        <table class="styled-table">\n'''
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th class="name-tour">Tên giải</th>
+                <th class="organization-day"><span class="bx bx-calendar-event"></span> Ngày tổ chức</th>
+                <th class="rules">&#x265F;&#xFE0F; Thể lệ</th>
+                <th class="players"><span class="fa fa-user-alt"></span> Số kỳ thủ</th>
+                <th class="winner">&#x1F947; Top 1</th>
+                <th class="winner">&#x1F948; Top 2</th>
+                <th class="winner">&#x1F949; Top 3</th>
+                <th class="winner">&#x1F396;&#xFE0F; Top 4</th>
+                <th class="winner">&#x1F3C5; Top 5</th>
+                <th class="winner">&#x1F31F; Top 6</th>
+            </tr>\n''' 
+
     for i, row in enumerate(rows):
         cells = re.split(r'\s*\|\s*', row)
 
         if len(cells) == 1 and cells[0] == '':
             continue
 
-        html_table += '''<thead>
-<tr>
-    <th class="name-tour">Tên giải</th>
-    <th class="organization-day">&#x1F557; Ngày tổ chức</th>
-    <th class="rules">&#x265F;&#xFE0F; Thể lệ</th>
-    <th class="winner">&#x1F947; Top 1</th>
-    <th class="winner">&#x1F948; Top 2</th>
-    <th class="winner">&#x1F949; Top 3</th>
-    <th class="winner">&#x1F396;&#xFE0F; Top 4</th>
-    <th class="winner">&#x1F3C5; Top 5</th>
-    <th class="winner">&#x1F31F; Top 6</th>
-</tr>'''
         html_table += f'<tr>\n'
 
         for cell in cells:
