@@ -48,7 +48,7 @@ def generate_h1_tag(filename: str) -> str:
     }
     title = titles.get(namefile, '<span class="loader"></span>')
     h1_tag = f"""<h1 align="center">Những kỳ thủ đạt giải {title} nhiều nhất</h1>
-    <h2 align="center">Bạn có thể xem tổng hợp các giải {title} <a href="/events/tournament/{namefile}">ở đây</a>.</h2>
+    <h2 align="center">Bạn có thể xem tổng hợp các giải {title} <a href="/events/tournaments/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
     <i>Tất cả thông tin phía dưới được sắp xếp tự động, sẽ có một số kỳ thủ bị đóng tài khoản nhưng không phải vi phạm không được hiển thị ở đây. Nếu muốn chính xác hơn, hãy đối chiếu với bảng thống kê các giải <a href="/events/tournaments/{namefile}">{title}</a>.</i>
     """
@@ -136,23 +136,22 @@ def markdown_table_to_html(markdown_table: str, title: str) -> str:
     html_table = generate_html_output(sorted_players)
     return html_table
 
-def main():
-    input_directory = 'events/tournaments'
-    output_directory = 'events/bestplayers'
+input_directory = 'events/tournaments'
+output_directory = 'events/bestplayers'
 
-    os.makedirs(output_directory, exist_ok=True)
+os.makedirs(output_directory, exist_ok=True)
 
-    files = os.listdir(input_directory)
+files = os.listdir(input_directory)
 
-    for filename in files:
-        if filename.endswith('.md'):
-            with open(os.path.join(input_directory, filename), 'r', encoding='utf-8') as input_file:
-                markdown_content = input_file.read()
+for filename in files:
+    if filename.endswith('.md'):
+        with open(os.path.join(input_directory, filename), 'r', encoding='utf-8') as input_file:
+            markdown_content = input_file.read()
 
-            html_content = css_styles + nav_content() + '<div id="section-page"><div class="container">'+ generate_h1_tag(filename) + markdown_table_to_html(markdown_content, filename) + '</div></div>' + footer_content()
+        html_content = css_styles + nav_content() + '<div id="section-page"><div class="container">'+ generate_h1_tag(filename) + markdown_table_to_html(markdown_content, filename) + '</div></div>' + footer_content()
 
-            output_filename = filename.replace('.md', '.html')
-            with open(os.path.join(output_directory, output_filename), 'w', encoding='utf-8') as output_file:
-                output_file.write(html_content)
+        output_filename = filename.replace('.md', '.html')
+        with open(os.path.join(output_directory, output_filename), 'w', encoding='utf-8') as output_file:
+            output_file.write(html_content)
 
-        print("Convered {filename} to HTML successful!")
+    print(f"Convered {filename} to HTML successful!")

@@ -61,15 +61,15 @@
 }
 
 .name-tour {
-    min-width: 3rem;
+    min-width: 17.5rem;
 }
 
 .organization-day {
-    min-width: 1.3rem;
+    min-width: 8rem;
 }
 
 .rules {     
-    min-width: 1.5rem;
+    min-width: 110em;
 }
 
 .winner {
@@ -77,7 +77,7 @@
 }
 
 .stt {
-    min-width: .6rem;
+    min-width: 1rem;
 }
 
 

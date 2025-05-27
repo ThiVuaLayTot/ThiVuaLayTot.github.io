@@ -32,8 +32,6 @@ def footer_content():
         return file.read()
 
 information = """
-    <p>Các điều quan trọng trong bảng phía dưới: Nếu người chơi có ô màu đỏ và có biểu tượng <span class="fa fa-ban closed"></span> thì tài khoản đó đã bị đóng do gian lận (có thể không gian lận ở giải đó), nếu chỉ có <span class="fa fa-remove closed"></span> thì tài khoản đó bị đóng do lăng mạ hoặc lý do khác, nếu có <span class="fa fa-check special"></span> thì người chơi đó mặc dù bị đóng tài khoản nhưng xác nhận được giải.</p>
-    <b>Nếu phát hiện tài khoản của ai đó đạt giải nhưng không ở trong đây thì hãy báo cáo với <a href="leaders">các quản trị viên</a> để chúng tôi chỉnh sửa.</b>
     <i>Nếu có vấn đề thì xin hãy liên hệ <a href="leaders#admins">quản trị viên</a>.</i>
 """
 
@@ -64,15 +62,17 @@ def markdown_table_to_html(markdown_table):
             <tr>
                 <th class="name-tour">Tên giải</th>
                 <th class="organization-day"><span class="bx bx-calendar-event"></span> Ngày tổ chức</th>
-                <th class="rules">&#x265F;&#xFE0F; Thể lệ</th>
-                <th class="players"><span class="fa fa-user-alt"></span> Số kỳ thủ</th>
+                <th class="rules"><span class="bx bxs-chess"></span> Thể lệ</th>
+                <th class="players"><span class="fa fa-users"></span> Số kỳ thủ</th>
                 <th class="winner">&#x1F947; Top 1</th>
                 <th class="winner">&#x1F948; Top 2</th>
                 <th class="winner">&#x1F949; Top 3</th>
                 <th class="winner">&#x1F396;&#xFE0F; Top 4</th>
                 <th class="winner">&#x1F3C5; Top 5</th>
                 <th class="winner">&#x1F31F; Top 6</th>
-            </tr>\n''' 
+            </tr>
+            </thead>
+            <tbody>\n''' 
 
     for i, row in enumerate(rows):
         cells = re.split(r'\s*\|\s*', row)
@@ -148,7 +148,7 @@ def markdown_table_to_html(markdown_table):
                     splited_username = username.split()
                     name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
-                    avatar = splited_username[2] if len(splited_username) > 2 else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -160,7 +160,7 @@ def markdown_table_to_html(markdown_table):
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon-premium"></span> <span> Chess.com Membership</span></div></div></span>
             <span class="post-view-meta-separator"></span>
-            <span><span class="bx bx-user-check"> {followers} followers</span>
+            <span><span class="bx bx-user-check">{followers} followers</span>
         </div>
     </div>
 </div></td>'''
@@ -168,7 +168,7 @@ def markdown_table_to_html(markdown_table):
                     splited_username = user.split()
                     name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
-                    avatar = splited_username[2] if len(splited_username) > 2 else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
     <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -178,10 +178,10 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{name}">{name}</a>
         </div>
         <div class="post-user-status">
-            <span><span class="bx bx-user-check"> {followers} followers</span>
+            <span><span class="bx bx-user-check">{followers} followers</span>
         </div>
     </div>
-</div></td>'''
+</div></td>''''
             elif cell.startswith('f-'):
                 idtour = cell[2:]
                 cell_content = f'<td><a href="{cc}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></td>'
@@ -200,8 +200,6 @@ def markdown_table_to_html(markdown_table):
                 cell_content = f'<td>{cell}</td>'
             html_table += f'{cell_content}\n'
         html_table += '</tr>\n'
-        if i == 0:
-            html_table += '</thead><tbody>'
     html_table += '''</tbody></table>
         <br><br><hr>
         <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>
@@ -225,4 +223,4 @@ for directory in directories:
                 with open(os.path.join(directory, html_filename), 'w', encoding='utf-8') as html_file:
                     html_file.write(styled_html_table)
                 
-                print("Convered {filename} to HTML successful!")
+                print(f"Convered {filename} to HTML successful!")
