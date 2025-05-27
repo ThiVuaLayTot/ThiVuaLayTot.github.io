@@ -113,11 +113,27 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
     """
     rank = 1
     for player, total_points, achievements in sorted_players:
+        player_splited = player.split()
+        username = player_splited[0]
+        followers = player_splited[1] if len(player_splited) > 1 else 'N/A'
+        avatar = player_splited[2] if len(player_splited) > 2 and player_splited[2] != 'N/A' else f'https://chess.com/bundles/web/images/user-image.007dad08.svg'
         achievements_display = ', '.join(achievements)
         html_output += f"""
         <tr>
             <td class="stt">#{rank}</td>
-            <td><a href="https://chess.com/member/{player}">{player}</a></td>
+            <td><div class="post-user-component">
+    <a class="cc-avatar-component post-user-avatar">
+    <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
+    </a>
+    <div class="post-user-details">
+        <div class="user-tagline-component">
+            <a class="user-username-component user-tagline-username" href="https://chess.com/member/{username}">{username}</a>
+        </div>
+        <div class="post-user-status">
+            <span><span class="bx bx-user-check">{followers} followers</span>
+        </div>
+    </div>
+</div></td>
             <td>{achievements_display}</td>
         </tr>
         """

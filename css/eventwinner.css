@@ -20,6 +20,7 @@
     display: table-row-group !important;
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 
 .styled-table th,
@@ -69,7 +70,7 @@
 }
 
 .rules {     
-    min-width: 110em;
+    min-width: 10em;
 }
 
 .winner {

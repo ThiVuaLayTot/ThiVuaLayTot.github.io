@@ -181,7 +181,7 @@ def markdown_table_to_html(markdown_table):
             <span><span class="bx bx-user-check">{followers} followers</span>
         </div>
     </div>
-</div></td>''''
+</div></td>'''
             elif cell.startswith('f-'):
                 idtour = cell[2:]
                 cell_content = f'<td><a href="{cc}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></td>'
