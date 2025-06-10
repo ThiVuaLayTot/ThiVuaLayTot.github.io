@@ -5,12 +5,12 @@
     --tab-font: "Open Sans Condensed", sans-serif;
     --primary-color: #f9532d;
     --primary-dark: #081229;
-    --primary-nav: #24588f;
+    --primary-nav: #041a2d;
     --primary-text: #fff;
     --primary-link: #409eff;
     --primary-link-hover: #1c9ded;
     --color-blue: #409EFF;
-    --nav-text: #ffffff;
+    --nav-text: #2998FF;
     --primary-sucess: #00E676;
     --primary-warning: #FFB300;
     --color-purple: #8342f3;
@@ -44,10 +44,6 @@ body {
     padding: 0 5rem;
 }
 
-.img-w {
-    width: 100%;
-}
-
 .text-color {
     background: var(--color-pink);
     background: linear-gradient(to right, var(--color-pink) 0%, #35c9fc 100%);
@@ -57,17 +53,24 @@ body {
 
 
 /* Nav */
+@keyframes navani {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-nav {
+.page-header {
+    display: flex;
     position: sticky;
     box-shadow: 0 5px 17px rgba(127, 127, 127, 0.3);
     top: 0;
     z-index: 2;
     background-color: var(--primary-nav);
-}
-
-.page-header {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: .3rem 2rem;
@@ -81,8 +84,9 @@ nav {
 
 .topnav a {
     display: inline-block;
-    color: var(--nav-text);
+    color: #fff;
     text-decoration: none;
+
     font-size: 1.05rem;
     font-weight: 600;
     letter-spacing: .5px;
@@ -109,6 +113,12 @@ nav {
     transition: transform .3s ease;
 }
 
+.topnav a:hover {
+    color: var(--nav-text);
+    text-shadow: 0 0 15px var(--nav-text);
+    text-decoration: none
+}
+
 .topnav a:hover::before {
     transform: scale(1, 1);
 }
@@ -116,33 +126,6 @@ nav {
 .topnav .section {
     text-align: center;
     border: none;
-}
-
-.dropdown .dropbtn {
-    outline: none;
-    font-family: inherit;
-    margin: 0;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    min-width: 160px;
-    background-color: var(--color-green);
-    box-shadow: 0px 8px 16px rgba(232, 105, 255, 0.8);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    float: none;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    border: 1.5px solid var(--color-blue)
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 
 .topnav .icon {
@@ -161,9 +144,6 @@ nav {
 
 @media screen and (max-width: 800px) {
     .topnav a:not(:first-child),
-    .dropdown .dropbtn {
-        display: none;
-    }
     .topnav a.icon {
         float: right;
         display: block;
@@ -182,20 +162,6 @@ nav {
     .topnav.responsive a {
         float: none;
         display: block;
-        text-align: left;
-    }
-    .topnav.responsive .dropdown {
-        float: none;
-    }
-    .topnav.responsive .dropdown-content {
-        display: none;
-    }
-    .topnav.responsive .dropdown-content a {
-        display: none;
-    }
-    .topnav.responsive .dropdown .dropbtn {
-        display: block;
-        width: 100%;
         text-align: left;
     }
 }
@@ -349,7 +315,9 @@ a {
 a:hover {
     color: var(--primary-link-hover);
     text-decoration: underline;
+    transition: text-decoration 1s;
 }
+
 
 hr {
     height: 3px;
@@ -575,36 +543,117 @@ hr {
 /* Style cho footer */
 
 footer {
-    padding: 2rem;
-    background-color: rgba(88, 88, 88, 0.143);
-    .footer-container {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: repeat(3, 1fr);
-    }
-    h3 {
-        text-align: center;
-    }
-    h3 a {
-        border-bottom: .125rem solid var(--primary-sucess);
-    }
-    strong {
-        font-size: 18px;
-        margin-left: 1rem
-    }
-    ul li a {
-        font-size: 16px
-    }
+    background: #0c2f5fb0;
+    width: 100%;
+}
+footer .content {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 30px 10px;
 }
 
-@media (max-width: 55rem) {
-    footer .footer-container {
-        grid-template-columns: 1fr
-    }
-    footer .footer-container .footer-social {
-        justify-content: flex-start
-    }
+footer .content .top {
+    margin-bottom: 10px;
 }
+
+.content .top .logo-details {
+    color: #fff;
+    font-size: 30px;
+}
+
+footer .content .link-boxes {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+footer .content .link-boxes .box {
+    width: 60%;
+    flex-wrap: wrap;
+}
+
+.content .link-boxes .box .link_name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            position: relative;
+}
+
+.link-boxes .box .link_name::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            height: 2px;
+            width: 35px;
+            background: #fff;
+}
+
+.content .link-boxes .box li {
+            margin: 6px 0;
+            list-style: none;
+}
+
+.content .link-boxes .box li a {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 400;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.4s ease
+}
+
+.content .link-boxes .box li a:hover {
+            opacity: 1;
+            text-decoration: underline;
+}
+
+.content .link-boxes .input-box {
+            margin-right: 55px;
+            flex-wrap: wrap;
+}
+
+footer .bottom-details {
+            width: 100%;
+            background: #111;
+}
+footer .bottom-details .bottom_text {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 20px 40px;display: flex;
+            justify-content: space-between;
+}
+.bottom-details .bottom_text span, .bottom-details .bottom_text a {
+            font-size: 14px;
+            font-weight: 300;
+            color: #fff; opacity: 0.8;
+            text-decoration: none;
+}
+
+.bottom-details .bottom_text a:hover {
+            opacity: 1;
+            text-decoration: underline;
+}
+
+.bottom-details .bottom_text a {
+            margin-right: 10px;
+}
+        @media (max-width: 700px) {
+            footer .content .link-boxes {
+                flex-wrap: wrap;
+            }
+            .box {
+                width: 80%;
+                margin-top: 10px;
+            }
+            footer .content .link-boxes 
+            .input-box {
+                width: 40%;
+                margin-top: 10px;
+            }
+        }
 
 
 /* Style cho thẻ */
@@ -827,7 +876,7 @@ footer {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 250px;
+    width: 275px;
     transform: translateX(-50%);
     padding: 0.3em 0.6em;
     opacity: 0;
