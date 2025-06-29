@@ -1,9 +1,9 @@
 function toggleMenu() {
-    var x = document.querySelector(".topnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
+    const nav = document.getElementById("tvlttopnav");
+    if (nav.className === "topnav") {
+        nav.className += " responsive";
     } else {
-        x.className = "topnav";
+        nav.className = "topnav";
     }
 }
 

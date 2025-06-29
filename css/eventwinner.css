@@ -20,6 +20,7 @@
     display: table-row-group !important;
     position: sticky;
     top: 0;
+    height: 15px;
     z-index: 1;
 }
 

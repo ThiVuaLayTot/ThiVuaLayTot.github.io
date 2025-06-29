@@ -52,8 +52,8 @@ def generate_h1_tag(filename):
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
-    cc = 'https://chess.com'
-    lc = 'https://lc.org'
+    cc = '//chess.com'
+    lc = '//liches.org'
     rows = markdown_table.strip().split('\n')
     html_table = '''<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm"><script src="/js/search-events.js"></script>
     <div class="table">
@@ -126,7 +126,7 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><span class="bx bx-user-check"></span>
+            <span><span class="bx bx-user-check">{followers} followers</span>
         </div>
     </div>
 </div></td>'''
