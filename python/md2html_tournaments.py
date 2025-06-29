@@ -117,6 +117,7 @@ def markdown_table_to_html(markdown_table):
 </div></td>'''
                 elif user.startswith('*'):
                     splited_username = username.split()
+                    followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
