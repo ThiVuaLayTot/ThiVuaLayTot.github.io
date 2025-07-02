@@ -26,7 +26,7 @@ def read_urls_from_url(url: str):
             if id:
                 urls.append([
                     f'https://api.chess.com/pub/tournament/{id}',
-                    f'https://www.chess.com/tournament/{id}/1'
+                    f'https://api.chess.com/tournament/{id}/1'
                 ])
     else:
         print(f"Failed to get content from {url}, status code: {response.status_code}")
