@@ -103,8 +103,8 @@ def write_tournament_to_md(parsed, md_filename):
     print(f"Tournament {parsed['name']} written!")
 
 def write_summary_top5(month, year, md_filename):
-    sorted_players = sorted(player_points.items(), key=lambda x: -x[1])[:5]
-    summary = f"<a href='https://www.chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}'>Chiến Trường Thí Quân tháng {month} năm {year}</a>|Các ngày|Arena|{len(player_points)}"
+    sorted_players = sorted(player_points.items(), key=lambda x: -x[1])[:6]
+    summary = f"<b><a href='https://www.chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|Các ngày|Arena|{len(player_points)}"
     for username, pts in sorted_players:
         fl = player_followers.get(username, 0)
         ava = player_avatars.get(username, '')
@@ -113,7 +113,7 @@ def write_summary_top5(month, year, md_filename):
 
     with open(md_filename, 'a', encoding='utf-8') as f:
         f.write(summary)
-    print(f"Top 5 summary written for {month}-{year}!")
+    print(f"Top 6 summary written for {month}-{year}!")
 
 if __name__ == "__main__":
     md_file = 'events/tournaments/cttq.md'
