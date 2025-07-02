@@ -7,7 +7,7 @@ import sys
 
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
-MAIN_URL = 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw/0ccea68a88539b801dde5770498c64c707bdce80/cttq.txt'
+MAIN_URL = 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw/e2c74811ac31cb3d63f29cfcc0d078a3505b2ff1/cttq.txt'
 
 # Lưu dữ liệu players toàn cục
 player_points = {}
@@ -125,7 +125,7 @@ if __name__ == "__main__":
                 continue
             print("Processing file:", id)
 
-            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/acca2ddde6ace721809a15e5d1bcaf8b03b55867/{id}.txt'
+            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/2294437cdcc0f053904990fa7b5bd59ccd81a4e7/{id}.txt'
             print("Fetching subfile:", file_url)
             urls = read_urls_from_url(file_url)
             print("URLs found:", urls)
