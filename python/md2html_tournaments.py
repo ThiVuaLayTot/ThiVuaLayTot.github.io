@@ -88,9 +88,11 @@ def markdown_table_to_html(markdown_table):
                 user = cell[1:]
                 username = cell[2:]
                 if user.startswith('!'):
+                    splited_username = username.split()
+                    avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
-      <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+      <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
@@ -102,9 +104,11 @@ def markdown_table_to_html(markdown_table):
     </div>
 </div></td>'''
                 elif user.startswith('#'):
+                    splited_username = username.split()
+                    avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
-      <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+      <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
@@ -118,9 +122,10 @@ def markdown_table_to_html(markdown_table):
                 elif user.startswith('*'):
                     splited_username = username.split()
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
+                    avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
-      <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+      <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
@@ -132,9 +137,11 @@ def markdown_table_to_html(markdown_table):
     </div>
 </div></td>'''
                 elif user.startswith('/'):
+                    splited_username = username.split()
+                    avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
-      <img class="cc-avatar-img" src="{cc}/bundles/web/images/user-image.007dad08.svg" height="50" width="50">
+      <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
@@ -183,9 +190,6 @@ def markdown_table_to_html(markdown_table):
         </div>
     </div>
 </div></td>'''
-            elif cell.startswith('f-'):
-                idtour = cell[2:]
-                cell_content = f'<td><a href="{cc}/clubs/forum/view/link-giai-chien-truong-thi-quan#comment-{idtour}" target="_blank">{idtour}</a></td>'
             # For Lichess accounts
             elif cell.startswith('$'):
                 user = cell[1:]

@@ -1,17 +1,24 @@
-import urllib.request
+from datetime import datetime
 import orjson
 import os
 import os.path
+import requests
 import sys
-from datetime import datetime
 import urllib.error
+import urllib.request
 
+events = ['tvlt', 'cbtt', 'dttv']
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
-def read_urls_from_txt(file_path):
-    with open(file_path, 'r', encoding='utf-8') as f:
-        urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in f.readlines()]
+def read_urls_from_url(url: str):
+    response = requests.get(url)
+    if response.status_code == 200:
+        lines = response.text.splitlines()
+        urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in lines if line.strip()]
+    else:
+        print(f"Failed to get content from {url}, status code: {response.status_code}")
+        return []
     return urls
 
 def fetch_data(url):
@@ -161,23 +168,19 @@ def write_tournament_data_to_file(parsed_data, md_filename):
 
 if __name__ == "__main__":
     try:
-        for filename in os.listdir('events/tournaments'):
-            if filename.endswith('.txt'):
-                file_path = os.path.join('events/tournaments', filename)
-                urls = read_urls_from_txt(file_path)
-                
-                md_filename = file_path.replace('.txt', '.md')
-
-                if os.path.exists(md_filename):
+        for filename in events:
+            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/acca2ddde6ace721809a15e5d1bcaf8b03b55867/{filename}.txt'
+            urls = read_urls_from_url(file_url)
+            md_filename = f'events/tournaments/{filename}.md'
+            if os.path.exists(md_filename):
                     os.remove(md_filename)
-
-                for url in urls:
-                    tournament_data = fetch_data(url)
-                    
-                    if tournament_data:
-                        parsed_data = parse_tournament_data(tournament_data)
-
-                        write_tournament_data_to_file(parsed_data, md_filename)
+            for url in urls:
+                tournament_data = fetch_data(url)
+                if tournament_data:
+                    parsed_data = parse_tournament_data(tournament_data)
+                    write_tournament_data_to_file(parsed_data, md_filename)
+                else:
+                    print(f"No data found for {url}. Skipping.")
 
     except KeyboardInterrupt:
         print("Process interrupted.")

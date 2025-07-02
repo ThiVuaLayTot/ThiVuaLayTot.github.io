@@ -54,7 +54,7 @@ def generate_h1_tag(filename: str) -> str:
     """
     return h1_tag
 
-def parse_markdown_table(markdown_table: str) -> defaultdict:
+def parse_markdown_table(markdown_table: str, event) -> defaultdict:
     players = defaultdict(Player)
     rows = markdown_table.strip().split('\n')
 
@@ -64,33 +64,34 @@ def parse_markdown_table(markdown_table: str) -> defaultdict:
             continue
 
         event_date = cells[0]
-        candidate_players = cells[3:9]
+        if (event_date.startswith("<b>") and event == 'cttq.md') or (event != 'cttq.md'):
+            candidate_players = cells[3:9]
 
-        valid_players = []
-        for player in candidate_players:
-            if player.startswith('@'):
-                username = player[1:]
-                if not (username.startswith('#') or username.startswith('!') or username.startswith('/')):
-                    valid_players.append(username)
+            valid_players = []
+            for player in candidate_players:
+                if player.startswith('@'):
+                    username = player[1:]
+                    if not (username.startswith('#') or username.startswith('!') or username.startswith('/')):
+                        valid_players.append(username)
 
-        valid_players = valid_players[:3]
-        ranks = ['🥇', '🥈', '🥉']
+            valid_players = valid_players[:3]
+            ranks = ['🥇', '🥈', '🥉']
 
-        for i, username in enumerate(valid_players):
-            players[username].achievements.append(f"{ranks[i]}({event_date})")
-            if i == 0:
-                players[username].gold += 1
-            elif i == 1:
-                players[username].silver += 1
-            elif i == 2:
-                players[username].bronze += 1
+            for i, username in enumerate(valid_players):
+                players[username].achievements.append(f"{ranks[i]}({event_date})")
+                if i == 0:
+                    players[username].gold += 1
+                elif i == 1:
+                    players[username].silver += 1
+                elif i == 2:
+                    players[username].bronze += 1
 
     return players
 
 def sort_players(players: defaultdict) -> List[Tuple[str, int, List[str]]]:
     player_list = []
     for player, data in players.items():
-        total_points = data.gold + data.silver + data.bronze
+        total_points = data.gold * 3 + data.silver * 2 + data.bronze
         player_list.append((player, total_points, data.achievements))
 
     player_list.sort(key=lambda x: -x[1])
@@ -147,7 +148,7 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
     return html_output
 
 def markdown_table_to_html(markdown_table: str, title: str) -> str:
-    players = parse_markdown_table(markdown_table)
+    players = parse_markdown_table(markdown_table, title)
     sorted_players = sort_players(players)
     html_table = generate_html_output(sorted_players)
     return html_table
