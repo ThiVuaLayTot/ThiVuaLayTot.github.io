@@ -123,10 +123,14 @@ if __name__ == "__main__":
             id = line.strip()
             if not id:
                 continue
+            print("Processing file:", id)
 
             file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/acca2ddde6ace721809a15e5d1bcaf8b03b55867/{id}.txt'
+            print("Fetching subfile:", file_url)
             urls = read_urls_from_url(file_url)
+            print("URLs found:", urls)
             for api_url, web_url in urls:
+                print("Fetching:", api_url)
                 tournament_data = fetch_data(api_url)
                 if tournament_data:
                     parsed = parse_tournament_data(tournament_data)
