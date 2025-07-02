@@ -177,8 +177,7 @@ def markdown_table_to_html(markdown_table):
                     name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
-                    if len(splited_username) > 3:
-                        points = splited_username[3]
+                    points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
     <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
