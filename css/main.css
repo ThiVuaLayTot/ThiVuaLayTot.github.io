@@ -112,6 +112,7 @@ body {
   position: absolute;
   left: 12.5%;
   bottom: 0;
+  text-decoration: none;
   width: 75%;
   height: 2px;
   background: linear-gradient(to right, var(--color-pink) 0%, #35c9fc 100%);
@@ -123,11 +124,13 @@ body {
 .topnav a:hover::before {
   transform: scaleX(1);
   transform-origin: left;
+  text-decoration: none;
 }
 
 .topnav a:hover {
   color: var(--nav-text);
   text-shadow: 0 0 15px var(--nav-text);
+  text-decoration: none;
 }
 
 .icon {
