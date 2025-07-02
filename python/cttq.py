@@ -133,8 +133,8 @@ if __name__ == "__main__":
                     update_player_points(parsed['players'], parsed['points'])
                     write_tournament_to_md(parsed, md_file)
 
-        m, y = line.split('-')[0], line.split('-')[1]
-        write_summary_top5(m, y, md_file)
+            m, y = line.split('-')[0], line.split('-')[1]
+            write_summary_top5(m, y, md_file)
 
     except KeyboardInterrupt:
         print("Process interrupted.")
