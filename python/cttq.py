@@ -120,8 +120,8 @@ def write_tournament_to_md(parsed, md_filename):
 if __name__ == "__main__":
     md_file = 'events/tournaments/cttq.md'
     try:
-        if os.path.exists(md_filename):
-            os.remove(md_filename)
+        if os.path.exists(md_file):
+            os.remove(md_file)
         ids = requests.get(MAIN_URL).text.splitlines()
         for line in ids:
             id = line.strip()
