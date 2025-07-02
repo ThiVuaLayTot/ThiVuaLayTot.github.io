@@ -64,7 +64,7 @@ def parse_markdown_table(markdown_table: str, event) -> defaultdict:
             continue
 
         event_date = cells[0]
-        if (event_date.startswith("<b>") and event == 'cttq.md') or (event != 'cttq.md'):
+        if (event_date.startswith('<b>') and event == 'cttq.md') or (event != 'cttq.md'):
             candidate_players = cells[3:9]
 
             valid_players = []

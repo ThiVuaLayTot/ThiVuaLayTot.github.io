@@ -132,7 +132,7 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><span class="bx bx-user-check">{followers} followers</span>
+            <span><span class="bx bx-user-check">{followers} người theo dõi</span>
         </div>
     </div>
 </div></td>'''
@@ -168,7 +168,7 @@ def markdown_table_to_html(markdown_table):
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon-premium"></span> <span> Chess.com Membership</span></div></div></span>
             <span class="post-view-meta-separator"></span>
-            <span><span class="bx bx-user-check">{followers} followers</span>
+            <span><span class="bx bx-user-check">{followers} người theo dõi</span>
         </div>
     </div>
 </div></td>'''
@@ -177,16 +177,18 @@ def markdown_table_to_html(markdown_table):
                     name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    if len(splited_username) > 3:
+                        points = splited_username[3]
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
     <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}">{name}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" title="{points} điểm">{name}</a>
         </div>
         <div class="post-user-status">
-            <span><span class="bx bx-user-check">{followers} followers</span>
+            <span><span class="bx bx-user-check">{followers} người theo dõi</span>
         </div>
     </div>
 </div></td>'''

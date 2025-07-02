@@ -4,13 +4,13 @@ from datetime import datetime
 import urllib.request
 import urllib.error
 import sys
+from collections import defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
 MAIN_URL = 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw/e2c74811ac31cb3d63f29cfcc0d078a3505b2ff1/cttq.txt'
 
-# Lưu dữ liệu players toàn cục
-player_points = {}
+player_points_per_month = defaultdict(lambda: defaultdict(int))
 player_followers = {}
 player_avatars = {}
 
@@ -74,13 +74,13 @@ def parse_tournament_data(data):
     }
     return parsed
 
-def update_player_points(players, points):
+def update_player_points(players, points, month_year):
     for username, pts in zip(players, points):
-        if username not in player_points:
-            player_points[username] = 0
-        player_points[username] += pts
+        player_points_per_month[month_year][username] += pts
 
 def fetch_player_details(username):
+    if username in player_followers:
+        return
     url = f'https://api.chess.com/pub/player/{username}'
     data = fetch_data(url)
     followers = data.get('followers', 0)
@@ -88,11 +88,26 @@ def fetch_player_details(username):
     player_followers[username] = followers
     player_avatars[username] = avatar
 
+def write_summary_top5(month_year, md_filename):
+    month, year = month_year.split('-')
+    points = player_points_per_month[month_year]
+    sorted_players = sorted(points.items(), key=lambda x: -x[1])[:6]
+    summary = f"<b><a href='//chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|Các ngày|Arena|{len(points)}"
+    for username, pts in sorted_players:
+        fetch_player_details(username)
+        fl = player_followers.get(username, 0)
+        ava = player_avatars.get(username, '')
+        summary += f"|{username} {fl} {ava} {pts}"
+    summary += "\n"
+
+    with open(md_filename, 'a', encoding='utf-8') as f:
+        f.write(summary)
+    print(f"Top 6 summary written for {month_year}!")
+
 def write_tournament_to_md(parsed, md_filename):
     line = f"<a href='{parsed['url']}'>{parsed['name']}</a>|{parsed['start_time']}|{parsed['time_control']} {parsed['time_class']}|{len(parsed['players'])}"
     for player in parsed['players']:
-        if player not in player_followers:
-            fetch_player_details(player)
+        fetch_player_details(player)
         fl = player_followers[player]
         ava = player_avatars[player]
         line += f"|@{player} {fl} {ava}"
@@ -102,19 +117,6 @@ def write_tournament_to_md(parsed, md_filename):
         f.write(line)
     print(f"Tournament {parsed['name']} written!")
 
-def write_summary_top5(month, year, md_filename):
-    sorted_players = sorted(player_points.items(), key=lambda x: -x[1])[:6]
-    summary = f"<b><a href='https://www.chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|Các ngày|Arena|{len(player_points)}"
-    for username, pts in sorted_players:
-        fl = player_followers.get(username, 0)
-        ava = player_avatars.get(username, '')
-        summary += f"|{username} {pts} {fl} {ava}"
-    summary += "\n"
-
-    with open(md_filename, 'a', encoding='utf-8') as f:
-        f.write(summary)
-    print(f"Top 6 summary written for {month}-{year}!")
-
 if __name__ == "__main__":
     md_file = 'events/tournaments/cttq.md'
     try:
@@ -123,22 +125,23 @@ if __name__ == "__main__":
             id = line.strip()
             if not id:
                 continue
-            print("Processing file:", id)
+            print(f"Processing month: {id}")
 
             file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/2294437cdcc0f053904990fa7b5bd59ccd81a4e7/{id}.txt'
-            print("Fetching subfile:", file_url)
             urls = read_urls_from_url(file_url)
-            print("URLs found:", urls)
+
+            month_events = []
             for api_url, web_url in urls:
-                print("Fetching:", api_url)
                 tournament_data = fetch_data(api_url)
                 if tournament_data:
                     parsed = parse_tournament_data(tournament_data)
-                    update_player_points(parsed['players'], parsed['points'])
-                    write_tournament_to_md(parsed, md_file)
+                    update_player_points(parsed['players'], parsed['points'], id)
+                    month_events.append(parsed)
 
-            m, y = line.split('-')[0], line.split('-')[1]
-            write_summary_top5(m, y, md_file)
+            write_summary_top5(id, md_file)
+
+            for parsed in month_events:
+                write_tournament_to_md(parsed, md_file)
 
     except KeyboardInterrupt:
         print("Process interrupted.")
