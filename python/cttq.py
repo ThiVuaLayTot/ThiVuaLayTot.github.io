@@ -39,9 +39,9 @@ def fetch_data(url):
         print(f"Error fetching data from {url}: {e}")
         return {}
 
-def parse_tournament_data(data):
-    players = [player.get('username', 'N/A') for player in data.get('players', [])]
-    points = [player.get('points', 0) for player in data.get('players', [])]
+def parse_tournament_data(data, dt):
+    players = [player.get('username', 'N/A') for player in dt.get('players', [])]
+    points = [player.get('points', 0) for player in dt.get('players', [])]
 
     time_control = data.get('settings', {}).get('time_control', 'N/A')
     if isinstance(time_control, str) and '+' in time_control:
@@ -97,7 +97,7 @@ def write_summary_top5(month_year, md_filename):
         fetch_player_details(username)
         fl = player_followers.get(username, 0)
         ava = player_avatars.get(username, '')
-        summary += f"|{username} {fl} {ava} {pts}"
+        summary += f"|@{username} {fl} {ava} {pts}"
     summary += "\n"
 
     with open(md_filename, 'a', encoding='utf-8') as f:
@@ -120,6 +120,8 @@ def write_tournament_to_md(parsed, md_filename):
 if __name__ == "__main__":
     md_file = 'events/tournaments/cttq.md'
     try:
+        if os.path.exists(md_filename):
+            os.remove(md_filename)
         ids = requests.get(MAIN_URL).text.splitlines()
         for line in ids:
             id = line.strip()
@@ -133,8 +135,9 @@ if __name__ == "__main__":
             month_events = []
             for api_url, web_url in urls:
                 tournament_data = fetch_data(api_url)
-                if tournament_data:
-                    parsed = parse_tournament_data(tournament_data)
+                player_data = fetch_data(web_url)
+                if tournament_data and player_data:
+                    parsed = parse_tournament_data(tournament_data, player_data)
                     update_player_points(parsed['players'], parsed['points'], id)
                     month_events.append(parsed)
 

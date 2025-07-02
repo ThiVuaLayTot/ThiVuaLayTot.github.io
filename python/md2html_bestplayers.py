@@ -54,7 +54,7 @@ def generate_h1_tag(filename: str) -> str:
     """
     return h1_tag
 
-def parse_markdown_table(markdown_table: str, event) -> defaultdict:
+def parse_markdown_table(markdown_table: str, event: str) -> defaultdict:
     players = defaultdict(Player)
     rows = markdown_table.strip().split('\n')
 
