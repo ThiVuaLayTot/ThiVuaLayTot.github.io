@@ -1,0 +1,1 @@
+Tất cả đã có bản quyền nên không được sao chép hay lấy làm mục đích khác.

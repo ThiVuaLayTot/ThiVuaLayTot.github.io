@@ -1,0 +1,244 @@
+.table {
+    position:relative;width:100%;height:30rem;overflow:auto;max-width:inherit;max-height:inherit
+}
+
+.styled-table {
+    position: relative;
+    top: 5px;
+    left: 0;
+    border-collapse: collapse;
+    width: 100%;
+    height: 50rem;
+    border: 1px solid var(--color--light-green);
+    font-size: 16px;
+    max-width: inherit;
+    max-height: inherit;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.styled-table thead {
+    display: table-row-group !important;
+    position: sticky;
+    top: 0;
+    height: 15px;
+    z-index: 1;
+}
+
+.styled-table th,
+.styled-table td {
+    border: 1px solid var(--color-light-green);
+    padding: 8px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1rem
+}
+
+.styled-table th {
+    background-color: var(--color-blue);
+    height: 3rem
+}
+
+.styled-table td {
+    height: 4.5rem
+}
+
+.styled-table tr:nth-child(even) {background-color: #4b4d4e3f;}
+
+.styled-table tr:hover {
+    background-color: rgba(101, 121, 132, 0.5);
+}
+
+.styled-table td:hover {
+    background-color: #6d6c865b;
+}
+
+.styled-table a {
+    opacity: 0;
+    animation: topSideAni 1s ease forwards;
+}
+
+.styled-table a:hover {
+    background-color: var(--primary-link-hover);
+}
+
+.name-tour {
+    min-width: 17.5rem;
+}
+
+.organization-day {
+    min-width: 8rem;
+}
+
+.rules {     
+    min-width: 10em;
+}
+
+.winner {
+    min-width: 2rem;
+}
+
+.stt {
+    min-width: 1rem;
+}
+
+
+.post-user-component {
+    align-items: center;
+    display: inline-flex;
+}
+
+.post-user-avatar {
+    align-self: flex-start;
+    display: flex;
+    flex-shrink: 0;
+    position: relative
+}
+
+.cc-avatar-component {
+    border-radius: .3rem;
+    box-shadow: inset 0 0 0 .1rem hsla(0,0%,100%,.05);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 50px;
+    height: 50px
+}
+
+.cc-avatar-img {
+    object-fit: cover
+}
+
+.post-user-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.post-user-status {
+    display: inline-flex;
+    align-items: center;
+}
+
+.user-tagline-component {
+    align-items: center;
+    display: flex;
+    gap: .5rem;
+    max-width: 100%;
+    position: relative
+}
+
+.user-tagline-username {
+    max-width: 30rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.user-tagline-component {
+    align-items: center;
+    display: flex;
+    gap: .5rem;
+    max-width: 100%;
+    position: relative
+}
+
+.post-view-meta-separator {
+    margin: 0 .3rem
+}
+
+.user-badges-component {
+    align-items: center;
+    -moz-column-gap: .8rem;
+    column-gap: .8rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: .4rem;
+    max-width: 35rem;
+    row-gap: .8rem
+}
+
+.user-badges-badge {
+    align-items: center;
+    border-radius: .3rem;
+    -moz-column-gap: .4rem;
+    column-gap: .4rem;
+    display: flex;
+    padding: .2rem .4rem
+}
+
+.user-badges-icon-fair {
+    content: url(https://images.chesscomfiles.com/chess-flair/staff_mod_account/blocked.svg);
+    width: 1.5rem
+}
+
+.user-badges-icon-abuse {
+    content: url(https://images.chesscomfiles.com/chess-flair/staff_mod_account/clear.svg);
+    width: 1.5rem
+}
+
+.user-badges-icon-inactive {
+    content: url(https://images.chesscomfiles.com/chess-flair/staff_mod_account/clear_light.svg);
+    width: 1.5rem
+}
+
+.user-badges-icon-premium{
+    content: url(https://images.chesscomfiles.com/chess-flair/membership_icons/diamond_traditional.svg);
+    width: 1.5rem
+}
+
+.user-badges-label {
+    color: inherit;
+    padding-right: .2rem
+}
+
+.user-badges-closed {
+    background-color: color-mix(in srgb, #fa412d, transparent 60%);
+    color: #de2c3c
+}
+
+.user-badges-inactive {
+    background-color: color-mix(in srgb, #bebdb9, transparent 60%);
+    color: #c7c4c4
+}
+
+.user-badges-premium {
+    background-color: color-mix(in srgb, #81b64c, transparent 60%);
+    color: #75e575
+}
+
+.search-bar {
+    font-family: "Montserrat", sans-serif;
+    width: 75%;
+    height: 45px;
+    padding-left: 2.5rem;
+    box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+    border: 0;
+    border-radius: 12px;
+    background-color: #485270;
+    outline: none;
+    color: #bdbecb;
+    transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+    cursor: text;
+    z-index: 0;
+}
+
+.search-bar::placeholder {
+    color: #bdbecb;
+}
+
+.search-bar:hover {
+    box-shadow: 0 0 0 2.5px #2f303d, 0px 0px 25px -15px #000;
+}
+
+.search-bar:active {
+    transform: scale(0.95);
+}
+
+.search-bar:focus {
+    box-shadow: 0 0 0 2.5px #2f303d;
+}
