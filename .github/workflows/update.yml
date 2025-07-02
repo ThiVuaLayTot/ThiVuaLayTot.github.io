@@ -34,6 +34,7 @@ jobs:
       - name: Update contents
         run: |
           python3 python/api2md.py
+          python3 python/cttq.py
           python3 python/md2html_tournaments.py
           python3 python/md2html_bestplayers.py
           python3 python/update_time.py
