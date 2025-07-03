@@ -11,7 +11,7 @@ from collections import defaultdict
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
 MAIN_URL = 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw/e2c74811ac31cb3d63f29cfcc0d078a3505b2ff1/cttq.txt'
-
+round_tournament = 0
 player_points_per_month = defaultdict(lambda: defaultdict(int))
 player_followers = {}
 player_avatars = {}
@@ -22,6 +22,7 @@ def read_urls_from_url(url: str):
     urls = []
     if response.status_code == 200:
         lines = response.text.splitlines()
+        round_tournament = 0
         for line in lines:
             id = line.strip()
             if id:
@@ -29,6 +30,7 @@ def read_urls_from_url(url: str):
                     f'https://api.chess.com/pub/tournament/{id}',
                     f'https://api.chess.com/pub/tournament/{id}/1'
                 ])
+                round_tournament += 1
     else:
         print(f"Failed to get content from {url}, status code: {response.status_code}")
     return urls
@@ -93,15 +95,16 @@ def fetch_player_details(username):
 def write_summary_top5(month_year, md_filename):
     month, year = month_year.split('-')
     points = player_points_per_month[month_year]
+    round = round_tournament
     sorted_players = sorted(points.items(), key=lambda x: -x[1])[:7]
-    summary = f"<b><a href='//chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}' target='_blank'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|Các ngày|Arena|{len(points)}"
+    summary = f"<b><a href='//chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}' target='_blank'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|{round} ngày|Đấu trường Arena {round} vòng|{len(points)}"
     for username, pts in sorted_players:
         fetch_player_details(username)
         fl = player_followers.get(username, 0)
         ava = player_avatars.get(username, 'N/A')
         status = player_status.get(username, 'N/A')
         if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
-            summary += f"|!{username} {fl} {ava} {pts}"
+            summary += f"|@!{username} {fl} {ava} {pts}"
         else:
             summary += f"|@{username} {fl} {ava} {pts}"
     summary += "\n"
@@ -111,14 +114,14 @@ def write_summary_top5(month_year, md_filename):
     print(f"Top 6 summary written for {month_year}!")
 
 def write_tournament_to_md(parsed, md_filename):
-    line = f"<a href='{parsed['url']}'>{parsed['name']}</a>|{parsed['start_time']}|{parsed['time_control']} {parsed['time_class']}|{len(parsed['players'])}"
+    line = f"<a href='{parsed['url']}' target='_top'>{parsed['name']}</a>|{parsed['start_time']}|{parsed['time_control']} {parsed['time_class']}|{len(parsed['players'])}"
     for player in parsed['players']:
         fetch_player_details(player)
         fl = player_followers[player]
         ava = player_avatars[player]
         status = player_status[player]
         if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
-            line += f"|!@{player} {fl} {ava}"
+            line += f"|@!{player} {fl} {ava}"
         else:
             line += f"|@{player} {fl} {ava}"
     line += "\n"

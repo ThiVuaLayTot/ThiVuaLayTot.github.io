@@ -15,18 +15,7 @@ class Player:
 css_styles = """<!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>Các kỳ thủ đạt giải nhiều nhất</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/animation.css">
-    <link rel="stylesheet" href="/css/eventwinner.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
-    <script type="text/javascript" src="/js/main.js"></script>
+    <title>Các kỳ thủ đạt giải nhiều nhất</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/css/animation.css"><link rel="stylesheet" href="/css/eventwinner.css"><link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon"><script type="text/javascript" src="/js/main.js"></script>
 </head>
 <body>
 """

@@ -114,7 +114,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     rounds = parsed_data['total_rounds']
     player_count = parsed_data['players_count']
 
-    new_line = f'<a href="{url}">{name}</a>|{start_time}|{time_control} '
+    new_line = f'<a href="{url}" target="_top">{name}</a>|{start_time}|{time_control} '
     
     if time_class == 'bullet':
         new_line += 'Bullet'
