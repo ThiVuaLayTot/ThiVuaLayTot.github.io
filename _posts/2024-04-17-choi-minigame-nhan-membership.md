@@ -2,7 +2,7 @@
 layout: post
 title: Chơi MiniGames nhận Diamond Membership
 category: news
-tags: Tin tức
+tags: Minigame
 author: Quản trị viên Đinh Hoàng Việt
 description: Đã kết thúc
 ---

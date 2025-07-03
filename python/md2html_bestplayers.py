@@ -26,6 +26,7 @@ css_styles = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="/js/main.js"></script>
 </head>
 <body>
 """
@@ -38,8 +39,13 @@ def footer_content():
     with open('_includes/footer.html', 'r', encoding='utf-8') as file:
         return file.read()
 
+def last_update():
+    with open('_includes/update.htm', 'r', encoding='utf-8') as f:
+        return f.read()
+
 def generate_h1_tag(filename: str) -> str:
     namefile = os.path.splitext(filename)[0]
+    updated_time = last_update()
     titles = {
         'tvlt': 'Thí Vua Lấy Tốt',
         'cbtt': 'Cờ Bí Thí Tốt',
@@ -51,7 +57,7 @@ def generate_h1_tag(filename: str) -> str:
     <h2 align="center">Bạn có thể xem tổng hợp các giải {title} <a href="/events/tournaments/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
     <i>Tất cả thông tin phía dưới được sắp xếp tự động, sẽ có một số kỳ thủ bị đóng tài khoản nhưng không phải vi phạm không được hiển thị ở đây. Nếu muốn chính xác hơn, hãy đối chiếu với bảng thống kê các giải <a href="/events/tournaments/{namefile}">{title}</a>.</i>
-    """
+    {updated_time}"""
     return h1_tag
 
 def parse_markdown_table(markdown_table: str, event: str) -> defaultdict:
@@ -75,7 +81,7 @@ def parse_markdown_table(markdown_table: str, event: str) -> defaultdict:
                         valid_players.append(username)
 
             valid_players = valid_players[:3]
-            ranks = ['🥇', '🥈', '🥉']
+            ranks = ['&#x1F947; Giải nhất', '&#x1F948; Giải nhì', '&#x1F949; Giải ba']
 
             for i, username in enumerate(valid_players):
                 players[username].achievements.append(f"{ranks[i]}({event_date})")
@@ -121,20 +127,7 @@ def generate_html_output(sorted_players: List[Tuple[str, int, List[str]]]) -> st
         achievements_display = ', '.join(achievements)
         html_output += f"""
         <tr>
-            <td class="stt">#{rank}</td>
-            <td><div class="post-user-component">
-    <a class="cc-avatar-component post-user-avatar">
-    <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
-    </a>
-    <div class="post-user-details">
-        <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="https://chess.com/member/{username}">{username}</a>
-        </div>
-        <div class="post-user-status">
-            <span><span class="bx bx-user-check">{followers} followers</span>
-        </div>
-    </div>
-</div></td>
+            <td class="stt">#{rank}</td><td><div class="post-user-component"><a class="cc-avatar-component post-user-avatar"><img class="cc-avatar-img" src="{avatar}" height="50" width="50"></a><div class="post-user-details"><div class="user-tagline-component"><a class="user-username-component user-tagline-username" href="//chess.com/member/{username}" target="_top">{username}</a></div><div class="post-user-status"><span><span class="bx bx-user-check">{followers} người theo dõi</span></div></div></div></td>
             <td>{achievements_display}</td>
         </tr>
         """

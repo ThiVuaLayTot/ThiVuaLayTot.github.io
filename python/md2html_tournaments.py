@@ -19,6 +19,7 @@ head_content = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="https://raw.githubusercontent.com/ThiVuaLayTot/ThiVuaLayTot.github.io/main/images/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="/js/main.js"></script>
 </head>
 <body>
 """
@@ -31,12 +32,17 @@ def footer_content():
     with open('_includes/footer.html', 'r', encoding='utf-8') as file:
         return file.read()
 
+def last_update():
+    with open('_includes/update.htm', 'r', encoding='utf-8') as f:
+        return f.read()
+
 information = """
-    <i>Nếu có vấn đề thì xin hãy liên hệ <a href="leaders#admins">quản trị viên</a>.</i>
+    <i>Nếu có vấn đề thì xin hãy liên hệ <a href="leaders#admins" target="_top">quản trị viên</a>.</i>
 """
 
 def generate_h1_tag(filename):
     namefile = os.path.splitext(filename)[0]
+    updated_time = last_update()
     titles = {
         'tvlt': 'Thí Vua Lấy Tốt',
         'cbtt': 'Cờ Bí Thí Tốt',
@@ -47,8 +53,7 @@ def generate_h1_tag(filename):
     h1_tag = f"""<h1 align="center">Các kỳ thủ đạt giải {title}</h1>
     <h2 align="center">Bạn có thể xem các kỳ thủ đạt giải {title} nhiều nhất <a href="/events/bestplayers/{namefile}">ở đây</a>.</h2>
     <ul class="tab"><li><a href="tvlt">Thí Vua Lấy Tốt</a></li> <li><a href="cbtt">Cờ Bí Thí Tốt</a></li> <li><a href="cttq">Chiến Trường Thí Quân</a></li> <li><a href="dttv">Đấu Trường Thí Vua</a></li></ul>
-
-    """
+    {updated_time}"""
     return h1_tag
 
 def markdown_table_to_html(markdown_table):
@@ -96,7 +101,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-fair"></span> <span> Closed: Gian lận</span></div></div></span>
@@ -112,7 +117,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-abuse"></span> <span> Closed: Abuse</span></div></div></span>
@@ -129,7 +134,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
         </div>
         <div class="post-user-status">
             <span><span class="bx bx-user-check">{followers} người theo dõi</span>
@@ -145,7 +150,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-inactive"><span class="user-badges-icon-inactive"></span> <span> Closed: Inactive</span></div></div></span>
@@ -163,7 +168,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}">{name}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" target="_top">{name}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon-premium"></span> <span> Chess.com Membership</span></div></div></span>
@@ -184,7 +189,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" title="{points} điểm">{name}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" target="_top" title="{points} điểm">{name}</a>
         </div>
         <div class="post-user-status">
             <span><span class="bx bx-user-check">{followers} người theo dõi</span>

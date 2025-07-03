@@ -31,18 +31,21 @@ def fetch_data(url):
         return {}
 
 def parse_player_data(data):
+    username = data.get('username', 'N/A')
     status = data.get('status', 'N/A')
+    avatar = data.get('avatar', 'N/A')
     if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
         parse_data = {
-            'username': data.get('username', 'N/A'),
+            'username': username,
+            'avatar': avatar,
             'status': status
         }
 
     else:
         parse_data = {
-            'username': data.get('username', 'N/A'),
+            'username': username,
             'status': status,
-            'avatar': data.get('avatar', 'N/A'),
+            'avatar': avatar,
             'followers': data.get('followers', 'N/A')
         }
     return parse_data
@@ -148,7 +151,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
             elif player == 'thangthukquantrong':
                 new_line += '|@*thangthukquantrong'
 
-        if player in player_data_cache:
+        elif player in player_data_cache:
             parse_data = player_data_cache[player]
         else:
             player_url = f'https://api.chess.com/pub/player/{player}'

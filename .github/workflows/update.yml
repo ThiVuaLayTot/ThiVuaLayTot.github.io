@@ -12,6 +12,7 @@ on:
       - 'events/tournaments/**.txt'
   schedule:
     - cron: "24 7 * * 1"
+    - cron: "27 7 * * 4"
 
 env:
   TOKEN: ${{ secrets.TOKEN }}
@@ -41,7 +42,7 @@ jobs:
       - name: Commit & Push
         run: |
           git config --local user.email ""
-          git config --local user.name "Thi-Vua-Lay-Tot"
+          git config --local user.name "Thí Vua Lấy Tốt"
           git add -A
           git commit -m "Update contents"
           git push --force

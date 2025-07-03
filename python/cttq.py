@@ -15,6 +15,7 @@ MAIN_URL = 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc
 player_points_per_month = defaultdict(lambda: defaultdict(int))
 player_followers = {}
 player_avatars = {}
+player_status = {}
 
 def read_urls_from_url(url: str):
     response = requests.get(url)
@@ -85,21 +86,24 @@ def fetch_player_details(username):
         return
     url = f'https://api.chess.com/pub/player/{username}'
     data = fetch_data(url)
-    followers = data.get('followers', 0)
-    avatar = data.get('avatar', '')
-    player_followers[username] = followers
-    player_avatars[username] = avatar
+    player_followers[username] = data.get('followers', 0)
+    player_avatars[username] = data.get('avatar', 'N/A')
+    player_status[username] = data.get('status', 'N/A')
 
 def write_summary_top5(month_year, md_filename):
     month, year = month_year.split('-')
     points = player_points_per_month[month_year]
-    sorted_players = sorted(points.items(), key=lambda x: -x[1])[:6]
-    summary = f"<b><a href='//chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|Các ngày|Arena|{len(points)}"
+    sorted_players = sorted(points.items(), key=lambda x: -x[1])[:7]
+    summary = f"<b><a href='//chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}' target='_blank'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|Các ngày|Arena|{len(points)}"
     for username, pts in sorted_players:
         fetch_player_details(username)
         fl = player_followers.get(username, 0)
-        ava = player_avatars.get(username, '')
-        summary += f"|@{username} {fl} {ava} {pts}"
+        ava = player_avatars.get(username, 'N/A')
+        status = player_status.get(username, 'N/A')
+        if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
+            summary += f"|!{username} {fl} {ava} {pts}"
+        else:
+            summary += f"|@{username} {fl} {ava} {pts}"
     summary += "\n"
 
     with open(md_filename, 'a', encoding='utf-8') as f:
@@ -112,7 +116,11 @@ def write_tournament_to_md(parsed, md_filename):
         fetch_player_details(player)
         fl = player_followers[player]
         ava = player_avatars[player]
-        line += f"|@{player} {fl} {ava}"
+        status = player_status[player]
+        if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
+            line += f"|!@{player} {fl} {ava}"
+        else:
+            line += f"|@{player} {fl} {ava}"
     line += "\n"
 
     with open(md_filename, 'a', encoding='utf-8') as f:
