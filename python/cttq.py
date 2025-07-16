@@ -10,7 +10,7 @@ from collections import defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
-MAIN_URL = 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw/e2c74811ac31cb3d63f29cfcc0d078a3505b2ff1/cttq.txt'
+MAIN_URL = 'https://thivualaytot.github.io/sources/0ae047855007aacfc63886f9d60bc03dhttps://thivualaytot.github.io/sources/0ae047855007aacfc63886f9d60bc03d'
 round_tournament = 0
 player_points_per_month = defaultdict(lambda: defaultdict(int))
 player_followers = {}
