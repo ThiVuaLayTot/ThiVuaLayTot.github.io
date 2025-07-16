@@ -176,7 +176,7 @@ if __name__ == "__main__":
     try:
         ids = requests.get(MAIN_URL).text.splitlines()
         if len(ids) == 1:
-            id = line.strip()
+            id = ids.strip()
             for filename in events:
                 file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/{id}/{filename}.txt'
                 urls = read_urls_from_url(file_url)
