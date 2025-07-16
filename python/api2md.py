@@ -9,6 +9,8 @@ import urllib.request
 
 events = ['tvlt', 'cbtt', 'dttv']
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
+MAIN_URL = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/master/9c53a11fca709a656076bf6de7c118b0'
+id = '9c53a11fca709a656076bf6de7c118b0'
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
 def read_urls_from_url(url: str):
@@ -172,19 +174,25 @@ def write_tournament_data_to_file(parsed_data, md_filename):
 
 if __name__ == "__main__":
     try:
-        for filename in events:
-            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/acca2ddde6ace721809a15e5d1bcaf8b03b55867/{filename}.txt'
-            urls = read_urls_from_url(file_url)
-            md_filename = f'events/tournaments/{filename}.md'
-            if os.path.exists(md_filename):
+        ids = requests.get(MAIN_URL).text.splitlines()
+        if len(ids) == 1:
+            id = line.strip()
+            for filename in events:
+                file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/{id}/{filename}.txt'
+                urls = read_urls_from_url(file_url)
+                md_filename = f'events/tournaments/{filename}.md'
+                if os.path.exists(md_filename):
                     os.remove(md_filename)
-            for url in urls:
-                tournament_data = fetch_data(url)
-                if tournament_data:
-                    parsed_data = parse_tournament_data(tournament_data)
-                    write_tournament_data_to_file(parsed_data, md_filename)
-                else:
-                    print(f"No data found for {url}. Skipping.")
+
+                for url in urls:
+                    tournament_data = fetch_data(url)
+                    if tournament_data:
+                        parsed_data = parse_tournament_data(tournament_data)
+                        write_tournament_data_to_file(parsed_data, md_filename)
+                    else:
+                        print(f"No data found for {url}. Skipping.")
+        else:
+            print(f'Get gist version failed. {ids}')
 
     except KeyboardInterrupt:
         print("Process interrupted.")

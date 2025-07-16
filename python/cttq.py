@@ -132,9 +132,14 @@ def write_tournament_to_md(parsed, md_filename):
 
 if __name__ == "__main__":
     md_file = 'events/tournaments/cttq.md'
+    ver_id = '9c53a11fca709a656076bf6de7c118b0'
+    main_url = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/master/9c53a11fca709a656076bf6de7c118b0'
     try:
         if os.path.exists(md_file):
             os.remove(md_file)
+        ids = requests.get(main_url).text.splitlines()
+        if len(ids) == 1:
+            ver_id = line.strip()
         ids = requests.get(MAIN_URL).text.splitlines()
         for line in ids:
             id = line.strip()
@@ -142,7 +147,7 @@ if __name__ == "__main__":
                 continue
             print(f"Processing month: {id}")
 
-            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/2294437cdcc0f053904990fa7b5bd59ccd81a4e7/{id}.txt'
+            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/{ver_id}/{id}.txt'
             urls = read_urls_from_url(file_url)
 
             month_events = []
