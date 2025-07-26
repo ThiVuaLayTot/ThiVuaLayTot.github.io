@@ -52,9 +52,37 @@ def parse_player_data(data):
         }
     return parse_data
 
-def parse_tournament_data(data):
-    players = [player.get('username', 'N/A') for player in data.get('players', [])][:6]
-    time_control = data.get('settings', {}).get('time_control', 'N/A')
+def sort_player(data):
+    raw_players = []
+    groups = dt.get('players', [])
+    for group in groups:
+        for player in group.get('players', []):
+            username = player.get('username', 'N/A')
+                points = player.get('points', 0)
+                raw_players.append((username, points))
+
+    sorted_players = sorted(raw_players, key=lambda x: -x[1])
+    players = [p[0] for p in sorted_players][:7]
+    points = [p[1] for p in sorted_players][:7]
+    sorted = {
+        'players': players,
+        'points':points
+    }
+    return sorted
+
+def parse_tournament_data(data, id):
+    rounds = data.get('settings', {}).get('total_rounds', 'N/A')
+    if (rounds == 1):
+        round = f'https://api.chess.com/pub/tournament/{id}/1'
+    else:
+        round = f'https://api.chess.com/pub/tournament/{id}/{rounds}/1'
+
+    round_in4 = fetch_data(round)
+        if round_in4:
+            sort_player_data = sort_player(round_in4)
+    
+    players = sort_player_data['players']
+    points = sort_player_data['points']
 
     parts = time_control.split('+')
     if len(parts) == 2:
@@ -79,31 +107,32 @@ def parse_tournament_data(data):
         'url': data.get('url', 'N/A'),
         'variant': data.get('settings', {}).get('rules', 'N/A'),
         'start_time': start_time,
-        'total_rounds': data.get('settings', {}).get('total_rounds', 'N/A'),
+        'total_rounds': rounds,
         'time_class': data.get('settings', {}).get('time_class', 'N/A'),
         'time_control': total_minutes,
         'players_count': data.get('settings', {}).get('registered_user_count', 'N/A'),
-        'players': players
+        'players': players,
+        'points': points,
     }
     return parsed_data
 
-def write_player_data(parse_data):
+def write_player_data(parse_data, pts):
     player = parse_data['username']
     status = parse_data['status']
     if status == 'closed:abuse':
-        new_line = f'|@#{player}'
+        new_line = f'|@#{player} {pts}'
     elif status == 'closed:fair_play_violations':
-        new_line = f'|@!{player}'
+        new_line = f'|@!{player} {pts}'
     elif status == 'closed':
-        new_line = f'|@/{player}'
+        new_line = f'|@/{player} {pts}'
     elif status == 'premium':
         followers = parse_data['followers']
         avatar = parse_data['avatar']
-        new_line = f'|@&{player} {followers} {avatar}'
+        new_line = f'|@&{player} {followers} {avatar} {pts}'
     else:
         followers = parse_data['followers']
         avatar = parse_data['avatar']
-        new_line = f'|@{player} {followers} {avatar}'
+        new_line = f'|@{player} {followers} {avatar} {pts}'
     return new_line
 
 def write_tournament_data_to_file(parsed_data, md_filename):
@@ -147,6 +176,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
 
     player_data_cache = {}
     for player in parsed_data['players']:
+        player_points = parsed_data[player]
         if player in special_players:
             if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
                 new_line += '|@*M-DinhHoangViet'
@@ -162,7 +192,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 parse_data = parse_player_data(player_data)
                 player_data_cache[player] = parse_data
     
-            new_line += write_player_data(parse_data)
+            new_line += write_player_data(parse_data, player_point)
             print(f'{player} info was written!')
 
     new_line += '\n'
@@ -187,7 +217,7 @@ if __name__ == "__main__":
                 for url in urls:
                     tournament_data = fetch_data(url)
                     if tournament_data:
-                        parsed_data = parse_tournament_data(tournament_data)
+                        parsed_data = parse_tournament_data(tournament_data, url)
                         write_tournament_data_to_file(parsed_data, md_filename)
                     else:
                         print(f"No data found for {url}. Skipping.")

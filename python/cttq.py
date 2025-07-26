@@ -48,7 +48,7 @@ def fetch_data(url):
 def parse_tournament_data(data, dt):
     raw_players = []
 
-    groups = dt.get('groups', [])
+    groups = dt.get('players', [])
     for group in groups:
         for player in group.get('players', []):
             username = player.get('username', 'N/A')
@@ -128,10 +128,11 @@ def write_tournament_to_md(parsed, md_filename):
         fl = player_followers[player]
         ava = player_avatars[player]
         status = player_status[player]
+        pts = parsed['points']
         if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
-            line += f"|@!{player} {fl} {ava}"
+            line += f"|@!{player} {fl} {ava} {pts}"
         else:
-            line += f"|@{player} {fl} {ava}"
+            line += f"|@{player} {fl} {ava} {pts}"
     line += "\n"
 
     with open(md_filename, 'a', encoding='utf-8') as f:

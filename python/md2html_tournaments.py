@@ -95,6 +95,7 @@ def markdown_table_to_html(markdown_table):
                 if user.startswith('!'):
                     splited_username = username.split()
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -105,12 +106,15 @@ def markdown_table_to_html(markdown_table):
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-fair"></span> <span> Closed: Gian lận</span></div></div></span>
+            <span class="post-view-meta-separator"></span>
+            <span>{points} ĐIỂM</span>
         </div>
     </div>
 </div></td>'''
                 elif user.startswith('#'):
                     splited_username = username.split()
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -121,6 +125,8 @@ def markdown_table_to_html(markdown_table):
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-abuse"></span> <span> Closed: Abuse</span></div></div></span>
+            <span class="post-view-meta-separator"></span>
+            <span>{points} ĐIỂM</span>
         </div>
     </div>
 </div></td>'''
@@ -128,6 +134,7 @@ def markdown_table_to_html(markdown_table):
                     splited_username = username.split()
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -137,13 +144,14 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
         </div>
         <div class="post-user-status">
-            <span><span class="bx bx-user-check">{followers} người theo dõi</span>
+            <span><span class="bx bx-user-check"></span>{followers} người theo dõi | {points} ĐIỂM</span>
         </div>
     </div>
 </div></td>'''
                 elif user.startswith('/'):
                     splited_username = username.split()
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -154,6 +162,8 @@ def markdown_table_to_html(markdown_table):
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-inactive"><span class="user-badges-icon-inactive"></span> <span> Closed: Inactive</span></div></div></span>
+            <span class="post-view-meta-separator"></span>
+            <span>{points} ĐIỂM</span>
         </div>
     </div>
 </div></td>'''
@@ -162,6 +172,7 @@ def markdown_table_to_html(markdown_table):
                     name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
+                    points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
     <a class="cc-avatar-component post-user-avatar">
       <img class="cc-avatar-img" src="{avatar}" height="50" width="50">
@@ -173,7 +184,7 @@ def markdown_table_to_html(markdown_table):
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon-premium"></span> <span> Chess.com Membership</span></div></div></span>
             <span class="post-view-meta-separator"></span>
-            <span><span class="bx bx-user-check">{followers} người theo dõi</span>
+            <span><span class="bx bx-user-check"></span>{followers} người theo dõi | {points} ĐIỂM</span>
         </div>
     </div>
 </div></td>'''
