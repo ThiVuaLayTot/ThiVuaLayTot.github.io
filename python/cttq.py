@@ -18,11 +18,12 @@ player_avatars = {}
 player_status = {}
 
 def read_urls_from_url(url: str):
+    global round_tournament
     response = requests.get(url)
     urls = []
     if response.status_code == 200:
         lines = response.text.splitlines()
-        global round_tournament = 0
+        round_tournament = 0
         for line in lines:
             id = line.strip()
             if id:
