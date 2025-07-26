@@ -54,32 +54,32 @@ def parse_player_data(data):
 
 def sort_player(data):
     raw_players = []
-    groups = dt.get('players', [])
+    groups = data.get('players', [])
     for group in groups:
         for player in group.get('players', []):
             username = player.get('username', 'N/A')
-                points = player.get('points', 0)
-                raw_players.append((username, points))
+            points = player.get('points', 0)
+            raw_players.append((username, points))
 
     sorted_players = sorted(raw_players, key=lambda x: -x[1])
     players = [p[0] for p in sorted_players][:7]
     points = [p[1] for p in sorted_players][:7]
-    sorted = {
+    sorted_player = {
         'players': players,
         'points':points
     }
-    return sorted
+    return sorted_player
 
 def parse_tournament_data(data, id):
     rounds = data.get('settings', {}).get('total_rounds', 'N/A')
     if (rounds == 1):
-        round = f'https://api.chess.com/pub/tournament/{id}/1'
+        round_url = f'https://api.chess.com/pub/tournament/{id}/1'
     else:
-        round = f'https://api.chess.com/pub/tournament/{id}/{rounds}/1'
+        round_url = f'https://api.chess.com/pub/tournament/{id}/{rounds}/1'
 
-    round_in4 = fetch_data(round)
-        if round_in4:
-            sort_player_data = sort_player(round_in4)
+    round_in4 = fetch_data(round_url)
+    if round_in4:
+        sort_player_data = sort_player(round_in4)
     
     players = sort_player_data['players']
     points = sort_player_data['points']
