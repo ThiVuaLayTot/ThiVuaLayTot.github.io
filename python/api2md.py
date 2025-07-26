@@ -84,9 +84,6 @@ def parse_tournament_data(data, id):
     else:
         players = []
         points = []
-    
-    players = sort_player_data['players']
-    points = sort_player_data['points']
     time_control = data.get('settings', {}).get('time_control', 'N/A')
     parts = time_control.split('+')
     if len(parts) == 2:
@@ -179,6 +176,8 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     new_line += f'|{player_count}'
 
     player_data_cache = {}
+    players = parsed_data['players']
+    points = parsed_data['points']
     for i, player in enumerate(players):
         player_points = points[i]
         if player in special_players:
