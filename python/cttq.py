@@ -114,9 +114,9 @@ def write_tournament_to_md(parsed, md_filename):
     line = f"<a href='{parsed['url']}' target='_top'>{parsed['name']}</a>|{parsed['start_time']}|{parsed['time_control']} {parsed['time_class']}|{len(parsed['players'])}"
     for player in parsed['players']:
         fetch_player_details(player)
-        fl = player_followers(player)
-        ava = player_avatars(player)
-        status = player_status(player)
+        fl = player_followers[player]
+        ava = player_avatars[player]
+        status = player_status[player]
         if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
             line += f"|@!{player} {fl} {ava}"
         else:
