@@ -73,17 +73,21 @@ def sort_player(data):
 def parse_tournament_data(data, id):
     rounds = data.get('settings', {}).get('total_rounds', 'N/A')
     if (rounds == 1):
-        round_url = f'https://api.chess.com/pub/tournament/{id}/1'
+        round_url = f'{id}/1'
     else:
-        round_url = f'https://api.chess.com/pub/tournament/{id}/{rounds}/1'
-
+        round_url = f'{id}/{rounds}/1'
     round_in4 = fetch_data(round_url)
     if round_in4:
         sort_player_data = sort_player(round_in4)
+        players = sort_player_data['players']
+        points = sort_player_data['points']
+    else:
+        players = []
+        points = []
     
     players = sort_player_data['players']
     points = sort_player_data['points']
-
+    time_control = data.get('settings', {}).get('time_control', 'N/A')
     parts = time_control.split('+')
     if len(parts) == 2:
         try:
@@ -175,8 +179,8 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     new_line += f'|{player_count}'
 
     player_data_cache = {}
-    for player in parsed_data['players']:
-        player_points = parsed_data[player]
+    for i, player in enumerate(players):
+        player_points = points[i]
         if player in special_players:
             if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
                 new_line += '|@*M-DinhHoangViet'
@@ -192,7 +196,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 parse_data = parse_player_data(player_data)
                 player_data_cache[player] = parse_data
     
-            new_line += write_player_data(parse_data, player_point)
+            new_line += write_player_data(parse_data, player_points)
             print(f'{player} info was written!')
 
     new_line += '\n'
