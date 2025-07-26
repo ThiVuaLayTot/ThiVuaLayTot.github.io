@@ -46,8 +46,18 @@ def fetch_data(url):
         return {}
 
 def parse_tournament_data(data, dt):
-    players = [player.get('username', 'N/A') for player in dt.get('players', [])]
-    points = [player.get('points', 0) for player in dt.get('players', [])]
+    raw_players = []
+
+    groups = dt.get('groups', [])
+    for group in groups:
+        for player in group.get('players', []):
+            username = player.get('username', 'N/A')
+            points = player.get('points', 0)
+            raw_players.append((username, points))
+
+    sorted_players = sorted(raw_players, key=lambda x: -x[1])
+    players = [p[0] for p in sorted_players]
+    points = [p[1] for p in sorted_players]
     time_control = data.get('settings', {}).get('time_control', 'N/A')
 
     parts = time_control.split('+')
