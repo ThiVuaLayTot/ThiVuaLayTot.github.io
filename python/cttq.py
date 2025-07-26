@@ -22,7 +22,7 @@ def read_urls_from_url(url: str):
     urls = []
     if response.status_code == 200:
         lines = response.text.splitlines()
-        round_tournament = 0
+        global round_tournament = 0
         for line in lines:
             id = line.strip()
             if id:
@@ -47,22 +47,19 @@ def fetch_data(url):
 def parse_tournament_data(data, dt):
     players = [player.get('username', 'N/A') for player in dt.get('players', [])]
     points = [player.get('points', 0) for player in dt.get('players', [])]
-
     time_control = data.get('settings', {}).get('time_control', 'N/A')
-    if isinstance(time_control, str) and '+' in time_control:
-        parts = time_control.split('+')
-        if len(parts) == 2:
-            try:
-                minutes_seconds = int(parts[0])
-                seconds = int(parts[1])
-                minutes = round(minutes_seconds / 60)
-                total_minutes = f'{minutes}+{seconds}'
-            except ValueError:
-                total_minutes = 'N/A'
-        else:
+
+    parts = time_control.split('+')
+    if len(parts) == 2:
+        try:
+            minutes_seconds = int(parts[0])
+            seconds = int(parts[1])
+            minutes = round(minutes_seconds / 60)
+            total_minutes = f'{minutes}+{seconds}'
+        except ValueError:
             total_minutes = 'N/A'
     else:
-        total_minutes = 'N/A'
+        total_minutes = f'{int(parts[0])/60}'
 
     start_time_unix = data.get('start_time', 0)
     start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%d-%m-%Y') if start_time_unix else 'N/A'
@@ -117,9 +114,9 @@ def write_tournament_to_md(parsed, md_filename):
     line = f"<a href='{parsed['url']}' target='_top'>{parsed['name']}</a>|{parsed['start_time']}|{parsed['time_control']} {parsed['time_class']}|{len(parsed['players'])}"
     for player in parsed['players']:
         fetch_player_details(player)
-        fl = player_followers[player]
-        ava = player_avatars[player]
-        status = player_status[player]
+        fl = player_followers(player)
+        ava = player_avatars(player)
+        status = player_status(player)
         if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
             line += f"|@!{player} {fl} {ava}"
         else:
