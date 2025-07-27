@@ -49,11 +49,10 @@ def parse_tournament_data(data, dt):
     raw_players = []
 
     groups = dt.get('players', [])
-    for group in groups:
-        for player in group.get('players', []):
-            username = player.get('username', 'N/A')
-            points = player.get('points', 0)
-            raw_players.append((username, points))
+    for player in groups:
+        username = player.get('username', 'N/A')
+        points = player.get('points', 0)
+        raw_players.append((username, points))
 
     sorted_players = sorted(raw_players, key=lambda x: -x[1])
     players = [p[0] for p in sorted_players]
