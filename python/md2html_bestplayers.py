@@ -65,8 +65,8 @@ def parse_markdown_table(markdown_table: str, event: str) -> defaultdict:
             valid_players = []
             for player in candidate_players:
                 if player.startswith('@'):
-                    username = user.split()
                     user = player[1:]
+                    username = user.split()
                     if len(user) > 3:
                         if not (user.startswith('#') or user.startswith('!') or user.startswith('/')):
                             valid_players.append(username[0])
