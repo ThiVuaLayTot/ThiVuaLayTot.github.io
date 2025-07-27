@@ -122,8 +122,8 @@ def write_summary_top5(month_year, md_filename):
 
 def write_tournament_to_md(parsed, md_filename):
     line = f"<a href='{parsed['url']}' target='_top'>{parsed['name']}</a>|{parsed['start_time']}|{parsed['time_control']} {parsed['time_class']}|{len(parsed['players'])}"
-    players = parsed_data['players']
-    points = parsed_data['points']
+    players = parsed['players']
+    points = parsed['points']
     for i, player in enumerate(players):
         fetch_player_details(player)
         fl = player_followers[player]
