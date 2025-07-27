@@ -65,9 +65,11 @@ def parse_markdown_table(markdown_table: str, event: str) -> defaultdict:
             valid_players = []
             for player in candidate_players:
                 if player.startswith('@'):
-                    username = player[1:]
-                    if not (username.startswith('#') or username.startswith('!') or username.startswith('/')):
-                        valid_players.append(username)
+                    user = player[1:]
+                    if not (user.startswith('#') or user.startswith('!') or user.startswith('/')):
+                        username = user.split()
+                        if len(username) > 3:
+                            valid_players.append(username[1])
 
             valid_players = valid_players[:3]
             ranks = ['&#x1F947; Giải nhất', '&#x1F948; Giải nhì', '&#x1F949; Giải ba']
