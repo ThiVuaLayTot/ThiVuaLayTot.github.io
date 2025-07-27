@@ -203,7 +203,7 @@ def markdown_table_to_html(markdown_table):
             <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" target="_top" title="{points} điểm">{name}</a>
         </div>
         <div class="post-user-status">
-            <span><span class="bx bx-user-check">{followers} người theo dõi</span>
+            <span><span class="bx bx-user-check">{followers} người theo dõi | {points} ĐIỂM</span>
         </div>
     </div>
 </div></td>'''

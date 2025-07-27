@@ -55,7 +55,7 @@ def parse_player_data(data):
 def sort_player(data):
     raw_players = []
     groups = data.get('players', [])
-    for group in groups:
+    for player in groups:
         username = player.get('username', 'N/A')
         points = player.get('points', 0)
         raw_players.append((username, points))
