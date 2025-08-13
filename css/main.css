@@ -5,7 +5,7 @@
     --tab-font: "Open Sans Condensed", sans-serif;
     --primary-color: #f9532d;
     --primary-dark: #081229;
-    --primary-nav: #041a2d;
+    --primary-img: url('https://thivualaytot.github.io/images/tvlt/universe.jpeg');
     --primary-text: #fff;
     --primary-link: #409eff;
     --primary-link-hover: #1c9ded;
@@ -71,7 +71,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 2;
-  background: var(--primary-nav);
+  background: var(--primary-img);
   box-shadow: 0 5px 17px rgba(127, 127, 127, 0.3);
   padding: 0.3rem 2rem;
 }
@@ -541,7 +541,7 @@ hr {
 /* Style cho footer */
 
 footer {
-    background: #0c2f5fb0;
+    background: var(--primary-img);
     width: 100%;
 }
 footer .content {
