@@ -10,7 +10,6 @@ from collections import defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
-MAIN_URL = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/master/0ae047855007aacfc63886f9d60bc03d'
 round_tournament = 0
 player_points_per_month = defaultdict(lambda: defaultdict(int))
 player_followers = {}
@@ -142,8 +141,8 @@ def write_tournament_to_md(parsed, md_filename):
 
 if __name__ == "__main__":
     md_file = 'events/tournaments/cttq.md'
-    ver_id = '9c53a11fca709a656076bf6de7c118b0'
     main_url = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/master/9c53a11fca709a656076bf6de7c118b0'
+    MAIN_URL = 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/cttq'
     try:
         if os.path.exists(md_file):
             os.remove(md_file)
@@ -157,7 +156,7 @@ if __name__ == "__main__":
                 continue
             print(f"Processing month: {id}")
 
-            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/{ver_id}/{id}.txt'
+            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/{id}.txt'
             urls = read_urls_from_url(file_url)
 
             month_events = []
@@ -177,3 +176,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Process interrupted.")
         sys.exit()
+
