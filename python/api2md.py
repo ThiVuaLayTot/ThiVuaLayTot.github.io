@@ -207,25 +207,20 @@ def write_tournament_data_to_file(parsed_data, md_filename):
 
 if __name__ == "__main__":
     try:
-        ids = requests.get(MAIN_URL).text.splitlines()
-        if len(ids) == 1:
-            id = ids[0].strip()
-            for filename in events:
-                file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/{id}/{filename}.txt'
-                urls = read_urls_from_url(file_url)
-                md_filename = f'events/tournaments/{filename}.md'
-                if os.path.exists(md_filename):
-                    os.remove(md_filename)
+        for filename in events:
+            file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/{filename}.txt'
+            urls = read_urls_from_url(file_url)
+            md_filename = f'events/tournaments/{filename}.md'
+            if os.path.exists(md_filename):
+                os.remove(md_filename)
 
-                for url in urls:
-                    tournament_data = fetch_data(url)
-                    if tournament_data:
-                        parsed_data = parse_tournament_data(tournament_data, url)
-                        write_tournament_data_to_file(parsed_data, md_filename)
-                    else:
-                        print(f"No data found for {url}. Skipping.")
-        else:
-            print(f'Get gist version failed. {ids}')
+            for url in urls:
+                tournament_data = fetch_data(url)
+                if tournament_data:
+                    parsed_data = parse_tournament_data(tournament_data, url)
+                    write_tournament_data_to_file(parsed_data, md_filename)
+                else:
+                    print(f"No data found for {url}. Skipping.")
 
     except KeyboardInterrupt:
         print("Process interrupted.")

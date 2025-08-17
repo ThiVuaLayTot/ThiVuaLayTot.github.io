@@ -146,9 +146,6 @@ if __name__ == "__main__":
     try:
         if os.path.exists(md_file):
             os.remove(md_file)
-        ids = requests.get(main_url).text.splitlines()
-        if len(ids) == 1:
-            ver_id = ids[0].strip()
         ids = requests.get(MAIN_URL).text.splitlines()
         for line in ids:
             id = line.strip()
