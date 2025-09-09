@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sự kiện hàng tháng Chiến Trường Thí Quân
+title: Giải đấu Cờ Bí Thí Tốt
 category: news
 tags: Thông báo sự kiện
 author: Admin Team
@@ -18,7 +18,7 @@ Sự kiện <b>Cờ Bí Thí Tốt</b> là một sự kiện mới được tổ
 - Giải đấu sẽ được tổ chức hai lần mỗi tháng
 - Giải đấu được dời sang Thứ Năm thay vì Chủ Nhật
 - Các giải đấu được xoay tua đều đặn mỗi tháng như bảng bên dưới:
-[!Danh sách thể loại](/images/news/2025/09/10/su-kien-co-bi-thi-tot.png)
+![Danh sách thể loại](/images/news/2025/09/10/su-kien-co-bi-thi-tot.png)
 **Quy tắc xoay tua:**
 
 + Có ít nhất 2 giải mỗi tháng

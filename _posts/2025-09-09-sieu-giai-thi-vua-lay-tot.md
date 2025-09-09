@@ -30,7 +30,7 @@ Kết quả hàng tháng được sắp xếp và được công bố [tại đ�
 ## Giải thưởng
 
 Những ai tham gia các giải và đạt các yêu cầu trên thì sẽ được nhận giải thưởng cho 3 người có điểm cao nhất thường là huy chương theo thứ hạng hoặc các phần thưởng khác như tư cách thành viên Chess.com, lì xì,...
-[!TVLT_prize_medals](/images/news/2025/09/09/tvlt-medal.jpg)
+![TVLT_prize_medals](/images/news/2025/09/09/tvlt-medal.png)
 
 __Lưu ý tuân thủ theo các luật lệ sau nếu không sẽ không được nhận giải và thậm chí bị phạt theo luật:__
 
