@@ -36,9 +36,9 @@ jobs:
         run: |
           python3 python/api2md.py
           python3 python/cttq.py
+          python3 python/update_time.py
           python3 python/md2html_tournaments.py
           python3 python/md2html_bestplayers.py
-          python3 python/update_time.py
       - name: Commit & Push
         run: |
           git config --local user.email ""
@@ -46,3 +46,4 @@ jobs:
           git add -A
           git commit -m "Update contents"
           git push --force
+
