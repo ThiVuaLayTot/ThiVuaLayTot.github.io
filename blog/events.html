@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Kiến thức cờ vua
-permalink: /chess/
+title: Các sự kiện của Thí Vua Lấy Tốt
+permalink: /events/
 ---
 
 <h1>Các kiến thức cờ vua</h1>
 <a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a>
 <ul class="tab">
     <li><a href="/blog">Tất cả bài đăng</a></li>
-    <li><a href="/chess" class="active">Kiến thức cờ vua</a></li>
+    <li><a href="/chess">Kiến thức cờ vua</a></li>
     <li><a href="/news">Thông báo/Tin tức</a></li>
-    <li><a href="/events">Sự kiện</a></li>
+    <li><a href="/events" class="active">Sự kiện</a></li>
 </ul><br>
 <div class="card-list">
-    {% for post in site.posts %} {% if post.category == "chess" %}
+    {% for post in site.posts %} {% if post.category == "events" %}
     <div class="card">
         <a href="{{ post.url }}"><img src="/images/{{ post.id }}.png" class="card_image">
         <h4 class="card_title">{{ post.title }}</h4>

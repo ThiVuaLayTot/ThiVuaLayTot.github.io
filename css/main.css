@@ -5,7 +5,6 @@
     --tab-font: "Open Sans Condensed", sans-serif;
     --primary-color: #f9532d;
     --primary-dark: #081229;
-    --primary-img: url('https://thivualaytot.github.io/images/tvlt/universe.jpeg');
     --primary-text: #fff;
     --primary-link: #409eff;
     --primary-link-hover: #1c9ded;
@@ -71,7 +70,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 2;
-  background: var(--primary-img);
+  background: rgba(15, 15, 35, 0.95);
   box-shadow: 0 5px 17px rgba(127, 127, 127, 0.3);
   padding: 0.3rem 2rem;
 }
@@ -83,6 +82,10 @@ body {
 .logo img {
   width: 50px;
   height: 50px;
+}
+
+.logo:hover {
+    transform: scale(1.1);
 }
 
 .topnav {
@@ -541,7 +544,7 @@ hr {
 /* Style cho footer */
 
 footer {
-    background: var(--primary-img);
+    background: rgba(0, 231, 255, 0.1);
     width: 100%;
 }
 footer .content {
@@ -572,71 +575,71 @@ footer .content .link-boxes .box {
 }
 
 .content .link-boxes .box .link_name {
-            color: #fff;
-            font-size: 18px;
-            font-weight: 400;
-            margin-bottom: 10px;
-            position: relative;
+    color: #fff;
+    font-weight: 400;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 18px;
 }
 
 .link-boxes .box .link_name::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            height: 2px;
-            width: 35px;
-            background: #fff;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 35px;
+    background: #fff;
 }
 
 .content .link-boxes .box li {
-            margin: 6px 0;
-            list-style: none;
+    list-style: none;
+    margin: 6px 0;
 }
 
 .content .link-boxes .box li a {
-            color: #fff;
-            font-size: 14px;
-            font-weight: 400;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: all 0.4s ease
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: all 0.4s ease
 }
 
 .content .link-boxes .box li a:hover {
-            opacity: 1;
-            text-decoration: underline;
+    text-decoration: underline;
+    opacity: 1;
 }
 
 .content .link-boxes .input-box {
-            margin-right: 55px;
-            flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 55px;
 }
 
 footer .bottom-details {
-            width: 100%;
-            background: #111;
+    background: #111;
+    width: 100%;
 }
 footer .bottom-details .bottom_text {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 20px 40px;display: flex;
-            justify-content: space-between;
+    margin: 0 auto;
+    padding: 20px 40px;display: flex;
+    justify-content: space-between;
+    max-width: 1250px;
 }
 .bottom-details .bottom_text span, .bottom-details .bottom_text a {
-            font-size: 14px;
-            font-weight: 300;
-            color: #fff; opacity: 0.8;
-            text-decoration: none;
+    font-weight: 300;
+    font-size: 14px;
+    color: #fff; opacity: 0.8;
+    text-decoration: none;
 }
 
 .bottom-details .bottom_text a:hover {
-            opacity: 1;
-            text-decoration: underline;
+    opacity: 1;
+    text-decoration: underline;
 }
 
 .bottom-details .bottom_text a {
-            margin-right: 10px;
+    margin-right: 10px;
 }
 @media (max-width: 700px) {
     footer .content .link-boxes {
@@ -683,7 +686,7 @@ footer .bottom-details .bottom_text {
     box-shadow: 1px 0.5rem 2rem rgba(80, 137, 153, 0.334);
     border-radius: 1.1em;
     background: linear-gradient(#191a4d, #043a52) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
-    transition: all .3s ease-in-out;
+    transition: all .3s ease;
 }
 
 .ribbon {
