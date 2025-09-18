@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Siêu giải Thí Vua Lấy Tốt
-category: news
-tags: Thông báo sự kiện
+category: events
+tags: Giải đấu
 author: Mr.TungJohn
 description: Sự kiện nổi bật nhất với giải thưởng đa dang và được livestream trực tiếp trên Youtube
 ---

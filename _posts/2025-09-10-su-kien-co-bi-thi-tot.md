@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Giải đấu Cờ Bí Thí Tốt
-category: news
-tags: Thông báo sự kiện
+category: events
+tags: Giải đấu
 author: VN-SenJin
 description: Một sự kiện diễn ra trong câu lạc bộ Thí Vua Lấy Tốt và được tổ chức hàng tháng với giải thưởng...
 ---

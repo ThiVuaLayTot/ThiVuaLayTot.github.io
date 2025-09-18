@@ -251,6 +251,12 @@ p {
     animation-delay: .2s;
 }
 
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
 .button {
     position: relative;
     overflow: hidden;
