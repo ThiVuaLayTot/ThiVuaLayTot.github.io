@@ -330,6 +330,19 @@ a:hover {
     transition: text-decoration 1s;
 }
 
+figure {
+  border: 1px #00ff51 solid;
+  padding: 4px;
+  margin: auto;
+}
+
+figcaption {
+  background-color: rgba(0, 0, 0, 0.175);
+  color: white;
+  font-style: italic;
+  padding: 2px;
+  text-align: center;
+}
 
 hr {
     height: 3px;
