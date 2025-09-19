@@ -765,7 +765,8 @@ footer .bottom-details .bottom_text {
     align-items: center;
     background: #1a73e8;
     border-radius: 1em;
-    padding: 3px 5px
+    padding: 3px 5px;
+    text-transform: uppercase
 }
 
 .card_author {
