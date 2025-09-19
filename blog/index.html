@@ -9,7 +9,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
     <li><a href="/blog" class="active">Tất cả bài đăng</a></li>
     <li><a href="/chess">Kiến thức cờ vua</a></li>
     <li><a href="/news">Thông báo/Tin tức</a></li>
-    <li><a href="/events">Sự kiện</a></li>
+    <li><a href="/events">Sự kiện/Giải đấu</a></li>
 </ul><br>
 <div class="card-list">
     {% for post in site.posts %}
@@ -18,7 +18,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
         <h4 class="card_title">{{ post.title }}</h4></a>
         <i class="card_in4">{{ post.description }}</i>
         <div class="card_detail">
-            <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span>{{ post.tags }}</a>|
+            <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag">{{ post.tags }}</span></a>|
             <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b>|<span class="card_date"><span class="bx bx-time"></span>{{ post.date | date:"%d thg %m, %Y" }}</span>
         </div>
     </div>

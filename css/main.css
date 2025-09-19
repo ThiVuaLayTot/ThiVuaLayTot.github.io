@@ -144,10 +144,12 @@ body {
   }
 
 .lang {
+  visibility: hidden;
+  opacity: 0;
   color: #fff;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
   .topnav {
     flex-direction: column;
     align-items: flex-start;
@@ -688,7 +690,6 @@ footer .bottom-details .bottom_text {
 }
 
 .card:hover {
-    border: max(2px, 2px) solid transparent;
     box-shadow: 1px 0.5rem 2rem rgba(80, 137, 153, 0.334);
     border-radius: 1.1em;
     background: linear-gradient(#191a4d, #043a52) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
@@ -762,6 +763,9 @@ footer .bottom-details .bottom_text {
 
 .card_tag {
     align-items: center;
+    background: #1a73e8;
+    border-radius: 1em;
+    padding: 3px 5px
 }
 
 .card_author {

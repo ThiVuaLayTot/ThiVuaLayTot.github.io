@@ -4,15 +4,15 @@ title: Các sự kiện của Thí Vua Lấy Tốt
 permalink: /events/
 ---
 
-<h1>Các kiến thức cờ vua</h1>
+<h1>Các giải đấu, sự kiện</h1>
 <a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a>
 <ul class="tab">
     <li><a href="/blog">Tất cả bài đăng</a></li>
     <li><a href="/chess">Kiến thức cờ vua</a></li>
     <li><a href="/news">Thông báo/Tin tức</a></li>
-    <li><a href="/events" class="active">Sự kiện</a></li>
+    <li><a href="/events" class="active">Sự kiện/Giải đấu</a></li>
 </ul><br>
-<h2>2Danh sách tổng hợp các giải đấu</h2><style>.styled-table {border-collapse: collapse; border: 1px solid var(--color--light-green); font-size: 16px; overflow-x: auto;}
+<h2>Danh sách tổng hợp các giải đấu</h2><style>.styled-table {border-collapse: collapse; border: 1px solid var(--color--light-green); font-size: 16px; overflow-x: auto;}
 .styled-table td {border: 1px solid var(--color-light-green); padding: 8px; font-size: 14px; overflow: hidden; text-overflow: ellipsis; height: 1rem;}</style>
 <table class="styled-table">
     <thead><tr>
@@ -24,18 +24,14 @@ permalink: /events/
     <tbody>
         <tr>
             <td><a href="/events/tournaments/tvlt">Lịch sử tổ chức</a></td>
-            <td><a href="/events/bestplayers/tvlt">Các kỳ thủ hay nhất</a></td>
-        </tr>
-        <tr>
-            <td><a href="/events/tournaments/cbtt">Lịch sử tổ chức</a></td>
-            <td><a href="/events/bestplayers/cbtt">Các kỳ thủ hay nhất</a></td>
-        </tr>
-        <tr>
             <td><a href="/events/tournaments/cttq">Lịch sử tổ chức</a></td>
-            <td><a href="/events/bestplayers/cttq">Các kỳ thủ hay nhất</a></td>
+            <td><a href="/events/tournaments/cbtt">Lịch sử tổ chức</a></td>
+            <td><a href="/events/tournaments/dttv">Lịch sử tổ chức</a></td>
         </tr>
         <tr>
-            <td><a href="/events/tournaments/dttv">Lịch sử tổ chức</a></td>
+            <td><a href="/events/bestplayers/tvlt">Các kỳ thủ hay nhất</a></td>
+            <td><a href="/events/bestplayers/cttq">Các kỳ thủ hay nhất</a></td>
+            <td><a href="/events/bestplayers/cbtt">Các kỳ thủ hay nhất</a></td>
         </tr>
     </tbody>
 </table>
@@ -47,7 +43,7 @@ permalink: /events/
         <h4 class="card_title">{{ post.title }}</h4>
         <i class="card_in4">{{ post.description }}</i></a>
         <div class="card_detail">
-            <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span>{{ post.tags }}</a>|
+            <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag">{{ post.tags }}</span></a>|
             <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b>
         </div>
     </div>
