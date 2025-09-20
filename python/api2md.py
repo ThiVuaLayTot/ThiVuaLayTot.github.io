@@ -52,35 +52,6 @@ def fetch_round_data(tour: str, tRound: int):
         return {}
 
 
-def parse_player_data(data):
-    username = data.get('username', 'N/A')
-    status = data.get('status', 'N/A')
-    avatar = data.get('avatar', 'N/A')
-    if status in ('closed', 'closed:abuse', 'closed:fair_play_violations'):
-        return {'username': username, 'avatar': avatar, 'status': status}
-    else:
-        return {
-            'username': username,
-            'status': status,
-            'avatar': avatar,
-            'followers': data.get('followers', 'N/A')
-        }
-
-
-def sort_player(data):
-    raw_players = []
-    groups = data.get('players', [])
-    for player in groups:
-        username = player.get('username', 'N/A')
-        points = player.get('points', 0)
-        raw_players.append((username, points))
-
-    sorted_players = sorted(raw_players, key=lambda x: -x[1])
-    players = [p[0] for p in sorted_players][:7]
-    points = [p[1] for p in sorted_players][:7]
-    return {'players': players, 'points': points}
-
-
 def parse_tournament_data(data, id):
     rounds = data.get('settings', {}).get('total_rounds', 'N/A')
     round_in4 = fetch_round_data(id, 1)
@@ -108,11 +79,14 @@ def parse_tournament_data(data, id):
         except Exception:
             total_minutes = 'N/A'
 
-    start_time_unix = data.get('start_time', 'N/A')
-    if start_time_unix:
+    start_time_unix = data.get('start_time')
+    if isinstance(start_time_unix, (int, float)):
         start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%d-%m-%Y')
     else:
-        start_time = 'N/A'
+        try:
+            start_time = datetime.utcfromtimestamp(int(start_time_unix)).strftime('%d-%m-%Y')
+        except (TypeError, ValueError):
+            start_time = 'N/A'
 
     return {
         'name': data.get('name', 'N/A'),
