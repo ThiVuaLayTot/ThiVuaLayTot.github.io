@@ -10,16 +10,11 @@ import urllib.request
 
 events = ['tvlt', 'cbtt', 'dttv']
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
-BASE_URL = "https://api.chess.com/pub"
 MAIN_URL = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/master/9c53a11fca709a656076bf6de7c118b0'
 id = '9c53a11fca709a656076bf6de7c118b0'
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
-Client.request_config["headers"]["User-Agent"] = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/123.0.0.0 Safari/537.36"
-)
+Client.request_config["headers"]["User-Agent"] = "ThiVuaLayTotBot/1.0 (contact: your_email@example.com)"
 
 def get_ids(url: str):
     response = requests.get(url)
@@ -29,64 +24,48 @@ def get_ids(url: str):
         print(f"Failed to get IDs from {url}, status code: {response.status_code}")
         return []
 
-def fallback_get(path: str):
-    url = f"{BASE_URL}/{path}"
-    try:
-        resp = requests.get(url, headers=Client.config["headers"], timeout=10)
-        resp.raise_for_status()
-        return resp.json()
-    except Exception as e:
-        print(f"[Fallback error] {url} -> {e}")
-        return {}
 
 def fetch_tournament_data(tour_id: str):
     try:
-        return get_tournament_details(tour_id).json
-    except ChessDotComClientError as e:
-        print(f"[API error] tournament {tour_id} -> {e.status_code}, fallback")
-        return fallback_get(f"tournament/{tour_id}")
+        resp = get_tournament_details(tour_id)
+        return resp.json
     except Exception as e:
-        print(f"[Unexpected error] {tour_id}: {e}, fallback")
-        return fallback_get(f"tournament/{tour_id}")
+        print(f"Error fetching {tour_id}: {e}")
+        return {}
+
 
 def fetch_player_data(username: str):
     try:
-        return get_player_profile(username).json
-    except ChessDotComClientError as e:
-        print(f"[API error] player {username} -> {e.status_code}, fallback")
-        return fallback_get(f"player/{username}")
+        resp = get_player_profile(username)
+        return resp.json
     except Exception as e:
-        print(f"[Unexpected error] player {username}: {e}, fallback")
-        return fallback_get(f"player/{username}")
+        print(f"Error fetching @{username}: {e}")
+        return {}
+
 
 def fetch_round_data(tour: str, tRound: int):
     try:
-        return get_tournament_round(tour, tRound).json
-    except ChessDotComClientError as e:
-        print(f"[API error] {tour} round {tRound} -> {e.status_code}, fallback")
-        return fallback_get(f"tournament/{tour}/{tRound}")
+        resp = get_tournament_round(tour, tRound)
+        return resp.json
     except Exception as e:
-        print(f"[Unexpected error] {tour} round {tRound}: {e}, fallback")
-        return fallback_get(f"tournament/{tour}/{tRound}")
+        print(f"Error fetching {tour}: {e}")
+        return {}
+
 
 def parse_player_data(data):
     username = data.get('username', 'N/A')
     status = data.get('status', 'N/A')
     avatar = data.get('avatar', 'N/A')
     if status in ('closed', 'closed:abuse', 'closed:fair_play_violations'):
-        parse_data = {
-            'username': username,
-            'avatar': avatar,
-            'status': status
-        }
+        return {'username': username, 'avatar': avatar, 'status': status}
     else:
-        parse_data = {
+        return {
             'username': username,
             'status': status,
             'avatar': avatar,
             'followers': data.get('followers', 'N/A')
         }
-    return parse_data
+
 
 def sort_player(data):
     raw_players = []
@@ -99,11 +78,8 @@ def sort_player(data):
     sorted_players = sorted(raw_players, key=lambda x: -x[1])
     players = [p[0] for p in sorted_players][:7]
     points = [p[1] for p in sorted_players][:7]
-    sorted_player = {
-        'players': players,
-        'points':points
-    }
-    return sorted_player
+    return {'players': players, 'points': points}
+
 
 def parse_tournament_data(data, id):
     rounds = data.get('settings', {}).get('total_rounds', 'N/A')
@@ -114,8 +90,8 @@ def parse_tournament_data(data, id):
         points = sort_player_data['points']
         print(f'Sorted {id}')
     else:
-        players = []
-        points = []
+        players, points = [], []
+
     time_control = data.get('settings', {}).get('time_control', 'N/A')
     parts = time_control.split('+')
     if len(parts) == 2:
@@ -127,7 +103,10 @@ def parse_tournament_data(data, id):
         except ValueError:
             total_minutes = 'N/A'
     else:
-        total_minutes = f'{int(parts[0])/60}'
+        try:
+            total_minutes = f'{int(parts[0]) / 60}'
+        except Exception:
+            total_minutes = 'N/A'
 
     start_time_unix = data.get('start_time', 'N/A')
     if start_time_unix:
@@ -135,7 +114,7 @@ def parse_tournament_data(data, id):
     else:
         start_time = 'N/A'
 
-    parsed_data = {
+    return {
         'name': data.get('name', 'N/A'),
         'url': data.get('url', 'N/A'),
         'variant': data.get('settings', {}).get('rules', 'N/A'),
@@ -147,26 +126,22 @@ def parse_tournament_data(data, id):
         'players': players,
         'points': points,
     }
-    return parsed_data
+
 
 def write_player_data(parse_data, pts):
     player = parse_data['username']
     status = parse_data['status']
     if status == 'closed:abuse':
-        new_line = f'|@#{player} {pts}'
+        return f'|@#{player} {pts}'
     elif status == 'closed:fair_play_violations':
-        new_line = f'|@!{player} {pts}'
+        return f'|@!{player} {pts}'
     elif status == 'closed':
-        new_line = f'|@/{player} {pts}'
+        return f'|@/{player} {pts}'
     elif status == 'premium':
-        followers = parse_data['followers']
-        avatar = parse_data['avatar']
-        new_line = f'|@&{player} {followers} {avatar} {pts}'
+        return f'|@&{player} {parse_data["followers"]} {parse_data["avatar"]} {pts}'
     else:
-        followers = parse_data['followers']
-        avatar = parse_data['avatar']
-        new_line = f'|@{player} {followers} {avatar} {pts}'
-    return new_line
+        return f'|@{player} {parse_data["followers"]} {parse_data["avatar"]} {pts}'
+
 
 def write_tournament_data_to_file(parsed_data, md_filename):
     rule = parsed_data['variant'].lower()
@@ -179,7 +154,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     player_count = parsed_data['players_count']
 
     new_line = f'<a href="{url}" target="_top">{name}</a>|{start_time}|{time_control} '
-    
+
     if time_class == 'bullet':
         new_line += 'Bullet'
     elif time_class == 'blitz':
@@ -208,10 +183,8 @@ def write_tournament_data_to_file(parsed_data, md_filename):
     new_line += f'|{player_count}'
 
     player_data_cache = {}
-    players = parsed_data['players']
-    points = parsed_data['points']
-    for i, player in enumerate(players):
-        player_points = points[i]
+    for i, player in enumerate(parsed_data['players']):
+        player_points = parsed_data['points'][i]
         if player in special_players:
             if player in ['m_dinhhoangviet', 'tungjohn_playing_chess']:
                 new_line += '|@*M-DinhHoangViet'
@@ -224,16 +197,18 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 player_data = fetch_player_data(player)
                 parse_data = parse_player_data(player_data)
                 player_data_cache[player] = parse_data
-    
+
             new_line += write_player_data(parse_data, player_points)
             print(f'{player} info was written!')
 
     new_line += '\n'
 
+    os.makedirs(os.path.dirname(md_filename), exist_ok=True)
     with open(md_filename, 'a', encoding='utf-8') as f:
         f.write(new_line)
 
     print(f"Data for {parsed_data['name']} written to {md_filename}")
+
 
 if __name__ == "__main__":
     try:
