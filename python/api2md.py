@@ -1,4 +1,4 @@
-from chessdotcom import get_player_profile, get_tournament_details, get_tournament_round
+from chessdotcom import Client, get_player_profile, get_tournament_details, get_tournament_round
 from datetime import datetime
 import orjson
 import os
