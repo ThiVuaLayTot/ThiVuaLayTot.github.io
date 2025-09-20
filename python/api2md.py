@@ -10,6 +10,7 @@ import urllib.request
 
 events = ['tvlt', 'cbtt', 'dttv']
 special_players = ['m_dinhhoangviet', 'tungjohn_playing_chess', 'thangthukquantrong']
+BASE_URL = "https://api.chess.com/pub"
 MAIN_URL = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/master/9c53a11fca709a656076bf6de7c118b0'
 id = '9c53a11fca709a656076bf6de7c118b0'
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
@@ -22,29 +23,51 @@ def get_ids(url: str):
         print(f"Failed to get IDs from {url}, status code: {response.status_code}")
         return []
 
+Client.config["headers"]["User-Agent"] = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/123.0.0.0 Safari/537.36"
+)
+
+def fallback_get(path: str):
+    url = f"{BASE_URL}/{path}"
+    try:
+        resp = requests.get(url, headers=Client.config["headers"], timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as e:
+        print(f"[Fallback error] {url} -> {e}")
+        return {}
+
 def fetch_tournament_data(tour_id: str):
     try:
-        resp = get_tournament_details(tour_id)
-        return resp.json
+        return get_tournament_details(tour_id).json
+    except ChessDotComClientError as e:
+        print(f"[API error] tournament {tour_id} -> {e.status_code}, fallback")
+        return fallback_get(f"tournament/{tour_id}")
     except Exception as e:
-        print(f"Error fetching {tour_id}: {e}")
-        return {}
+        print(f"[Unexpected error] {tour_id}: {e}, fallback")
+        return fallback_get(f"tournament/{tour_id}")
 
 def fetch_player_data(username: str):
     try:
-        resp = get_player_profile(username)
-        return resp.json
+        return get_player_profile(username).json
+    except ChessDotComClientError as e:
+        print(f"[API error] player {username} -> {e.status_code}, fallback")
+        return fallback_get(f"player/{username}")
     except Exception as e:
-        print(f"Error fetching @{username}: {e}")
-        return {}
+        print(f"[Unexpected error] player {username}: {e}, fallback")
+        return fallback_get(f"player/{username}")
 
 def fetch_round_data(tour: str, tRound: int):
     try:
-        resp = get_tournament_round(tour, tRound)
-        return resp.json
+        return get_tournament_round(tour, tRound).json
+    except ChessDotComClientError as e:
+        print(f"[API error] {tour} round {tRound} -> {e.status_code}, fallback")
+        return fallback_get(f"tournament/{tour}/{tRound}")
     except Exception as e:
-        print(f"Error fetching {tour}: {e}")
-        return {}
+        print(f"[Unexpected error] {tour} round {tRound}: {e}, fallback")
+        return fallback_get(f"tournament/{tour}/{tRound}")
 
 def parse_player_data(data):
     username = data.get('username', 'N/A')
