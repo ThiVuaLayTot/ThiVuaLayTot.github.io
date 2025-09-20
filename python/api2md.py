@@ -38,9 +38,9 @@ def fetch_player_data(username: str):
         print(f"Error fetching @{username}: {e}")
         return {}
 
-def fetch_round_data(tour: str, round: int):
+def fetch_round_data(tour: str, tRound: int):
     try:
-        resp = get_tournament_round(tour)
+        resp = get_tournament_round(tour, tRound)
         return resp.json
     except Exception as e:
         print(f"Error fetching {tour}: {e}")
@@ -90,7 +90,7 @@ def parse_tournament_data(data, id):
         sort_player_data = sort_player(round_in4)
         players = sort_player_data['players']
         points = sort_player_data['points']
-        print(f'Sorted {round_url}')
+        print(f'Sorted {id}')
     else:
         players = []
         points = []
