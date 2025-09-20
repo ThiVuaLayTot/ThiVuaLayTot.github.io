@@ -1,4 +1,5 @@
 from chessdotcom import Client, get_player_profile, get_tournament_details, get_tournament_round
+from chessdotcom.types import ChessDotComClientError
 from datetime import datetime
 import orjson
 import os
@@ -15,6 +16,12 @@ MAIN_URL = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/ma
 id = '9c53a11fca709a656076bf6de7c118b0'
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
+Client.config["headers"]["User-Agent"] = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/123.0.0.0 Safari/537.36"
+)
+
 def get_ids(url: str):
     response = requests.get(url)
     if response.status_code == 200:
@@ -22,12 +29,6 @@ def get_ids(url: str):
     else:
         print(f"Failed to get IDs from {url}, status code: {response.status_code}")
         return []
-
-Client.config["headers"]["User-Agent"] = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/123.0.0.0 Safari/537.36"
-)
 
 def fallback_get(path: str):
     url = f"{BASE_URL}/{path}"
@@ -73,13 +74,12 @@ def parse_player_data(data):
     username = data.get('username', 'N/A')
     status = data.get('status', 'N/A')
     avatar = data.get('avatar', 'N/A')
-    if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
+    if status in ('closed', 'closed:abuse', 'closed:fair_play_violations'):
         parse_data = {
             'username': username,
             'avatar': avatar,
             'status': status
         }
-
     else:
         parse_data = {
             'username': username,
@@ -218,7 +218,6 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 new_line += '|@*M-DinhHoangViet'
             elif player == 'thangthukquantrong':
                 new_line += '|@*thangthukquantrong'
-
         else:
             if player in player_data_cache:
                 parse_data = player_data_cache[player]
