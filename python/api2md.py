@@ -1,3 +1,4 @@
+from chessdotcom import get_player_profile, get_tournament_details
 from datetime import datetime
 import orjson
 import os
@@ -13,23 +14,28 @@ MAIN_URL = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/ma
 id = '9c53a11fca709a656076bf6de7c118b0'
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
-def read_urls_from_url(url: str):
+def get_ids(url: str):
     response = requests.get(url)
     if response.status_code == 200:
-        lines = response.text.splitlines()
-        urls = ['https://api.chess.com/pub/tournament/' + line.strip() for line in lines if line.strip()]
+        return [line.strip() for line in response.text.splitlines() if line.strip()]
     else:
-        print(f"Failed to get content from {url}, status code: {response.status_code}")
+        print(f"Failed to get IDs from {url}, status code: {response.status_code}")
         return []
-    return urls
 
-def fetch_data(url):
-    req = urllib.request.Request(url, method='GET')
+def fetch_tournament_data(tour_id: str):
     try:
-        with urllib.request.urlopen(req) as response:
-            return orjson.loads(response.read())
-    except urllib.error.URLError as e:
-        print(f"Error fetching tournament data from {url}: {e}")
+        resp = get_tournament_details(tour_id)
+        return resp.json
+    except Exception as e:
+        print(f"Error fetching {tour_id}: {e}")
+        return {}
+
+def fetch_player_data(username: str):
+    try:
+        resp = get_player_profile(username)
+        return resp.json
+    except Exception as e:
+        print(f"Error fetching @{username}: {e}")
         return {}
 
 def parse_player_data(data):
@@ -191,7 +197,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
                 parse_data = player_data_cache[player]
             else:
                 player_url = f'https://api.chess.com/pub/player/{player}'
-                player_data = fetch_data(player_url)
+                player_data = fetch_player_data(player_url)
                 parse_data = parse_player_data(player_data)
                 player_data_cache[player] = parse_data
     
@@ -209,13 +215,13 @@ if __name__ == "__main__":
     try:
         for filename in events:
             file_url = f'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/{filename}.txt'
-            urls = read_urls_from_url(file_url)
+            ids = get_ids(file_url)
             md_filename = f'events/tournaments/{filename}.md'
             if os.path.exists(md_filename):
                 os.remove(md_filename)
 
-            for url in urls:
-                tournament_data = fetch_data(url)
+            for id_tournament in ids:
+                tournament_data = fetch_tournament_data(url)
                 if tournament_data:
                     parsed_data = parse_tournament_data(tournament_data, url)
                     write_tournament_data_to_file(parsed_data, md_filename)
