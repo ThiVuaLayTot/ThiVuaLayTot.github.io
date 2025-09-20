@@ -196,8 +196,7 @@ def write_tournament_data_to_file(parsed_data, md_filename):
             if player in player_data_cache:
                 parse_data = player_data_cache[player]
             else:
-                player_url = f'https://api.chess.com/pub/player/{player}'
-                player_data = fetch_player_data(player_url)
+                player_data = fetch_player_data(player)
                 parse_data = parse_player_data(player_data)
                 player_data_cache[player] = parse_data
     
