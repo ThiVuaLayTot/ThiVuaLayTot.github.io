@@ -1,4 +1,4 @@
-from chessdotcom import get_player_profile, get_tournament_details
+from chessdotcom import get_player_profile, get_tournament_details, get_tournament_round
 from datetime import datetime
 import orjson
 import os
@@ -36,6 +36,14 @@ def fetch_player_data(username: str):
         return resp.json
     except Exception as e:
         print(f"Error fetching @{username}: {e}")
+        return {}
+
+def fetch_round_data(tour: str, round: int):
+    try:
+        resp = get_tournament_round(tour)
+        return resp.json
+    except Exception as e:
+        print(f"Error fetching {tour}: {e}")
         return {}
 
 def parse_player_data(data):
@@ -77,11 +85,7 @@ def sort_player(data):
 
 def parse_tournament_data(data, id):
     rounds = data.get('settings', {}).get('total_rounds', 'N/A')
-    if (rounds == 1):
-        round_url = f'{id}/1'
-    else:
-        round_url = f'{id}/{rounds}/1'
-    round_in4 = fetch_data(round_url)
+    round_in4 = fetch_round_data(id, 1)
     if round_in4:
         sort_player_data = sort_player(round_in4)
         players = sort_player_data['players']
@@ -220,12 +224,12 @@ if __name__ == "__main__":
                 os.remove(md_filename)
 
             for id_tournament in ids:
-                tournament_data = fetch_tournament_data(url)
+                tournament_data = fetch_tournament_data(id_tournament)
                 if tournament_data:
-                    parsed_data = parse_tournament_data(tournament_data, url)
+                    parsed_data = parse_tournament_data(tournament_data, id_tournament)
                     write_tournament_data_to_file(parsed_data, md_filename)
                 else:
-                    print(f"No data found for {url}. Skipping.")
+                    print(f"No data found for {id_tournament}. Skipping.")
 
     except KeyboardInterrupt:
         print("Process interrupted.")
