@@ -1,5 +1,4 @@
 from chessdotcom import Client, get_player_profile, get_tournament_details, get_tournament_round
-from chessdotcom.types import ChessDotComClientError
 from datetime import datetime
 import orjson
 import os
@@ -16,7 +15,7 @@ MAIN_URL = 'https://raw.githubusercontent.com/ThiVuaLayTot/sources/refs/heads/ma
 id = '9c53a11fca709a656076bf6de7c118b0'
 sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
 
-Client.config["headers"]["User-Agent"] = (
+Client.request_config["headers"]["User-Agent"] = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/123.0.0.0 Safari/537.36"
