@@ -1,0 +1,41 @@
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-92025-5910457" target="_top">Siêu giải Thí Vua Lấy Tốt tháng 9/2025</a>|07-09-2025|10.0 Rapid, Swiss 9 vòng|360
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-82025-5870287" target="_top">Siêu Giải Thí Vua Lấy Tốt Tháng 8/2025</a>|16-08-2025|3+1 Blitz Chess960, Swiss 11 vòng|108
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-72025-5799609" target="_top">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 7/2025</a>|13-07-2025|3+1 Blitz, Swiss 11 vòng|163
+<a href="https://www.chess.com/tournament/live/-th-vua-ly-tt-thng-52025---cho-mng-304-15-5640047" target="_top"> Thí Vua Lấy Tốt Tháng 5/2025 - Chào mừng 30/4-1/5</a>|04-05-2025|3+1 Blitz, Swiss 11 vòng|122
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-42025---mng-gi-t-103-5588463" target="_top">Siêu Giải Thí Vua Lấy Tốt Tháng 4/2025 - Mừng Giỗ Tổ 10/3</a>|06-04-2025|3+1 Blitz Chess960, Swiss 11 vòng|142
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-22025---mng-tui-u-xun-5487643" target="_top">Thí Vua Lấy Tốt Tháng 2/2025 - Mừng Tuổi Đầu Xuân</a>|23-02-2025|3+1 Blitz, Swiss 11 vòng|352
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-tm-bit-nm-gip-thn-2024-5415561" target="_top">Siêu Giải Thí Vua Lấy Tốt Tạm Biệt Năm Giáp Thìn 2024</a>|25-01-2025|3+1 Blitz, Swiss 11 vòng|215
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-112024-5204331" target="_top">Siêu Giải Thí Vua Lấy Tốt Tháng 11/2024</a>|10-11-2024|3+1 Blitz, Swiss 11 vòng|302
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-102024-5144901" target="_top">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 10/2024</a>|13-10-2024|3+1 Blitz, Swiss 11 vòng|391
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-92024-5077723" target="_top">SIÊU GIẢI THÍ VUA LẤY TỐT THÁNG 9/2024</a>|15-09-2024|3+1 Blitz Chess960, Swiss 11 vòng|159
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-82024-5011291" target="_top">Thí Vua Lấy Tốt Tháng 8/2024</a>|18-08-2024|3+1 Blitz, Swiss 11 vòng|324
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-72024-4897591" target="_top">Siêu Giải Thí Vua Lấy Tốt Tháng 7/2024</a>|07-07-2024|3+1 Blitz, Swiss 11 vòng|207
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-552024---3check-4756726" target="_top">Siêu Giải Thí Vua lấy Tốt 5/5/2024 - 3Check</a>|05-05-2024|3+1 Blitz 3 Chiếu,  Swiss 11 vòng|151
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-42024---king-of-the-hill-4689591" target="_top">Thí Vua Lấy Tốt Tháng 4.2024 - King Of The Hill</a>|07-04-2024|3+1 Blitz KOTH, Swiss 11 vòng|241
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-32024---freestyle-chess-challenge-4633816" target="_top">Thí Vua Lấy Tốt tháng 3/2024 - Freestyle Chess Challenge</a>|10-03-2024|3+1 Blitz Chess960, Swiss 11 vòng|153
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-l-x-u-xun---gip-thn-2024-4577626" target="_top">Thí Vua Lấy Tốt Lì Xì Đầu Xuân - Giáp Thìn 2024</a>|18-02-2024|3+2 Blitz, Swiss 11 vòng|445
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-thng-2---cho-xun-gip-thn-2024-4548307" target="_top">Siêu Giải Thí Vua Lấy Tốt Tháng 2 - Chào Xuân Giáp Thìn 2024</a>|04-02-2024|3+1 Blitz, Swiss 11 vòng|452
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-tt-dng-lch-01012024-4486332" target="_top">Thí Vua Lấy Tốt Tết Dương Lịch 01.01.2024</a>|01-01-2024|3+1 Blitz, Swiss 11 vòng|398
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-122023-4426328" target="_top">Thí Vua Lấy Tốt Tháng 12.2023</a>|03-12-2023|3+1 Blitz, Swiss 11 vòng|251
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-11-nm-2023-4374307" target="_top">Thí Vua Lấy Tốt tháng 11 năm 2023</a>|05-11-2023|3+1 Blitz Chess960, Swiss 11 vòng|194
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-10-nm-2023-4319009" target="_top">Thí Vua Lấy Tốt tháng 10 năm 2023</a>|08-10-2023|3+1 Blitz, Swiss 11 vòng|369
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-9-nm-2023-4253176" target="_top">Thí Vua Lấy Tốt tháng 9 năm 2023</a>|03-09-2023|3+1 Blitz, Swiss 11 vòng|399
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-8-nm-2023-4199460" target="_top">Thí Vua Lấy Tốt tháng 8 năm 2023</a>|06-08-2023|3+1 Blitz, Swiss 11 vòng|299
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-thng-7-nm-2023-4111726" target="_top">Thí Vua Lấy Tốt tháng 7 năm 2023</a>|02-07-2023|3+1 Blitz Chess960, Swiss 11 vòng|118
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-cho-h-thng-6---nm-2023-4059788" target="_top">Thí Vua Lấy Tốt Chào Hè Tháng 6 - Năm 2023</a>|04-06-2023|3+1 Blitz, Swiss 11 vòng|242
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-21--tungjohn-playing-chess-3974487" target="_top">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 21 - TungJohn Playing Chess</a>|16-04-2023|3+1 Blitz, Swiss 11 vòng|417
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-20-3960496" target="_top">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 20</a>|09-04-2023|3+1 Blitz, Swiss 11 vòng|421
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-19--tungjohn-playing-chess-3935076" target="_top">Thí Vua Lấy Tốt Lần Thứ 19 - TungJohn Playing Chess</a>|02-04-2023|3+1 Blitz, Swiss 11 vòng|364
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-18--tungjohn-playing-chess-3921659" target="_top">Thí Vua Lấy Tốt Lần Thứ 18 - TungJohn Playing Chess</a>|26-03-2023|3+1 Blitz, Swiss 11 vòng|348
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-17---thng-thua-nh-ng-i-3918891" target="_top">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 17 - Thắng Thua Nhờ Đồng Đội</a>|19-03-2023|3+1 Blitz Bughouse, Swiss 11 vòng|294
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-15---chc-mng-clb-t-6000-thnh-vin--tungjohn-playing-chess-3846898" target="_top">Thí Vua Lấy Tốt Lần 15 - Chúc mừng CLB đạt 6000 thành viên - TungJohn Playing Chess</a>|26-02-2023|1+1 Bullet, Swiss 15 vòng|501
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-13--trng--en--tungjohn-playing-chess-3807224" target="_top">Thí Vua Lấy Tốt lần thứ 13 ♟️ Trắng ⇄ Đen - TungJohn Playing Chess</a>|12-02-2023|3+1 Blitz, Swiss 12 vòng|406
+<a href="https://www.chess.com/tournament/live/cn-mng-l-cn-tt---siu-gii-th-vua-ly-tt-ln-th-12--tungjohn-playing-chess-3719886" target="_top">Còn Mùng là còn Tết - Siêu Giải Thí Vua Lấy Tốt Lần Thứ 12 - TungJohn Playing Chess</a>|29-01-2023|3+1 Blitz, Swiss 12 vòng|437
+<a href="https://www.chess.com/tournament/live/siu-gii-th-vua-ly-tt-ln-th-10-3688038" target="_top">Siêu Giải Thí Vua Lấy Tốt Lần Thứ 10</a>|08-01-2023|3+1 Blitz, Swiss 12 vòng|452
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-th-8-3618872" target="_top">Thí Vua Lấy Tốt Lần Thứ 8</a>|18-12-2022|3+1 Blitz, Swiss 12 vòng|368
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-7--3584492" target="_top">Thí Vua Lấy Tốt lần 7 </a>|11-12-2022|3.0 Blitz 3 Chiếu,  Swiss 15 vòng|411
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-5-3548920" target="_top">Thí Vua Lấy Tốt lần 5</a>|27-11-2022|5.0 Blitz Chess960, Swiss 12 vòng|485
+<a href="https://www.chess.com/tournament/live/th-vua-ly-tt-ln-4---ngy-nh-gio-vit-nam-2011-3535839" target="_top">Thí Vua Lấy Tốt Lần 4 - Ngày Nhà Giáo Việt Nam 20/11</a>|20-11-2022|3+2 Blitz, Swiss 15 vòng|459
+<a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-ln-th-3-2218000" target="_top">Thí Vua Lấy Tốt Lần Thứ 3</a>|06-11-2022|10.0 Rapid, Arena|535
+<a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-ln-2-2183785" target="_top">Thí Vua Lấy Tốt Lần 2</a>|22-10-2022|5.0 Blitz, Arena|1351
+<a href="https://www.chess.com/tournament/live/arena/th-vua-ly-tt-2171704" target="_top">Thí Vua Lấy Tốt</a>|15-10-2022|10.0 Rapid, Arena|964
