@@ -28,7 +28,9 @@ def get_ids(url: str):
 def fetch_tournament_data(tour_id: str):
     try:
         resp = get_tournament_details(tour_id)
-        return resp.json
+        data = resp.json
+        print(f"Tournament {tour_id} response: {data}")
+        return data
     except Exception as e:
         print(f"Error fetching {tour_id}: {e}")
         return {}
@@ -37,7 +39,9 @@ def fetch_tournament_data(tour_id: str):
 def fetch_player_data(username: str):
     try:
         resp = get_player_profile(username)
-        return resp.json
+        data = resp.json
+        print(f"Player {username} response: {data}")
+        return data
     except Exception as e:
         print(f"Error fetching @{username}: {e}")
         return {}
@@ -46,7 +50,9 @@ def fetch_player_data(username: str):
 def fetch_round_data(tour: str, tRound: int):
     try:
         resp = get_tournament_round(tour, tRound)
-        return resp.json
+        data = resp.json
+        print(f"Tournament round {tour_id} response: {data}")
+        return data
     except Exception as e:
         print(f"Error fetching {tour}: {e}")
         return {}
