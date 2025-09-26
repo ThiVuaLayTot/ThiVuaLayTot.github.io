@@ -88,7 +88,7 @@ def parse_player_data(data):
 
 
 def parse_tournament_data(data, id):
-    rounds = data.get('settings', {}).get('total_rounds', 'N/A')
+    rounds = int(data.get('settings', {}).get('total_rounds', 'N/A'))
     round_in4 = fetch_round_data(id, rounds)
     if round_in4:
         sort_player_data = sort_player(round_in4)
