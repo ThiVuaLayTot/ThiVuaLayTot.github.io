@@ -51,7 +51,7 @@ def fetch_round_data(tour: str, tRound: int):
     try:
         resp = get_tournament_round(tour, tRound)
         data = resp.json
-        print(f"Tournament round {tour_id} response: {data}")
+        print(f"Tournament round {tRound} response: {data}")
         return data
     except Exception as e:
         print(f"Error fetching {tour}: {e}")
