@@ -88,7 +88,28 @@ def parse_player_data(data):
 
 
 def parse_tournament_data(data, id):
-    rounds = int(data.get('settings', {}).get('total_rounds', 'N/A'))
+    if not isinstance(data, dict) or not data:
+        print(f"[parse_tournament_data] Invalid data for {id}: {data}")
+        return {
+            'name': 'N/A', 'url': 'N/A', 'variant': 'N/A', 'start_time': 'N/A',
+            'total_rounds': 'N/A', 'time_class': 'N/A', 'time_control': 'N/A',
+            'players_count': 'N/A', 'players': [], 'points': []
+        }
+
+    # normalize wrapper if present
+    if 'tournament' in data and isinstance(data['tournament'], dict):
+        data = data['tournament']
+
+    rounds = data.get('settings', {}).get('total_rounds', 'N/A')
+    try:
+        rounds_int = int(rounds)
+    except Exception:
+        rounds_int = None
+
+    if rounds_int:
+        round_in4 = fetch_round_data(id, rounds_int)
+    else:
+        round_in4 = {}
     round_in4 = fetch_round_data(id, rounds)
     if round_in4:
         sort_player_data = sort_player(round_in4)
