@@ -96,7 +96,6 @@ def parse_tournament_data(data, id):
             'players_count': 'N/A', 'players': [], 'points': []
         }
 
-    # normalize wrapper if present
     if 'tournament' in data and isinstance(data['tournament'], dict):
         data = data['tournament']
 
@@ -110,7 +109,6 @@ def parse_tournament_data(data, id):
         round_in4 = fetch_round_data(id, rounds_int)
     else:
         round_in4 = {}
-    round_in4 = fetch_round_data(id, rounds)
     if round_in4:
         sort_player_data = sort_player(round_in4)
         players = sort_player_data['players']
