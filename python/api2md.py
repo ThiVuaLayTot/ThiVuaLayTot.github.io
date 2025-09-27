@@ -151,19 +151,6 @@ def parse_tournament_data(data, id):
     }
 
 
-def parse_player_data(data):
-    username = data.get('username') or 'N/A'
-    status = data.get('status') or 'N/A'
-    avatar = data.get('avatar') or ''
-    followers = data.get('followers') or 0
-
-    return {
-        'username': username,
-        'status': status,
-        'avatar': avatar,
-        'followers': followers
-    }
-
 
 def write_player_data(parse_data, pts):
     player = parse_data['username']
