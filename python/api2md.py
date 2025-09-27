@@ -47,29 +47,27 @@ def fetch_player_data(username: str):
         return {}
 
 
-def fetch_round_data(tour: str, tRound: int):
+def fetch_round_data(tour: str, round_num: int):
     try:
-        resp = get_tournament_round(tour, tRound)
+        resp = get_tournament_round(tour, round_num)
         data = resp.json
-        print(f"Tournament round {tRound} response: {data}")
+        print(f"Tournament round {round_num} response: {data}")
         return data
     except Exception as e:
         print(f"Error fetching {tour}: {e}")
         return {}
 
 
-def sort_player(data):
-    raw_players = []
-    groups = data.get('players', [])
-    for player in groups:
-        username = player.get('username', 'N/A')
-        points = player.get('points', 0)
-        raw_players.append((username, points))
+def sort_player(data, sorted_place):
+    ordered_players = [p.get("username", "N/A") for p in tour_details.get("players", [])]
+    points_map = {p.get("username"): p.get("points", 0) for p in round_data.get("players", [])}
 
-    sorted_players = sorted(raw_players, key=lambda x: -x[1])
-    players = [p[0] for p in sorted_players][:7]
-    points = [p[1] for p in sorted_players][:7]
-    return {'players': players, 'points': points}
+    players, points = [], []
+    for username in ordered_players[:7]:
+        players.append(username)
+        points.append(points_map.get(username, 0))
+
+    return {"players": players, "points": points}
 
 
 def parse_player_data(data):
@@ -101,7 +99,7 @@ def parse_tournament_data(data, id):
 
     rounds = data.get('settings', {}).get('total_rounds', 'N/A')
     try:
-        rounds_int = int(rounds)
+        rounds_int = int(rounds) if rounds != 'N/A' else None
     except Exception:
         rounds_int = None
 
@@ -109,8 +107,9 @@ def parse_tournament_data(data, id):
         round_in4 = fetch_round_data(id, rounds_int)
     else:
         round_in4 = {}
+    place_sorted = data.get('players').get('username', 'N/A')
     if round_in4:
-        sort_player_data = sort_player(round_in4)
+        sort_player_data = sort_player(round_in4, place_sorted)
         players = sort_player_data['players']
         points = sort_player_data['points']
         print(f'Sorted {id}')
@@ -119,19 +118,17 @@ def parse_tournament_data(data, id):
 
     time_control = data.get('settings', {}).get('time_control', 'N/A')
     parts = time_control.split('+')
-    if len(parts) == 2:
+    if time_control != 'N/A':
         try:
-            minutes_seconds = int(parts[0])
-            seconds = int(parts[1])
-            minutes = round(minutes_seconds / 60)
-            total_minutes = f'{minutes}+{seconds}'
-        except ValueError:
-            total_minutes = 'N/A'
-    else:
-        try:
-            total_minutes = f'{int(parts[0]) / 60}'
+            parts = time_control.split('+')
+            if len(parts) == 2:
+                minutes_seconds = int(parts[0]) // 60 
+                seconds = int(parts[1])
+                time_control = f"{minutes_seconds}+{seconds}"
+            else:
+                time_control = str(int(parts[0]) // 60)
         except Exception:
-            total_minutes = 'N/A'
+            pass
 
     start_time_unix = data.get('start_time')
     if isinstance(start_time_unix, (int, float)):
@@ -149,7 +146,7 @@ def parse_tournament_data(data, id):
         'start_time': start_time,
         'total_rounds': rounds,
         'time_class': data.get('settings', {}).get('time_class', 'N/A'),
-        'time_control': total_minutes,
+        'time_control': time_control,
         'players_count': data.get('settings', {}).get('registered_user_count', 'N/A'),
         'players': players,
         'points': points,
