@@ -59,11 +59,10 @@ def fetch_round_data(tour: str, round_num: int):
 
 
 def sort_player(tour_players, round_data):
-    ordered_players = p for p in tour_players
     points_map = {p.get("username"): p.get("points", 0) for p in round_data.get("players", [])}
 
     players, points = [], []
-    for username in ordered_players[:7]:
+    for username in tour_players[:7]:
         players.append(username)
         points.append(points_map.get(username, 0))
 
@@ -98,10 +97,7 @@ def parse_tournament_data(data, id):
         data = data['tournament']
 
     rounds = data.get('settings', {}).get('total_rounds', 'N/A')
-    try:
-        rounds_int = int(rounds) if rounds != 'N/A' else None
-    except Exception:
-        rounds_int = None
+    rounds_int = int(rounds) if rounds != 'N/A' else 0
 
     if rounds_int:
         round_in4 = fetch_round_data(id, rounds_int)
