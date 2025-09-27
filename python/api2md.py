@@ -103,7 +103,9 @@ def parse_tournament_data(data, id):
         round_in4 = fetch_round_data(id, rounds_int)
     else:
         round_in4 = {}
-    place_sorted = data.get('players', {}).get('username', [])
+
+    place_sorted = [p.get("username") for p in data.get("players", []) if isinstance(p, dict)]
+
     if round_in4:
         sort_player_data = sort_player(place_sorted, round_in4)
         players = sort_player_data['players']
