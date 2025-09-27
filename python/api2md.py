@@ -9,7 +9,7 @@ SPECIAL_PLAYERS = {
     'thangthukquantrong': '@*thangthukquantrong'
 }
 
-sys.stdout.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8') # type: ignore
 Client.request_config["headers"]["User-Agent"] = "ThiVuaLayTotBot/1.0 (contact: your_email@example.com)"
 
 def get_ids(url: str):
