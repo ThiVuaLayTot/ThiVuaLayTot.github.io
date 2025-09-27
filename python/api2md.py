@@ -124,7 +124,7 @@ def parse_tournament_data(data, id):
                 seconds = int(parts[1])
                 time_control = f"{minutes_seconds}+{seconds}"
             else:
-                time_control = str(int(parts[0]) // 60)
+                time_control = f"{(int(parts[0]) // 60)}+0"
         except Exception:
             pass
 
@@ -151,9 +151,26 @@ def parse_tournament_data(data, id):
     }
 
 
+def parse_player_data(data):
+    username = data.get('username') or 'N/A'
+    status = data.get('status') or 'N/A'
+    avatar = data.get('avatar') or ''
+    followers = data.get('followers') or 0
+
+    return {
+        'username': username,
+        'status': status,
+        'avatar': avatar,
+        'followers': followers
+    }
+
+
 def write_player_data(parse_data, pts):
     player = parse_data['username']
     status = parse_data['status']
+    avatar = parse_data['avatar']
+    followers = parse_data['followers']
+
     if status == 'closed:abuse':
         return f'|@#{player} {pts}'
     elif status == 'closed:fair_play_violations':
@@ -161,9 +178,12 @@ def write_player_data(parse_data, pts):
     elif status == 'closed':
         return f'|@/{player} {pts}'
     elif status == 'premium':
-        return f'|@&{player} {parse_data["followers"]} {parse_data["avatar"]} {pts}'
+        return f'|@&{player} {followers} {avatar} {pts}'
     else:
-        return f'|@{player} {parse_data["followers"]} {parse_data["avatar"]} {pts}'
+        if followers or avatar:
+            return f'|@{player} {followers} {avatar} {pts}'
+        else:
+            return f'|@{player} {pts}'
 
 
 def write_tournament_data_to_file(parsed_data, md_filename):
