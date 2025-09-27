@@ -37,10 +37,10 @@ def fetch_round_data(tour_id: str, round_num: int):
 
 def fetch_player_data(username: str):
     try:
-        return get_player_profile(username).json
+        return get_player_profile(username, tts = 1).json
     except Exception as e:
         print(f"[fetch_player_data] {username}: {e}")
-        return {"username": username}
+        return {}
 
 def sort_player(players_order, round_data):
     points_map = {p.get("username"): p.get("points", 0) for p in round_data.get("players", [])}
@@ -96,7 +96,6 @@ def parse_tournament_data(data: dict, tour_id: str):
         "points": points
     }
 
-# ---------------------- Write helpers ---------------------- #
 def write_player(parse_data, pts):
     u, st, av, fl = parse_data["username"], parse_data["status"], parse_data["avatar"], parse_data["followers"]
 
