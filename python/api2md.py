@@ -50,7 +50,8 @@ def sort_player(players_order, round_data):
         points.append(points_map.get(username, 0))
     return players, points
 
-def parse_player_data(data: dict):
+def parse_player_data(player_data: dict):
+    data = player_data.get("player", player_data)
     return {
         "username": data.get("username", "unknown"),
         "status": data.get("status", "N/A"),
