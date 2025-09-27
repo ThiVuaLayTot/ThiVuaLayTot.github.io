@@ -50,7 +50,7 @@ def sort_player(players_order, round_data):
         points.append(points_map.get(username, 0))
     return players, points
 
-def parse_player_data(data):
+def parse_player_data(data: dict):
     return {
         "username": data.get("username", "unknown"),
         "status": data.get("status", "N/A"),
@@ -109,8 +109,8 @@ def write_player(parse_data, pts):
 def write_tournament(parsed, md_filename):
     if not parsed: return
 
-    rule, time_class = parsed["variant"].lower(), parsed["time_class"].lower()
-    new_line = f'<a href="{parsed["url"]}" target="_top">{parsed["name"]}</a>|{parsed["start_time"]}|{parsed["time_control"]} '
+    name, rule, time_class = parsed['name'].replace('||', '-').replace('|', '-'), parsed["variant"].lower(), parsed["time_class"].lower()
+    new_line = f'<a href="{parsed["url"]}" target="_top">{name}</a>|{parsed["start_time"]}|{parsed["time_control"]} '
 
     new_line += "Bullet" if time_class == "bullet" else "Blitz" if time_class == "blitz" else "Rapid"
 
@@ -127,7 +127,8 @@ def write_tournament(parsed, md_filename):
             new_line += f'|{SPECIAL_PLAYERS[username]}'
         else:
             if username not in player_cache:
-                pdata = parse_player_data(fetch_player_data(username))
+                raw = fetch_player_data(username)
+                pdata = parse_player_data(raw if isinstance(raw, dict) else {})
                 player_cache[username] = pdata
             new_line += write_player(player_cache[username], pts)
 
