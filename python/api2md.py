@@ -132,10 +132,7 @@ def parse_tournament_data(data, id):
     if isinstance(start_time_unix, (int, float)):
         start_time = datetime.utcfromtimestamp(start_time_unix).strftime('%d-%m-%Y')
     else:
-        try:
-            start_time = datetime.utcfromtimestamp(int(start_time_unix)).strftime('%d-%m-%Y')
-        except (TypeError, ValueError):
-            start_time = "N/A"
+        start_time = "N/A"
 
     return {
         'name': data.get('name', 'N/A'),
