@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Chơi MiniGames nhận Diamond Membership
-date: 2024-04-17 00:00:00 Z
+date: 2024-04-17T00:00:00+00:00
 category: events
 tags:
   - Minigame
@@ -26,3 +26,4 @@ Hạn cuối của cuộc thi này là ngày 14/06/2024. Mọi người sẽ ph�
 <p align="center"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfQDlPYhjiLh7fDmfD1H0bjfyaNaQYb7dfgpvKSnwKeO2gAFA/viewform?embedded=true" width="346" height="456" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe></p>
 
 Nếu có câu hỏi hay thắc mắc gì về các trò chơi hoặc thể lệ thì xin hãy liên hệ qua [Messenger](https://m.me/103559542712501).
+
