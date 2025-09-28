@@ -1,11 +1,8 @@
 ---
 layout: post
 title: Chơi MiniGames nhận Diamond Membership
-date: 2024-04-17T00:00:00+00:00
 category: events
-tags:
-  - Minigame
-  - Strategy
+tags: ['Minigame', 'Chiến thuật']
 author: Quản trị viên Đinh Hoàng Việt
 description: Đã kết thúc
 ---

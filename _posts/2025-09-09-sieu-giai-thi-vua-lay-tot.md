@@ -2,9 +2,10 @@
 layout: post
 title: Siêu giải Thí Vua Lấy Tốt
 category: events
-tags: Giải đấu
+tags: ['Giải đấu']
 author: Mr.TungJohn
 description: Sự kiện nổi bật nhất với giải thưởng đa dang và được livestream trực tiếp trên Youtube
+permalink: /events/thi-vua-lay-tot-tvlt
 ---
 
 <i>Hãy tham gia câu lạc bộ trên 2 nền tảng cờ vua sau để có thể tham gia các sự kiện: [Chess.com](https://link.chess.com/club/0CVQh6) & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)

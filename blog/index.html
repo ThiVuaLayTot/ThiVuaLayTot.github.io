@@ -18,7 +18,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
         <h4 class="card_title">{{ post.title }}</h4></a>
         <i class="card_in4">{{ post.description }}</i>
         <div class="card_detail">
-            <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag">{{ post.tags }}</span></a>|
+            {% for tag in post.tags %}<a href="/{{ post.category }}" class="card_tag">{{ tag }}</a> {% endfor %}|
             <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b>|<span class="card_date"><span class="bx bx-time"></span>{{ post.date | date:"%d thg %m, %Y" }}</span>
         </div>
     </div>

@@ -2,9 +2,10 @@
 layout: post
 title: Một vài trang web chơi cờ vua trực tuyến
 category: chess
-tags: Cờ vua
+tags: ['Cờ vua']
 author: Điều hành viên Lê Đình Cường
 description: Một số trang web chơi cờ vua mà bạn nên biết.
+permalink: /chess/website-choi-co
 ---
 
 Ngày nay, cờ vua là một trong những môn thể thao rất phổ biến và thu hút đông đảo người chơi trên thế giới. Nó không chỉ giúp chúng ta tăng khả năng trí nhớ thông minh mà còn giúp chúng ta tập trung hơn trong các việc làm ngoài đời sống. Ngoài ra, để cải thiện trình độ của người chơi cờ vua, các CLB cờ vua cấp cao sẽ tổ chức các giải đấu, cuộc thi ở trên thế giới cũng như trong nước và tạo ra những trang web cờ vua trên mạng để mọi người chơi với nhau. Sau đây là một số trang chơi cờ như [Chess.com](https://chess.com), [Lichess](https://lichess.org), [Cờ Vua Việt Nam](https://covua-vn.com), [Tornelo](https://tornelo.com), [Chesstempo](https://chesstempo.com), [PlayStrategy](https://playstrategy.org) và vài trang hỗ trợ luyện tập học chơi cờ giỏi hơn [Aimchess](https://aimchess.com), [Chessable](https://chessable.com)
