@@ -43,23 +43,30 @@ def fetch_player_data(username: str):
         return {}
 
 def sort_player(players_order, round_data):
-    rd_players = round_data.get("players", [])
-    if not rd_players:
+    round_players = round_data.get("players", []) if isinstance(round_data, dict) else []
+    points_map = {}
+
+    for p in round_players:
+        uname = p.get("username", "")
+        pts = p.get("points", 0)
+        if uname:
+            points_map[uname] = pts
+
+    players, points = [], []
+    if not players_order:
+        print("[sort_player] No player order data found.")
+        return players, points
+
+    if not points_map:
         print("[sort_player] No round data found.")
-        return [], []
+        return players_order[:7], [0]*len(players_order[:7])
 
-    sorted_players = sorted(
-        [(p.get("username"), p.get("points", 0)) for p in rd_players if p.get("username")],
-        key=lambda x: x[1],
-        reverse=True
-    )
-
-    top_players = sorted_players[:7]
-    players = [u for u, _ in top_players]
-    points = [p for _, p in top_players]
-
-    for u, p in top_players:
-        print(f"[sort_player] player @{u} {p} pts")
+    for username in players_order[:7]:
+        uname = username.lower()
+        pts = points_map.get(uname, 0)
+        players.append(username)
+        points.append(pts)
+        print(f"[sort_player] player @{username} {pts} pts")
 
     return players, points
 
