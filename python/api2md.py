@@ -47,7 +47,9 @@ def sort_player(players_order, round_data):
     players, points = [], []
     for username in players_order[:7]:
         players.append(username)
-        points.append(points_map.get(username, 0))
+        pts = points_map.get(username, 0)
+        points.append(pts)
+        print(f"[sort_player] player @{username} {pts} pts")
     return players, points
 
 def parse_player_data(player_data: dict):

@@ -75,7 +75,7 @@ def parse_markdown_table(markdown_table: str, event: str) -> defaultdict:
             ranks = ['&#x1F947; Giải nhất', '&#x1F948; Giải nhì', '&#x1F949; Giải ba']
 
             for i, username in enumerate(valid_players):
-                players[username].achievements.append(f"{ranks[i]}({event_date})")
+                players[username].achievements.append(f"{ranks[i]} ({event_date})")
                 if i == 0:
                     players[username].gold += 1
                 elif i == 1:
