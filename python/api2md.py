@@ -43,8 +43,13 @@ def fetch_player_data(username: str):
         return {}
 
 def sort_player(players_order, round_data):
-    round_players = round_data.get("players", []) if isinstance(round_data, dict) else []
-    print("DEBUG round_players:", round_players)
+    if isinstance(round_data, dict):
+        if "tournament_round" in round_data and isinstance(round_data["tournament_round"], dict):
+            round_players = round_data["tournament_round"].get("players", [])
+        else:
+            round_players = round_data.get("players", [])
+    else:
+        round_players = []
     points_map = {}
 
     for p in round_players:
@@ -103,7 +108,6 @@ def parse_tournament_data(data: dict, tour_id: str):
     round_info = fetch_round_data(tour_id, rounds) if rounds else {}
 
     players_order = [p.get("username") for p in data.get("players", []) if isinstance(p, dict)]
-    print("ROUND DATA:", round_info)
     players, points = sort_player(players_order, round_info) if round_info else ([], [])
 
     tc_raw = data.get("settings", {}).get("time_control", "0")
