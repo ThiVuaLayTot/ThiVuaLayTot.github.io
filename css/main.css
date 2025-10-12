@@ -130,7 +130,7 @@ body {
   text-decoration: none;
 }
 
-.topnav a:hover {
+.topnav a:hover, .topnav a:active {
   color: var(--nav-text);
   text-shadow: 0 0 15px var(--nav-text);
   text-decoration: none;
@@ -700,12 +700,14 @@ footer .bottom-details .bottom_text {
     border: max(1px, 1px) solid transparent;
     border-radius: 1em;
     background: linear-gradient(#121339, #032f43) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
+    transform: scale(1);
 }
 
 .card:hover {
     box-shadow: 1px 0.5rem 2rem rgba(80, 137, 153, 0.334);
     border-radius: 1.1em;
     background: linear-gradient(#191a4d, #043a52) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
+    transform: scale(1.05);
     transition: all .3s ease;
 }
 
@@ -761,25 +763,33 @@ footer .bottom-details .bottom_text {
     color: var(--primary-text);
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
 }
 
 
 .card_detail {
- position: relative;
- width: 100%;
- color: #9fa4aa;
- font-size: 11px;
- display: flex;
- align-items: center;
- justify-content: space-between;
+    position: relative;
+    width: 100%;
+    color: #9fa4aa;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .card_tag {
+    font-weight: bold;
     align-items: center;
-    background: #1a73e8;
+    border: 1px doted #1a73e8;
+    background: #1a73e80e;
     border-radius: 1em;
     padding: 3px 5px;
     text-transform: uppercase
+}
+
+.card_tag:hover {
+    background: #1a73e8;
+
 }
 
 .card_author {
