@@ -101,9 +101,8 @@ def fetch_player_details(username):
 def write_summary_top5(month_year, md_filename):
     month, year = month_year.split('-')
     points = player_points_per_month[month_year]
-    round = round_tournament
     sorted_players = sorted(points.items(), key=lambda x: -x[1])[:7]
-    summary = f"<b><a href='//chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}' target='_blank'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|{round} ngày|Đấu trường Arena {round} vòng|{len(points)}"
+    summary = f"<b><a href='//chess.com/forum/view/link-giai-chien-truong-thi-quan#{month}-{year}' target='_blank'>Chiến Trường Thí Quân tháng {month} năm {year}</a></b>|{round_tournament} ngày|Đấu trường Arena {round_tournament} vòng|{len(points)}"
     for username, pts in sorted_players:
         fetch_player_details(username)
         fl = player_followers.get(username, 0)
@@ -129,8 +128,10 @@ def write_tournament_to_md(parsed, md_filename):
         ava = player_avatars[player]
         status = player_status[player]
         pts = points[i]
-        if status == 'closed' or status == 'closed:abuse' or status == 'closed:fair_play_violations':
+        if status == 'closed:abuse' or status == 'closed:fair_play_violations':
             line += f"|@!{player} {fl} {ava} {pts}"
+        elif status == 'closed':
+            line += f"@/{player} {fl} {ava} {pts}"
         else:
             line += f"|@{player} {fl} {ava} {pts}"
     line += "\n"

@@ -94,6 +94,7 @@ def markdown_table_to_html(markdown_table):
                 username = cell[2:]
                 if user.startswith('!'):
                     splited_username = username.split()
+                    name = splited_username[0]
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
@@ -102,7 +103,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" target="_top">{name}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-fair"></span> <span> Closed: Gian lận</span></div></div></span>
@@ -113,6 +114,7 @@ def markdown_table_to_html(markdown_table):
 </div></td>'''
                 elif user.startswith('#'):
                     splited_username = username.split()
+                    name = splited_username[0]
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
@@ -121,7 +123,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" target="_top">{name}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-abuse"></span> <span> Closed: Abuse</span></div></div></span>
@@ -132,6 +134,7 @@ def markdown_table_to_html(markdown_table):
 </div></td>'''
                 elif user.startswith('*'):
                     splited_username = username.split()
+                    name = splited_username[0]
                     followers = splited_username[1] if len(splited_username) > 1 else 'N/A'
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     points = splited_username[3] if len(splited_username) > 3 else 'N/A'
@@ -141,7 +144,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" target="_top">{name}</a>
         </div>
         <div class="post-user-status">
             <span><span class="bx bx-user-check"></span>{followers} người theo dõi | {points} ĐIỂM</span>
@@ -150,6 +153,7 @@ def markdown_table_to_html(markdown_table):
 </div></td>'''
                 elif user.startswith('/'):
                     splited_username = username.split()
+                    name = splited_username[0]
                     avatar = splited_username[2] if len(splited_username) > 2 and splited_username[2] != 'N/A' else f'{cc}/bundles/web/images/user-image.007dad08.svg'
                     points = splited_username[3] if len(splited_username) > 3 else 'N/A'
                     cell_content = f'''<td><div class="post-user-component">
@@ -158,7 +162,7 @@ def markdown_table_to_html(markdown_table):
     </a>
     <div class="post-user-details">
         <div class="user-tagline-component">
-            <a class="user-username-component user-tagline-username" href="{cc}/member/{username}" target="_top">{username}</a>
+            <a class="user-username-component user-tagline-username" href="{cc}/member/{name}" target="_top">{name}</a>
         </div>
         <div class="post-user-status">
             <span><div class="user-badges-component"><div class="user-badges-badge user-badges-inactive"><span class="user-badges-icon-inactive"></span> <span> Closed: Inactive</span></div></div></span>

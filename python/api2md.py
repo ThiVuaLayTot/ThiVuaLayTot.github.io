@@ -43,15 +43,53 @@ def fetch_player_data(username: str):
         return {}
 
 def sort_player(players_order, round_data):
-    points_map = {p.get("username"): p.get("points", 0) for p in round_data.get("players", [])}
+    if isinstance(round_data, dict):
+        if "tournament_round" in round_data and isinstance(round_data["tournament_round"], dict):
+            round_players = round_data["tournament_round"].get("players", [])
+        else:
+            round_players = round_data.get("players", [])
+    else:
+        round_players = []
+    points_map = {}
+
+    for p in round_players:
+        uname = p.get("username", "")
+        pts = p.get("points", 0)
+        if uname:
+            points_map[uname] = pts
+
     players, points = [], []
+    if not players_order:
+        print("[sort_player] No player order data found.")
+        return players, points
+
+    if not points_map:
+        print("[sort_player] No round data found.")
+        return players_order[:7], [0]*len(players_order[:7])
+
     for username in players_order[:7]:
+        uname = username.lower()
+        pts = points_map.get(uname, 0)
         players.append(username)
-        points.append(points_map.get(username, 0))
+        points.append(pts)
+        print(f"[sort_player] player @{username} {pts} pts")
+
     return players, points
 
-def parse_player_data(player_data: dict):
-    data = player_data.get("player", player_data)
+def parse_player_data(player_data):
+    if not player_data:
+        return {
+            "username": "unknown",
+            "status": "N/A",
+            "avatar": "N/A",
+            "followers": 0
+        }
+
+    data = player_data.get("player") if isinstance(player_data, dict) and "player" in player_data else player_data
+
+    if not isinstance(data, dict):
+        data = {}
+
     return {
         "username": data.get("username", "unknown"),
         "status": data.get("status", "N/A"),
