@@ -701,6 +701,7 @@ footer .bottom-details .bottom_text {
     border-radius: 1em;
     background: linear-gradient(#121339, #032f43) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
     transform: scale(1);
+    transition: all .3s ease;
 }
 
 .card:hover {
@@ -784,12 +785,13 @@ footer .bottom-details .bottom_text {
     background: #1a73e80e;
     border-radius: 1em;
     padding: 3px 5px;
-    text-transform: uppercase
+    text-transform: uppercase;
+    transition: all .3s ease;
 }
 
 .card_tag:hover {
     background: #1a73e8;
-
+    transition: all .3s ease;
 }
 
 .card_author {

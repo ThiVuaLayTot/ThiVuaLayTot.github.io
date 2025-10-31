@@ -6,7 +6,7 @@ category: events
 tags:
   - Minigame
   - Strategy
-author: Quản trị viên Đinh Hoàng Việt
+author: Đinh Hoàng Việt
 description: Đã kết thúc
 ---
 
