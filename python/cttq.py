@@ -131,7 +131,7 @@ def write_tournament_to_md(parsed, md_filename):
         if status == 'closed:abuse' or status == 'closed:fair_play_violations':
             line += f"|@!{player} {fl} {ava} {pts}"
         elif status == 'closed':
-            line += f"@/{player} {fl} {ava} {pts}"
+            line += f"|@/{player} {fl} {ava} {pts}"
         else:
             line += f"|@{player} {fl} {ava} {pts}"
     line += "\n"
@@ -174,4 +174,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Process interrupted.")
         sys.exit()
+
 
