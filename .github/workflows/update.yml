@@ -21,7 +21,7 @@ jobs:
   updates:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.TOKEN }}
       - name: Setup Python '3.11'
