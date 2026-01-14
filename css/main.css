@@ -582,7 +582,7 @@ footer .footer {
     max-width: 80rem;
     margin-left: auto;
     margin-right: auto;
-    background: linear-gradient(143deg,#23afd033,transparent);
+    background: linear-gradient(143deg,#237cd033,transparent);
 }
 
 .footer_main .footer_content {
@@ -702,16 +702,10 @@ footer .bottom-details .bottom_text {
     margin-right: 10px;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 949px) {
     .footer_main .footer_content {
         grid-template-columns: repeat(4,minmax(0,1fr));
         gap: 4rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .footer_main .footer_content {
-        grid-template-columns: repeat(2,minmax(0,1fr));
     }
 }
 
