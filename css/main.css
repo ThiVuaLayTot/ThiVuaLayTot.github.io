@@ -702,14 +702,14 @@ footer .bottom-details .bottom_text {
     margin-right: 10px;
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 1024px) {
     .footer_main .footer_content {
         grid-template-columns: repeat(4,minmax(0,1fr));
         gap: 4rem;
     }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .footer_main .footer_content {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
