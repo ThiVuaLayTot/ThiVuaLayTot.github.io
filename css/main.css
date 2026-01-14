@@ -357,7 +357,7 @@ hr {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1.4rem;
+    gap: .7rem;
     margin-top: 1.7rem;
     text-align: center;
 }
@@ -567,7 +567,6 @@ hr {
 footer {
     background: rgba(0, 231, 255, 0.1);
     width: 100vw;
-    margin-left: 50%;
     position: relative;
 }
 
@@ -590,7 +589,7 @@ footer .footer {
     margin-left: auto;
     margin-right: auto;
     display: grid;
-    grid-template-columns: repeat(3,minmax(0,1fr));
+    grid-template-columns: repeat(4,minmax(0,1fr));
     gap: 4rem;
 }
 
@@ -702,7 +701,7 @@ footer .bottom-details .bottom_text {
     margin-right: 10px;
 }
 @media (max-width: 700px) {
-    footer .footer_content .link-boxes {
+    footer .footer_content .link_boxes {
         flex-wrap: wrap;
     }
     .box {
@@ -710,7 +709,7 @@ footer .bottom-details .bottom_text {
         margin-top: 10px;
         justify-content: center;
     }
-    footer .footer_content .link-boxes {
+    footer .footer_content .link_boxes {
         width: 40%;
         margin-top: 10px;
     }
