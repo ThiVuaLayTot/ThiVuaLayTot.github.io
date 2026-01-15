@@ -556,6 +556,30 @@ footer .footer {
     grid-column: span 1 / span 1;
 }
 
+.footer_content .col_1 .tvlt_details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.footer_content .col_1 .tvlt_details .logo {
+    width: 3rem;
+    height: 3rem;
+    vertical-align: middle;
+}
+
+.footer_content .col_1 .tvlt_details .tvlt_name {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+}
+
+.footer_content .col_1 .tvlt_details .tungjohn {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+}
+
 .footer_content .link_boxes {
     width: 100%;
     display: flex;
