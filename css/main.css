@@ -51,17 +51,7 @@ body {
 }
 
 
-/* Nav */
-@keyframes navani {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Navbar */
 
 .page-header {
   display: flex;
@@ -75,17 +65,13 @@ body {
   padding: 0.3rem 2rem;
 }
 
-.logo {
-  animation: navani 1s ease forwards;
-}
-
 .logo img {
   width: 50px;
   height: 50px;
 }
 
 .logo:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .topnav {
@@ -105,29 +91,7 @@ body {
   line-height: 2;
   padding: 3px 14px;
   opacity: 0;
-  animation: navani 0.3s ease forwards;
-  animation-delay: calc(0.1s * var(--navAni));
   transition: 0.3s;
-}
-
-.topnav a::before {
-  content: "";
-  position: absolute;
-  left: 12.5%;
-  bottom: 0;
-  text-decoration: none;
-  width: 75%;
-  height: 2px;
-  background: linear-gradient(to right, var(--color-pink) 0%, #35c9fc 100%);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-.topnav a:hover::before {
-  transform: scaleX(1);
-  transform-origin: left;
-  text-decoration: none;
 }
 
 .topnav a:hover, .topnav a:active {
@@ -142,12 +106,6 @@ body {
   color: #fff;
   cursor: pointer;
   }
-
-.lang {
-  visibility: hidden;
-  opacity: 0;
-  color: #fff;
-}
 
 @media (max-width: 800px) {
   .topnav {
@@ -598,30 +556,6 @@ footer .footer {
     grid-column: span 1 / span 1;
 }
 
-.footer_content .col_1 .tvlt_details {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.footer_content .col_1 .tvlt_details .logo {
-    width: 3rem;
-    height: 3rem;
-    vertical-align: middle;
-}
-
-.footer_content .col_1 .tvlt_details .tvlt_name {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    font-weight: 700;
-}
-
-.footer_content .col_1 .tvlt_details .tungjohn {
-    font-size: .875rem;
-    line-height: 1.25rem;
-    font-weight: 500;
-}
-
 .footer_content .link_boxes {
     width: 100%;
     display: flex;
@@ -724,8 +658,33 @@ footer .bottom-details .bottom_text {
     }
 }
 
+/* TVLT logo block */
 
-/* Style cho thẻ */
+.tvlt_details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.tvlt_details .logo {
+    width: 3rem;
+    height: 3rem;
+    vertical-align: middle;
+}
+
+.tvlt_details .tvlt_name {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+}
+
+.tvlt_details .tungjohn {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+}
+
+/* Style for tags */
 
 .card-list {
     display: grid;
