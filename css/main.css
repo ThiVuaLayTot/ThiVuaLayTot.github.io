@@ -130,20 +130,21 @@ body {
   }
 
   .topnav_content {
+    display: none;
+    visibility: hidden;
+  }
+
+  .hidden {
     display: block;
     position: absolute;
     right: 0;
     width: max-content;
     background: darkcyan;
-  }
+    }
+
   .section {
     padding: 0 .3rem
   }
-}
-
-.hidden {
-    display: none;
-    visibility: hidden;
 }
 
 .logo {
