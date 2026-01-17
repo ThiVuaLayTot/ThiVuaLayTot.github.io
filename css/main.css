@@ -52,16 +52,6 @@ body {
 
 
 /* Nav */
-@keyframes navani {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 .page-header {
   display: flex;
@@ -85,6 +75,10 @@ body {
 }
 
 .topnav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
 .topnav a {
   position: relative;
@@ -101,6 +95,7 @@ body {
 .topnav a:hover, .topnav a:active {
   color: var(--nav-text);
   text-shadow: 0 0 15px var(--nav-text);
+}
 
 .icon {
   display: none;
@@ -578,6 +573,7 @@ footer .footer {
 
 .footer_content .col_1 {
     grid-column: span 1 / span 1;
+    align-items: center;
 }
 
 .footer_content .link_boxes {
@@ -687,6 +683,7 @@ footer .bottom-details .bottom_text {
 .tvlt_details {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .tvlt_details .logo {
