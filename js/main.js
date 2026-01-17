@@ -1,5 +1,5 @@
 function toggleMenu() {
-    var nav = document.getElementById("topnav_content");
+    var nav = document.getElementById("topnav");
     if (nav.className === "topnav_content") {
         nav.className += " hidden";
     } else {
