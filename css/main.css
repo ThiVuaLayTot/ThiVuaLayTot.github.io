@@ -75,90 +75,48 @@ body {
   padding: 0.3rem 2rem;
 }
 
-.logo {
-  animation: navani 1s ease forwards;
-}
-
 .logo img {
   width: 50px;
   height: 50px;
 }
 
 .logo:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .topnav {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
 
 .topnav a {
   position: relative;
-  display: inline-block;
   color: #fff;
   text-decoration: none;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  line-height: 2;
+  line-height: 1.5;
   padding: 3px 14px;
-  opacity: 0;
-  animation: navani 0.3s ease forwards;
-  animation-delay: calc(0.1s * var(--navAni));
   transition: 0.3s;
-}
-
-.topnav a::before {
-  content: "";
-  position: absolute;
-  left: 12.5%;
-  bottom: 0;
-  text-decoration: none;
-  width: 75%;
-  height: 2px;
-  background: linear-gradient(to right, var(--color-pink) 0%, #35c9fc 100%);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-.topnav a:hover::before {
-  transform: scaleX(1);
-  transform-origin: left;
-  text-decoration: none;
 }
 
 .topnav a:hover, .topnav a:active {
   color: var(--nav-text);
   text-shadow: 0 0 15px var(--nav-text);
-  text-decoration: none;
-}
 
 .icon {
   display: none;
-  font-size: 1.5rem;
-  color: #fff;
-  cursor: pointer;
-  }
+}
 
-.lang {
-  visibility: hidden;
-  opacity: 0;
-  color: #fff;
+.topnav_content {
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 800px) {
   .topnav {
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
-    display: none;
-  }
-
-  .topnav.responsive {
     display: flex;
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   .topnav a { 
@@ -167,8 +125,34 @@ body {
     padding: 10px 0;
   }
 
+  .nav_content {
+    display: inline-block;
+    position: relative;
+  }
+
   .icon {
     display: block;
+  }
+
+  .topnav_content {
+    display: none;
+  }
+
+  .hidden {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: max-content;
+    background: linear-gradient(48deg, #0f1645, #0c2f52);
+    }
+
+  .section {
+    padding: 0 .5rem;
+  }
+
+  .section:hover {
+    background: linear-gradient(60deg, #132b60, transparent);
+    border: 1px solid #1a73e8;
   }
 }
 
@@ -717,12 +701,14 @@ footer .bottom-details .bottom_text {
     font-size: 1.25rem;
     line-height: 1.75rem;
     font-weight: 700;
+    color: aliceblue;
 }
 
 .tvlt_details .tungjohn {
     font-size: .875rem;
     line-height: 1.25rem;
     font-weight: 500;
+    color: antiquewhite;
 }
 
 /* Style for tags */

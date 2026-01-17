@@ -1,9 +1,9 @@
 function toggleMenu() {
-    const nav = document.getElementById("tvlttopnav");
-    if (nav.className === "topnav") {
-        nav.className += " responsive";
+    var nav = document.getElementById("tvlttopnav");
+    if (nav.className === "topnav_content") {
+        nav.className += " hidden";
     } else {
-        nav.className = "topnav";
+        nav.className = "topnav_content";
     }
 }
 
