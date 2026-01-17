@@ -82,7 +82,6 @@ body {
 
 .topnav a {
   position: relative;
-  display: inline-block;
   color: #fff;
   text-decoration: none;
   font-size: 1.05rem;
@@ -131,9 +130,10 @@ body {
   }
 
   .topnav_content {
+    display: block;
     position: absolute;
     right: 0;
-    width: 50vw;
+    width: max-content;
     background: darkcyan;
   }
   .section {
