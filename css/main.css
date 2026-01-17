@@ -131,7 +131,6 @@ body {
 
   .topnav_content {
     display: none;
-    visibility: hidden;
   }
 
   .hidden {
@@ -694,7 +693,7 @@ footer .bottom-details .bottom_text {
         justify-content: center;
     }
     footer .footer_content .link_boxes {
-        width: 40%;
+        width: 90%;
         margin-top: 10px;
     }
 }
