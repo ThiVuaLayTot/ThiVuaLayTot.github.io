@@ -563,14 +563,12 @@ footer .footer {
     position: relative;
     padding: 4rem 3rem;
     inset: 0;
-    max-width: 80rem;
     margin-left: auto;
     margin-right: auto;
     background: linear-gradient(143deg,#237cd033,transparent);
 }
 
 .footer_main .footer_content {
-    max-width: 80rem;
     margin-left: auto;
     margin-right: auto;
     display: grid;
@@ -599,7 +597,7 @@ footer .footer {
     font-weight: 400;
     margin-bottom: 10px;
     position: relative;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .link_boxes .box .link_name::before {
@@ -618,7 +616,7 @@ footer .footer {
 }
 
 .footer_content .link_boxes .box li a {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     color: #fff;
     text-decoration: none;
