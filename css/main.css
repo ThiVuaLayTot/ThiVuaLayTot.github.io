@@ -103,6 +103,11 @@ body {
   display: none;
 }
 
+.topnav_content {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 800px) {
   .topnav {
     flex-direction: column;
@@ -130,6 +135,9 @@ body {
     right: 0;
     width: 50vw;
     background: darkcyan;
+  }
+  .section {
+    padding: 0 .3rem
   }
 }
 
