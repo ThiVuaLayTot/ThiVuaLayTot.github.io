@@ -710,13 +710,14 @@ footer .bottom-details .bottom_text {
 
 .card-list {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(28em, 1fr));
+    gap: 3rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .card {
-    width: 350px;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     box-shadow: 0px 0.2rem 1rem rgba(95, 165, 185, 0.334);
     position: relative;
     direction: ltr;
@@ -726,7 +727,6 @@ footer .bottom-details .bottom_text {
     margin-bottom: 1em;
     border-radius: 1em;
     border: max(1px, 1px) solid transparent;
-    border-radius: 1em;
     background: linear-gradient(#121339, #032f43) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
     transform: scale(1);
     transition: all .3s ease;
@@ -738,6 +738,10 @@ footer .bottom-details .bottom_text {
     background: linear-gradient(#191a4d, #043a52) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 80%) border-box;
     transform: scale(1.05);
     transition: all .3s ease;
+}
+
+.post_in4 {
+    width: 97%;
 }
 
 .ribbon {
@@ -770,9 +774,10 @@ footer .bottom-details .bottom_text {
 }
 
 .card_image {
-    width: 300px;
-    height: 175px;
+    width: 95%;
+    height: auto;
     border-radius: 5px;
+    position: relative;
 }
 
 .card_title {
@@ -780,7 +785,7 @@ footer .bottom-details .bottom_text {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
-    margin: .4em 0 .5em 0;
+    margin: .2em 0 .2em 0;
     font-weight: bold;
     font-size: large;
     color: var(--color-green);
@@ -788,6 +793,8 @@ footer .bottom-details .bottom_text {
 
 .card_in4 {
     display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     margin: .2em 0 .3em 0;
     color: var(--primary-text);
     overflow: hidden;
@@ -795,41 +802,53 @@ footer .bottom-details .bottom_text {
     text-decoration: none;
 }
 
-
 .card_detail {
     position: relative;
     width: 100%;
+    min-height: 28px;
     color: #9fa4aa;
-    font-size: 11px;
+    font-size: .75rem;
+    line-height: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    column-gap: 1em;
+    -moz-column-gap: 1em;
+    margin: 0 .1rem;
 }
 
 .card_tag {
-    font-weight: bold;
+    font-weight: 600;
     align-items: center;
     border: 1px doted #1a73e8;
     background: #1a73e80e;
-    border-radius: 1em;
+    border-radius: .3em;
     padding: 3px 5px;
     text-transform: uppercase;
     transition: all .3s ease;
 }
 
 .card_tag:hover {
-    background: #1a73e8;
+    background: #1a73e84b;
+    transform: scale(1.1);
     transition: all .3s ease;
+    text-decoration: none;
 }
 
 .card_author {
     color: var(--color-purple);
-    font-size: 10px;
+    font-size: .875rem;
 }
 
 .card_date {
     color: var(--color-grey);
-    font-size: 10px;
+    font-size: .75rem;
+}
+
+@media (min-width:1024px) {
+    .card-list {
+        grid-template-columns: repeat(3,minmax(0,1fr));
+    }
 }
 
 /*Style cho tag*/
