@@ -4,7 +4,7 @@
     --primary-font: Montserrat,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
     --tab-font: "Open Sans Condensed", sans-serif;
     --primary-color: #f9532d;
-    --primary-dark: #081229;
+    --primary-dark: linear-gradient(180deg,#0a0f1a 0%,#0f172a 100%);
     --primary-text: #fff;
     --primary-link: #409eff;
     --primary-link-hover: #1c9ded;
@@ -33,7 +33,7 @@
 
 body {
     font-family: var(--primary-font);
-    background-color: var(--primary-dark);
+    background: var(--primary-dark);
     color: #fff;
 }
 
@@ -61,7 +61,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 2;
-  background: rgba(15, 15, 35, 0.95);
+  background: radial-gradient(circle, rgb(3 17 41) 0%, #00141e 70%);
   box-shadow: 0 5px 17px rgba(127, 127, 127, 0.3);
   padding: 0.3rem 2rem;
 }
