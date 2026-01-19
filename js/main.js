@@ -1,11 +1,19 @@
-function toggleMenu() {
-    var nav = document.getElementById("tvlttopnav");
-    if (nav.className === "topnav_content") {
-        nav.className += " hidden";
-    } else {
-        nav.className = "topnav_content";
+document.getElementById("tvltTopnav").addEventListener("click", function() {
+    function toggleMenu() {
+        var nav = document.getElementById("tvltTopnav");
+        var menu = document.getElementById("menuIcon");
+        if (nav.className === "topnav_content") {
+            nav.className += " hidden";
+        } else {
+            nav.className = "topnav_content";
+        }
+        if (menu.className === "fa fa-list") {
+            menu.className = "bx bx-x";
+        } else {
+            menu.className = "fa fa-list";
+        }
     }
-}
+});
 
 window.onscroll = function() { scrollFunction() };
 
