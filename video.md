@@ -4,7 +4,7 @@ title: Thư viện Video - Thí Vua Lấy Tốt
 ---
 
 <div id="video">
-    <h2><a href="#videos">Các Video nổi bật nhất của TungJohn Playing Chess</a></h2>
+    <h2><a href="#videos">Vài Video nổi bật của TungJohn Playing Chess</a></h2>
     <div class="card-list">
         <div class="card"><div class="ribbon"><span>Hot!</span></div><a href="https://youtu.be/Yxh9h7XokdQ" target="_blank">
             <img src="https://i.ytimg.com/vi/Yxh9h7XokdQ/maxresdefault.jpg" class="card_image" />
@@ -24,13 +24,6 @@ title: Thư viện Video - Thí Vua Lấy Tốt
                 <h4 class="card_title">Nóng!!! TungJohn đạt mốc 100000 Subs 10/10/2024 - Show mặt</h4></a>
                 <i class="card_in4">Khoảnh khác TungJohn Playing Chess đạt 100k người đăng ký kênh. TungJohn <b>show mặt</b> khi đạt thành công này!</i>
                 <span class="card_dav"><a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ/live" target="_blank"><b class="card_author">TungJohn Playing Chess</b></a> • <span class="card_date">10 thg 10, 2024</span></span>
-        </div>
-        <div class="card">
-            <a href="https://youtube.com/live/9YRa49R1xNE" target="_blank">
-                <img src="https://i.ytimg.com/vi/JxgUVnTkAFk/maxresdefault.jpg" class="card_image" />
-                <h4 class="card_title">Nóng!!! TungJohn Đập Hộp Nút Bạc Youtube</h4></a>
-                <i class="card_in4">TungJohn đập hộp nút bạc Youtube sau 3 tuần đạt 100k người đăng ký và chia sẽ những kinh nghiệm để đạt được.</i>
-                <span class="card_dav"><a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ/live" target="_blank"><b class="card_author">TungJohn Playing Chess</b></a> • <span class="card_date">2 thg 11, 2024</span></span>
         </div>
     </div>
 </div>

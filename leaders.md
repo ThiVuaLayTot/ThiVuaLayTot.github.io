@@ -3,7 +3,7 @@ layout: default
 title: Ban cán sự của Thí Vua Lấy Tốt
 ---
 
-<h1>Các thành viên điều hành chính</h1>
+<h1 class="title">Các thành viên điều hành chính</h1>
 <ul class="tab">
 <li><a href="#owner">Chủ kênh</a></li>
 <li><a href="#admins">Các quản trị viên</a></li>

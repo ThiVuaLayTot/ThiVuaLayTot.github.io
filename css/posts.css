@@ -1,0 +1,46 @@
+#post {
+    padding: 1.5rem 10rem;
+}
+
+#post .information {
+    text-align: center;
+}
+
+.banner {
+    border-radius: .5em;
+    box-shadow: 0 0 3px var(--color-grey);
+    background-size: cover;
+    background-image: var(--backdrop-url);
+    min-height: 150px;
+}
+
+.short_text {
+    color: var(--color-grey);
+}
+
+#post .content p {
+    line-height: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .information .banner {
+        max-width: 40vw;
+        max-height: 50vh;
+        width: 100%;
+        height: auto;
+    }
+    .content img {
+        max-width: 50vw;
+        max-height: 50vh;
+    }
+}
+
+@media (max-width: 1024px) {
+    .information .tab {
+        display: none;
+    }
+
+    .information h1 {
+        font-size: 30px;
+    }
+}

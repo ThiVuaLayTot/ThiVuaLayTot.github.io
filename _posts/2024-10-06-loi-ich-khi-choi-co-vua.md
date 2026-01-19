@@ -3,7 +3,7 @@ layout: post
 title: Những lợi ích khi chơi cờ vua
 category: chess
 tags: Cờ vua
-author: Điều hành viên Lê Đình Cường
+author: Lê Đình Cường
 description: Cờ vua là một trò chơi trí tuệ, chơi nó giúp cải thiện cho bạn nhiều điều!
 ---
 
