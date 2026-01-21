@@ -61,7 +61,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 2;
-  background: radial-gradient(circle, rgb(3 17 41) 0%, #00141e 70%);
+  background: radial-gradient(circle, rgb(1 40 51) 0%, #010439 70%);
   box-shadow: 0 5px 17px rgba(127, 127, 127, 0.3);
   padding: 0.3rem 2rem;
 }
@@ -427,26 +427,24 @@ hr {
 }
 
 
-/* Style cho leaders */
+/* Style for leaders */
 
 .pos_header {
     margin-left: 2rem;
 }
 
 .people {
-    display: flex;
-    direction: horizontal;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    justify-content:  center;
     gap: 1rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
     margin-top: 1em;
 }
 
 .list-item-people {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: 600px;
+    align-items: center;
     height: auto;
     border: max(1px, 0.1625rem) solid transparent;
     border-radius: 1em;
@@ -458,49 +456,36 @@ hr {
     overflow: hidden;
 }
 
-.list-item-people:hover,
-.list-item-people:active {
-    border: max(2px, 0.2625rem) solid transparent;
-    border-radius: 1.5em;
-    box-shadow: 10px 10px 15px rgba(67, 74, 85, 0.2);
-}
-
 .list-item-people .list-item-info {
-    width: 100%;
-    display: flex;
     gap: 0.5rem;
+    align-items: center;
 }
 
-.list-item-info .list-people-ava {
-    width: 20%;
-}
-
-.list-people-ava .profile-thumbnail {
-    width: 100px;
-    height: 100px;
-    border-radius: 10%;
+ .profile-thumbnail {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
     object-fit: cover;
-    margin-right: 10px;
+    filter: drop-shadow(0 0 5px #00f2ff);
 }
 
-.list-item-info .list-people-detail {
-    width: 70%;
-}
 
 .list-people-detail .name {
+    padding-top: .5rem;
     color: var(--color-blue);
-    font-size: 1.2rem;
-    white-space: nowrap;
+    font-size: 1.3rem;
     text-overflow: ellipsis;
     font-weight: bold;
+    text-align: center;
 }
 
 .list-people-detail .list-detail {
-    font-size: 14px;
-    color: var(--primary-color);
+    font-size: 15px;
+    color: var(--color-grey);
     padding: 0.25rem 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
 
 .list-item-people .social {
@@ -509,6 +494,18 @@ hr {
     gap: 10px;
     width: 100%;
     margin-top: 10px;
+}
+
+@media (max-width: 800px) {
+    .people {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 512px) {
+    .people {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 
