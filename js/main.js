@@ -1,5 +1,4 @@
 document.getElementById("menu").addEventListener("click", function() {
-    function toggleMenu() {
         var nav = document.getElementById("tvltTopnav");
         var menu = document.getElementById("menuIcon");
         if (nav.className === "topnav_content") {
@@ -12,7 +11,6 @@ document.getElementById("menu").addEventListener("click", function() {
         } else {
             menu.className = "fa fa-list";
         }
-    }
 });
 
 window.onscroll = function() { scrollFunction() };
