@@ -1,4 +1,4 @@
-document.getElementById("tvltTopnav").addEventListener("click", function() {
+document.getElementById("menu").addEventListener("click", function() {
     function toggleMenu() {
         var nav = document.getElementById("tvltTopnav");
         var menu = document.getElementById("menuIcon");
