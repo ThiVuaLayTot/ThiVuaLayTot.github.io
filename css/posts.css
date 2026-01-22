@@ -12,6 +12,10 @@
     background-size: cover;
     background-image: var(--backdrop-url);
     min-height: 150px;
+    max-width: 40vw;
+    max-height: 50vh;
+    width: 100%;
+    height: auto;
 }
 
 .short_text {
