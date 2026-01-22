@@ -269,16 +269,16 @@ async function generatePlayerCell(username, points) {
     let badgeClass = '';
 
     if (status === 'closed:abuse') {
-        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-abuse"></span> <span>Closed: Abuse</span></div></div>`;
+        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span>Closed: Abuse</span></div></div>`;
         badgeClass = 'closed-abuse';
     } else if (status === 'closed:fair_play_violations') {
-        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-fair"></span> <span>Closed: Gian lận</span></div></div>`;
+        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span>Closed: Gian lận</span></div></div>`;
         badgeClass = 'closed-fair';
     } else if (status === 'closed') {
-        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span class="user-badges-icon-inactive"></span> <span>Closed: Inactive</span></div></div>`;
+        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span>Closed: Inactive</span></div></div>`;
         badgeClass = 'closed';
     } else if (status === 'premium') {
-        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span class="user-badges-icon-premium"></span> <span>Chess.com Membership</span></div></div>`;
+        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-premium"><span>Chess.com Membership</span></div></div>`;
         badgeClass = 'premium';
     }
 
@@ -289,11 +289,10 @@ async function generatePlayerCell(username, points) {
             </a>
             <div class="post-user-details">
                 <div class="user-tagline-component">
-                    <a class="user-username-component user-tagline-username" href="${cc}/member/${name}" target="_top">${name}</a>
+                    <a class="user-username-component user-tagline-username" href="${cc}/member/${name}" target="_blank">${name}</a>
                 </div>
                 <div class="post-user-status">
                     <span>${badgeHTML}</span>
-                    ${badgeHTML ? '<span class="post-view-meta-separator"></span>' : ''}
                     <span>${points} ĐIỂM</span>
                 </div>
             </div>
@@ -516,7 +515,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         // Keep loading status visible - it shows final count
         
         if (successCount === 0) {
-            container.innerHTML = '<div class="error">Không thể tải dữ liệu giải đấu. Vui lòng kiểm tra console để xem chi tiết lỗi.</div>';
+            container.innerHTML = '<div class="error">Không thể tải dữ liệu giải đấu. Hãy thử tải lại trang!</div>';
             return;
         }
 
@@ -544,49 +543,6 @@ function togglePause() {
     console.log(`[togglePause] Pause state: ${isPaused}`);
 }
 
-/**
- * Search function for table with highlighting
- */
-function searchTable(inputId = 'searchInput', tableId = null) {
-    const input = document.getElementById(inputId);
-    if (!input) return;
-    
-    const filter = input.value.toUpperCase();
-    const tables = tableId ? [document.getElementById(tableId)].filter(Boolean) : document.querySelectorAll('.styled-table');
-    
-    // Reset all rows if no filter
-    if (filter.length === 0) {
-        tables.forEach(table => table.querySelectorAll('tbody tr').forEach(row => row.style.display = ''));
-        return;
-    }
-    
-    // Escape special regex characters
-    const escapedFilter = filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(${escapedFilter})`, 'gi');
-    
-    tables.forEach(table => {
-        table.querySelectorAll('tbody tr').forEach(row => {
-            const cells = row.querySelectorAll('td');
-            let found = false;
-            
-            cells.forEach(cell => {
-                const original = cell.getAttribute('data-original') || cell.textContent;
-                if (!cell.getAttribute('data-original')) {
-                    cell.setAttribute('data-original', original);
-                }
-                
-                if (original.toUpperCase().includes(filter)) {
-                    found = true;
-                    cell.innerHTML = original.replace(regex, '<mark style="background-color: yellow; padding: 2px;">$1</mark>');
-                } else {
-                    cell.textContent = original;
-                }
-            });
-            
-            row.style.display = found ? '' : 'none';
-        });
-    });
-}
 
 // Auto-run when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
