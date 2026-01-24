@@ -344,6 +344,9 @@
 
 /* Loading Status */
 #loading-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 16px 20px;
     color: #cbd5e1;
@@ -368,11 +371,13 @@
     background-color: #eee;
     border-radius: 10px;
     overflow: hidden;
-    margin-left: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
 .current-progress {
     background-color: var(--primary-sucess);
+    transition: 2.5s;
 }
 
 /* Responsive Design */
