@@ -520,11 +520,11 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         }
         
         if (successCount === tourIds.length) {
-            document.getElementById('.statusIcon').style.color = 'var(--primary-success)';
-            document.getElementById('.statusIcon').className = 'fa fa-check';
+            document.getElementById('statusIcon').style.color = 'var(--primary-success)';
+            document.getElementById('statusIcon').className = 'fa fa-check';
         } else {
-            document.getElementById('.statusIcon').style.color = 'var(--color-red)';
-            document.getElementById('.statusIcon').className = 'fa fa-times';
+            document.getElementById('statusIcon').style.color = 'var(--color-red)';
+            document.getElementById('statusIcon').className = 'fa fa-times';
         }
 
         console.log(`[fetchAndRenderTournaments] Rendering complete! ${successCount}/${tourIds.length} tournaments loaded`);
@@ -542,12 +542,14 @@ function togglePause() {
     isPaused = !isPaused;
     const btn = document.getElementById('pause-btn');
     if (isPaused) {
-        btn.innerHTML = `<svg class="play" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
     <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"></path> </svg> Tiếp tục`;
         btn.style.background = '#51cf663c';
+        btn.style.color = 'var(--color-light-green)';
     } else {
-        btn.innerHTML = `<svg class="svg-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng`;
+        btn.innerHTML = `<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng`;
         btn.style.background = '#ff284839';
+        btn.style.color = '#FF2849';
     }
     console.log(`[togglePause] Pause state: ${isPaused}`);
 }
