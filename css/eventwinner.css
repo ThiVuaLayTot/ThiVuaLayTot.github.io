@@ -44,7 +44,7 @@
 }
 
 .styled-table th {
-    background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+    background: linear-gradient(90deg, #1b4ebb 0%, #1d4ed8 50%, #1e40af 100%);
     color: white;
     font-weight: 700;
     padding: 18px 18px;
@@ -327,7 +327,6 @@
     font-weight: 700;
     font-size: 14px;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
     letter-spacing: 0.3px;
     display: inline-flex;
     align-items: center;
@@ -337,22 +336,10 @@
 #pause-btn:hover {
     background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
 }
 
 #pause-btn:active {
     transform: translateY(-1px);
-}
-
-#pause-btn.resume {
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.35);
-}
-
-#pause-btn.resume:hover {
-    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
-    transform: translateY(-3px);
 }
 
 /* Loading Status */
@@ -372,6 +359,20 @@
     margin-left: 20px;
     color: #fca5a5;
     font-weight: 700;
+}
+
+.progress-bar {
+    display: flex;
+    width: 160px;
+    height: 10px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+.current-progress {
+    background-color: var(--primary-sucess);
 }
 
 /* Responsive Design */

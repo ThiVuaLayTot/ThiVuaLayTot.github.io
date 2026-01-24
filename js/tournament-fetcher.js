@@ -407,7 +407,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
     }
 
     // Show loading message
-    container.innerHTML = '<div class="loading">Đang tải dữ liệu...</div>';
+    container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
     try {
         const tourIds = await getIds(eventType);
@@ -420,9 +420,10 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
 
         // Create initial table HTML with loading status before table
         const initialHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm">
-    <button id="pause-btn" onclick="togglePause()" style="padding: 8px 16px; margin-left: 10px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">⏸ Tạm dừng</button>
+    <button id="pause-btn" onclick="togglePause()" style="padding: 8px 16px; margin-left: 10px; background: #ff284839; color: #FF2849; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;"><svg class="svg-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng</button>
     <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;">
-        Đang tải tournament: <span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length}</span>
+        Đang hiển thị:&nbsp;&nbsp; <div class="progress-bar"><div style="width: 0%" class="current-progress"></div>
+      </div>&nbsp;&nbsp; <span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length}</span>
         <span id="pause-status" style="margin-left: 20px; color: #ff6b6b; font-weight: bold;"></span>
     </div>
     <div class="table">
@@ -445,8 +446,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
             </tbody>
         </table>
     </div>
-    <br><br><hr>
-    <button id="back-to-top" title="Go to top"><span class="bx bxs-to-top"></span></button>`;
+    <br><br><hr>`;
 
         container.innerHTML = initialHTML;
         
@@ -502,6 +502,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
                     
                     successCount++;
                     document.getElementById('current-tournament').textContent = successCount;
+                    document.querySelectorAll('.current-progess').style.width=`${successCount/tourIds.length}%`;
                     console.log(`[fetchAndRenderTournaments] Replaced skeleton ${batchStart + idx} with: ${result.parsed.name}`);
                 }
             });
@@ -515,7 +516,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         // Keep loading status visible - it shows final count
         
         if (successCount === 0) {
-            container.innerHTML = '<div class="error">Không thể tải dữ liệu giải đấu. Hãy thử tải lại trang!</div>';
+            container.innerHTML = '<div class="error">Đã có lỗi xảy ra, không thể tải dữ liệu giải đấu. Hãy thử tải lại trang!</div>';
             return;
         }
 
@@ -534,11 +535,12 @@ function togglePause() {
     isPaused = !isPaused;
     const btn = document.getElementById('pause-btn');
     if (isPaused) {
-        btn.textContent = '▶ Tiếp tục';
-        btn.style.background = '#51cf66';
+        btn.textContent = `<svg class="play" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"></path> </svg> Tiếp tục`;
+        btn.style.background = '#51cf663c';
     } else {
-        btn.textContent = '⏸ Tạm dừng';
-        btn.style.background = '#ff6b6b';
+        btn.innerHTML = `<svg class="svg-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng`;
+        btn.style.background = '#ff284839';
     }
     console.log(`[togglePause] Pause state: ${isPaused}`);
 }

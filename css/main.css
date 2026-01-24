@@ -60,7 +60,7 @@ body {
   justify-content: space-between;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 20;
   background: radial-gradient(circle, rgb(1 40 51) 0%, #010439 70%);
   box-shadow: 0 5px 17px rgba(127, 127, 127, 0.3);
   padding: 0.3rem 2rem;
