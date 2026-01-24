@@ -421,9 +421,9 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         // Create initial table HTML with loading status before table
         const initialHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm">
     <button id="pause-btn" onclick="togglePause()" style="padding: 8px 16px; margin-left: 10px; background: #ff284839; color: #FF2849; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;"><svg class="svg-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng</button>
-    <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;">
+    <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;"><span id="statusIcon"></span>&nbsp;
         Đang hiển thị:&nbsp;&nbsp; <div class="progress-bar"><div style="width: 0%" class="current-progress"></div>
-      </div>&nbsp;&nbsp; <span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length}</span>
+      </div>&nbsp;&nbsp; <span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length} giải đấu </span>
         <span id="pause-status" style="margin-left: 20px; color: #ff6b6b; font-weight: bold;"></span>
     </div>
     <div class="table">
@@ -497,7 +497,6 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
                         const tdContent = result.row.replace(/^\s*<tr>\n\s*/, '').replace(/\s*<\/tr>\s*$/, '');
                         skeletonRow.innerHTML = tdContent;
                         skeletonRow.classList.remove('skeleton-row');
-                        skeletonRow.classList.add('fade-in');
                     }
                     
                     successCount++;
@@ -518,6 +517,14 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         if (successCount === 0) {
             container.innerHTML = '<div class="error">Đã có lỗi xảy ra, không thể tải dữ liệu giải đấu. Hãy thử tải lại trang!</div>';
             return;
+        }
+        
+        if (successCount === tourIds.length) {
+            document.getElementById('.statusIcon').style.color = 'var(--primary-success)';
+            document.getElementById('.statusIcon').className = 'fa fa-check';
+        } else {
+            document.getElementById('.statusIcon').style.color = 'var(--color-red)';
+            document.getElementById('.statusIcon').className = 'fa fa-times';
         }
 
         console.log(`[fetchAndRenderTournaments] Rendering complete! ${successCount}/${tourIds.length} tournaments loaded`);

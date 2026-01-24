@@ -368,11 +368,9 @@
     display: flex;
     width: 160px;
     height: 10px;
-    background-color: #eee;
+    background-color: #0f5079;
     border-radius: 10px;
     overflow: hidden;
-    align-items: center;
-    justify-content: center;
 }
 
 .current-progress {
@@ -564,7 +562,7 @@
         rgba(64, 158, 255, 0.1) 80px
     );
     background-size: 1000px 104px;
-    animation: skeleton-loading 1.5s infinite;
+    animation: fadeIn 1.5s infinite;
     border-radius: 4px;
 }
 
