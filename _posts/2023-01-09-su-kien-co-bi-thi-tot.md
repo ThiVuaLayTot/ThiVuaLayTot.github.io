@@ -10,20 +10,12 @@ permalink: /events/cbtt-co-bi-thi-tot
 
 🔥 **CỜ BÍ THÍ TỐT – GIẢI ĐẤU CÓ THƯỞNG ĐỊNH KỲ HẰNG THÁNG** 🔥  
 
-Bạn đang tìm một giải đấu cờ vua:
-- Thi đấu đều đặn 📅  
-- Thể loại đa dạng ♟️  
-- Có thưởng tiền mặt rõ ràng 💰  
-
-👉 **Cờ Bí Thí Tốt** chính là sân chơi dành cho bạn!
-
 ---
 
 👉 Tham gia câu lạc bộ để đủ điều kiện dự giải:  
-[Chess.com](https://link.chess.com/club/0CVQh6) |  
-[Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
+[Chess.com](https://link.chess.com/club/0CVQh6) | [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
 
-*Giải đấu được quản lý bởi Admin [VN-SenJin](/leaders#admins).*
+*Giải đấu được quản lý bởi Admin [VN-SenJin](/leaders#admin4)*. Kết quả các giải đã tổ chức sẽ được liệt kê [ở đây](/events/tournaments/cbtt).
 
 ---
 
@@ -45,10 +37,10 @@ là chuỗi giải đấu **định kỳ hằng tháng**, hướng đến cộng
 📌 **Cơ chế xoay tua**
 - Các thể loại thi đấu được **xoay tua đều đặn theo tháng** như bảng bên dưới:
 
-<img src="/images/events/co-bi-thi-tot-xoay-tua.png">
+![Quy tắc xoay tua](https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/php7h8grpo62vnof298Thp.png)
 
 ### 🔁 Quy tắc xoay tua
-- Mỗi tháng có **ít nhất 02 giải đấu**.
+- Bình thường mỗi tháng sẽ có 02 giải đấu.
 - **Blitz** và **SuperBlitz** luôn được tổ chức vào **cuối tháng**.
 - Thể loại đã tổ chức sẽ **không lặp lại ở tháng kế tiếp**, trừ trường hợp đặc biệt.
 

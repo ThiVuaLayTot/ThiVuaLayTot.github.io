@@ -5,7 +5,7 @@ category: events
 tags: Giải đấu
 author: Mr.TungJohn
 description: Sự kiện nổi bật nhất với giải thưởng đa dang và được livestream trực tiếp trên Youtube
-permalink: /events/tvlt-chien-truong-thi-quan
+permalink: /events/tvlt-thi-vua-lay-tot
 ---
 
 *Giải đấu được quản lý bởi [Mr.TungJohn](/leaders#owner).*

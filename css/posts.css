@@ -11,11 +11,11 @@
     box-shadow: 0 0 3px var(--color-grey);
     background-size: cover;
     background-image: var(--backdrop-url);
+    aspect-ratio: 16 / 9;
     min-height: 150px;
-    max-width: 40vw;
-    max-height: 50vh;
-    width: 100%;
     height: auto;
+    max-width: 40vw;
+    width: 100%;
 }
 
 .short_text {
@@ -40,6 +40,10 @@
 }
 
 @media (max-width: 1024px) {
+    #post {
+        padding: 1rem 0;
+    }
+
     .information .tab {
         display: none;
     }

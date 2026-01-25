@@ -83,19 +83,34 @@ body {
 
 .topnav a {
   position: relative;
-  color: #fff;
-  text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   line-height: 1.5;
   padding: 3px 14px;
-  transition: 0.3s;
+  color: #60a5fa;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.topnav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    transition: width 0.3s ease;
 }
 
 .topnav a:hover, .topnav a:active {
-  color: var(--nav-text);
-  text-shadow: 0 0 15px var(--nav-text);
+    color: #93c5fd;
+    text-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
+}
+
+.topnav a:hover::after {
+    width: 100%;
 }
 
 .icon {
@@ -430,12 +445,12 @@ hr {
 /* Style for leaders */
 
 .pos_header {
-    margin-left: 2rem;
+    margin-bottom: 2rem;
 }
 
 .people {
     display: grid;
-    justify-content:  center;
+    justify-content: center;
     gap: 1rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 1em;
