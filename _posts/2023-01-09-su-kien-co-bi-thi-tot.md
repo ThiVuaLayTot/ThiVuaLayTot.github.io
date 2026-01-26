@@ -12,8 +12,7 @@ permalink: /events/cbtt-co-bi-thi-tot
 
 ---
 
-👉 Tham gia câu lạc bộ để đủ điều kiện dự giải:  
-[Chess.com](https://link.chess.com/club/0CVQh6) | [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
+👉 Tham gia câu lạc bộ để đủ điều kiện dự giải: [Chess.com](https://link.chess.com/club/0CVQh6) | [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
 
 *Giải đấu được quản lý bởi Admin [VN-SenJin](/leaders#admin4)*. Kết quả các giải đã tổ chức sẽ được liệt kê [ở đây](/events/tournaments/cbtt).
 

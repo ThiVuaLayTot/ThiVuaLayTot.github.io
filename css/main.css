@@ -63,7 +63,7 @@ body {
   z-index: 20;
   background: radial-gradient(circle, rgb(1 40 51) 0%, #010439 70%);
   box-shadow: 0 5px 17px rgba(127, 127, 127, 0.3);
-  padding: 0.3rem 2rem;
+  padding: 0.3rem 3.5rem;
 }
 
 .logo img {
@@ -85,9 +85,8 @@ body {
   position: relative;
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  /*letter-spacing: 0.5px;*/
   line-height: 1.5;
-  padding: 3px 14px;
   color: #60a5fa;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -120,9 +119,14 @@ body {
 .topnav_content {
     display: flex;
     align-items: center;
+    gap: 1em;
 }
 
 @media (max-width: 800px) {
+  .page-header {
+    padding: .3rem 2rem;
+  }
+
   .topnav {
     flex-direction: column;
     align-items: flex-start;

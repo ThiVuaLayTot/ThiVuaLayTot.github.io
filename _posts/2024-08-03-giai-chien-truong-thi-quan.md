@@ -9,8 +9,7 @@ permalink: /events/cttq-chien-truong-thi-quan
 ---
 
 👉 Tham gia câu lạc bộ trên hai nền tảng cờ vua để đủ điều kiện tham dự các sự kiện:  
-[Chess.com](https://link.chess.com/club/0CVQh6) &  
-[Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
+[Chess.com](https://link.chess.com/club/0CVQh6) & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
 
 ---
 
