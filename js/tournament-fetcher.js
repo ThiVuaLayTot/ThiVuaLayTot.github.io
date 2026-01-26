@@ -223,10 +223,10 @@ async function parseTournamentData(data, tourId) {
             startTime = 'N/A';
         } else if (typeof timestamp === 'string') {
             const date = new Date(timestamp);
-            startTime = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+            startTime = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
         } else {
             const date = new Date(parseInt(timestamp) * 1000);
-            startTime = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+            startTime = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
         }
     } catch (e) {
         console.warn(`[parseTournamentData] Error parsing date: ${tournament.start_time}`);
@@ -333,7 +333,7 @@ async function generateTournamentRow(parsed) {
     };
 
     format += ruleMap[parsed.variant.toLowerCase()] || ',';
-    format += parsed.totalRounds === 1 ? ' Arena' : ` Swiss ${parsed.totalRounds} vòng`;
+    format += parsed.totalRounds === 1 ? ' Đấu trường Arena' : ` Hệ Thụy Sĩ ${parsed.totalRounds} vòng`;
     
     html += `    <td>${format}</td>\n`;
     
