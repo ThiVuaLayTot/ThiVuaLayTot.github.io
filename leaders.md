@@ -18,7 +18,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                     <div class="name">Mr. TungJohn</div>
                     <div class="list-detail">
                         <p style="color: var(--primary-color)"><b></b><span class="bx bx-user-check"></span>Chủ kênh</p>
-                        <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Đứng đầu, Chủ giải <a href="/events/tournaments/tvlt">Thí Vua Lấy Tốt</a>, Nhà sáng tạo nội dung</p>
+                        <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Đứng đầu, Chủ giải <a href="/events/tvlt-thi-vua-lay-tot">Thí Vua Lấy Tốt</a>, Nhà sáng tạo nội dung</p>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                     <div class="list-detail">
                         <p style="color: var(--primary-sucess)"><span class="fa fa-user-secret"></span>Quản trị viên</p>
                         <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Quản lý giải <a
-                                href="events/tournaments/cbtt">Cờ Bí Thí Tốt</a>, Phát triển CLB, Sáng tạo nội dung...
+                                href="/events/cbtt-co-bi-thi-tot">Cờ Bí Thí Tốt</a>, Phát triển CLB, Sáng tạo nội dung...
                         </p>
                     </div>
                 </div>
@@ -78,7 +78,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                             target="_blank">M-DinhHoangViet</a></div>
                     <div class="list-detail">
                         <p style="color: var(--primary-sucess)"><span class="fa fa-user-secret"></span>Quản trị viên</p>
-                        <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Phát triển web, Phát triển cộng đồng, Quản lý giải <a href="/events/tournaments/cttq">Chiến Trường Thí Quân</a></p>
+                        <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Phát triển web, Phát triển cộng đồng, Quản lý giải <a href="/events/cttq-chien-truong-thi-quan">Chiến Trường Thí Quân</a></p>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                             target="_blank">FR-CH_TheClanTeamIsMine</a></div>
                     <div class="list-detail">
                         <p style="color: var(--primary-sucess)"><span class="fa fa-user-secret"></span>Quản trị viên</p>
-                        <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Quản lý giải <a href="events/tournaments/dttv">Đấu Trường Thí Vua</a>, Phát triển cộng đồng, Sáng tạo nội dung.</p>
+                        <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Quản lý giải <a href="/events/tournaments/dttv">Đấu Trường Thí Vua</a>, Phát triển cộng đồng, Sáng tạo nội dung.</p>
                     </div>
                 </div>
             </div>
@@ -127,4 +127,5 @@ title: Ban cán sự của Thí Vua Lấy Tốt
         <a href="https://discord.gg/bggkufa4nE" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><span class="bx bxl-discord"></span></a>
     </div>
     <strong>Bạn cũng có thể liên hệ tới một trong <a href="#admins">các quản trị viên</a> để nhận được hỗ trợ.</strong>
+    <p>Đánh giá câu lạc bộ: <a href="https://forms.gle/iCYUAbVD5GUmbdsL8" target="_blank">https://forms.gle/iCYUAbVD5GUmbdsL8</a></p>
 </div>
