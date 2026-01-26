@@ -203,7 +203,11 @@ async function parseTournamentData(data, tourId) {
                 timeControl = `${baseNum}+${incNum}`;
             }
         } else {
-            timeControl = tcRaw || '3+0';
+            if (tcRaw >= 60) {
+                timeControl = `${Math.floor(tcRaw / 60)}+0`;
+            } else {
+                timeControl = `${tcRaw}+0`;
+            }
         }
     } catch (e) {
         console.warn(`[parseTournamentData] Error parsing time control: ${tcRaw}`);
@@ -230,11 +234,11 @@ async function parseTournamentData(data, tourId) {
 
     return {
         name: tournament.name || tournament.title || 'N/A',
-        url: tournament.url || tournament.external_url || `https://www.chess.com/tournament/${tourId}`,
+        url: tournament.url || tournament.external_url || `//www.chess.com/tournament/${tourId}`,
         variant: tournament.settings?.rules || tournament.rules || 'standard',
         startTime,
         totalRounds: rounds,
-        timeClass: tournament.settings?.time_class || tournament.time_class || 'blitz',
+        timeClass: tournament.settings?.time_class || tournament.time_class || 'N/A',
         timeControl,
         playersCount: tournament.settings?.registered_user_count || tournament.players_registered || tournament.players?.length || 'N/A',
         players,
@@ -253,7 +257,7 @@ async function generatePlayerCell(username, points) {
     // Check special players
     if (SPECIAL_PLAYERS[username.toLowerCase()]) {
         const special = SPECIAL_PLAYERS[username.toLowerCase()];
-        return `<td><a href="https://www.chess.com/member/${special.name}" target="_top"><strong>${special.name}</strong></a></td>`;
+        return `<td><a href="//www.chess.com/member/${special.name}" target="_top"><strong>${special.name}</strong></a></td>`;
     }
 
     // Fetch player data
@@ -261,7 +265,7 @@ async function generatePlayerCell(username, points) {
     const parsed = parsePlayerData(playerData);
     
     const { username: name, status, avatar } = parsed;
-    const cc = 'https://www.chess.com';
+    const cc = '//www.chess.com';
     const defaultAvatar = `${cc}/bundles/web/images/user-image.007dad08.svg`;
     const avatarUrl = avatar && avatar !== 'N/A' ? avatar : defaultAvatar;
 
@@ -431,9 +435,9 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
             <thead>
             <tr>
                 <th class="name-tour">Tên giải</th>
-                <th class="organization-day"><span class="bx bx-calendar-event"></span> Ngày tổ chức</th>
-                <th class="rules"><span class="bx bxs-chess"></span> Thể lệ</th>
-                <th class="players"><span class="fa fa-users"></span> Số kỳ thủ</th>
+                <th class="organization-day">Ngày tổ chức</th>
+                <th class="rules">Thể lệ</th>
+                <th class="players">Số kỳ thủ</th>
                 <th class="winner">🥇 Top 1</th>
                 <th class="winner">🥈 Top 2</th>
                 <th class="winner">🥉 Top 3</th>

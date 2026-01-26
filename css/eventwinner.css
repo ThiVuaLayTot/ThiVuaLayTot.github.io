@@ -135,7 +135,7 @@
 }
 
 .organization-day {
-    min-width: 8.5rem;
+    min-width: 8rem;
     font-family: 'Courier New', monospace;
     color: #cbd5e1;
 }
@@ -394,12 +394,12 @@
     
     .styled-table th,
     .styled-table td {
-        padding: 12px 14px;
+        padding: 6px 14px;
         font-size: 12px;
     }
     
     .styled-table th {
-        padding: 14px 14px;
+        padding: 5px 14px;
     }
 }
 
@@ -430,12 +430,12 @@
     
     .styled-table th,
     .styled-table td {
-        padding: 10px 12px;
+        padding: 4px 12px;
         font-size: 11px;
     }
     
     .styled-table th {
-        padding: 12px 12px;
+        padding: 3px 12px;
         font-size: 11px;
         letter-spacing: 0px;
     }
@@ -498,12 +498,12 @@
     
     .styled-table th,
     .styled-table td {
-        padding: 8px 10px;
+        padding: 2px 10px;
         font-size: 10px;
     }
     
     .styled-table th {
-        padding: 10px 10px;
+        padding: 3px 10px;
     }
     
     .cc-avatar-img {
@@ -546,7 +546,7 @@
 }
 
 /* Skeleton Loading Animation */
-@keyframes shimmer {
+@keyframes loading {
     0% {
         background-position: 200% 0;
     }
