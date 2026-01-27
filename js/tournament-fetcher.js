@@ -17,7 +17,7 @@ let isPaused = false;
 
 // Player data cache
 const playerCache = new Map();
-const BATCH_SIZE = 5; // Fetch 5 tournaments in parallel
+const BATCH_SIZE = 1; // Fetch 5 tournaments in parallel
 
 /**
  * Fetch tournament IDs from gist
@@ -425,8 +425,8 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         // Create initial table HTML with loading status before table
         const initialHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm">
     <button id="pause-btn" onclick="togglePause()" style="padding: 8px 16px; margin-left: 10px; background: #ff284839; color: #FF2849; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;"><svg class="svg-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng</button>
-    <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;"><span id="statusIcon"></span>&nbsp;
-        Đang hiển thị:&nbsp;&nbsp; <div class="progress-bar"><div style="width: 0%" class="current-progress"></div>
+    <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;">
+        Đang hiển thị:&nbsp;&nbsp;<span id="statusIcon" hidden></span><div class="progress-bar"><div style="width: 0%" class="current-progress"></div>
       </div>&nbsp;&nbsp; <span><span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length}</span>&nbsp;giải đấu</span>
         <span id="pause-status" style="margin-left: 20px; color: #ff6b6b; font-weight: bold;"></span>
     </div>
@@ -524,9 +524,13 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         }
         
         if (successCount === tourIds.length) {
+            document.querySelector('.progress-bar').hidden = true;
+            document.getElementById('statusIcon').hidden = false;
             document.getElementById('statusIcon').style.color = 'var(--primary-sucess)';
             document.getElementById('statusIcon').className = 'fa fa-check';
         } else {
+            document.querySelector('.progress-bar').hidden = true;
+            document.getElementById('statusIcon').hidden = false;
             document.getElementById('statusIcon').style.color = 'var(--color-red)';
             document.getElementById('statusIcon').className = 'fa fa-times';
         }
