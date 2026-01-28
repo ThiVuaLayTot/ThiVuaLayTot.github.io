@@ -26,33 +26,6 @@
             --cttq-red: #f87171;
         }
 
-        .cttq-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .cttq-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px 0;
-            border-bottom: 2px solid #3b82f6;
-        }
-
-        .cttq-title {
-            font-size: 32px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #60a5fa, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .cttq-subtitle {
-            color: var(--cttq-text-sec);
-            font-size: 14px;
-        }
-
         .cttq-months-container {
             display: grid;
             gap: 40px;
@@ -488,14 +461,19 @@
         </div>  
     </div>
 </nav>
-    <div class="cttq-container">
-        <header class="cttq-header">
-            <h1 class="cttq-title">🏆 CHIẾN TRƯỜNG THÍ QUÂN</h1>
-            <p class="cttq-subtitle">Bảng xếp hạng Top 6 kỳ thủ hàng tháng</p>
-        </header>
-
-        <div class="cttq-months-container" id="cttq-months-container"></div>
-    </div>
+<div id="section-page">
+        <div class="container">
+            <h1 align="center">Các kỳ thủ đạt giải <a href="/events/cttq-chien-truong-thi-quan" style="color: lightskyblue">Chiến Trường Thí Quân</a></h1>
+            <ul class="tab">
+                <li><a href="tvlt">Thí Vua Lấy Tốt</a></li>
+                <li><a href="cbtt">Cờ Bí Thí Tốt</a></li>
+                <li><a href="cttq" class="active">Chiến Trường Thí Quân</a></li>
+                <li><a href="dttv">Đấu Trường Thí Vua</a></li>
+            </ul>
+            <div class="cttq-months-container" id="cttq-months-container"></div>
+            <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
+        </div>
+</div>
 <footer> <div class="footer">
         <div class="footer_main">
             <div class="footer_content">
