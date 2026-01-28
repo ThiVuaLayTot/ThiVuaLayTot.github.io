@@ -17,7 +17,7 @@ let isPaused = false;
 
 // Player data cache
 const playerCache = new Map();
-const BATCH_SIZE = 1; // Fetch 5 tournaments in parallel
+const BATCH_SIZE = 5; // Fetch 5 tournaments in parallel
 
 /**
  * Fetch tournament IDs from gist
