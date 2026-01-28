@@ -9,6 +9,9 @@ const SPECIAL_PLAYERS = {
     'thangthukquantrong': { name: 'thangthukquantrong', special: true }
 };
 
+// Optimize special players lookup with Map
+const SPECIAL_PLAYERS_LOWER = new Map(Object.entries(SPECIAL_PLAYERS).map(([k, v]) => [k.toLowerCase(), v]));
+
 const CHESS_COM_BASE = 'https://api.chess.com/pub';
 const GIST_BASE = 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw';
 
@@ -17,7 +20,10 @@ let isPaused = false;
 
 // Player data cache
 const playerCache = new Map();
-const BATCH_SIZE = 5; // Fetch 5 tournaments in parallel
+const BATCH_SIZE = Infinity; // Run all tournaments concurrently
+
+// Pre-compile regex for time control parsing
+const TIME_CONTROL_REGEX = /^(\d+)\+(\d+)$/;
 
 /**
  * Fetch tournament IDs from gist
@@ -92,17 +98,29 @@ async function fetchPlayerData(username) {
 }
 
 /**
+ * Batch fetch player data (optimization)
+ */
+async function fetchPlayerDataBatch(usernames) {
+    const unique = [...new Set(usernames)];
+    const missing = unique.filter(u => !playerCache.has(u));
+    if (missing.length === 0) return;
+    
+    const promises = missing.map(u => fetchPlayerData(u).catch(() => null));
+    await Promise.allSettled(promises);
+}
+
+/**
  * Sort players by points from round data
  */
 function sortPlayer(playersOrder, roundData) {
     if (!roundData) return { players: playersOrder.slice(0, 7), points: new Array(7).fill(0) };
 
-    const pointsMap = {};
+    const pointsMap = new Map();
     
     if (roundData.players && Array.isArray(roundData.players)) {
         roundData.players.forEach(p => {
             if (p.username) {
-                pointsMap[p.username.toLowerCase()] = p.points || 0;
+                pointsMap.set(p.username.toLowerCase(), p.points || 0);
             }
         });
     }
@@ -117,11 +135,10 @@ function sortPlayer(playersOrder, roundData) {
     for (let i = 0; i < Math.min(7, playersOrder.length); i++) {
         const username = playersOrder[i];
         const usernameLower = username.toLowerCase();
-        const pts = pointsMap[usernameLower] || 0;
+        const pts = pointsMap.get(usernameLower) || 0;
         
         players.push(username);
         points.push(pts);
-        console.log(`[sortPlayer] player @${username} ${pts} pts`);
     }
 
     return { players, points };
@@ -139,7 +156,6 @@ function parsePlayerData(playerData) {
         };
     }
 
-    // Chess.com API trả về player data trực tiếp
     const p = playerData.player || playerData;
     
     if (!p || typeof p !== 'object') {
@@ -166,7 +182,6 @@ async function parseTournamentData(data, tourId) {
         return null;
     }
 
-    // API có thể trả về tournament trực tiếp hoặc trong object
     const tournament = data.tournament || data;
     
     if (!tournament || typeof tournament !== 'object') {
@@ -174,7 +189,6 @@ async function parseTournamentData(data, tourId) {
         return null;
     }
     
-    // Try to get rounds - có thể ở settings.total_rounds hoặc rounds
     const rounds = tournament.settings?.total_rounds || tournament.rounds || tournament.total_rounds || 0;
     
     let roundInfo = null;
@@ -182,39 +196,36 @@ async function parseTournamentData(data, tourId) {
         roundInfo = await fetchRoundData(tourId, rounds);
     }
 
-    // Get players list - có thể từ tournament.players hoặc structure khác
     const playersOrder = tournament.players?.map(p => {
         if (typeof p === 'object' && p.username) return p.username;
-        return p; // Có thể là string trực tiếp
+        return p;
     }).filter(Boolean) || [];
     const { players, points } = sortPlayer(playersOrder, roundInfo);
 
-    // Parse time control
+    // Parse time control (optimized with pre-compiled regex)
     const tcRaw = tournament.settings?.time_control || tournament.time_control || tournament.timeControl || '3+0';
     let timeControl = tcRaw || '3+0';
     try {
-        if (tcRaw && typeof tcRaw === 'string' && tcRaw.includes('+')) {
-            const [base, inc] = tcRaw.split('+');
-            const baseNum = parseInt(base) || 0;
-            const incNum = parseInt(inc) || 0;
-            if (baseNum >= 60) {
-                timeControl = `${Math.floor(baseNum / 60)}+${incNum}`;
+        if (tcRaw && typeof tcRaw === 'string') {
+            const match = tcRaw.match(TIME_CONTROL_REGEX);
+            if (match) {
+                const baseNum = parseInt(match[1]);
+                const incNum = parseInt(match[2]);
+                timeControl = baseNum >= 60 ? `${Math.floor(baseNum / 60)}+${incNum}` : `${baseNum}+${incNum}`;
             } else {
-                timeControl = `${baseNum}+${incNum}`;
+                const num = parseInt(tcRaw);
+                if (!isNaN(num)) {
+                    timeControl = num >= 60 ? `${Math.floor(num / 60)}+0` : `${num}+0`;
+                }
             }
-        } else {
-            if (tcRaw >= 60) {
-                timeControl = `${Math.floor(tcRaw / 60)}+0`;
-            } else {
-                timeControl = `${tcRaw}+0`;
-            }
+        } else if (typeof tcRaw === 'number') {
+            timeControl = tcRaw >= 60 ? `${Math.floor(tcRaw / 60)}+0` : `${tcRaw}+0`;
         }
     } catch (e) {
         console.warn(`[parseTournamentData] Error parsing time control: ${tcRaw}`);
         timeControl = '3+0';
     }
 
-    // Parse date - có thể là timestamp hoặc ISO string
     let startTime = 'N/A';
     try {
         let timestamp = tournament.start_time || tournament.startTime;
@@ -254,9 +265,9 @@ async function generatePlayerCell(username, points) {
         return '<td>N/A</td>';
     }
 
-    // Check special players
-    if (SPECIAL_PLAYERS[username.toLowerCase()]) {
-        const special = SPECIAL_PLAYERS[username.toLowerCase()];
+    // Check special players (optimized with Map lookup)
+    const special = SPECIAL_PLAYERS_LOWER.get(username.toLowerCase());
+    if (special) {
         return `<td><a href="//www.chess.com/member/${special.name}" target="_top"><strong>${special.name}</strong></a></td>`;
     }
 
@@ -312,13 +323,9 @@ async function generateTournamentRow(parsed) {
 
     let html = '<tr>\n';
     
-    // Tournament name and URL
     html += `    <td><a href="${parsed.url}" target="_top">${parsed.name}</a></td>\n`;
-    
-    // Date
     html += `    <td>${parsed.startTime}</td>\n`;
     
-    // Rules and format
     let format = parsed.timeControl + ' ';
     if (parsed.timeClass === 'bullet') format += 'Bullet';
     else if (parsed.timeClass === 'blitz') format += 'Blitz';
@@ -336,11 +343,8 @@ async function generateTournamentRow(parsed) {
     format += parsed.totalRounds === 1 ? ' Đấu trường Arena' : ` Hệ Thụy Sĩ ${parsed.totalRounds} vòng`;
     
     html += `    <td>${format}</td>\n`;
-    
-    // Players count
     html += `    <td>${parsed.playersCount}</td>\n`;
     
-    // Player cells (Top 1-6)
     for (let i = 0; i < 6; i++) {
         const username = parsed.players[i] || '';
         const pts = parsed.points[i] || 0;
@@ -410,7 +414,6 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         return;
     }
 
-    // Show loading message
     container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
     try {
@@ -422,12 +425,10 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
             return;
         }
 
-        // Create initial table HTML with loading status before table
         const initialHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm">
     <button id="pause-btn" onclick="togglePause()" style="padding: 8px 16px; margin-left: 10px; background: #ff284839; color: #FF2849; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;"><svg class="svg-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng</button>
     <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;">
-        Đang hiển thị:&nbsp;&nbsp;<span id="statusIcon" hidden></span><div class="progress-bar"><div style="width: 0%" class="current-progress"></div>
-      </div>&nbsp;&nbsp; <span><span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length}</span>&nbsp;giải đấu</span>
+        Đang hiển thị:&nbsp;&nbsp;<span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>&nbsp;<span><span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length}</span>&nbsp;giải đấu</span>
         <span id="pause-status" style="margin-left: 20px; color: #ff6b6b; font-weight: bold;"></span>
     </div>
     <div class="table">
@@ -470,53 +471,52 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         }
         console.log(`[fetchAndRenderTournaments] Added ${tourIds.length} skeleton rows`);
 
-        // Process tournaments in batches (parallel fetch)
-        for (let batchStart = 0; batchStart < tourIds.length; batchStart += BATCH_SIZE) {
-            // Check if paused and wait
-            while (isPaused) {
-                document.getElementById('pause-status').textContent = '⏸ ĐÃ TẠM DỪNG';
-                await new Promise(resolve => setTimeout(resolve, 500));
-            }
-            document.getElementById('pause-status').textContent = '';
-            
-            const batchEnd = Math.min(batchStart + BATCH_SIZE, tourIds.length);
-            const batchIds = tourIds.slice(batchStart, batchEnd);
-            
-            console.log(`[fetchAndRenderTournaments] Processing batch: ${batchStart + 1}-${batchEnd}/${tourIds.length}`);
-            
-            // Fetch and process tournaments in parallel
-            const batchPromises = batchIds.map((tourId, idx) => {
-                const skeletonRow = skeletonRows[batchStart + idx];
-                return processTournament(tourId, batchStart + idx + 1, tourIds.length, skeletonRow);
-            });
-            
-            const batchResults = await Promise.all(batchPromises);
-            
-            // Render results in order - replace skeleton with actual data
-            batchResults.forEach((result, idx) => {
-                if (result) {
-                    const skeletonRow = skeletonRows[batchStart + idx];
-                    if (skeletonRow && skeletonRow.parentNode) {
-                        // Extract TD content from result.row (remove <tr> and </tr>)
-                        const tdContent = result.row.replace(/^\s*<tr>\n\s*/, '').replace(/\s*<\/tr>\s*$/, '');
-                        skeletonRow.innerHTML = tdContent;
-                        skeletonRow.classList.remove('skeleton-row');
-                    }
-                    
-                    successCount++;
-                    document.getElementById('current-tournament').textContent = successCount;
-                    document.querySelector('.current-progress').style.width=`${successCount/tourIds.length*100}%`;
-                    console.log(`[fetchAndRenderTournaments] Replaced skeleton ${batchStart + idx} with: ${result.parsed.name}`);
-                }
-            });
-            
-            // Small delay between batches to avoid rate limiting
-            if (batchEnd < tourIds.length) {
-                await new Promise(resolve => setTimeout(resolve, 300));
-            }
-        }
+        // Optimization: Fetch all tournament data first (concurrent)
+        console.log(`[fetchAndRenderTournaments] Fetching all tournament data concurrently...`);
+        const tourDataPromises = tourIds.map((tourId, index) => 
+            fetchTournamentData(tourId)
+                .then(data => ({ data, index }))
+                .catch(err => ({ data: null, index }))
+        );
         
-        // Keep loading status visible - it shows final count
+        // Process results as they arrive
+        const processResultPromises = tourDataPromises.map(promise =>
+            promise.then(async ({ data, index }) => {
+                if (!data) return null;
+                
+                const tourId = tourIds[index];
+                const parsed = await parseTournamentData(data, tourId);
+                if (!parsed) return null;
+                
+                // Pre-fetch players for this tournament only
+                await fetchPlayerDataBatch(parsed.players);
+                
+                // Generate row for this tournament
+                const row = await generateTournamentRow(parsed);
+                
+                return { row, index, parsed };
+            })
+        );
+
+        // Render skeleton replacement as results complete
+        const results = await Promise.allSettled(processResultPromises);
+        
+        results.forEach((result) => {
+            if (result.status === 'fulfilled' && result.value) {
+                const { row, index } = result.value;
+                const skeletonRow = skeletonRows[index];
+                
+                if (skeletonRow && skeletonRow.parentNode) {
+                    const tdContent = row.replace(/^\s*<tr>\n\s*/, '').replace(/\s*<\/tr>\s*$/, '');
+                    skeletonRow.innerHTML = tdContent;
+                    skeletonRow.classList.remove('skeleton-row');
+                    console.log(`[fetchAndRenderTournaments] Replaced skeleton ${index}`);
+                }
+                
+                successCount++;
+                document.getElementById('current-tournament').textContent = successCount;
+            }
+        });
         
         if (successCount === 0) {
             container.innerHTML = '<div class="error">Đã có lỗi xảy ra, không thể tải dữ liệu giải đấu. Hãy thử tải lại trang!</div>';
@@ -524,13 +524,9 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         }
         
         if (successCount === tourIds.length) {
-            document.querySelector('.progress-bar').hidden = true;
-            document.getElementById('statusIcon').hidden = false;
             document.getElementById('statusIcon').style.color = 'var(--primary-sucess)';
             document.getElementById('statusIcon').className = 'fa fa-check';
         } else {
-            document.querySelector('.progress-bar').hidden = true;
-            document.getElementById('statusIcon').hidden = false;
             document.getElementById('statusIcon').style.color = 'var(--color-red)';
             document.getElementById('statusIcon').className = 'fa fa-times';
         }
@@ -578,4 +574,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-

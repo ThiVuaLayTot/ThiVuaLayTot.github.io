@@ -364,20 +364,6 @@
     font-weight: 700;
 }
 
-.progress-bar {
-    display: flex;
-    width: 160px;
-    height: 10px;
-    background-color: #0f5079;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.current-progress {
-    background-color: var(--primary-sucess);
-    transition: 500ms;
-}
-
 /* Responsive Design */
 @media (max-width: 1024px) {
     .table {
