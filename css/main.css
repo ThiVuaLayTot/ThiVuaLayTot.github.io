@@ -61,9 +61,11 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: radial-gradient(circle, rgb(1 40 51) 0%, #010439 70%);
+  background: linear-gradient(135deg, rgba(12, 15, 32, 0.98) 0%, rgba(15, 23, 42, 0.98) 50%, rgba(20, 30, 50, 0.98) 100%),
+              linear-gradient(90deg, rgba(201, 36, 243, 0.05) 0%, rgba(53, 201, 252, 0.15) 100%);
   box-shadow: 0 5px 17px rgba(127, 127, 127, 0.3);
   padding: 0.3rem 3.5rem;
+  border-bottom: 1.5px solid rgba(53, 201, 252, 0.3);
 }
 
 .logo img {
@@ -558,9 +560,10 @@ hr {
 /* Style for footer */
 
 footer {
-    background: rgba(0, 231, 255, 0.1);
+    background: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
     width: 100vw;
     position: relative;
+    border-top: 2px solid rgba(53, 201, 252, 0.35);
 }
 
 footer .footer {
@@ -574,7 +577,8 @@ footer .footer {
     inset: 0;
     margin-left: auto;
     margin-right: auto;
-    background: linear-gradient(143deg,#237cd033,transparent);
+    background: linear-gradient(135deg, rgba(53, 201, 252, 0.08) 0%, rgba(201, 36, 243, 0.03) 100%),
+                linear-gradient(143deg, #237cd022, transparent);
 }
 
 .footer_main .footer_content {
@@ -617,11 +621,11 @@ footer .footer {
     bottom: -2px;
     height: 2px;
     width: 35px;
-    background: #fff;
+    background: rgba(53, 201, 252, 0.8);
 }
 
 .footer_content .link_boxes .box li {
-    list-style: none;
+        list-style: none;
     margin: 6px 0;
 }
 
@@ -645,19 +649,24 @@ footer .footer {
 }
 
 footer .bottom-details {
-    background: #111;
+    background: linear-gradient(90deg, #000000 0%, #0a0f1a 50%, #000000 100%);
+    border-top: 1px solid rgba(53, 201, 252, 0.25);
     width: 100%;
 }
+
 footer .bottom-details .bottom_text {
     margin: 0 auto;
-    padding: 20px 40px;display: flex;
+    padding: 20px 40px;
+    display: flex;
     justify-content: space-between;
     max-width: 1250px;
 }
+
 .bottom-details .bottom_text span, .bottom-details .bottom_text a {
     font-weight: 300;
     font-size: 14px;
-    color: #fff; opacity: 0.8;
+    color: #fff;
+    opacity: 0.8;
     text-decoration: none;
 }
 
