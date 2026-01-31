@@ -4,7 +4,9 @@
     --primary-font: Montserrat,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
     --tab-font: "Open Sans Condensed", sans-serif;
     --primary-color: #f9532d;
-    --primary-dark: linear-gradient(180deg,#0a0f1a 0%,#0f172a 100%);
+    --primary-dark: linear-gradient(135deg, #0a0f1a 0%, #0f172a 40%, #08192d 100%),
+                    radial-gradient(ellipse at 100% 100%, rgba(53, 201, 252, 0.08) 0%, transparent 50%),
+                    radial-gradient(ellipse at 0% 0%, rgba(201, 36, 243, 0.03) 0%, transparent 60%);
     --primary-text: #fff;
     --primary-link: #409eff;
     --primary-link-hover: #1c9ded;
@@ -493,12 +495,16 @@ hr {
 
 
 .list-people-detail .name {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     padding-top: .5rem;
     color: var(--color-blue);
     font-size: 1.3rem;
     text-overflow: ellipsis;
     font-weight: bold;
     text-align: center;
+    overflow: hidden;
 }
 
 .list-people-detail .list-detail {
@@ -539,21 +545,25 @@ hr {
     bottom: 20px;
     right: 30px;
     z-index: 99;
-    font-size: 18px;
     border: none;
     outline: none;
-    background-color: #1a73e8;
-    color: var(--color-light-green);
+    background: linear-gradient(135deg, rgba(53, 201, 252, 0.9) 0%, rgba(53, 201, 252, 0.7) 100%);
+    color: #fff;
     cursor: pointer;
-    padding: 15px;
-    border-radius: 25px;
+    padding: 10px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
     animation: zoomIn 1s ease forwards;
-    transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(53, 201, 252, 0.5);
+    box-shadow: 0 0 20px rgba(53, 201, 252, 0.3);
 }
 
 #back-to-top:hover {
-    color: #3595fc;
-    background-color: var(--color-pink);
+    background: linear-gradient(135deg, rgba(53, 201, 252, 1) 0%, rgba(53, 201, 252, 0.9) 100%);
+    box-shadow: 0 0 30px rgba(53, 201, 252, 0.35);
+    border-color: rgba(53, 201, 252, 0.8);
 }
 
 
@@ -811,6 +821,7 @@ footer .bottom-details .bottom_text {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
+    overflow: hidden;
     margin: .2em 0 .2em 0;
     font-weight: bold;
     font-size: large;
