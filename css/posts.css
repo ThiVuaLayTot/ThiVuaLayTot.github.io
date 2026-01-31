@@ -14,7 +14,7 @@
     aspect-ratio: 16 / 9;
     min-height: 150px;
     height: auto;
-    width: 100%;
+    width: auto;
     max-width: 50vw;
     max-height: 50vh;
 }

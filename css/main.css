@@ -377,7 +377,7 @@ hr {
     text-align: center;
     opacity: 0;
     animation: SocialAni 1s ease forwards;
-    animation-delay: calc(.2s * var(--socialAni));
+    animation-delay: calc(.5s * var(--socialAni));
 }
 
 .social_btn a img {
@@ -386,13 +386,13 @@ hr {
 }
 
 .social_btn a:hover {
-    color: --primary-text;
+    color: #0f172a;
     background-color: #244D61;
     -webkit-background-clip: text;
     -webkit-text-fill-color: var(--primary-dark);
     background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(53, 201, 252, 1) 100%);
     box-shadow: 0 0 20px #244D61;
-    transition: all 1s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 
 
