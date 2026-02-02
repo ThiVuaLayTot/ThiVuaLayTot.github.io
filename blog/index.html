@@ -12,7 +12,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
     <li><a href="/events">Sự kiện/Giải đấu</a></li>
 </ul><br>
 <section class="card-list">
-    {% for post in site.posts %} {% if post.category == "events" %}
+    {% for post in site.posts %}
     <article class="card">
         <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image"></a>
         <div class="post_in4">
@@ -24,7 +24,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
         <i class="card_in4">{{ post.description }}</i>
         <span class="card_tag"><a href="\{{ post.category }}"><span class="fa fa-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
     </article>
-{% endif %} {% endfor %}
+{% endfor %}
 </section>
 
 <h2>Các bài đăng khác</h2>

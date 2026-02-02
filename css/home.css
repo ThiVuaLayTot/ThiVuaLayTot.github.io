@@ -163,8 +163,8 @@
 
 @media (max-width: 767.98px) {
     .hero {
-        padding-top: 60px;
-        padding-bottom: 60px;
+        padding-top: 30px;
+        padding-bottom: 30px;
     }
     .hero,
     .hero .hero-text,
@@ -277,8 +277,8 @@
 
 .about .about-img img {
     position: relative;
-    width: 50%;
-    left: 25%;
+    left: 10%;
+    width: 80%;
     object-fit: cover;
     height: 45%;
 }
@@ -320,7 +320,7 @@
     width: 2px;
     background: var(--color-blue);
     top: 0;
-    bottom: 0;
+    bottom: -20px;
     left: 50%;
     margin-left: -1px;
 }
@@ -400,15 +400,15 @@
 
 .experience .timeline .timeline-text {
     padding: 30px;
-    background: #1363b3;
+    background: linear-gradient(135deg, rgba(11, 81, 151, 0.679), rgba(22, 35, 65, 0.9));
     position: relative;
-    border-right: 5px solid #dddddd;
+    border-right: 4px solid #f9532d;
     box-shadow: 0 0 60px rgba(0, 0, 0, .08);
 }
 
 .experience .timeline .timeline-item.right .timeline-text {
     border-right: none;
-    border-left: 5px solid #dddddd;
+    border-left: 4px solid #f9532d;
 }
 
 .experience .timeline .timeline-text h2 {
@@ -419,6 +419,7 @@
 
 .experience .timeline .timeline-text h4 {
     margin: 0 0 10px 0;
+    color: var(--color-grey);
     font-size: 16px;
     font-style: italic;
     font-weight: 400;
@@ -482,20 +483,23 @@
     padding: 45px 0 15px 0;
 }
 
+.service-container {
+    padding: 0 4.5rem;
+}
+
 .service .service-item {
     position: relative;
     margin-bottom: 30px;
     display: flex;
     align-items: center;
+    border: 1px solid #1a3d62;
+    border-radius: 12px;
     box-shadow: inset 0 0 0 0 transparent;
     transition: ease-out 0.5s;
 }
 
-.service .service-item:hover {
-    box-shadow: inset 800px 0 0 0 #176ec5;
-    a {
-        color: var(--color-green)
-    }
+.service .service-item a:hover {
+    color: var(--color-green)
 }
 
 .service .service-icon {
@@ -523,7 +527,7 @@
 .service .service-text {
     position: relative;
     width: calc(100% - 120px);
-    padding: 0 30px;
+    padding: 0 15px;
 }
 
 .service .service-text h3 {
@@ -545,11 +549,18 @@
 }
 
 @media (max-width: 575.98px) {
+    .service-container {
+        padding: 0 15px;
+    }
     .service .service-text h3 {
         font-size: 16px;
         margin-bottom: 5px;
     }
     .service .service-text p {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         font-size: 14px;
     }
 }
@@ -921,4 +932,12 @@
     .contact .contact-form {
         padding: 90px 0;
     }
+}
+
+/* Blog CSS */
+
+.blog {
+    position: relative;
+    width: 100%;
+    padding: 45px 0 15px 0;
 }
