@@ -10,5 +10,5 @@ title: Bảng tổng giải Cờ Bí Thí Tốt
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>
     <li><a href="dttv">Đấu Trường Thí Vua</a></li>
 </ul>
-        <div id="tournament-table" data-fetch-tournament="cbtt"></div>
-            <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
+<div id="tournament-table" data-fetch-tournament="cbtt"></div>
+<i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
