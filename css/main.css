@@ -263,7 +263,7 @@ img {
     max-width: 100%;
 }
 
-.main .button {
+.main .btn {
     border: none;
     display: flex;
     padding: 0.75rem 1.5rem;
@@ -284,12 +284,12 @@ img {
     transition: all 0.6s ease;
 }
 
-.main .button:hover {
+.main .btn:hover {
     box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
 }
 
-.main .button:focus,
-.main .button:active {
+.main .btn:focus,
+.main .btn:active {
   opacity: 0.85;
   box-shadow: none;
 }

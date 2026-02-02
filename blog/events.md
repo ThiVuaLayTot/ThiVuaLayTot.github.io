@@ -12,9 +12,7 @@ permalink: /events/
     <li><a href="/news">Thông báo/Tin tức</a></li>
     <li><a href="/events" class="active">Sự kiện/Giải đấu</a></li>
 </ul><br>
-
-<p><a href="https://www.chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&ref_id=89365835" target="_blank"><button class="main button">Lịch sự kiện của tháng</button></a>&nbsp;<a href="" target="_blank"><button class="main button">Các giải đấu khác trong câu lạc bộ</button></a></p>
-
+<p><a href="https://www.chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&ref_id=89365835" target="_blank"><button class="main btn">Lịch sự kiện của tháng</button></a>&nbsp;<a href="//chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835" target="_blank"><button class="main btn">Các giải đấu khác trong câu lạc bộ</button></a><br></p>
 <section class="card-list">
     {% for post in site.posts %} {% if post.category == "events" %}
     <article class="card">
