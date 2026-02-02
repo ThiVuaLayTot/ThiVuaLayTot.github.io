@@ -10,5 +10,5 @@ title: Bảng tổng giải Đấu Trường Thí Vua
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>
     <li><a href="dttv" class="active">Đấu Trường Thí Vua</a></li>
 </ul>
-<div id="tournament-table" data-fetch-tournament="cbtt"></div>
+<div id="tournament-table" data-fetch-tournament="dttv"></div>
 <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
