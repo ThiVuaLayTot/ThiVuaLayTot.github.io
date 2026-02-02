@@ -22,36 +22,7 @@ title: Trang chủ
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51">
     <!-- Nav Bar Start -->
-    <nav class="page-header">
-    <div><a href="/" target="_top" style="text-decoration: none;"> 
-        <div class="tvlt_details">
-            <img src="/images/tvltlogo.png" alt="Thí Vua Lấy Tốt" width="50" class="logo">
-            <div>
-                <span class="tvlt_name">Thí Vua Lấy Tốt<br></span>
-                <span class="tungjohn">TungJohn Playing Chess</span>
-            </div>
-        </div></a>
-    </div>
-    <div class="topnav">
-        <div class="nav_content">
-            <div id="menu"><a class="icon"><span class="fa fa-list" id="menuIcon"></span></a></div>
-            <div class="topnav_content" id="tvltTopnav">
-                <div class="section">
-                    <a href="/blog" target="_top"><span class="bx bx-news"></span>Các bài đăng</a>
-                </div>
-                <div class="section">
-                    <a href="/video" target="_top"><span class="bx bx-movie-play"></span>Thư viện Video</a>
-                </div>
-                <div class="section">
-                    <a href="/events" target="_top"><span class="bx bx-medal"></span>Giải đấu</a>
-                </div>
-                <div class="section">
-                    <a href="/leaders" target="_top"><span class="bx bx-shield-quarter"></span>Quản trị viên</a>
-                </div>
-            </div>
-        </div>      
-    </div>
-</nav>
+    {% include navbar.html %}
     <!-- Nav Bar End -->
 
 
@@ -299,72 +270,7 @@ title: Trang chủ
     <!-- Blog End -->
      <hr class="wow fadeIn text-center" data-wow-delay="0.3s"><button id="back-to-top"><span class="bx bxs-to-top"></span></button>
     <!-- Footer Start -->
-    <footer>
-    <div class="footer">
-        <div class="footer_main">
-            <div class="footer_content">
-                <div class="col_1">
-                    <div class="tvlt_details">
-                        <a href="/" target="_top"><img src="/images/tvltlogo.png" alt="Thí Vua Lấy Tốt" width="50" class="logo"></a>
-                        <div>
-                            <span class="tvlt_name">Thí Vua Lấy Tốt<br></span>
-                            <span class="tungjohn">TungJohn Playing Chess</span>
-                        </div>
-                    </div>
-                    <img src="//chess.com/share/club/thi-vua-lay-tot-tungjohn-playing-chess" alt="Chess.com Club" style="">
-                    <div></div>
-                    <div class="social_btn">
-                        <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><span class="fa fa-youtube"></span></a>
-                        <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><span class="bx bxl-tiktok"></span></a>
-                        <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><span class="fa fa-facebook-square"></span></a>
-                        <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><span class="fa fa-twitch"></span></a>
-                    </div>
-                    <div class="social_btn">
-                        <a href="https://link.chess.com/club/0CVQh6" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
-                        <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><span class="fa fa-facebook-square"></span></a>
-                        <a href="https://zalo.me/g/zhrwtn779" title="Nhóm chat Thí Vua Lấy Tốt trên Zalo"><img width="14" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
-                        <a href="https://discord.gg/bggkufa4nE" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><span class="bx bxl-discord"></span></span></a>
-                    </div>
-                </div>
-                <div class="link_boxes">
-                    <ul class="box">
-                        <li class="link_name">Câu lạc bộ</li>
-                        <li><a href="/" target="_top">Trang chủ</a></li>
-                        <li><a href="/" target="_top">Về chúng tôi</a></li>
-                        <li><a href="/#experience" target="_top">Lịch sử phát triển</a></li>
-                    </ul>
-                </div>
-                <div class="link_boxes">
-                    <ul class="box">
-                        <li class="link_name">Nội dung</li>
-                        <li><a href="/blog">Các bài đăng</a></li>
-                        <li><a href="/video">Thư viện video</a></li>
-                        <li><a href="/leaders">Các quản trị viên</a></li>
-                        <li><a href="/leaders#contact">Liên hệ & Ủng hộ</a></li>
-                    </ul>
-                </div>
-                <div class="link_boxes">
-                    <ul class="box">
-                        <li class="link_name">Các giải đấu</li>
-                        <li><a href="/events/tournaments/tvlt" target="_top">Thí Vua Lấy Tốt</a></li>
-                        <li><a href="/events/tournaments/cbtt" target="_top">Cờ Bí Thí Tốt</a></li>
-                        <li><a href="/events/tournaments/cttq" target="_top">Chiến Trường Thí Quân</a></li>
-                        <li><a href="/events/tournaments/dttv" target="_top">Đấu Trường Thí Vua</a></li>
-                        <li><a href="//www.chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess" target="_blank">Các giải đấu khác</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-details">
-            <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2025 <a href="#">Thí Vua Lấy Tốt</a> Some rights reserved</span>
-                <span class="policy_terms">
-                    <a href="#">MIT License</a>
-                </span>
-            </div>
-        </div>
-    </div>
-</footer>
+    {% include footer.html %}
         <!-- Footer End -->
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
