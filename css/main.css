@@ -15,7 +15,7 @@
     --primary-sucess: #00E676;
     --primary-warning: #FFB300;
     --color-purple: #8342f3;
-    --color-grey: #8b949e;
+    --color-grey: #B0B3B8;
     --color-green: #26d23d;
     --color-light-green: #31ff4c;
     --color-pink: #c924f3;
@@ -263,63 +263,35 @@ img {
     max-width: 100%;
 }
 
-.button {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    padding: 15px 25px;
-    cursor: pointer;
-    background: linear-gradient(144deg, #AF40FF, #8f42f3 50%, #1e9ff0);
+.main .button {
     border: none;
-    border-radius: 8px;
-    box-shadow: 0 7px #9999993f;
-    transition: .5s;
+    display: flex;
+    padding: 0.75rem 1.5rem;
+    background-color: #488aec;
     color: #ffffff;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    cursor: pointer;
     text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    align-items: center;
+    border-radius: 0.5rem;
+    user-select: none;
+    gap: 0.75rem;
+    box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+    transition: all 0.6s ease;
 }
 
-.button::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    background-color: #fff;
-    opacity: 0;
-    border-radius: 8px;
-    box-shadow: 0 2cap #9999993f;
-    transform: scale(0);
-    transform-origin: center;
-    transition: transform 1s, opacity 1s;
+.main .button:hover {
+    box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
 }
 
-.button:hover {
-    background: linear-gradient(50deg, #AF40FF, #8f42f3 50%, #1e9ff0);
-    box-shadow: 0 5px #9999993f;
-    opacity: .7;
-    transition: all 1s;
-}
-
-.button:active::after {
-    transform: scale(4);
-    opacity: 1;
-    box-shadow: 0 1px #9999993f;
-    transition: transform 1s, opacity 1s;
-    transform-origin: center center;
-}
-
-.main .btn {
-    height: 42px;
-    width: 132px;
-    border-radius: 36px;
-    background: linear-gradient(to right, var(--color-pink) 0%, #35c9fc 100%);
-    margin-top: 2rem;
-    padding: 1px;
-    opacity: -100;
-    display: inline-block;
-    animation: btn-ani 1s ease forwards;
-    animation-delay: .4s;
+.main .button:focus,
+.main .button:active {
+  opacity: 0.85;
+  box-shadow: none;
 }
 
 a {
