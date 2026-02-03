@@ -17,7 +17,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                 <div class="list-people-detail">
                     <div class="name">Mr. TungJohn</div>
                     <div class="list-detail">
-                        <p style="color: var(--primary-color)"><b></b><span class="bx bx-user-check"></span>Chủ kênh</p>
+                        <p style="color: var(--primary-color)"><b></b><span class="fa fa-user-secret"></span>Chủ kênh</p>
                         <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Đứng đầu, Chủ giải <a href="/events/tvlt-thi-vua-lay-tot">Thí Vua Lấy Tốt</a>, Nhà sáng tạo nội dung</p>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                 <div class="list-people-detail">
                     <div class="name"><a href="https://chess.com/member/vn-senjin" target="_blank">VN-SenJin</a></div>
                     <div class="list-detail">
-                        <p style="color: var(--primary-sucess)"><span class="fa fa-user-secret"></span>Quản trị viên</p>
+                        <p style="color: var(--primary-sucess)"><span class="fas fa-user-shield"></span>Quản trị viên</p>
                         <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Quản lý giải <a
                                 href="/events/cbtt-co-bi-thi-tot">Cờ Bí Thí Tốt</a>, Phát triển CLB, Sáng tạo nội dung...
                         </p>
@@ -56,7 +56,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                 <div class="list-people-detail">
                     <div class="name"><a href="https://chess.com/member/giabao18012010" target="_blank">Giabao18012010</a></div>
                     <div class="list-detail">
-                        <p style="color: var(--primary-sucess)"><span class="fa fa-user-secret"></span>Quản trị viên</p>
+                        <p style="color: var(--primary-sucess)"><span class="fas fa-user-shield"></span>Quản trị viên</p>
                         <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Phát triển cộng đồng</p>
                     </div>
                 </div>
@@ -77,7 +77,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                     <div class="name"><a href="https://chess.com/member/M-DinhHoangViet"
                             target="_blank">M-DinhHoangViet</a></div>
                     <div class="list-detail">
-                        <p style="color: var(--primary-sucess)"><span class="fa fa-user-secret"></span>Quản trị viên</p>
+                        <p style="color: var(--primary-sucess)"><span class="fas fa-user-shield"></span>Quản trị viên</p>
                         <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Phát triển web, Phát triển cộng đồng, Quản lý giải <a href="/events/cttq-chien-truong-thi-quan">Chiến Trường Thí Quân</a></p>
                     </div>
                 </div>
@@ -98,7 +98,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                     <div class="name"><a href="https://chess.com/member/fr-ch_theclanteamismine"
                             target="_blank">FR-CH_TheClanTeamIsMine</a></div>
                     <div class="list-detail">
-                        <p style="color: var(--primary-sucess)"><span class="fa fa-user-secret"></span>Quản trị viên</p>
+                        <p style="color: var(--primary-sucess)"><span class="fas fa-user-shield"></span>Quản trị viên</p>
                         <p><b><span class="bx bx-task" style="color: var(--primary-warning)"></span></b>Quản lý giải <a href="/events/tournaments/dttv">Đấu Trường Thí Vua</a>, Phát triển cộng đồng, Sáng tạo nội dung.</p>
                     </div>
                 </div>

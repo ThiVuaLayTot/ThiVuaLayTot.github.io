@@ -15,9 +15,6 @@ const SPECIAL_PLAYERS_LOWER = new Map(Object.entries(SPECIAL_PLAYERS).map(([k, v
 const CHESS_COM_BASE = 'https://api.chess.com/pub';
 const GIST_BASE = 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw';
 
-// Global pause state
-let isPaused = false;
-
 // Player data cache
 const playerCache = new Map();
 const BATCH_SIZE = Infinity; // Run all tournaments concurrently
@@ -426,10 +423,8 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         }
 
         const initialHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm">
-    <button id="pause-btn" onclick="togglePause()" style="padding: 8px 16px; margin-left: 10px; background: #ff284839; color: #FF2849; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;"><svg class="svg-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng</button>
     <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;">
         Đang hiển thị:&nbsp;&nbsp;<span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>&nbsp;<span><span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length}</span>&nbsp;giải đấu</span>
-        <span id="pause-status" style="margin-left: 20px; color: #ff6b6b; font-weight: bold;"></span>
     </div>
     <div class="table">
         <table class="styled-table" id="tournament-results-table">
@@ -537,25 +532,6 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         console.error('[fetchAndRenderTournaments] Error:', error);
         container.innerHTML = `<div class="error">Lỗi: ${error.message}</div>`;
     }
-}
-
-/**
- * Toggle pause state
- */
-function togglePause() {
-    isPaused = !isPaused;
-    const btn = document.getElementById('pause-btn');
-    if (isPaused) {
-        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
-    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"></path> </svg> Tiếp tục`;
-        btn.style.background = '#51cf663c';
-        btn.style.color = 'var(--color-light-green)';
-    } else {
-        btn.innerHTML = `<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff2849" stroke-linecap="round" stroke-width="2"><rect height="14" rx="1.5" width="3" x="15" y="5"></rect><rect height="14" rx="1.5" width="3" x="6" y="5"></rect></g></svg> Tạm dừng`;
-        btn.style.background = '#ff284839';
-        btn.style.color = '#FF2849';
-    }
-    console.log(`[togglePause] Pause state: ${isPaused}`);
 }
 
 

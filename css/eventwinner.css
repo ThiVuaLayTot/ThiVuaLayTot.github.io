@@ -316,33 +316,6 @@
     border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
-/* Pause Button */
-#pause-btn {
-    padding: 11px 20px;
-    margin-left: 10px;
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 14px;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    letter-spacing: 0.3px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-#pause-btn:hover {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    transform: translateY(-3px);
-}
-
-#pause-btn:active {
-    transform: translateY(-1px);
-}
-
 /* Loading Status */
 #loading-status {
     display: flex;
