@@ -9,6 +9,7 @@ title: Bảng tổng giải Đấu Trường Thí Vua
     <li><a href="cbtt">Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>
     <li><a href="dttv" class="active">Đấu Trường Thí Vua</a></li>
-</ul>
+</ul><br>
+<p>Giải được quản lý bởi Admin <a href="/leaders#admin2">FR-CH_TheClanTeamIsMine</a>.</p>
 <div id="tournament-table" data-fetch-tournament="dttv"></div>
 <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>

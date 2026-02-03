@@ -9,6 +9,7 @@ title: Bảng tổng giải Thí Vua Lấy Tốt
     <li><a href="cbtt" >Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>
     <li><a href="dttv">Đấu Trường Thí Vua</a></li>
-</ul>
+</ul><br>
+<p>Giải được quản lý bởi <a href="/leaders#owner">Mr. TungJohn</a>. <a href="/events/tvlt-thi-vua-lay-tot">Chi tiết về sự kiện này.</a></p>
 <div id="tournament-table" data-fetch-tournament="tvlt"></div>
 <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
