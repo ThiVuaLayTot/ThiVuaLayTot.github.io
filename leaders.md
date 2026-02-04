@@ -128,5 +128,5 @@ title: Ban cán sự của Thí Vua Lấy Tốt
     </div>
     <strong>Bạn cũng có thể liên hệ tới một trong <a href="#admins">các quản trị viên</a> để nhận được hỗ trợ.</strong>
     <p>Đánh giá câu lạc bộ: <a href="https://forms.gle/iCYUAbVD5GUmbdsL8" target="_blank">https://forms.gle/iCYUAbVD5GUmbdsL8</a></p>
-    Ủng hộ cho Mr.TungJohn: <img src="/images/tvlt/payment.jpg" src="QR Code">
+    Ủng hộ cho Mr.TungJohn: <img src="/images/tvlt/payment.jpg" width="170" height="189" alt="QR Code">
 </div>
