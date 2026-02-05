@@ -7,10 +7,10 @@ permalink: /news/
 <h1 class="title">Thông báo & Tin tức</h1>
 <p align="right"><a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
 <ul class="tab">
-    <li><a href="/blog">Tất cả bài đăng</a></li>
-    <li><a href="/chess">Kiến thức cờ vua</a></li>
-    <li><a href="/news" class="active">Thông báo/Tin tức</a></li>
-    <li><a href="/events">Sự kiện/Giải đấu</a></li>
+    <li><a href="/blog"><span class="bx bxs-news"></span>Tất cả bài đăng</a></li>
+    <li><a href="/chess"><span class="bx bxs-chess"></span>Kiến thức cờ vua</a></li>
+    <li><a href="/news" class="active"><span class="fa fa-newspaper"></span>Thông báo/Tin tức</a></li>
+    <li><a href="/events"><span class="fa fa-medal"></span>Sự kiện/Giải đấu</a></li>
 </ul><br>
 <section class="card-list">
     {% for post in site.posts %} {% if post.category == "news" %}

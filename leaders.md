@@ -5,8 +5,8 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 
 <h1 class="title">Các thành viên điều hành chính</h1>
 <ul class="tab">
-    <li><a href="#admins">Các điều hành viên</a></li>
-    <li><a href="#contact">Liên hệ & Hỗ trợ</a></li>
+    <li><a href="#admins"><span class="fa fa-shield-alt"></span>Các điều hành viên</a></li>
+    <li><a href="#contact"><span class="fa fa-question-circle"></span> Liên hệ & Hỗ trợ</a></li>
 </ul>
 <div id="admins" class="pos_header">
     <h2>Các thành viên điều hành</h2>
@@ -23,9 +23,9 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                 </div>
             </div>
             <div class="social_btn social">
-                <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><span class="fa fa-youtube"></span></a>
-                <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><span class="fa fa-facebook-square"></span></a>
-                <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><span class="fa fa-twitch"></span></a>
+                <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><span class="bx bxl-youtube"></span></a>
+                <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><span class="bx bxl-facebook-square"></span></a>
+                <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><span class="bx bxl-twitch"></span></a>
                 <a href="https://tiktok.com/@tungjohn2005" target="_blank" title="Tài khoản Tiktok của TungJohn"><span class="bx bxl-tiktok"></span></a>
                 <a href="https://chess.com/member/tungjohn2005" target="_blank" title="Tài khoản Chess.com của TungJohn"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png" /></a>
                 <a href="https://lichess.org/Tungjohn2005" target="_blank" title="Tài khoản Lichess của TungJohn"><img src="https://lichess1.org/assets/______2/flair/img/activity.lichess.webp" /></a>
@@ -47,7 +47,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
             <div class="social_btn social">
                 <a href="https://lichess.org/JohnnyHoan" target="_blank"><img src="https://lichess1.org/assets/______2/flair/img/activity.lichess.webp" /></a>
                 <a href="https://chess.com/member/vn-senjin" target="_blank"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png" /></a>
-                <a href="https://open.spotify.com/user/31zgo6yz7o2zfcm24ih2swuwlnyu" target="_blank"><span class="fa fa-spotify"></span></a>
+                <a href="https://open.spotify.com/user/31zgo6yz7o2zfcm24ih2swuwlnyu" target="_blank"><span class="bx bxl-spotify"></span></a>
             </div>
         </div>
         <div id="admin5" class="list-item-people">
@@ -67,7 +67,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
                 <a href="https://chess.com/member/giabao18012010" target="_blank"><img
                         src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png" /></a>
                 <a href="https://facebook.com/61550645465442" target="_blank"><span
-                        class="fa fa-facebook-square"></span></a>
+                        class="bx bxl-facebook-square"></span></a>
             </div>
         </div>
         <div id="admin3" class="list-item-people">
@@ -85,10 +85,10 @@ title: Ban cán sự của Thí Vua Lấy Tốt
             <div class="social_btn social">
                 <a href="https://chess.com/member/M-DinhHoangViet" target="_blank"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png" /></a>
                 <a href="https://lichess.org/M_DinhHoangViet" target="_blank"><img src="https://lichess1.org/assets/______2/flair/img/activity.lichess.webp" /></a>
-                <a href="https://twitch.tv/masterdinhhoangviet" target="_blank"><span class="fa fa-twitch"></span></a>
-                <a href="https://x.com/DINHHOANGVIET_" target="_blank"><span class="fa fa-twitter"></span></a>
-                <a href="https://open.spotify.com/playlist/3vSBfEbFI7ibhqjEORjEFC" target="_blank"><span class="fa fa-spotify"></span></a>
-                <a href="https://youtube.com/channel/UCPj3r5RWmho8CMnz8r5Aw-Q" target="_blank"><span class="fa fa-youtube"></span></a>
+                <a href="https://twitch.tv/masterdinhhoangviet" target="_blank"><span class="bx bxl-twitch"></span></a>
+                <a href="https://x.com/DINHHOANGVIET_" target="_blank"><span class="bx bxl-twitter"></span></a>
+                <a href="https://open.spotify.com/playlist/3vSBfEbFI7ibhqjEORjEFC" target="_blank"><span class="bx bxl-spotify"></span></a>
+                <a href="https://youtube.com/channel/UCPj3r5RWmho8CMnz8r5Aw-Q" target="_blank"><span class="bx bxl-youtube"></span></a>
             </div>
         </div>
         <div id="admin2" class="list-item-people">
@@ -106,9 +106,9 @@ title: Ban cán sự của Thí Vua Lấy Tốt
             <div class="social_btn social">
                 <a href="https://chess.com/member/fr-ch_theclanteamismine" target="_blank"><img src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png" /></a>
                 <a href="https://lichess.org/proob32njjj" target="_blank"><img src="https://lichess1.org/assets/______2/flair/img/activity.lichess.webp" /></a>
-                <a href="https://twitch.tv/FRCH_is_a_ClanTeam" target="_blank"><span class="fa fa-twitch"></span></a>
-                <a href="https://facebook.com/ADTEKF" target="_blank"><span class="fa fa-facebook-square"></span></a>
-                <a href="https://open.spotify.com/user/31voowznlz5nqvyig52tp3wqlk4u" target="_blank"><span class="fa fa-spotify"></span></a>
+                <a href="https://twitch.tv/FRCH_is_a_ClanTeam" target="_blank"><span class="bx bxl-twitch"></span></a>
+                <a href="https://facebook.com/ADTEKF" target="_blank"><span class="bx bxl-facebook-square"></span></a>
+                <a href="https://open.spotify.com/user/31voowznlz5nqvyig52tp3wqlk4u" target="_blank"><span class="bx bxl-spotify"></span></a>
                 <a href="https://youtube.com/@CH.Mini_Defender" target="_blank"><span class="bx bxl-youtube"></span></a>
             </div>
         </div>
@@ -122,7 +122,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
     <strong>Vui lòng hãy tham gia các câu lạc bộ, cộng đồng trên một số nền tảng sau giúp bạn có thể dễ dàng trao đổi và trò chuyện với mọi người:</strong>
     <div class="social_btn">
         <a href="https://link.chess.com/club/0CVQh6" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
-        <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><span class="fa fa-facebook-square"></span></a>
+        <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><span class="bx bxl-facebook-square"></span></a>
         <a href="https://zalo.me/g/zhrwtn779" title="Nhóm chat Thí Vua Lấy Tốt trên Zalo"><img width="14" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
         <a href="https://discord.gg/bggkufa4nE" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><span class="bx bxl-discord"></span></a>
     </div>

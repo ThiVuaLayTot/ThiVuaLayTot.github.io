@@ -6,10 +6,10 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
 <h1 class="title">Các thông báo quan trọng và các bài đăng nổi bật</h1>
 <p align="right"><a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
 <ul class="tab">
-    <li><a href="/blog" class="active">Tất cả bài đăng</a></li>
-    <li><a href="/chess">Kiến thức cờ vua</a></li>
-    <li><a href="/news">Thông báo/Tin tức</a></li>
-    <li><a href="/events">Sự kiện/Giải đấu</a></li>
+    <li><a href="/blog" class="active"><span class="bx bxs-news"></span>Tất cả bài đăng</a></li>
+    <li><a href="/chess"><span class="bx bxs-chess"></span>Kiến thức cờ vua</a></li>
+    <li><a href="/news"><span class="fa fa-newspaper"></span>Thông báo/Tin tức</a></li>
+    <li><a href="/events"><span class="fa fa-medal"></span>Sự kiện/Giải đấu</a></li>
 </ul><br>
 <section class="card-list">
     {% for post in site.posts %}

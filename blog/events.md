@@ -7,10 +7,10 @@ permalink: /events/
 <h1 class="title">Các giải đấu, sự kiện</h1>
 <p align="right"><a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
 <ul class="tab">
-    <li><a href="/blog">Tất cả bài đăng</a></li>
-    <li><a href="/chess">Kiến thức cờ vua</a></li>
-    <li><a href="/news">Thông báo/Tin tức</a></li>
-    <li><a href="/events" class="active">Sự kiện/Giải đấu</a></li>
+    <li><a href="/blog"><span class="bx bxs-news"></span>Tất cả bài đăng</a></li>
+    <li><a href="/chess"><span class="bx bxs-chess"></span>Kiến thức cờ vua</a></li>
+    <li><a href="/news"><span class="fa fa-newspaper"></span>Thông báo/Tin tức</a></li>
+    <li><a href="/events" class="active"><span class="fa fa-medal"></span>Sự kiện/Giải đấu</a></li>
 </ul><br>
 <p class="main"><a href="//www.chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&ref_id=89365835" target="_blank"><span class="btn">Lịch sự kiện của tháng</span></a>&nbsp;<a href="//chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835" target="_blank"><span class="btn">Các giải đấu khác trong câu lạc bộ</span></a><br></p>
 <section class="card-list">
