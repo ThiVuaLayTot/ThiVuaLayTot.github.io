@@ -8,7 +8,7 @@ author: Đinh Hoàng Việt
 description: Đã kết thúc
 ---
 
-Để tạo cơ hội cho mọi người có thể nhận [Membership Chess.com](https://chess.com/membership), <span class="bx bx-user"></span>[Admin Đinh Hoàng Việt](https://thivualaytot.github.io/team#admins)
+Để tạo cơ hội cho mọi người có thể nhận [Membership Chess.com](https://chess.com/membership), <span class="bx bx-user"></span>[Admin Đinh Hoàng Việt](https://thivualaytot.github.io/leaders#admin3)
 tổ chức thể lệ cuộc thi như sau:
 
 Bất cứ ai trong câu lạc bộ Thí Vua Lấy Tốt đều có thể tham gia cuộc thi này. Thể lệ gồm 3 giải:

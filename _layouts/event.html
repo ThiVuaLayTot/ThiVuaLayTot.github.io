@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <title>{{ page.title }}</title>
+    {% include head.html %}
+    <link type="text/css" rel="stylesheet" href="/css/eventwinner.css">
+</head>
+
+<body>
+    {% include navbar.html %}
+
+    <div id="section-page">
+        <div class="container">
+            {{ content }}
+    <br><br>            <hr>
+            <button id="back-to-top" title="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
+        </div>
+    </div>
+    {% include footer.html %}
+    <script src="/js/main.js"></script>
+    <script src="/js/search-events.js"></script>
+    <script src="/js/tournament-fetcher.js"></script>
+</body>
+
+</html>

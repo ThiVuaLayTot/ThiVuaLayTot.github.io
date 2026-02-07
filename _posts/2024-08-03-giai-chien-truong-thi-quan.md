@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sự kiện hàng tháng Chiến Trường Thí Quân
+title: Sự kiện Chiến Trường Thí Quân
 category: events
 tags: Giải đấu
 author: M_DinhHoangViet
@@ -9,8 +9,7 @@ permalink: /events/cttq-chien-truong-thi-quan
 ---
 
 👉 Tham gia câu lạc bộ trên hai nền tảng cờ vua để đủ điều kiện tham dự các sự kiện:  
-[Chess.com](https://link.chess.com/club/0CVQh6) &  
-[Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
+[Chess.com](https://link.chess.com/club/0CVQh6) & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
 
 ---
 
@@ -19,7 +18,7 @@ permalink: /events/cttq-chien-truong-thi-quan
 **Chiến Trường Thí Quân** được tổ chức lần đầu vào **tháng 8 năm 2024**, là chuỗi sự kiện thi đấu định kỳ dành cho các kỳ thủ yêu thích cạnh tranh và tích lũy thành tích.
 
 ![CTTQ_logo](/images/events/cttq_logo.png)  
-*Giải đấu được quản lý bởi Admin [M-DinhHoangViet](/leaders#admins).*
+*Giải đấu được quản lý bởi Admin [M-DinhHoangViet](/leaders#admin3).*
 
 ---
 

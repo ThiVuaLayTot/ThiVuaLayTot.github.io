@@ -1,16 +1,14 @@
 ---
 title: Trang chủ
 ---
-
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="utf-8">
     <title>Thí Vua Lấy Tốt</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Thi Vua Lay Tot Web" name="keywords">
-    <meta content="Thi Vua Lay Tot Web" name="description">
+    <meta content="Thí Vua Lấy Tốt - TungJohn Playing Chess" name="description">
     <link href="/images/favicon.ico" rel="icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -24,40 +22,7 @@ title: Trang chủ
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51">
     <!-- Nav Bar Start -->
-    <nav class="page-header">
-        <div class="logo">
-            <a href="/"><img src="images/tvltlogo.png" alt="Thí Vua Lấy Tốt"></a>
-        </div>
-        <div class="topnav" id="tvlttopnav">
-            <div class="section">
-                <a><span class="bx bxs-chess"></span>Chơi cờ</a>
-            </div>
-            <div class="section">
-                <a href="blog"><span class="fa fa-newspaper-o"></span>Các bài đăng</a>
-            </div>
-            <div class="section">
-                <a href="vlogs"><span class="fa fa-play-circle"></span>Thư viện Video</a>
-            </div>
-            <div class="section">
-                <a href="social"><span class="fa fa-link"></span>Truyền thông</a>
-            </div>
-            <div class="section">
-                <a href="events">
-                    <span class="bx bx-medal"></span>Giải đấu
-                </a>
-            </div>
-            <div class="section">
-                <a href="leaders">
-                    <span class="fa fa-shield"></span>Ban lãnh đạo</a>
-            </div>
-        </div>
-            <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
-                <span class="fa fa-bars"></span>
-            </a>
-        <div class="lang">
-            <span class="fa fa-language"></span>
-        </div>
-    </nav>
+    {% include navbar.html %}
     <!-- Nav Bar End -->
 
 
@@ -74,8 +39,7 @@ title: Trang chủ
                         <div class="hero-text">
                             <h3>Chào mừng bạn đã ghé thăm</h3>
                             <h1>Thí Vua Lấy Tốt Website</h1>
-                            <p>Thí Vua Lấy Tốt - một câu lạc bộ cờ cờ vua lớn bởi TungJohn sáng lập ra. Sứ mệnh của chúng tôi là giúp nền cờ Việt Nam được phát triển và giúp các kỳ thủ cờ vua nâng cao trình độ của mình. Chúng tôi thường xuyên tổ chức các
-                                giải đấu (có thể có thưởng), tạo cơ hội cho các thành viên giao lưu, học hỏi lẫn nhau.</h3>
+                            <p>Thí Vua Lấy Tốt - một câu lạc bộ cờ cờ vua lớn do TungJohn sáng lập. Sứ mệnh của chúng tôi là giúp nền cờ Việt Nam được phát triển và giúp các kỳ thủ cờ vua nâng cao trình độ của mình. Câu lạc bộ thường xuyên tổ chức các giải đấu (có thể có thưởng), tạo môi trường giao lưu, học hỏi và kết nối cộng đồng yêu cờ vua.</h3>
                         </div>
                     </div>
                 </div>
@@ -99,8 +63,11 @@ title: Trang chủ
     <!-- About Start -->
     <div class="about wow fadeInUp" data-wow-delay="0.1s" id="about">
         <div class="container-fluid">
+            <div class="section-header text-center">
+                <p><span class="bx bx-user" style="font-size: 36px; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all, -webkit-transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: all, transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></span>Người sáng lập là ai?</p>
+            </div>
             <div class="row align-items-center">
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                     <div class="about-img wow flip">
                         <img src="https://i.ytimg.com/vi/JxgUVnTkAFk/maxresdefault.jpg" alt="TungJohn" style="display: unset">
                     </div>
@@ -114,17 +81,13 @@ title: Trang chủ
                         <a href="https://shopee.vn/tungjohn2005" target="_blank" title="Shop cờ vua của TungJohn trên Shopee"><span class="fa fa-shopping-bag"></span></a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-7">
                     <div class="about-content">
                         <div class="section-header text-left">
-                            <p><span class="bx bx-user" style="font-size: 36px; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all, -webkit-transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: all, transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></span>Người
-                                sáng lập là ai?</p>
                             <h2>Giới thiệu về TungJohn</h2>
                         </div>
                         <div class="about-text">
-                            <p>Với hơn 130k người đăng ký, TungJohn Playing Chess mang đến cho bạn những video về cờ vua mới mỗi tuần. Từ những bài học cơ bản cho người mới bắt đầu đến những phân tích chuyên sâu về các giải đấu lớn, kênh sẽ đáp ứng mọi
-                                nhu cầu của bạn về cờ vua. Với khả năng phân tích sắc sảo và lối dẫn chuyện cuốn hút, anh đã giúp hàng ngàn người hiểu rõ hơn về cờ vua. Bên cạnh đó, TungJohn còn tổ chức nhiều giải đấu và sự kiện cờ vua, tạo cơ hội giao
-                                lưu cho cộng đồng người yêu thích môn thể thao này. Bạn có thể xem <a href="https://youtu.be/E7RW7r4mJts">video này</a> để biết được rõ hơn về bản thân TungJohn.
+                            <p>Với hơn 150k người đăng ký, TungJohn Playing Chess mang đến cho bạn những video về cờ vua mới mỗi tuần. Từ những bài học cơ bản cho người mới bắt đầu đến những phân tích chuyên sâu các ván cờ trong các giải đấu lớn, đáp ứng mọi nhu cầu của bạn về cờ vua. Với khả năng phân tích sắc sảo và lối dẫn chuyện cuốn hút, anh đã giúp hàng ngàn người hiểu rõ hơn về cờ vua. Bên cạnh đó, TungJohn còn tổ chức nhiều giải đấu và sự kiện cờ vua, tạo cơ hội giao lưu cho cộng đồng người yêu thích môn thể thao này. Bạn có thể xem <a href="https://youtu.be/E7RW7r4mJts">video này</a> để biết được rõ hơn về bản thân TungJohn.
                             </p>
                         </div>
                     </div>
@@ -137,11 +100,10 @@ title: Trang chủ
     <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
     <!-- Service Start -->
     <div class="service" id="service">
-        <div class="container">
+        <div class="service-container">
             <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
                 <div class="section-title">
-                    <p>
-                        <span class="bx bx-check" style="font-size: 36px; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all, -webkit-transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: all, transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></span> Sức mạnh</p>
+                    <p><span class="bx bx-check" style="font-size: 36px; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all, -webkit-transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: all, transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></span> Sức mạnh</p>
                 </div>
                 <h2>Chúng tôi có những gì?</h2>
             </div>
@@ -153,7 +115,7 @@ title: Trang chủ
                         </div>
                         <div class="service-text">
                             <h3>Cờ vua</h3>
-                            <p>Các video, bài đăng về cờ vua được cập nhật thường xuyên như tin tức, các ván cờ hay, chiến thuật cờ vua,...</p>
+                            <p>Các <a href="/video">video</a>, <a href="/blog">bài đăng</a> được cập nhật thường xuyên: tin tức, giải đấu, ván cờ hay, chiến thuật và kiến thức cờ vua.</p>
                         </div>
                     </div>
                 </div>
@@ -164,7 +126,7 @@ title: Trang chủ
                         </div>
                         <div class="service-text">
                             <h3>Giải đấu</h3>
-                            <p>Các giải đấu giao lưu và tranh tài được tổ chức hàng tuần, hàng tháng như <a href="/events/tournaments/tvlt">Thí Vua Lấy Tốt</a>, <a href="/events/tournaments/cttq">Chiến Trường Thí Quân</a>, <a href="/events/tournaments/cbtt">Cờ Bí Thí Tốt</a> với nhiều giải thưởng đa dạng.</p>
+                            <p>Tổ chức các giải giao lưu định kỳ như <a href="/events/tvlt-thi-vua-lay-tot">Thí Vua Lấy Tốt</a>, <a href="/events/cttq-chien-truong-thi-quan">Chiến Trường Thí Quân</a>, <a href="/events/cbtt-co-bi-thi-tot">Cờ Bí Thí Tốt</a> với nhiều giải thưởng đa dạng.</p>
                         </div>
                     </div>
                 </div>
@@ -175,7 +137,7 @@ title: Trang chủ
                         </div>
                         <div class="service-text">
                             <h3>Cộng đồng</h3>
-                            <p>Hơn 130k người đăng ký trên <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ">kênh Youtube</a>, hơn 17000 thành viên trong <a href="https://chess.com/club/thi-vua-lay-tot-tungjohn-playing-chess">câu lạc bộ trên Chess.com</a> và hơn 7.100 thành viên trong nhóm <a href="https://facebook.com/groups/thivualaytot">Facebook</a></p>
+                            <p>Hơn 150k người đăng ký <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ">Youtube</a>, 19k+ thành viên <a href="https://chess.com/club/thi-vua-lay-tot-tungjohn-playing-chess">Chess.com</a> và 7,1k+ thành viên nhóm <a href="https://facebook.com/groups/thivualaytot">Facebook</a>.</p>
                         </div>
                     </div>
                 </div>
@@ -186,7 +148,7 @@ title: Trang chủ
                         </div>
                         <div class="service-text">
                             <h3>Quản trị</h3>
-                            <p><a href="/leaders">Đội ngũ quản trị</a> nhiệt tình, sẵn sàng giúp đỡ và giải đáp các thắc mắc của thành viên; luôn phát triển, đổi mới để câu lạc bộ lớn mạnh hơn!</p>
+                            <p><a href="/leaders">Đội ngũ quản trị</a> nhiệt tình, sẵn sàng hỗ trợ các thành viên và không ngừng đổi mới để câu lạc bộ lớn mạnh hơn!</p>
                         </div>
                     </div>
                 </div>
@@ -199,8 +161,7 @@ title: Trang chủ
     <div class="experience" id="experience">
         <div class="container">
             <header class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                <p>
-                    <span class="bx bx-star" style="font-size: 36px; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all, -webkit-transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: all, transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></span> Dòng thời gian</p>
+                <p><span class="bx bx-star" style="font-size: 36px; visibility: visible; -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all, -webkit-transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: all, transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></span> Dòng thời gian</p>
                 <h2>Những dấu mốc quan trọng</h2>
             </header>
             <div class="timeline">
@@ -217,8 +178,7 @@ title: Trang chủ
                         <div class="timeline-date">17 thg 11, 2021</div>
                         <h2>Câu lạc bộ Thí Vua Lấy Tốt được thành lập</h2>
                         <h4>Chess.com</h4>
-                        <p>Câu lạc bộ lúc khởi tạo mang tên <i>Thí Vua Lấy Tốt</i> (sau này được đổi lại thành
-                            <a href="https://chess.com/club/thi-vua-lay-tot-tungjohn-playing-chess">Thí Vua Lấy Tốt - TungJohn Playing Chess</a>) với mục đích giao lưu, trò chuyện cho tập hợp fan TungJohn.</p>
+                        <p>Câu lạc bộ lúc khởi tạo mang tên <b>Thí Vua Lấy Tốt</b> (sau này được đổi lại thành <a href="https://chess.com/club/thi-vua-lay-tot-tungjohn-playing-chess">Thí Vua Lấy Tốt - TungJohn Playing Chess</a>) với mục đích giao lưu, trò chuyện cho tập hợp fan TungJohn.</p>
                     </div>
                 </div>
                 <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
@@ -242,8 +202,7 @@ title: Trang chủ
                         <div class="timeline-date">15 thg 10, 2022</div>
                         <h2>Giải Thí Vua Lấy Tốt được tổ chức chức lần đầu tiên</h2>
                         <h4>Đánh dấu cho các sự kiện của câu lạc bộ được tổ chức</h4>
-                        <p><a href="events/tournaments/tvlt">Giải đấu Thí Vua Lấy Tốt</a> được phát trực tiếp trên kênh của <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ/streams">TungJohn Playing Chess</a> và vẫn được tổ chức đến hiện tại.
-                            Những mùa đầu được tổ chức với tần suất là hàng tuần nhưng sau này do nhiều vấn đề nên chuyển sang hàng tháng.</p>
+                        <p><a href="/events/tvlt-thi-vua-lay-tot">Giải đấu Thí Vua Lấy Tốt</a> được phát trực tiếp trên kênh của <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ/streams">TungJohn Playing Chess</a> và đang được tổ chức đến hiện tại.</p>
                     </div>
                 </div>
                 <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
@@ -251,7 +210,7 @@ title: Trang chủ
                         <div class="timeline-date">2022 - 2023</div>
                         <h2>Các Admin mới được bổ nhiệm</h2>
                         <h4>Những quản trị viên tích cực giúp quản lý và phát triển cho câu lạc bộ mạnh mẽ đến hiện tại</h4>
-                        <p>Các quản trị viện hiện tại gồm <a href="leaders#admin2">Trần Hồng Gia</a>, <a href="leaders#admin3">Đinh Hoàng Việt</a>, <a href="leaders#admin4">Đinh Đức Hoàn</a> và <a href="leaders#admin4">Trương Gia Bảo</a>.</p>
+                        <p>Các quản trị viện hiện tại gồm <a href="leaders#admin2">Trần Hồng Gia</a>, <a href="leaders#admin3">Đinh Hoàng Việt</a>, <a href="leaders#admin4">Đinh Đức Hoàn</a> và <a href="leaders#admin5">Trương Gia Bảo</a>.</p>
                     </div>
                 </div>
                 <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
@@ -259,8 +218,7 @@ title: Trang chủ
                         <div class="timeline-date">7 thg 1, 2024</div>
                         <h2>Website Thí Vua Lấy Tốt được ra mắt</h2>
                         <h4>Là trang web hiện bạn đang truy cập</h4>
-                        <p>Được công bố lần đầu trong <a href="https://chess.com/forum/view/trang-web-thi-vua-lay-tot" target="_blank">diễn đàn câu lạc bộ trên Chess.com</a> với giao diện cực kỳ đơn giản. Lúc đó nội dung, bố cục, màu sắc,.. chưa được triển khai nên giao
-                            diện cực kỳ đơn giản. Nhưng bây giờ thì được cập cập nhật và cải thiện liên tục trở thành nơi thứ 2, thứ 3 liên quan đến những thông tin quan trọng của Thí Vua Lấy Tốt.</p>
+                        <p>Được công bố lần đầu trong <a href="https://chess.com/forum/view/trang-web-thi-vua-lay-tot" target="_blank">diễn đàn câu lạc bộ trên Chess.com</a>. Lúc đó nội dung, bố cục, màu sắc,.. chưa được triển khai nên giao diện cực kỳ đơn giản. Nhưng bây giờ thì được cập cập nhật và cải thiện liên tục trở thành một phần thông tin quan trọng của Thí Vua Lấy Tốt.</p>
                     </div>
                 </div>
                 <div class="timeline-item right wow slideInRight" data-wow-delay="0.1s">
@@ -268,8 +226,7 @@ title: Trang chủ
                         <div class="timeline-date">10 thg 10, 2024</div>
                         <h2>TungJohn đạt 100.000 người đăng ký!!</h2>
                         <h4>Một thành tựu đáng tự hào của TungJohn, thành quả sau 3 năm</h4>
-                        <p>TungJohn đã <a href="https://youtube.com/live/9YRa49R1xNE">phát trực tiếp</a> khoảnh khác có một này. Và theo lời hứa, TungJohn đã show mặt trong sự chờ đợi của fan hâm mộ. Và 3 tuần sau đó thì chiếc nút bạc cũng đã về tay và được
-                            <a href="https://youtu.be/JxgUVnTkAFk">TungJohn đập hộp múc bang</a></p>
+                        <p>TungJohn đã <a href="https://youtube.com/live/9YRa49R1xNE">phát trực tiếp</a> khoảnh khác có một này. Và theo lời hứa, TungJohn đã show mặt trong sự chờ đợi của fan hâm mộ. Và 3 tuần sau đó thì chiếc nút bạc cũng đã về tay và được <a href="https://youtu.be/JxgUVnTkAFk">TungJohn đập hộp "múc bang"</a>.</p>
                     </div>
                 </div>
                 <div class="timeline-item left wow slideInLeft" data-wow-delay="0.1s">
@@ -277,8 +234,7 @@ title: Trang chủ
                         <div class="timeline-date">6 thg 8, 2025</div>
                         <h2>Câu lạc bộ Thí Vua Lấy Tốt trên Chess.com nhận thẻ "Chính thức"!</h2>
                         <h4>Thẻ độc quyền trên Chess.com và hiếm có CLB nào đạt được!</h4>
-                        <p>Sau 4 năm thành lập và phát triển, <a href="https://link.chess.com/club/0CVQh6" target="_blank">câu lạc bộ</a> đã được Chess.com xác minh và gán thẻ "Chính thức" độc quyền! 
-                            Một điều rất vui và cũng rất vinh dự khi chúng ta là CLB Việt Nam đầu tiên đạt được điều này <a href="//chess.com/clubs/search?sort=1&country=VN" target="_blank">trên Chess.com.</a> <a href="https://www.facebook.com/share/p/14JpsCVy9V6" target="_blank">Cảm ơn các thành viên đã tham gia và ủng hộ rất nhiều!</a></p>
+                        <p>Sau 4 năm thành lập và phát triển, <a href="https://link.chess.com/club/0CVQh6" target="_blank">câu lạc bộ</a> đã được Chess.com xác minh và gán thẻ "Chính thức" độc quyền! Một điều rất vui và cũng rất vinh dự khi chúng ta là CLB Việt Nam đầu tiên đạt được điều này <a href="//chess.com/clubs/search?sort=1&country=VN" target="_blank">trên Chess.com.</a> <a href="https://facebook.com/share/p/14JpsCVy9V6" target="_blank">Cảm ơn các thành viên đã tham gia và ủng hộ rất nhiều!</a></p>
                     </div>
                 </div>
             </div>
@@ -288,96 +244,40 @@ title: Trang chủ
     <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
     <!-- Blog Start -->
     <div class="blog" id="blog">
-        <div class="container">
+        <div class="blog-container">
             <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
                 <p>
                     <span class="fa fa-newspaper" style="font-size: 36px; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all, -webkit-transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: all, transform 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 1.1s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></span>Các bài đăng</p>
                 <h2>Những bài đăng mới nhất</h2>
             </div>
-            <div class="card-list">
-                {% for post in site.posts limit:4 %}
-                <div class="card">
-                    <a href="{{ post.url }}"><img src="/images/{{ post.id }}.png" class="card_image" alt="{{ post.title }}">
-                        <h4 class="card_title">{{ post.title }}</h4></a>
-                        <i class="card_in4">{{ post.description }}</i>
+            <section class="card-list">
+                {% for post in site.posts limit:3 %}
+                <article class="card">
+                    <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image" alt="{{ post.title }}"></a>
+                    <div class="post_in4">
                         <div class="card_detail">
-                            <a href="/{{ post.category }}" class="card_tag"><span class="fa fa-tag"></span>{{ post.tags }}</a>|
-                            <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b>|<span class="card_date"><span class="bx bx-time"></span>{{ post.date | date:"%d thg %m, %Y" }}</span>
+                        <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
                         </div>
-                </div>
-                {% endfor %}
-            </div>
+                    </div>
+                    <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
+                    <i class="card_in4">{{ post.description }}</i>
+                    <span class="card_tag"><a href="\{{ post.category }}"><span class="fa fa-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
+                </article>
+            {% endfor %}
+            </section>
+            <div class="main"><span class="btn">Đọc thêm</span></div>
         </div>
     </div>
     <!-- Blog End -->
      <hr class="wow fadeIn text-center" data-wow-delay="0.3s"><button id="back-to-top"><span class="bx bxs-to-top"></span></button>
     <!-- Footer Start -->
-    <footer>
-        <div class="content">
-            <div class="top">
-                <div class="logo-details">
-                    <a href="/"><img src="images/tvltlogo.png" alt="Thí Vua Lấy Tốt" width="50"></a>
-                    <span class="logo_name" align="center">THÍ VUA LẤY TỐT</span>
-                </div>
-            </div>
-            <div class="link-boxes">
-                <ul class="box">
-                    <li class="link_name">Câu lạc bộ</li>
-                    <li><a href="#">Trang chủ</a></li>
-                    <li><a href="#">Về chúng tôi</a></li>
-                    <li><a href="#experience">Lịch sử phát triển</a></li>
-                </ul>
-                <ul class="box">
-                    <li class="link_name">Nội dung</li>
-                    <li><a href="blog">Các bài đăng</a></li>
-                    <li><a href="vlogs">Thư viện video</a></li>
-                    <li><a href="social">Truyền thông</a></li>
-                    <li><a href="leaders">Quản trị viên</a></li>
-                </ul>
-                <ul class="box">
-                    <li class="link_name">Giải đấu</li>
-                    <li><a href="/events/tournaments/tvlt">Thí Vua Lấy Tốt</a></li>
-                    <li><a href="/events/tournaments/cbtt">Cờ Bí Thí Tốt</a></li>
-                    <li><a href="/events/tournaments/cttq">Chiến Trường Thí Quân</a></li>
-                </ul>
-                <ul class="box input-box">
-                    <li class="link_name">Liên hệ &amp; Ủng hộ</li>
-                    <li><div class="tooltip-container">
-                    <span class="tooltip">Các bạn có thể ủng hộ cho Stream của TungJohn qua STK: 0860116608005 - Nguyễn Thanh Tùng (Ngân hàng Quân Đội MB) nhé.
-                        <img src="/images/tvlt/payment.jpg" width="245">
-                        Hoặc đơn giản hơn là đăng ký và theo dõi các tài khoản MXH của TungJohn và tham gia cộng đồng của chúng tôi.</span>
-                    <span class="text"><span class="bx bxs-donate-heart"></span>Ủng hộ</span>
-                    <span><span class="bx bxs-donate-heart"></span>Ủng hộ</span>
-                    </div></li>
-                    <li><div class="tooltip-container">
-                    <span class="tooltip">Để nhận được trợ giúp, hỗ trợ hay thảo luận hãy tham gia nhóm của chúng tôi trên <a href="social">các nền tảng truyền thông</a> hoặc liên hệ riêng cho <a href="/leaders#admins">các quản trị viên</a>.</span>
-                    <span class="text"><a href="/social"><span class="bx bxs-contact"></span>Liên hệ</a></span>
-                    <span><a href="/social"><span class="bx bxs-contact"></span>Liên hệ</a></span>
-                    </div></li>
-                </ul>
-                <ul class="box input-box">
-                    <li class="link_name">Subscribe to newsletter</li>
-                    <li><img class="wow zoomIn text-center" src="https://chess.com/share/club/thi-vua-lay-tot-tungjohn-playing-chess" style="width: calc(100% - 1px);"></li>
-                    <li>Đăng ký tham gia khóa học cờ vua tại Hà Nội. Tel: 
-                    <a href="tel:0975600448"><span class="bx bxs-phone-call"></span>0975600448</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="bottom-details">
-            <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2025 <a href="#">Thí Vua Lấy Tốt</a>Some rights reserved</span>
-                <span class="policy_terms">
-                    <a href="#">MIT License</a>
-                </span>
-            </div>
-        </div>
-    </footer>
+    {% include footer.html %}
         <!-- Footer End -->
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
         <script src="https://pazindushane.github.io/lib/easing/easing.min.js"></script>
-        <script src="https://pazindushane.github.io/lib/wow/wow.min.js"></script>
+        <script src="/js/wow.min.js"></script>
         <script src="https://pazindushane.github.io/js/main.js"></script>
         <script src="/js/main.js"></script>
 </body>

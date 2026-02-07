@@ -5,13 +5,14 @@ category: events
 tags: Giải đấu
 author: Mr.TungJohn
 description: Sự kiện nổi bật nhất với giải thưởng đa dang và được livestream trực tiếp trên Youtube
-permalink: /events/tvlt-chien-truong-thi-quan
+permalink: /events/tvlt-thi-vua-lay-tot
 ---
+
+## Một số thông tin chung
 
 *Giải đấu được quản lý bởi [Mr.TungJohn](/leaders#owner).*
 
-Giải đấu có thưởng đầu tiên của **Thí Vua Lấy Tốt** được tổ chức vào  
-[ngày 15 tháng 12 năm 2022](https://chess.com/tournament/live/arena/th-vua-ly-tt-2171704).  
+Giải đấu có thưởng đầu tiên của **Thí Vua Lấy Tốt** được tổ chức vào [ngày 15 tháng 12 năm 2022](https://chess.com/tournament/live/arena/th-vua-ly-tt-2171704).  
 Sau giai đoạn thử nghiệm, thể lệ chính thức được ổn định và áp dụng từ **tháng 6 năm 2023** đến hiện tại.
 
 ## ♟️ Thể lệ chính
