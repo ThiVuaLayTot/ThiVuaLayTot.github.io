@@ -263,9 +263,16 @@ img {
     max-width: 100%;
 }
 
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1em;
+}
+
 .main .btn {
     border: none;
-    display: flex;
+    display: inline-flex;
     padding: 0.75rem 1.5rem;
     background-color: #488aec;
     color: #ffffff;
