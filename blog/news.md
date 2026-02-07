@@ -27,4 +27,4 @@ permalink: /news/
     </article>
 {% endif %} {% endfor %}
 </section>
-<div class="main"><span class="btn">Đọc thêm</span></div>
+<div class="main"><a href="/blog"><span class="btn">Đọc thêm</span></a></div>

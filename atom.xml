@@ -3,13 +3,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://w3.org/2005/Atom">
 
- <title>Đinh Hoàng Việt</title>
+ <title>Thí Vua Lấy Tốt</title>
  <link href="https://thivualaytot.github.io/atom.xml" rel="self"/>
  <link href="https://thivualaytot.github.io/blog/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
  <id>https://thivualaytot.github.io/</id>
  <author>
-   <name>Unknown</name>
+   <name>Thí Vua Lấy Tốt</name>
  </author>
 
  {% for post in site.posts %}
