@@ -237,7 +237,7 @@ async function renderMonthTable(monthId) {
         const cheaterUsernames = new Set(cheaters.map(c => c.username.toLowerCase()));
         let tableHtml = '';
         if (topPlayers.length === 0) {
-            tableHtml = '<tr><td colspan="3" style="text-align: center; padding: 20px; color: #999;">Không có dữ liệu</td></tr>';
+            tableHtml = '<tr><td colspan="3" style="text-align: center; padding: 20px; color: #999;">Không có dữ liệu top</td></tr>';
         } else {
             for (let i = 0; i < topPlayers.length; i++) {
                 const player = topPlayers[i];
@@ -247,7 +247,7 @@ async function renderMonthTable(monthId) {
                 const playerTournaments = getPlayerTournamentsInMonth(player.username, tournaments);
                 const tournamentLinksHTML = playerTournaments.length > 0
                     ? playerTournaments.map(t => `<a href="${t.url}" target="_blank" class="cttq-tournament-link">${t.name} (${t.points} điểm)</a>`).join('')
-                    : '<span style="color: #64748b;">Không có dữ liệu</span>';
+                    : '<span style="color: var(--primary-warning);">Dữ liệu người chơi bị lỗi</span>';
                 tableHtml += `<tr>
                     <td class="cttq-rank-cell">Top ${i + 1}</td>
                     <td style="padding: 16px 24px;">
