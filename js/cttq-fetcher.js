@@ -1,4 +1,6 @@
-
+// ============================================
+// API & CONSTANTS
+// ============================================
 const API = {
     CHESS_COM: 'https://api.chess.com/pub',
     MONTHS_GIST: 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw',
@@ -18,7 +20,9 @@ const SELECTORS = {
     stats: (monthId) => `#cttq-stats-${monthId}`
 };
 
+// ============================================
 // RATE LIMITING & CACHING
+// ============================================
 class RequestManager {
     constructor(maxConcurrent = CONFIG.MAX_CONCURRENT_REQUESTS) {
         this.maxConcurrent = maxConcurrent;
@@ -70,7 +74,9 @@ class RequestManager {
 
 const requestManager = new RequestManager();
 
+// ============================================
 // DATA FETCHING
+// ============================================
 class DataFetcher {
     static async getMonths() {
         const text = await requestManager.fetchText(`${API.MONTHS_GIST}/cttq.txt`);
@@ -95,7 +101,9 @@ class DataFetcher {
     }
 }
 
+// ============================================
 // DATA PROCESSING
+// ============================================
 class DataProcessor {
     static parsePlayer(playerData) {
         if (!playerData) {
@@ -116,6 +124,7 @@ class DataProcessor {
 
     static async getMonthlyAggregation(monthId) {
         const tourIds = await DataFetcher.getTournamentIds(monthId);
+        
         if (tourIds.length === 0) {
             return { playerScores: {}, tournaments: [] };
         }
@@ -137,30 +146,33 @@ class DataProcessor {
             const tournamentData = tourDataList[i];
             const roundData = topPlayersDataList[i];
 
-            if (!roundData?.players || !tournamentData) continue;
+            // Skip nếu không có tournament data
+            if (!tournamentData) continue;
 
-            const tourPlayers = roundData.players
+            // Xử lý players nếu có (giải đã có kết quả)
+            const tourPlayers = (roundData?.players || [])
                 .filter(p => p.username)
                 .map(p => ({ username: p.username, points: p.points || 0 }));
 
-            if (tourPlayers.length === 0) continue;
-
-            // Add tournament info
+            // Luôn thêm tournament vào danh sách (kể cả chưa hoàn thành)
             tournaments.push({
                 id: tourIds[i],
                 name: tournamentData.name || 'Unknown',
                 url: tournamentData.url || `https://chess.com/tournament/${tourIds[i]}`,
+                status: tournamentData.status || 'Unknown',
                 topPlayers: tourPlayers
             });
 
-            // Aggregate player scores
-            tourPlayers.forEach(({ username, points }) => {
-                const key = username.toLowerCase();
-                if (!playerScores[key]) {
-                    playerScores[key] = { username, totalPoints: 0 };
-                }
-                playerScores[key].totalPoints += points;
-            });
+            // Chỉ aggregate player scores nếu có players
+            if (tourPlayers.length > 0) {
+                tourPlayers.forEach(({ username, points }) => {
+                    const key = username.toLowerCase();
+                    if (!playerScores[key]) {
+                        playerScores[key] = { username, totalPoints: 0 };
+                    }
+                    playerScores[key].totalPoints += points;
+                });
+            }
         }
 
         return { playerScores, tournaments };
@@ -197,7 +209,9 @@ class DataProcessor {
     }
 }
 
+// ============================================
 // RENDERING
+// ============================================
 class Renderer {
     static getPlayerTournaments(username, tournaments) {
         const usernameLower = username.toLowerCase();
@@ -306,6 +320,16 @@ class Renderer {
         const cheaterSet = new Set(cheaters.map(c => c.username.toLowerCase()));
         
         if (topPlayers.length === 0) {
+            // Nếu có giải nhưng chưa hoàn thành
+            if (tournaments.length > 0) {
+                const incompleteTours = tournaments.filter(t => t.topPlayers.length === 0);
+                return `<tr><td colspan="3" style="text-align: center; padding: 20px; color: #f59e0b;">
+                    <div>⏳ ${incompleteTours.length} giải đang diễn ra, chưa có kết quả</div>
+                    <div style="font-size: 12px; margin-top: 8px; color: #999;">
+                        ${incompleteTours.map(t => `<a href="${t.url}" target="_blank" style="color: #60a5fa;">${t.name}</a>`).join(' • ')}
+                    </div>
+                </td></tr>`;
+            }
             return '<tr><td colspan="3" style="text-align: center; padding: 20px; color: #999;">Không có dữ liệu top</td></tr>';
         }
 
@@ -317,13 +341,38 @@ class Renderer {
     static renderCardLayout(topPlayers, playerDetails, tournaments, cheaters) {
         const cheaterSet = new Set(cheaters.map(c => c.username.toLowerCase()));
         
+        // Nếu không có top players nhưng có tournaments, hiển thị giải chưa hoàn thành
+        if (topPlayers.length === 0 && tournaments.length > 0) {
+            const incompleteTours = tournaments.filter(t => t.topPlayers.length === 0);
+            return `
+                <div style="text-align: center; padding: 24px; background: #fef3c7; border-radius: 8px; margin: 16px 0;">
+                    <div style="font-size: 18px; font-weight: bold; color: #f59e0b; margin-bottom: 12px;">
+                        ⏳ ${incompleteTours.length} Giải Đang Diễn Ra
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        ${incompleteTours.map(t => `
+                            <a href="${t.url}" target="_blank" 
+                               style="color: #60a5fa; text-decoration: none; padding: 8px; border: 1px solid #60a5fa; border-radius: 4px; display: inline-block;">
+                                📋 ${t.name}
+                            </a>
+                        `).join('')}
+                    </div>
+                    <div style="font-size: 12px; color: #999; margin-top: 12px;">
+                        Kết quả sẽ được cập nhật khi giải hoàn thành
+                    </div>
+                </div>
+            `;
+        }
+        
         return topPlayers.map((player, i) =>
             this.createCardRow(player, playerDetails[i], tournaments, cheaterSet, i)
         ).join('');
     }
 }
 
+// ============================================
 // PAGE MANAGER
+// ============================================
 class PageManager {
     static async renderMonth(monthId) {
         const container = document.querySelector(SELECTORS.monthsContainer);
