@@ -326,7 +326,7 @@ class Renderer {
                 return `<tr><td colspan="3" style="text-align: center; padding: 20px; color: #f59e0b;">
                     <div>⏳ ${incompleteTours.length} giải đang diễn ra, chưa có kết quả</div>
                     <div style="font-size: 12px; margin-top: 8px; color: #999;">
-                        ${incompleteTours.map(t => `<a href="${t.url}" target="_blank" style="color: #60a5fa;">${t.name}</a>`).join(' • ')}
+                        ${incompleteTours.map(t => `<a href="${t.url}" target="_blank" style="color: #60a5fa;">${t.name}</a>`).join(`<br>`)}
                     </div>
                 </td></tr>`;
             }
@@ -340,30 +340,7 @@ class Renderer {
 
     static renderCardLayout(topPlayers, playerDetails, tournaments, cheaters) {
         const cheaterSet = new Set(cheaters.map(c => c.username.toLowerCase()));
-        
-        // Nếu không có top players nhưng có tournaments, hiển thị giải chưa hoàn thành
-        if (topPlayers.length === 0 && tournaments.length > 0) {
-            const incompleteTours = tournaments.filter(t => t.topPlayers.length === 0);
-            return `
-                <div style="text-align: center; padding: 24px; background: #fef3c7; border-radius: 8px; margin: 16px 0;">
-                    <div style="font-size: 18px; font-weight: bold; color: #f59e0b; margin-bottom: 12px;">
-                        ⏳ ${incompleteTours.length} Giải Đang Diễn Ra
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 8px;">
-                        ${incompleteTours.map(t => `
-                            <a href="${t.url}" target="_blank" 
-                               style="color: #60a5fa; text-decoration: none; padding: 8px; border: 1px solid #60a5fa; border-radius: 4px; display: inline-block;">
-                                📋 ${t.name}
-                            </a>
-                        `).join('')}
-                    </div>
-                    <div style="font-size: 12px; color: #999; margin-top: 12px;">
-                        Kết quả sẽ được cập nhật khi giải hoàn thành
-                    </div>
-                </div>
-            `;
-        }
-        
+                
         return topPlayers.map((player, i) =>
             this.createCardRow(player, playerDetails[i], tournaments, cheaterSet, i)
         ).join('');
