@@ -426,5 +426,5 @@ title: Bảng tổng giải Chiến Trường Thí Quân
 <p>Giải được quản lý bởi Admin <a href="/leaders#admin3">M-DinhHoangViet</a>. <a href="/events/cttq-chien-truong-thi-quan">Chi tiết về sự kiện này.</a></p>
 <div class="cttq-months-container" id="cttq-months-container"></div>
 <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
-<br><hr>
+<br>
 <script src="/js/cttq-fetcher.js"></script>

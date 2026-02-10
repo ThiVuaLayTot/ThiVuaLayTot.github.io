@@ -340,7 +340,7 @@ class Renderer {
 
     static renderCardLayout(topPlayers, playerDetails, tournaments, cheaters) {
         const cheaterSet = new Set(cheaters.map(c => c.username.toLowerCase()));
-                
+
         return topPlayers.map((player, i) =>
             this.createCardRow(player, playerDetails[i], tournaments, cheaterSet, i)
         ).join('');
