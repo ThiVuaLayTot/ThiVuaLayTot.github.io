@@ -229,7 +229,7 @@ class Renderer {
     static createPlayerRow(player, playerData, tournaments, cheaterSet, index) {
         const parsed = DataProcessor.parsePlayer(playerData);
         const isCheater = cheaterSet.has(player.username.toLowerCase());
-        const cheaterIcon = isCheater ? ' <i class="fa fa-warning" style="color: #f87171;" title="Tài khoản bị khóa"></i>' : '';
+        const cheaterIcon = isCheater ? ' <i class="fa fa-exclamation" style="color: #f87171;" title="Tài khoản bị khóa"></i>' : '';
         
         const playerTournaments = this.getPlayerTournaments(player.username, tournaments);
         const tournamentLinksHTML = playerTournaments.length > 0
@@ -324,7 +324,7 @@ class Renderer {
             if (tournaments.length > 0) {
                 const incompleteTours = tournaments.filter(t => t.topPlayers.length === 0);
                 return `<tr><td colspan="3" style="text-align: center; padding: 20px; color: #f59e0b;">
-                    <div>⏳ ${incompleteTours.length} giải đang diễn ra, chưa có kết quả</div>
+                    <div><i class="fa fa-stopwatch"></i> ${incompleteTours.length} giải đang diễn ra, chưa có kết quả</div>
                     <div style="font-size: 12px; margin-top: 8px; color: #999;">
                         ${incompleteTours.map(t => `<a href="${t.url}" target="_blank" style="color: #60a5fa;">${t.name}</a>`).join(`<br>`)}
                     </div>
