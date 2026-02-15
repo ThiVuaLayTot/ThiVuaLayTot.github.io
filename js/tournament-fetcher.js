@@ -248,7 +248,7 @@ async function parseTournamentData(data, tourId) {
         totalRounds: rounds,
         timeClass: tournament.settings?.time_class || tournament.time_class || 'N/A',
         timeControl,
-        playersCount: tournament.settings?.registered_user_count || tournament.players_registered || tournament.players?.length || 'N/A',
+        playersCount: tournament.settings?.registered_user_count || tournament.players_registered || tournament.players?.length || ' 0',
         players,
         points
     };
@@ -259,7 +259,7 @@ async function parseTournamentData(data, tourId) {
  */
 async function generatePlayerCell(username, points) {
     if (!username) {
-        return '<td>N/A</td>';
+        return '<td style="color: var(--primary-warning)">Giải chưa kết thúc!</td>';
     }
 
     // Check special players (optimized with Map lookup)
