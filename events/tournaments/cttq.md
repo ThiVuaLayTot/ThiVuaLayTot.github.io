@@ -424,7 +424,8 @@ title: Bảng tổng giải Chiến Trường Thí Quân
     <li><a href="dttv">Đấu Trường Thí Vua</a></li>
 </ul><br>
 <p>Giải được quản lý bởi Admin <a href="/leaders#admin3">M-DinhHoangViet</a>. <a href="/events/cttq-chien-truong-thi-quan">Chi tiết về sự kiện này.</a></p>
-<div class="cttq-months-container" id="cttq-months-container"><a href="/events/cttq-chien-truong-thi-quan"><img alt="Chiến Trường Thí Quân logo" src="/images/events/cttq_logo.png"></a></div>
+<div class="cttq-months-container" id="cttq-months-container"></div>
+<a href="/events/cttq-chien-truong-thi-quan"><img alt="Chiến Trường Thí Quân logo" src="/images/events/cttq_logo.png"></a>
 <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
 <br>
 <script src="/js/cttq-fetcher.js"></script>
