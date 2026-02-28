@@ -11,5 +11,5 @@ title: Bảng tổng giải Thí Vua Lấy Tốt
     <li><a href="dttv">Đấu Trường Thí Vua</a></li>
 </ul><br>
 <p>Giải được quản lý bởi <a href="/leaders#owner">Mr. TungJohn</a>. <a href="/events/tvlt-thi-vua-lay-tot">Chi tiết về sự kiện này.</a></p>
-<div id="tournament-table" data-fetch-tournament="tvlt"></div>
+<div id="tournament-table" data-fetch-tournament="tvlt"><a href="/events/tvlt-thi-vua-lay-tot"><img src="/images/tvltlogo.png" alt="TungJohn Playing Chess"></a></div>
 <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>

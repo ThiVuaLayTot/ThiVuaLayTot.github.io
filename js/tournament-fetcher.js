@@ -23,6 +23,41 @@ const BATCH_SIZE = Infinity; // Run all tournaments concurrently
 const TIME_CONTROL_REGEX = /^(\d+)\+(\d+)$/;
 
 /**
+ * Calculate tournament duration
+ */
+function calculateDuration(startDate, endDate) {
+    if (!startDate || !endDate) return 'N/A';
+    
+    const start = typeof startDate === 'string' ? new Date(startDate) : new Date(startDate * 1000);
+    const end = typeof endDate === 'string' ? new Date(endDate) : new Date(endDate * 1000);
+    
+    if (isNaN(start) || isNaN(end)) return 'N/A';
+    
+    const diffMs = end - start;
+    if (diffMs < 0) return 'N/A';
+    
+    const diffSeconds = Math.floor(diffMs / 1000);
+    const diffMinutes = Math.floor(diffSeconds / 60);
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    
+    if (diffDays > 0) {
+        return `${diffDays} ngày`;
+    } else if (diffHours > 0) {
+        const remainingMinutes = diffMinutes % 60;
+        if (remainingMinutes === 0) {
+            return `${diffHours} tiếng`;
+        } else {
+            return `${diffHours} tiếng ${remainingMinutes} phút`;
+        }
+    } else if (diffMinutes > 0) {
+        return `${diffMinutes} phút`;
+    } else {
+        return `${diffSeconds} giây`;
+    }
+}
+
+/**
  * Fetch tournament IDs from gist
  */
 async function getIds(eventType) {
@@ -224,17 +259,25 @@ async function parseTournamentData(data, tourId) {
     }
 
     let startTime = 'N/A';
+    let duration = 'N/A';
+    
     try {
-        let timestamp = tournament.start_time || tournament.startTime;
+        let startTimestamp = tournament.start_time || tournament.startTime;
+        let endTimestamp = tournament.finish_time || tournament.endTime;
         
-        if (!timestamp) {
+        if (!startTimestamp) {
             startTime = 'N/A';
-        } else if (typeof timestamp === 'string') {
-            const date = new Date(timestamp);
-            startTime = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+        } else if (typeof startTimestamp === 'string') {
+            const date = new Date(startTimestamp);
+            startTime = `${String(date.getHours()).padStart(2, '0')}h${String(date.getMinutes()).padStart(2, '0')}, ngày ${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
         } else {
-            const date = new Date(parseInt(timestamp) * 1000);
-            startTime = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+            const date = new Date(parseInt(startTimestamp) * 1000);
+            startTime = `${String(date.getHours()).padStart(2, '0')}h${String(date.getMinutes()).padStart(2, '0')}, ngày ${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+        }
+        
+        // Calculate duration if both times are available
+        if (startTimestamp && endTimestamp) {
+            duration = calculateDuration(startTimestamp, endTimestamp);
         }
     } catch (e) {
         console.warn(`[parseTournamentData] Error parsing date: ${tournament.start_time}`);
@@ -245,6 +288,7 @@ async function parseTournamentData(data, tourId) {
         url: tournament.url || tournament.external_url || `//www.chess.com/tournament/${tourId}`,
         variant: tournament.settings?.rules || tournament.rules || 'standard',
         startTime,
+        duration,
         totalRounds: rounds,
         timeClass: tournament.settings?.time_class || tournament.time_class || 'N/A',
         timeControl,
@@ -319,10 +363,10 @@ async function generateTournamentRow(parsed) {
     if (!parsed) return '';
 
     let html = '<tr>\n';
-    
+
     html += `    <td><a href="${parsed.url}" target="_top">${parsed.name}</a></td>\n`;
     html += `    <td>${parsed.startTime}</td>\n`;
-    
+
     let format = parsed.timeControl + ' ';
     if (parsed.timeClass === 'bullet') format += 'Bullet';
     else if (parsed.timeClass === 'blitz') format += 'Blitz';
@@ -337,7 +381,7 @@ async function generateTournamentRow(parsed) {
     };
 
     format += ruleMap[parsed.variant.toLowerCase()] || ',';
-    format += parsed.totalRounds === 1 ? ' Đấu trường Arena' : ` Hệ Thụy Sĩ ${parsed.totalRounds} vòng`;
+    format += parsed.totalRounds === 1 ? ` Đấu trường Arena ${parsed.duration}` : ` Hệ Thụy Sĩ ${parsed.totalRounds} vòng`;
     
     html += `    <td>${format}</td>\n`;
     html += `    <td>${parsed.playersCount}</td>\n`;
@@ -431,7 +475,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
             <thead>
             <tr>
                 <th class="name-tour">Tên giải</th>
-                <th class="organization-day">Ngày tổ chức</th>
+                <th class="organization-day">Thời gian bắt đầu</th>
                 <th class="rules">Thể lệ</th>
                 <th class="players">Số kỳ thủ</th>
                 <th class="winner">🥇 Top 1</th>
