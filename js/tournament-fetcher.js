@@ -362,22 +362,24 @@ async function generatePlayerCell(username, points) {
 async function generateTournamentRow(parsed) {
     if (!parsed) return '';
 
+    const cc = '//www.chess.com';
+
     let html = '<tr>\n';
 
     html += `    <td><a href="${parsed.url}" target="_top">${parsed.name}</a></td>\n`;
     html += `    <td>${parsed.startTime}</td>\n`;
 
     let format = parsed.timeControl + ' ';
-    if (parsed.timeClass === 'bullet') format += `Bullet <img src"${cc}/bundles/web/images/icons/smileys/2x/bullet.png" width="15px" height="15px">`;
-    else if (parsed.timeClass === 'blitz') format += `Blitz <img src"${cc}/bundles/web/images/icons/smileys/2x/blitz.png" width="15px" height="15px">`;
-    else format += `Rapid <img src"${cc}/bundles/web/images/icons/smileys/2x/live.png" width="15px" height="15px">`;
+    if (parsed.timeClass === 'bullet') format += `Bullet <img src="${cc}/bundles/web/images/icons/smileys/2x/bullet.png" width="15px" height="15px">`;
+    else if (parsed.timeClass === 'blitz') format += `Blitz <img src="${cc}/bundles/web/images/icons/smileys/2x/blitz.png" width="15px" height="15px">`;
+    else format += `Rapid <img src="${cc}/bundles/web/images/icons/smileys/2x/live.png" width="15px" height="15px">`;
 
     const ruleMap = {
-        'chess960': ` <a href="${cc}/terms/chess960" target="_blank">Chess960 <img src="${cc}/bundles/web/images/variants/live_960_orange.svg" width="15px" height="15px"></a>`,
-        'kingofthehill': ` <a href="${cc}/terms/king-of-the-hill" target="_blank">KOTH <img src"${cc}/bundles/web/images/variants/koth.svg" width="15px" height="15px"></a>`,
-        'crazyhouse': `  <a href="${cc}/terms/crazyhouse-chess" target="_blank">Crazyhouse <img src="${cc}/bundles/web/images/variants/crazyhouse.svg" width="15px" height="15px"></a>`,
-        'bughouse': `  <a href="${cc}/terms/bughouse-chess" target="_blank">Bughouse <img src="${cc}/bundles/web/images/variants/bughouse.svg" width="15px" height="15px"></a>`,
-        'threecheck': ` <a href="${cc}/terms/3-check-chess" target="_blank">3 Chiếu <img src="${cc}/bundles/web/images/variants/3check.svg" width="15px" height="15px"></a>`
+        'chess960': ` <a href="${cc}/terms/chess960" target="_blank">Chess960 <img src="${cc}/bundles/web/images/variants/live_960_orange.svg" width="15px" height="15px"></a><br>`,
+        'kingofthehill': ` <a href="${cc}/terms/king-of-the-hill" target="_blank">KOTH <img src="${cc}/bundles/web/images/variants/koth.svg" width="15px" height="15px"></a><br>`,
+        'crazyhouse': `  <a href="${cc}/terms/crazyhouse-chess" target="_blank">Crazyhouse <img src="${cc}/bundles/web/images/variants/crazyhouse.svg" width="15px" height="15px"></a><br>`,
+        'bughouse': `  <a href="${cc}/terms/bughouse-chess" target="_blank">Bughouse <img src="${cc}/bundles/web/images/variants/bughouse.svg" width="15px" height="15px"></a><br>`,
+        'threecheck': ` <a href="${cc}/terms/3-check-chess" target="_blank">3 Chiếu <img src="${cc}/bundles/web/images/variants/3check.svg" width="15px" height="15px"></a><br>`
     };
 
     format += ruleMap[parsed.variant.toLowerCase()] || `<br>`;
