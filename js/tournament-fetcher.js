@@ -285,7 +285,7 @@ async function parseTournamentData(data, tourId) {
 
     return {
         name: tournament.name || tournament.title || 'N/A',
-        url: tournament.url || tournament.external_url || `//www.chess.com/tournament/${tourId}`,
+        url: tournament.url || tournament.external_url || `//chess.com/tournament/${tourId}`,
         variant: tournament.settings?.rules || tournament.rules || 'standard',
         startTime,
         duration,
@@ -307,9 +307,10 @@ async function generatePlayerCell(username, points) {
     }
 
     // Check special players (optimized with Map lookup)
+    const cc = '//chess.com';
     const special = SPECIAL_PLAYERS_LOWER.get(username.toLowerCase());
     if (special) {
-        return `<td><a href="//www.chess.com/member/${special.name}" target="_top"><strong>${special.name}</strong></a></td>`;
+        return `<td><a href="${cc}/member/${special.name}" target="_top"><strong>${special.name}</strong></a></td>`;
     }
 
     // Fetch player data
@@ -317,7 +318,6 @@ async function generatePlayerCell(username, points) {
     const parsed = parsePlayerData(playerData);
     
     const { username: name, status, avatar } = parsed;
-    const cc = '//www.chess.com';
     const defaultAvatar = `${cc}/bundles/web/images/user-image.007dad08.svg`;
     const avatarUrl = avatar && avatar !== 'N/A' ? avatar : defaultAvatar;
 
@@ -328,7 +328,7 @@ async function generatePlayerCell(username, points) {
         badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span>Closed: Abuse</span></div></div>`;
         badgeClass = 'closed-abuse';
     } else if (status === 'closed:fair_play_violations') {
-        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span>Closed: Gian lận</span></div></div>`;
+        badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span>Closed: Cheating</span></div></div>`;
         badgeClass = 'closed-fair';
     } else if (status === 'closed') {
         badgeHTML = `<div class="user-badges-component"><div class="user-badges-badge user-badges-closed"><span>Closed: Inactive</span></div></div>`;
@@ -368,19 +368,19 @@ async function generateTournamentRow(parsed) {
     html += `    <td>${parsed.startTime}</td>\n`;
 
     let format = parsed.timeControl + ' ';
-    if (parsed.timeClass === 'bullet') format += 'Bullet';
-    else if (parsed.timeClass === 'blitz') format += 'Blitz';
-    else format += 'Rapid';
+    if (parsed.timeClass === 'bullet') format += `Bullet <img src"${cc}/bundles/web/images/icons/smileys/2x/bullet.png" width="15px" height="15px">`;
+    else if (parsed.timeClass === 'blitz') format += `Blitz <img src"${cc}/bundles/web/images/icons/smileys/2x/blitz.png" width="15px" height="15px">`;
+    else format += `Rapid <img src"${cc}/bundles/web/images/icons/smileys/2x/live.png" width="15px" height="15px">`;
 
     const ruleMap = {
-        'chess960': ' Chess960,',
-        'kingofthehill': ' KOTH,',
-        'crazyhouse': ' Crazyhouse,',
-        'bughouse': ' Bughouse,',
-        'threecheck': ' 3 Chiếu,'
+        'chess960': ` <a href="${cc}/terms/chess960" target="_blank">Chess960 <img src="${cc}/bundles/web/images/variants/live_960_orange.svg" width="15px" height="15px"></a>`,
+        'kingofthehill': ` <a href="${cc}/terms/king-of-the-hill" target="_blank">KOTH <img src"${cc}/bundles/web/images/variants/koth.svg" width="15px" height="15px"></a>`,
+        'crazyhouse': `  <a href="${cc}/terms/crazyhouse-chess" target="_blank">Crazyhouse <img src="${cc}/bundles/web/images/variants/crazyhouse.svg" width="15px" height="15px"></a>`,
+        'bughouse': `  <a href="${cc}/terms/bughouse-chess" target="_blank">Bughouse <img src="${cc}/bundles/web/images/variants/bughouse.svg" width="15px" height="15px"></a>`,
+        'threecheck': ` <a href="${cc}/terms/3-check-chess" target="_blank">3 Chiếu <img src="${cc}/bundles/web/images/variants/3check.svg" width="15px" height="15px"></a>`
     };
 
-    format += ruleMap[parsed.variant.toLowerCase()] || ',';
+    format += ruleMap[parsed.variant.toLowerCase()] || `<br>`;
     format += parsed.totalRounds === 1 ? ` Đấu trường Arena ${parsed.duration}` : ` Hệ Thụy Sĩ ${parsed.totalRounds} vòng`;
     
     html += `    <td>${format}</td>\n`;
