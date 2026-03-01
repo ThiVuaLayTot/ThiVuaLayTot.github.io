@@ -142,19 +142,19 @@
 }
 
 .rules {
-    min-width: 11rem;
+    min-width: 13rem;
     color: #cbd5e1;
 }
 
 .players {
-    min-width: 4rem;
+    min-width: 3rem;
     text-align: center;
     font-weight: 600;
     color: #f3f4f6;
 }
 
 .winner {
-    min-width: 12rem;
+    min-width: 13rem;
     text-align: center;
 }
 
@@ -253,6 +253,12 @@
     border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
+.user-badges-inactive {
+    background: var(--color-grey);
+    color: #334155;
+    border: 1px solid rgb(51, 61, 61);
+}
+
 .user-badges-premium {
     background: rgba(251, 191, 36, 0.15);
     color: #fde047;
@@ -349,11 +355,11 @@
     }
     
     .name-tour {
-        min-width: 14rem;
+        min-width: 15rem;
     }
     
     .winner {
-        min-width: 10rem;
+        min-width: 12.5rem;
     }
     
     .styled-table th,
