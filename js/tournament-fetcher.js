@@ -53,7 +53,7 @@ const VARIANTS = {
 const TIME_CLASS_ICONS = {
     'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
-    'rapid': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
+    'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
 };
 
 // Pre-compile regex
@@ -166,10 +166,10 @@ const HTML = {
     
     userBadge(status) {
         const badges = {
-            'closed:abuse': { class: 'user-badges-closed', text: 'Closed: Abuse' },
-            'closed:fair_play_violations': { class: 'user-badges-closed', text: 'Closed: Cheating' },
-            'closed': { class: 'user-badges-inactive', text: 'Closed: Inactive' },
-            'premium': { class: 'user-badges-premium', text: 'Chess.com Membership' }
+            'closed:abuse': { class: 'user-badges-closed', icon: 'bx bx-dislike', text: 'Closed: Abuse' },
+            'closed:fair_play_violations': { class: 'user-badges-closed', icon: 'bx bx-block', text: 'Closed: Cheating' },
+            'closed': { class: 'user-badges-inactive', icon: 'bx bx-no-signal', text: 'Closed: Inactive'},
+            'premium': { class: 'user-badges-premium', icon: 'bx bxs-star', text: 'Chess.com Membership' }
         };
         
         const badge = badges[status];
@@ -177,7 +177,7 @@ const HTML = {
         
         return `<div class="user-badges-component">
             <div class="user-badges-badge ${badge.class}">
-                <span>${badge.text}</span>
+                <span class="${badge.icon}</span><span>${badge.text}</span>
             </div>
         </div>`;
     },
