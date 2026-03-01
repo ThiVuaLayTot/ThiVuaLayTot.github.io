@@ -177,7 +177,7 @@ const HTML = {
         
         return `<div class="user-badges-component">
             <div class="user-badges-badge ${badge.class}">
-                <span class="${badge.icon}</span><span>${badge.text}</span>
+                <span class="${badge.icon}"></span><span>${badge.text}</span>
             </div>
         </div>`;
     },
