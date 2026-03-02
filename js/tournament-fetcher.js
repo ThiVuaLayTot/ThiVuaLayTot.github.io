@@ -53,6 +53,7 @@ const VARIANTS = {
 const TIME_CLASS_ICONS = {
     'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
+    'rapid': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' },
     'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
 };
 

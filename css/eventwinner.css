@@ -142,7 +142,7 @@
 }
 
 .rules {
-    min-width: 13rem;
+    min-width: 13.5rem;
     color: #cbd5e1;
 }
 
@@ -254,9 +254,9 @@
 }
 
 .user-badges-inactive {
-    background: var(--color-grey);
-    color: #334155;
-    border: 1px solid rgb(51, 61, 61);
+    background: #b0b4b84d;
+    color: #c9d1e0;
+    border: 1px solid rgb(158, 196, 196, 0.4);
 }
 
 .user-badges-premium {
