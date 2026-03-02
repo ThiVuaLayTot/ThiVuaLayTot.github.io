@@ -577,7 +577,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
                 <table class="styled-table" id="tournament-results-table">
                     <thead>
                     <tr>
-                        <th class="name-tour">Tên giải</th>
+                        <th class="name-tour">Giải đấu</th>
                         <th class="organization-day">Thời gian bắt đầu</th>
                         <th class="rules">Thể lệ</th>
                         <th class="players">Số kỳ thủ</th>
@@ -654,7 +654,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         
         // Update status
         if (successCount === 0) {
-            container.innerHTML = '<div class="error">Đã có lỗi xảy ra, không thể tải dữ liệu giải đấu. Hãy thử tải lại trang!</div>';
+            container.innerHTML = '<div class="error">Đã có lỗi xảy ra. Hãy thử tải lại trang!</div>';
             return;
         }
         
