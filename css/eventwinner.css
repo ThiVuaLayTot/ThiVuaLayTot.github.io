@@ -11,6 +11,7 @@
     background: linear-gradient(135deg, rgba(10, 15, 26, 0.9) 0%, rgba(15, 25, 45, 0.8) 100%);
     padding: 4px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transition: all .3s linear;
 }
 
 .styled-table {
@@ -142,19 +143,19 @@
 }
 
 .rules {
-    min-width: 11rem;
+    min-width: 13.5rem;
     color: #cbd5e1;
 }
 
 .players {
-    min-width: 4rem;
+    min-width: 3rem;
     text-align: center;
     font-weight: 600;
     color: #f3f4f6;
 }
 
 .winner {
-    min-width: 12rem;
+    min-width: 14rem;
     text-align: center;
 }
 
@@ -253,6 +254,12 @@
     border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
+.user-badges-inactive {
+    background: #b0b4b84d;
+    color: #c9d1e0;
+    border: 1px solid rgb(158, 196, 196, 0.4);
+}
+
 .user-badges-premium {
     background: rgba(251, 191, 36, 0.15);
     color: #fde047;
@@ -337,6 +344,10 @@
     font-weight: 700;
 }
 
+.styled-table td img {
+    display: inline;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .table {
@@ -345,11 +356,11 @@
     }
     
     .name-tour {
-        min-width: 14rem;
+        min-width: 15rem;
     }
     
     .winner {
-        min-width: 10rem;
+        min-width: 12.5rem;
     }
     
     .styled-table th,
@@ -414,7 +425,7 @@
     }
     
     .rules {
-        min-width: 9rem;
+        min-width: 10rem;
     }
     
     .winner {
