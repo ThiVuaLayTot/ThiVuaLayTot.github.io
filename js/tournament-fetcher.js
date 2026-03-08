@@ -18,7 +18,8 @@ const CONFIG = {
 const SPECIAL_PLAYERS = new Map([
     ['m_dinhhoangviet', { name: 'M-DinhHoangViet', special: true }],
     ['tungjohn_playing_chess', { name: 'M-DinhHoangViet', special: true }],
-    ['thangthukquantrong', { name: 'thangthukquantrong', special: true }]
+    ['thangthukquantrong', { name: 'thangthukquantrong', special: true }],
+    ['manh_duy', { name: 'ManhDuy19', special: true }]
 ]);
 
 // Variant icons configuration - consolidated
@@ -689,4 +690,5 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`[tournament-fetcher.js] Auto-fetching tournaments for: ${eventType}`);
         fetchAndRenderTournaments(eventType, containerId);
     });
+
 });
