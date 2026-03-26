@@ -1,140 +1,172 @@
----
-layout: default
-title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
----
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Tournament 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle at center, #0b1a33 0%, #02040a 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
- 
-        .calendar-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
- 
-        .calendar-header {
-            background: linear-gradient(135deg, #0066cc 0%, #00ccff 100%);
-            color: white;
-            padding: 30px 20px;
+
+        .month-title {
             text-align: center;
-        }
- 
-        .calendar-header h1 {
-            font-size: 2.5em;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
- 
-        .calendar-body {
-            padding: 30px 20px;
-        }
- 
-        .weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 15px;
-            margin-bottom: 15px;
-        }
- 
-        .weekday {
-            text-align: center;
+            font-size: 24px;
+            font-family: cursive;
             font-weight: bold;
-            color: #0066cc;
+            color: #36d8ff;
+            text-transform: uppercase;
+            text-shadow: 0 0 6px #00f2ff;
+            margin-bottom: 20px;
             padding: 15px;
-            text-transform: uppercase;
-            font-size: 1.1em;
-            letter-spacing: 2px;
-            border-bottom: 3px solid #0066cc;
-        }
- 
-        .days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 15px;
-        }
- 
-        .day {
-            aspect-ratio: 1;
-            border: 2px solid #0066cc;
+            background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 100%);
+            border: 2px solid #2FB9FF;
             border-radius: 12px;
+            box-shadow: 0 0 15px #6FD8FF, 0 0 30px rgba(0, 242, 255, 0.4);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: radial-gradient(circle at center, #0b1a33 0%, #02040a 100%);
+            border: 2px solid #2FB9FF;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #6FD8FF,
+                        0 0 30px rgba(0, 242, 255, 0.4),
+                        inset 0 0 20px rgba(0, 242, 255, 0.1);
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 100%);
+            text-shadow: 0 0 10px #359bfc;
+        }
+
+        thead tr {
+            height: 40.6625px;
+        }
+
+        thead th {
+            text-align: center;
+            width: 14.2195%;
+            color: #7ad9ef;
+            font-weight: bold;
+            padding: 15px;
+            border-right: 1px solid #2FB9FF;
+            text-transform: uppercase;
+            font-size: 1em;
+            letter-spacing: 1px;
+        }
+
+        thead th:last-child {
+            border-right: none;
+        }
+
+        tbody tr {
+            height: 86.625px;
+            font-size: 80%;
+        }
+
+        tbody td {
+            width: 14.2857%;
+            vertical-align: top;
             padding: 12px;
-            display: flex;
-            flex-direction: column;
+            border: 1px solid #2FB9FF;
             position: relative;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: white;
-            min-height: 140px;
+            min-height: 86px;
         }
- 
-        .day:hover {
-            border-color: #00ccff;
-            background: #e6f7ff;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 102, 204, 0.2);
+
+        /* Alternating background colors */
+        tbody tr:nth-child(odd) td:nth-child(odd),
+        tbody tr:nth-child(even) td:nth-child(even) {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.14)), #070E24;
         }
- 
-        .day.other-month {
-            background: #f5f5f5;
-            border-color: #ddd;
+
+        tbody tr:nth-child(odd) td:nth-child(even),
+        tbody tr:nth-child(even) td:nth-child(odd) {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.18)), #060F28;
         }
- 
-        .day.other-month .day-number {
-            color: #ccc;
-        }
- 
-        .day.today {
-            background: #fff3cd;
-            border-color: #ff9800;
-            border-width: 3px;
-        }
- 
-        .day.today .day-number {
-            color: #ff9800;
-            font-weight: bold;
-            font-size: 1.3em;
-        }
- 
+
+        /* Day number */
         .day-number {
+            font-size: 18px;
             font-weight: bold;
-            color: #0066cc;
-            font-size: 1.2em;
+            color: #9ECBE0;
             margin-bottom: 8px;
+            opacity: 0.7;
+            display: block;
+            text-align: center;
+            width: 90%;
         }
- 
-        .day-events {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            overflow: hidden;
+
+        /* Other month days */
+        td.other-month .day-number {
+            opacity: 0.3;
+            color: #4a7a8f;
         }
- 
-        .event-badge {
-            background: linear-gradient(135deg, #0066cc 0%, #00ccff 100%);
-            color: white;
-            padding: 5px 8px;
-            border-radius: 4px;
-            font-size: 0.75em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: pointer;
-            transition: all 0.2s;
+
+        /* Today highlight */
+        td.today {
+            background: linear-gradient(to bottom, rgba(255, 193, 7, 0.1), rgba(0, 0, 0, 0.15)), #0d1820 !important;
+            border: 2px solid #ffc107 !important;
+        }
+
+        td.today .day-number {
+            color: #ffc107 !important;
+            opacity: 1.5 !important;
             font-weight: bold;
+            font-size: 20px;
+            text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
         }
- 
-        .event-badge:hover {
-            background: linear-gradient(135deg, #00ccff 0%, #0066cc 100%);
+
+        /* Events container */
+        .events-container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            gap: 2px;
+            flex-wrap: wrap;
+        }
+
+        .event-icon {
+            cursor: pointer;
+            display: inline-flex;
+            aspect-ratio: 57/57;
+            width: 57px;
+            height: 57px;
+            filter: drop-shadow(0 0 5px #00f2ff);
+            transition: all 0.2s;
+            border-radius: 4px;
+            margin-bottom: 2px;
+        }
+
+        .event-icon:hover {
+            filter: drop-shadow(0 0 10px #00f2ff) brightness(1.2);
             transform: scale(1.05);
         }
- 
+
+        .event-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -144,26 +176,31 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.8);
             animation: fadeIn 0.3s;
         }
- 
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
- 
+
         .modal-content {
-            background: white;
-            margin: 10% auto;
+            background: radial-gradient(circle at top left, #0f1a2a 0%, #050a15 100%);
+            margin: 5% auto;
             padding: 30px;
             border-radius: 15px;
             width: 90%;
-            max-width: 500px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            border: 2px solid #2FB9FF;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3),
+                        0 0 40px rgba(0, 102, 204, 0.2);
             animation: slideIn 0.3s;
+            color: #9ECBE0;
+            max-height: 80vh;
+            overflow-y: auto;
         }
- 
+
         @keyframes slideIn {
             from {
                 transform: translateY(-50px);
@@ -174,216 +211,250 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
                 opacity: 1;
             }
         }
- 
+
         .close-modal {
-            color: #999;
+            color: #6a9ab0;
             float: right;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
         }
- 
+
         .close-modal:hover {
-            color: #0066cc;
+            color: #00f2ff;
+            text-shadow: 0 0 5px rgba(0, 242, 255, 0.5);
         }
- 
+
         .modal-header {
-            border-bottom: 3px solid #0066cc;
+            border-bottom: 3px solid #2FB9FF;
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
- 
+
         .modal-header h2 {
-            color: #0066cc;
+            color: #36d8ff;
             margin: 0;
             font-size: 1.5em;
+            text-shadow: 0 0 6px #00f2ff;
         }
- 
+
+        .modal-banner {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #2FB9FF;
+        }
+
         .modal-body {
             line-height: 1.8;
         }
- 
+
         .modal-body p {
             margin-bottom: 15px;
             display: flex;
             align-items: flex-start;
         }
- 
+
         .modal-body strong {
-            color: #0066cc;
+            color: #36d8ff;
             display: inline-block;
-            min-width: 100px;
+            min-width: 120px;
             font-weight: bold;
+            text-shadow: 0 0 3px rgba(0, 242, 255, 0.3);
         }
- 
+
         .modal-body i {
-            color: #0066cc;
+            color: #00f2ff;
             margin-right: 15px;
             min-width: 20px;
             margin-top: 2px;
+            filter: drop-shadow(0 0 3px rgba(0, 242, 255, 0.3));
         }
- 
+
         .btn-group {
             display: flex;
             gap: 10px;
             margin-top: 25px;
+            flex-wrap: wrap;
         }
- 
+
         .btn {
             flex: 1;
+            min-width: 150px;
             padding: 12px 20px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
-            font-size: 1em;
+            font-size: 0.95em;
         }
- 
+
         .btn-primary {
-            background: linear-gradient(135deg, #0066cc 0%, #00ccff 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.3) 0%, rgba(0, 242, 255, 0.3) 100%);
+            color: #00f2ff;
+            border: 2px solid #2FB9FF;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
         }
- 
+
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+            border-color: #00f2ff;
         }
- 
+
         .btn-secondary {
-            background: #f0f0f0;
-            color: #0066cc;
-            border: 2px solid #0066cc;
+            background: rgba(31, 60, 100, 0.3);
+            color: #36d8ff;
+            border: 2px solid #2FB9FF;
+            box-shadow: 0 0 5px rgba(0, 242, 255, 0.2);
         }
- 
+
         .btn-secondary:hover {
-            background: #e0e0e0;
+            background: rgba(31, 60, 100, 0.5);
+            color: #00f2ff;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
         }
- 
+
         .loading {
             text-align: center;
             padding: 60px 20px;
-            color: #0066cc;
+            color: #36d8ff;
+            text-shadow: 0 0 5px rgba(0, 242, 255, 0.3);
         }
- 
+
         .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #0066cc;
+            border: 4px solid rgba(0, 242, 255, 0.1);
+            border-top: 4px solid #00f2ff;
+            border-right: 4px solid #2FB9FF;
             border-radius: 50%;
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
         }
- 
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
- 
+
         .error {
-            background: #f8d7da;
-            color: #721c24;
+            background: rgba(255, 77, 77, 0.1);
+            color: #ff6b6b;
             padding: 15px;
             border-radius: 8px;
             margin: 20px;
-            border: 2px solid #f5c6cb;
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.2);
         }
- 
+
         .empty-message {
             text-align: center;
             padding: 40px;
-            color: #666;
+            color: #6a9ab0;
             font-size: 1.1em;
+            text-shadow: 0 0 3px rgba(0, 242, 255, 0.2);
         }
- 
+
         @media (max-width: 768px) {
-            .calendar-header h1 {
-                font-size: 2em;
+            .month-title {
+                font-size: 20px;
             }
- 
-            .day {
-                min-height: 120px;
+
+            tbody td {
+                padding: 8px;
+                font-size: 70%;
             }
- 
-            .event-badge {
-                font-size: 0.7em;
-                padding: 4px 6px;
+
+            .day-number {
+                font-size: 14px;
+            }
+
+            .event-icon {
+                width: 45px;
+                height: 45px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="calendar-card">
-            <div class="calendar-header">
-                <h1 id="month-year">THÁNG 3/2026</h1>
-            </div>
- 
-            <div class="calendar-body">
-                <div id="loading" class="loading">
-                    <div class="loading-spinner"></div>
-                    <p style="font-size: 1.1em;">Đang tải lịch...</p>
-                </div>
- 
-                <div id="calendar" style="display: none;">
-                    <div class="weekdays">
-                        <div class="weekday">Mon</div>
-                        <div class="weekday">Tue</div>
-                        <div class="weekday">Wed</div>
-                        <div class="weekday">Thu</div>
-                        <div class="weekday">Fri</div>
-                        <div class="weekday">Sat</div>
-                        <div class="weekday">Sun</div>
-                    </div>
-                    <div class="days" id="days-container"></div>
-                </div>
- 
-                <div id="error" style="display: none;"></div>
-                <div id="empty" style="display: none;" class="empty-message">
-                    <i class="fas fa-calendar" style="color: #0066cc; font-size: 2em; margin-bottom: 10px;"></i>
-                    <p>Không có giải đấu trong tháng này</p>
-                </div>
-            </div>
+        <div class="month-title" id="month-title">THÁNG 3/2026</div>
+
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p style="font-size: 1.1em; margin-top: 20px;">Đang tải lịch...</p>
+        </div>
+
+        <div id="calendar-wrapper" style="display: none;">
+            <table id="calendar-table">
+                <thead>
+                    <tr>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-body">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="error" style="display: none;"></div>
+        <div id="empty" style="display: none;" class="empty-message">
+            <i class="fas fa-calendar" style="color: #00f2ff; font-size: 2em; margin-bottom: 10px;"></i>
+            <p>Không có giải đấu trong tháng này</p>
         </div>
     </div>
- 
+
     <!-- Modal -->
     <div id="eventModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img id="modal-banner" class="modal-banner" src="" alt="Event Banner" style="display: none;">
             <div class="modal-header">
                 <h2 id="modal-title">Chi tiết giải đấu</h2>
             </div>
             <div class="modal-body">
-                <p><i class="fas fa-trophy"></i><strong>Tên giải:</strong><br/><span id="modal-name">-</span></p>
-                <p><i class="fas fa-tag"></i><strong>Loại:</strong><br/><span id="modal-type">-</span></p>
-                <p><i class="fas fa-calendar"></i><strong>Ngày:</strong><br/><span id="modal-date">-</span></p>
-                <p><i class="fas fa-user"></i><strong>Ban tổ chức:</strong><br/><span id="modal-organizer">-</span></p>
-                <p><i class="fas fa-book"></i><strong>Thể lệ:</strong><br/><span id="modal-rules">-</span></p>
+                <p><i class="fas fa-trophy"></i><strong>Tên giải:</strong><span id="modal-name">-</span></p>
+                <p><i class="fas fa-tag"></i><strong>Loại:</strong><span id="modal-type">-</span></p>
+                <p><i class="fas fa-chess-board"></i><strong>Thể lệ:</strong><span id="modal-rules">-</span></p>
+                <p><i class="fas fa-calendar"></i><strong>Ngày tổ chức:</strong><span id="modal-date">-</span></p>
+                <p><i class="fas fa-user-tie"></i><strong>Ban tổ chức:</strong><span id="modal-organizer">-</span></p>
             </div>
             <div class="btn-group">
                 <button class="btn btn-primary" id="join-btn" onclick="joinTournament()">
                     <i class="fas fa-link"></i> Tham gia giải
                 </button>
+                <button class="btn btn-primary" id="rules-btn" onclick="viewRules()" style="display: none;">
+                    <i class="fas fa-book"></i> Xem thể lệ
+                </button>
                 <button class="btn btn-secondary" onclick="closeModal()">Đóng</button>
             </div>
         </div>
     </div>
- 
+
     <script>
         // Configuration - THAY ĐỔI URL TẠI ĐÂY
-        const API_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AY5xjrRFPdArIgdpnpKxQNKKUgWao_nFC_nnR-xFulDgvVzC2DplxYAXpA67Z_SN9duRxoi2Ucb4jW_BH4ErvPq0zR8WQD2w32t5D7b6wQK0FtCXO0nvq43P0baytcEF3C2RL3h9Fc2FNOi-Q2D_zTjEz1y9_9Vd8Cx0yoQ4stQWg69IBHE1jiOXjSvkU0yn0fQGd5cjLdGZNWw94A5MSEfs-nFHpB3RWzBO539MtJRVS01jL5vqmHezNy7GpJJDDeLi9Eipl2gPiGf2zBMAbqQhH-sLY8bcZlksmXw2a1DO&lib=Mceo38KDTdGwYLEUtgmMWTiAHypOq2Yba';
- 
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwFXq0RsEWZVNr3Gx_YycgSj8OezdT90xmpxvmrshJE60RAjvrXoFJ7cT0MomqSBLGiqQ/exec';
+
         let tournaments = [];
         let selectedEvent = null;
- 
+
         // Initialize
         window.addEventListener('DOMContentLoaded', () => {
             loadTournaments();
         });
- 
-        // Load tournaments from Google Apps Script
+
+        // Load tournaments
         async function loadTournaments() {
             try {
                 const response = await fetch(API_URL);
@@ -391,13 +462,12 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
                 
                 tournaments = data.tournaments || [];
                 
-                // Show calendar
                 document.getElementById('loading').style.display = 'none';
                 
                 if (tournaments.length === 0) {
                     document.getElementById('empty').style.display = 'block';
                 } else {
-                    document.getElementById('calendar').style.display = 'block';
+                    document.getElementById('calendar-wrapper').style.display = 'block';
                     renderCalendar();
                 }
             } catch (error) {
@@ -408,7 +478,7 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
                     `<div class="error"><i class="fas fa-exclamation-circle"></i> Lỗi: ${error.message}</div>`;
             }
         }
- 
+
         // Render calendar
         function renderCalendar() {
             const today = new Date();
@@ -418,11 +488,10 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
             // Update header
             const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
                 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
-            document.getElementById('month-year').textContent = `${monthNames[month]}/${year}`;
+            document.getElementById('month-title').textContent = `${monthNames[month]}/${year}`;
             
-            // Get first day (0=Sunday, 1=Monday, ..., 6=Saturday)
+            // Get first day
             const firstDay = new Date(year, month, 1).getDay();
-            // Convert to Monday=0 format
             const startDay = firstDay === 0 ? 6 : firstDay - 1;
             
             const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -431,7 +500,6 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
             // Create days array
             const days = [];
             
-            // Previous month days
             for (let i = startDay - 1; i >= 0; i--) {
                 days.push({
                     day: daysInPrevMonth - i,
@@ -439,7 +507,6 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
                 });
             }
             
-            // Current month days
             for (let i = 1; i <= daysInMonth; i++) {
                 days.push({
                     day: i,
@@ -447,8 +514,7 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
                 });
             }
             
-            // Next month days
-            const remainingDays = 42 - days.length; // 6 rows × 7 days
+            const remainingDays = 42 - days.length;
             for (let i = 1; i <= remainingDays; i++) {
                 days.push({
                     day: i,
@@ -456,60 +522,72 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
                 });
             }
             
-            // Render days
-            const container = document.getElementById('days-container');
-            container.innerHTML = '';
+            // Render table
+            const tbody = document.getElementById('calendar-body');
+            tbody.innerHTML = '';
             
-            days.forEach(dayObj => {
-                const dayEl = document.createElement('div');
-                dayEl.className = 'day';
+            for (let i = 0; i < days.length; i += 7) {
+                const tr = document.createElement('tr');
                 
-                if (!dayObj.isCurrentMonth) {
-                    dayEl.classList.add('other-month');
-                }
-                
-                // Check if today
-                if (dayObj.isCurrentMonth && 
-                    today.getFullYear() === year && 
-                    today.getMonth() === month && 
-                    today.getDate() === dayObj.day) {
-                    dayEl.classList.add('today');
-                }
-                
-                const dayNumber = document.createElement('div');
-                dayNumber.className = 'day-number';
-                dayNumber.textContent = dayObj.day;
-                dayEl.appendChild(dayNumber);
-                
-                // Add events for this day
-                const eventsContainer = document.createElement('div');
-                eventsContainer.className = 'day-events';
-                
-                if (dayObj.isCurrentMonth) {
-                    const dayTournaments = tournaments.filter(t => {
-                        const tDate = new Date(t.startTime);
-                        return tDate.getFullYear() === year && 
-                               tDate.getMonth() === month && 
-                               tDate.getDate() === dayObj.day;
-                    });
+                for (let j = 0; j < 7; j++) {
+                    const dayObj = days[i + j];
+                    const td = document.createElement('td');
                     
-                    dayTournaments.forEach(tournament => {
-                        const badge = document.createElement('div');
-                        badge.className = 'event-badge';
-                        badge.textContent = tournament.eventName || 'Tournament';
-                        badge.onclick = (e) => {
-                            e.stopPropagation();
-                            openModal(tournament);
-                        };
-                        eventsContainer.appendChild(badge);
-                    });
+                    if (!dayObj.isCurrentMonth) {
+                        td.classList.add('other-month');
+                    }
+                    
+                    // Check if today
+                    if (dayObj.isCurrentMonth && 
+                        today.getFullYear() === year && 
+                        today.getMonth() === month && 
+                        today.getDate() === dayObj.day) {
+                        td.classList.add('today');
+                    }
+                    
+                    // Day number
+                    const dayNum = document.createElement('span');
+                    dayNum.className = 'day-number';
+                    dayNum.textContent = dayObj.day;
+                    td.appendChild(dayNum);
+                    
+                    // Events container
+                    const eventsDiv = document.createElement('div');
+                    eventsDiv.className = 'events-container';
+                    
+                    if (dayObj.isCurrentMonth) {
+                        const dayTournaments = tournaments.filter(t => {
+                            const tDate = new Date(t.startTime);
+                            return tDate.getFullYear() === year && 
+                                   tDate.getMonth() === month && 
+                                   tDate.getDate() === dayObj.day;
+                        });
+                        
+                        dayTournaments.forEach(tournament => {
+                            const icon = document.createElement('span');
+                            icon.className = 'event-icon';
+                            
+                            const img = document.createElement('img');
+                            img.src = tournament.logo || 'https://www.chess.com/bundles/web/images/image-default.445cb543.svg';
+                            img.title = tournament.eventName || 'Tournament';
+                            img.onclick = (e) => {
+                                e.stopPropagation();
+                                openModal(tournament);
+                            };
+                            
+                            icon.appendChild(img);
+                            eventsDiv.appendChild(icon);
+                        });
+                    }
+                    
+                    td.appendChild(eventsDiv);
+                    tr.appendChild(td);
                 }
                 
-                dayEl.appendChild(eventsContainer);
-                container.appendChild(dayEl);
-            });
+                tbody.appendChild(tr);
+            }
         }
- 
+
         // Modal
         function openModal(tournament) {
             selectedEvent = tournament;
@@ -521,30 +599,52 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
             const date = new Date(tournament.startTime);
             document.getElementById('modal-date').textContent = date.toLocaleString('vi-VN');
             
-            const rules = tournament.gameRules || '-';
+            const rules = tournament.gameRules || tournament.rulesEn || '-';
             document.getElementById('modal-rules').textContent = rules;
             
+            // Banner
+            if (tournament.logo) {
+                document.getElementById('modal-banner').src = tournament.logo;
+                document.getElementById('modal-banner').style.display = 'block';
+            } else {
+                document.getElementById('modal-banner').style.display = 'none';
+            }
+            
             const joinBtn = document.getElementById('join-btn');
+            const rulesBtn = document.getElementById('rules-btn');
+            
             if (tournament.joinLink) {
                 joinBtn.style.display = 'block';
             } else {
                 joinBtn.style.display = 'none';
             }
             
+            if (tournament.newsLink) {
+                rulesBtn.style.display = 'block';
+            } else {
+                rulesBtn.style.display = 'none';
+            }
+            
             document.getElementById('eventModal').style.display = 'block';
         }
- 
+
         function closeModal() {
             document.getElementById('eventModal').style.display = 'none';
             selectedEvent = null;
         }
- 
+
         function joinTournament() {
             if (selectedEvent && selectedEvent.joinLink) {
                 window.open(selectedEvent.joinLink, '_blank');
             }
         }
- 
+
+        function viewRules() {
+            if (selectedEvent && selectedEvent.newsLink) {
+                window.open(selectedEvent.newsLink, '_blank');
+            }
+        }
+
         // Close modal when clicking outside
         window.onclick = (event) => {
             const modal = document.getElementById('eventModal');
@@ -553,3 +653,5 @@ title: Lịch sự kiện của tháng - Thí Vua Lấy Tốt
             }
         };
     </script>
+</body>
+</html>
