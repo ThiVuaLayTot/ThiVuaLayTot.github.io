@@ -178,7 +178,7 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 100;
             left: 0;
             top: 0;
             width: 100%;
@@ -407,7 +407,7 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.25s ease, visibility 0.25s ease;
-            z-index: 2000;
+            z-index: 200;
         }
 
         .cc-modal-overlay.open {
@@ -662,7 +662,7 @@
 
             .btn {
                 padding: 10px 12px;
-                white-space: nowrap;
+                white-space: pre-line;
             }
 
             .cc-modal-header-row {
