@@ -1,60 +1,20 @@
+---
+title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
+---
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lịch Tournament 2026</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="/images/favicon.ico" rel="icon">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="/css/animation.css" rel="stylesheet">
-    <link href="/css/home.css" rel="stylesheet">
-    <link href="/css/main.css" rel="stylesheet">
+    {% include navbar.html %}
     <link href="/css/schedule.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="page-header">
-        <div><a href="/" target="_top" style="text-decoration: none;">
-                <div class="tvlt_details">
-                    <img src="/images/tvltlogo.png" alt="Thí Vua Lấy Tốt" width="50" class="logo">
-                    <div>
-                        <span class="tvlt_name">Thí Vua Lấy Tốt<br></span>
-                        <span class="tungjohn">TungJohn Playing Chess</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="topnav">
-            <div class="nav_content">
-                <div id="menu"><a class="icon"><span class="fa fa-list" id="menuIcon"></span></a></div>
-                <div class="topnav_content" id="tvltTopnav">
-                    <div class="section">
-                        <a href="/blog" target="_top"><span class="bx bx-news"></span>Các bài đăng</a>
-                    </div>
-                    <div class="section">
-                        <a href="/video" target="_top"><span class="bx bx-movie-play"></span>Thư viện Video</a>
-                    </div>
-                    <div class="section">
-                        <a href="/events" target="_top"><span class="bx bx-medal"></span>Giải đấu</a>
-                    </div>
-                    <div class="section">
-                        <a href="/leaders" target="_top"><span class="bx bx-shield-quarter"></span>Quản trị viên</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    {% include navbar.html %}
 
     <div id="section-page">
         <div class="container">
-            <h1 class="title">Các giải đấu, sự kiện</h1>
+            <h1 class="title">Các sự kiện của tháng</h1>
             <div class="month-title" id="month-title">THÁNG 3/2026</div>
 
             <div id="loading" class="loading">
@@ -66,13 +26,13 @@
                 <table id="calendar-table">
                     <thead>
                         <tr>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                            <th>Sun</th>
+                            <th title="Thứ Hai">Mon</th>
+                            <th title="Thứ Ba">Tue</th>
+                            <th title="Thứ Tư">Wed</th>
+                            <th title="Thứ Năm">Thu</th>
+                            <th title="Thứ Sáu">Fri</th>
+                            <th title="Thứ Bảy">Sat</th>
+                            <th title="Chủ Nhật">Sun</th>
                         </tr>
                     </thead>
                     <tbody id="calendar-body">
@@ -91,7 +51,7 @@
         <div id="eventModal" class="cc-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
             <div class="cc-modal-dialog" role="document">
                 <div class="cc-modal-banner-section">
-                    <img id="modal-banner" src="/" alt="Banner giải đấu">
+                    <img id="modal-banner" src="/" alt="Banner">
                 </div>
 
                 <!-- Close Button -->
@@ -142,7 +102,7 @@
 
                 <div class="btn-group">
                     <a id="modal-join" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class="fa fa-user-plus"></span> Tham gia</button></a>
-                    <a id="modal-rule" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class=""></span> Đọc thể lệ/button></a>
+                    <a id="modal-rule" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class=""></span> Đọc thể lệ</button></a>
                     <a id="modal-results" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class="fa fa-ranking-star"></span> Kết quả</button></a>
                 </div>
             </div>

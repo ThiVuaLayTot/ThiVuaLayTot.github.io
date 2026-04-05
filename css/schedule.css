@@ -24,7 +24,6 @@
         }
 
         table {
-            min-width: 950px;
             width: 100%;
             border-collapse: collapse;
             background: radial-gradient(circle at center, #0b1a33 0%, #02040a 100%);
@@ -40,7 +39,7 @@
             text-shadow: 0 0 10px #359bfc;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 20;
         }
 
         thead tr {
@@ -58,10 +57,7 @@
             font-size: 0.85em;
             letter-spacing: 1.2px;
             background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 100%);
-        }
-
-        thead th:last-child {
-            border-right: none;
+            border-left-style: hidden;
         }
 
         tbody tr {
@@ -77,11 +73,12 @@
             border: 1px solid rgba(47, 185, 255, 0.6);
             position: relative;
             min-height: 100px;
+            min-width: 124px;
             transition: background-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         tbody td:hover {
-            box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.15);
+            box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.15);
         }
 
         /* Alternating background colors */
@@ -101,26 +98,20 @@
             font-weight: 700;
             color: #9ECBE0;
             margin-bottom: 6px;
-            opacity: 0.85;
+            opacity: 1;
             display: block;
             text-align: center;
             width: 100%;
-            padding: 4px 0;
-            border-bottom: 1px solid rgba(47, 185, 255, 0.3);
+            pointer-events: none;
         }
 
         /* Other month days */
         td.other-month .day-number {
-            opacity: 0.3;
+            opacity: 0.35;
             color: #4a7a8f;
         }
 
         /* Today highlight */
-        td.today {
-            background: linear-gradient(to bottom, rgba(255, 193, 7, 0.1), rgba(0, 0, 0, 0.15)), #0d1820 !important;
-            border: 2px solid #ffc107 !important;
-        }
-
         td.today .day-number {
             color: #ffc107 !important;
             opacity: 1.5 !important;
@@ -133,14 +124,9 @@
         .events-container {
             display: flex;
             width: 100%;
+            min-height: 60px;
             justify-content: flex-start;
             align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-            row-gap: 4px;
-            padding: 4px 0;
-            max-height: calc(100% - 28px);
-            overflow: hidden;
         }
 
         .event-icon {
@@ -148,28 +134,22 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            aspect-ratio: 1 / 1;
-            width: 28px;
-            height: 28px;
-            filter: drop-shadow(0 0 3px rgba(0, 242, 255, 0.6));
+            width: 60px;
+            height: 60px;
+            filter: drop-shadow(0 0 5px #00f2ff);
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 4px;
-            background: rgba(0, 50, 100, 0.5);
-            border: 1px solid rgba(47, 185, 255, 0.4);
             flex-shrink: 0;
         }
 
         .event-icon:hover {
             filter: drop-shadow(0 0 6px rgba(0, 242, 255, 0.9));
             transform: scale(1.15) translateY(-2px);
-            border-color: #00f2ff;
-            background: rgba(0, 102, 204, 0.6);
-            box-shadow: 0 0 8px rgba(0, 242, 255, 0.4);
         }
 
         .event-icon img {
-            width: 22px;
-            height: 22px;
+            width: 55px;
+            height: 55px;
             object-fit: contain;
             cursor: pointer;
         }
@@ -600,16 +580,6 @@
                 font-size: 14px;
                 margin-bottom: 4px;
                 padding: 3px 0;
-            }
-
-            .event-icon {
-                width: 24px;
-                height: 24px;
-            }
-
-            .event-icon img {
-                width: 18px;
-                height: 18px;
             }
 
             .events-container {
