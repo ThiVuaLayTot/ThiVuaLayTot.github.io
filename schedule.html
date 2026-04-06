@@ -16,8 +16,12 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
     <div id="section-page">
         <div class="container">
             <h1 class="title">Các sự kiện của tháng</h1>
+            <ul style="list-style-type: circle;">
+                <li style="text-align: center;"><strong><span style="font-size: 14px;">Lịch sẽ được cập nhật thường xuyên v&agrave; thường kh&ocirc;ng b&aacute;o trước khi c&oacute; thay đổi</span></strong></li>
+                <li style="text-align: center;"><strong><span style="font-size: 14px;">Thời gian sự kiện c&oacute; thể l&agrave; dự kiến v&agrave; kh&ocirc;ng phải bao giờ cũng ch&iacute;nh thức</span></strong></li>
+                <li style="text-align: center;"><strong><span style="font-size: 14px;">Ấn vào icon để xem chi tiết th&ocirc;ng tin sự kiện</span></strong></li>
+            </ul>
             <div class="month-title" id="month-title">Processing...</div>
-
             <div id="loading" class="loading">
                 <div class="loading-spinner"></div>
                 <p style="font-size: 1.1em; margin-top: 20px;">Đang tải lịch...</p>
@@ -261,7 +265,7 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                 let newsUrl = "";
                 let resultUrl = "";
                 if (tournamentType === "1wl") {
-                    newsUrl = "/clubs/forum/view/multi-club-arena-seasons-2026";
+                    newsUrl = "https://chess.com/clubs/forum/view/multi-club-arena-seasons-2026";
                     bannerUrl = "https://images.chesscomfiles.com/uploads/v1/blog/1036746.ca7cfdc5.668x375o.1821c106decb.jpg";
                     resultUrl = "https://chess.com/blog/OneWorldLeague";
                 } else if (["cttq", "tvlt", "cbtt", "dttv"].includes(tournamentType)) {
@@ -305,8 +309,8 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
 
                 const date = new Date(tournament.startTime);
                 document.getElementById('modal-time').innerText = date.toLocaleString('vi-VN');
-                document.getElementById('modal-game-rules').textContent = tournament.gameRules || 'Không có thông tin';
-                document.getElementById('modal-event-rules').textContent = tournament.eventRules || 'Không có thông tin';
+                document.getElementById('modal-game-rules').textContent = tournament.gameRules || 'Chưa có thông tin';
+                document.getElementById('modal-event-rules').textContent = tournament.eventRules || 'Chưa có thông tin';
 
                 document.getElementById('modal-logo').src = tournament.logo;
                 document.getElementById('modal-banner').src = bannerUrl;
@@ -319,9 +323,14 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                 resultLink.href = resultUrl || '#';
                 if (tournament.joinLink) {
                     joinLink.href = tournament.joinLink;
+                    joinLink.onclick = null; // Remove any previous click handler
                 } else {
                     joinLink.href = '#';
-                    //alert('Hiện chưa có link giải, hãy hỏi các quản trị viên hoặc người tổ chức giải này để tìm hiểu thêm!')
+                    joinLink.onclick = function(e) {
+                        e.preventDefault();
+                        alert('Hiện chưa có link giải, hãy hỏi các quản trị viên hoặc người tổ chức giải này để tìm hiểu thêm!');
+                        return false;
+                    };
                 }
 
                 const modal = document.getElementById('eventModal');

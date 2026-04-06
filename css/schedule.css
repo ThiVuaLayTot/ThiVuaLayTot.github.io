@@ -183,7 +183,7 @@ td.today .day-number {
 .modal-content {
     background: radial-gradient(circle at top left, #0f1a2a 0%, #050a15 100%);
     margin: 5% auto;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
     width: 90%;
     max-width: 600px;
