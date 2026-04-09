@@ -1,7 +1,7 @@
 let tournaments = [];
             let selectedEvent = null;
 
-            const API_URL = 'https://script.google.com/macros/s/AKfycbylOjRsveII0OUuHBsbQCuX9C29sHFWMy5_Az6732Gg86yDqZa6rx7KQUwaiVy2-b6i9w/exec';
+            const API_URL = 'https://script.google.com/macros/s/AKfycbyslWdOqfbSwmMMccq9bYDT6Ux17czFd1XdipGO7D0-lnuv3gjYFKyJrT5gHH8eRFWJBQ/exec';
             // Initialize
             window.addEventListener('DOMContentLoaded', () => {
    loadTournaments();
@@ -188,7 +188,7 @@ let tournaments = [];
        newsUrl = tournament.newsLink || eventDetails[tournamentType] || "https://support.chess.com";
    }
    document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
-   document.getElementById('modal-category').textContent = tournament.prize === "Yes" ? "Có thưởng" : "Giao lưu";
+   document.getElementById('modal-category').textContent = tournament.prize || 'Giao lưu';
    document.getElementById('modal-organizer').innerHTML = tournament.organizer || 'Quản trị viên';
 
    const date = new Date(tournament.startTime);
