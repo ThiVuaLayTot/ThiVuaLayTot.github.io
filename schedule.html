@@ -1,0 +1,121 @@
+---
+title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
+---
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    {% include head.html %}
+    <title>Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt</title>
+    <link href="/css/schedule.css" rel="stylesheet">
+</head>
+
+<body>
+    {% include navbar.html %}
+
+    <div id="section-page">
+        <div class="container">
+            <h1 class="title">Các sự kiện của tháng</h1>
+            <ul style="list-style-type: circle;">
+                <li style="text-align: center;"><strong><span style="font-size: 14px;">Lịch sẽ được cập nhật thường xuyên v&agrave; thường kh&ocirc;ng b&aacute;o trước khi c&oacute; thay đổi</span></strong></li>
+                <li style="text-align: center;"><strong><span style="font-size: 14px;">Thời gian sự kiện c&oacute; thể l&agrave; dự kiến v&agrave; kh&ocirc;ng phải bao giờ cũng ch&iacute;nh thức</span></strong></li>
+                <li style="text-align: center;"><strong><span style="font-size: 14px;">Ấn vào icon để xem chi tiết th&ocirc;ng tin sự kiện</span></strong></li>
+            </ul>
+            <div class="month-title" id="month-title">Processing...</div>
+            <div id="loading" class="loading">
+                <div class="loading-spinner"></div>
+                <p style="font-size: 1.1em; margin-top: 20px;">Đang tải lịch...</p>
+            </div>
+
+            <div id="calendar-wrapper" style="display: none;">
+                <table id="calendar-table">
+                    <thead>
+                        <tr>
+                            <th title="Thứ Hai">Mon</th>
+                            <th title="Thứ Ba">Tue</th>
+                            <th title="Thứ Tư">Wed</th>
+                            <th title="Thứ Năm">Thu</th>
+                            <th title="Thứ Sáu">Fri</th>
+                            <th title="Thứ Bảy">Sat</th>
+                            <th title="Chủ Nhật">Sun</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="error" style="display: none;"></div>
+            <div id="empty" style="display: none;" class="empty-message">
+                <i class="fas fa-calendar" style="color: #00f2ff; font-size: 2em; margin-bottom: 10px;"></i>
+                <p>Không có giải đấu trong tháng này</p>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="eventModal" class="cc-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+            <div class="cc-modal-dialog" role="document">
+                <div class="cc-modal-banner-section">
+                    <img id="modal-banner" src="/" alt="Banner">
+                </div>
+
+                <!-- Close Button -->
+                <button class="cc-modal-close" onclick="closeModal()" aria-label="Đóng cửa sổ">×</button>
+
+                <div class="cc-modal-content-wrapper">
+                    <div class="cc-modal-header-row">
+                        <div class="cc-modal-logo-box">
+                            <img src="/images/tvltlogo.png" alt="Logo" id="modal-logo">
+                        </div>
+                        <div class="cc-modal-title-section" style="flex: 1;">
+                            <div class="cc-modal-category" id="modal-category"></div>
+                            <h2 id="modal-name"></h2>
+                        </div>
+                    </div>
+
+                    <div class="cc-modal-info-section">
+                        <div class="cc-modal-info-item">
+                            <i class="icon-font-chess events-list-icon chess-board"></i>
+                            <div>
+                                <strong><span class="fa fa-chess"></span> Thể lệ giải đấu:</strong>
+                                <span id="modal-event-rules"></span>
+                            </div>
+                        </div>
+                        <div class="cc-modal-info-item">
+                            <i class="icon-font-chess events-list-icon chess-board"></i>
+                            <div>
+                                <strong><span class="fa fa-chess-board"></span> Thể lệ ván đấu:</strong>
+                                <span id="modal-game-rules"></span>
+                            </div>
+                        </div>
+                        <div class="cc-modal-info-item">
+                            <i class="icon-font-chess calendar events-list-icon"></i>
+                            <div>
+                                <strong><span class="fa fa-calendar"></span> Thời gian bắt đầu:</strong>
+                                <span id="modal-time"></span>
+                            </div>
+                        </div>
+                        <div class="cc-modal-info-item">
+                            <i class="icon-font-chess post-view-meta-club-admin user-shield"></i>
+                            <div>
+                                <strong><span class="fa fa-user-shield"></span> Tổ chức bởi:</strong>
+                                <span id="modal-organizer"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <a id="modal-join" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class="fa fa-user-plus"></span> Tham gia</button></a>
+                    <a id="modal-rule" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class=""></span> Đọc thể lệ</button></a>
+                    <a id="modal-results" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class="fa fa-ranking-star"></span> Kết quả</button></a>
+                </div>
+            </div>
+        </div>
+        <br><hr><br>
+        <script src="/js/schedule.min.js"></script>
+        {% include footer.html %}
+        <script src="/js/main.js"></script>
+</body>
+
+</html>
