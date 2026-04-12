@@ -86,3 +86,6 @@ Mọi hành vi vi phạm có thể dẫn đến **không được nhận giải 
 
 - Một tài khoản **chỉ bị coi là gian lận** khi **bị Chess.com khóa vì “Fair Play”**. Nếu có **nghi vấn từ nhiều người**, thời gian trao giải sẽ **dời thêm 07 ngày**; kỳ thủ bị nghi ngờ được đánh dấu **📌** và phải tự chứng minh trong thời gian này.  
 Và nếu không chứng minh được → **có thể hủy kết quả và giải thưởng**.
+
+<style>.inl-bl {display:inline-block; width: 50px;}</style>
+<div id="tournament-table" data-fetch-tournament="cbtt"><a href="/events/cbtt-co-bi-thi-tot" style="display: block"><img src="/images/events/logo/cbtt-rapid.png" alt="CBTT Rapid" class="inl-bl"><img src="/images/events/logo/cbtt-blitz.png" alt="CBTT Blitz" class="inl-bl"><img src="/images/events/logo/cbtt-superblitz.png" alt="CBTT SuperBlitz" class="inl-bl"><img src="/images/events/logo/cbtt-bullet.png" alt="CBTT Bullet" class="inl-bl"><img src="/images/events/logo/cbtt-960.png" alt="CBTT Chess960" class="inl-bl"></a></div>

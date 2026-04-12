@@ -1,7 +1,7 @@
 let tournaments = [];
             let selectedEvent = null;
 
-            const API_URL = 'https://script.google.com/macros/s/AKfycbyslWdOqfbSwmMMccq9bYDT6Ux17czFd1XdipGO7D0-lnuv3gjYFKyJrT5gHH8eRFWJBQ/exec';
+            const API_URL = 'https://script.google.com/macros/s/AKfycbzMq-aqPlXihBjjC62ykxbaWqC8sL30Wn0uvpjzIeLLpVYFsVXubYhujNbkDudgeMZ0Aw/exec';
             // Initialize
             window.addEventListener('DOMContentLoaded', () => {
    loadTournaments();
