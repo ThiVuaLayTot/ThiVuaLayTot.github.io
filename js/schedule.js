@@ -16,7 +16,7 @@ let tournaments = [];
        tournaments = data.tournaments || [];
 
        document.getElementById('loading').style.display = 'none';
-
+       document.getElementById('last-updated').innerText = data.lastUpdated;
        if (tournaments.length === 0) {
            document.getElementById('empty').style.display = 'block';
        } else {
@@ -67,7 +67,7 @@ let tournaments = [];
        });
    }
 
-   const remainingDays = 42 - days.length;
+   const remainingDays = 35 - days.length;
    for (let i = 1; i <= remainingDays; i++) {
        days.push({
            day: i,
@@ -79,10 +79,10 @@ let tournaments = [];
    const tbody = document.getElementById('calendar-body');
    tbody.innerHTML = '';
 
-   for (let i = 0; i < days.length; i += 7) {
+   for (let i = 0; i < days.length; i += 6) {
        const tr = document.createElement('tr');
 
-       for (let j = 0; j < 7; j++) {
+       for (let j = 0; j < 6; j++) {
            const dayObj = days[i + j];
            const td = document.createElement('td');
 
