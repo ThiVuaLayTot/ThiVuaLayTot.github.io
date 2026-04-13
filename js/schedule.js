@@ -13,10 +13,21 @@ let tournaments = [];
        const response = await fetch(API_URL);
        const data = await response.json();
 
+       const lastUpdated = data.lastUpdated || new Date().toISOString();
+                
+                const updateDate = new Date(lastUpdated);
+                const options = { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric', 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
+                const formattedDate = updateDate.toLocaleString('vi-VN', options);
+                document.getElementById('last-updated').innerText = formattedDate;
        tournaments = data.tournaments || [];
-        lastUpdated = data.lastUpdated || "X";
        document.getElementById('loading').style.display = 'none';
-       document.getElementById('last-updated').innerText = lastUpdated.toLocaleString("vi-vn");
        if (tournaments.length === 0) {
            document.getElementById('empty').style.display = 'block';
        } else {
@@ -79,10 +90,10 @@ let tournaments = [];
    const tbody = document.getElementById('calendar-body');
    tbody.innerHTML = '';
 
-   for (let i = 0; i < days.length; i += 6) {
+   for (let i = 0; i < days.length; i += 7) {
        const tr = document.createElement('tr');
 
-       for (let j = 0; j < 7; j++) {
+       for (let j = 0; j < 6; j++) {
            const dayObj = days[i + j];
            const td = document.createElement('td');
 
