@@ -14,9 +14,9 @@ let tournaments = [];
        const data = await response.json();
 
        tournaments = data.tournaments || [];
-
+        lastUpdated = data.lastUpdated || "X";
        document.getElementById('loading').style.display = 'none';
-       document.getElementById('last-updated').innerText = data.lastUpdated;
+       document.getElementById('last-updated').innerText = lastUpdated.toLocaleString("vi-vn");
        if (tournaments.length === 0) {
            document.getElementById('empty').style.display = 'block';
        } else {
@@ -82,7 +82,7 @@ let tournaments = [];
    for (let i = 0; i < days.length; i += 6) {
        const tr = document.createElement('tr');
 
-       for (let j = 0; j < 6; j++) {
+       for (let j = 0; j < 7; j++) {
            const dayObj = days[i + j];
            const td = document.createElement('td');
 
