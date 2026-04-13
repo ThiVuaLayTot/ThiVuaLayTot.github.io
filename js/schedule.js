@@ -17,10 +17,10 @@ let tournaments = [];
                 
                 const updateDate = new Date(lastUpdated);
                 const options = { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric', 
-                    hour: '2-digit', 
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit'
                 };
@@ -93,7 +93,7 @@ let tournaments = [];
    for (let i = 0; i < days.length; i += 7) {
        const tr = document.createElement('tr');
 
-       for (let j = 0; j < 6; j++) {
+       for (let j = 0; j < 7; j++) {
            const dayObj = days[i + j];
            const td = document.createElement('td');
 
