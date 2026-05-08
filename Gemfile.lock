@@ -42,14 +42,14 @@ GEM
     eventmachine (1.2.7)
     ffi (1.17.0)
     fiber-local (1.0.0)
-    fiber-storage (1.0.0)
+    fiber-storage (1.0.1)
     forwardable-extended (2.6.0)
     frozen_record (0.27.2)
       activemodel
     google-protobuf (4.27.5)
       bigdecimal
       rake (>= 13)
-    graphql (2.3.21)
+    graphql (2.3.23)
       base64
       fiber-storage
     graphql-client (0.23.0)
