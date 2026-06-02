@@ -4,20 +4,9 @@ title: Trang chủ
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8">
     <title>Thí Vua Lấy Tốt</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Thi Vua Lay Tot Web" name="keywords">
-    <meta content="Thí Vua Lấy Tốt - TungJohn Playing Chess" name="description">
-    <link href="/images/favicon.ico" rel="icon">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="/css/animation.css" rel="stylesheet">
+    {% include head.html %}
     <link href="/css/home.css" rel="stylesheet">
-    <link href="/css/main.css" rel="stylesheet">
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51">
@@ -39,13 +28,13 @@ title: Trang chủ
                         <div class="hero-text">
                             <h3>Chào mừng bạn đã ghé thăm</h3>
                             <h1>Thí Vua Lấy Tốt Website</h1>
-                            <p>Thí Vua Lấy Tốt - một câu lạc bộ cờ cờ vua lớn do TungJohn sáng lập. Sứ mệnh của chúng tôi là giúp nền cờ Việt Nam được phát triển và giúp các kỳ thủ cờ vua nâng cao trình độ của mình. Câu lạc bộ thường xuyên tổ chức các giải đấu (có thể có thưởng), tạo môi trường giao lưu, học hỏi và kết nối cộng đồng yêu cờ vua.</h3>
+                            <p>Thí Vua Lấy Tốt - một câu lạc bộ cờ cờ vua lớn do TungJohn sáng lập. Sứ mệnh của chúng tôi là giúp nền cờ Việt Nam được phát triển và giúp các kỳ thủ cờ vua nâng cao trình độ của mình. Câu lạc bộ thường xuyên tổ chức các giải đấu (có thể có thưởng), tạo môi trường giao lưu, học hỏi và kết nối cộng đồng yêu cờ vua.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-10 col-md-4 d-none d-md-block">
                     <div class="hero-image">
-                        <img src="/images/tvltlogo.png" alt="Hero Image">
+                        <img src="/images/tvltlogo.png" alt="Hero Image" loading="lazy">
                     </div>
                 </div>
                 <div class="social_btn col-sm-10 col-md-12">
@@ -69,7 +58,7 @@ title: Trang chủ
             <div class="row align-items-center">
                 <div class="col-lg-5">
                     <div class="about-img wow flip">
-                        <img src="https://i.ytimg.com/vi/JxgUVnTkAFk/maxresdefault.jpg" alt="TungJohn" style="display: unset">
+                        <img src="https://i.ytimg.com/vi/JxgUVnTkAFk/maxresdefault.jpg" alt="TungJohn" style="display: unset" loading="lazy">
                     </div>
                     <div class="social_btn wow rollIn">
                         <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><span class="fab fa-youtube"></span></a>
@@ -253,7 +242,7 @@ title: Trang chủ
             <section class="card-list">
                 {% for post in site.posts limit:3 %}
                 <article class="card">
-                    <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image" alt="{{ post.title }}"></a>
+                    <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image" alt="{{ post.title }}" loading="lazy"></a>
                     <div class="post_in4">
                         <div class="card_detail">
                         <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>

@@ -158,13 +158,21 @@ body {
     display: none;
   }
 
-  .hidden {
+  .topnav_content.active {
     display: block;
     position: absolute;
-    right: 0;
-    width: max-content;
-    background: linear-gradient(48deg, #0f1645, #0c2f52);
-    }
+    right: -2rem;
+    top: calc(100% + 0.5rem);
+    width: 280px;
+    background: linear-gradient(135deg, rgba(12, 15, 32, 0.98) 0%, rgba(15, 23, 42, 0.98) 50%, rgba(20, 30, 50, 0.98) 100%);
+    border-left: 1.5px solid rgba(53, 201, 252, 0.3);
+    border-bottom: 1.5px solid rgba(53, 201, 252, 0.3);
+    border-radius: 0 0 0 1.5rem;
+    padding: 1.5rem;
+    box-shadow: -10px 15px 30px rgba(0, 0, 0, 0.6);
+    animation: slideInRight 0.3s ease-out;
+    z-index: 1000;
+  }
 
   .section {
     padding: 0 .5rem;
@@ -665,6 +673,13 @@ footer .bottom-details .bottom_text {
     margin-right: 10px;
 }
 
+@media (min-width: 701px) and (max-width: 948px) {
+    .footer_main .footer_content {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 3rem;
+    }
+}
+
 @media (min-width: 949px) {
     .footer_main .footer_content {
         grid-template-columns: repeat(4,minmax(0,1fr));
@@ -1021,6 +1036,10 @@ footer .bottom-details .bottom_text {
         padding: 0.5rem 0.75rem;
         font-size: 0.8rem;
     }
+}
+
+img {
+    height: auto;
 }
 
 .tab li a {
