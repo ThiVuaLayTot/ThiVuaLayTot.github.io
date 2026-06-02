@@ -1,13 +1,12 @@
 document.getElementById("menu").addEventListener("click", function() {
     var nav = document.getElementById("tvltTopnav");
     var menu = document.getElementById("menuIcon");
-    var menuBtn = this;
+    var btn = this;
 
     nav.classList.toggle("active");
     var isActive = nav.classList.contains("active");
-
-    menuBtn.setAttribute("aria-expanded", isActive);
-    menuBtn.setAttribute("aria-label", isActive ? "Đóng menu điều hướng" : "Mở menu điều hướng");
+    btn.setAttribute("aria-expanded", isActive);
+    btn.setAttribute("aria-label", isActive ? "Đóng menu điều hướng" : "Mở menu điều hướng");
 
     if (menu.classList.contains("fa-list")) {
         menu.classList.remove("fa", "fa-list");

@@ -17,7 +17,7 @@
                     <img src="/images/{{ page.id }}.png" alt="{{ page.title }}" class="banner">
                     <h1 class="title">{{ page.title }}</h1>
                     <i class="short_text">{{ page.description }}</i>
-                <p align="center"><a href="/{{ page.category }}" class="card_tag"><span class="bx bxs-purchase-tag"></span> {{ page.tags }}</a></p>
+                <p align="center"><a href="/{{ page.category }}" class="card_tag"><span class="fa fa-tag"></span> {{ page.tags }}</a></p>
                 <ul class="tab">
                     <li><a href="/blog">Tất cả bài đăng</a></li>
                     <li><a href="/chess">Kiến thức cờ vua</a></li>
@@ -40,14 +40,14 @@
                         </div>
                         <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
                         <i class="card_in4">{{ post.description }}</i>
-                        <span class="card_tag"><a href="\{{ post.category }}"><span class="bx bxs-purchase-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
+                        <span class="card_tag"><a href="\{{ post.category }}"><span class="fa fa-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
                     </article> {% endfor %}
                 </section>
                 <div class="main"><a href="/blog"><span class="btn">Đọc thêm</span></a></div>
             </div>
             <br><br>
             <hr>
-            <button id="back-to-top" aria-label="Quay lại đầu trang"><span class="bx bxs-chevron-up"></span></button>
+            <button id="back-to-top" title="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
         </div>
     </div>
 
