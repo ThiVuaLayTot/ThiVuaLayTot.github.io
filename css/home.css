@@ -150,14 +150,13 @@
         padding: 0 15px;
     }
     .hero .hero-text p {
-        font-size: 20px;
+        font-size: 1.1rem;
     }
     .hero .hero-text h1 {
-        font-size: 45px;
+        font-size: 2.5rem;
     }
-    .hero .hero-text h2 {
-        font-size: 25px;
-        height: 25px;
+    .hero .hero-text h3 {
+        font-size: 1.2rem;
     }
 }
 
@@ -167,33 +166,34 @@
         padding-bottom: 30px;
     }
     .hero,
-    .hero .hero-text,
-    .hero .hero-btn {
+    .hero .hero-text {
         width: 100%;
         text-align: center;
     }
+    .hero .hero-content {
+        padding: 0 15px;
+        align-items: center;
+    }
     .hero .hero-text p {
-        font-size: 18px;
+        font-size: 1rem;
     }
     .hero .hero-text h1 {
-        font-size: 35px;
+        font-size: 2rem;
     }
-    .hero .hero-text h2 {
-        font-size: 22px;
-        height: 22px;
+    .hero .hero-text h3 {
+        font-size: 1.1rem;
     }
 }
 
 @media (max-width: 575.98px) {
     .hero .hero-text p {
-        font-size: 16px;
+        font-size: 0.95rem;
     }
     .hero .hero-text h1 {
-        font-size: 30px;
+        font-size: 1.75rem;
     }
-    .hero .hero-text h2 {
-        font-size: 18px;
-        height: 18px;
+    .hero .hero-text h3 {
+        font-size: 1rem;
     }
 }
 
