@@ -10,12 +10,16 @@ title: Trang chủ
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51">
+    <!-- Nav Bar Start -->
     {% include navbar.html %}
+    <!-- Nav Bar End -->
 
+
+    <!-- Pre Loader -->
     <div id="loader" class="show">
         <div class="loader"></div>
     </div>
-
+    <!-- Hero Start -->
     <div class="hero" id="home">
         <div class="container">
             <div class="row align-items-center">
@@ -43,9 +47,9 @@ title: Trang chủ
             </div>
         </div>
     </div>
-
+    <!-- Hero End -->
     <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
-
+    <!-- About Start -->
     <div class="about wow fadeInUp" data-wow-delay="0.1s" id="about">
         <div class="container">
             <div class="section-header text-center">
@@ -77,12 +81,13 @@ title: Trang chủ
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-
+    <!-- About End -->
     <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
-
+    <!-- Service Start -->
     <div class="service" id="service">
         <div class="container">
             <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
@@ -139,9 +144,9 @@ title: Trang chủ
             </div>
         </div>
     </div>
-
+    <!-- Service End -->
     <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
-
+    <!-- Experience Start -->
     <div class="experience" id="experience">
         <div class="container">
             <header class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
@@ -224,13 +229,14 @@ title: Trang chủ
             </div>
         </div>
     </div>
-
+    <!-- Job Experience End -->
     <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
-
+    <!-- Blog Start -->
     <div class="blog" id="blog">
         <div class="container">
             <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                <p><span class="fa fa-newspaper header-icon"></span>Các bài đăng</p>
+                <p>
+                    <span class="fa fa-newspaper header-icon"></span>Các bài đăng</p>
                 <h2>Những bài đăng mới nhất</h2>
             </div>
             <section class="card-list">
@@ -239,29 +245,30 @@ title: Trang chủ
                     <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image" alt="{{ post.title }}" loading="lazy" decoding="async"></a>
                     <div class="post_in4">
                         <div class="card_detail">
-                            <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
+                        <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
                         </div>
                     </div>
                     <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
                     <i class="card_in4">{{ post.description }}</i>
                     <span class="card_tag"><a href="\{{ post.category }}"><span class="fa fa-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
                 </article>
-                {% endfor %}
+            {% endfor %}
             </section>
             <div class="main"><a href="/blog"><span class="btn">Đọc thêm</span></a></div>
         </div>
     </div>
-
-    <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
-    <button id="back-to-top" aria-label="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
-
+    <!-- Blog End -->
+     <hr class="wow fadeIn text-center" data-wow-delay="0.3s"><button id="back-to-top" aria-label="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
+    <!-- Footer Start -->
     {% include footer.html %}
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://pazindushane.github.io/lib/easing/easing.min.js"></script>
-    <script src="/js/wow.min.js"></script>
-    <script src="https://pazindushane.github.io/js/main.js"></script>
-    <script src="/js/main.js"></script>
+        <!-- Footer End -->
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://pazindushane.github.io/lib/easing/easing.min.js"></script>
+        <script src="/js/wow.min.js"></script>
+        <script src="https://pazindushane.github.io/js/main.js"></script>
+        <script src="/js/main.js"></script>
 </body>
+
 </html>

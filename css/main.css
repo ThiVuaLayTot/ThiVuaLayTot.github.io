@@ -1,6 +1,8 @@
 @import url("./variables.css");
 
-/* GLOBAL STYLES & RESET */
+/* ========================================
+   GLOBAL STYLES & RESET
+   ======================================== */
 
 * {
   margin: 0;
@@ -17,7 +19,9 @@ body {
   line-height: 1.6;
 }
 
-/* TYPOGRAPHY */
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
 
 h1 {
   font-size: var(--fs-5xl);
@@ -72,7 +76,9 @@ a:hover {
   text-decoration: underline;
 }
 
-/* CONTAINER & LAYOUT */
+/* ========================================
+   CONTAINER & LAYOUT
+   ======================================== */
 
 .container {
   padding: 0 var(--space-5xl);
@@ -105,7 +111,9 @@ a:hover {
   }
 }
 
-/* NAVIGATION BAR */
+/* ========================================
+   NAVIGATION BAR
+   ======================================== */
 
 .page-header {
   display: flex;
@@ -293,7 +301,9 @@ a:hover {
   }
 }
 
-/* BUTTONS */
+/* ========================================
+   BUTTONS
+   ======================================== */
 
 .btn {
   display: inline-flex;
@@ -364,7 +374,9 @@ a:hover {
   background-color: var(--color-danger-dark);
 }
 
-/* LINKS & TEXT UTILITIES */
+/* ========================================
+   LINKS & TEXT UTILITIES
+   ======================================== */
 
 .text-color {
   background: var(--gradient-purple-cyan);
@@ -381,7 +393,9 @@ a:hover {
   color: var(--color-text-muted);
 }
 
-/* SOCIAL BUTTONS */
+/* ========================================
+   SOCIAL BUTTONS
+   ======================================== */
 
 .social_btn {
   display: flex;
@@ -426,7 +440,9 @@ a:hover {
   transform: scale(1.1);
 }
 
-/* BACK TO TOP BUTTON */
+/* ========================================
+   BACK TO TOP BUTTON
+   ======================================== */
 
 #back-to-top {
   display: none;
@@ -462,7 +478,9 @@ a:hover {
   border-color: rgba(53, 201, 252, 0.8);
 }
 
-/* FOOTER */
+/* ========================================
+   FOOTER
+   ======================================== */
 
 footer {
   background: var(--gradient-dark-bg);
@@ -577,7 +595,9 @@ footer {
   text-decoration: underline;
 }
 
-/* LOADER */
+/* ========================================
+   LOADER
+   ======================================== */
 
 #loader {
   position: fixed;
@@ -621,7 +641,9 @@ footer {
   }
 }
 
-/* PEOPLE/TEAM CARDS */
+/* ========================================
+   PEOPLE/TEAM CARDS
+   ======================================== */
 
 .people {
   display: grid;
@@ -724,7 +746,9 @@ footer {
   margin-top: var(--space-md);
 }
 
-/* CARDS */
+/* ========================================
+   CARDS
+   ======================================== */
 
 .card {
   display: flex;
@@ -883,7 +907,9 @@ footer {
   transform: rotate(45deg);
 }
 
-/* RESPONSIVE */
+/* ========================================
+   RESPONSIVE
+   ======================================== */
 
 @media (max-width: 1024px) {
   .people {
