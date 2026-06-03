@@ -157,6 +157,12 @@
   --color-danger: var(--red-500);
   --color-danger-dark: var(--red-700);
 
+  /* Legacy / Compatibility Aliases */
+  --primary-color: var(--color-primary);
+  --primary-success: var(--color-success);
+  --primary-sucess: var(--color-success); /* Legacy typo fallback */
+  --primary-warning: var(--color-warning);
+
   --color-text-primary: #ffffff;
   --color-text-secondary: var(--neutral-300);
   --color-text-muted: var(--neutral-500);
