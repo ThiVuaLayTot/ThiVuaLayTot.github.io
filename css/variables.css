@@ -1,0 +1,255 @@
+/* ========================================
+   THÍ VUA LẤY TỐT - DESIGN SYSTEM
+   CSS Variables for Colors, Typography, Spacing
+   ======================================== */
+
+:root {
+  /* ===== TYPOGRAPHY ===== */
+  --primary-font: Montserrat, ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+  --tab-font: "Open Sans Condensed", sans-serif;
+  --mono-font: "Courier New", monospace;
+
+  /* Font Sizes - Modular Scale (1.125x) */
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-sm: 0.875rem; /* 14px */
+  --fs-base: 1rem; /* 16px */
+  --fs-lg: 1.125rem; /* 18px */
+  --fs-xl: 1.25rem; /* 20px */
+  --fs-2xl: 1.5rem; /* 24px */
+  --fs-3xl: 1.875rem; /* 30px */
+  --fs-4xl: 2.25rem; /* 36px */
+  --fs-5xl: 2.813rem; /* 45px */
+
+  /* Font Weights */
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* ===== SPACING - 8px Base Grid ===== */
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 2.5rem; /* 40px */
+  --space-3xl: 3rem; /* 48px */
+  --space-4xl: 3.5rem; /* 56px */
+  --space-5xl: 4rem; /* 64px */
+
+  /* ===== COLOR PALETTE - CHESS THEMED ===== */
+
+  /* Neutrals */
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+
+  /* Primary Blues (Chess Board Theme) */
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
+
+  /* Cyan/Teal (Accent - Chess Light Square) */
+  --cyan-50: #ecf8ff;
+  --cyan-100: #cef2ff;
+  --cyan-200: #a5e8ff;
+  --cyan-300: #7dd3ff;
+  --cyan-400: #35c9fc;
+  --cyan-500: #06b6d4;
+  --cyan-600: #0891b2;
+  --cyan-700: #0e7490;
+  --cyan-800: #155e75;
+  --cyan-900: #164e63;
+
+  /* Purple (Secondary Accent) */
+  --purple-50: #faf5ff;
+  --purple-100: #f3e8ff;
+  --purple-200: #e9d5ff;
+  --purple-300: #d8b4fe;
+  --purple-400: #c084fc;
+  --purple-500: #a855f7;
+  --purple-600: #9333ea;
+  --purple-700: #7e22ce;
+  --purple-800: #6b21a8;
+  --purple-900: #581c87;
+
+  /* Green (Success) */
+  --green-50: #f0fdf4;
+  --green-100: #dcfce7;
+  --green-200: #bbf7d0;
+  --green-300: #86efac;
+  --green-400: #4ade80;
+  --green-500: #22c55e;
+  --green-600: #16a34a;
+  --green-700: #15803d;
+  --green-800: #166534;
+  --green-900: #145231;
+
+  /* Orange (Primary Action - Chess King) */
+  --orange-50: #fff7ed;
+  --orange-100: #feed7aa;
+  --orange-200: #fdba74;
+  --orange-300: #fb923c;
+  --orange-400: #f97316;
+  --orange-500: #ea580c;
+  --orange-600: #c2410c;
+  --orange-700: #9a3412;
+  --orange-800: #7c2d12;
+  --orange-900: #431407;
+
+  /* Red (Danger/Warning) */
+  --red-50: #fef2f2;
+  --red-100: #fee2e2;
+  --red-200: #fecaca;
+  --red-300: #fca5a5;
+  --red-400: #f87171;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --red-800: #991b1b;
+  --red-900: #7f1d1d;
+
+  /* Yellow (Warning) */
+  --yellow-50: #fefce8;
+  --yellow-100: #fef3c7;
+  --yellow-200: #fde047;
+  --yellow-300: #fcd34d;
+  --yellow-400: #facc15;
+  --yellow-500: #eab308;
+  --yellow-600: #ca8a04;
+  --yellow-700: #a16207;
+  --yellow-800: #854d0e;
+  --yellow-900: #713f12;
+
+  /* ===== SEMANTIC COLORS ===== */
+  --color-primary: var(--blue-600);
+  --color-primary-dark: var(--blue-800);
+  --color-primary-light: var(--blue-400);
+
+  --color-accent: var(--cyan-400);
+  --color-accent-dark: var(--cyan-600);
+  --color-accent-light: var(--cyan-300);
+
+  --color-secondary: var(--purple-600);
+  --color-secondary-dark: var(--purple-800);
+  --color-secondary-light: var(--purple-400);
+
+  --color-success: var(--green-500);
+  --color-success-dark: var(--green-700);
+  --color-warning: var(--yellow-500);
+  --color-warning-dark: var(--yellow-700);
+  --color-danger: var(--red-500);
+  --color-danger-dark: var(--red-700);
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: var(--neutral-300);
+  --color-text-muted: var(--neutral-500);
+  --color-text-disabled: var(--neutral-600);
+
+  --color-bg-primary: #0a0f1a;
+  --color-bg-secondary: #0f172a;
+  --color-bg-tertiary: #132b60;
+  --color-bg-hover: rgba(96, 165, 250, 0.1);
+
+  --color-border: rgba(96, 165, 250, 0.2);
+  --color-border-light: rgba(96, 165, 250, 0.1);
+  --color-border-dark: rgba(96, 165, 250, 0.3);
+
+  /* ===== GRADIENTS ===== */
+  --gradient-primary: linear-gradient(135deg, var(--blue-700) 0%, var(--blue-600) 50%, var(--blue-500) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--cyan-500) 0%, var(--cyan-400) 100%);
+  --gradient-purple-cyan: linear-gradient(to right, var(--purple-600) 0%, var(--cyan-400) 100%);
+  --gradient-dark-bg: linear-gradient(
+    135deg,
+    var(--color-bg-primary) 0%,
+    var(--color-bg-secondary) 40%,
+    #08192d 100%
+  );
+  --gradient-radial-dark: radial-gradient(
+    ellipse at 100% 100%,
+    rgba(53, 201, 252, 0.08) 0%,
+    transparent 50%
+  );
+
+  /* ===== BORDERS & SHADOWS ===== */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-radius-xl: 1.5rem;
+  --border-radius-full: 9999px;
+
+  --border-width-thin: 1px;
+  --border-width-base: 2px;
+  --border-width-thick: 3px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.2);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+
+  --shadow-glow: 0 0 15px rgba(53, 201, 252, 0.4);
+  --shadow-glow-strong: 0 0 30px rgba(53, 201, 252, 0.5);
+  --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.4);
+
+  /* ===== TRANSITIONS & ANIMATIONS ===== */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  --animation-duration-short: 0.6s;
+  --animation-duration-base: 1s;
+  --animation-duration-long: 2s;
+
+  /* ===== Z-INDEX SYSTEM ===== */
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 100;
+  --z-modal-backdrop: 200;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-tooltip: 500;
+
+  /* ===== BREAKPOINTS ===== */
+  --breakpoint-xs: 360px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* ===== DARK MODE (Optional Future Enhancement) ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode already applied as default */
+  }
+}
+
+/* ===== LIGHT MODE (Optional Future Enhancement) ===== */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f3f4f6;
+    --color-bg-tertiary: #e5e7eb;
+    --color-text-primary: #111827;
+    --color-text-secondary: #4b5563;
+    --color-text-muted: #6b7280;
+  }
+}
