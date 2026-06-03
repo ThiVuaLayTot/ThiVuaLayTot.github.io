@@ -21,8 +21,7 @@
 
 .hero .hero-image {
   position: relative;
-  text-align: right;
-  padding-right: var(--space-5xl);
+  text-align: center;
 }
 
 .hero .hero-image img {
@@ -33,7 +32,6 @@
 
 .hero .hero-content {
   position: relative;
-  padding-left: var(--space-5xl);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -208,8 +206,7 @@
 
 .about .about-img img {
   position: relative;
-  left: 10%;
-  width: 80%;
+  width: 100%;
   object-fit: cover;
   height: 100%;
   border-radius: var(--border-radius-lg);
@@ -243,15 +240,11 @@
   padding: var(--space-4xl) 0 var(--space-lg);
 }
 
-.service-container {
-  padding: 0 var(--space-4xl);
-}
-
 .service .service-item {
   position: relative;
   margin-bottom: var(--space-2xl);
   display: flex;
-  align-items: center;
+  align-items: stretch;
   border: var(--border-width-base) solid var(--color-border-light);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-md);
@@ -275,7 +268,7 @@
 }
 
 .service .service-item a:hover {
-  color: var(--color-success);
+  color: var(--color-accent);
 }
 
 .service .service-icon {
@@ -305,8 +298,11 @@
 
 .service .service-text {
   position: relative;
-  width: calc(100% - 120px);
-  padding: 0 var(--space-lg);
+  width: calc(100% - 150px);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .service .service-text h3 {
@@ -333,8 +329,18 @@
 }
 
 @media (max-width: 575px) {
-  .service-container {
-    padding: 0 var(--space-lg);
+  .service .service-item {
+    flex-direction: column;
+  }
+
+  .service .service-icon {
+    width: 100%;
+    min-height: 100px;
+  }
+
+  .service .service-text {
+    width: 100%;
+    text-align: center;
   }
 
   .service .service-text h3 {
@@ -595,10 +601,6 @@
   position: relative;
   width: 100%;
   padding: var(--space-4xl) var(--space-lg) var(--space-lg);
-}
-
-.blog-container {
-  padding: 0;
 }
 
 .card-list {

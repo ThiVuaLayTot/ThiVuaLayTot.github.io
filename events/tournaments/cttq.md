@@ -136,7 +136,7 @@ title: Bảng tổng giải Chiến Trường Thí Quân
         }
 
         .cttq-player-name a {
-            color: var(--primary-sucess);
+            color: var(--primary-success);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s;

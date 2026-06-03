@@ -661,7 +661,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         
         const statusIcon = document.getElementById('statusIcon');
         if (successCount === tourIds.length) {
-            statusIcon.style.color = 'var(--primary-sucess)';
+            statusIcon.style.color = 'var(--primary-success)';
             statusIcon.className = 'fa fa-check';
         } else {
             statusIcon.style.color = 'var(--color-red)';
