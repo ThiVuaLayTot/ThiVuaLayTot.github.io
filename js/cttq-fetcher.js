@@ -1,6 +1,4 @@
-// ============================================
 // API & CONSTANTS
-// ============================================
 const API = {
     CHESS_COM: 'https://api.chess.com/pub',
     MONTHS_GIST: 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw',
@@ -20,9 +18,7 @@ const SELECTORS = {
     stats: (monthId) => `#cttq-stats-${monthId}`
 };
 
-// ============================================
 // RATE LIMITING & CACHING
-// ============================================
 class RequestManager {
     constructor(maxConcurrent = CONFIG.MAX_CONCURRENT_REQUESTS) {
         this.maxConcurrent = maxConcurrent;
@@ -44,7 +40,7 @@ class RequestManager {
 
     async fetchJSON(url) {
         if (this.cache.has(url)) return this.cache.get(url);
-        
+
         const data = await this.execute(async () => {
             try {
                 const response = await fetch(url);
@@ -54,7 +50,7 @@ class RequestManager {
                 return null;
             }
         });
-        
+
         if (data) this.cache.set(url, data);
         return data;
     }
@@ -74,9 +70,7 @@ class RequestManager {
 
 const requestManager = new RequestManager();
 
-// ============================================
 // DATA FETCHING
-// ============================================
 class DataFetcher {
     static async getMonths() {
         const text = await requestManager.fetchText(`${API.MONTHS_GIST}/cttq.txt`);
@@ -101,9 +95,7 @@ class DataFetcher {
     }
 }
 
-// ============================================
 // DATA PROCESSING
-// ============================================
 class DataProcessor {
     static parsePlayer(playerData) {
         if (!playerData) {
@@ -124,7 +116,7 @@ class DataProcessor {
 
     static async getMonthlyAggregation(monthId) {
         const tourIds = await DataFetcher.getTournamentIds(monthId);
-        
+
         if (tourIds.length === 0) {
             return { playerScores: {}, tournaments: [] };
         }
@@ -133,7 +125,7 @@ class DataProcessor {
         const tourDataList = await Promise.all(
             tourIds.map(id => DataFetcher.getTournamentData(id))
         );
-        
+
         const topPlayersDataList = await Promise.all(
             tourIds.map(id => DataFetcher.getTournamentRound(id))
         );
@@ -180,7 +172,7 @@ class DataProcessor {
 
     static async getMonthlyTop(monthId, count = CONFIG.TOP_PLAYERS_COUNT) {
         const { playerScores, tournaments } = await this.getMonthlyAggregation(monthId);
-        
+
         const sortedPlayers = Object.values(playerScores)
             .sort((a, b) => b.totalPoints - a.totalPoints)
             .slice(0, count);
@@ -209,9 +201,7 @@ class DataProcessor {
     }
 }
 
-// ============================================
 // RENDERING
-// ============================================
 class Renderer {
     static getPlayerTournaments(username, tournaments) {
         const usernameLower = username.toLowerCase();
@@ -230,7 +220,7 @@ class Renderer {
         const parsed = DataProcessor.parsePlayer(playerData);
         const isCheater = cheaterSet.has(player.username.toLowerCase());
         const cheaterIcon = isCheater ? ' <i class="fa fa-exclamation" style="color: #f87171;" title="Tài khoản bị khóa"></i>' : '';
-        
+
         const playerTournaments = this.getPlayerTournaments(player.username, tournaments);
         const tournamentLinksHTML = playerTournaments.length > 0
             ? playerTournaments.map(t => `<a href="${t.url}" target="_blank" class="cttq-tournament-link">${t.name} (${t.points} điểm)</a>`).join('')
@@ -241,7 +231,7 @@ class Renderer {
                 <td class="cttq-rank-cell">Top ${index + 1}</td>
                 <td style="padding: 16px 24px;">
                     <div class="cttq-player-row">
-                        <img class="cttq-avatar" src="${parsed.avatar}" alt="${parsed.username}" height="40" width="40" 
+                        <img class="cttq-avatar" src="${parsed.avatar}" alt="${parsed.username}" height="40" width="40"
                              onerror="this.src='${CONFIG.DEFAULT_AVATAR}'">
                         <div class="cttq-player-details">
                             <div class="cttq-player-name">
@@ -262,7 +252,7 @@ class Renderer {
         const parsed = DataProcessor.parsePlayer(playerData);
         const isCheater = cheaterSet.has(player.username.toLowerCase());
         const cheaterIcon = isCheater ? ' <i class="fa fa-warning" style="color: #f87171;" title="Tài khoản bị khóa"></i>' : '';
-        
+
         const playerTournaments = this.getPlayerTournaments(player.username, tournaments);
         const tournamentLinksHTML = playerTournaments.length > 0
             ? playerTournaments.map(t => `<a href="${t.url}" target="_blank" class="cttq-tournament-link">${t.name} (${t.points})</a>`).join('')
@@ -273,11 +263,11 @@ class Renderer {
                 <div class="cttq-card-header">
                     <div class="cttq-card-rank">Top ${index + 1}</div>
                     <div style="flex: 1; display: flex; gap: 10px; align-items: flex-start; min-width: 0;">
-                        <img class="cttq-avatar" src="${parsed.avatar}" alt="${parsed.username}" 
+                        <img class="cttq-avatar" src="${parsed.avatar}" alt="${parsed.username}"
                              onerror="this.src='${CONFIG.DEFAULT_AVATAR}'" style="flex-shrink: 0; margin-top: 2px;">
                         <div class="cttq-card-info" style="min-width: 0;">
                             <div class="cttq-card-name">
-                                <a href="//chess.com/member/${parsed.username}" target="_blank" 
+                                <a href="//chess.com/member/${parsed.username}" target="_blank"
                                    style="color: #60a5fa; text-decoration: none; word-break: break-word;">
                                     ${parsed.username}${cheaterIcon}
                                 </a>
@@ -287,8 +277,8 @@ class Renderer {
                     </div>
                 </div>
                 <div class="cttq-card-tournaments">
-                    <button class="cttq-toggle-btn" 
-                            onclick="const list = this.nextElementSibling; list.classList.toggle('show'); 
+                    <button class="cttq-toggle-btn"
+                            onclick="const list = this.nextElementSibling; list.classList.toggle('show');
                                      this.innerHTML = list.classList.contains('show') ? '▼ Ẩn' : '▶ Xem (' + ${playerTournaments.length} + ')';">
                         <i class="fa fa-chevron-right"></i> Xem (${playerTournaments.length})
                     </button>
@@ -318,7 +308,7 @@ class Renderer {
 
     static renderTableLayout(topPlayers, playerDetails, tournaments, cheaters) {
         const cheaterSet = new Set(cheaters.map(c => c.username.toLowerCase()));
-        
+
         if (topPlayers.length === 0) {
             // Nếu có giải nhưng chưa hoàn thành
             if (tournaments.length > 0) {
@@ -347,17 +337,15 @@ class Renderer {
     }
 }
 
-// ============================================
 // PAGE MANAGER
-// ============================================
 class PageManager {
     static async renderMonth(monthId) {
         const container = document.querySelector(SELECTORS.monthsContainer);
-        
+
         const section = document.createElement('div');
         section.className = 'cttq-month-section';
         section.id = `cttq-month-${monthId}`;
-        
+
         section.innerHTML = `
             <div class="cttq-month-header">
                 <span><i class="fa fa-calendar"></i> Tháng ${monthId}</span>
@@ -381,11 +369,11 @@ class PageManager {
         container.appendChild(section);
 
         try {
-            const { topPlayers, playerDetails, tournaments, cheaters, totalPlayers } 
+            const { topPlayers, playerDetails, tournaments, cheaters, totalPlayers }
                 = await DataProcessor.getMonthlyTop(monthId);
 
             // Update stats
-            document.querySelector(SELECTORS.stats(monthId)).innerHTML = 
+            document.querySelector(SELECTORS.stats(monthId)).innerHTML =
                 `<i class="fa fa-users"></i> ${totalPlayers} người | <i class="fa fa-trophy"></i> ${tournaments.length} giải`;
 
             // Render table
@@ -398,7 +386,7 @@ class PageManager {
 
         } catch (error) {
             console.error(`Error rendering month ${monthId}:`, error);
-            document.querySelector(SELECTORS.tbody(monthId)).innerHTML = 
+            document.querySelector(SELECTORS.tbody(monthId)).innerHTML =
                 '<tr><td colspan="3" style="text-align: center; padding: 20px; color: #f87171;">Lỗi tải dữ liệu</td></tr>';
         }
     }
@@ -406,9 +394,9 @@ class PageManager {
     static async init() {
         try {
             const months = await DataFetcher.getMonths();
-            
+
             if (months.length === 0) {
-                document.querySelector(SELECTORS.monthsContainer).innerHTML = 
+                document.querySelector(SELECTORS.monthsContainer).innerHTML =
                     '<div style="text-align: center; padding: 20px; color: #f87171;">Không tìm thấy dữ liệu tháng</div>';
                 return;
             }
@@ -418,15 +406,13 @@ class PageManager {
             }
         } catch (error) {
             console.error('Error initializing page:', error);
-            document.querySelector(SELECTORS.monthsContainer).innerHTML = 
+            document.querySelector(SELECTORS.monthsContainer).innerHTML =
                 '<div style="text-align: center; padding: 20px; color: #f87171;">Lỗi tải dữ liệu tháng</div>';
         }
     }
 }
 
-// ============================================
 // INITIALIZATION
-// ============================================
 window.addEventListener('DOMContentLoaded', () => {
     PageManager.init();
 });
