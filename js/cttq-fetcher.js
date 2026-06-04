@@ -1,16 +1,23 @@
-// API & CONSTANTS
+/**
+ * @file CTTQ Tournament Fetcher
+ * @description Fetches and aggregates CTTQ (Chiến Trường Thí Quân) tournament data.
+ */
+
+/** @type {Object} API endpoint configurations */
 const API = {
     CHESS_COM: 'https://api.chess.com/pub',
     MONTHS_GIST: 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw',
     TOURNAMENTS_GIST: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw'
 };
 
+/** @type {Object} General configuration constants */
 const CONFIG = {
     MAX_CONCURRENT_REQUESTS: 10,
     TOP_PLAYERS_COUNT: 6,
     DEFAULT_AVATAR: 'https://chess.com/bundles/web/images/user-image.007dad08.svg'
 };
 
+/** @type {Object} DOM selector mapping */
 const SELECTORS = {
     monthsContainer: '#cttq-months-container',
     tbody: (monthId) => `#cttq-tbody-${monthId}`,
@@ -18,7 +25,10 @@ const SELECTORS = {
     stats: (monthId) => `#cttq-stats-${monthId}`
 };
 
-// RATE LIMITING & CACHING
+/**
+ * @class RequestManager
+ * @description Handles rate-limited requests and caching for API calls.
+ */
 class RequestManager {
     constructor(maxConcurrent = CONFIG.MAX_CONCURRENT_REQUESTS) {
         this.maxConcurrent = maxConcurrent;
@@ -70,7 +80,10 @@ class RequestManager {
 
 const requestManager = new RequestManager();
 
-// DATA FETCHING
+/**
+ * @class DataFetcher
+ * @description Static methods for fetching raw data from Gist and Chess.com.
+ */
 class DataFetcher {
     static async getMonths() {
         const text = await requestManager.fetchText(`${API.MONTHS_GIST}/cttq.txt`);
@@ -95,7 +108,10 @@ class DataFetcher {
     }
 }
 
-// DATA PROCESSING
+/**
+ * @class DataProcessor
+ * @description Logic for parsing raw API data and aggregating monthly statistics.
+ */
 class DataProcessor {
     static parsePlayer(playerData) {
         if (!playerData) {
@@ -201,7 +217,10 @@ class DataProcessor {
     }
 }
 
-// RENDERING
+/**
+ * @class Renderer
+ * @description Generates HTML strings for tables, cards, and skeletons.
+ */
 class Renderer {
     static getPlayerTournaments(username, tournaments) {
         const usernameLower = username.toLowerCase();
@@ -337,7 +356,10 @@ class Renderer {
     }
 }
 
-// PAGE MANAGER
+/**
+ * @class PageManager
+ * @description Orchestrates the rendering of monthly sections on the page.
+ */
 class PageManager {
     static async renderMonth(monthId) {
         const container = document.querySelector(SELECTORS.monthsContainer);

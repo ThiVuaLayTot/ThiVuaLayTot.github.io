@@ -1,6 +1,9 @@
-// TOURNAMENT DATA FETCHER
-// CONSTANTS & CONFIGURATION
+/**
+ * @file Tournament Data Fetcher
+ * @description Fetches and renders chess tournament data from Chess.com API and Gist sources.
+ */
 
+/** @type {Object} Configuration constants */
 const CONFIG = {
     CHESS_COM_BASE: 'https://api.chess.com/pub',
     CHESS_COM_URL: '//chess.com',
@@ -9,6 +12,7 @@ const CONFIG = {
     BATCH_SIZE: Infinity
 };
 
+/** @type {Map<string, Object>} Special player display overrides */
 const SPECIAL_PLAYERS = new Map([
     ['m_dinhhoangviet', { name: 'M-DinhHoangViet', special: true }],
     ['tungjohn_playing_chess', { name: 'M-DinhHoangViet', special: true }],
@@ -16,7 +20,7 @@ const SPECIAL_PLAYERS = new Map([
     ['manh_duy', { name: 'ManhDuy19', special: true }]
 ]);
 
-// Variant icons configuration - consolidated
+/** @type {Object} Chess variant metadata and icons */
 const VARIANTS = {
     'chess960': {
         name: 'Chess960',
@@ -45,6 +49,7 @@ const VARIANTS = {
     }
 };
 
+/** @type {Object} Time class icon mapping */
 const TIME_CLASS_ICONS = {
     'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
@@ -55,8 +60,10 @@ const TIME_CLASS_ICONS = {
 // Pre-compile regex
 const TIME_CONTROL_REGEX = /^(\d+)\+(\d+)$/;
 
-// CACHE MANAGEMENT
-
+/**
+ * @namespace Cache
+ * @description Simple in-memory cache for players and tournaments.
+ */
 const Cache = {
     players: new Map(),
     tournaments: new Map(),
@@ -87,8 +94,10 @@ const Cache = {
     }
 };
 
-// URL BUILDERS
-
+/**
+ * @namespace URLs
+ * @description Generators for various API and resource URLs.
+ */
 const URLs = {
     chessDotCom(path) {
         return `${CONFIG.CHESS_COM_URL}${path}`;
@@ -130,8 +139,10 @@ const URLs = {
     }
 };
 
-// HTML BUILDERS
-
+/**
+ * @namespace HTML
+ * @description Reusable HTML template generators.
+ */
 const HTML = {
     image(src, width = '15px', height = '15px') {
         return `<img src="${src}" width="${width}" height="${height}" alt="">`;
@@ -183,9 +194,12 @@ const HTML = {
     }
 };
 
-// DATA FETCHING
-
-// Generic fetch with error handling
+/**
+ * Generic fetch with error handling.
+ * @param {string} url - The URL to fetch.
+ * @param {string} errorContext - Context for error logging.
+ * @returns {Promise<Object|null>}
+ */
 async function fetchJSON(url, errorContext) {
     try {
         const response = await fetch(url);
@@ -200,7 +214,11 @@ async function fetchJSON(url, errorContext) {
     }
 }
 
-// Fetch tournament IDs from gist
+/**
+ * Fetch tournament IDs from Gist based on event type.
+ * @param {string} eventType - The type of event (e.g., 'tvlt').
+ * @returns {Promise<string[]>}
+ */
 async function getIds(eventType) {
     try {
         const url = URLs.gistFile(eventType);
@@ -213,7 +231,11 @@ async function getIds(eventType) {
     }
 }
 
-// Fetch tournament data with caching
+/**
+ * Fetch tournament data with caching.
+ * @param {string} tourId - Chess.com tournament ID.
+ * @returns {Promise<Object|null>}
+ */
 async function fetchTournamentData(tourId) {
     if (Cache.getTournament(tourId)) {
         return Cache.getTournament(tourId);
@@ -224,12 +246,21 @@ async function fetchTournamentData(tourId) {
     return data;
 }
 
-// Fetch round data
+/**
+ * Fetch round data for a tournament.
+ * @param {string} tourId - Tournament ID.
+ * @param {number} roundNum - Round number.
+ * @returns {Promise<Object|null>}
+ */
 async function fetchRoundData(tourId, roundNum) {
     return fetchJSON(URLs.round(tourId, roundNum), `fetchRoundData:${tourId}:${roundNum}`);
 }
 
-// Fetch player data with caching
+/**
+ * Fetch player data with caching.
+ * @param {string} username - Chess.com username.
+ * @returns {Promise<Object|null>}
+ */
 async function fetchPlayerData(username) {
     if (Cache.hasPlayer(username)) {
         return Cache.getPlayer(username);
@@ -240,7 +271,10 @@ async function fetchPlayerData(username) {
     return data;
 }
 
-// Batch fetch players (optimized)
+/**
+ * Batch fetch players (optimized).
+ * @param {string[]} usernames - Array of usernames to fetch.
+ */
 async function fetchPlayerDataBatch(usernames) {
     const unique = [...new Set(usernames)];
     const missing = unique.filter(u => !Cache.hasPlayer(u));
@@ -251,9 +285,12 @@ async function fetchPlayerDataBatch(usernames) {
     await Promise.allSettled(promises);
 }
 
-// DATA PARSING & PROCESSING
-
-// Calculate tournament duration
+/**
+ * Calculate human-readable tournament duration.
+ * @param {number|string} startDate - Start timestamp or date string.
+ * @param {number|string} endDate - End timestamp or date string.
+ * @returns {string}
+ */
 function calculateDuration(startDate, endDate) {
     if (!startDate || !endDate) return 'N/A';
 
@@ -290,7 +327,11 @@ function calculateDuration(startDate, endDate) {
     return 'N/A';
 }
 
-// Format date
+/**
+ * Format timestamp into local date string.
+ * @param {number|string} timestamp - Unix timestamp or date string.
+ * @returns {string}
+ */
 function formatDate(timestamp) {
     if (!timestamp) return 'N/A';
 
@@ -309,7 +350,11 @@ function formatDate(timestamp) {
     return `${h}h${m}, ngày ${d}/${mo}/${y}`;
 }
 
-// Parse time control
+/**
+ * Parse raw time control string/number into "M+S" format.
+ * @param {string|number} tcRaw - Raw time control data.
+ * @returns {string}
+ */
 function parseTimeControl(tcRaw) {
     if (!tcRaw) return '3+0';
 
@@ -334,7 +379,12 @@ function parseTimeControl(tcRaw) {
     return '3+0';
 }
 
-// Get player points from round data
+/**
+ * Get player points from round data.
+ * @param {string} username - Username to look for.
+ * @param {Object} roundData - Round data object.
+ * @returns {number}
+ */
 function getPlayerPoints(username, roundData) {
     if (!roundData?.players) return 0;
 
@@ -345,7 +395,13 @@ function getPlayerPoints(username, roundData) {
     return player?.points || 0;
 }
 
-// Sort and extract top players with points
+/**
+ * Sort and extract top players with their points.
+ * @param {string[]} playersOrder - Ordered list of usernames.
+ * @param {Object} roundData - Round data for points.
+ * @param {number} [maxCount=6] - Max players to extract.
+ * @returns {Object} {players: string[], points: number[]}
+ */
 function getTopPlayers(playersOrder, roundData, maxCount = 6) {
     if (!playersOrder || playersOrder.length === 0) {
         return { players: [], points: [] };
@@ -357,7 +413,11 @@ function getTopPlayers(playersOrder, roundData, maxCount = 6) {
     return { players, points };
 }
 
-// Parse player data
+/**
+ * Parse raw player API data into a standard object.
+ * @param {Object} playerData - Raw player data.
+ * @returns {Object}
+ */
 function parsePlayerData(playerData) {
     if (!playerData) {
         return { username: 'unknown', status: 'N/A', avatar: 'N/A' };
@@ -372,7 +432,12 @@ function parsePlayerData(playerData) {
     };
 }
 
-// Parse tournament data
+/**
+ * Parse raw tournament API data into a standard display object.
+ * @param {Object} data - Raw tournament data.
+ * @param {string} tourId - Tournament ID.
+ * @returns {Promise<Object|null>}
+ */
 async function parseTournamentData(data, tourId) {
     if (!data) {
         console.error(`[parseTournamentData] No data for tournament ${tourId}`);
@@ -424,9 +489,12 @@ async function parseTournamentData(data, tourId) {
     };
 }
 
-// HTML RENDERING
-
-// Generate player cell HTML
+/**
+ * Generate player cell HTML with avatar and status.
+ * @param {string} username - Player username.
+ * @param {number} points - Player points.
+ * @returns {Promise<string>}
+ */
 async function generatePlayerCell(username, points) {
     if (!username) {
         return '<td style="color: var(--primary-warning)">Giải chưa kết thúc!</td>';
@@ -467,7 +535,11 @@ async function generatePlayerCell(username, points) {
     </td>`;
 }
 
-// Generate tournament row HTML
+/**
+ * Generate a complete table row for a tournament.
+ * @param {Object} parsed - Parsed tournament data.
+ * @returns {Promise<string>}
+ */
 async function generateTournamentRow(parsed) {
     if (!parsed) return '';
 
@@ -495,12 +567,12 @@ async function generateTournamentRow(parsed) {
     return html;
 }
 
-// MAIN RENDERING FUNCTION
-
-// Main function: Fetch all tournaments and render table
+/**
+ * Main function: Fetch all tournaments and render the results table.
+ * @param {string} [eventType='tvlt'] - Event type to fetch.
+ * @param {string} [containerId='tournament-table'] - ID of the container element.
+ */
 async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tournament-table') {
-    console.log(`[fetchAndRenderTournaments] Starting for event: ${eventType}`);
-
     const container = document.getElementById(containerId);
     if (!container) {
         console.error(`[fetchAndRenderTournaments] Container ${containerId} not found`);
@@ -511,7 +583,6 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
 
     try {
         const tourIds = await getIds(eventType);
-        console.log(`[fetchAndRenderTournaments] Found ${tourIds.length} tournaments`);
 
         if (tourIds.length === 0) {
             container.innerHTML = '<div class="error">Không tìm thấy giải đấu nào.</div>';
@@ -560,11 +631,7 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
             return tr;
         });
 
-        console.log(`[fetchAndRenderTournaments] Added ${tourIds.length} skeleton rows`);
-
         // Fetch all tournament data concurrently
-        console.log(`[fetchAndRenderTournaments] Fetching all tournament data concurrently...`);
-
         const processResults = await Promise.allSettled(
             tourIds.map(async (tourId, index) => {
                 const tourData = await fetchTournamentData(tourId);
@@ -616,24 +683,20 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
             statusIcon.className = 'fa fa-times';
         }
 
-        console.log(`[fetchAndRenderTournaments] Complete! ${successCount}/${tourIds.length} loaded`);
-
     } catch (error) {
         console.error('[fetchAndRenderTournaments] Error:', error);
         container.innerHTML = `<div class="error">Lỗi: ${error.message}</div>`;
     }
 }
 
-// AUTO-INITIALIZATION
-
+/**
+ * Auto-initialization on DOM content loaded.
+ */
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('[tournament-fetcher.js] DOM loaded, ready to fetch tournaments');
-
     const containers = document.querySelectorAll('[data-fetch-tournament]');
     containers.forEach(container => {
         const eventType = container.dataset.fetchTournament || 'tvlt';
         const containerId = container.id || 'tournament-table';
-        console.log(`[tournament-fetcher.js] Auto-fetching tournaments for: ${eventType}`);
         fetchAndRenderTournaments(eventType, containerId);
     });
 

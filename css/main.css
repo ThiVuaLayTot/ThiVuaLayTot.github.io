@@ -10,7 +10,8 @@
 
 body {
   font-family: var(--primary-font);
-  background: var(--gradient-dark-bg), var(--gradient-radial-dark);
+  background: var(--bg-pattern-chess), var(--gradient-dark-bg), var(--gradient-radial-dark);
+  background-size: 32px 32px, 100% 100%, 100% 100%;
   color: var(--color-text-primary);
   font-size: var(--fs-base);
   font-weight: var(--fw-normal);
@@ -298,6 +299,8 @@ a:hover {
 /* BUTTONS */
 
 .btn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -319,8 +322,29 @@ a:hover {
 
 .btn:hover {
   background-color: var(--color-primary-dark);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 15px var(--color-primary-light);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  left: 120%;
 }
 
 .btn:focus,
