@@ -10,9 +10,22 @@
   margin-bottom: -16px;
   padding: var(--space-4xl) var(--space-lg);
   overflow: hidden;
-  background: url(/images/tvlt/tvlt_bg.jpg);
+  background: linear-gradient(rgba(5, 8, 17, 0.7), rgba(5, 8, 17, 0.7)), url(/images/tvlt/tvlt_bg.jpg);
   background-position: center;
   background-attachment: fixed;
+  background-size: cover;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M30 20 L70 20 L70 80 L30 80 Z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .hero .container-fluid {
@@ -39,11 +52,14 @@
 }
 
 .hero .hero-text h1 {
-  color: var(--color-primary);
   font-size: var(--fs-5xl);
   font-weight: var(--fw-bold);
   margin-bottom: var(--space-md);
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: var(--gradient-purple-cyan);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .hero .hero-text h3 {
@@ -245,26 +261,20 @@
   margin-bottom: var(--space-2xl);
   display: flex;
   align-items: stretch;
-  border: var(--border-width-base) solid var(--color-border-light);
+  border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-md);
   transition: all var(--transition-base);
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    rgba(30, 64, 175, 0.1) 0%,
-    rgba(22, 35, 65, 0.1) 100%
-  );
+  background: rgba(10, 15, 30, 0.4);
+  backdrop-filter: blur(8px);
 }
 
 .service .service-item:hover {
-  border-color: var(--color-border-dark);
-  box-shadow: var(--shadow-lg);
-  background: linear-gradient(
-    135deg,
-    rgba(30, 64, 175, 0.2) 0%,
-    rgba(22, 35, 65, 0.2) 100%
-  );
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-xl), 0 0 15px rgba(56, 189, 248, 0.1);
+  background: rgba(10, 15, 30, 0.6);
+  transform: translateY(-5px);
 }
 
 .service .service-item a:hover {
@@ -419,32 +429,26 @@
 
 .experience .timeline .timeline-text {
   padding: var(--space-2xl);
-  background: linear-gradient(
-    135deg,
-    rgba(11, 81, 151, 0.2) 0%,
-    rgba(22, 35, 65, 0.3) 100%
-  );
+  background: rgba(10, 15, 30, 0.4);
+  backdrop-filter: blur(8px);
   position: relative;
-  border-right: var(--border-width-thick) solid var(--orange-500);
+  border-right: var(--border-width-thick) solid var(--color-accent);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-md);
   transition: all var(--transition-base);
-  border: var(--border-width-base) solid var(--color-border-light);
+  border: var(--border-width-thin) solid var(--color-border);
 }
 
 .experience .timeline .timeline-text:hover {
-  box-shadow: var(--shadow-lg);
-  background: linear-gradient(
-    135deg,
-    rgba(11, 81, 151, 0.3) 0%,
-    rgba(22, 35, 65, 0.4) 100%
-  );
-  border-color: var(--color-border-dark);
+  box-shadow: var(--shadow-xl), 0 0 15px rgba(56, 189, 248, 0.1);
+  background: rgba(10, 15, 30, 0.6);
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
 }
 
 .experience .timeline .timeline-item.right .timeline-text {
   border-right: none;
-  border-left: var(--border-width-thick) solid var(--orange-500);
+  border-left: var(--border-width-thick) solid var(--color-accent);
 }
 
 .experience .timeline .timeline-text h2 {
