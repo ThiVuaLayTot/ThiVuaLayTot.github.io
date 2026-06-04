@@ -13,7 +13,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
     <div class="people">
         <div id="own" class="list-item-people">
             <div class="list-item-info">
-                <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/group/515437.8435c963.160x160o.57cc274de812.png" />
+                <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/group/515437.8435c963.160x160o.57cc274de812.png" loading="lazy" decoding="async" />
                 <div class="list-people-detail">
                     <div class="name">Mr. TungJohn</div>
                     <div class="list-detail">
@@ -33,7 +33,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
         </div>
         <div id="admin4" class="list-item-people">
             <div class="list-item-info">
-                <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/user/98639406.387c082e.160x160o.418e5655b3c6.jpg">
+                <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/user/98639406.387c082e.160x160o.418e5655b3c6.jpg" loading="lazy" decoding="async">
                 <div class="list-people-detail">
                     <div class="name"><a href="https://chess.com/member/vn-senjin" target="_blank">VN-SenJin</a></div>
                     <div class="list-detail">
@@ -51,7 +51,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
         </div>
         <div id="admin5" class="list-item-people">
             <div class="list-item-info">
-                <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/user/169633533.eba6f687.160x160o.e6a4dfc10e60.jpg" />
+                <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/user/169633533.eba6f687.160x160o.e6a4dfc10e60.jpg" loading="lazy" decoding="async" />
                 <div class="list-people-detail">
                     <div class="name"><a href="https://chess.com/member/giabao18012010" target="_blank">Giabao18012010</a></div>
                     <div class="list-detail">
@@ -71,7 +71,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
         </div>
         <div id="admin3" class="list-item-people">
             <div class="list-item-info">
-                <img class="profile-thumbnail" src="https://avatars.githubusercontent.com/u/134517889" />
+                <img class="profile-thumbnail" src="https://avatars.githubusercontent.com/u/134517889" loading="lazy" decoding="async" />
                 <div class="list-people-detail">
                     <div class="name"><a href="https://chess.com/member/M-DinhHoangViet"
                             target="_blank">M-DinhHoangViet</a></div>
@@ -92,7 +92,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
         </div>
         <div id="admin2" class="list-item-people">
             <div class="list-item-info">
-                <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/user/208914275.d4c1060d.160x160o.7044b8c17d10.png" />
+                <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/user/208914275.d4c1060d.160x160o.7044b8c17d10.png" loading="lazy" decoding="async" />
                 <div class="list-people-detail">
                     <div class="name"><a href="https://chess.com/member/fr-ch_theclanteamismine"
                             target="_blank">FR-CH_TheClanTeamIsMine</a></div>
@@ -127,5 +127,5 @@ title: Ban cán sự của Thí Vua Lấy Tốt
     </div>
     <strong>Bạn cũng có thể liên hệ tới một trong <a href="#admins">các quản trị viên</a> để nhận được hỗ trợ.</strong>
     <p>Đánh giá câu lạc bộ: <a href="https://forms.gle/iCYUAbVD5GUmbdsL8" target="_blank">https://forms.gle/iCYUAbVD5GUmbdsL8</a></p>
-    Ủng hộ cho Mr.TungJohn: <img src="/images/tvlt/payment.jpg" width="170" height="189" alt="QR Code">
+    Ủng hộ cho Mr.TungJohn: <img src="/images/tvlt/payment.jpg" width="170" height="189" alt="QR Code" loading="lazy" decoding="async">
 </div>

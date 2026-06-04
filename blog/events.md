@@ -16,7 +16,7 @@ permalink: /events/
 <section class="card-list">
     {% for post in site.posts %} {% if post.category == "events" %}
     <article class="card">
-        <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image"></a>
+        <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image" loading="lazy" decoding="async"></a>
         <div class="post_in4">
             <div class="card_detail">
             <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>

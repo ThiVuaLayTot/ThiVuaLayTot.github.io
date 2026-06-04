@@ -14,7 +14,7 @@
         <div class="container">
             <div id="post">
                 <div class="infomation">
-                    <img src="/images/{{ page.id }}.png" alt="{{ page.title }}" class="banner">
+                    <img src="/images/{{ page.id }}.png" alt="{{ page.title }}" class="banner" loading="lazy" decoding="async">
                     <h1 class="title">{{ page.title }}</h1>
                     <i class="short_text">{{ page.description }}</i>
                 <p align="center"><a href="/{{ page.category }}" class="card_tag"><span class="fa fa-tag"></span> {{ page.tags }}</a></p>

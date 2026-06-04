@@ -443,13 +443,14 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: auto;
+    justify-content: space-between;
+    height: 100%;
     border: max(1px, 0.1625rem) solid transparent;
     border-radius: 1em;
     box-shadow: 5px 5px 5px rgba(53, 58, 67, 0.20);
     background: linear-gradient(#121339, #032f43) padding-box, linear-gradient(103deg, #7152DC 16%, #2886A9 45%, rgba(114, 217, 255, 0.636) 84.45%) border-box;
     transition: all 0.2s ease-in-out;
-    padding: 10px;
+    padding: 20px;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -470,7 +471,7 @@ hr {
 
 .list-people-detail .name {
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     padding-top: .5rem;
     color: var(--color-blue);
@@ -479,6 +480,10 @@ hr {
     font-weight: bold;
     text-align: center;
     overflow: hidden;
+    min-height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .list-people-detail .list-detail {
@@ -493,9 +498,11 @@ hr {
 .list-item-people .social {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: auto;
+    padding-top: 15px;
 }
 
 @media (max-width: 1024px) {
@@ -545,15 +552,11 @@ hr {
 
 footer {
     background: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
-    width: 100vw;
+    width: 100%;
     position: relative;
     border-top: 2px solid rgba(53, 201, 252, 0.35);
 }
 
-footer .footer {
-    position: absolute;
-    inset: 0;
-}
 
 .footer .footer_main {
     position: relative;
@@ -575,7 +578,14 @@ footer .footer {
 
 .footer_content .col_1 {
     grid-column: span 1 / span 1;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer_content .col_1 .social_btn {
+    justify-content: flex-start;
+    margin-top: 1rem;
 }
 
 .footer_content .link_boxes {
@@ -654,6 +664,15 @@ footer .bottom-details .bottom_text {
     text-decoration: none;
 }
 
+@media (max-width: 600px) {
+    footer .bottom-details .bottom_text {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
 .bottom-details .bottom_text a:hover {
     opacity: 1;
     text-decoration: underline;
@@ -690,7 +709,9 @@ footer .bottom-details .bottom_text {
 .tvlt_details {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .tvlt_details .logo {
@@ -724,11 +745,10 @@ footer .bottom-details .bottom_text {
 .card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     box-shadow: 0px 0.2rem 1rem rgba(95, 165, 185, 0.334);
     position: relative;
     direction: ltr;
-    display: inline-block;
     text-align: center;
     padding: 15px;
     margin-bottom: 1em;
@@ -783,6 +803,8 @@ footer .bottom-details .bottom_text {
 .card_image {
     width: 95%;
     height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     border-radius: 5px;
     position: relative;
     background-size: cover;
