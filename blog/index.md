@@ -14,7 +14,9 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
 <section class="card-list">
     {% for post in site.posts %}
     <article class="card">
-        <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image"></a>
+        <div class="card_image_container">
+            <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image"></a>
+        </div>
         <div class="post_in4">
             <div class="card_detail">
             <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
@@ -29,10 +31,28 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
 
 <h2>Các bài đăng khác</h2>
 <div class="card-list">
-    <div class="card"><a href="https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024" target="_blank"><img src="https://images.chesscomfiles.com/uploads/v1/news/1447745.59c40bc3.668x375o.d96fb1f62f12.png" class="card_image">
-        <h4 class="card_title">Luật câu lạc bộ Thí Vua Lấy Tốt chính thức</h4><i class="card_in4">Quy định chính thức của câu lạc bộ Thí Vua Lấy Tốt.</i><div class="card_detail"><a href="/news" class="card_tag"><span class="fa fa-tag"></span>Quy định</a>|<b class="card_author"><span class="bx bx-user"></span>Các quản trị viên</b>|<span class="card_date"><span class="bx bx-time"></span>25 thg 7, 2024</span></div></a>
+    <div class="card">
+        <div class="card_image_container">
+            <a href="https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024" target="_blank"><img src="https://images.chesscomfiles.com/uploads/v1/news/1447745.59c40bc3.668x375o.d96fb1f62f12.png" class="card_image"></a>
+        </div>
+        <a href="https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024" target="_blank"><h4 class="card_title">Luật câu lạc bộ Thí Vua Lấy Tốt chính thức</h4></a>
+        <i class="card_in4">Quy định chính thức của câu lạc bộ Thí Vua Lấy Tốt.</i>
+        <div class="card_detail">
+            <a href="/news" class="card_tag"><span class="fa fa-tag"></span>Quy định</a>
+            <b class="card_author"><span class="bx bx-user"></span>Các quản trị viên</b>
+            <span class="card_date"><span class="bx bx-time"></span>25 thg 7, 2024</span>
+        </div>
     </div>
-    <div class="card"><a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" target="_blank"><img src="" class="card_image">
-        <h4 class="card_title">Chính sách Chơi Công Bằng chính thức của Thí Vua Lấy Tốt</h4><i class="card_in4">Quy định Fair Play trong các sự kiện của câu lạc bộ Thí Vua Lấy Tốt.</i><div class="card_detail"><a href="/news" class="card_tag"><span class="fa fa-tag"></span>Quy định</a>|<b class="card_author"><span class="bx bx-user"></span>Các quản trị viên</b>|<span class="card_date"><span class="bx bx-time"></span>5 thg 3, 2024</span></div></a>
+    <div class="card">
+        <div class="card_image_container">
+            <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" target="_blank"><img src="/images/tvlt/tvlt_bg.jpg" class="card_image"></a>
+        </div>
+        <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" target="_blank"><h4 class="card_title">Chính sách Chơi Công Bằng chính thức của Thí Vua Lấy Tốt</h4></a>
+        <i class="card_in4">Quy định Fair Play trong các sự kiện của câu lạc bộ Thí Vua Lấy Tốt.</i>
+        <div class="card_detail">
+            <a href="/news" class="card_tag"><span class="fa fa-tag"></span>Quy định</a>
+            <b class="card_author"><span class="bx bx-user"></span>Các quản trị viên</b>
+            <span class="card_date"><span class="bx bx-time"></span>5 thg 3, 2024</span>
+        </div>
     </div>
 </div>

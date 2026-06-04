@@ -1,5 +1,5 @@
 #post {
-    padding: 1.5rem 10rem;
+    padding: 1.5rem 2rem;
 }
 
 #post .information {
@@ -7,29 +7,35 @@
 }
 
 .banner {
-    border-radius: .5em;
-    box-shadow: 0 0 3px var(--color-grey);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
     background-size: cover;
     background-image: var(--backdrop-url);
     aspect-ratio: 16 / 9;
-    min-height: 150px;
+    width: 100%;
+    max-width: 800px;
     height: auto;
-    width: auto;
-    max-width: 50vw;
-    max-height: 50vh;
+    margin-bottom: var(--space-xl);
 }
 
 .content img {
-    max-width: 50vw;
-    max-height: 50vh;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-md);
+    margin: var(--space-lg) 0;
 }
 
 .short_text {
-    color: var(--color-grey);
+    color: var(--color-text-muted);
+    font-style: italic;
+    display: block;
+    margin-bottom: var(--space-lg);
 }
 
 #post .content p {
-    line-height: 1.5rem;
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+    color: var(--color-text-secondary);
 }
 
 @media (max-width: 1024px) {
@@ -38,11 +44,11 @@
     }
 
     .information .tab {
-        display: none;
+        display: flex;
     }
 
     .information h1 {
-        font-size: 30px;
+        font-size: var(--fs-3xl);
     }
 
     .banner {

@@ -503,9 +503,17 @@ footer {
   padding: var(--space-4xl) 0;
   background: linear-gradient(
     135deg,
-    rgba(53, 201, 252, 0.08) 0%,
-    rgba(201, 36, 243, 0.03) 100%
+    rgba(56, 189, 248, 0.05) 0%,
+    rgba(168, 85, 247, 0.02) 100%
   );
+}
+
+.col_1 img {
+  max-width: 200px;
+  height: auto;
+  margin: var(--space-md) 0;
+  border-radius: var(--border-radius-md);
+  opacity: 0.9;
 }
 
 .footer_content {
@@ -581,9 +589,12 @@ footer {
 .bottom_text {
   margin: 0 auto;
   padding: var(--space-lg) 0;
+  width: 100%;
+}
+
+.bottom_text .container {
   display: flex;
   justify-content: space-between;
-  max-width: 1250px;
   flex-wrap: wrap;
   gap: var(--space-lg);
 }
@@ -661,6 +672,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   height: auto;
   border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--border-radius-lg);
@@ -688,11 +700,15 @@ footer {
   border: var(--border-width-base) solid var(--color-primary-light);
 }
 
+.list-people-detail {
+  width: 100%;
+}
+
 .list-people-detail .name {
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  padding-top: var(--space-sm);
+  padding-top: var(--space-md);
   color: var(--color-primary-light);
   font-size: var(--fs-xl);
   text-overflow: ellipsis;
@@ -704,10 +720,14 @@ footer {
 .list-people-detail .list-detail {
   font-size: var(--fs-sm);
   color: var(--color-text-muted);
-  padding: var(--space-xs) 0;
+  padding: var(--space-sm) 0;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
+}
+
+.list-people-detail .list-detail p {
+  margin-bottom: var(--space-sm);
 }
 
 .role-admin {
@@ -733,6 +753,48 @@ footer {
 .task-icon {
   color: var(--color-warning);
   margin-right: var(--space-sm);
+}
+
+/* TAB NAVIGATION */
+
+.tab {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  list-style: none;
+  padding: var(--space-md) 0;
+  margin-bottom: var(--space-xl);
+  border-bottom: var(--border-width-thin) solid var(--color-border-light);
+}
+
+.tab li a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  color: var(--color-text-secondary);
+  font-weight: var(--fw-semibold);
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.tab li a.active,
+.tab li a:hover {
+  color: var(--color-accent);
+  background: var(--color-bg-hover);
+  text-decoration: none;
+}
+
+.tab li a.active::after {
+  content: "";
+  position: absolute;
+  bottom: calc(-1 * var(--border-width-thin));
+  left: 0;
+  right: 0;
+  height: var(--border-width-base);
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
 }
 
 .list-item-people .social {
@@ -771,12 +833,12 @@ footer {
 }
 
 .card_image {
-  width: 95%;
-  height: auto;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border-radius: var(--border-radius-md);
   position: relative;
   background-size: cover;
-  min-height: 150px;
   margin-bottom: var(--space-md);
 }
 
@@ -789,7 +851,7 @@ footer {
   margin: var(--space-sm) 0;
   font-weight: var(--fw-bold);
   font-size: var(--fs-lg);
-  color: var(--color-success);
+  color: var(--color-accent);
 }
 
 .card_in4 {
@@ -828,10 +890,17 @@ footer {
 .card_detail {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-sm);
   margin-top: var(--space-sm);
   font-size: var(--fs-xs);
   color: var(--color-text-muted);
+}
+
+.card_detail span, .card_dav span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .card_date {
@@ -855,6 +924,21 @@ footer {
   background: rgba(26, 115, 232, 0.2);
   transform: scale(1.05);
   text-decoration: none;
+}
+
+.card_image_container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--space-md);
+}
+
+.card_image_container img {
+  transition: transform var(--transition-base);
+}
+
+.card:hover .card_image_container img {
+  transform: scale(1.05);
 }
 
 /* Ribbon */
