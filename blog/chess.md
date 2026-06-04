@@ -9,8 +9,8 @@ permalink: /chess/
 <ul class="tab">
     <li><a href="/blog"><span class="bx bxs-news"></span>Tất cả bài đăng</a></li>
     <li><a href="/chess" class="active"><span class="bx bxs-chess"></span>Kiến thức cờ vua</a></li>
-    <li><a href="/news"><span class="fa fa-newspaper"></span>Thông báo/Tin tức</a></li>
-    <li><a href="/events"><span class="fa fa-medal"></span>Sự kiện/Giải đấu</a></li>
+    <li><a href="/news"><span class="bx bx-news"></span>Thông báo/Tin tức</a></li>
+    <li><a href="/events"><span class="bx bx-medal"></span>Sự kiện/Giải đấu</a></li>
 </ul><br>
 <section class="card-list">
     {% for post in site.posts %} {% if post.category == "chess" %}
@@ -23,7 +23,7 @@ permalink: /chess/
         </div>
         <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
         <i class="card_in4">{{ post.description }}</i>
-        <span class="card_tag"><a href="\{{ post.category }}"><span class="fa fa-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
+        <span class="card_tag"><a href="\{{ post.category }}"><span class="bx bx-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
     </article>
 {% endif %} {% endfor %}
 </section>

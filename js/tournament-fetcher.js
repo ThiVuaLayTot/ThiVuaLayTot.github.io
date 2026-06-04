@@ -677,10 +677,10 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         const statusIcon = document.getElementById('statusIcon');
         if (successCount === tourIds.length) {
             statusIcon.style.color = 'var(--primary-success)';
-            statusIcon.className = 'fa fa-check';
+            statusIcon.className = 'bx bx-check';
         } else {
             statusIcon.style.color = 'var(--color-red)';
-            statusIcon.className = 'fa fa-times';
+            statusIcon.className = 'bx bx-x';
         }
 
     } catch (error) {
