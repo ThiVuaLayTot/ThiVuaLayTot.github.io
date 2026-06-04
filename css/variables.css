@@ -2,7 +2,7 @@
    CSS Variables for Colors, Typography, Spacing */
 
 :root {
-  /* ===== TYPOGRAPHY ===== */
+  /* TYPOGRAPHY */
   --primary-font: Montserrat, ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
   --tab-font: "Open Sans Condensed", sans-serif;
@@ -26,7 +26,7 @@
   --fw-semibold: 600;
   --fw-bold: 700;
 
-  /* ===== SPACING - 8px Base Grid ===== */
+  /* SPACING - 8px Base Grid */
   --space-xs: 0.25rem; /* 4px */
   --space-sm: 0.5rem; /* 8px */
   --space-md: 1rem; /* 16px */
@@ -37,7 +37,7 @@
   --space-4xl: 3.5rem; /* 56px */
   --space-5xl: 4rem; /* 64px */
 
-  /* ===== COLOR PALETTE - CHESS THEMED ===== */
+  /* COLOR PALETTE - CHESS THEMED */
 
   /* Neutrals */
   --neutral-50: #f9fafb;
@@ -135,18 +135,18 @@
   --yellow-800: #854d0e;
   --yellow-900: #713f12;
 
-  /* ===== SEMANTIC COLORS ===== */
-  --color-primary: var(--blue-600);
-  --color-primary-dark: var(--blue-800);
-  --color-primary-light: var(--blue-400);
+  /* SEMANTIC COLORS */
+  --color-primary: var(--blue-500);
+  --color-primary-dark: var(--blue-700);
+  --color-primary-light: var(--blue-300);
 
-  --color-accent: var(--cyan-400);
-  --color-accent-dark: var(--cyan-600);
-  --color-accent-light: var(--cyan-300);
+  --color-accent: #38bdf8; /* Brighter Cyan */
+  --color-accent-dark: #0ea5e9;
+  --color-accent-light: #7dd3fc;
 
-  --color-secondary: var(--purple-600);
-  --color-secondary-dark: var(--purple-800);
-  --color-secondary-light: var(--purple-400);
+  --color-secondary: #a855f7;
+  --color-secondary-dark: #7e22ce;
+  --color-secondary-light: #d8b4fe;
 
   --color-success: var(--green-500);
   --color-success-dark: var(--green-700);
@@ -166,32 +166,36 @@
   --color-text-muted: var(--neutral-500);
   --color-text-disabled: var(--neutral-600);
 
-  --color-bg-primary: #0a0f1a;
-  --color-bg-secondary: #0f172a;
-  --color-bg-tertiary: #132b60;
-  --color-bg-hover: rgba(96, 165, 250, 0.1);
+  --color-bg-primary: #050811;
+  --color-bg-secondary: #0a0f1e;
+  --color-bg-tertiary: #111a2e;
+  --color-bg-hover: rgba(56, 189, 248, 0.08);
 
-  --color-border: rgba(96, 165, 250, 0.2);
-  --color-border-light: rgba(96, 165, 250, 0.1);
-  --color-border-dark: rgba(96, 165, 250, 0.3);
+  --color-border: rgba(56, 189, 248, 0.15);
+  --color-border-light: rgba(56, 189, 248, 0.08);
+  --color-border-dark: rgba(56, 189, 248, 0.25);
 
-  /* ===== GRADIENTS ===== */
-  --gradient-primary: linear-gradient(135deg, var(--blue-700) 0%, var(--blue-600) 50%, var(--blue-500) 100%);
-  --gradient-accent: linear-gradient(135deg, var(--cyan-500) 0%, var(--cyan-400) 100%);
-  --gradient-purple-cyan: linear-gradient(to right, var(--purple-600) 0%, var(--cyan-400) 100%);
+  /* GRADIENTS */
+  --gradient-primary: linear-gradient(135deg, var(--blue-600) 0%, var(--blue-500) 100%);
+  --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+  --gradient-purple-cyan: linear-gradient(135deg, #a855f7 0%, #38bdf8 100%);
   --gradient-dark-bg: linear-gradient(
     135deg,
     var(--color-bg-primary) 0%,
-    var(--color-bg-secondary) 40%,
-    #08192d 100%
+    var(--color-bg-secondary) 50%,
+    #081021 100%
   );
   --gradient-radial-dark: radial-gradient(
-    ellipse at 100% 100%,
-    rgba(53, 201, 252, 0.08) 0%,
-    transparent 50%
+    circle at top right,
+    rgba(56, 189, 248, 0.12) 0%,
+    transparent 40%
+  ), radial-gradient(
+    circle at bottom left,
+    rgba(168, 85, 247, 0.08) 0%,
+    transparent 40%
   );
 
-  /* ===== BORDERS & SHADOWS ===== */
+  /* BORDERS & SHADOWS */
   --border-radius-sm: 0.25rem;
   --border-radius-md: 0.5rem;
   --border-radius-lg: 1rem;
@@ -212,7 +216,7 @@
   --shadow-glow-strong: 0 0 30px rgba(53, 201, 252, 0.5);
   --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.4);
 
-  /* ===== TRANSITIONS & ANIMATIONS ===== */
+  /* TRANSITIONS & ANIMATIONS */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -221,7 +225,7 @@
   --animation-duration-base: 1s;
   --animation-duration-long: 2s;
 
-  /* ===== Z-INDEX SYSTEM ===== */
+  /* Z-INDEX SYSTEM */
   --z-dropdown: 10;
   --z-sticky: 20;
   --z-fixed: 100;
@@ -230,7 +234,7 @@
   --z-popover: 400;
   --z-tooltip: 500;
 
-  /* ===== BREAKPOINTS ===== */
+  /* BREAKPOINTS */
   --breakpoint-xs: 360px;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -239,14 +243,14 @@
   --breakpoint-2xl: 1536px;
 }
 
-/* ===== DARK MODE (Optional Future Enhancement) ===== */
+/* DARK MODE (Optional Future Enhancement) */
 @media (prefers-color-scheme: dark) {
   :root {
     /* Dark mode already applied as default */
   }
 }
 
-/* ===== LIGHT MODE (Optional Future Enhancement) ===== */
+/* LIGHT MODE (Optional Future Enhancement) */
 @media (prefers-color-scheme: light) {
   :root {
     --color-bg-primary: #ffffff;

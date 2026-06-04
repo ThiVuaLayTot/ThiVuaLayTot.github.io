@@ -114,10 +114,12 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: var(--z-fixed);
-  background: var(--gradient-dark-bg);
+  background: rgba(5, 8, 17, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--shadow-lg);
   padding: var(--space-sm) var(--space-4xl);
-  border-bottom: var(--border-width-base) solid var(--color-border-dark);
+  border-bottom: var(--border-width-thin) solid var(--color-border-dark);
   gap: var(--space-lg);
 }
 
@@ -636,19 +638,11 @@ footer {
   flex-direction: column;
   align-items: center;
   height: auto;
-  border: var(--border-width-base) solid transparent;
+  border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-md);
-  background: linear-gradient(
-    var(--color-bg-primary),
-    var(--color-bg-secondary)
-  ) padding-box,
-    linear-gradient(
-      103deg,
-      var(--purple-600) 16%,
-      var(--blue-700) 45%,
-      rgba(114, 217, 255, 0.636) 84.45%
-    ) border-box;
+  background: rgba(10, 15, 30, 0.4);
+  backdrop-filter: blur(8px);
   transition: all var(--transition-base);
   padding: var(--space-lg);
   box-sizing: border-box;
@@ -656,8 +650,9 @@ footer {
 }
 
 .list-item-people:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl), 0 0 15px rgba(56, 189, 248, 0.1);
+  border-color: var(--color-accent);
 }
 
 .profile-thumbnail {
@@ -736,35 +731,19 @@ footer {
   padding: var(--space-lg);
   margin-bottom: var(--space-lg);
   border-radius: var(--border-radius-lg);
-  border: var(--border-width-base) solid transparent;
-  background: linear-gradient(
-    var(--color-bg-primary),
-    var(--color-bg-secondary)
-  ) padding-box,
-    linear-gradient(
-      103deg,
-      var(--purple-600) 16%,
-      var(--blue-700) 45%,
-      rgba(114, 217, 255, 0.636) 80%
-    ) border-box;
-  transform: scale(1);
+  border: var(--border-width-thin) solid var(--color-border);
+  background: rgba(10, 15, 30, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translateY(0);
   transition: all var(--transition-base);
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lg);
-  border-radius: calc(var(--border-radius-lg) + 2px);
-  background: linear-gradient(
-    var(--color-bg-secondary),
-    var(--color-bg-tertiary)
-  ) padding-box,
-    linear-gradient(
-      103deg,
-      var(--purple-600) 16%,
-      var(--blue-700) 45%,
-      rgba(114, 217, 255, 0.636) 80%
-    ) border-box;
-  transform: scale(1.02);
+  box-shadow: var(--shadow-xl), 0 0 20px rgba(56, 189, 248, 0.1);
+  border-color: var(--color-accent);
+  background: rgba(10, 15, 30, 0.6);
+  transform: translateY(-5px);
 }
 
 .card_image {
