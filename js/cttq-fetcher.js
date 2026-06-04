@@ -238,7 +238,7 @@ class Renderer {
     static createPlayerRow(player, playerData, tournaments, cheaterSet, index) {
         const parsed = DataProcessor.parsePlayer(playerData);
         const isCheater = cheaterSet.has(player.username.toLowerCase());
-        const cheaterIcon = isCheater ? ' <i class="fa fa-exclamation" style="color: #f87171;" title="Tài khoản bị khóa"></i>' : '';
+        const cheaterIcon = isCheater ? ' <i class="bx bx-error-circle" style="color: #f87171;" title="Tài khoản bị khóa"></i>' : '';
 
         const playerTournaments = this.getPlayerTournaments(player.username, tournaments);
         const tournamentLinksHTML = playerTournaments.length > 0
@@ -270,7 +270,7 @@ class Renderer {
     static createCardRow(player, playerData, tournaments, cheaterSet, index) {
         const parsed = DataProcessor.parsePlayer(playerData);
         const isCheater = cheaterSet.has(player.username.toLowerCase());
-        const cheaterIcon = isCheater ? ' <i class="fa fa-warning" style="color: #f87171;" title="Tài khoản bị khóa"></i>' : '';
+        const cheaterIcon = isCheater ? ' <i class="bx bx-error" style="color: #f87171;" title="Tài khoản bị khóa"></i>' : '';
 
         const playerTournaments = this.getPlayerTournaments(player.username, tournaments);
         const tournamentLinksHTML = playerTournaments.length > 0
@@ -299,7 +299,7 @@ class Renderer {
                     <button class="cttq-toggle-btn"
                             onclick="const list = this.nextElementSibling; list.classList.toggle('show');
                                      this.innerHTML = list.classList.contains('show') ? '▼ Ẩn' : '▶ Xem (' + ${playerTournaments.length} + ')';">
-                        <i class="fa fa-chevron-right"></i> Xem (${playerTournaments.length})
+                        <i class="bx bx-chevron-right"></i> Xem (${playerTournaments.length})
                     </button>
                     <div class="cttq-tournament-list">
                         ${tournamentLinksHTML}
@@ -333,7 +333,7 @@ class Renderer {
             if (tournaments.length > 0) {
                 const incompleteTours = tournaments.filter(t => t.topPlayers.length === 0);
                 return `<tr><td colspan="3" style="text-align: center; padding: 20px; color: #f59e0b;">
-                    <div><i class="fa fa-stopwatch"></i> ${incompleteTours.length} giải đang diễn ra, chưa có kết quả</div>
+                    <div><i class="bx bx-stopwatch"></i> ${incompleteTours.length} giải đang diễn ra, chưa có kết quả</div>
                     <div style="font-size: 12px; margin-top: 8px; color: #999;">
                         ${incompleteTours.map(t => `<a href="${t.url}" target="_blank" style="color: #60a5fa;">${t.name}</a>`).join(`<br>`)}
                     </div>
@@ -370,7 +370,7 @@ class PageManager {
 
         section.innerHTML = `
             <div class="cttq-month-header">
-                <span><i class="fa fa-calendar"></i> Tháng ${monthId}</span>
+                <span><i class="bx bx-calendar"></i> Tháng ${monthId}</span>
                 <span id="${SELECTORS.stats(monthId).slice(1)}" style="font-size: 12px; color: #cbd5e1;">Đang tải...</span>
             </div>
             <table class="cttq-table">
@@ -396,7 +396,7 @@ class PageManager {
 
             // Update stats
             document.querySelector(SELECTORS.stats(monthId)).innerHTML =
-                `<i class="fa fa-users"></i> ${totalPlayers} người | <i class="fa fa-trophy"></i> ${tournaments.length} giải`;
+                `<i class="bx bx-group"></i> ${totalPlayers} người | <i class="bx bx-trophy"></i> ${tournaments.length} giải`;
 
             // Render table
             const tableHtml = Renderer.renderTableLayout(topPlayers, playerDetails, tournaments, cheaters);

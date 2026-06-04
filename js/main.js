@@ -8,12 +8,12 @@ document.getElementById("menu").addEventListener("click", function() {
     btn.setAttribute("aria-expanded", isActive);
     btn.setAttribute("aria-label", isActive ? "Đóng menu điều hướng" : "Mở menu điều hướng");
 
-    if (menu.classList.contains("fa-list")) {
-        menu.classList.remove("fa", "fa-list");
-        menu.classList.add("bx", "bx-x");
+    if (menu.classList.contains("bx-menu")) {
+        menu.classList.remove("bx-menu");
+        menu.classList.add("bx-x");
     } else {
-        menu.classList.remove("bx", "bx-x");
-        menu.classList.add("fa", "fa-list");
+        menu.classList.remove("bx-x");
+        menu.classList.add("bx-menu");
     }
 });
 

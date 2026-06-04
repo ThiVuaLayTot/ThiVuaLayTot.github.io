@@ -411,7 +411,7 @@ a:hover {
 
 .social_btn {
   display: flex;
-  justify-content: center;
+  justify-content: var(--social-align, center);
   flex-wrap: wrap;
   gap: var(--space-md);
   margin-top: var(--space-lg);
@@ -523,6 +523,12 @@ footer {
   gap: var(--space-2xl);
 }
 
+@media (min-width: 1024px) {
+  .footer_content {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  }
+}
+
 .link_boxes {
   width: 100%;
   display: flex;
@@ -595,6 +601,7 @@ footer {
 .bottom_text .container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   gap: var(--space-lg);
 }
@@ -673,7 +680,7 @@ footer {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: auto;
+  height: 100%;
   border: var(--border-width-thin) solid var(--color-border);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-md);
@@ -802,7 +809,8 @@ footer {
   justify-content: center;
   gap: var(--space-md);
   width: 100%;
-  margin-top: var(--space-md);
+  margin-top: auto;
+  padding-top: var(--space-lg);
 }
 
 /* CARDS */
@@ -811,6 +819,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  height: 100%;
   box-shadow: var(--shadow-md);
   position: relative;
   direction: ltr;
@@ -909,7 +918,9 @@ footer {
 }
 
 .card_tag {
+  margin-top: auto;
   font-weight: var(--fw-semibold);
+  display: inline-flex;
   align-items: center;
   border: var(--border-width-thin) dashed var(--color-primary);
   background: rgba(26, 115, 232, 0.08);

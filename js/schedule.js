@@ -55,7 +55,7 @@ async function loadTournaments() {
         document.getElementById('loading').style.display = 'none';
         document.getElementById('error').style.display = 'block';
         document.getElementById('error').innerHTML =
-            `<div class="error"><i class="fas fa-exclamation-circle"></i> Lỗi: ${error.message}</div>`;
+            `<div class="error"><i class="bx bx-error-circle"></i> Lỗi: ${error.message}</div>`;
     }
 }
 
