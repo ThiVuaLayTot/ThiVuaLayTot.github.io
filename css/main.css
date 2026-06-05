@@ -419,37 +419,45 @@ a:hover {
 }
 
 .social_btn a {
-  background: var(--gradient-purple-cyan);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   text-decoration: none;
   color: var(--color-primary-light);
   font-size: var(--fs-xl);
   border: var(--border-width-base) solid var(--color-primary-light);
   border-radius: var(--border-radius-full);
-  padding: var(--space-sm);
-  text-align: center;
   transition: all var(--transition-base);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.social_btn a span {
+  background: var(--gradient-purple-cyan);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .social_btn a img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
 .social_btn a:hover {
-  color: var(--color-bg-primary);
-  background: linear-gradient(90deg, var(--orange-400), var(--cyan-400));
+  background: var(--color-bg-hover);
+  box-shadow: 0 0 15px var(--color-accent);
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.social_btn a:hover span {
+  background: var(--gradient-accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
-  box-shadow: 0 0 20px var(--color-accent);
-  border-color: var(--color-accent);
-  transform: scale(1.1);
 }
 
 /* BACK TO TOP BUTTON */
@@ -500,7 +508,7 @@ footer {
 
 .footer {
   position: relative;
-  padding: var(--space-4xl) 0;
+  padding: var(--space-4xl) 0 var(--space-2xl);
   background: linear-gradient(
     135deg,
     rgba(56, 189, 248, 0.05) 0%,
