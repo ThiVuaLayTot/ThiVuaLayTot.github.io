@@ -26,7 +26,7 @@
   position: relative;
   border-collapse: collapse;
   width: 100%;
-  border: var(--border-width-base) solid rgba(59, 130, 246, 0.2);
+  border: var(--border-width-base) solid rgba(56, 189, 248, 0.2);
   font-size: var(--fs-sm);
   max-width: inherit;
   overflow: auto;
@@ -44,7 +44,7 @@
 
 .styled-table th,
 .styled-table td {
-  border-bottom: var(--border-width-thin) solid rgba(59, 130, 246, 0.15);
+  border-bottom: var(--border-width-thin) solid rgba(56, 189, 248, 0.15);
   padding: var(--space-md);
   font-size: var(--fs-sm);
   text-align: left;
@@ -76,7 +76,7 @@
 .styled-table tbody tr {
   background-color: rgba(25, 40, 75, 0.4);
   transition: all var(--transition-base);
-  border-bottom: var(--border-width-thin) solid rgba(59, 130, 246, 0.1);
+  border-bottom: var(--border-width-thin) solid rgba(56, 189, 248, 0.1);
   position: relative;
 }
 
@@ -85,15 +85,15 @@
 }
 
 .styled-table tbody tr:hover {
-  background-color: rgba(37, 99, 235, 0.15);
-  box-shadow: inset 8px 0 15px rgba(59, 130, 246, 0.15),
-    0 4px 12px rgba(59, 130, 246, 0.2);
+  background-color: var(--color-bg-hover);
+  box-shadow: inset 8px 0 15px rgba(56, 189, 248, 0.15),
+    0 4px 12px rgba(56, 189, 248, 0.2);
   transform: translateX(4px);
   border-left-width: 4px;
 }
 
 .styled-table td {
-  border-color: rgba(59, 130, 246, 0.1);
+  border-color: rgba(56, 189, 248, 0.1);
   color: var(--neutral-300);
   transition: color var(--transition-base);
 }
@@ -185,13 +185,13 @@
   transition: all var(--transition-base);
   cursor: pointer;
   object-fit: cover;
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(56, 189, 248, 0.1);
   display: block;
 }
 
 .cc-avatar-img:hover {
   transform: scale(1.15);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.8),
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.8),
     0 0 40px rgba(37, 99, 235, 0.4);
   border-color: var(--color-primary-light);
 }
@@ -282,7 +282,7 @@
 .search-bar {
   padding: var(--space-md);
   margin: var(--space-lg) 0;
-  border: var(--border-width-base) solid rgba(59, 130, 246, 0.3);
+  border: var(--border-width-base) solid rgba(56, 189, 248, 0.3);
   background: rgba(25, 40, 75, 0.6);
   color: var(--neutral-100);
   border-radius: var(--border-radius-lg);
@@ -302,8 +302,8 @@
   outline: none;
   border-color: var(--color-primary-light);
   background: rgba(25, 40, 75, 0.95);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3),
-    inset 0 1px 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3),
+    inset 0 1px 3px rgba(56, 189, 248, 0.1);
   transform: translateY(-2px);
 }
 
@@ -324,11 +324,11 @@
 .loading {
   background: linear-gradient(
     135deg,
-    rgba(59, 130, 246, 0.1) 0%,
+    rgba(56, 189, 248, 0.1) 0%,
     rgba(37, 99, 235, 0.08) 100%
   );
   color: var(--color-primary-light);
-  border: var(--border-width-base) solid rgba(59, 130, 246, 0.3);
+  border: var(--border-width-base) solid rgba(56, 189, 248, 0.3);
 }
 
 .error {
@@ -356,7 +356,7 @@
     rgba(15, 23, 42, 0.4) 100%
   );
   border-radius: var(--border-radius-lg);
-  border: var(--border-width-base) solid rgba(59, 130, 246, 0.2);
+  border: var(--border-width-base) solid rgba(56, 189, 248, 0.2);
   font-weight: var(--fw-medium);
 }
 
@@ -386,9 +386,9 @@
 .skeleton {
   background: linear-gradient(
     90deg,
-    rgba(59, 130, 246, 0.1) 25%,
-    rgba(59, 130, 246, 0.2) 50%,
-    rgba(59, 130, 246, 0.1) 75%
+    rgba(56, 189, 248, 0.1) 25%,
+    rgba(56, 189, 248, 0.2) 50%,
+    rgba(56, 189, 248, 0.1) 75%
   );
   background-size: 200% 100%;
   animation: loading 1.5s infinite;

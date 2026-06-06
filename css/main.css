@@ -115,7 +115,7 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: var(--z-fixed);
-  background: rgba(5, 8, 17, 0.85);
+  background: rgba(5, 8, 17, 0.85); /* Keep as is for specific transparency, but note it's derived from --color-bg-primary */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--shadow-lg);
@@ -200,7 +200,7 @@ a:hover {
 .topnav a:hover,
 .topnav a:active {
   color: var(--color-accent);
-  text-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
+  text-shadow: 0 0 12px rgba(96, 165, 250, 0.4); /* Equivalent to --blue-400 with opacity */
 }
 
 .topnav a:hover::after,
@@ -470,7 +470,7 @@ a:hover {
   outline: none;
   background: linear-gradient(
     135deg,
-    rgba(53, 201, 252, 0.9) 0%,
+    var(--cyan-400) 0%,
     rgba(53, 201, 252, 0.7) 100%
   );
   color: var(--color-text-primary);
@@ -487,7 +487,7 @@ a:hover {
 #back-to-top:hover {
   background: linear-gradient(
     135deg,
-    rgba(53, 201, 252, 1) 0%,
+    var(--cyan-400) 0%,
     rgba(53, 201, 252, 0.9) 100%
   );
   box-shadow: var(--shadow-glow-strong);
@@ -593,7 +593,7 @@ footer {
 }
 
 .bottom-details {
-  background: linear-gradient(90deg, #000000 0%, var(--color-bg-primary) 50%, #000000 100%);
+  background: linear-gradient(90deg, black 0%, var(--color-bg-primary) 50%, black 100%);
   border-top: var(--border-width-thin) solid var(--color-border-dark);
   width: 100%;
 }
@@ -994,7 +994,7 @@ footer {
   display: inline-flex;
   align-items: center;
   border: var(--border-width-thin) dashed var(--color-primary);
-  background: rgba(26, 115, 232, 0.08);
+  background: rgba(59, 130, 246, 0.08); /* Derived from --blue-500 */
   border-radius: var(--border-radius-md);
   padding: var(--space-xs) var(--space-sm);
   text-transform: uppercase;
@@ -1041,7 +1041,7 @@ footer {
   padding: 8px 0;
   background-color: var(--color-danger);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  color: var(--neutral-50);
   font-size: var(--fs-xs);
   font-weight: var(--fw-bold);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
