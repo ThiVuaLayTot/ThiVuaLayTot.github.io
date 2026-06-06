@@ -1,16 +1,16 @@
 .month-title {
     text-align: center;
-    font-size: 24px;
+    font-size: var(--fs-2xl);
     font-family: cursive;
-    font-weight: bold;
-    color: #36d8ff;
+    font-weight: var(--fw-bold);
+    color: var(--cyan-400);
     text-transform: uppercase;
-    text-shadow: 0 0 6px #00f2ff;
-    padding: 15px;
-    background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 100%);
-    border: 2px solid #2FB9FF;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #6FD8FF, 0 0 30px rgba(0, 242, 255, 0.4);
+    text-shadow: 0 0 6px var(--cyan-300);
+    padding: var(--space-md);
+    background: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg-tertiary) 100%);
+    border: var(--border-width-base) solid var(--cyan-400);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 0 15px var(--cyan-200), 0 0 30px rgba(0, 242, 255, 0.4);
 }
 
 #calendar-wrapper,
@@ -25,20 +25,20 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    background: radial-gradient(circle at center, #0b1a33 0%, #02040a 100%);
-    border: 2px solid #2FB9FF;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #6FD8FF,
+    background: radial-gradient(circle at center, var(--color-bg-tertiary) 0%, var(--color-bg-primary) 100%);
+    border: var(--border-width-base) solid var(--cyan-400);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 0 15px var(--cyan-200),
         0 0 30px rgba(0, 242, 255, 0.4),
         inset 0 0 20px rgba(0, 242, 255, 0.1);
 }
 
 thead {
-    background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 100%);
-    text-shadow: 0 0 10px #359bfc;
+    background: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg-tertiary) 100%);
+    text-shadow: 0 0 10px var(--blue-400);
     position: sticky;
     top: 0;
-    z-index: 20;
+    z-index: var(--z-sticky);
 }
 
 thead tr {
@@ -48,19 +48,19 @@ thead tr {
 thead th {
     text-align: center;
     width: 14.2857%;
-    color: #7ad9ef;
-    font-weight: 700;
+    color: var(--cyan-200);
+    font-weight: var(--fw-bold);
     padding: 12px 8px;
-    border-right: 1px solid rgba(47, 185, 255, 0.5);
+    border-right: 1px solid rgba(53, 201, 252, 0.5);
     text-transform: uppercase;
-    font-size: 0.85em;
+    font-size: var(--fs-xs);
     letter-spacing: 1.2px;
-    background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 100%);
+    background: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg-tertiary) 100%);
     border-left-style: hidden;
 }
 
 thead th:first-child {
-    border-left: 2px solid #2FB9FF;
+    border-left: var(--border-width-base) solid var(--cyan-400);
 }
 
 tbody tr {
@@ -73,11 +73,11 @@ tbody td {
     width: 14.2857%;
     vertical-align: top;
     padding: 10px 8px;
-    border: 1px solid rgba(47, 185, 255, 0.6);
+    border: 1px solid rgba(53, 201, 252, 0.6);
     position: relative;
     min-height: 100px;
     min-width: 124px;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
 }
 
 tbody td:hover {
@@ -87,20 +87,20 @@ tbody td:hover {
 /* Alternating background colors */
 tbody tr:nth-child(odd) td:nth-child(odd),
 tbody tr:nth-child(even) td:nth-child(even) {
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.14)), #070E24;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.14)), var(--color-bg-secondary);
 }
 
 tbody tr:nth-child(odd) td:nth-child(even),
 tbody tr:nth-child(even) td:nth-child(odd) {
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.18)), #060F28;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.18)), var(--color-bg-tertiary);
 }
 
 /* Day number */
 .day-number {
-    font-size: 16px;
-    font-weight: 700;
-    color: #9ECBE0;
-    margin-bottom: 6px;
+    font-size: var(--fs-base);
+    font-weight: var(--fw-bold);
+    color: var(--neutral-300);
+    margin-bottom: var(--space-sm);
     opacity: 1;
     display: block;
     text-align: center;
@@ -111,16 +111,16 @@ tbody tr:nth-child(even) td:nth-child(odd) {
 /* Other month days */
 td.other-month .day-number {
     opacity: 0.35;
-    color: #4a7a8f;
+    color: var(--neutral-500);
 }
 
 /* Today highlight */
 td.today .day-number {
-    color: #ffc107 !important;
-    opacity: 1.5 !important;
-    font-weight: bold;
-    font-size: 20px;
-    text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+    color: var(--yellow-400) !important;
+    opacity: 1 !important;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-xl);
+    text-shadow: 0 0 5px rgba(250, 204, 21, 0.5);
 }
 
 /* Events container */
@@ -139,14 +139,14 @@ td.today .day-number {
     justify-content: center;
     width: 60px;
     height: 60px;
-    filter: drop-shadow(0 0 5px #00f2ff);
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 4px;
+    filter: drop-shadow(0 0 5px var(--cyan-300));
+    transition: all var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: var(--border-radius-sm);
     flex-shrink: 0;
 }
 
 .event-icon:hover {
-    filter: drop-shadow(0 0 6px rgba(0, 242, 255, 0.9));
+    filter: drop-shadow(0 0 6px rgba(125, 211, 255, 0.9));
     transform: scale(1.15) translateY(-2px);
 }
 
@@ -181,17 +181,17 @@ td.today .day-number {
 }
 
 .modal-content {
-    background: radial-gradient(circle at top left, #0f1a2a 0%, #050a15 100%);
+    background: radial-gradient(circle at top left, var(--color-bg-tertiary) 0%, var(--color-bg-primary) 100%);
     margin: 5% auto;
-    padding: 20px;
-    border-radius: 15px;
+    padding: var(--space-lg);
+    border-radius: var(--border-radius-lg);
     width: 90%;
     max-width: 600px;
-    border: 2px solid #2FB9FF;
+    border: var(--border-width-base) solid var(--cyan-400);
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.3),
         0 0 40px rgba(0, 102, 204, 0.2);
-    animation: slideIn 0.3s;
-    color: #9ECBE0;
+    animation: slideIn var(--transition-base);
+    color: var(--neutral-300);
     max-height: 80vh;
     overflow-y: auto;
 }
@@ -209,38 +209,38 @@ td.today .day-number {
 }
 
 .close-modal {
-    color: #6a9ab0;
+    color: var(--neutral-500);
     float: right;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: var(--fs-3xl);
+    font-weight: var(--fw-bold);
     cursor: pointer;
 }
 
 .close-modal:hover {
-    color: #00f2ff;
+    color: var(--cyan-300);
     text-shadow: 0 0 5px rgba(0, 242, 255, 0.5);
 }
 
 .modal-header {
-    border-bottom: 3px solid #2FB9FF;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
+    border-bottom: var(--border-width-thick) solid var(--cyan-400);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
 }
 
 .modal-header h2 {
-    color: #36d8ff;
+    color: var(--cyan-400);
     margin: 0;
-    font-size: 1.5em;
-    text-shadow: 0 0 6px #00f2ff;
+    font-size: var(--fs-2xl);
+    text-shadow: 0 0 6px var(--cyan-300);
 }
 
 .modal-banner {
     width: 100%;
     max-height: 300px;
     object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #2FB9FF;
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--space-lg);
+    border: var(--border-width-thin) solid var(--cyan-400);
 }
 
 .modal-body {
@@ -254,16 +254,16 @@ td.today .day-number {
 }
 
 .modal-body strong {
-    color: #36d8ff;
+    color: var(--cyan-400);
     display: inline-block;
     min-width: 120px;
-    font-weight: bold;
+    font-weight: var(--fw-bold);
     text-shadow: 0 0 3px rgba(0, 242, 255, 0.3);
 }
 
 .modal-body i {
-    color: #00f2ff;
-    margin-right: 15px;
+    color: var(--cyan-300);
+    margin-right: var(--space-md);
     min-width: 20px;
     margin-top: 2px;
     filter: drop-shadow(0 0 3px rgba(0, 242, 255, 0.3));
@@ -305,45 +305,45 @@ td.today .day-number {
 
 .btn-primary {
     background: linear-gradient(135deg, rgba(0, 102, 204, 0.3) 0%, rgba(0, 242, 255, 0.3) 100%);
-    color: #00f2ff;
-    border: 2px solid #2FB9FF;
+    color: var(--cyan-300);
+    border: var(--border-width-base) solid var(--cyan-400);
     box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
-    border-color: #00f2ff;
+    border-color: var(--cyan-300);
 }
 
 .btn-secondary {
     background: rgba(31, 60, 100, 0.3);
-    color: #36d8ff;
-    border: 2px solid #2FB9FF;
+    color: var(--cyan-400);
+    border: var(--border-width-base) solid var(--cyan-400);
     box-shadow: 0 0 5px rgba(0, 242, 255, 0.2);
 }
 
 .btn-secondary:hover {
     background: rgba(31, 60, 100, 0.5);
-    color: #00f2ff;
+    color: var(--cyan-300);
     box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
 }
 
 .loading {
     text-align: center;
     padding: 60px 20px;
-    color: #36d8ff;
+    color: var(--cyan-400);
     text-shadow: 0 0 5px rgba(0, 242, 255, 0.3);
 }
 
 .loading-spinner {
     border: 4px solid rgba(0, 242, 255, 0.1);
-    border-top: 4px solid #00f2ff;
-    border-right: 4px solid #2FB9FF;
+    border-top: 4px solid var(--cyan-300);
+    border-right: 4px solid var(--cyan-400);
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    animation: spin 1s linear infinite;
+    animation: spin var(--animation-duration-base) linear infinite;
     margin: 0 auto 20px;
     box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
 }
@@ -359,20 +359,20 @@ td.today .day-number {
 }
 
 .error {
-    background: rgba(255, 77, 77, 0.1);
-    color: #ff6b6b;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px;
-    border: 2px solid #ff6b6b;
-    box-shadow: 0 0 10px rgba(255, 107, 107, 0.2);
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--red-300);
+    padding: var(--space-md);
+    border-radius: var(--border-radius-md);
+    margin: var(--space-lg);
+    border: var(--border-width-base) solid var(--red-400);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
 }
 
 .empty-message {
     text-align: center;
     padding: 40px;
-    color: #6a9ab0;
-    font-size: 1.1em;
+    color: var(--neutral-500);
+    font-size: var(--fs-lg);
     text-shadow: 0 0 3px rgba(0, 242, 255, 0.2);
 }
 
@@ -399,13 +399,13 @@ td.today .day-number {
 }
 
 .cc-modal-dialog {
-    background: radial-gradient(circle at top left, #0f1a2a 0%, #050a15 100%);
-    border-radius: 16px;
+    background: radial-gradient(circle at top left, var(--color-bg-tertiary) 0%, var(--color-bg-primary) 100%);
+    border-radius: var(--border-radius-xl);
     width: max-content;
     max-width: max-content;
     max-height: 90vh;
     overflow: hidden;
-    border: 2px solid #2FB9FF;
+    border: var(--border-width-base) solid var(--cyan-400);
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.3), 0 0 40px rgba(0, 102, 204, 0.2);
     display: grid;
     grid-template-columns: 450px 500px;
@@ -421,10 +421,10 @@ td.today .day-number {
     position: relative;
     grid-column: 1;
     grid-row: 1;
-    background: #08101b;
+    background: var(--color-bg-primary);
     max-height: 320px;
     border-radius: 14px;
-    border: 1px solid rgba(47, 185, 255, 0.18);
+    border: var(--border-width-thin) solid rgba(53, 201, 252, 0.18);
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
 }
 
@@ -457,10 +457,10 @@ td.today .day-number {
     flex: 0 0 80px;
     width: 80px;
     height: 80px;
-    border-radius: 12px;
+    border-radius: var(--border-radius-lg);
     overflow: hidden;
     background-color: rgba(9, 27, 47, 0.8);
-    border: 2px solid #2FB9FF;
+    border: var(--border-width-base) solid var(--cyan-400);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -474,18 +474,18 @@ td.today .day-number {
 }
 
 .cc-modal-title-section h2 {
-    color: #36d8ff;
+    color: var(--cyan-400);
     margin: 0 0 0.3rem 0;
-    font-size: 1.5rem;
-    text-shadow: 0 0 6px #00f2ff;
+    font-size: var(--fs-2xl);
+    text-shadow: 0 0 6px var(--cyan-300);
     line-height: 1.2;
 }
 
 .cc-modal-category {
     text-transform: uppercase;
     font-size: 0.75em;
-    font-weight: 800;
-    color: #3f79e6;
+    font-weight: var(--fw-bold);
+    color: var(--blue-400);
     margin-bottom: 0.5em;
     letter-spacing: 0.5px;
 }
@@ -510,16 +510,16 @@ td.today .day-number {
 }
 
 .cc-modal-info-item i {
-    color: #00f2ff;
+    color: var(--cyan-300);
     min-width: 20px;
     margin-top: 2px;
     filter: drop-shadow(0 0 3px rgba(0, 242, 255, 0.3));
 }
 
 .cc-modal-info-item strong {
-    color: #36d8ff;
+    color: var(--cyan-400);
     min-width: 80px;
-    font-weight: 600;
+    font-weight: var(--fw-semibold);
 }
 
 .cc-modal-close {
@@ -528,24 +528,24 @@ td.today .day-number {
     top: 1rem;
     width: 2.5rem;
     height: 2.5rem;
-    border: 2px solid #2FB9FF;
-    border-radius: 50%;
+    border: var(--border-width-base) solid var(--cyan-400);
+    border-radius: var(--border-radius-full);
     background: rgba(10, 32, 54, 0.95);
-    color: #fff;
-    font-size: 1.4rem;
+    color: var(--color-text-primary);
+    font-size: var(--fs-xl);
     line-height: 1.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast) ease;
     z-index: 10;
 }
 
 .cc-modal-close:hover {
     transform: scale(1.1);
     background: rgba(0, 242, 255, 0.25);
-    color: #00f2ff;
+    color: var(--cyan-300);
     box-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
 }
 

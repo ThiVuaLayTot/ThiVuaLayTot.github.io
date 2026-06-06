@@ -244,21 +244,3 @@
   --breakpoint-2xl: 1536px;
 }
 
-/* DARK MODE (Optional Future Enhancement) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark mode already applied as default */
-  }
-}
-
-/* LIGHT MODE (Optional Future Enhancement) */
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-bg-primary: #ffffff;
-    --color-bg-secondary: #f3f4f6;
-    --color-bg-tertiary: #e5e7eb;
-    --color-text-primary: #111827;
-    --color-text-secondary: #4b5563;
-    --color-text-muted: #6b7280;
-  }
-}
