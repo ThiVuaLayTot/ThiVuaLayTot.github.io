@@ -1,0 +1,10 @@
+127.0.0.1 - - [06/Jun/2026 13:11:23] "HEAD / HTTP/1.1" 200 -
+127.0.0.1 - - [06/Jun/2026 13:19:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [06/Jun/2026 13:19:55] "GET /css/home.css HTTP/1.1" 200 -
+127.0.0.1 - - [06/Jun/2026 13:19:55] "GET /js/main.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Jun/2026 13:19:55] "GET /js/wow.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Jun/2026 13:19:55] code 404, message File not found
+127.0.0.1 - - [06/Jun/2026 13:19:55] "GET /images/bg-pattern.png HTTP/1.1" 404 -
+127.0.0.1 - - [06/Jun/2026 13:19:55] "GET /images/tvltlogo.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Jun/2026 13:19:58] "GET /blog/ HTTP/1.1" 200 -
+127.0.0.1 - - [06/Jun/2026 13:20:00] "GET /video.md HTTP/1.1" 200 -

@@ -13,10 +13,10 @@
     <div id="section-page" style="padding-top: var(--space-4xl);">
         <div class="container">
             <div id="post">
-                <div class="information">
+                <div class="information" style="text-align: center;">
                     <img src="/images/{{ page.id }}.png" alt="{{ page.title }}" class="banner">
                     <h1 class="title">{{ page.title }}</h1>
-                    <i class="short_text">{{ page.description }}</i>
+                    <i class="short_text" style="display: block; margin-bottom: var(--space-md);">{{ page.description }}</i>
                 <p align="center"><a href="/{{ page.category }}" class="card_tag"><span class="bx bx-tag"></span> {{ page.tags }}</a></p>
                 <ul class="tab">
                     <li><a href="/blog">Tất cả bài đăng</a></li>
@@ -35,14 +35,16 @@
                         <div class="card_image_container">
                             <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image" loading="lazy" decoding="async"></a>
                         </div>
-                        <div class="post_in4">
-                            <div class="card_detail">
-                            <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
+                        <div class="card_content">
+                            <div class="post_in4">
+                                <div class="card_detail">
+                                    <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
+                                </div>
                             </div>
+                            <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
+                            <i class="card_in4">{{ post.description }}</i>
+                            <span class="card_tag"><a href="\{{ post.category }}"><span class="bx bx-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
                         </div>
-                        <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
-                        <i class="card_in4">{{ post.description }}</i>
-                        <span class="card_tag"><a href="\{{ post.category }}"><span class="bx bx-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
                     </article> {% endfor %}
                 </section>
                 <div class="main"><a href="/blog"><span class="btn">Đọc thêm</span></a></div>
