@@ -152,11 +152,9 @@ a:hover {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  opacity: 0;
   animation: slideInLeft 1s ease forwards;
   width: 50px;
   height: 50px;
-  border-radius: var(--border-radius-md);
   transition: transform var(--transition-base);
   overflow: hidden;
 }
