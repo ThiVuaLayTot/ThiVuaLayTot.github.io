@@ -17,8 +17,8 @@
                     <img src="/images/{{ page.id }}.png" alt="{{ page.title }}" class="banner">
                     <h1 class="title">{{ page.title }}</h1>
                     <i class="short_text" style="display: block; margin-bottom: var(--space-md);">{{ page.description }}</i>
-                <p align="center"><a href="/{{ page.category }}" class="card_tag"><span class="bx bx-tag"></span> {{ page.tags }}</a></p>
-                <ul class="tab">
+                <p align="center"><a href="/{{ page.category }}" class="card_tag"><span class="bx bx-purchase-tag-alt"></span> {{ page.tags }}</a></p>
+                <ul class="nav-tabs">
                     <li><a href="/blog">Tất cả bài đăng</a></li>
                     <li><a href="/chess">Kiến thức cờ vua</a></li>
                     <li><a href="/news">Thông báo/Tin tức</a></li>
@@ -43,7 +43,7 @@
                             </div>
                             <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
                             <i class="card_in4">{{ post.description }}</i>
-                            <span class="card_tag"><a href="\{{ post.category }}"><span class="bx bx-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
+                            <span class="card_tag"><a href="{{ post.category }}"><span class="bx bx-purchase-tag-alt"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
                         </div>
                     </article> {% endfor %}
                 </section>

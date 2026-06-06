@@ -816,7 +816,7 @@ footer {
 
 /* TAB NAVIGATION */
 
-.tab {
+.nav-tabs {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -827,7 +827,7 @@ footer {
   border-bottom: var(--border-width-thin) solid var(--color-border-light);
 }
 
-.tab li a {
+.nav-tabs li a {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -839,14 +839,14 @@ footer {
   position: relative;
 }
 
-.tab li a.active,
-.tab li a:hover {
+.nav-tabs li a.active,
+.nav-tabs li a:hover {
   color: var(--color-accent);
   background: var(--color-bg-hover);
   text-decoration: none;
 }
 
-.tab li a.active::after {
+.nav-tabs li a.active::after {
   content: "";
   position: absolute;
   bottom: calc(-1 * var(--border-width-thin));

@@ -417,7 +417,7 @@ title: Bảng tổng giải Chiến Trường Thí Quân
             .cttq-month-header { padding: 10px 12px; font-size: 13px; }
 }</style>
 <h1 align="center">Các kỳ thủ đạt giải <a href="/events/cttq-chien-truong-thi-quan" style="color: lightskyblue">Chiến Trường Thí Quân</a></h1>
-<ul class="tab">
+<ul class="nav-tabs">
     <li><a href="tvlt">Thí Vua Lấy Tốt</a></li>
     <li><a href="cbtt">Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq" class="active">Chiến Trường Thí Quân</a></li>

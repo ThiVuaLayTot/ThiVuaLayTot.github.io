@@ -5,7 +5,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
 
 <h1 class="title">Các thông báo quan trọng và các bài đăng nổi bật</h1>
 <p align="right"><a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
-<ul class="tab">
+<ul class="nav-tabs">
     <li><a href="/blog" class="active"><span class="bx bxs-news"></span>Tất cả bài đăng</a></li>
     <li><a href="/chess"><span class="bx bxs-chess"></span>Kiến thức cờ vua</a></li>
     <li><a href="/news"><span class="bx bx-news"></span>Thông báo/Tin tức</a></li>
@@ -25,7 +25,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
             </div>
             <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
             <i class="card_in4">{{ post.description }}</i>
-            <span class="card_tag"><a href="/{{ post.category }}"><span class="bx bx-tag"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
+            <span class="card_tag"><a href="/{{ post.category }}"><span class="bx bx-purchase-tag-alt"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
         </div>
     </article>
 {% endfor %}
@@ -44,7 +44,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
                 <b class="card_author"><span class="bx bx-user"></span>Các quản trị viên</b>
                 <span class="card_date"><span class="bx bx-time"></span>25 thg 7, 2024</span>
             </div>
-            <span class="card_tag"><a href="/news"><span class="bx bx-tag"></span>Quy định</a></span>
+            <span class="card_tag"><a href="/news"><span class="bx bx-purchase-tag-alt"></span>Quy định</a></span>
         </div>
     </article>
     <article class="card">
@@ -58,7 +58,7 @@ title: Các thông báo quan trọng và các bài đăng nổi bật
                 <b class="card_author"><span class="bx bx-user"></span>Các quản trị viên</b>
                 <span class="card_date"><span class="bx bx-time"></span>5 thg 3, 2024</span>
             </div>
-            <span class="card_tag"><a href="/news"><span class="bx bx-tag"></span>Quy định</a></span>
+            <span class="card_tag"><a href="/news"><span class="bx bx-purchase-tag-alt"></span>Quy định</a></span>
         </div>
     </article>
 </div>
