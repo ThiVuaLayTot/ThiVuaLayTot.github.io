@@ -3,7 +3,7 @@ layout: default
 title: Ban cán sự của Thí Vua Lấy Tốt
 ---
 
-<h1 class="title">Các thành viên điều hành chính</h1>
+<h1 class="title"><span>Các thành viên điều hành chính</span></h1>
 <ul class="tab">
     <li><a href="#admins"><span class="bx bxs-shield admin-icon"></span>Các điều hành viên</a></li>
     <li><a href="#contact"><span class="bx bxs-help-circle admin-icon"></span> Liên hệ & Hỗ trợ</a></li>
@@ -15,7 +15,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
             <div class="list-item-info">
                 <img class="profile-thumbnail" src="https://images.chesscomfiles.com/uploads/v1/group/515437.8435c963.160x160o.57cc274de812.png" />
                 <div class="list-people-detail">
-                    <div class="name">Mr. TungJohn</div>
+                    <div class="name"><a href="https://chess.com/member/tungjohn2005" target="_blank">Mr. TungJohn</a></div>
                     <div class="list-detail">
                         <p class="role-admin"><span class="bx bxs-user-rectangle admin-icon"></span>Chủ kênh</p>
                         <p><span class="bx bx-task task-icon"></span>Đứng đầu, Chủ giải <a href="/events/tvlt-thi-vua-lay-tot">Thí Vua Lấy Tốt</a>, Nhà sáng tạo nội dung</p>
