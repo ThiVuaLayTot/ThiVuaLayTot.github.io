@@ -156,6 +156,15 @@
   --color-danger-dark: var(--red-700);
 
   /* Legacy / Compatibility Aliases */
+  --legacy-primary-dark: linear-gradient(135deg, #0a0f1a 0%, #0f172a 40%, #08192d 100%),
+                    radial-gradient(ellipse at 100% 100%, rgba(53, 201, 252, 0.08) 0%, transparent 50%),
+                    radial-gradient(ellipse at 0% 0%, rgba(201, 36, 243, 0.03) 0%, transparent 60%);
+  --legacy-pink: #c924f3;
+  --legacy-blue: #409EFF;
+  --legacy-purple: #8342f3;
+  --legacy-green: #26d23d;
+  --legacy-light-green: #31ff4c;
+
   --primary-color: var(--color-primary);
   --primary-success: var(--color-success);
   --primary-sucess: var(--color-success); /* Legacy typo fallback */
