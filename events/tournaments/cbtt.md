@@ -4,7 +4,7 @@ title: Bảng tổng giải Cờ Bí Thí Tốt
 ---
 
 <h1 align="center">Các kỳ thủ đạt giải <a href="/events/cbtt-co-bi-thi-tot" style="color: lightskyblue">Cờ Bí Thí Tốt</a></h1>
-<ul class="tab">
+<ul class="nav-tabs">
     <li><a href="tvlt">Thí Vua Lấy Tốt</a></li>
     <li><a href="cbtt" class="active">Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>

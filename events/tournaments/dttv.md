@@ -4,7 +4,7 @@ title: Bảng tổng giải Đấu Trường Thí Vua
 ---
 
 <h1 align="center">Các kỳ thủ đạt giải Đấu Trường Thí Vua</h1>
-<ul class="tab">
+<ul class="nav-tabs">
     <li><a href="tvlt">Thí Vua Lấy Tốt</a></li>
     <li><a href="cbtt">Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>

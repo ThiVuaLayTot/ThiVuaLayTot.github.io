@@ -4,7 +4,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 ---
 
 <h1 class="title"><span>Các thành viên điều hành chính</span></h1>
-<ul class="tab">
+<ul class="nav-tabs">
     <li><a href="#admins"><span class="bx bxs-shield admin-icon"></span>Các điều hành viên</a></li>
     <li><a href="#contact"><span class="bx bxs-help-circle admin-icon"></span> Liên hệ & Hỗ trợ</a></li>
 </ul>

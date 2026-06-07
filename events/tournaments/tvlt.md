@@ -4,7 +4,7 @@ title: Bảng tổng giải Thí Vua Lấy Tốt
 ---
 
 <h1 align="center">Các kỳ thủ đạt giải <a href="/events/tvlt-thi-vua-lay-tot" style="color: lightskyblue">Thí Vua Lấy Tốt</a></h1>
-<ul class="tab">
+<ul class="nav-tabs">
     <li><a href="tvlt" class="active">Thí Vua Lấy Tốt</a></li>
     <li><a href="cbtt" >Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>
