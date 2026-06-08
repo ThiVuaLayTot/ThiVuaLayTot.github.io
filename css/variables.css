@@ -138,7 +138,7 @@
   /* SEMANTIC COLORS */
   --color-primary: var(--blue-500);
   --color-primary-dark: var(--blue-700);
-  --color-primary-light: var(--blue-300);
+  --color-primary-light: #409EFF;
 
   --color-accent: #38bdf8; /* Brighter Cyan */
   --color-accent-dark: #0ea5e9;
