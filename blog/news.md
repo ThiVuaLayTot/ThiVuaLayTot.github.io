@@ -28,5 +28,33 @@ permalink: /news/
         </div>
     </article>
 {% endif %} {% endfor %}
+    <article class="card">
+        <div class="card_image_container">
+            <a href="https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024" target="_blank"><img src="https://images.chesscomfiles.com/uploads/v1/news/1447745.59c40bc3.668x375o.d96fb1f62f12.png" class="card_image"></a>
+        </div>
+        <div class="card_content">
+            <a href="https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024" target="_blank"><h4 class="card_title">Luật câu lạc bộ Thí Vua Lấy Tốt chính thức</h4></a>
+            <i class="card_in4">Quy định chính thức của câu lạc bộ Thí Vua Lấy Tốt.</i>
+            <div class="card_detail">
+                <b class="card_author"><span class="bx bx-user"></span>Các quản trị viên</b>
+                <span class="card_date"><span class="bx bx-time"></span>25 thg 7, 2024</span>
+            </div>
+            <span class="card_tag"><a href="/news"><span class="bx bx-purchase-tag-alt"></span>Quy định</a></span>
+        </div>
+    </article>
+    <article class="card">
+        <div class="card_image_container">
+            <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" target="_blank"><img src="/images/tvlt/tvlt_bg.jpg" class="card_image"></a>
+        </div>
+        <div class="card_content">
+            <a href="https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot" target="_blank"><h4 class="card_title">Chính sách Chơi Công Bằng chính thức của Thí Vua Lấy Tốt</h4></a>
+            <i class="card_in4">Quy định Fair Play trong các sự kiện của câu lạc bộ Thí Vua Lấy Tốt.</i>
+            <div class="card_detail">
+                <b class="card_author"><span class="bx bx-user"></span>Các quản trị viên</b>
+                <span class="card_date"><span class="bx bx-time"></span>5 thg 3, 2024</span>
+            </div>
+            <span class="card_tag"><a href="/news"><span class="bx bx-purchase-tag-alt"></span>Quy định</a></span>
+        </div>
+    </article>
 </section>
 <div class="main"><a href="/blog"><span class="btn">Đọc thêm</span></a></div>
