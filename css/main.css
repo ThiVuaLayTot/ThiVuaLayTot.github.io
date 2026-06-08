@@ -501,6 +501,7 @@ footer {
 .footer_content .col_1 {
     grid-column: span 1 / span 1;
     align-items: center;
+    justify-content: center;
 }
 
 .footer_content .link_boxes {
@@ -1007,7 +1008,7 @@ footer .bottom-details .bottom_text {
 }
 
 .card_tag a {
-  color: var(--color-text-muted);
+  color: var(--color-primary-light);
   display: flex;
   align-items: center;
   gap: 4px;
