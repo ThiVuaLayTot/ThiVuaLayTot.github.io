@@ -52,7 +52,7 @@ section, .about, .service, .experience, .blog {
     content: "";
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(5, 8, 17, 0.8), rgba(5, 8, 17, 0.8)), url('/images/bg-pattern.png');
+    background: linear-gradient(rgba(5, 8, 17, 0.8), rgba(5, 8, 17, 0.8)), url('/images/tvlt/tvlt_bg.jpg');
     background-attachment: fixed;
     z-index: 1;
 }
