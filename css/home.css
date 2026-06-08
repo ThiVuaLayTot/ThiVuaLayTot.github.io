@@ -137,6 +137,31 @@ section, .about, .service, .experience, .blog {
     width: 50%;
 }
 
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    background: var(--color-bg-primary);
+    border: 3px solid var(--color-accent);
+    top: calc(var(--space-md) + var(--space-lg));
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-item.left {
+    left: 0;
+}
+
+.timeline-item.right {
+    left: 50%;
+}
+
+.timeline-item.right::after {
+    left: -10px;
+}
+
 .timeline-text {
     padding: var(--space-lg);
     background: var(--color-bg-secondary);
