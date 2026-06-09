@@ -408,7 +408,7 @@ td.today .day-number {
     border: var(--border-width-base) solid var(--cyan-400);
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.3), 0 0 40px rgba(0, 102, 204, 0.2);
     display: grid;
-    grid-template-columns: 450px 500px;
+    grid-template-columns: 470px 520px;
     grid-template-rows: auto;
     gap: 0 1rem;
     padding: 1rem;
