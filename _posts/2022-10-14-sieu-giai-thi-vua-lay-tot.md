@@ -10,24 +10,22 @@ permalink: /events/tvlt-thi-vua-lay-tot
 
 ## Một số thông tin chung
 
-*Giải đấu được quản lý bởi [Mr.TungJohn](/leaders#owner).*
+*Giải đấu được quản lý bởi [Mr.TungJohn](/leaders#owner)*. Kết quả các giải theo từng tháng được công bố **[tại đây](/events/tournaments/tvlt)**.
 
 Giải đấu có thưởng đầu tiên của **Thí Vua Lấy Tốt** được tổ chức vào [ngày 15 tháng 12 năm 2022](https://chess.com/tournament/live/arena/th-vua-ly-tt-2171704).  
 Sau giai đoạn thử nghiệm, thể lệ chính thức được ổn định và áp dụng từ **tháng 6 năm 2023** đến hiện tại.
-
 ## ♟️ Thể lệ chính
 
 - Tổ chức **định kỳ khoảng 1 giải/tháng** (có thể điều chỉnh theo thực tế).
 - Phần lớn giải đấu áp dụng thể thức
-  [**Thụy Sĩ**](https://chess.com/terms/swiss-chess).
+  [**hệ Thụy Sĩ**](https://chess.com/terms/swiss-chess) và đôi khi sẽ là [**Đấu trường (Arena)](https://support.chess.com/articles/8562889-what-are-arena-tournaments).
 - **Cờ tiêu chuẩn** và  
   [**Chess960**](https://chess.com/article/chess-variants#Chess960) sẽ được chọn ngẫu nhiên mỗi tháng (cờ tiêu chuẩn là hình thức chủ đạo).
 - Tất cả các giải đều **có xếp hạng** trên Chess.com.
 
-## 📅 Lịch & kết quả
+## 📅 Lịch tổ chức
 
 - Giải thường diễn ra vào **thứ Bảy, Chủ nhật** hoặc các dịp đặc biệt.
-- Kết quả các giải theo từng tháng được công bố **[tại đây](/events/tournaments/tvlt)**.
 
 ## 🏆 Giải thưởng
 

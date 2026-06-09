@@ -25,7 +25,7 @@ Bảng kết quả tổng hợp theo tháng được công bố **[tại đây](
 ## ♟️ Thể lệ chính
 
 - Sự kiện được tổ chức theo **chu kỳ vài tháng một lần**; mỗi đợt bao gồm **nhiều giải**, kết quả chung được tính bằng **tổng điểm các giải trong tháng** ([xem chi tiết](/events/tournaments/cttq)).
-- Toàn bộ giải đấu áp dụng thể thức **Arena**.
+- Toàn bộ giải đấu áp dụng thể thức [**Arena**](https://support.chess.com/articles/8562889-what-are-arena-tournaments).
 - Luân phiên giữa **cờ tiêu chuẩn** và [**Chess960**](https://chess.com/article/chess-variants#Chess960) *(cờ tiêu chuẩn là hình thức chủ đạo)*.
 
 ---
