@@ -67,6 +67,8 @@ const TIME_CONTROL_REGEX = /^(\d+)\+(\d+)$/;
 const Cache = {
     players: new Map(),
     tournaments: new Map(),
+    rounds: new Map(),
+    groups: new Map(),
 
     getPlayer(username) {
         return this.players.get(username);
@@ -88,9 +90,27 @@ const Cache = {
         this.tournaments.set(id, data);
     },
 
+    getRound(id) {
+        return this.rounds.get(id);
+    },
+
+    setRound(id, data) {
+        this.rounds.set(id, data);
+    },
+
+    getGroup(url) {
+        return this.groups.get(url);
+    },
+
+    setGroup(url, data) {
+        this.groups.set(url, data);
+    },
+
     clear() {
         this.players.clear();
         this.tournaments.clear();
+        this.rounds.clear();
+        this.groups.clear();
     }
 };
 
@@ -253,7 +273,29 @@ async function fetchTournamentData(tourId) {
  * @returns {Promise<Object|null>}
  */
 async function fetchRoundData(tourId, roundNum) {
-    return fetchJSON(URLs.round(tourId, roundNum), `fetchRoundData:${tourId}:${roundNum}`);
+    const cacheKey = `${tourId}:${roundNum}`;
+    if (Cache.getRound(cacheKey)) {
+        return Cache.getRound(cacheKey);
+    }
+
+    const data = await fetchJSON(URLs.round(tourId, roundNum), `fetchRoundData:${cacheKey}`);
+    if (data) Cache.setRound(cacheKey, data);
+    return data;
+}
+
+/**
+ * Fetch group data for a tournament round.
+ * @param {string} url - Group API URL.
+ * @returns {Promise<Object|null>}
+ */
+async function fetchGroupData(url) {
+    if (Cache.getGroup(url)) {
+        return Cache.getGroup(url);
+    }
+
+    const data = await fetchJSON(url, `fetchGroupData:${url}`);
+    if (data) Cache.setGroup(url, data);
+    return data;
 }
 
 /**
@@ -380,40 +422,6 @@ function parseTimeControl(tcRaw) {
 }
 
 /**
- * Get player points from round data.
- * @param {string} username - Username to look for.
- * @param {Object} roundData - Round data object.
- * @returns {number}
- */
-function getPlayerPoints(username, roundData) {
-    if (!roundData?.players) return 0;
-
-    const player = roundData.players.find(p =>
-        p.username && p.username.toLowerCase() === username.toLowerCase()
-    );
-
-    return player?.points || 0;
-}
-
-/**
- * Sort and extract top players with their points.
- * @param {string[]} playersOrder - Ordered list of usernames.
- * @param {Object} roundData - Round data for points.
- * @param {number} [maxCount=6] - Max players to extract.
- * @returns {Object} {players: string[], points: number[]}
- */
-function getTopPlayers(playersOrder, roundData, maxCount = 6) {
-    if (!playersOrder || playersOrder.length === 0) {
-        return { players: [], points: [] };
-    }
-
-    const players = playersOrder.slice(0, maxCount);
-    const points = players.map(username => getPlayerPoints(username, roundData));
-
-    return { players, points };
-}
-
-/**
  * Parse raw player API data into a standard object.
  * @param {Object} playerData - Raw player data.
  * @returns {Object}
@@ -452,17 +460,46 @@ async function parseTournamentData(data, tourId) {
     }
 
     const rounds = tournament.settings?.total_rounds || tournament.rounds || tournament.total_rounds || 0;
+    let allPlayers = [];
 
-    let roundInfo = null;
     if (rounds > 0) {
-        roundInfo = await fetchRoundData(tourId, rounds);
+        const roundData = await fetchRoundData(tourId, rounds);
+        if (roundData) {
+            if (roundData.groups && roundData.groups.length > 0) {
+                // Swiss: points are in groups
+                const groupResults = await Promise.allSettled(
+                    roundData.groups.map(url => fetchGroupData(url))
+                );
+                groupResults.forEach(result => {
+                    if (result.status === 'fulfilled' && result.value?.players) {
+                        allPlayers.push(...result.value.players);
+                    }
+                });
+            } else if (roundData.players) {
+                // Arena: points are in round.players
+                allPlayers = roundData.players;
+            }
+        }
     }
 
-    const playersOrder = (tournament.players || [])
-        .map(p => (typeof p === 'object' && p.username) ? p.username : p)
-        .filter(Boolean);
+    // Sort and extract top players
+    if (allPlayers.length > 0) {
+        allPlayers.sort((a, b) => {
+            const rankA = a.place_finish || a.rank || Infinity;
+            const rankB = b.place_finish || b.rank || Infinity;
+            if (rankA !== rankB) return rankA - rankB;
+            return (b.points || 0) - (a.points || 0);
+        });
+    } else {
+        // Fallback to tournament players if no round data
+        allPlayers = (tournament.players || []).map(p =>
+            (typeof p === 'object') ? p : { username: p, points: 0 }
+        );
+    }
 
-    const { players, points } = getTopPlayers(playersOrder, roundInfo, CONFIG.MAX_PLAYERS_DISPLAY);
+    const topPlayersData = allPlayers.slice(0, CONFIG.MAX_PLAYERS_DISPLAY);
+    const players = topPlayersData.map(p => p.username);
+    const points = topPlayersData.map(p => p.points || 0);
 
     const startTime = formatDate(tournament.start_time || tournament.startTime);
     const endTime = tournament.finish_time || tournament.endTime;
