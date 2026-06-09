@@ -719,7 +719,6 @@ footer .bottom-details .bottom_text {
   object-fit: cover;
   border: 3px solid var(--color-accent);
   padding: 4px;
-  background: var(--color-bg-primary);
   margin-bottom: var(--space-lg);
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
   transition: transform var(--transition-base);

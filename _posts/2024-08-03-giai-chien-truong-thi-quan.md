@@ -3,38 +3,37 @@ layout: post
 title: Sự kiện Chiến Trường Thí Quân
 category: events
 tags: Giải đấu
-author: M_DinhHoangViet
+author: M-DinhHoangViet
 description: Một sự kiện diễn ra trong câu lạc bộ Thí Vua Lấy Tốt và được tổ chức hàng tháng với giải thưởng là <a href="https://chess.com/membership">tư cách thành viên kim cương Chess.com</a> 1 tháng.
 permalink: /events/cttq-chien-truong-thi-quan
 ---
+
+
+# ⚔️ CHIẾN TRƯỜNG THÍ QUÂN
+
+Sự kiện **Chiến Trường Thí Quân** được tổ chức lần đầu vào **tháng 8 năm 2024**, là chuỗi sự kiện thi đấu định kỳ dành cho các kỳ thủ yêu thích cạnh tranh và tích lũy điểm số.
+
+![CTTQ_logo](/images/events/logo/cttq.png)  
+*Giải đấu được quản lý bởi Admin [M-DinhHoangViet](/leaders#admin3).*
+Bảng kết quả tổng hợp theo tháng được công bố **[tại đây](/events/tournaments/cttq)**.
 
 👉 Tham gia câu lạc bộ trên hai nền tảng cờ vua để đủ điều kiện tham dự các sự kiện:  
 [Chess.com](https://link.chess.com/club/0CVQh6) & [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
 
 ---
 
-## ⚔️ CHIẾN TRƯỜNG THÍ QUÂN
-
-**Chiến Trường Thí Quân** được tổ chức lần đầu vào **tháng 8 năm 2024**, là chuỗi sự kiện thi đấu định kỳ dành cho các kỳ thủ yêu thích cạnh tranh và tích lũy thành tích.
-
-![CTTQ_logo](/images/events/cttq_logo.png)  
-*Giải đấu được quản lý bởi Admin [M-DinhHoangViet](/leaders#admin3).*
-
----
-
 ## ♟️ Thể lệ chính
 
-- Sự kiện được tổ chức theo **chu kỳ vài tháng một lần**; mỗi đợt bao gồm **nhiều giải**, kết quả chung được tính bằng **tổng điểm các giải trong tháng** ([xem chi tiết](https://chess.com/forum/view/link-giai-chien-truong-thi-quan)).
+- Sự kiện được tổ chức theo **chu kỳ vài tháng một lần**; mỗi đợt bao gồm **nhiều giải**, kết quả chung được tính bằng **tổng điểm các giải trong tháng** ([xem chi tiết](/events/tournaments/cttq)).
 - Toàn bộ giải đấu áp dụng thể thức **Arena**.
 - Luân phiên giữa **cờ tiêu chuẩn** và [**Chess960**](https://chess.com/article/chess-variants#Chess960) *(cờ tiêu chuẩn là hình thức chủ đạo)*.
 
 ---
 
-## 📅 Lịch & kết quả
+## 📅 Lịch
 
 - Giải đấu thường diễn ra vào **tối thứ Bảy, Chủ nhật** hoặc các dịp đặc biệt.
 - Link giải đấu hằng tháng được cập nhật [tại forum này](//chess.com/forum/view/link-giai-chien-truong-thi-quan).
-- Kết quả tổng hợp theo tháng được công bố [tại đây](/events/tournaments/cttq).
 
 ---
 

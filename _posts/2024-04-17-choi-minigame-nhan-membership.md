@@ -4,7 +4,7 @@ title: Chơi MiniGames nhận Diamond Membership
 date: 2024-04-17T00:00:00+00:00
 category: events
 tags: Minigame
-author: Đinh Hoàng Việt
+author: M_DinhHoangViet
 description: Đã kết thúc
 ---
 

@@ -27,7 +27,7 @@ Sau giai đoạn thử nghiệm, thể lệ chính thức được ổn định 
 ## 📅 Lịch & kết quả
 
 - Giải thường diễn ra vào **thứ Bảy, Chủ nhật** hoặc các dịp đặc biệt.
-- Kết quả các giải theo từng tháng được công bố [tại đây](/events/tournaments/tvlt).
+- Kết quả các giải theo từng tháng được công bố **[tại đây](/events/tournaments/tvlt)**.
 
 ## 🏆 Giải thưởng
 
