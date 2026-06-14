@@ -44,6 +44,9 @@ section, .about, .service, .experience, .blog {
 .hero {
     position: relative;
     padding: var(--space-5xl) 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
     background: var(--color-bg-primary);
     overflow: hidden;
 }
@@ -52,8 +55,10 @@ section, .about, .service, .experience, .blog {
     content: "";
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(5, 8, 17, 0.8), rgba(5, 8, 17, 0.8)), url('/images/tvlt/tvlt_bg.jpg');
+    background: linear-gradient(rgba(5, 8, 17, 0.85), rgba(5, 8, 17, 0.85)), url('/images/tvlt/tvlt_bg.jpg');
     background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
     z-index: 1;
 }
 
@@ -62,28 +67,80 @@ section, .about, .service, .experience, .blog {
     z-index: 2;
 }
 
+.hero-content {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: var(--space-2xl);
+    border-radius: var(--border-radius-xl);
+    border: 1px solid rgba(56, 189, 248, 0.1);
+    box-shadow: var(--shadow-xl);
+}
+
 .hero-text h3 {
     color: var(--color-accent);
-    font-size: var(--fs-2xl);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-medium);
     margin-bottom: var(--space-sm);
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .hero-text h1 {
-    font-size: var(--fs-5xl);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: var(--fw-bold);
     margin-bottom: var(--space-md);
-    background: var(--gradient-accent);
+    color: var(--color-text-primary);
+    line-height: 1.1;
+}
+
+.hero-text h1 span {
+    background: var(--gradient-purple-cyan);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    display: block;
+}
+
+.hero-text p {
+    font-size: var(--fs-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+}
+
+.hero-btn {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.hero-image {
+    position: relative;
+}
+
+.hero-image::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 80%; height: 80%;
+    background: var(--color-accent);
+    filter: blur(100px);
+    opacity: 0.15;
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }
 
 .hero-image img {
     max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.3));
     animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
 }
 
 /* Service Section - Classic Inset Hover */
@@ -208,5 +265,25 @@ section, .about, .service, .experience, .blog {
 @media (max-width: var(--breakpoint-md)) {
     .timeline::after { left: var(--space-2xl); }
     .timeline-item { width: 100%; padding-left: var(--space-5xl); padding-right: var(--space-lg); }
-    .hero-text h1 { font-size: var(--fs-4xl); }
+    .hero-text h1 { font-size: var(--fs-3xl); }
+    .hero-content { padding: var(--space-lg); }
+}
+
+/* Adjust Social Buttons in Hero */
+.hero-content .social_btn {
+    justify-content: flex-start;
+    margin-top: 0;
+}
+
+.hero-content .social_btn a {
+    width: 36px;
+    height: 36px;
+    font-size: var(--fs-lg);
+    border-color: rgba(56, 189, 248, 0.3);
+}
+
+.hero-content .social_btn a img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
