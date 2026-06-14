@@ -69,12 +69,13 @@ section, .about, .service, .experience, .blog {
 
 .hero-content {
     background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: var(--space-2xl);
-    border-radius: var(--border-radius-xl);
-    border: 1px solid rgba(56, 189, 248, 0.1);
-    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: var(--space-4xl) var(--space-3xl);
+    border-radius: var(--border-radius-2xl);
+    border: 1px solid rgba(56, 189, 248, 0.15);
+    box-shadow: var(--shadow-2xl);
+    width: 100%;
 }
 
 .hero-text h3 {
@@ -134,8 +135,10 @@ section, .about, .service, .experience, .blog {
 .hero-image img {
     max-width: 100%;
     height: auto;
-    filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.3));
+    filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.4));
     animation: float 6s ease-in-out infinite;
+    display: block;
+    margin: 0 auto;
 }
 
 @keyframes float {
