@@ -52,15 +52,12 @@ title: Trang chủ
 
     <div class="about wow fadeInUp" data-wow-delay="0.1s" id="about">
         <div class="container">
-            <div class="section-header text-center">
-                <p><span class="bx bxs-chess header-icon"></span>Người sáng lập là ai?</p>
-            </div>
             <div class="row align-items-center">
                 <div class="col-lg-5">
-                    <div class="about-img wow flip">
+                    <div class="about-img wow zoomIn">
                         <img src="https://i.ytimg.com/vi/JxgUVnTkAFk/maxresdefault.jpg" alt="TungJohn" loading="lazy" decoding="async">
                     </div>
-                    <div class="social_btn wow rollIn">
+                    <div class="social_btn wow fadeInUp" data-wow-delay="0.3s">
                         <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank" title="Kênh Youtube của TungJohn"><span class="bx bxl-youtube"></span></a>
                         <a href="https://facebook.com/TungJohn2005" target="_blank" title="Trang Facebook của TungJohn"><span class="bx bxl-facebook-square"></span></a>
                         <a href="https://twitch.tv/tungjohnplayingchess" target="_blank" title="Kênh Twitch của TungJohn"><span class="bx bxl-twitch"></span></a>
@@ -73,6 +70,7 @@ title: Trang chủ
                 <div class="col-lg-7">
                     <div class="about-content">
                         <div class="section-header text-left">
+                            <p><span class="bx bxs-chess header-icon"></span>Người sáng lập là ai?</p>
                             <h2>Giới thiệu về TungJohn</h2>
                         </div>
                         <div class="about-text">
@@ -81,16 +79,25 @@ title: Trang chủ
                         </div>
                         <div class="about-badges">
                             <div class="about-badge wow fadeIn" data-wow-delay="0.2s">
-                                <i class="bx bxs-video"></i>
-                                <span>1000+ Videos</span>
+                                <div class="badge-icon"><i class="bx bxs-video"></i></div>
+                                <div class="badge-text">
+                                    <strong>1.000+</strong>
+                                    <span>Videos</span>
+                                </div>
                             </div>
                             <div class="about-badge wow fadeIn" data-wow-delay="0.4s">
-                                <i class="bx bxs-group"></i>
-                                <span>150k+ Subscriptions</span>
+                                <div class="badge-icon"><i class="bx bxs-group"></i></div>
+                                <div class="badge-text">
+                                    <strong>150.000+</strong>
+                                    <span>Subscribers</span>
+                                </div>
                             </div>
                             <div class="about-badge wow fadeIn" data-wow-delay="0.6s">
-                                <i class="bx bxs-award"></i>
-                                <span>Chess Content Creator</span>
+                                <div class="badge-icon"><i class="bx bxs-award"></i></div>
+                                <div class="badge-text">
+                                    <strong>Chess</strong>
+                                    <span>Creator</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,9 +111,7 @@ title: Trang chủ
     <div class="service" id="service">
         <div class="container">
             <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
-                <div class="section-title">
-                    <p><span class="bx bxs-crown header-icon"></span> Sức mạnh</p>
-                </div>
+                <p><span class="bx bxs-crown header-icon"></span> Sức mạnh</p>
                 <h2>Chúng tôi có những gì?</h2>
             </div>
             <div class="row">
@@ -254,16 +259,22 @@ title: Trang chủ
             <section class="card-list">
                 {% for post in site.posts limit:3 %}
                 <article class="card">
-                    <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image" alt="{{ post.title }}" loading="lazy" decoding="async"></a>
+                    <div class="card_image_container">
+                        <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image" alt="{{ post.title }}" loading="lazy" decoding="async"></a>
+                    </div>
                     <div class="card_content">
-                        <div class="post_in4">
-                            <div class="card_detail">
-                                <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
-                            </div>
+                        <div class="card_detail">
+                            <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b>
+                            <span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
                         </div>
                         <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
-                        <i class="card_in4">{{ post.description }}</i>
-                        <span class="card_tag"><a href="/{{ post.category }}"><span class="bx bx-purchase-tag-alt"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
+                        <p class="card_in4">{{ post.description }}</p>
+                        <div class="card_tag">
+                            <a href="/{{ post.category }}">
+                                <span class="bx bx-purchase-tag-alt"></span>
+                                <span>{{ post.tags }}</span>
+                            </a>
+                        </div>
                     </div>
                 </article>
                 {% endfor %}
