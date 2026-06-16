@@ -82,7 +82,7 @@ section, .about, .service, .experience, .blog {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 1;
     overflow: hidden;
     pointer-events: none;
     opacity: 0.5;
@@ -137,7 +137,7 @@ section, .about, .service, .experience, .blog {
         inset 0 0 100px rgba(56, 189, 248, 0.05);
     width: 100%;
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Prevent floating logo from being clipped */
     transition: var(--transition-slow);
 }
 
@@ -308,7 +308,7 @@ section, .about, .service, .experience, .blog {
 
 @keyframes hero-float {
     0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-    50% { transform: translateY(-35px) rotate(5deg) scale(1.08); }
+    50% { transform: translateY(-20px) rotate(3deg) scale(1.04); }
 }
 
 /* Scroll Indicator */
