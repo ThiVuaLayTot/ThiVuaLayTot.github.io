@@ -671,3 +671,34 @@ section, .about, .service, .experience, .blog {
     color: var(--color-text-primary);
     border-bottom-color: var(--color-accent);
 }
+
+@media (max-width: 768px) {
+    .timeline::after {
+        left: auto;
+        right: var(--space-md);
+        transform: none;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: var(--space-md);
+        padding-right: var(--space-3xl);
+        text-align: left !important;
+        left: 0 !important;
+    }
+
+    .timeline-item::after {
+        left: auto !important;
+        right: calc(var(--space-md) - 6px) !important;
+    }
+
+    .timeline-text {
+        text-align: left;
+    }
+
+    .timeline-text::before {
+        left: auto !important;
+        right: -30px !important;
+        background: linear-gradient(to left, var(--color-accent), transparent) !important;
+    }
+}
