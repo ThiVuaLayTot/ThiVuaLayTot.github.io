@@ -26,6 +26,27 @@ function scrollFunction() {
     } else {
         mybutton.style.display = "none";
     }
+
+    // Timeline Scroll Progress
+    const timeline = document.querySelector('.timeline');
+    if (timeline) {
+        const rect = timeline.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight && rect.bottom > 0) {
+            // How much of the timeline is visible from the top
+            let progress = (windowHeight - rect.top) / (rect.height + windowHeight);
+            // Better logic: distance from top of timeline to center of screen
+            let start = rect.top;
+            let end = rect.bottom;
+            let current = windowHeight * 0.7; // target line progress to 70% of viewport
+
+            let scrollPercent = ((current - start) / (end - start)) * 100;
+            scrollPercent = Math.min(Math.max(scrollPercent, 0), 100);
+
+            document.documentElement.style.setProperty('--timeline-progress', scrollPercent + '%');
+        }
+    }
 }
 
 document.getElementById("back-to-top").addEventListener("click", function() {

@@ -531,14 +531,15 @@ section, .about, .service, .experience, .blog {
     content: '';
     position: absolute;
     width: 2px;
-    background: linear-gradient(to bottom,
-        transparent 0%,
-        var(--color-accent) 15%,
-        var(--color-accent-secondary) 85%,
-        transparent 100%);
-    top: 0; bottom: 0; left: 50%;
+    background: var(--color-accent);
+    top: 0;
+    height: var(--timeline-progress, 0); /* Changed for scroll animation */
+    left: 50%;
     transform: translateX(-50%);
-    opacity: 0.2;
+    opacity: 0.5;
+    z-index: 1;
+    box-shadow: 0 0 15px var(--color-accent);
+    transition: height 0.1s linear;
 }
 
 .timeline-item {
@@ -546,6 +547,7 @@ section, .about, .service, .experience, .blog {
     position: relative;
     width: 50%;
     transition: var(--transition-slow);
+    z-index: 2;
 }
 
 .timeline-item::after {
@@ -556,9 +558,9 @@ section, .about, .service, .experience, .blog {
     right: -7px;
     background: var(--color-bg-primary);
     border: 3px solid var(--color-accent);
-    top: 40px;
+    top: 45px;
     border-radius: 50%;
-    z-index: 2;
+    z-index: 3;
     box-shadow: 0 0 15px var(--color-accent);
     transition: var(--transition-base);
 }
