@@ -64,15 +64,59 @@ section, .about, .service, .experience, .blog {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     background:
-        radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.25) 0%, transparent 50%),
-        radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
         var(--bg-pattern-chess),
-        linear-gradient(rgba(5, 8, 17, 0.7), rgba(5, 8, 17, 0.9)),
+        linear-gradient(rgba(5, 8, 17, 0.8), rgba(5, 8, 17, 0.95)),
         url('/images/tvlt/tvlt_bg.jpg');
     background-attachment: fixed;
     background-size: auto, auto, 80px 80px, cover, cover;
     background-position: center;
     z-index: 1;
+}
+
+/* Aurora Effect */
+.hero-aurora {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.hero-aurora::before,
+.hero-aurora::after {
+    content: "";
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    filter: blur(120px);
+    mix-blend-mode: screen;
+    animation: aurora-float 20s infinite alternate ease-in-out;
+}
+
+.hero-aurora::before {
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, transparent 70%);
+    top: -200px;
+    left: -200px;
+}
+
+.hero-aurora::after {
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, transparent 70%);
+    bottom: -200px;
+    right: -200px;
+    animation-delay: -10s;
+}
+
+@keyframes aurora-float {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(100px, 50px) scale(1.2); }
+    100% { transform: translate(-50px, 100px) scale(0.9); }
 }
 
 .hero .container {
@@ -95,6 +139,12 @@ section, .about, .service, .experience, .blog {
     position: relative;
     overflow: hidden;
     transition: var(--transition-slow);
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        padding: var(--space-xl) var(--space-lg);
+    }
 }
 
 .hero-content::before {
@@ -139,16 +189,34 @@ section, .about, .service, .experience, .blog {
     letter-spacing: 8px;
     text-transform: uppercase;
     text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.hero-text h3::before {
+    content: "";
+    width: 30px;
+    height: 2px;
+    background: var(--color-accent);
+    display: inline-block;
 }
 
 .hero-text h1 {
-    font-size: clamp(3.5rem, 10vw, 5.5rem);
+    font-size: clamp(2.5rem, 10vw, 5.5rem);
     font-weight: var(--fw-bold);
     margin-bottom: var(--space-lg);
     color: var(--color-text-primary);
     line-height: 1;
     letter-spacing: -4px;
     text-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.1));
+}
+
+@media (max-width: 576px) {
+    .hero-text h1 {
+        letter-spacing: -2px;
+    }
 }
 
 .hero-text h1 span {
@@ -241,6 +309,61 @@ section, .about, .service, .experience, .blog {
 @keyframes hero-float {
     0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
     50% { transform: translateY(-35px) rotate(5deg) scale(1.08); }
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: var(--space-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    z-index: 10;
+    color: var(--color-text-secondary);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    transition: var(--transition-base);
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
+    color: var(--color-accent);
+}
+
+.mouse {
+    width: 26px;
+    height: 42px;
+    border: 2px solid var(--color-text-secondary);
+    border-radius: 20px;
+    position: relative;
+    transition: var(--transition-base);
+}
+
+.scroll-indicator:hover .mouse {
+    border-color: var(--color-accent);
+}
+
+.mouse::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 4px;
+    height: 8px;
+    background: var(--color-accent);
+    margin-left: -2px;
+    border-radius: 2px;
+    animation: scroll-mouse 2s infinite;
+}
+
+@keyframes scroll-mouse {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(15px); opacity: 0; }
 }
 
 /* About Section Enhancement */

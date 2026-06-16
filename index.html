@@ -17,6 +17,7 @@ title: Trang chủ
     </div>
 
     <div class="hero" id="home">
+        <div class="hero-aurora"></div>
         <div class="container">
             <div class="hero-content">
                 <div class="row align-items-center">
@@ -40,12 +41,16 @@ title: Trang chủ
                     </div>
                     <div class="col-sm-12 col-md-5 order-1 order-md-2 wow fadeInRight" data-wow-delay="0.2s">
                         <div class="hero-image">
-                            <img src="/images/tvltlogo.png" alt="Hero Image" loading="lazy">
+                            <img src="/images/tvltlogo.png" alt="Hero Image" loading="eager" fetchpriority="high">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <a href="#about" class="scroll-indicator wow fadeIn" data-wow-delay="1.2s">
+            <span>Khám phá</span>
+            <div class="mouse"></div>
+        </a>
     </div>
 
     <hr class="wow fadeIn text-center" data-wow-delay="0.3s">
