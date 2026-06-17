@@ -1,14 +1,14 @@
-/*****************************************/
-/* HOME PAGE STYLES - CLUBS THEME (RESTORATION) */
-/*****************************************/
+/* Home Page Styles */
 
-/* Global Section Styling */
-section, .about, .service, .experience, .blog {
+section,
+.about,
+.service,
+.experience,
+.blog {
     padding: var(--space-5xl) 0;
     position: relative;
 }
 
-/* Section Header - Classic Line-through Style */
 .section-header {
     margin-bottom: var(--space-2xl);
 }
@@ -48,7 +48,6 @@ section, .about, .service, .experience, .blog {
     color: var(--color-text-primary);
 }
 
-/* Hero Section Enhancement */
 .hero {
     position: relative;
     padding: var(--space-5xl) 0;
@@ -59,10 +58,13 @@ section, .about, .service, .experience, .blog {
     overflow: hidden;
 }
 
-.hero:before {
+.hero::before {
     content: "";
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background:
         radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
@@ -75,7 +77,6 @@ section, .about, .service, .experience, .blog {
     z-index: 1;
 }
 
-/* Aurora Effect */
 .hero-aurora {
     position: absolute;
     top: 0;
@@ -174,11 +175,6 @@ section, .about, .service, .experience, .blog {
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
-}
-
-@keyframes scan {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
 }
 
 .hero-text h3 {
@@ -311,7 +307,6 @@ section, .about, .service, .experience, .blog {
     50% { transform: translateY(-20px) rotate(3deg) scale(1.04); }
 }
 
-/* Scroll Indicator */
 .scroll-indicator {
     position: absolute;
     bottom: var(--space-xl);
@@ -366,7 +361,6 @@ section, .about, .service, .experience, .blog {
     100% { transform: translateY(15px); opacity: 0; }
 }
 
-/* About Section Enhancement */
 .about {
     position: relative;
     overflow: hidden;
@@ -498,7 +492,6 @@ section, .about, .service, .experience, .blog {
     }
 }
 
-/* Service Section Enhancement */
 .service-item {
     position: relative;
     padding: var(--space-xl);
@@ -628,7 +621,6 @@ section, .about, .service, .experience, .blog {
     width: 100%;
 }
 
-/* Timeline Section Enhancement */
 .experience {
     background: var(--bg-pattern-chess);
     position: relative;
