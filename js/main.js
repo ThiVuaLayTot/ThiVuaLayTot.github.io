@@ -43,6 +43,8 @@ window.addEventListener("load", function() {
 /**
  * Scroll Events
  */
+const backToTopBtn = document.getElementById("back-to-top");
+
 window.onscroll = function() {
     handleScrollEffects();
 };
@@ -51,7 +53,6 @@ window.onscroll = function() {
  * Handles all scroll-based UI updates
  */
 function handleScrollEffects() {
-    const backToTopBtn = document.getElementById("back-to-top");
     if (backToTopBtn) {
         if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
             backToTopBtn.style.display = "flex";
@@ -82,7 +83,6 @@ function handleScrollEffects() {
 /**
  * Back to Top Button
  */
-const backToTopBtn = document.getElementById("back-to-top");
 if (backToTopBtn) {
     backToTopBtn.addEventListener("click", function() {
         document.body.scrollTop = 0;

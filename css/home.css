@@ -370,8 +370,9 @@ section,
     position: relative;
     border-radius: var(--border-radius-2xl);
     overflow: hidden;
-    box-shadow: var(--shadow-2xl);
+    box-shadow: var(--shadow-2xl), 0 0 40px rgba(56, 189, 248, 0.1);
     z-index: 1;
+    background: var(--color-bg-tertiary);
 }
 
 .about-img::before {
@@ -380,7 +381,7 @@ section,
     inset: 0;
     border-radius: inherit;
     padding: 2px;
-    background: linear-gradient(135deg, var(--color-accent), transparent, var(--color-secondary));
+    background: linear-gradient(135deg, var(--color-accent), rgba(168, 85, 247, 0.5), var(--color-secondary));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -391,10 +392,14 @@ section,
 .about-img::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, var(--color-accent) 0%, transparent 70%);
-    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
     z-index: -1;
+    pointer-events: none;
 }
 
 .about-img img {
@@ -442,18 +447,34 @@ section,
 
 .about-badge {
     background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius-xl);
-    padding: var(--space-lg);
+    padding: var(--space-lg) var(--space-md);
     text-align: center;
+    transition: var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-badge::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), transparent);
+    opacity: 0;
     transition: var(--transition-base);
 }
 
 .about-badge:hover {
     background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-5px);
+    transform: translateY(-8px);
     border-color: var(--color-accent);
+    box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.3);
+}
+
+.about-badge:hover::before {
+    opacity: 1;
 }
 
 .badge-icon {
@@ -466,6 +487,9 @@ section,
     display: block;
     font-size: var(--fs-xl);
     color: var(--color-text-primary);
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .badge-text span {
@@ -544,17 +568,17 @@ section,
 }
 
 .service-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.03);
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--fs-2xl);
+    font-size: var(--fs-3xl);
     color: var(--color-accent);
-    transition: var(--transition-base);
+    transition: var(--transition-slow);
     box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05);
     position: relative;
     z-index: 1;
@@ -565,13 +589,19 @@ section,
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3));
+    transition: var(--transition-base);
 }
 
 .service-item:hover .service-icon {
-    transform: scale(1.15) rotate(8deg);
-    background: rgba(56, 189, 248, 0.1);
+    transform: scale(1.1) rotate(10deg);
+    background: var(--color-accent);
     border-color: var(--color-accent);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.service-item:hover .service-icon i {
+    -webkit-text-fill-color: var(--color-bg-primary);
+    filter: none;
 }
 
 .service-text h3 {
@@ -596,10 +626,13 @@ section,
 
 .service-text a {
     color: var(--color-accent);
-    font-weight: var(--fw-semibold);
+    font-weight: var(--fw-bold);
     position: relative;
     text-decoration: none;
     transition: var(--transition-base);
+    background: rgba(56, 189, 248, 0.05);
+    padding: 0 4px;
+    border-radius: 4px;
 }
 
 .service-text a::after {
@@ -645,16 +678,16 @@ section,
 .timeline::after {
     content: '';
     position: absolute;
-    width: 2px;
-    background: var(--color-accent);
+    width: 3px;
+    background: linear-gradient(to bottom, var(--color-accent), var(--color-secondary), var(--color-accent));
     top: 0;
-    height: var(--timeline-progress, 0); /* Changed for scroll animation */
+    height: var(--timeline-progress, 0);
     left: 50%;
     transform: translateX(-50%);
-    opacity: 0.5;
+    opacity: 0.6;
     z-index: 1;
-    box-shadow: 0 0 15px var(--color-accent);
-    transition: height 0.1s linear;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    transition: height 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
 
 .timeline-item {
@@ -701,15 +734,35 @@ section,
 }
 
 .timeline-text {
-    padding: var(--space-3xl);
-    background: rgba(10, 15, 30, 0.4);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--border-radius-2xl);
+    padding: var(--space-xl) var(--space-2xl);
+    background: rgba(13, 18, 30, 0.4);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-xl);
     transition: var(--transition-slow);
     position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.timeline-text::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.05), transparent);
+    opacity: 0;
+    transition: var(--transition-slow);
+}
+
+.timeline-item:hover .timeline-text {
+    background: rgba(15, 23, 42, 0.6);
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--color-accent);
+}
+
+.timeline-item:hover .timeline-text::after {
+    opacity: 1;
 }
 
 .timeline-text::before {
@@ -740,24 +793,35 @@ section,
 
 .timeline-date {
     display: inline-block;
-    color: var(--color-text-primary);
+    color: #fff;
     font-weight: var(--fw-bold);
-    font-size: var(--fs-xs);
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: var(--space-md);
-    background: var(--gradient-purple-cyan);
-    padding: var(--space-xs) var(--space-lg);
+    background: var(--gradient-accent);
+    padding: 4px 16px;
     border-radius: var(--border-radius-full);
-    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+    transition: var(--transition-base);
+}
+
+.timeline-item:hover .timeline-date {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.3);
 }
 
 .timeline-text h2 {
     font-size: var(--fs-xl);
     font-weight: var(--fw-bold);
     color: var(--color-text-primary);
-    margin-bottom: var(--space-xs);
+    margin-bottom: var(--space-sm);
     letter-spacing: -0.5px;
+    transition: var(--transition-base);
+}
+
+.timeline-item:hover .timeline-text h2 {
+    color: var(--color-accent);
 }
 
 .timeline-text h4 {

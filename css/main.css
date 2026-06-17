@@ -868,26 +868,43 @@ footer .bottom-details .bottom_text {
   flex-direction: column;
   align-items: flex-start;
   height: 100%;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-xl);
   position: relative;
   direction: ltr;
   padding: 0;
   margin-bottom: var(--space-lg);
-  border-radius: var(--border-radius-lg);
-  border: var(--border-width-thin) solid var(--color-border);
-  background: rgba(10, 15, 30, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--border-radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(13, 18, 30, 0.4);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
   transform: translateY(0);
-  transition: all var(--transition-base);
+  transition: var(--transition-slow);
   overflow: hidden;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.1);
   border-color: var(--color-accent);
-  background: rgba(10, 15, 30, 0.8);
-  transform: translateY(-8px);
+  background: rgba(15, 23, 42, 0.6);
+  transform: translateY(-12px) scale(1.01);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: var(--transition-base);
+  z-index: 2;
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card_content {
@@ -923,8 +940,9 @@ footer .bottom-details .bottom_text {
   margin-bottom: var(--space-sm);
   font-weight: var(--fw-bold);
   font-size: var(--fs-lg);
-  color: #26d23d;
+  color: var(--color-text-primary);
   transition: color var(--transition-base);
+  line-height: 1.4;
 }
 
 .card:hover .card_title {
@@ -994,17 +1012,17 @@ footer .bottom-details .bottom_text {
 
 .card_tag {
   margin-top: var(--space-sm);
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-bold);
   display: inline-flex;
   align-items: center;
-  border: var(--border-width-thin) dashed var(--color-primary);
-  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: rgba(56, 189, 248, 0.05);
   border-radius: var(--border-radius-md);
-  padding: var(--space-xs) var(--space-sm);
+  padding: 4px 10px;
   text-transform: uppercase;
-  transition: all var(--transition-base);
+  transition: var(--transition-base);
   font-size: 10px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .card_tag a {
