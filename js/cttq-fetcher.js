@@ -255,7 +255,12 @@ class Renderer {
         let html = '<tr>\n';
         html += `    <td class="name-tour">Tháng ${monthId}</td>\n`;
         html += `    <td class="organization-day">${tournaments.length} giải đấu</td>\n`;
-        html += `    <td class="rules">Chiến Trường Thí Quân</td>\n`;
+
+        const tournamentLinks = tournaments.map(t =>
+            `<div style="margin-bottom: 2px;"><a href="${t.url}" target="_blank" style="color: var(--cyan-300); font-size: 0.9em; text-decoration: none;">${t.name}</a></div>`
+        ).join('');
+
+        html += `    <td class="rules">${tournamentLinks}</td>\n`;
         html += `    <td class="players">${totalPlayers}</td>\n`;
 
         for (let i = 0; i < CONFIG.TOP_PLAYERS_COUNT; i++) {
