@@ -163,9 +163,14 @@ class DataProcessor {
                 tourPlayers.forEach(({ username, points }) => {
                     const key = username.toLowerCase();
                     if (!playerScores[key]) {
-                        playerScores[key] = { username, totalPoints: 0 };
+                        playerScores[key] = { username, totalPoints: 0, breakdown: [] };
                     }
                     playerScores[key].totalPoints += points;
+                    playerScores[key].breakdown.push({
+                        tourName: tournamentData.name || 'Unknown',
+                        points: points,
+                        url: tournamentData.url
+                    });
                 });
             }
         }
@@ -224,6 +229,8 @@ class Renderer {
                 </div>
             </div>` : '';
 
+        const playerJson = JSON.stringify(player).replace(/"/g, '&quot;');
+
         return `<td>
             <div class="post-user-component">
                 <a class="cc-avatar-component post-user-avatar">
@@ -235,7 +242,7 @@ class Renderer {
                     </div>
                     <div class="post-user-status">
                         <span>${badgeHTML}</span>
-                        <span>${player.totalPoints} ĐIỂM</span>
+                        <span class="score-pill" onclick='PageManager.showScoreDetail(${playerJson})'>${player.totalPoints} ĐIỂM</span>
                     </div>
                 </div>
             </div>
@@ -271,10 +278,84 @@ class Renderer {
 }
 
 /**
+ * @class ModalManager
+ * @description Static methods for handling the score detail modal.
+ */
+class ModalManager {
+    static show(player) {
+        const modal = document.getElementById('scoreModal');
+        const title = document.getElementById('modal-player-name');
+        const body = document.getElementById('modal-score-breakdown');
+
+        if (!modal || !title || !body) return;
+
+        title.textContent = `Chi tiết điểm: ${player.username}`;
+
+        let html = `
+            <div class="calendar-wrapper">
+                <table class="styled-table score-detail-table">
+                    <thead>
+                        <tr>
+                            <th>Giải đấu</th>
+                            <th style="text-align: center;">Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        player.breakdown.forEach(item => {
+            html += `
+                <tr>
+                    <td><a href="${item.url}" target="_blank">${item.tourName}</a></td>
+                    <td style="text-align: center; font-weight: bold; color: var(--cyan-300);">${item.points}</td>
+                </tr>
+            `;
+        });
+
+        html += `
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="font-weight: bold; text-align: right;">TỔNG CỘNG:</td>
+                            <td style="text-align: center; font-weight: bold; color: var(--yellow-400);">${player.totalPoints}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        `;
+
+        body.innerHTML = html;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    static close() {
+        const modal = document.getElementById('scoreModal');
+        if (modal) {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    }
+}
+
+/**
  * @class PageManager
  * @description Orchestrates the rendering of the table on the page.
  */
 class PageManager {
+    static showScoreDetail(player) {
+        ModalManager.show(player);
+    }
+
+    static initModal() {
+        const modal = document.getElementById('scoreModal');
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) ModalManager.close();
+            });
+        }
+    }
+
     static async init() {
         const container = document.getElementById('cttq-months-container');
         if (!container) return;
@@ -351,6 +432,8 @@ class PageManager {
             });
 
             await Promise.allSettled(monthPromises);
+
+            PageManager.initModal();
 
             const statusIcon = document.getElementById('statusIcon');
             if (successCount === months.length) {
