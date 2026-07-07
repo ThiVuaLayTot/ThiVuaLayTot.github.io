@@ -51,6 +51,7 @@ const VARIANTS = {
 
 /** @type {Object} Time class icon mapping */
 const TIME_CLASS_ICONS = {
+    'lightning': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
     'rapid': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' },
@@ -556,9 +557,9 @@ async function generatePlayerCell(username, points) {
 
     return `<td>
         <div class="post-user-component">
-            <a class="cc-avatar-component post-user-avatar">
+            <span class="cc-avatar-component post-user-avatar">
                 <img class="cc-avatar-img" src="${avatarUrl}" height="50" width="50" alt="${name}">
-            </a>
+            </span>
             <div class="post-user-details">
                 <div class="user-tagline-component">
                     <a class="user-username-component user-tagline-username" href="${URLs.member(name)}" target="_blank">${name}</a>
