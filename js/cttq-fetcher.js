@@ -17,6 +17,43 @@ const CONFIG = {
     DEFAULT_AVATAR: 'https://chess.com/bundles/web/images/user-image.007dad08.svg'
 };
 
+/** @type {Object} Chess variant metadata and icons */
+const VARIANTS = {
+    'chess960': {
+        name: 'Chess960',
+        url: '/terms/chess960',
+        icon: '/bundles/web/images/variants/live_960_orange.svg'
+    },
+    'kingofthehill': {
+        name: 'KOTH',
+        url: '/terms/king-of-the-hill',
+        icon: '/bundles/web/images/variants/koth.svg'
+    },
+    'crazyhouse': {
+        name: 'Crazyhouse',
+        url: '/terms/crazyhouse-chess',
+        icon: '/bundles/web/images/variants/crazyhouse.svg'
+    },
+    'bughouse': {
+        name: 'Bughouse',
+        url: '/terms/bughouse-chess',
+        icon: '/bundles/web/images/variants/bughouse.svg'
+    },
+    'threecheck': {
+        name: '3 Chiếu',
+        url: '/terms/3-check-chess',
+        icon: '/bundles/web/images/variants/3check.svg'
+    }
+};
+
+/** @type {Object} Time class icon mapping */
+const TIME_CLASS_ICONS = {
+    'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
+    'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
+    'rapid': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' },
+    'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
+};
+
 /**
  * @class RequestManager
  * @description Handles rate-limited requests and caching for API calls.
@@ -117,6 +154,48 @@ class DataProcessor {
         };
     }
 
+    static calculateDuration(startDate, endDate) {
+        if (!startDate || !endDate) return 'N/A';
+        const start = typeof startDate === 'string' ? new Date(startDate) : new Date(startDate * 1000);
+        const end = typeof endDate === 'string' ? new Date(endDate) : new Date(endDate * 1000);
+        if (isNaN(start) || isNaN(end) || end < start) return 'N/A';
+        const diffMs = end - start;
+        const units = [
+            { name: 'ngày', ms: 86400000 },
+            { name: 'tiếng', ms: 3600000 },
+            { name: 'phút', ms: 60000 },
+            { name: 'giây', ms: 1000 }
+        ];
+        for (const unit of units) {
+            if (diffMs >= unit.ms) {
+                const value = Math.floor(diffMs / unit.ms);
+                const remainder = diffMs % unit.ms;
+                if (remainder === 0 || unit.name === 'giây') return `${value} ${unit.name}`;
+                if (unit.name === 'tiếng') {
+                    const minutes = Math.floor(remainder / 60000);
+                    return minutes > 0 ? `${value} tiếng ${minutes} phút` : `${value} tiếng`;
+                }
+            }
+        }
+        return 'N/A';
+    }
+
+    static parseTimeControl(tcRaw) {
+        if (!tcRaw) return '3+0';
+        if (typeof tcRaw === 'number') return tcRaw >= 60 ? `${Math.floor(tcRaw / 60)}+0` : `${tcRaw}+0`;
+        if (typeof tcRaw === 'string') {
+            const match = tcRaw.match(/^(\d+)\+(\d+)$/);
+            if (match) {
+                const baseNum = parseInt(match[1]);
+                const incNum = parseInt(match[2]);
+                return baseNum >= 60 ? `${Math.floor(baseNum / 60)}+${incNum}` : `${baseNum}+${incNum}`;
+            }
+            const num = parseInt(tcRaw);
+            if (!isNaN(num)) return num >= 60 ? `${Math.floor(num / 60)}+0` : `${num}+0`;
+        }
+        return '3+0';
+    }
+
     static async getMonthlyAggregation(monthId) {
         const tourIds = await DataFetcher.getTournamentIds(monthId);
 
@@ -151,11 +230,23 @@ class DataProcessor {
                 .filter(p => p.username)
                 .map(p => ({ username: p.username, points: p.points || 0 }));
 
+            const rounds = tournamentData.settings?.total_rounds || tournamentData.rounds || tournamentData.total_rounds || 0;
+            const startTime = tournamentData.start_time || tournamentData.startTime;
+            const endTime = tournamentData.finish_time || tournamentData.endTime;
+            const duration = startTime && endTime ? this.calculateDuration(startTime, endTime) : 'N/A';
+            const timeControl = this.parseTimeControl(tournamentData.settings?.time_control || tournamentData.time_control || tournamentData.timeControl);
+
             tournaments.push({
                 id: tourIds[i],
                 name: tournamentData.name || 'Unknown',
                 url: tournamentData.url || `https://chess.com/tournament/${tourIds[i]}`,
                 status: tournamentData.status || 'Unknown',
+                variant: tournamentData.settings?.rules || tournamentData.rules || 'standard',
+                timeClass: tournamentData.settings?.time_class || tournamentData.time_class || 'classical',
+                timeControl: timeControl,
+                totalRounds: rounds,
+                duration: duration,
+                playersCount: tournamentData.settings?.registered_user_count || tournamentData.players_registered || tournamentData.players?.length || 0,
                 topPlayers: tourPlayers
             });
 
@@ -204,6 +295,27 @@ class DataProcessor {
  * @description Generates HTML strings for the tournament table.
  */
 class Renderer {
+    static image(src, width = '15px', height = '15px') {
+        return `<img src="${src}" width="${width}" height="${height}" alt="" style="display: inline-block; vertical-align: middle;">`;
+    }
+
+    static timeControlFormat(timeControl, timeClass) {
+        const icon = TIME_CLASS_ICONS[timeClass];
+        const iconPath = icon ? `//chess.com${icon.path}` : null;
+        const className = icon?.name || 'Standard';
+        return `${timeControl} ${className} ${iconPath ? this.image(iconPath) : ''}`;
+    }
+
+    static variantInfo(variantKey) {
+        const variant = VARIANTS[variantKey.toLowerCase()];
+        if (!variant) return null;
+        return {
+            name: variant.name,
+            url: `//chess.com${variant.url}`,
+            icon: `//chess.com${variant.icon}`
+        };
+    }
+
     static async generatePlayerCell(player, playerData) {
         if (!player) {
             return '<td style="color: var(--primary-warning)">Chưa có dữ liệu!</td>';
@@ -252,15 +364,11 @@ class Renderer {
     static async generateMonthRow(monthId) {
         const { topPlayers, playerDetails, tournaments, totalPlayers } = await DataProcessor.getMonthlyTop(monthId);
 
+        const tournamentsJson = JSON.stringify(tournaments).replace(/"/g, '&quot;');
+
         let html = '<tr>\n';
-        html += `    <td class="name-tour">Tháng ${monthId}</td>\n`;
+        html += `    <td class="name-tour month-clickable" data-tournaments="${tournamentsJson}" data-month="${monthId}" title="Xem chi tiết các vòng đấu">Tháng ${monthId} <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i></td>\n`;
         html += `    <td class="organization-day">${tournaments.length} giải đấu</td>\n`;
-
-        const tournamentLinks = tournaments.map(t =>
-            `<div style="margin-bottom: 2px;"><a href="${t.url}" target="_blank" style="color: var(--cyan-300); font-size: 0.9em; text-decoration: none;">${t.name}</a></div>`
-        ).join('');
-
-        html += `    <td class="rules">${tournamentLinks}</td>\n`;
         html += `    <td class="players">${totalPlayers}</td>\n`;
 
         for (let i = 0; i < CONFIG.TOP_PLAYERS_COUNT; i++) {
@@ -274,8 +382,8 @@ class Renderer {
     }
 
     static skeletonRow() {
-        return Array(10).fill(null).map((_, i) =>
-            i < 4
+        return Array(9).fill(null).map((_, i) =>
+            i < 3
                 ? '<td><div class="skeleton skeleton-text" style="width: 75%;"></div></td>'
                 : '<td><div class="skeleton skeleton-avatar"></div></td>'
         ).join('\n    ');
@@ -287,6 +395,56 @@ class Renderer {
  * @description Static methods for handling the score detail modal.
  */
 class ModalManager {
+    static showMonthDetails(monthId, tournaments) {
+        const modal = document.getElementById('scoreModal');
+        const title = document.getElementById('modal-player-name');
+        const body = document.getElementById('modal-score-breakdown');
+
+        if (!modal || !title || !body) return;
+
+        title.textContent = `Chi tiết các vòng đấu: Tháng ${monthId}`;
+
+        let html = `
+            <div class="calendar-wrapper">
+                <table class="styled-table score-detail-table">
+                    <thead>
+                        <tr>
+                            <th>Vòng đấu</th>
+                            <th>Thể lệ</th>
+                            <th style="text-align: center;">Kỳ thủ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        tournaments.forEach(t => {
+            const variant = Renderer.variantInfo(t.variant);
+            const variantHTML = variant ? ` <a href="${variant.url}" target="_blank">${variant.name} ${Renderer.image(variant.icon)}</a>` : '';
+            const timeHTML = Renderer.timeControlFormat(t.timeControl, t.timeClass);
+            const formatText = t.totalRounds === 1
+                ? `Đấu trường Arena ${t.duration}`
+                : `Hệ Thụy Sĩ ${t.totalRounds} vòng`;
+
+            html += `
+                <tr>
+                    <td><a href="${t.url}" target="_blank">${t.name}</a></td>
+                    <td>${timeHTML}${variantHTML}<br>${formatText}</td>
+                    <td style="text-align: center; font-weight: bold; color: var(--cyan-300);">${t.playersCount}</td>
+                </tr>
+            `;
+        });
+
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        body.innerHTML = html;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
     static show(player) {
         const modal = document.getElementById('scoreModal');
         const title = document.getElementById('modal-player-name');
@@ -360,17 +518,29 @@ class PageManager {
             });
         }
 
-        // Event delegation for score pills
+        // Event delegation for score pills and month details
         const tbody = document.getElementById('tournament-tbody');
         if (tbody) {
             tbody.addEventListener('click', (e) => {
-                const pill = e.target.closest('.score-pill');
-                if (pill && pill.dataset.player) {
+                const scorePill = e.target.closest('.score-pill');
+                if (scorePill && scorePill.dataset.player) {
                     try {
-                        const player = JSON.parse(pill.dataset.player);
+                        const player = JSON.parse(scorePill.dataset.player);
                         ModalManager.show(player);
                     } catch (err) {
                         console.error('Error parsing player data:', err);
+                    }
+                    return;
+                }
+
+                const monthCell = e.target.closest('.month-clickable');
+                if (monthCell && monthCell.dataset.tournaments) {
+                    try {
+                        const tournaments = JSON.parse(monthCell.dataset.tournaments);
+                        const monthId = monthCell.dataset.month;
+                        ModalManager.showMonthDetails(monthId, tournaments);
+                    } catch (err) {
+                        console.error('Error parsing tournaments data:', err);
                     }
                 }
             });
@@ -402,7 +572,6 @@ class PageManager {
                         <tr>
                             <th class="name-tour">Tháng</th>
                             <th class="organization-day">Thống kê</th>
-                            <th class="rules">Thể lệ</th>
                             <th class="players">Kỳ thủ</th>
                             <th class="winner">🥇 Top 1</th>
                             <th class="winner">🥈 Top 2</th>

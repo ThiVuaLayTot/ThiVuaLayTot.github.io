@@ -855,6 +855,18 @@
   box-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
 }
 
+.month-clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.month-clickable:hover {
+  color: var(--cyan-300);
+  text-shadow: 0 0 8px rgba(0, 242, 255, 0.4);
+  background: rgba(0, 242, 255, 0.05) !important;
+}
+
 .score-modal-dialog {
   max-width: 500px !important;
   grid-template-columns: 1fr !important;
