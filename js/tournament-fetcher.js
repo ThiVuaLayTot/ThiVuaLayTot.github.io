@@ -557,9 +557,9 @@ async function generatePlayerCell(username, points) {
 
     return `<td>
         <div class="post-user-component">
-            <a class="cc-avatar-component post-user-avatar">
+            <span class="cc-avatar-component post-user-avatar">
                 <img class="cc-avatar-img" src="${avatarUrl}" height="50" width="50" alt="${name}">
-            </a>
+            </span>
             <div class="post-user-details">
                 <div class="user-tagline-component">
                     <a class="user-username-component user-tagline-username" href="${URLs.member(name)}" target="_blank">${name}</a>

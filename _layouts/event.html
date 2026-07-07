@@ -13,22 +13,6 @@
     <div id="section-page">
         <div class="container">
             {{ content }}
-
-            <!-- Common Score Detail Modal for Tournament Pages -->
-            <div id="scoreModal" class="cc-modal-overlay">
-                <div class="cc-modal-dialog score-modal-dialog">
-                    <button class="cc-modal-close" onclick="if(window.AggregatedModalManager) AggregatedModalManager.close()">×</button>
-                    <div class="cc-modal-content-wrapper">
-                        <div class="cc-modal-header-row">
-                            <div class="cc-modal-title-section">
-                                <h2 id="modal-player-name">Chi tiết</h2>
-                            </div>
-                        </div>
-                        <div id="modal-score-breakdown"></div>
-                    </div>
-                </div>
-            </div>
-
     <br><br>            <hr>
             <button id="back-to-top" title="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
         </div>
@@ -37,7 +21,6 @@
     <script src="/js/main.js"></script>
     <script src="/js/search-events.js"></script>
     <script src="/js/tournament-fetcher.js"></script>
-    <script src="/js/aggregated-fetcher.js"></script>
 </body>
 
 </html>

@@ -1,24 +1,24 @@
 /**
- * @file Aggregated Tournament Fetcher
- * @description Fetches and aggregates tournament data (TVLT, CTTQ, etc.) into a unified monthly table.
+ * @file CTTQ Tournament Fetcher
+ * @description Fetches and aggregates CTTQ (Chiến Trường Thí Quân) tournament data into a unified table.
  */
 
 /** @type {Object} API endpoint configurations */
-const AGGREGATED_API = {
+const API = {
     CHESS_COM: 'https://api.chess.com/pub',
     MONTHS_GIST: 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw',
     TOURNAMENTS_GIST: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw'
 };
 
 /** @type {Object} General configuration constants */
-const AGGREGATED_CONFIG = {
+const CONFIG = {
     MAX_CONCURRENT_REQUESTS: 10,
     TOP_PLAYERS_COUNT: 6,
     DEFAULT_AVATAR: 'https://chess.com/bundles/web/images/user-image.007dad08.svg'
 };
 
 /** @type {Object} Chess variant metadata and icons */
-const AGGREGATED_VARIANTS = {
+const VARIANTS = {
     'chess960': {
         name: 'Chess960',
         url: '/terms/chess960',
@@ -47,7 +47,7 @@ const AGGREGATED_VARIANTS = {
 };
 
 /** @type {Object} Time class icon mapping */
-const AGGREGATED_TIME_CLASS_ICONS = {
+const TIME_CLASS_ICONS = {
     'lightning': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
@@ -60,7 +60,7 @@ const AGGREGATED_TIME_CLASS_ICONS = {
  * @description Handles rate-limited requests and caching for API calls.
  */
 class RequestManager {
-    constructor(maxConcurrent = AGGREGATED_CONFIG.MAX_CONCURRENT_REQUESTS) {
+    constructor(maxConcurrent = CONFIG.MAX_CONCURRENT_REQUESTS) {
         this.maxConcurrent = maxConcurrent;
         this.activeRequests = 0;
         this.cache = new Map();
@@ -115,26 +115,26 @@ const requestManager = new RequestManager();
  * @description Static methods for fetching raw data from Gist and Chess.com.
  */
 class DataFetcher {
-    static async getMonths(eventType) {
-        const text = await requestManager.fetchText(`${AGGREGATED_API.MONTHS_GIST}/${eventType}.txt`);
+    static async getMonths() {
+        const text = await requestManager.fetchText(`${API.MONTHS_GIST}/cttq.txt`);
         return text ? text.split('\n').filter(line => line.trim()) : [];
     }
 
     static async getTournamentIds(monthId) {
-        const text = await requestManager.fetchText(`${AGGREGATED_API.TOURNAMENTS_GIST}/${monthId}.txt`);
+        const text = await requestManager.fetchText(`${API.TOURNAMENTS_GIST}/${monthId}.txt`);
         return text ? text.split('\n').filter(line => line.trim()) : [];
     }
 
     static async getPlayerData(username) {
-        return requestManager.fetchJSON(`${AGGREGATED_API.CHESS_COM}/player/${username}`);
+        return requestManager.fetchJSON(`${API.CHESS_COM}/player/${username}`);
     }
 
     static async getTournamentData(tourId) {
-        return requestManager.fetchJSON(`${AGGREGATED_API.CHESS_COM}/tournament/${tourId}`);
+        return requestManager.fetchJSON(`${API.CHESS_COM}/tournament/${tourId}`);
     }
 
     static async getTournamentRound(tourId, round = 1) {
-        return requestManager.fetchJSON(`${AGGREGATED_API.CHESS_COM}/tournament/${tourId}/${round}`);
+        return requestManager.fetchJSON(`${API.CHESS_COM}/tournament/${tourId}/${round}`);
     }
 }
 
@@ -145,12 +145,12 @@ class DataFetcher {
 class DataProcessor {
     static parsePlayer(playerData) {
         if (!playerData) {
-            return { username: 'unknown', avatar: AGGREGATED_CONFIG.DEFAULT_AVATAR, status: 'N/A' };
+            return { username: 'unknown', avatar: CONFIG.DEFAULT_AVATAR, status: 'N/A' };
         }
         const p = playerData.player || playerData;
         return {
             username: p?.username || 'unknown',
-            avatar: p?.avatar || AGGREGATED_CONFIG.DEFAULT_AVATAR,
+            avatar: p?.avatar || CONFIG.DEFAULT_AVATAR,
             status: p?.status || 'N/A'
         };
     }
@@ -270,12 +270,8 @@ class DataProcessor {
         return { playerScores, tournaments };
     }
 
-    static async getMonthlyTop(monthId, count = AGGREGATED_CONFIG.TOP_PLAYERS_COUNT) {
+    static async getMonthlyTop(monthId, count = CONFIG.TOP_PLAYERS_COUNT) {
         const { playerScores, tournaments } = await DataProcessor.getMonthlyAggregation(monthId);
-
-        if (!playerScores || Object.keys(playerScores).length === 0) {
-            return { topPlayers: [], playerDetails: [], tournaments: [], totalPlayers: 0 };
-        }
 
         const sortedPlayers = Object.values(playerScores)
             .sort((a, b) => b.totalPoints - a.totalPoints)
@@ -305,14 +301,14 @@ class Renderer {
     }
 
     static timeControlFormat(timeControl, timeClass) {
-        const icon = AGGREGATED_TIME_CLASS_ICONS[timeClass];
+        const icon = TIME_CLASS_ICONS[timeClass];
         const iconPath = icon ? `//chess.com${icon.path}` : null;
         const className = icon?.name || 'Standard';
         return `${timeControl} ${className} ${iconPath ? this.image(iconPath) : ''}`;
     }
 
     static variantInfo(variantKey) {
-        const variant = AGGREGATED_VARIANTS[variantKey.toLowerCase()];
+        const variant = VARIANTS[variantKey.toLowerCase()];
         if (!variant) return null;
         return {
             name: variant.name,
@@ -329,7 +325,7 @@ class Renderer {
         const parsed = DataProcessor.parsePlayer(playerData);
         const avatarUrl = parsed.avatar && parsed.avatar !== 'N/A'
             ? parsed.avatar
-            : AGGREGATED_CONFIG.DEFAULT_AVATAR;
+            : CONFIG.DEFAULT_AVATAR;
 
         const badges = {
             'closed:abuse': { class: 'user-badges-closed', icon: 'bx bx-dislike', text: 'Closed: Abuse' },
@@ -376,7 +372,7 @@ class Renderer {
         html += `    <td class="organization-day">${tournaments.length} giải đấu</td>\n`;
         html += `    <td class="players">${totalPlayers}</td>\n`;
 
-        for (let i = 0; i < AGGREGATED_CONFIG.TOP_PLAYERS_COUNT; i++) {
+        for (let i = 0; i < CONFIG.TOP_PLAYERS_COUNT; i++) {
             const player = topPlayers[i] || null;
             const playerData = playerDetails[i] || null;
             html += `    ${await this.generatePlayerCell(player, playerData)}\n`;
@@ -434,7 +430,7 @@ class ModalManager {
                 <tr>
                     <td><a href="${t.url}" target="_blank">${t.name}</a></td>
                     <td>${timeHTML}${variantHTML}<br>${formatText}</td>
-                    <td style="text-align: center; font-weight: bold; color: var(--cyan-300);">${t.playersCount}</td>
+                    <td style="text-align: center; font-weight: bold; color: var(--cyan-300);">${t.playersCount} <span class=""></span></td>
                 </tr>
             `;
         });
@@ -457,7 +453,7 @@ class ModalManager {
 
         if (!modal || !title || !body) return;
 
-        title.textContent = `Chi tiết điểm: ${player.username}`;
+        title.textContent = `Chi tiết điểm của ${player.username}`;
 
         let html = `
             <div class="calendar-wrapper">
@@ -553,14 +549,13 @@ class PageManager {
     }
 
     static async init() {
-        const container = document.querySelector('[data-fetch-aggregated]');
+        const container = document.getElementById('cttq-months-container');
         if (!container) return;
 
-        const eventType = container.dataset.fetchAggregated || 'cttq';
         container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
         try {
-            const months = await DataFetcher.getMonths(eventType);
+            const months = await DataFetcher.getMonths();
 
             if (months.length === 0) {
                 container.innerHTML = '<div class="error">Không tìm thấy dữ liệu giải đấu nào.</div>';
@@ -570,7 +565,7 @@ class PageManager {
             const initialHTML = `
                 <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm trong bảng">
                 <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;">
-                    Đang hiển thị:&nbsp;&nbsp;<span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>&nbsp;<span><span id="current-tournament">0</span>/<span id="total-tournaments">${months.length}</span>&nbsp;tháng giải đấu</span>
+                    Đang xử lý:&nbsp;&nbsp;<span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>&nbsp;<span><span id="current-tournament">0</span>/<span id="total-tournaments">${months.length}</span>&nbsp;tháng</span>
                 </div>
                 <div class="table">
                     <table class="styled-table" id="tournament-results-table">
@@ -646,9 +641,6 @@ class PageManager {
         }
     }
 }
-
-// Expose ModalManager globally for the close button
-window.AggregatedModalManager = ModalManager;
 
 // INITIALIZATION
 if (document.readyState === 'loading') {
