@@ -51,6 +51,7 @@ const VARIANTS = {
 
 /** @type {Object} Time class icon mapping */
 const TIME_CLASS_ICONS = {
+    'lightning': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
     'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
     'rapid': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' },
