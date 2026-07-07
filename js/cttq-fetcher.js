@@ -242,7 +242,7 @@ class Renderer {
                     </div>
                     <div class="post-user-status">
                         <span>${badgeHTML}</span>
-                        <span class="score-pill" onclick='PageManager.showScoreDetail(${playerJson})'>${player.totalPoints} ĐIỂM</span>
+                        <span class="score-pill" data-player="${playerJson}">${player.totalPoints} ĐIỂM</span>
                     </div>
                 </div>
             </div>
@@ -359,6 +359,22 @@ class PageManager {
                 if (e.target === modal) ModalManager.close();
             });
         }
+
+        // Event delegation for score pills
+        const tbody = document.getElementById('tournament-tbody');
+        if (tbody) {
+            tbody.addEventListener('click', (e) => {
+                const pill = e.target.closest('.score-pill');
+                if (pill && pill.dataset.player) {
+                    try {
+                        const player = JSON.parse(pill.dataset.player);
+                        ModalManager.show(player);
+                    } catch (err) {
+                        console.error('Error parsing player data:', err);
+                    }
+                }
+            });
+        }
     }
 
     static async init() {
@@ -457,6 +473,8 @@ class PageManager {
 }
 
 // INITIALIZATION
-window.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', () => PageManager.init());
+} else {
     PageManager.init();
-});
+}
