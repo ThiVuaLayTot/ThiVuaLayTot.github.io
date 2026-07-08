@@ -90,8 +90,10 @@ class RequestManager {
 
             if (response.status === 429 && retries > 0) {
                 const retryAfter = response.headers.get('Retry-After');
-                const delay = retryAfter ? parseInt(retryAfter) * 1000 : backoff;
-                console.warn(`[429] Too Many Requests for ${url}. Retrying in ${delay}ms...`);
+                const jitter = Math.random() * 200;
+                const delay = (retryAfter ? parseInt(retryAfter) * 1000 : backoff) + jitter;
+
+                console.warn(`[429] Too Many Requests for ${url}. Retrying in ${Math.round(delay)}ms...`);
                 await new Promise(r => setTimeout(r, delay));
                 return this.fetchWithRetry(url, type, retries - 1, backoff * 2);
             }
@@ -100,7 +102,9 @@ class RequestManager {
             return type === 'json' ? await response.json() : await response.text();
         } catch (error) {
             if (retries > 0) {
-                await new Promise(r => setTimeout(r, backoff));
+                const jitter = Math.random() * 200;
+                const delay = backoff + jitter;
+                await new Promise(r => setTimeout(r, delay));
                 return this.fetchWithRetry(url, type, retries - 1, backoff * 2);
             }
             console.warn(`Error fetching ${type}: ${url}`, error);
@@ -122,9 +126,13 @@ class RequestManager {
     }
 
     async fetchText(url) {
+        if (this.cache.has(url)) return this.cache.get(url);
+
         await this.acquire();
         try {
-            return await this.fetchWithRetry(url, 'text');
+            const data = await this.fetchWithRetry(url, 'text');
+            if (data) this.cache.set(url, data);
+            return data;
         } finally {
             this.release();
         }

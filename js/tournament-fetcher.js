@@ -70,6 +70,7 @@ const Cache = {
     tournaments: new Map(),
     rounds: new Map(),
     groups: new Map(),
+    raw: new Map(),
 
     getPlayer(username) {
         return this.players.get(username);
@@ -217,40 +218,59 @@ const HTML = {
 
 /**
  * Generic fetch with error handling and retry logic for 429 errors.
+ * Supports JSON and raw text.
  * @param {string} url - The URL to fetch.
  * @param {string} errorContext - Context for error logging.
- * @returns {Promise<Object|null>}
+ * @param {boolean} [json=true] - Whether to parse as JSON.
+ * @returns {Promise<any|null>}
  */
-async function fetchJSON(url, errorContext) {
-    const fetchWithRetry = async (u, ctx, retries = 3, backoff = 1000) => {
+async function fetchWithRetry(url, errorContext, json = true) {
+    if (Cache.raw.has(url)) return Cache.raw.get(url);
+
+    const executeFetch = async (u, ctx, retries = 3, backoff = 1000) => {
         try {
             const response = await fetch(u);
 
             if (response.status === 429 && retries > 0) {
                 const retryAfter = response.headers.get('Retry-After');
-                const delay = retryAfter ? parseInt(retryAfter) * 1000 : backoff;
-                console.warn(`[${ctx}] 429 Too Many Requests. Retrying in ${delay}ms... (${retries} left)`);
+                // Use Retry-After if present, otherwise exponential backoff with jitter
+                const jitter = Math.random() * 200;
+                const delay = (retryAfter ? parseInt(retryAfter) * 1000 : backoff) + jitter;
+
+                console.warn(`[${ctx}] 429 Too Many Requests. Retrying in ${Math.round(delay)}ms... (${retries} left)`);
                 await new Promise(r => setTimeout(r, delay));
-                return fetchWithRetry(u, ctx, retries - 1, backoff * 2);
+                return executeFetch(u, ctx, retries - 1, backoff * 2);
             }
 
             if (!response.ok) {
                 console.warn(`[${ctx}] Status: ${response.status} for ${u}`);
                 return null;
             }
-            return await response.json();
+
+            const data = json ? await response.json() : await response.text();
+            Cache.raw.set(u, data);
+            return data;
         } catch (error) {
             if (retries > 0) {
-                console.warn(`[${ctx}] Fetch error, retrying... (${retries} left)`, error);
-                await new Promise(r => setTimeout(r, backoff));
-                return fetchWithRetry(u, ctx, retries - 1, backoff * 2);
+                const jitter = Math.random() * 200;
+                const delay = backoff + jitter;
+                console.warn(`[${ctx}] Fetch error, retrying in ${Math.round(delay)}ms... (${retries} left)`, error);
+                await new Promise(r => setTimeout(r, delay));
+                return executeFetch(u, ctx, retries - 1, backoff * 2);
             }
             console.error(`[${ctx}] Final Error:`, error);
             return null;
         }
     };
 
-    return fetchWithRetry(url, errorContext);
+    return executeFetch(url, errorContext);
+}
+
+/**
+ * Legacy wrapper for JSON fetching.
+ */
+async function fetchJSON(url, errorContext) {
+    return fetchWithRetry(url, errorContext, true);
 }
 
 /**
@@ -259,15 +279,9 @@ async function fetchJSON(url, errorContext) {
  * @returns {Promise<string[]>}
  */
 async function getIds(eventType) {
-    try {
-        const url = URLs.gistFile(eventType);
-        const response = await fetch(url);
-        const text = await response.text();
-        return text.split('\n').filter(line => line.trim());
-    } catch (error) {
-        console.error(`[getIds] Error fetching ${eventType}:`, error);
-        return [];
-    }
+    const url = URLs.gistFile(eventType);
+    const text = await fetchWithRetry(url, 'getIds', false);
+    return text ? text.split('\n').filter(line => line.trim()) : [];
 }
 
 /**
