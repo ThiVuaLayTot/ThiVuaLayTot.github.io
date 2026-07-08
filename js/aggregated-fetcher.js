@@ -63,18 +63,23 @@ class RequestManager {
     constructor(maxConcurrent = CONFIG.MAX_CONCURRENT_REQUESTS) {
         this.maxConcurrent = maxConcurrent;
         this.activeRequests = 0;
+        this.queue = [];
         this.cache = new Map();
     }
 
     async execute(fn) {
-        while (this.activeRequests >= this.maxConcurrent) {
-            await new Promise(r => setTimeout(r, 50));
+        if (this.activeRequests >= this.maxConcurrent) {
+            await new Promise(resolve => this.queue.push(resolve));
         }
         this.activeRequests++;
         try {
             return await fn();
         } finally {
             this.activeRequests--;
+            if (this.queue.length > 0) {
+                const next = this.queue.shift();
+                next();
+            }
         }
     }
 

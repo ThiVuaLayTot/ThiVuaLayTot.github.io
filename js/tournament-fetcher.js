@@ -9,7 +9,7 @@ const CONFIG = {
     CHESS_COM_URL: '//chess.com',
     GIST_BASE: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw',
     MAX_PLAYERS_DISPLAY: 6,
-    BATCH_SIZE: Infinity
+    MAX_CONCURRENT_REQUESTS: 10
 };
 
 /** @type {Map<string, Object>} Special player display overrides */
@@ -657,68 +657,77 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         container.innerHTML = initialHTML;
 
         const tbody = document.getElementById('tournament-tbody');
+        const currentCountSpan = document.getElementById('current-tournament');
         let successCount = 0;
 
         // Add skeleton rows
-        const skeletonRows = tourIds.map((_, i) => {
+        tourIds.forEach((_, i) => {
             const tr = document.createElement('tr');
             tr.innerHTML = HTML.skeletonRow();
             tr.classList.add('skeleton-row');
-            tr.id = `skeleton-${i}`;
+            tr.id = `skeleton-${containerId}-${i}`;
             tbody.appendChild(tr);
-            return tr;
         });
 
-        // Fetch all tournament data concurrently
-        const processResults = await Promise.allSettled(
-            tourIds.map(async (tourId, index) => {
-                const tourData = await fetchTournamentData(tourId);
-                if (!tourData) return null;
+        // Limit concurrency for fetching data
+        const pool = new Set();
+        const results = [];
 
-                const parsed = await parseTournamentData(tourData, tourId);
-                if (!parsed) return null;
-
-                // Pre-fetch players
-                await fetchPlayerDataBatch(parsed.players);
-
-                // Generate row
-                const row = await generateTournamentRow(parsed);
-                return { row, index };
-            })
-        );
-
-        // Render results
-        processResults.forEach((result) => {
-            if (result.status === 'fulfilled' && result.value) {
-                const { row, index } = result.value;
-                const skeletonRow = skeletonRows[index];
-
-                if (skeletonRow?.parentNode) {
-                    const tdContent = row
-                        .replace(/^\s*<tr>\n\s*/, '')
-                        .replace(/\s*<\/tr>\s*$/, '');
-                    skeletonRow.innerHTML = tdContent;
-                    skeletonRow.classList.remove('skeleton-row');
-                }
-
-                successCount++;
-                document.getElementById('current-tournament').textContent = successCount;
+        for (const [index, tourId] of tourIds.entries()) {
+            if (pool.size >= CONFIG.MAX_CONCURRENT_REQUESTS) {
+                await Promise.race(pool);
             }
-        });
 
-        // Update status
+            const promise = (async () => {
+                try {
+                    const tourData = await fetchTournamentData(tourId);
+                    if (!tourData) return;
+
+                    const parsed = await parseTournamentData(tourData, tourId);
+                    if (!parsed) return;
+
+                    await fetchPlayerDataBatch(parsed.players);
+                    const row = await generateTournamentRow(parsed);
+
+                    // Update UI immediately for this row
+                    const skeletonRow = document.getElementById(`skeleton-${containerId}-${index}`);
+                    if (skeletonRow) {
+                        const tdContent = row
+                            .replace(/^\s*<tr>\n\s*/, '')
+                            .replace(/\s*<\/tr>\s*$/, '');
+                        skeletonRow.innerHTML = tdContent;
+                        skeletonRow.classList.remove('skeleton-row');
+                    }
+
+                    successCount++;
+                    if (currentCountSpan) currentCountSpan.textContent = successCount;
+                } catch (err) {
+                    console.warn(`Failed to process tournament ${tourId}:`, err);
+                }
+            })();
+
+            pool.add(promise);
+            promise.finally(() => pool.delete(promise));
+            results.push(promise);
+        }
+
+        await Promise.allSettled(results);
+
+        // Update final status
         if (successCount === 0) {
             container.innerHTML = '<div class="error">Đã có lỗi xảy ra. Hãy thử tải lại trang!</div>';
             return;
         }
 
         const statusIcon = document.getElementById('statusIcon');
-        if (successCount === tourIds.length) {
-            statusIcon.style.color = 'var(--primary-success)';
-            statusIcon.className = 'bx bx-check';
-        } else {
-            statusIcon.style.color = 'var(--color-red)';
-            statusIcon.className = 'bx bx-x';
+        if (statusIcon) {
+            if (successCount === tourIds.length) {
+                statusIcon.style.color = 'var(--primary-success)';
+                statusIcon.className = 'bx bx-check';
+            } else {
+                statusIcon.style.color = 'var(--color-red)';
+                statusIcon.className = 'bx bx-x';
+            }
         }
 
     } catch (error) {
