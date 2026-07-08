@@ -48,4 +48,4 @@ window.searchTable = debounce(function() {
         // Toggle row visibility based on match result
         rows[i].style.display = match ? '' : 'none';
     }
-}, 250);
+}, 1500);
