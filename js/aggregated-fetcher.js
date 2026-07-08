@@ -67,49 +67,67 @@ class RequestManager {
         this.cache = new Map();
     }
 
-    async execute(fn) {
+    async acquire() {
         if (this.activeRequests >= this.maxConcurrent) {
             await new Promise(resolve => this.queue.push(resolve));
         }
         this.activeRequests++;
+        // Small delay to staggered concurrent requests
+        await new Promise(r => setTimeout(r, 50));
+    }
+
+    release() {
+        this.activeRequests--;
+        if (this.queue.length > 0) {
+            const next = this.queue.shift();
+            next();
+        }
+    }
+
+    async fetchWithRetry(url, type = 'json', retries = 3, backoff = 1000) {
         try {
-            return await fn();
-        } finally {
-            this.activeRequests--;
-            if (this.queue.length > 0) {
-                const next = this.queue.shift();
-                next();
+            const response = await fetch(url);
+
+            if (response.status === 429 && retries > 0) {
+                const retryAfter = response.headers.get('Retry-After');
+                const delay = retryAfter ? parseInt(retryAfter) * 1000 : backoff;
+                console.warn(`[429] Too Many Requests for ${url}. Retrying in ${delay}ms...`);
+                await new Promise(r => setTimeout(r, delay));
+                return this.fetchWithRetry(url, type, retries - 1, backoff * 2);
             }
+
+            if (!response.ok) return null;
+            return type === 'json' ? await response.json() : await response.text();
+        } catch (error) {
+            if (retries > 0) {
+                await new Promise(r => setTimeout(r, backoff));
+                return this.fetchWithRetry(url, type, retries - 1, backoff * 2);
+            }
+            console.warn(`Error fetching ${type}: ${url}`, error);
+            return null;
         }
     }
 
     async fetchJSON(url) {
         if (this.cache.has(url)) return this.cache.get(url);
 
-        const data = await this.execute(async () => {
-            try {
-                const response = await fetch(url);
-                return response.ok ? await response.json() : null;
-            } catch (error) {
-                console.warn(`Error fetching JSON: ${url}`, error);
-                return null;
-            }
-        });
-
-        if (data) this.cache.set(url, data);
-        return data;
+        await this.acquire();
+        try {
+            const data = await this.fetchWithRetry(url, 'json');
+            if (data) this.cache.set(url, data);
+            return data;
+        } finally {
+            this.release();
+        }
     }
 
     async fetchText(url) {
-        return this.execute(async () => {
-            try {
-                const response = await fetch(url);
-                return response.ok ? await response.text() : null;
-            } catch (error) {
-                console.warn(`Error fetching text: ${url}`, error);
-                return null;
-            }
-        });
+        await this.acquire();
+        try {
+            return await this.fetchWithRetry(url, 'text');
+        } finally {
+            this.release();
+        }
     }
 }
 

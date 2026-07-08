@@ -216,23 +216,41 @@ const HTML = {
 };
 
 /**
- * Generic fetch with error handling.
+ * Generic fetch with error handling and retry logic for 429 errors.
  * @param {string} url - The URL to fetch.
  * @param {string} errorContext - Context for error logging.
  * @returns {Promise<Object|null>}
  */
 async function fetchJSON(url, errorContext) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            console.warn(`[${errorContext}] Status: ${response.status} for ${url}`);
+    const fetchWithRetry = async (u, ctx, retries = 3, backoff = 1000) => {
+        try {
+            const response = await fetch(u);
+
+            if (response.status === 429 && retries > 0) {
+                const retryAfter = response.headers.get('Retry-After');
+                const delay = retryAfter ? parseInt(retryAfter) * 1000 : backoff;
+                console.warn(`[${ctx}] 429 Too Many Requests. Retrying in ${delay}ms... (${retries} left)`);
+                await new Promise(r => setTimeout(r, delay));
+                return fetchWithRetry(u, ctx, retries - 1, backoff * 2);
+            }
+
+            if (!response.ok) {
+                console.warn(`[${ctx}] Status: ${response.status} for ${u}`);
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            if (retries > 0) {
+                console.warn(`[${ctx}] Fetch error, retrying... (${retries} left)`, error);
+                await new Promise(r => setTimeout(r, backoff));
+                return fetchWithRetry(u, ctx, retries - 1, backoff * 2);
+            }
+            console.error(`[${ctx}] Final Error:`, error);
             return null;
         }
-        return await response.json();
-    } catch (error) {
-        console.error(`[${errorContext}] Error:`, error);
-        return null;
-    }
+    };
+
+    return fetchWithRetry(url, errorContext);
 }
 
 /**
@@ -677,6 +695,9 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
             if (pool.size >= CONFIG.MAX_CONCURRENT_REQUESTS) {
                 await Promise.race(pool);
             }
+
+            // Small delay to avoid burst requests
+            await new Promise(r => setTimeout(r, 100));
 
             const promise = (async () => {
                 try {
