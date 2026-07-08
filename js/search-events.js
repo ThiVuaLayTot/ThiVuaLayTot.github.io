@@ -1,9 +1,29 @@
 /**
+ * Debounce helper to limit the frequency of function execution.
+ * @param {Function} func - The function to debounce.
+ * @param {number} wait - The delay in milliseconds.
+ * @returns {Function}
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/**
  * Filters the events table based on the user's search input.
  * Searches across all columns and toggles row visibility.
  */
-function searchTable() {
+window.searchTable = debounce(function() {
     const input = document.getElementById('searchInput');
+    if (!input) return;
+
     const filter = input.value.toUpperCase();
     const table = document.querySelector('.styled-table');
 
@@ -28,4 +48,4 @@ function searchTable() {
         // Toggle row visibility based on match result
         rows[i].style.display = match ? '' : 'none';
     }
-}
+}, 1500);

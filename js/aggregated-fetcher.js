@@ -63,48 +63,79 @@ class RequestManager {
     constructor(maxConcurrent = CONFIG.MAX_CONCURRENT_REQUESTS) {
         this.maxConcurrent = maxConcurrent;
         this.activeRequests = 0;
+        this.queue = [];
         this.cache = new Map();
     }
 
-    async execute(fn) {
-        while (this.activeRequests >= this.maxConcurrent) {
-            await new Promise(r => setTimeout(r, 50));
+    async acquire() {
+        if (this.activeRequests >= this.maxConcurrent) {
+            await new Promise(resolve => this.queue.push(resolve));
         }
         this.activeRequests++;
+        // Small delay to staggered concurrent requests
+        await new Promise(r => setTimeout(r, 50));
+    }
+
+    release() {
+        this.activeRequests--;
+        if (this.queue.length > 0) {
+            const next = this.queue.shift();
+            next();
+        }
+    }
+
+    async fetchWithRetry(url, type = 'json', retries = 3, backoff = 1000) {
         try {
-            return await fn();
-        } finally {
-            this.activeRequests--;
+            const response = await fetch(url);
+
+            if (response.status === 429 && retries > 0) {
+                const retryAfter = response.headers.get('Retry-After');
+                const jitter = Math.random() * 200;
+                const delay = (retryAfter ? parseInt(retryAfter) * 1000 : backoff) + jitter;
+
+                console.warn(`[429] Too Many Requests for ${url}. Retrying in ${Math.round(delay)}ms...`);
+                await new Promise(r => setTimeout(r, delay));
+                return this.fetchWithRetry(url, type, retries - 1, backoff * 2);
+            }
+
+            if (!response.ok) return null;
+            return type === 'json' ? await response.json() : await response.text();
+        } catch (error) {
+            if (retries > 0) {
+                const jitter = Math.random() * 200;
+                const delay = backoff + jitter;
+                await new Promise(r => setTimeout(r, delay));
+                return this.fetchWithRetry(url, type, retries - 1, backoff * 2);
+            }
+            console.warn(`Error fetching ${type}: ${url}`, error);
+            return null;
         }
     }
 
     async fetchJSON(url) {
         if (this.cache.has(url)) return this.cache.get(url);
 
-        const data = await this.execute(async () => {
-            try {
-                const response = await fetch(url);
-                return response.ok ? await response.json() : null;
-            } catch (error) {
-                console.warn(`Error fetching JSON: ${url}`, error);
-                return null;
-            }
-        });
-
-        if (data) this.cache.set(url, data);
-        return data;
+        await this.acquire();
+        try {
+            const data = await this.fetchWithRetry(url, 'json');
+            if (data) this.cache.set(url, data);
+            return data;
+        } finally {
+            this.release();
+        }
     }
 
     async fetchText(url) {
-        return this.execute(async () => {
-            try {
-                const response = await fetch(url);
-                return response.ok ? await response.text() : null;
-            } catch (error) {
-                console.warn(`Error fetching text: ${url}`, error);
-                return null;
-            }
-        });
+        if (this.cache.has(url)) return this.cache.get(url);
+
+        await this.acquire();
+        try {
+            const data = await this.fetchWithRetry(url, 'text');
+            if (data) this.cache.set(url, data);
+            return data;
+        } finally {
+            this.release();
+        }
     }
 }
 
@@ -209,11 +240,37 @@ class DataProcessor {
             tourIds.map(id => DataFetcher.getTournamentData(id))
         );
 
-        // Fetch final round data for each tournament
-        const topPlayersDataList = await Promise.all(
-            tourDataList.map((data, i) => {
-                const rounds = data?.settings?.total_rounds || data?.rounds || data?.total_rounds || 1;
-                return DataFetcher.getTournamentRound(tourIds[i], rounds);
+        // Fetch final round data and group data for points
+        const tournamentPlayerPoints = await Promise.all(
+            tourDataList.map(async (data, i) => {
+                if (!data) return new Map();
+                const tourId = tourIds[i];
+                const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
+                const pointsMap = new Map();
+
+                if (rounds > 0) {
+                    const roundData = await DataFetcher.getTournamentRound(tourId, rounds);
+                    if (roundData) {
+                        let players = [];
+                        if (roundData.groups && roundData.groups.length > 0) {
+                            const groupResults = await Promise.allSettled(
+                                roundData.groups.map(url => requestManager.fetchJSON(url))
+                            );
+                            groupResults.forEach(res => {
+                                if (res.status === 'fulfilled' && res.value?.players) {
+                                    players.push(...res.value.players);
+                                }
+                            });
+                        } else if (roundData.players) {
+                            players = roundData.players;
+                        }
+
+                        players.forEach(p => {
+                            if (p.username) pointsMap.set(p.username.toLowerCase(), p.points || 0);
+                        });
+                    }
+                }
+                return pointsMap;
             })
         );
 
@@ -223,13 +280,20 @@ class DataProcessor {
         // Process each tournament
         for (let i = 0; i < tourIds.length; i++) {
             const tournamentData = tourDataList[i];
-            const roundData = topPlayersDataList[i];
+            const pointsMap = tournamentPlayerPoints[i];
 
             if (!tournamentData) continue;
 
-            const tourPlayers = (roundData?.players || [])
-                .filter(p => p.username)
-                .map(p => ({ username: p.username, points: p.points || 0 }));
+            const tourPlayers = (tournamentData.players || [])
+                .map(p => {
+                    const username = typeof p === 'string' ? p : p.username;
+                    return {
+                        username,
+                        points: typeof p === 'object' && p.points !== undefined
+                            ? p.points
+                            : (pointsMap.get(username.toLowerCase()) || 0)
+                    };
+                });
 
             const rounds = tournamentData.settings?.total_rounds || tournamentData.rounds || tournamentData.total_rounds || 0;
             const startTime = tournamentData.start_time || tournamentData.startTime;

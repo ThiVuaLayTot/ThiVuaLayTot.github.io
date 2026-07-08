@@ -9,7 +9,7 @@ const CONFIG = {
     CHESS_COM_URL: '//chess.com',
     GIST_BASE: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw',
     MAX_PLAYERS_DISPLAY: 6,
-    BATCH_SIZE: Infinity
+    MAX_CONCURRENT_REQUESTS: 10
 };
 
 /** @type {Map<string, Object>} Special player display overrides */
@@ -70,6 +70,7 @@ const Cache = {
     tournaments: new Map(),
     rounds: new Map(),
     groups: new Map(),
+    raw: new Map(),
 
     getPlayer(username) {
         return this.players.get(username);
@@ -216,23 +217,60 @@ const HTML = {
 };
 
 /**
- * Generic fetch with error handling.
+ * Generic fetch with error handling and retry logic for 429 errors.
+ * Supports JSON and raw text.
  * @param {string} url - The URL to fetch.
  * @param {string} errorContext - Context for error logging.
- * @returns {Promise<Object|null>}
+ * @param {boolean} [json=true] - Whether to parse as JSON.
+ * @returns {Promise<any|null>}
  */
-async function fetchJSON(url, errorContext) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            console.warn(`[${errorContext}] Status: ${response.status} for ${url}`);
+async function fetchWithRetry(url, errorContext, json = true) {
+    if (Cache.raw.has(url)) return Cache.raw.get(url);
+
+    const executeFetch = async (u, ctx, retries = 3, backoff = 1000) => {
+        try {
+            const response = await fetch(u);
+
+            if (response.status === 429 && retries > 0) {
+                const retryAfter = response.headers.get('Retry-After');
+                // Use Retry-After if present, otherwise exponential backoff with jitter
+                const jitter = Math.random() * 200;
+                const delay = (retryAfter ? parseInt(retryAfter) * 1000 : backoff) + jitter;
+
+                console.warn(`[${ctx}] 429 Too Many Requests. Retrying in ${Math.round(delay)}ms... (${retries} left)`);
+                await new Promise(r => setTimeout(r, delay));
+                return executeFetch(u, ctx, retries - 1, backoff * 2);
+            }
+
+            if (!response.ok) {
+                console.warn(`[${ctx}] Status: ${response.status} for ${u}`);
+                return null;
+            }
+
+            const data = json ? await response.json() : await response.text();
+            Cache.raw.set(u, data);
+            return data;
+        } catch (error) {
+            if (retries > 0) {
+                const jitter = Math.random() * 200;
+                const delay = backoff + jitter;
+                console.warn(`[${ctx}] Fetch error, retrying in ${Math.round(delay)}ms... (${retries} left)`, error);
+                await new Promise(r => setTimeout(r, delay));
+                return executeFetch(u, ctx, retries - 1, backoff * 2);
+            }
+            console.error(`[${ctx}] Final Error:`, error);
             return null;
         }
-        return await response.json();
-    } catch (error) {
-        console.error(`[${errorContext}] Error:`, error);
-        return null;
-    }
+    };
+
+    return executeFetch(url, errorContext);
+}
+
+/**
+ * Legacy wrapper for JSON fetching.
+ */
+async function fetchJSON(url, errorContext) {
+    return fetchWithRetry(url, errorContext, true);
 }
 
 /**
@@ -241,15 +279,9 @@ async function fetchJSON(url, errorContext) {
  * @returns {Promise<string[]>}
  */
 async function getIds(eventType) {
-    try {
-        const url = URLs.gistFile(eventType);
-        const response = await fetch(url);
-        const text = await response.text();
-        return text.split('\n').filter(line => line.trim());
-    } catch (error) {
-        console.error(`[getIds] Error fetching ${eventType}:`, error);
-        return [];
-    }
+    const url = URLs.gistFile(eventType);
+    const text = await fetchWithRetry(url, 'getIds', false);
+    return text ? text.split('\n').filter(line => line.trim()) : [];
 }
 
 /**
@@ -461,41 +493,70 @@ async function parseTournamentData(data, tourId) {
     }
 
     const rounds = tournament.settings?.total_rounds || tournament.rounds || tournament.total_rounds || 0;
-    let allPlayers = [];
+    const playerPointsMap = new Map();
+    let roundPlayers = [];
 
+    // Fetch points from the latest round data
     if (rounds > 0) {
         const roundData = await fetchRoundData(tourId, rounds);
         if (roundData) {
             if (roundData.groups && roundData.groups.length > 0) {
-                // Swiss: points are in groups
                 const groupResults = await Promise.allSettled(
                     roundData.groups.map(url => fetchGroupData(url))
                 );
                 groupResults.forEach(result => {
                     if (result.status === 'fulfilled' && result.value?.players) {
-                        allPlayers.push(...result.value.players);
+                        roundPlayers.push(...result.value.players);
                     }
                 });
             } else if (roundData.players) {
-                // Arena: points are in round.players
-                allPlayers = roundData.players;
+                roundPlayers = roundData.players;
             }
         }
     }
 
-    // Sort and extract top players
-    if (allPlayers.length > 0) {
-        allPlayers.sort((a, b) => {
-            const rankA = a.place_finish || a.rank || Infinity;
-            const rankB = b.place_finish || b.rank || Infinity;
-            if (rankA !== rankB) return rankA - rankB;
-            return (b.points || 0) - (a.points || 0);
+    // Map points for easy lookup
+    roundPlayers.forEach(p => {
+        if (p.username) {
+            playerPointsMap.set(p.username.toLowerCase(), p.points || 0);
+        }
+    });
+
+    let allPlayers = [];
+    const tournamentPlayers = tournament.players || [];
+
+    if (tournamentPlayers.length > 0) {
+        // Trust the order of the players array in the main tournament object as it reflects the standings
+        allPlayers = tournamentPlayers.map(p => {
+            const username = typeof p === 'string' ? p : p.username;
+            const points = typeof p === 'object' && p.points !== undefined
+                ? p.points
+                : (playerPointsMap.get(username.toLowerCase()) || 0);
+
+            return {
+                username,
+                points,
+                rank: p.rank || p.place_finish || null
+            };
         });
+
+        // Some Arena tournaments provide rank/points in the tournament object
+        // If not explicitly ranked but we have points from round data, the order should still be correct
     } else {
-        // Fallback to tournament players if no round data
-        allPlayers = (tournament.players || []).map(p =>
-            (typeof p === 'object') ? p : { username: p, points: 0 }
-        );
+        // Fallback to round players if main players list is empty
+        allPlayers = roundPlayers.map(p => ({
+            username: p.username,
+            points: p.points || 0,
+            rank: p.rank || p.place_finish || null
+        }));
+
+        // Sort by rank then points if we don't trust the join order/random order
+        allPlayers.sort((a, b) => {
+            const rankA = a.rank || Infinity;
+            const rankB = b.rank || Infinity;
+            if (rankA !== rankB) return rankA - rankB;
+            return b.points - a.points;
+        });
     }
 
     const topPlayersData = allPlayers.slice(0, CONFIG.MAX_PLAYERS_DISPLAY);
@@ -657,68 +718,80 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
         container.innerHTML = initialHTML;
 
         const tbody = document.getElementById('tournament-tbody');
+        const currentCountSpan = document.getElementById('current-tournament');
         let successCount = 0;
 
         // Add skeleton rows
-        const skeletonRows = tourIds.map((_, i) => {
+        tourIds.forEach((_, i) => {
             const tr = document.createElement('tr');
             tr.innerHTML = HTML.skeletonRow();
             tr.classList.add('skeleton-row');
-            tr.id = `skeleton-${i}`;
+            tr.id = `skeleton-${containerId}-${i}`;
             tbody.appendChild(tr);
-            return tr;
         });
 
-        // Fetch all tournament data concurrently
-        const processResults = await Promise.allSettled(
-            tourIds.map(async (tourId, index) => {
-                const tourData = await fetchTournamentData(tourId);
-                if (!tourData) return null;
+        // Limit concurrency for fetching data
+        const pool = new Set();
+        const results = [];
 
-                const parsed = await parseTournamentData(tourData, tourId);
-                if (!parsed) return null;
-
-                // Pre-fetch players
-                await fetchPlayerDataBatch(parsed.players);
-
-                // Generate row
-                const row = await generateTournamentRow(parsed);
-                return { row, index };
-            })
-        );
-
-        // Render results
-        processResults.forEach((result) => {
-            if (result.status === 'fulfilled' && result.value) {
-                const { row, index } = result.value;
-                const skeletonRow = skeletonRows[index];
-
-                if (skeletonRow?.parentNode) {
-                    const tdContent = row
-                        .replace(/^\s*<tr>\n\s*/, '')
-                        .replace(/\s*<\/tr>\s*$/, '');
-                    skeletonRow.innerHTML = tdContent;
-                    skeletonRow.classList.remove('skeleton-row');
-                }
-
-                successCount++;
-                document.getElementById('current-tournament').textContent = successCount;
+        for (const [index, tourId] of tourIds.entries()) {
+            if (pool.size >= CONFIG.MAX_CONCURRENT_REQUESTS) {
+                await Promise.race(pool);
             }
-        });
 
-        // Update status
+            // Small delay to avoid burst requests
+            await new Promise(r => setTimeout(r, 100));
+
+            const promise = (async () => {
+                try {
+                    const tourData = await fetchTournamentData(tourId);
+                    if (!tourData) return;
+
+                    const parsed = await parseTournamentData(tourData, tourId);
+                    if (!parsed) return;
+
+                    await fetchPlayerDataBatch(parsed.players);
+                    const row = await generateTournamentRow(parsed);
+
+                    // Update UI immediately for this row
+                    const skeletonRow = document.getElementById(`skeleton-${containerId}-${index}`);
+                    if (skeletonRow) {
+                        const tdContent = row
+                            .replace(/^\s*<tr>\n\s*/, '')
+                            .replace(/\s*<\/tr>\s*$/, '');
+                        skeletonRow.innerHTML = tdContent;
+                        skeletonRow.classList.remove('skeleton-row');
+                    }
+
+                    successCount++;
+                    if (currentCountSpan) currentCountSpan.textContent = successCount;
+                } catch (err) {
+                    console.warn(`Failed to process tournament ${tourId}:`, err);
+                }
+            })();
+
+            pool.add(promise);
+            promise.finally(() => pool.delete(promise));
+            results.push(promise);
+        }
+
+        await Promise.allSettled(results);
+
+        // Update final status
         if (successCount === 0) {
             container.innerHTML = '<div class="error">Đã có lỗi xảy ra. Hãy thử tải lại trang!</div>';
             return;
         }
 
         const statusIcon = document.getElementById('statusIcon');
-        if (successCount === tourIds.length) {
-            statusIcon.style.color = 'var(--primary-success)';
-            statusIcon.className = 'bx bx-check';
-        } else {
-            statusIcon.style.color = 'var(--color-red)';
-            statusIcon.className = 'bx bx-x';
+        if (statusIcon) {
+            if (successCount === tourIds.length) {
+                statusIcon.style.color = 'var(--primary-success)';
+                statusIcon.className = 'bx bx-check';
+            } else {
+                statusIcon.style.color = 'var(--color-red)';
+                statusIcon.className = 'bx bx-x';
+            }
         }
 
     } catch (error) {

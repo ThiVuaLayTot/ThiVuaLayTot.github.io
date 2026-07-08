@@ -41,28 +41,35 @@ window.addEventListener("load", function() {
 });
 
 /**
- * Scroll Events
+ * Scroll Events and Performance Optimization
  */
 const backToTopBtn = document.getElementById("back-to-top");
+const timeline = document.querySelector('.timeline');
+const rootStyle = document.documentElement.style;
 
-window.onscroll = function() {
-    handleScrollEffects();
-};
+let isScrolling = false;
+
+window.addEventListener("scroll", () => {
+    if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+            handleScrollEffects();
+            isScrolling = false;
+        });
+        isScrolling = true;
+    }
+}, { passive: true });
 
 /**
  * Handles all scroll-based UI updates
  */
 function handleScrollEffects() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
     if (backToTopBtn) {
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-            backToTopBtn.style.display = "flex";
-        } else {
-            backToTopBtn.style.display = "none";
-        }
+        backToTopBtn.style.display = scrollTop > 100 ? "flex" : "none";
     }
 
     // Timeline Scroll Progress
-    const timeline = document.querySelector('.timeline');
     if (timeline) {
         const rect = timeline.getBoundingClientRect();
         const windowHeight = window.innerHeight;
@@ -75,7 +82,7 @@ function handleScrollEffects() {
             let scrollPercent = ((current - start) / (end - start)) * 100;
             scrollPercent = Math.min(Math.max(scrollPercent, 0), 100);
 
-            document.documentElement.style.setProperty('--timeline-progress', scrollPercent + '%');
+            rootStyle.setProperty('--timeline-progress', scrollPercent + '%');
         }
     }
 }
