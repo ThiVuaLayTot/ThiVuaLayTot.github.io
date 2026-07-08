@@ -479,41 +479,70 @@ async function parseTournamentData(data, tourId) {
     }
 
     const rounds = tournament.settings?.total_rounds || tournament.rounds || tournament.total_rounds || 0;
-    let allPlayers = [];
+    const playerPointsMap = new Map();
+    let roundPlayers = [];
 
+    // Fetch points from the latest round data
     if (rounds > 0) {
         const roundData = await fetchRoundData(tourId, rounds);
         if (roundData) {
             if (roundData.groups && roundData.groups.length > 0) {
-                // Swiss: points are in groups
                 const groupResults = await Promise.allSettled(
                     roundData.groups.map(url => fetchGroupData(url))
                 );
                 groupResults.forEach(result => {
                     if (result.status === 'fulfilled' && result.value?.players) {
-                        allPlayers.push(...result.value.players);
+                        roundPlayers.push(...result.value.players);
                     }
                 });
             } else if (roundData.players) {
-                // Arena: points are in round.players
-                allPlayers = roundData.players;
+                roundPlayers = roundData.players;
             }
         }
     }
 
-    // Sort and extract top players
-    if (allPlayers.length > 0) {
-        allPlayers.sort((a, b) => {
-            const rankA = a.place_finish || a.rank || Infinity;
-            const rankB = b.place_finish || b.rank || Infinity;
-            if (rankA !== rankB) return rankA - rankB;
-            return (b.points || 0) - (a.points || 0);
+    // Map points for easy lookup
+    roundPlayers.forEach(p => {
+        if (p.username) {
+            playerPointsMap.set(p.username.toLowerCase(), p.points || 0);
+        }
+    });
+
+    let allPlayers = [];
+    const tournamentPlayers = tournament.players || [];
+
+    if (tournamentPlayers.length > 0) {
+        // Trust the order of the players array in the main tournament object as it reflects the standings
+        allPlayers = tournamentPlayers.map(p => {
+            const username = typeof p === 'string' ? p : p.username;
+            const points = typeof p === 'object' && p.points !== undefined
+                ? p.points
+                : (playerPointsMap.get(username.toLowerCase()) || 0);
+
+            return {
+                username,
+                points,
+                rank: p.rank || p.place_finish || null
+            };
         });
+
+        // Some Arena tournaments provide rank/points in the tournament object
+        // If not explicitly ranked but we have points from round data, the order should still be correct
     } else {
-        // Fallback to tournament players if no round data
-        allPlayers = (tournament.players || []).map(p =>
-            (typeof p === 'object') ? p : { username: p, points: 0 }
-        );
+        // Fallback to round players if main players list is empty
+        allPlayers = roundPlayers.map(p => ({
+            username: p.username,
+            points: p.points || 0,
+            rank: p.rank || p.place_finish || null
+        }));
+
+        // Sort by rank then points if we don't trust the join order/random order
+        allPlayers.sort((a, b) => {
+            const rankA = a.rank || Infinity;
+            const rankB = b.rank || Infinity;
+            if (rankA !== rankB) return rankA - rankB;
+            return b.points - a.points;
+        });
     }
 
     const topPlayersData = allPlayers.slice(0, CONFIG.MAX_PLAYERS_DISPLAY);

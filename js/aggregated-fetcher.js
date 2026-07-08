@@ -232,11 +232,37 @@ class DataProcessor {
             tourIds.map(id => DataFetcher.getTournamentData(id))
         );
 
-        // Fetch final round data for each tournament
-        const topPlayersDataList = await Promise.all(
-            tourDataList.map((data, i) => {
-                const rounds = data?.settings?.total_rounds || data?.rounds || data?.total_rounds || 1;
-                return DataFetcher.getTournamentRound(tourIds[i], rounds);
+        // Fetch final round data and group data for points
+        const tournamentPlayerPoints = await Promise.all(
+            tourDataList.map(async (data, i) => {
+                if (!data) return new Map();
+                const tourId = tourIds[i];
+                const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
+                const pointsMap = new Map();
+
+                if (rounds > 0) {
+                    const roundData = await DataFetcher.getTournamentRound(tourId, rounds);
+                    if (roundData) {
+                        let players = [];
+                        if (roundData.groups && roundData.groups.length > 0) {
+                            const groupResults = await Promise.allSettled(
+                                roundData.groups.map(url => requestManager.fetchJSON(url))
+                            );
+                            groupResults.forEach(res => {
+                                if (res.status === 'fulfilled' && res.value?.players) {
+                                    players.push(...res.value.players);
+                                }
+                            });
+                        } else if (roundData.players) {
+                            players = roundData.players;
+                        }
+
+                        players.forEach(p => {
+                            if (p.username) pointsMap.set(p.username.toLowerCase(), p.points || 0);
+                        });
+                    }
+                }
+                return pointsMap;
             })
         );
 
@@ -246,13 +272,20 @@ class DataProcessor {
         // Process each tournament
         for (let i = 0; i < tourIds.length; i++) {
             const tournamentData = tourDataList[i];
-            const roundData = topPlayersDataList[i];
+            const pointsMap = tournamentPlayerPoints[i];
 
             if (!tournamentData) continue;
 
-            const tourPlayers = (roundData?.players || [])
-                .filter(p => p.username)
-                .map(p => ({ username: p.username, points: p.points || 0 }));
+            const tourPlayers = (tournamentData.players || [])
+                .map(p => {
+                    const username = typeof p === 'string' ? p : p.username;
+                    return {
+                        username,
+                        points: typeof p === 'object' && p.points !== undefined
+                            ? p.points
+                            : (pointsMap.get(username.toLowerCase()) || 0)
+                    };
+                });
 
             const rounds = tournamentData.settings?.total_rounds || tournamentData.rounds || tournamentData.total_rounds || 0;
             const startTime = tournamentData.start_time || tournamentData.startTime;
