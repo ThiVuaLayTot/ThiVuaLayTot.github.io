@@ -67,179 +67,98 @@ const TIME_CLASS_ICONS = {
 };
 
 /**
- * @class PersistentCacheManager
- * @description Manages LocalStorage persistence.
+ * @namespace Cache
+ * @description Simple caching manager.
  */
-class PersistentCacheManager {
-    static set(key, value, ttl) {
+const Cache = {
+    memory: new Map(),
+    get(key) {
+        if (this.memory.has(key)) return this.memory.get(key);
         try {
-            const expiry = Date.now() + ttl;
-            localStorage.setItem(CONFIG.CACHE_PREFIX + key, JSON.stringify({ value, expiry }));
+            const item = JSON.parse(localStorage.getItem(CONFIG.CACHE_PREFIX + key));
+            if (item && Date.now() < item.exp) {
+                this.memory.set(key, item.val);
+                return item.val;
+            }
+            localStorage.removeItem(CONFIG.CACHE_PREFIX + key);
+        } catch (e) {}
+        return null;
+    },
+    set(key, val, ttl) {
+        this.memory.set(key, val);
+        try {
+            localStorage.setItem(CONFIG.CACHE_PREFIX + key, JSON.stringify({ val, exp: Date.now() + ttl }));
         } catch (e) {
-            if (e.name === 'QuotaExceededError') this.clearOld();
-        }
-    }
-
-    static get(key) {
-        try {
-            const data = localStorage.getItem(CONFIG.CACHE_PREFIX + key);
-            if (!data) return null;
-            const { value, expiry } = JSON.parse(data);
-            if (Date.now() > expiry) {
-                localStorage.removeItem(CONFIG.CACHE_PREFIX + key);
-                return null;
-            }
-            return value;
-        } catch (e) { return null; }
-    }
-
-    static clearOld() {
-        const keysToRemove = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.startsWith(CONFIG.CACHE_PREFIX)) {
-                keysToRemove.push(key);
-            }
-        }
-        keysToRemove.forEach(key => localStorage.removeItem(key));
-    }
-}
-
-/**
- * @class RequestManager
- * @description Handles rate-limited requests and caching for API calls.
- */
-class RequestManager {
-    constructor(maxConcurrent = CONFIG.MAX_CONCURRENT_REQUESTS) {
-        this.maxConcurrent = maxConcurrent;
-        this.activeRequests = 0;
-        this.queue = [];
-        this.cache = new Map();
-    }
-
-    async acquire() {
-        if (this.activeRequests >= this.maxConcurrent) {
-            await new Promise(resolve => this.queue.push(resolve));
-        }
-        this.activeRequests++;
-        // Small delay to staggered concurrent requests
-        await new Promise(r => setTimeout(r, 50));
-    }
-
-    release() {
-        this.activeRequests--;
-        if (this.queue.length > 0) {
-            const next = this.queue.shift();
-            next();
-        }
-    }
-
-    async fetchWithRetry(url, type = 'json', retries = 3, backoff = 1000) {
-        try {
-            const response = await fetch(url);
-
-            if (response.status === 429 && retries > 0) {
-                const retryAfter = response.headers.get('Retry-After');
-                const jitter = Math.random() * 200;
-                const delay = (retryAfter ? parseInt(retryAfter) * 1000 : backoff) + jitter;
-
-                console.warn(`[429] Too Many Requests for ${url}. Retrying in ${Math.round(delay)}ms...`);
-                await new Promise(r => setTimeout(r, delay));
-                return this.fetchWithRetry(url, type, retries - 1, backoff * 2);
-            }
-
-            if (!response.ok) return null;
-            return type === 'json' ? await response.json() : await response.text();
-        } catch (error) {
-            if (retries > 0) {
-                const jitter = Math.random() * 200;
-                const delay = backoff + jitter;
-                await new Promise(r => setTimeout(r, delay));
-                return this.fetchWithRetry(url, type, retries - 1, backoff * 2);
-            }
-            console.warn(`Error fetching ${type}: ${url}`, error);
-            return null;
-        }
-    }
-
-    async fetchJSON(url) {
-        if (this.cache.has(url)) return this.cache.get(url);
-
-        // Check persistent cache for API requests
-        if (url.includes('api.chess.com')) {
-            const persistent = PersistentCacheManager.get(url);
-            if (persistent) {
-                this.cache.set(url, persistent);
-                return persistent;
-            }
-        }
-
-        await this.acquire();
-        try {
-            const data = await this.fetchWithRetry(url, 'json');
-            if (data) {
-                this.cache.set(url, data);
-                if (url.includes('api.chess.com')) {
-                    const ttl = url.includes('/player/') ? CONFIG.CACHE_TTL.player : CONFIG.CACHE_TTL.tournament;
-                    PersistentCacheManager.set(url, data, ttl);
+            if (e.name === 'QuotaExceededError') {
+                for (let i = 0; i < localStorage.length; i++) {
+                    if (localStorage.key(i).startsWith(CONFIG.CACHE_PREFIX)) localStorage.removeItem(localStorage.key(i));
                 }
             }
-            return data;
-        } finally {
-            this.release();
         }
     }
+};
 
-    async fetchText(url) {
-        if (this.cache.has(url)) return this.cache.get(url);
+/**
+ * @namespace RequestManager
+ * @description Handles rate-limited requests and caching.
+ */
+const RequestManager = {
+    active: 0,
+    queue: [],
+    async acquire() {
+        if (this.active >= CONFIG.MAX_CONCURRENT_REQUESTS) await new Promise(r => this.queue.push(r));
+        this.active++;
+    },
+    release() {
+        this.active--;
+        if (this.queue.length) this.queue.shift()();
+    },
+    async fetch(url, isJson = true) {
+        const cached = Cache.get(url);
+        if (cached) return cached;
 
         await this.acquire();
         try {
-            const data = await this.fetchWithRetry(url, 'text');
-            if (data) this.cache.set(url, data);
-            return data;
-        } finally {
-            this.release();
-        }
-    }
-}
+            const resp = await fetch(url);
+            if (!resp.ok) return null;
+            const data = isJson ? await resp.json() : await resp.text();
 
-const requestManager = new RequestManager();
+            if (url.startsWith(API.CHESS_COM)) {
+                const ttl = url.includes('/player/') ? CONFIG.CACHE_TTL.player : CONFIG.CACHE_TTL.tournament;
+                Cache.set(url, data, ttl);
+            } else {
+                Cache.memory.set(url, data); // Memory only for Gists
+            }
+            return data;
+        } catch (e) { return null; }
+        finally { this.release(); }
+    }
+};
 
 /**
  * @class DataFetcher
  * @description Static methods for fetching raw data from Gist and Chess.com.
  */
-class DataFetcher {
-    static async getMonths() {
-        const text = await requestManager.fetchText(`${API.MONTHS_GIST}/cttq.txt`);
-        return text ? text.split('\n').filter(line => line.trim()) : [];
-    }
-
-    static async getTournamentIds(monthId) {
-        const text = await requestManager.fetchText(`${API.TOURNAMENTS_GIST}/${monthId}.txt`);
-        return text ? text.split('\n').filter(line => line.trim()) : [];
-    }
-
-    static async getPlayerData(username) {
-        return requestManager.fetchJSON(`${API.CHESS_COM}/player/${username}`);
-    }
-
-    static async getTournamentData(tourId) {
-        return requestManager.fetchJSON(`${API.CHESS_COM}/tournament/${tourId}`);
-    }
-
-    static async getTournamentRound(tourId, round = 1) {
-        return requestManager.fetchJSON(`${API.CHESS_COM}/tournament/${tourId}/${round}`);
-    }
-}
+const DataFetcher = {
+    async getMonths() {
+        const text = await RequestManager.fetch(`${API.MONTHS_GIST}/cttq.txt`, false);
+        return text ? text.split('\n').filter(l => l.trim()) : [];
+    },
+    async getTournamentIds(monthId) {
+        const text = await RequestManager.fetch(`${API.TOURNAMENTS_GIST}/${monthId}.txt`, false);
+        return text ? text.split('\n').filter(l => l.trim()) : [];
+    },
+    async getPlayerData(u) { return RequestManager.fetch(`${API.CHESS_COM}/player/${u}`); },
+    async getTournamentData(id) { return RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}`); },
+    async getTournamentRound(id, r = 1) { return RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}/${r}`); }
+};
 
 /**
  * @class DataProcessor
  * @description Logic for parsing raw API data and aggregating monthly statistics.
  */
-class DataProcessor {
-    static parsePlayer(playerData) {
+const DataProcessor = {
+    parsePlayer: function(playerData) {
         if (!playerData) {
             return { username: 'unknown', avatar: CONFIG.DEFAULT_AVATAR, status: 'N/A' };
         }
@@ -249,9 +168,9 @@ class DataProcessor {
             avatar: p?.avatar || CONFIG.DEFAULT_AVATAR,
             status: p?.status || 'N/A'
         };
-    }
+    },
 
-    static calculateDuration(startDate, endDate) {
+    calculateDuration: function(startDate, endDate) {
         if (!startDate || !endDate) return 'N/A';
         const start = typeof startDate === 'string' ? new Date(startDate) : new Date(startDate * 1000);
         const end = typeof endDate === 'string' ? new Date(endDate) : new Date(endDate * 1000);
@@ -275,9 +194,9 @@ class DataProcessor {
             }
         }
         return 'N/A';
-    }
+    },
 
-    static parseTimeControl(tcRaw) {
+    parseTimeControl: function(tcRaw) {
         if (!tcRaw) return '3+0';
         if (typeof tcRaw === 'number') return tcRaw >= 60 ? `${Math.floor(tcRaw / 60)}+0` : `${tcRaw}+0`;
         if (typeof tcRaw === 'string') {
@@ -291,10 +210,10 @@ class DataProcessor {
             if (!isNaN(num)) return num >= 60 ? `${Math.floor(num / 60)}+0` : `${num}+0`;
         }
         return '3+0';
-    }
+    },
 
-    static async getMonthlyAggregation(monthId) {
-        const cached = PersistentCacheManager.get(`agg_${monthId}`);
+    getMonthlyAggregation: async function(monthId) {
+        const cached = Cache.get(`agg_${monthId}`);
         if (cached) return cached;
 
         const tourIds = await DataFetcher.getTournamentIds(monthId);
@@ -322,7 +241,7 @@ class DataProcessor {
                         let players = [];
                         if (roundData.groups && roundData.groups.length > 0) {
                             const groupResults = await Promise.allSettled(
-                                roundData.groups.map(url => requestManager.fetchJSON(url))
+                                roundData.groups.map(url => RequestManager.fetch(url))
                             );
                             groupResults.forEach(res => {
                                 if (res.status === 'fulfilled' && res.value?.players) {
@@ -405,11 +324,11 @@ class DataProcessor {
         }
 
         const result = { playerScores, tournaments };
-        PersistentCacheManager.set(`agg_${monthId}`, result, CONFIG.CACHE_TTL.aggregation);
+        Cache.set(`agg_${monthId}`, result, CONFIG.CACHE_TTL.aggregation);
         return result;
-    }
+    },
 
-    static async getMonthlyTop(monthId, count = CONFIG.TOP_PLAYERS_COUNT) {
+    getMonthlyTop: async function(monthId, count = CONFIG.TOP_PLAYERS_COUNT) {
         const { playerScores, tournaments } = await DataProcessor.getMonthlyAggregation(monthId);
 
         const sortedPlayers = Object.values(playerScores)
@@ -428,25 +347,25 @@ class DataProcessor {
             totalPlayers: Object.keys(playerScores).length
         };
     }
-}
+};
 
 /**
  * @class Renderer
  * @description Generates HTML strings for the tournament table.
  */
-class Renderer {
-    static image(src, width = '15px', height = '15px') {
+const Renderer = {
+    image: function(src, width = '15px', height = '15px') {
         return `<img src="${src}" width="${width}" height="${height}" alt="" style="display: inline-block; vertical-align: middle;">`;
-    }
+    },
 
-    static timeControlFormat(timeControl, timeClass) {
+    timeControlFormat: function(timeControl, timeClass) {
         const icon = TIME_CLASS_ICONS[timeClass];
         const iconPath = icon ? `//chess.com${icon.path}` : null;
         const className = icon?.name || 'Standard';
         return `${timeControl} ${className} ${iconPath ? this.image(iconPath) : ''}`;
-    }
+    },
 
-    static variantInfo(variantKey) {
+    variantInfo: function(variantKey) {
         const variant = VARIANTS[variantKey.toLowerCase()];
         if (!variant) return null;
         return {
@@ -454,9 +373,9 @@ class Renderer {
             url: `//chess.com${variant.url}`,
             icon: `//chess.com${variant.icon}`
         };
-    }
+    },
 
-    static async generatePlayerCell(player, playerData) {
+    generatePlayerCell: async function(player, playerData) {
         if (!player) {
             return '<td style="color: var(--primary-warning)">Chưa có dữ liệu!</td>';
         }
@@ -499,9 +418,9 @@ class Renderer {
                 </div>
             </div>
         </td>`;
-    }
+    },
 
-    static async generateMonthRow(monthId) {
+    generateMonthRow: async function(monthId) {
         const { topPlayers, playerDetails, tournaments, totalPlayers } = await DataProcessor.getMonthlyTop(monthId);
 
         const tournamentsJson = JSON.stringify(tournaments).replace(/"/g, '&quot;');
@@ -519,23 +438,23 @@ class Renderer {
 
         html += '</tr>\n';
         return html;
-    }
+    },
 
-    static skeletonRow() {
+    skeletonRow: function() {
         return Array(9).fill(null).map((_, i) =>
             i < 3
                 ? '<td><div class="skeleton skeleton-text" style="width: 75%;"></div></td>'
                 : '<td><div class="skeleton skeleton-avatar"></div></td>'
         ).join('\n    ');
     }
-}
+};
 
 /**
  * @class ModalManager
  * @description Static methods for handling the score detail modal.
  */
-class ModalManager {
-    static showMonthDetails(monthId, tournaments) {
+const ModalManager = {
+    showMonthDetails: function(monthId, tournaments) {
         const modal = document.getElementById('scoreModal');
         const title = document.getElementById('modal-player-name');
         const body = document.getElementById('modal-score-breakdown');
@@ -583,9 +502,9 @@ class ModalManager {
         body.innerHTML = html;
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
-    }
+    },
 
-    static show(player) {
+    show: function(player) {
         const modal = document.getElementById('scoreModal');
         const title = document.getElementById('modal-player-name');
         const body = document.getElementById('modal-score-breakdown');
@@ -630,27 +549,27 @@ class ModalManager {
         body.innerHTML = html;
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
-    }
+    },
 
-    static close() {
+    close: function() {
         const modal = document.getElementById('scoreModal');
         if (modal) {
             modal.classList.remove('open');
             document.body.style.overflow = '';
         }
     }
-}
+};
 
 /**
  * @class PageManager
  * @description Orchestrates the rendering of the table on the page.
  */
-class PageManager {
-    static showScoreDetail(player) {
+const PageManager = {
+    showScoreDetail: function(player) {
         ModalManager.show(player);
-    }
+    },
 
-    static initModal() {
+    initModal: function() {
         const modal = document.getElementById('scoreModal');
         if (modal) {
             modal.addEventListener('click', (e) => {
@@ -685,9 +604,9 @@ class PageManager {
                 }
             });
         }
-    }
+    },
 
-    static async init() {
+    init: async function() {
         const container = document.getElementById('cttq-months-container');
         if (!container) return;
 
@@ -779,7 +698,7 @@ class PageManager {
             container.innerHTML = '<div class="error">Lỗi tải dữ liệu. Hãy thử làm mới trang!</div>';
         }
     }
-}
+};
 
 // INITIALIZATION
 if (document.readyState === 'loading') {

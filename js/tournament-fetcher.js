@@ -67,118 +67,43 @@ const TIME_CLASS_ICONS = {
 const TIME_CONTROL_REGEX = /^(\d+)\+(\d+)$/;
 
 /**
- * @namespace PersistentCache
- * @description LocalStorage-based persistent cache.
+ * @namespace Cache
+ * @description Integrated in-memory and persistent cache.
  */
-const PersistentCache = {
-    prefix: 'tvlt_cache_',
-    ttl: {
-        player: 7 * 24 * 60 * 60 * 1000,     // 1 week
-        tournament: 24 * 60 * 60 * 1000,    // 1 day
-        finished: 30 * 24 * 60 * 60 * 1000  // 30 days
-    },
-
-    set(key, value, type = 'tournament') {
-        try {
-            const expiry = Date.now() + (this.ttl[type] || this.ttl.tournament);
-            localStorage.setItem(this.prefix + key, JSON.stringify({ value, expiry }));
-        } catch (e) {
-            if (e.name === 'QuotaExceededError') {
-                this.clearOld();
-            }
-        }
-    },
+const Cache = {
+    prefix: 'tvlt_',
+    memory: new Map(),
+    ttl: { p: 604800000, t: 86400000, f: 2592000000 },
 
     get(key) {
+        if (this.memory.has(key)) return this.memory.get(key);
         try {
-            const data = localStorage.getItem(this.prefix + key);
-            if (!data) return null;
-            const { value, expiry } = JSON.parse(data);
-            if (Date.now() > expiry) {
-                localStorage.removeItem(this.prefix + key);
-                return null;
+            const item = JSON.parse(localStorage.getItem(this.prefix + key));
+            if (item && Date.now() < item.exp) {
+                this.memory.set(key, item.val);
+                return item.val;
             }
-            return value;
+            localStorage.removeItem(this.prefix + key);
+        } catch (e) {}
+        return null;
+    },
+
+    set(key, val, type = 't') {
+        this.memory.set(key, val);
+        try {
+            const exp = Date.now() + (this.ttl[type] || this.ttl.t);
+            localStorage.setItem(this.prefix + key, JSON.stringify({ val, exp }));
         } catch (e) {
-            return null;
+            if (e.name === 'QuotaExceededError') this.clearOld();
         }
     },
 
     clearOld() {
-        const keysToRemove = [];
+        const keys = [];
         for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.startsWith(this.prefix)) {
-                keysToRemove.push(key);
-            }
+            if (localStorage.key(i).startsWith(this.prefix)) keys.push(localStorage.key(i));
         }
-        keysToRemove.forEach(key => localStorage.removeItem(key));
-    }
-};
-
-/**
- * @namespace Cache
- * @description In-memory and persistent cache for players and tournaments.
- */
-const Cache = {
-    players: new Map(),
-    tournaments: new Map(),
-    rounds: new Map(),
-    groups: new Map(),
-    raw: new Map(),
-
-    getPlayer(username) {
-        const memory = this.players.get(username);
-        if (memory) return memory;
-        const persistent = PersistentCache.get(`p_${username}`);
-        if (persistent) this.players.set(username, persistent);
-        return persistent;
-    },
-
-    setPlayer(username, data) {
-        this.players.set(username, data);
-        PersistentCache.set(`p_${username}`, data, 'player');
-    },
-
-    hasPlayer(username) {
-        return this.players.has(username) || !!PersistentCache.get(`p_${username}`);
-    },
-
-    getTournament(id) {
-        const memory = this.tournaments.get(id);
-        if (memory) return memory;
-        const persistent = PersistentCache.get(`t_${id}`);
-        if (persistent) this.tournaments.set(id, persistent);
-        return persistent;
-    },
-
-    setTournament(id, data) {
-        this.tournaments.set(id, data);
-        const type = (data.status === 'finished' || data.tournament?.status === 'finished') ? 'finished' : 'tournament';
-        PersistentCache.set(`t_${id}`, data, type);
-    },
-
-    getRound(id) {
-        return this.rounds.get(id);
-    },
-
-    setRound(id, data) {
-        this.rounds.set(id, data);
-    },
-
-    getGroup(url) {
-        return this.groups.get(url);
-    },
-
-    setGroup(url, data) {
-        this.groups.set(url, data);
-    },
-
-    clear() {
-        this.players.clear();
-        this.tournaments.clear();
-        this.rounds.clear();
-        this.groups.clear();
+        keys.forEach(k => localStorage.removeItem(k));
     }
 };
 
@@ -291,53 +216,31 @@ const HTML = {
  * @returns {Promise<any|null>}
  */
 async function fetchWithRetry(url, errorContext, json = true) {
-    if (Cache.raw.has(url)) return Cache.raw.get(url);
+    const cacheKey = `raw_${url}`;
+    const cached = Cache.get(cacheKey);
+    if (cached) return cached;
 
-    // Only cache API requests, not Gist text files which change more frequently
-    if (json && url.includes('api.chess.com')) {
-        const persistent = PersistentCache.get(`raw_${url}`);
-        if (persistent) return persistent;
-    }
-
-    const executeFetch = async (u, ctx, retries = 3, backoff = 1000) => {
+    const executeFetch = async (u, ctx, retries = 2) => {
         try {
-            const response = await fetch(u);
-
-            if (response.status === 429 && retries > 0) {
-                const retryAfter = response.headers.get('Retry-After');
-                // Use Retry-After if present, otherwise exponential backoff with jitter
-                const jitter = Math.random() * 200;
-                const delay = (retryAfter ? parseInt(retryAfter) * 1000 : backoff) + jitter;
-
-                console.warn(`[${ctx}] 429 Too Many Requests. Retrying in ${Math.round(delay)}ms... (${retries} left)`);
-                await new Promise(r => setTimeout(r, delay));
-                return executeFetch(u, ctx, retries - 1, backoff * 2);
+            const resp = await fetch(u);
+            if (resp.status === 429 && retries > 0) {
+                await new Promise(r => setTimeout(r, 2000));
+                return executeFetch(u, ctx, retries - 1);
             }
+            if (!resp.ok) return null;
+            const data = json ? await resp.json() : await resp.text();
 
-            if (!response.ok) {
-                console.warn(`[${ctx}] Status: ${response.status} for ${u}`);
-                return null;
-            }
-
-            const data = json ? await response.json() : await response.text();
-            Cache.raw.set(u, data);
-            if (json && u.includes('api.chess.com')) {
-                PersistentCache.set(`raw_${u}`, data);
+            // Only persist API JSON responses
+            if (json && u.startsWith(CONFIG.CHESS_COM_BASE)) {
+                Cache.set(cacheKey, data, 't');
+            } else {
+                Cache.memory.set(cacheKey, data);
             }
             return data;
-        } catch (error) {
-            if (retries > 0) {
-                const jitter = Math.random() * 200;
-                const delay = backoff + jitter;
-                console.warn(`[${ctx}] Fetch error, retrying in ${Math.round(delay)}ms... (${retries} left)`, error);
-                await new Promise(r => setTimeout(r, delay));
-                return executeFetch(u, ctx, retries - 1, backoff * 2);
-            }
-            console.error(`[${ctx}] Final Error:`, error);
+        } catch (e) {
             return null;
         }
     };
-
     return executeFetch(url, errorContext);
 }
 
@@ -365,12 +268,15 @@ async function getIds(eventType) {
  * @returns {Promise<Object|null>}
  */
 async function fetchTournamentData(tourId) {
-    if (Cache.getTournament(tourId)) {
-        return Cache.getTournament(tourId);
-    }
+    const key = `t_${tourId}`;
+    const cached = Cache.get(key);
+    if (cached) return cached;
 
     const data = await fetchJSON(URLs.tournament(tourId), 'fetchTournamentData');
-    if (data) Cache.setTournament(tourId, data);
+    if (data) {
+        const type = (data.status === 'finished' || data.tournament?.status === 'finished') ? 'f' : 't';
+        Cache.set(key, data, type);
+    }
     return data;
 }
 
@@ -381,13 +287,12 @@ async function fetchTournamentData(tourId) {
  * @returns {Promise<Object|null>}
  */
 async function fetchRoundData(tourId, roundNum) {
-    const cacheKey = `${tourId}:${roundNum}`;
-    if (Cache.getRound(cacheKey)) {
-        return Cache.getRound(cacheKey);
-    }
+    const key = `r_${tourId}_${roundNum}`;
+    const cached = Cache.get(key);
+    if (cached) return cached;
 
-    const data = await fetchJSON(URLs.round(tourId, roundNum), `fetchRoundData:${cacheKey}`);
-    if (data) Cache.setRound(cacheKey, data);
+    const data = await fetchJSON(URLs.round(tourId, roundNum), 'fetchRoundData');
+    if (data) Cache.set(key, data, 't');
     return data;
 }
 
@@ -397,12 +302,11 @@ async function fetchRoundData(tourId, roundNum) {
  * @returns {Promise<Object|null>}
  */
 async function fetchGroupData(url) {
-    if (Cache.getGroup(url)) {
-        return Cache.getGroup(url);
-    }
+    const cached = Cache.get(url);
+    if (cached) return cached;
 
-    const data = await fetchJSON(url, `fetchGroupData:${url}`);
-    if (data) Cache.setGroup(url, data);
+    const data = await fetchJSON(url, 'fetchGroupData');
+    if (data) Cache.set(url, data, 't');
     return data;
 }
 
@@ -412,12 +316,12 @@ async function fetchGroupData(url) {
  * @returns {Promise<Object|null>}
  */
 async function fetchPlayerData(username) {
-    if (Cache.hasPlayer(username)) {
-        return Cache.getPlayer(username);
-    }
+    const key = `p_${username}`;
+    const cached = Cache.get(key);
+    if (cached) return cached;
 
-    const data = await fetchJSON(URLs.player(username), `fetchPlayerData:${username}`);
-    if (data) Cache.setPlayer(username, data);
+    const data = await fetchJSON(URLs.player(username), 'fetchPlayerData');
+    if (data) Cache.set(key, data, 'p');
     return data;
 }
 
@@ -426,22 +330,9 @@ async function fetchPlayerData(username) {
  * @param {string[]} usernames - Array of usernames to fetch.
  */
 async function fetchPlayerDataBatch(usernames) {
-    const unique = [...new Set(usernames)];
-
-    // First, populate memory cache from persistent cache
-    unique.forEach(u => {
-        if (!Cache.players.has(u)) {
-            const persistent = PersistentCache.get(`p_${u}`);
-            if (persistent) Cache.players.set(u, persistent);
-        }
-    });
-
-    const missing = unique.filter(u => !Cache.players.has(u));
-
+    const missing = [...new Set(usernames)].filter(u => !Cache.get(`p_${u}`));
     if (missing.length === 0) return;
-
-    const promises = missing.map(u => fetchPlayerData(u).catch(() => null));
-    await Promise.allSettled(promises);
+    await Promise.allSettled(missing.map(u => fetchPlayerData(u)));
 }
 
 /**
@@ -829,9 +720,9 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
             }
 
             const promise = (async () => {
-                // If not in cache, add a small delay to avoid burst requests
-                if (!Cache.getTournament(tourId)) {
-                    await new Promise(r => setTimeout(r, 100));
+                // Delay non-cached requests to respect API
+                if (!Cache.get(`t_${tourId}`)) {
+                    await new Promise(r => setTimeout(r, index * 50));
                 }
 
                 try {
