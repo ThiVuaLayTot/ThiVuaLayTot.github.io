@@ -180,9 +180,11 @@ const HTML = {
     },
 
     timeControlFormat(timeControl, timeClass) {
-        const icon = TIME_CLASS_ICONS[timeClass];
-        const iconPath = URLs.timeIcon(timeClass);
-        const className = icon?.name || 'Standard';
+        const baseTimeClass = timeClass.replace(' Custom', '').toLowerCase();
+        const icon = TIME_CLASS_ICONS[baseTimeClass];
+        const iconPath = URLs.timeIcon(baseTimeClass);
+        const isCustom = timeClass.toLowerCase().includes('custom');
+        const className = (icon?.name || 'Standard') + (isCustom ? ' Custom' : '');
 
         return `${timeControl} ${className} ${iconPath ? this.image(iconPath) : ''}`;
     },
@@ -582,6 +584,7 @@ async function parseTournamentData(data, tourId) {
         totalRounds: rounds,
         timeClass: tournament.settings?.time_class || tournament.time_class || 'classical',
         timeControl,
+        isCustom: !!tournament.settings?.initial_setup,
         playersCount: tournament.settings?.registered_user_count || tournament.players_registered || tournament.players?.length || 0,
         players,
         points
@@ -642,7 +645,8 @@ async function generatePlayerCell(username, points) {
 async function generateTournamentRow(parsed) {
     if (!parsed) return '';
 
-    const formatStr = HTML.timeControlFormat(parsed.timeControl, parsed.timeClass)
+    const timeClassDisplay = parsed.isCustom ? `${parsed.timeClass} Custom` : parsed.timeClass;
+    const formatStr = HTML.timeControlFormat(parsed.timeControl, timeClassDisplay)
         + HTML.variantLink(parsed.variant);
 
     const tournamentFormat = parsed.totalRounds === 1

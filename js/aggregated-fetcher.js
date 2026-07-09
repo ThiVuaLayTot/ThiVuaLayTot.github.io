@@ -309,6 +309,7 @@ class DataProcessor {
                 variant: tournamentData.settings?.rules || tournamentData.rules || 'standard',
                 timeClass: tournamentData.settings?.time_class || tournamentData.time_class || 'classical',
                 timeControl: timeControl,
+                isCustom: !!tournamentData.settings?.initial_setup,
                 totalRounds: rounds,
                 duration: duration,
                 playersCount: tournamentData.settings?.registered_user_count || tournamentData.players_registered || tournamentData.players?.length || 0,
@@ -364,10 +365,11 @@ class Renderer {
         return `<img src="${src}" width="${width}" height="${height}" alt="" style="display: inline-block; vertical-align: middle;">`;
     }
 
-    static timeControlFormat(timeControl, timeClass) {
-        const icon = TIME_CLASS_ICONS[timeClass];
+    static timeControlFormat(timeControl, timeClass, isCustom = false) {
+        const baseTimeClass = timeClass.replace(' Custom', '').toLowerCase();
+        const icon = TIME_CLASS_ICONS[baseTimeClass];
         const iconPath = icon ? `//chess.com${icon.path}` : null;
-        const className = icon?.name || 'Standard';
+        const className = (icon?.name || 'Standard') + (isCustom ? ' Custom' : '');
         return `${timeControl} ${className} ${iconPath ? this.image(iconPath) : ''}`;
     }
 
@@ -485,7 +487,7 @@ class ModalManager {
         tournaments.forEach(t => {
             const variant = Renderer.variantInfo(t.variant);
             const variantHTML = variant ? ` <a href="${variant.url}" target="_blank">${variant.name} ${Renderer.image(variant.icon)}</a>` : '';
-            const timeHTML = Renderer.timeControlFormat(t.timeControl, t.timeClass);
+            const timeHTML = Renderer.timeControlFormat(t.timeControl, t.timeClass, t.isCustom);
             const formatText = t.totalRounds === 1
                 ? `Đấu trường Arena ${t.duration}`
                 : `Hệ Thụy Sĩ ${t.totalRounds} vòng`;
