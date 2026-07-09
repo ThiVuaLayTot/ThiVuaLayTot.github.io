@@ -43,6 +43,11 @@ const VARIANTS = {
         name: '3 Chiếu',
         url: '/terms/3-check-chess',
         icon: '/bundles/web/images/variants/3check.svg'
+    },
+    'custom': {
+        name: 'Custom',
+        url: '/terms/chess-variants',
+        icon: '/bundles/web/images/variants/custom.svg'
     }
 };
 
@@ -301,12 +306,17 @@ class DataProcessor {
             const duration = startTime && endTime ? this.calculateDuration(startTime, endTime) : 'N/A';
             const timeControl = this.parseTimeControl(tournamentData.settings?.time_control || tournamentData.time_control || tournamentData.timeControl);
 
+            let variant = tournamentData.settings?.rules || tournamentData.rules || 'standard';
+            if (variant === 'standard' && tournamentData.settings?.initial_setup) {
+                variant = 'custom';
+            }
+
             tournaments.push({
                 id: tourIds[i],
                 name: tournamentData.name || 'Unknown',
                 url: tournamentData.url || `https://chess.com/tournament/${tourIds[i]}`,
                 status: tournamentData.status || 'Unknown',
-                variant: tournamentData.settings?.rules || tournamentData.rules || 'standard',
+                variant,
                 timeClass: tournamentData.settings?.time_class || tournamentData.time_class || 'classical',
                 timeControl: timeControl,
                 totalRounds: rounds,

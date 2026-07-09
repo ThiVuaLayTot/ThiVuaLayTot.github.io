@@ -46,6 +46,11 @@ const VARIANTS = {
         name: '3 Chiếu',
         url: '/terms/3-check-chess',
         icon: '/bundles/web/images/variants/3check.svg'
+    },
+    'custom': {
+        name: 'Custom',
+        url: '/terms/chess-variants',
+        icon: '/bundles/web/images/variants/custom.svg'
     }
 };
 
@@ -573,10 +578,15 @@ async function parseTournamentData(data, tourId) {
         tournament.settings?.time_control || tournament.time_control || tournament.timeControl
     );
 
+    let variant = tournament.settings?.rules || tournament.rules || 'standard';
+    if (variant === 'standard' && tournament.settings?.initial_setup) {
+        variant = 'custom';
+    }
+
     return {
         name: tournament.name || tournament.title || 'N/A',
         url: tournament.url || tournament.external_url || `${CONFIG.CHESS_COM_URL}/tournament/${tourId}`,
-        variant: tournament.settings?.rules || tournament.rules || 'standard',
+        variant,
         startTime,
         duration,
         totalRounds: rounds,
