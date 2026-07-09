@@ -173,7 +173,18 @@
 
         const tbody = document.getElementById('tournament-tbody');
         const skeletons = ids.map(() => {
-            const tr = document.createElement('tr'); tr.innerHTML = Array(10).fill('<td><div class="skeleton"></div></td>').join('');
+            const tr = document.createElement('tr'); tr.className = 'skeleton-row';
+            let row = `
+                <td><div class="skeleton skeleton-text" style="width: 80%;"></div></td>
+                <td><div class="skeleton skeleton-text" style="width: 70%;"></div></td>
+                <td><div class="skeleton skeleton-text" style="width: 90%;"></div></td>
+                <td><div class="skeleton skeleton-text" style="width: 30px; margin: auto;"></div></td>`;
+            for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) {
+                row += `<td><div class="post-user-component"><div class="skeleton skeleton-avatar"></div>
+                    <div class="post-user-details"><div class="skeleton skeleton-text" style="width: 70px;"></div>
+                    <div class="skeleton skeleton-text" style="width: 40px;"></div></div></div></td>`;
+            }
+            tr.innerHTML = row;
             tbody.appendChild(tr); return tr;
         });
 

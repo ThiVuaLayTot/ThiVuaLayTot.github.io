@@ -244,7 +244,20 @@
                 <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"></tbody></table></div>`;
 
             const tbody = document.getElementById('tournament-tbody');
-            const skeletons = months.map(() => { const tr = document.createElement('tr'); tr.innerHTML = Array(9).fill('<td><div class="skeleton"></div></td>').join(''); tbody.appendChild(tr); return tr; });
+            const skeletons = months.map(() => {
+                const tr = document.createElement('tr'); tr.className = 'skeleton-row';
+                let row = `
+                    <td><div class="skeleton skeleton-text" style="width: 80%;"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 60%;"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 30px; margin: auto;"></div></td>`;
+                for (let i = 0; i < CONFIG.TOP_PLAYERS; i++) {
+                    row += `<td><div class="post-user-component"><div class="skeleton skeleton-avatar"></div>
+                        <div class="post-user-details"><div class="skeleton skeleton-text" style="width: 70px;"></div>
+                        <div class="skeleton skeleton-text" style="width: 40px;"></div></div></div></td>`;
+                }
+                tr.innerHTML = row;
+                tbody.appendChild(tr); return tr;
+            });
 
             let count = 0;
             await Promise.allSettled(months.map(async (m, i) => {
