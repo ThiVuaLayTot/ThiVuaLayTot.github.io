@@ -22,6 +22,11 @@ const SPECIAL_PLAYERS = new Map([
 
 /** @type {Object} Chess variant metadata and icons */
 const VARIANTS = {
+    'standard': {
+        name: 'Cờ tiêu chuẩn',
+        url: '/terms/chess960',
+        icon: '/bundles/web/images/icons/smileys/2x/board.png'
+    },
     'chess960': {
         name: 'Chess960',
         url: '/terms/chess960',
@@ -50,7 +55,7 @@ const VARIANTS = {
     'custom': {
         name: 'Custom',
         url: '/terms/chess-variants',
-        icon: '/bundles/web/images/variants/custom.svg'
+        icon: '/bundles/web/images/icons/smileys/2x/themes.png'
     }
 };
 
