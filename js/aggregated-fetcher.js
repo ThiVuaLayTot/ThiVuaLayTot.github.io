@@ -13,12 +13,13 @@
     const CONFIG = {
         MAX_CONCURRENT: 10,
         TOP_PLAYERS: 6,
-        DEFAULT_AVATAR: 'https://chess.com/bundles/web/images/user-image.007dad08.svg',
+        DEFAULT_AVATAR: 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg',
         CACHE_PREFIX: 'agg_cache_',
         CACHE_TTL: { p: 604800000, t: 86400000, a: 43200000 }
     };
 
     const VARIANTS = {
+        'chess': { name: 'Cờ tiêu chuẩn', url: '/terms/chess', icon: '/bundles/web/images/icons/smileys/2x/board.png' },
         'standard': { name: 'Cờ tiêu chuẩn', url: '/terms/chess', icon: '/bundles/web/images/icons/smileys/2x/board.png' },
         'chess960': { name: 'Chess960', url: '/terms/chess960', icon: '/bundles/web/images/variants/live_960_orange.svg' },
         'kingofthehill': { name: 'KOTH', url: '/terms/king-of-the-hill', icon: '/bundles/web/images/variants/koth.svg' },
@@ -84,19 +85,20 @@
             await this.acquire();
             try {
                 for (let i = 0; i < 2; i++) {
-                    const resp = await fetch(url);
-                    if (resp.status === 429) { await new Promise(r => setTimeout(r, 2000)); continue; }
-                    if (!resp.ok) return null;
-                    const data = isJson ? await resp.json() : await resp.text();
-                    if (url.startsWith(API.CHESS_COM)) {
-                        Cache.set(url, data, url.includes('/player/') ? CONFIG.CACHE_TTL.p : CONFIG.CACHE_TTL.t);
-                    } else {
-                        Cache.memory.set(url, data);
-                    }
-                    return data;
+                    try {
+                        const resp = await fetch(url);
+                        if (resp.status === 429) { await new Promise(r => setTimeout(r, 2000)); continue; }
+                        if (!resp.ok) return null;
+                        const data = isJson ? await resp.json() : await resp.text();
+                        if (url.startsWith(API.CHESS_COM)) {
+                            Cache.set(url, data, url.includes('/player/') ? CONFIG.CACHE_TTL.p : CONFIG.CACHE_TTL.t);
+                        } else {
+                            Cache.memory.set(url, data);
+                        }
+                        return data;
+                    } catch (e) { if (i === 1) return null; await new Promise(r => setTimeout(r, 1000)); }
                 }
-            } catch (e) { return null; }
-            finally { this.release(); }
+            } finally { this.release(); }
         }
     };
 
@@ -133,7 +135,7 @@
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
-            const gistBase = eventType === 'tvlt' ? API.GIST_TOURS : API.GIST_AGG;
+            const gistBase = eventType === 'tvlt' ? 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw' : API.GIST_TOURS;
             const text = await RequestManager.fetch(`${gistBase}/${monthId}.txt`, false);
             const ids = text ? text.split('\n').filter(l => l.trim()) : [];
             if (!ids.length) return { playerScores: {}, tournaments: [] };
@@ -161,7 +163,7 @@
                 const tc = this.parseTimeControl(data.settings?.time_control || data.time_control || data.timeControl);
                 let variant = data.settings?.rules || data.rules || 'standard';
                 const setup = data.settings?.initial_setup || null;
-                if (variant === 'standard' && setup) variant = 'custom';
+                if ((variant === 'standard' || variant === 'chess') && setup) variant = 'custom';
 
                 tournaments.push({
                     id: ids[i], name: data.name || 'Unknown', url: data.url || `https://chess.com/tournament/${ids[i]}`,
@@ -187,24 +189,24 @@
         img: (src, w = 15) => `<img src="${src}" width="${w}" height="${w}" alt="" style="display: inline-block; vertical-align: middle;">`,
         timeFormat(tc, tcClass) {
             const icon = TIME_ICONS[tcClass];
-            return `${tc} ${icon?.name || 'Standard'} ${icon ? this.img('https://chess.com' + icon.path) : ''}`;
+            return `${tc} ${icon?.name || 'Standard'} ${icon ? this.img('https://www.chess.com' + icon.path) : ''}`;
         },
         variantInfo(v) {
             const data = VARIANTS[v.toLowerCase()];
-            return data ? { name: data.name, url: 'https://chess.com' + data.url, icon: 'https://chess.com' + data.icon } : null;
+            return data ? { name: data.name, url: 'https://www.chess.com' + data.url, icon: 'https://www.chess.com' + data.icon } : null;
         },
         async playerCell(player, details) {
             if (!player) return '<td style="color: var(--primary-warning)">Chưa có dữ liệu!</td>';
             const p = details?.player || details || { username: player.username, avatar: CONFIG.DEFAULT_AVATAR, status: 'N/A' };
             const badges = {
-                'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Closed: Abuse' },
-                'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Closed: Cheating' },
-                'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Closed: Inactive' },
-                'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Membership' }
+                'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Bị khóa: Lạm dụng' },
+                'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Bị khóa: Fair Play' },
+                'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Bị khóa' },
+                'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
             }[p.status];
             const badgeHTML = badges ? `<div class="user-badges-component"><div class="user-badges-badge ${badges.c}"><span class="${badges.i}"></span><span>${badges.t}</span></div></div>` : '';
             return `<td><div class="post-user-component"><a class="cc-avatar-component post-user-avatar"><img class="cc-avatar-img" src="${p.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${p.username}"></a>
-                <div class="post-user-details"><div class="user-tagline-component"><a class="user-username-component user-tagline-username" href="https://chess.com/member/${p.username}" target="_blank">${p.username}</a></div>
+                <div class="post-user-details"><div class="user-tagline-component"><a class="user-username-component user-tagline-username" href="https://www.chess.com/member/${p.username}" target="_blank">${p.username}</a></div>
                 <div class="post-user-status"><span>${badgeHTML}</span><span class="score-pill" data-player='${JSON.stringify(player).replace(/'/g, "&apos;")}'>${player.totalPoints} ĐIỂM</span></div></div></div></td>`;
         },
         async monthRow(monthId, eventType) {
@@ -233,7 +235,7 @@
             const eventType = container.dataset.fetchAggregated || 'cttq';
             container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
-            const gistPath = eventType === 'tvlt' ? `${API.GIST_AGG}/tvlt.txt` : `${API.GIST_AGG}/cttq.txt`;
+            const gistPath = eventType === 'tvlt' ? `https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw/tvlt.txt` : `${API.GIST_AGG}/cttq.txt`;
             const text = await RequestManager.fetch(gistPath, false);
             const months = text ? text.split('\n').filter(l => l.trim()) : [];
             if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
@@ -276,8 +278,8 @@
                     let h = `<div class="calendar-wrapper"><table class="styled-table score-detail-table"><thead><tr><th>Vòng đấu</th><th>Thể lệ</th><th style="text-align: center;">Kỳ thủ</th></tr></thead><tbody>`;
                     tours.forEach(t => {
                         const v = Renderer.variantInfo(t.variant);
-                    const title = t.setup ? ` title="Initial Setup: ${t.setup}"` : '';
-                    h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}${v ? ` <a href="${v.url}" target="_blank"${title}>${v.name} ${Renderer.img(v.icon)}</a>` : ''}<br>${t.totalRounds === 1 ? 'Arena' : 'Thụy Sĩ'}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
+                        const title = t.setup ? ` title="Thiết lập ban đầu: ${t.setup}"` : '';
+                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}${v ? ` <a href="${v.url}" target="_blank"${title}>${v.name} ${Renderer.img(v.icon)}</a>` : ''}<br>${t.totalRounds === 1 ? 'Arena' : 'Thụy Sĩ'}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
                     });
                     ModalManager.show(`Chi tiết tháng ${month.dataset.month}`, h + '</tbody></table></div>');
                 }
