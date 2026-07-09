@@ -105,15 +105,13 @@
     const DataProcessor = {
         calculateDuration(start, end) {
             if (!start || !end) return 'N/A';
-            const s = new Date(typeof start === 'string' ? start : start * 1000);
-            const e = new Date(typeof end === 'string' ? end : end * 1000);
+            const s = new Date(start * 1000), e = new Date(end * 1000);
             if (isNaN(s) || isNaN(e) || e < s) return 'N/A';
             const diff = e - s;
             const units = [{ n: 'ngày', m: 86400000 }, { n: 'tiếng', m: 3600000 }, { n: 'phút', m: 60000 }, { n: 'giây', m: 1000 }];
             for (const u of units) {
                 if (diff >= u.m) {
-                    const val = Math.floor(diff / u.m);
-                    const rem = diff % u.m;
+                    const val = Math.floor(diff / u.m), rem = diff % u.m;
                     if (u.n === 'tiếng' && rem >= 60000) return `${val} tiếng ${Math.floor(rem / 60000)} phút`;
                     return `${val} ${u.n}`;
                 }
@@ -135,7 +133,7 @@
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
-            const gistBase = eventType === 'tvlt' ? 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw' : API.GIST_TOURS;
+            const gistBase = eventType === 'tvlt' ? `https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw` : API.GIST_TOURS;
             const text = await RequestManager.fetch(`${gistBase}/${monthId}.txt`, false);
             const ids = text ? text.split('\n').filter(l => l.trim()) : [];
             if (!ids.length) return { playerScores: {}, tournaments: [] };
@@ -279,7 +277,8 @@
                     tours.forEach(t => {
                         const v = Renderer.variantInfo(t.variant);
                         const title = t.setup ? ` title="Thiết lập ban đầu: ${t.setup}"` : '';
-                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}${v ? ` <a href="${v.url}" target="_blank"${title}>${v.name} ${Renderer.img(v.icon)}</a>` : ''}<br>${t.totalRounds === 1 ? 'Arena' : 'Thụy Sĩ'}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
+                        const formatStr = t.totalRounds === 1 ? `Đấu trường Arena ${t.duration}` : `Hệ Thụy Sĩ ${t.totalRounds} vòng`;
+                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}${v ? ` <a href="${v.url}" target="_blank"${title}>${v.name} ${Renderer.img(v.icon)}</a>` : ''}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
                     });
                     ModalManager.show(`Chi tiết tháng ${month.dataset.month}`, h + '</tbody></table></div>');
                 }

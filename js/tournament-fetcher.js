@@ -116,6 +116,31 @@
         return d;
     }
 
+    function formatDate(ts) {
+        if (!ts) return 'N/A';
+        const d = new Date(ts * 1000);
+        if (isNaN(d)) return 'N/A';
+        const h = String(d.getHours()).padStart(2, '0'), m = String(d.getMinutes()).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0'), mo = String(d.getMonth() + 1).padStart(2, '0'), y = d.getFullYear();
+        return `${h}h${m}, ngày ${day}/${mo}/${y}`;
+    }
+
+    function calculateDuration(start, end) {
+        if (!start || !end) return 'N/A';
+        const s = new Date(start * 1000), e = new Date(end * 1000);
+        if (isNaN(s) || isNaN(e) || e < s) return 'N/A';
+        const diff = e - s;
+        const units = [{ n: 'ngày', m: 86400000 }, { n: 'tiếng', m: 3600000 }, { n: 'phút', m: 60000 }, { n: 'giây', m: 1000 }];
+        for (const u of units) {
+            if (diff >= u.m) {
+                const val = Math.floor(diff / u.m), rem = diff % u.m;
+                if (u.n === 'tiếng' && rem >= 60000) return `${val} tiếng ${Math.floor(rem / 60000)} phút`;
+                return `${val} ${u.n}`;
+            }
+        }
+        return 'N/A';
+    }
+
     function parseTC(tc) {
         if (!tc) return '3+0';
         const m = String(tc).match(/^(\d+)\+(\d+)$/);
@@ -178,9 +203,11 @@
                 const s = data.settings?.initial_setup || null;
                 if ((v === 'standard' || v === 'chess') && s) v = 'custom';
 
+                const fmtStr = rds === 1 ? ` Đấu trường Arena ${calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime)}` : ` Hệ Thụy Sĩ ${rds} vòng`;
+
                 let row = `<td><a href="${data.url}" target="_top">${data.name}</a></td>
-                    <td>${new Date((data.start_time || data.startTime) * 1000).toLocaleString('vi-VN')}</td>
-                    <td>${HTML.tFormat(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${HTML.vLink(v, s)}${rds === 1 ? ' Arena' : ' Thụy Sĩ'}</td>
+                    <td>${formatDate(data.start_time || data.startTime)}</td>
+                    <td>${HTML.tFormat(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${HTML.vLink(v, s)}${fmtStr}</td>
                     <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
 
                 for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) row += await renderPlayer(top[i]?.u, top[i]?.pts || 0);
