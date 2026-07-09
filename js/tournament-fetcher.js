@@ -22,12 +22,13 @@
     ]);
 
     const VARIANTS = {
+        'standard': { name: 'Cờ tiêu chuẩn', url: '/terms/chess', icon: '/bundles/web/images/icons/smileys/2x/board.png' },
         'chess960': { name: 'Chess960', url: '/terms/chess960', icon: '/bundles/web/images/variants/live_960_orange.svg' },
         'kingofthehill': { name: 'KOTH', url: '/terms/king-of-the-hill', icon: '/bundles/web/images/variants/koth.svg' },
         'crazyhouse': { name: 'Crazyhouse', url: '/terms/crazyhouse-chess', icon: '/bundles/web/images/variants/crazyhouse.svg' },
         'bughouse': { name: 'Bughouse', url: '/terms/bughouse-chess', icon: '/bundles/web/images/variants/bughouse.svg' },
         'threecheck': { name: '3 Chiếu', url: '/terms/3-check-chess', icon: '/bundles/web/images/variants/3check.svg' },
-        'custom': { name: 'Custom', url: '/terms/chess-variants', icon: '/bundles/web/images/variants/custom.svg' }
+        'custom': { name: 'Custom', url: '/terms/chess-variants', icon: '/bundles/web/images/icons/smileys/2x/themes.png' }
     };
 
     const TIME_CLASS_ICONS = {
@@ -72,9 +73,11 @@
 
     const HTML = {
         img: (src, w = 15) => `<img src="${src}" width="${w}" height="${w}" alt="">`,
-        variantLink(v) {
+        variantLink(v, setup = null) {
             const data = VARIANTS[v.toLowerCase()];
-            return data ? ` <a href="${CONFIG.CHESS_COM_URL}${data.url}" target="_blank">${data.name} ${this.img(CONFIG.CHESS_COM_URL + data.icon)}</a><br>` : '<br>';
+            if (!data) return '<br>';
+            const title = setup ? ` title="Initial Setup: ${setup}"` : '';
+            return ` <a href="${CONFIG.CHESS_COM_URL}${data.url}" target="_blank"${title}>${data.name} ${this.img(CONFIG.CHESS_COM_URL + data.icon)}</a><br>`;
         },
         timeFormat(tc, tcClass) {
             const icon = TIME_CLASS_ICONS[tcClass];
@@ -186,11 +189,12 @@
                 await Promise.allSettled(top.map(p => getPlayerData(p.username)));
 
                 let variant = data.settings?.rules || data.rules || 'standard';
-                if (variant === 'standard' && data.settings?.initial_setup) variant = 'custom';
+                let setup = data.settings?.initial_setup || null;
+                if (variant === 'standard' && setup) variant = 'custom';
 
                 let rowHTML = `<td><a href="${data.url}" target="_top">${data.name}</a></td>
                     <td>${new Date((data.start_time || data.startTime) * 1000).toLocaleString('vi-VN')}</td>
-                    <td>${HTML.timeFormat(parseTimeControl(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${HTML.variantLink(variant)}${rounds === 1 ? ' Arena' : ' Thụy Sĩ'}</td>
+                    <td>${HTML.timeFormat(parseTimeControl(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${HTML.variantLink(variant, setup)}${rounds === 1 ? ' Arena' : ' Thụy Sĩ'}</td>
                     <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
 
                 for (let i = 0; i < CONFIG.MAX_PLAYERS_DISPLAY; i++) rowHTML += await generatePlayerCell(top[i]?.username, top[i]?.points || 0);
