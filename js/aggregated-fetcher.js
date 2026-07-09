@@ -133,8 +133,7 @@
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
-            const gistBase = eventType === 'tvlt' ? `https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw` : API.GIST_TOURS;
-            const text = await RequestManager.fetch(`${gistBase}/${monthId}.txt`, false);
+            const text = await RequestManager.fetch(`${API.GIST_TOURS}/${monthId}.txt`, false);
             const ids = text ? text.split('\n').filter(l => l.trim()) : [];
             if (!ids.length) return { playerScores: {}, tournaments: [] };
 
@@ -233,8 +232,7 @@
             const eventType = container.dataset.fetchAggregated || 'cttq';
             container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
-            const gistPath = eventType === 'tvlt' ? `https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw/tvlt.txt` : `${API.GIST_AGG}/cttq.txt`;
-            const text = await RequestManager.fetch(gistPath, false);
+            const text = await RequestManager.fetch(`${API.GIST_AGG}/cttq.txt`, false);
             const months = text ? text.split('\n').filter(l => l.trim()) : [];
             if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
 
@@ -272,7 +270,14 @@
             const icon = document.getElementById('statusIcon');
             if (icon) { icon.style.color = count === months.length ? 'var(--primary-success)' : 'var(--color-red)'; icon.className = count === months.length ? 'bx bx-check' : 'bx bx-x'; }
 
-            document.getElementById('scoreModal')?.addEventListener('click', e => { if (e.target.id === 'scoreModal') ModalManager.close(); });
+            document.getElementById('scoreModal')?.addEventListener('click', e => {
+                if (e.target.id === 'scoreModal') ModalManager.close();
+                const customLink = e.target.closest('.custom-variant-link');
+                if (customLink) {
+                    const setup = customLink.dataset.setup;
+                    ModalManager.show('Thiết lập ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">${setup}</div>`);
+                }
+            });
             tbody.addEventListener('click', e => {
                 const pill = e.target.closest('.score-pill');
                 if (pill) {
@@ -289,9 +294,9 @@
                     let h = `<div class="calendar-wrapper"><table class="styled-table score-detail-table"><thead><tr><th>Vòng đấu</th><th>Thể lệ</th><th style="text-align: center;">Kỳ thủ</th></tr></thead><tbody>`;
                     tours.forEach(t => {
                         const v = Renderer.variantInfo(t.variant);
-                        const title = t.setup ? ` title="Thiết lập ban đầu: ${t.setup}"` : '';
+                        const variantHTML = v ? (t.setup ? ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${t.setup}">${v.name} ${Renderer.img(v.icon)}</a>` : ` <a href="${v.url}" target="_blank">${v.name} ${Renderer.img(v.icon)}</a>`) : '';
                         const formatStr = t.totalRounds === 1 ? `Đấu trường Arena ${t.duration}` : `Hệ Thụy Sĩ ${t.totalRounds} vòng`;
-                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}${v ? ` <a href="${v.url}" target="_blank"${title}>${v.name} ${Renderer.img(v.icon)}</a>` : ''}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
+                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}${variantHTML}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
                     });
                     ModalManager.show(`Chi tiết tháng ${month.dataset.month}`, h + '</tbody></table></div>');
                 }
@@ -302,5 +307,5 @@
     if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', () => PageManager.init());
     else PageManager.init();
 
-    window.AggregatedModalManager = ModalManager;
+    window.TournamentModalManager = ModalManager;
 })();

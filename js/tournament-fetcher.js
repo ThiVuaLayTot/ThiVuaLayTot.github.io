@@ -69,12 +69,22 @@
         }
     };
 
+    const ModalManager = {
+        show(title, content) {
+            const m = document.getElementById('scoreModal'), t = document.getElementById('modal-player-name'), b = document.getElementById('modal-score-breakdown');
+            if (m && t && b) { t.textContent = title; b.innerHTML = content; m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        },
+        close() { const m = document.getElementById('scoreModal'); if (m) { m.classList.remove('open'); document.body.style.overflow = ''; } }
+    };
+
     const HTML = {
         img: (src, w = 15) => `<img src="${src}" width="${w}" height="${w}" alt="" style="vertical-align:middle">`,
         vLink(v, setup = null) {
             const d = VARIANTS[v.toLowerCase()] || { name: v, url: '/terms', icon: '/bundles/web/images/icons/smileys/2x/board.png' };
-            const t = setup ? ` title="Thiết lập ban đầu: ${setup}"` : '';
-            return ` <a href="${CONFIG.CHESS_COM_URL}${d.url}" target="_blank"${t}>${d.name} ${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
+            if (setup) {
+                return ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${d.name} ${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
+            }
+            return ` <a href="${CONFIG.CHESS_COM_URL}${d.url}" target="_blank">${d.name} ${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
         },
         tFormat(tc, cl) {
             const i = TIME_ICONS[cl];
@@ -230,8 +240,19 @@
 
         const icon = document.getElementById('statusIcon');
         if (icon) { icon.style.color = success === ids.length ? 'var(--primary-success)' : 'var(--color-red)'; icon.className = success === ids.length ? 'bx bx-check' : 'bx bx-x'; }
+
+        document.getElementById('scoreModal')?.addEventListener('click', e => { if (e.target.id === 'scoreModal') ModalManager.close(); });
+        tbody.addEventListener('click', e => {
+            const link = e.target.closest('.custom-variant-link');
+            if (link) {
+                const setup = link.dataset.setup;
+                ModalManager.show('Thiết lập ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">${setup}</div>`);
+            }
+        });
     }
 
     if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', () => document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id)));
     else document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id));
+
+    window.TournamentModalManager = ModalManager;
 })();
