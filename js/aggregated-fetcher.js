@@ -14,16 +14,17 @@ const API = {
 const CONFIG = {
     MAX_CONCURRENT_REQUESTS: 10,
     TOP_PLAYERS_COUNT: 6,
-    DEFAULT_AVATAR: 'https://chess.com/bundles/web/images/user-image.007dad08.svg'
+    DEFAULT_AVATAR: 'https://chess.com/bundles/web/images/user-image.007dad08.svg',
+    CACHE_PREFIX: 'cttq_cache_',
+    CACHE_TTL: {
+        player: 7 * 24 * 60 * 60 * 1000,     // 1 week
+        tournament: 24 * 60 * 60 * 1000,    // 1 day
+        aggregation: 12 * 60 * 60 * 1000    // 12 hours
+    }
 };
 
 /** @type {Object} Chess variant metadata and icons */
 const VARIANTS = {
-    'standard': {
-        name: 'Cờ tiêu chuẩn',
-        url: '/terms/chess960',
-        icon: '/bundles/web/images/icons/smileys/2x/board.png'
-    },
     'chess960': {
         name: 'Chess960',
         url: '/terms/chess960',
@@ -52,7 +53,7 @@ const VARIANTS = {
     'custom': {
         name: 'Custom',
         url: '/terms/chess-variants',
-        icon: '/bundles/web/images/icons/smileys/2x/themes.png'
+        icon: '/bundles/web/images/variants/custom.svg'
     }
 };
 
@@ -64,6 +65,45 @@ const TIME_CLASS_ICONS = {
     'rapid': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' },
     'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
 };
+
+/**
+ * @class PersistentCacheManager
+ * @description Manages LocalStorage persistence.
+ */
+class PersistentCacheManager {
+    static set(key, value, ttl) {
+        try {
+            const expiry = Date.now() + ttl;
+            localStorage.setItem(CONFIG.CACHE_PREFIX + key, JSON.stringify({ value, expiry }));
+        } catch (e) {
+            if (e.name === 'QuotaExceededError') this.clearOld();
+        }
+    }
+
+    static get(key) {
+        try {
+            const data = localStorage.getItem(CONFIG.CACHE_PREFIX + key);
+            if (!data) return null;
+            const { value, expiry } = JSON.parse(data);
+            if (Date.now() > expiry) {
+                localStorage.removeItem(CONFIG.CACHE_PREFIX + key);
+                return null;
+            }
+            return value;
+        } catch (e) { return null; }
+    }
+
+    static clearOld() {
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith(CONFIG.CACHE_PREFIX)) {
+                keysToRemove.push(key);
+            }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+    }
+}
 
 /**
  * @class RequestManager
@@ -125,10 +165,25 @@ class RequestManager {
     async fetchJSON(url) {
         if (this.cache.has(url)) return this.cache.get(url);
 
+        // Check persistent cache for API requests
+        if (url.includes('api.chess.com')) {
+            const persistent = PersistentCacheManager.get(url);
+            if (persistent) {
+                this.cache.set(url, persistent);
+                return persistent;
+            }
+        }
+
         await this.acquire();
         try {
             const data = await this.fetchWithRetry(url, 'json');
-            if (data) this.cache.set(url, data);
+            if (data) {
+                this.cache.set(url, data);
+                if (url.includes('api.chess.com')) {
+                    const ttl = url.includes('/player/') ? CONFIG.CACHE_TTL.player : CONFIG.CACHE_TTL.tournament;
+                    PersistentCacheManager.set(url, data, ttl);
+                }
+            }
             return data;
         } finally {
             this.release();
@@ -239,6 +294,9 @@ class DataProcessor {
     }
 
     static async getMonthlyAggregation(monthId) {
+        const cached = PersistentCacheManager.get(`agg_${monthId}`);
+        if (cached) return cached;
+
         const tourIds = await DataFetcher.getTournamentIds(monthId);
 
         if (tourIds.length === 0) {
@@ -346,7 +404,9 @@ class DataProcessor {
             }
         }
 
-        return { playerScores, tournaments };
+        const result = { playerScores, tournaments };
+        PersistentCacheManager.set(`agg_${monthId}`, result, CONFIG.CACHE_TTL.aggregation);
+        return result;
     }
 
     static async getMonthlyTop(monthId, count = CONFIG.TOP_PLAYERS_COUNT) {

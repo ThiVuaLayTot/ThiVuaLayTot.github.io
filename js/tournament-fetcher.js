@@ -22,11 +22,6 @@ const SPECIAL_PLAYERS = new Map([
 
 /** @type {Object} Chess variant metadata and icons */
 const VARIANTS = {
-    'standard': {
-        name: 'Cờ tiêu chuẩn',
-        url: '/terms/chess960',
-        icon: '/bundles/web/images/icons/smileys/2x/board.png'
-    },
     'chess960': {
         name: 'Chess960',
         url: '/terms/chess960',
@@ -55,7 +50,7 @@ const VARIANTS = {
     'custom': {
         name: 'Custom',
         url: '/terms/chess-variants',
-        icon: '/bundles/web/images/icons/smileys/2x/themes.png'
+        icon: '/bundles/web/images/variants/custom.svg'
     }
 };
 
@@ -72,8 +67,58 @@ const TIME_CLASS_ICONS = {
 const TIME_CONTROL_REGEX = /^(\d+)\+(\d+)$/;
 
 /**
+ * @namespace PersistentCache
+ * @description LocalStorage-based persistent cache.
+ */
+const PersistentCache = {
+    prefix: 'tvlt_cache_',
+    ttl: {
+        player: 7 * 24 * 60 * 60 * 1000,     // 1 week
+        tournament: 24 * 60 * 60 * 1000,    // 1 day
+        finished: 30 * 24 * 60 * 60 * 1000  // 30 days
+    },
+
+    set(key, value, type = 'tournament') {
+        try {
+            const expiry = Date.now() + (this.ttl[type] || this.ttl.tournament);
+            localStorage.setItem(this.prefix + key, JSON.stringify({ value, expiry }));
+        } catch (e) {
+            if (e.name === 'QuotaExceededError') {
+                this.clearOld();
+            }
+        }
+    },
+
+    get(key) {
+        try {
+            const data = localStorage.getItem(this.prefix + key);
+            if (!data) return null;
+            const { value, expiry } = JSON.parse(data);
+            if (Date.now() > expiry) {
+                localStorage.removeItem(this.prefix + key);
+                return null;
+            }
+            return value;
+        } catch (e) {
+            return null;
+        }
+    },
+
+    clearOld() {
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith(this.prefix)) {
+                keysToRemove.push(key);
+            }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+    }
+};
+
+/**
  * @namespace Cache
- * @description Simple in-memory cache for players and tournaments.
+ * @description In-memory and persistent cache for players and tournaments.
  */
 const Cache = {
     players: new Map(),
@@ -83,23 +128,34 @@ const Cache = {
     raw: new Map(),
 
     getPlayer(username) {
-        return this.players.get(username);
+        const memory = this.players.get(username);
+        if (memory) return memory;
+        const persistent = PersistentCache.get(`p_${username}`);
+        if (persistent) this.players.set(username, persistent);
+        return persistent;
     },
 
     setPlayer(username, data) {
         this.players.set(username, data);
+        PersistentCache.set(`p_${username}`, data, 'player');
     },
 
     hasPlayer(username) {
-        return this.players.has(username);
+        return this.players.has(username) || !!PersistentCache.get(`p_${username}`);
     },
 
     getTournament(id) {
-        return this.tournaments.get(id);
+        const memory = this.tournaments.get(id);
+        if (memory) return memory;
+        const persistent = PersistentCache.get(`t_${id}`);
+        if (persistent) this.tournaments.set(id, persistent);
+        return persistent;
     },
 
     setTournament(id, data) {
         this.tournaments.set(id, data);
+        const type = (data.status === 'finished' || data.tournament?.status === 'finished') ? 'finished' : 'tournament';
+        PersistentCache.set(`t_${id}`, data, type);
     },
 
     getRound(id) {
@@ -237,6 +293,12 @@ const HTML = {
 async function fetchWithRetry(url, errorContext, json = true) {
     if (Cache.raw.has(url)) return Cache.raw.get(url);
 
+    // Only cache API requests, not Gist text files which change more frequently
+    if (json && url.includes('api.chess.com')) {
+        const persistent = PersistentCache.get(`raw_${url}`);
+        if (persistent) return persistent;
+    }
+
     const executeFetch = async (u, ctx, retries = 3, backoff = 1000) => {
         try {
             const response = await fetch(u);
@@ -259,6 +321,9 @@ async function fetchWithRetry(url, errorContext, json = true) {
 
             const data = json ? await response.json() : await response.text();
             Cache.raw.set(u, data);
+            if (json && u.includes('api.chess.com')) {
+                PersistentCache.set(`raw_${u}`, data);
+            }
             return data;
         } catch (error) {
             if (retries > 0) {
@@ -362,7 +427,16 @@ async function fetchPlayerData(username) {
  */
 async function fetchPlayerDataBatch(usernames) {
     const unique = [...new Set(usernames)];
-    const missing = unique.filter(u => !Cache.hasPlayer(u));
+
+    // First, populate memory cache from persistent cache
+    unique.forEach(u => {
+        if (!Cache.players.has(u)) {
+            const persistent = PersistentCache.get(`p_${u}`);
+            if (persistent) Cache.players.set(u, persistent);
+        }
+    });
+
+    const missing = unique.filter(u => !Cache.players.has(u));
 
     if (missing.length === 0) return;
 
@@ -754,10 +828,12 @@ async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tour
                 await Promise.race(pool);
             }
 
-            // Small delay to avoid burst requests
-            await new Promise(r => setTimeout(r, 100));
-
             const promise = (async () => {
+                // If not in cache, add a small delay to avoid burst requests
+                if (!Cache.getTournament(tourId)) {
+                    await new Promise(r => setTimeout(r, 100));
+                }
+
                 try {
                     const tourData = await fetchTournamentData(tourId);
                     if (!tourData) return;
