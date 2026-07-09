@@ -3,794 +3,208 @@
  * @description Fetches and renders chess tournament data from Chess.com API and Gist sources.
  */
 
-/** @type {Object} Configuration constants */
-const CONFIG = {
-    CHESS_COM_BASE: 'https://api.chess.com/pub',
-    CHESS_COM_URL: '//chess.com',
-    GIST_BASE: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw',
-    MAX_PLAYERS_DISPLAY: 6,
-    MAX_CONCURRENT_REQUESTS: 10
-};
+(function() {
+    const CONFIG = {
+        CHESS_COM_BASE: 'https://api.chess.com/pub',
+        CHESS_COM_URL: 'https://chess.com',
+        GIST_BASE: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw',
+        MAX_PLAYERS_DISPLAY: 6,
+        MAX_CONCURRENT_REQUESTS: 10,
+        CACHE_PREFIX: 'tvlt_',
+        CACHE_TTL: { p: 604800000, t: 86400000, f: 2592000000 }
+    };
 
-/** @type {Map<string, Object>} Special player display overrides */
-const SPECIAL_PLAYERS = new Map([
-    ['m_dinhhoangviet', { name: 'M-DinhHoangViet', special: true }],
-    ['tungjohn_playing_chess', { name: 'M-DinhHoangViet', special: true }],
-    ['thangthukquantrong', { name: 'thangthukquantrong', special: true }],
-    ['manh_duy', { name: 'ManhDuy19', special: true }]
-]);
+    const SPECIAL_PLAYERS = new Map([
+        ['m_dinhhoangviet', { name: 'M-DinhHoangViet' }],
+        ['tungjohn_playing_chess', { name: 'M-DinhHoangViet' }],
+        ['thangthukquantrong', { name: 'thangthukquantrong' }],
+        ['manh_duy', { name: 'ManhDuy19' }]
+    ]);
 
-/** @type {Object} Chess variant metadata and icons */
-const VARIANTS = {
-    'chess960': {
-        name: 'Chess960',
-        url: '/terms/chess960',
-        icon: '/bundles/web/images/variants/live_960_orange.svg'
-    },
-    'kingofthehill': {
-        name: 'KOTH',
-        url: '/terms/king-of-the-hill',
-        icon: '/bundles/web/images/variants/koth.svg'
-    },
-    'crazyhouse': {
-        name: 'Crazyhouse',
-        url: '/terms/crazyhouse-chess',
-        icon: '/bundles/web/images/variants/crazyhouse.svg'
-    },
-    'bughouse': {
-        name: 'Bughouse',
-        url: '/terms/bughouse-chess',
-        icon: '/bundles/web/images/variants/bughouse.svg'
-    },
-    'threecheck': {
-        name: '3 Chiếu',
-        url: '/terms/3-check-chess',
-        icon: '/bundles/web/images/variants/3check.svg'
-    },
-    'custom': {
-        name: 'Custom',
-        url: '/terms/chess-variants',
-        icon: '/bundles/web/images/variants/custom.svg'
-    }
-};
+    const VARIANTS = {
+        'chess960': { name: 'Chess960', url: '/terms/chess960', icon: '/bundles/web/images/variants/live_960_orange.svg' },
+        'kingofthehill': { name: 'KOTH', url: '/terms/king-of-the-hill', icon: '/bundles/web/images/variants/koth.svg' },
+        'crazyhouse': { name: 'Crazyhouse', url: '/terms/crazyhouse-chess', icon: '/bundles/web/images/variants/crazyhouse.svg' },
+        'bughouse': { name: 'Bughouse', url: '/terms/bughouse-chess', icon: '/bundles/web/images/variants/bughouse.svg' },
+        'threecheck': { name: '3 Chiếu', url: '/terms/3-check-chess', icon: '/bundles/web/images/variants/3check.svg' },
+        'custom': { name: 'Custom', url: '/terms/chess-variants', icon: '/bundles/web/images/variants/custom.svg' }
+    };
 
-/** @type {Object} Time class icon mapping */
-const TIME_CLASS_ICONS = {
-    'lightning': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
-    'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
-    'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
-    'rapid': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' },
-    'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
-};
+    const TIME_CLASS_ICONS = {
+        'lightning': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
+        'bullet': { name: 'Bullet', path: '/bundles/web/images/icons/smileys/2x/bullet.png' },
+        'blitz': { name: 'Blitz', path: '/bundles/web/images/icons/smileys/2x/blitz.png' },
+        'rapid': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' },
+        'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
+    };
 
-// Pre-compile regex
-const TIME_CONTROL_REGEX = /^(\d+)\+(\d+)$/;
-
-/**
- * @namespace Cache
- * @description Integrated in-memory and persistent cache.
- */
-const Cache = {
-    prefix: 'tvlt_',
-    memory: new Map(),
-    ttl: { p: 604800000, t: 86400000, f: 2592000000 },
-
-    get(key) {
-        if (this.memory.has(key)) return this.memory.get(key);
-        try {
-            const item = JSON.parse(localStorage.getItem(this.prefix + key));
-            if (item && Date.now() < item.exp) {
-                this.memory.set(key, item.val);
-                return item.val;
-            }
-            localStorage.removeItem(this.prefix + key);
-        } catch (e) {}
-        return null;
-    },
-
-    set(key, val, type = 't') {
-        this.memory.set(key, val);
-        try {
-            const exp = Date.now() + (this.ttl[type] || this.ttl.t);
-            localStorage.setItem(this.prefix + key, JSON.stringify({ val, exp }));
-        } catch (e) {
-            if (e.name === 'QuotaExceededError') this.clearOld();
-        }
-    },
-
-    clearOld() {
-        const keys = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            if (localStorage.key(i).startsWith(this.prefix)) keys.push(localStorage.key(i));
-        }
-        keys.forEach(k => localStorage.removeItem(k));
-    }
-};
-
-/**
- * @namespace URLs
- * @description Generators for various API and resource URLs.
- */
-const URLs = {
-    chessDotCom(path) {
-        return `${CONFIG.CHESS_COM_URL}${path}`;
-    },
-
-    tournament(tourId) {
-        return `${CONFIG.CHESS_COM_BASE}/tournament/${tourId}`;
-    },
-
-    round(tourId, roundNum) {
-        return `${CONFIG.CHESS_COM_BASE}/tournament/${tourId}/${roundNum}`;
-    },
-
-    player(username) {
-        return `${CONFIG.CHESS_COM_BASE}/player/${username}`;
-    },
-
-    member(username) {
-        return this.chessDotCom(`/member/${username}`);
-    },
-
-    gistFile(eventType) {
-        return `${CONFIG.GIST_BASE}/${eventType}.txt`;
-    },
-
-    variantInfo(variantKey) {
-        const variant = VARIANTS[variantKey.toLowerCase()];
-        return variant ? this.chessDotCom(variant.url) : null;
-    },
-
-    variantIcon(variantKey) {
-        const variant = VARIANTS[variantKey.toLowerCase()];
-        return variant ? this.chessDotCom(variant.icon) : null;
-    },
-
-    timeIcon(timeClass) {
-        const icon = TIME_CLASS_ICONS[timeClass];
-        return icon ? this.chessDotCom(icon.path) : null;
-    }
-};
-
-/**
- * @namespace HTML
- * @description Reusable HTML template generators.
- */
-const HTML = {
-    image(src, width = '15px', height = '15px') {
-        return `<img src="${src}" width="${width}" height="${height}" alt="">`;
-    },
-
-    variantLink(variantKey) {
-        const variant = VARIANTS[variantKey.toLowerCase()];
-        if (!variant) return '<br>';
-
-        const url = URLs.variantInfo(variantKey);
-        const icon = URLs.variantIcon(variantKey);
-        return ` <a href="${url}" target="_blank">${variant.name} ${this.image(icon)}</a><br>`;
-    },
-
-    timeControlFormat(timeControl, timeClass) {
-        const icon = TIME_CLASS_ICONS[timeClass];
-        const iconPath = URLs.timeIcon(timeClass);
-        const className = icon?.name || 'Standard';
-
-        return `${timeControl} ${className} ${iconPath ? this.image(iconPath) : ''}`;
-    },
-
-    userBadge(status) {
-        const badges = {
-            'closed:abuse': { class: 'user-badges-closed', icon: 'bx bx-dislike', text: 'Closed: Abuse' },
-            'closed:fair_play_violations': { class: 'user-badges-closed', icon: 'bx bx-block', text: 'Closed: Cheating' },
-            'closed': { class: 'user-badges-inactive', icon: 'bx bx-no-signal', text: 'Closed: Inactive'},
-            'premium': { class: 'user-badges-premium', icon: 'bx bxs-star', text: 'Chess.com Membership' }
-        };
-
-        const badge = badges[status];
-        if (!badge) return '';
-
-        return `<div class="user-badges-component">
-            <div class="user-badges-badge ${badge.class}">
-                <span class="${badge.icon}"></span><span>${badge.text}</span>
-            </div>
-        </div>`;
-    },
-
-    skeletonRow() {
-        const cells = Array(10).fill(null).map((_, i) =>
-            i < 4
-                ? '<td><div class="skeleton skeleton-text" style="width: 75%;"></div></td>'
-                : '<td><div class="skeleton skeleton-avatar"></div></td>'
-        ).join('\n    ');
-
-        return cells;
-    }
-};
-
-/**
- * Generic fetch with error handling and retry logic for 429 errors.
- * Supports JSON and raw text.
- * @param {string} url - The URL to fetch.
- * @param {string} errorContext - Context for error logging.
- * @param {boolean} [json=true] - Whether to parse as JSON.
- * @returns {Promise<any|null>}
- */
-async function fetchWithRetry(url, errorContext, json = true) {
-    const cacheKey = `raw_${url}`;
-    const cached = Cache.get(cacheKey);
-    if (cached) return cached;
-
-    const executeFetch = async (u, ctx, retries = 2) => {
-        try {
-            const resp = await fetch(u);
-            if (resp.status === 429 && retries > 0) {
-                await new Promise(r => setTimeout(r, 2000));
-                return executeFetch(u, ctx, retries - 1);
-            }
-            if (!resp.ok) return null;
-            const data = json ? await resp.json() : await resp.text();
-
-            // Only persist API JSON responses
-            if (json && u.startsWith(CONFIG.CHESS_COM_BASE)) {
-                Cache.set(cacheKey, data, 't');
-            } else {
-                Cache.memory.set(cacheKey, data);
-            }
-            return data;
-        } catch (e) {
+    const Cache = {
+        memory: new Map(),
+        get(key) {
+            if (this.memory.has(key)) return this.memory.get(key);
+            try {
+                const item = JSON.parse(localStorage.getItem(CONFIG.CACHE_PREFIX + key));
+                if (item && Date.now() < item.exp) {
+                    this.memory.set(key, item.val);
+                    return item.val;
+                }
+                localStorage.removeItem(CONFIG.CACHE_PREFIX + key);
+            } catch (e) {}
             return null;
-        }
-    };
-    return executeFetch(url, errorContext);
-}
-
-/**
- * Legacy wrapper for JSON fetching.
- */
-async function fetchJSON(url, errorContext) {
-    return fetchWithRetry(url, errorContext, true);
-}
-
-/**
- * Fetch tournament IDs from Gist based on event type.
- * @param {string} eventType - The type of event (e.g., 'tvlt').
- * @returns {Promise<string[]>}
- */
-async function getIds(eventType) {
-    const url = URLs.gistFile(eventType);
-    const text = await fetchWithRetry(url, 'getIds', false);
-    return text ? text.split('\n').filter(line => line.trim()) : [];
-}
-
-/**
- * Fetch tournament data with caching.
- * @param {string} tourId - Chess.com tournament ID.
- * @returns {Promise<Object|null>}
- */
-async function fetchTournamentData(tourId) {
-    const key = `t_${tourId}`;
-    const cached = Cache.get(key);
-    if (cached) return cached;
-
-    const data = await fetchJSON(URLs.tournament(tourId), 'fetchTournamentData');
-    if (data) {
-        const type = (data.status === 'finished' || data.tournament?.status === 'finished') ? 'f' : 't';
-        Cache.set(key, data, type);
-    }
-    return data;
-}
-
-/**
- * Fetch round data for a tournament.
- * @param {string} tourId - Tournament ID.
- * @param {number} roundNum - Round number.
- * @returns {Promise<Object|null>}
- */
-async function fetchRoundData(tourId, roundNum) {
-    const key = `r_${tourId}_${roundNum}`;
-    const cached = Cache.get(key);
-    if (cached) return cached;
-
-    const data = await fetchJSON(URLs.round(tourId, roundNum), 'fetchRoundData');
-    if (data) Cache.set(key, data, 't');
-    return data;
-}
-
-/**
- * Fetch group data for a tournament round.
- * @param {string} url - Group API URL.
- * @returns {Promise<Object|null>}
- */
-async function fetchGroupData(url) {
-    const cached = Cache.get(url);
-    if (cached) return cached;
-
-    const data = await fetchJSON(url, 'fetchGroupData');
-    if (data) Cache.set(url, data, 't');
-    return data;
-}
-
-/**
- * Fetch player data with caching.
- * @param {string} username - Chess.com username.
- * @returns {Promise<Object|null>}
- */
-async function fetchPlayerData(username) {
-    const key = `p_${username}`;
-    const cached = Cache.get(key);
-    if (cached) return cached;
-
-    const data = await fetchJSON(URLs.player(username), 'fetchPlayerData');
-    if (data) Cache.set(key, data, 'p');
-    return data;
-}
-
-/**
- * Batch fetch players (optimized).
- * @param {string[]} usernames - Array of usernames to fetch.
- */
-async function fetchPlayerDataBatch(usernames) {
-    const missing = [...new Set(usernames)].filter(u => !Cache.get(`p_${u}`));
-    if (missing.length === 0) return;
-    await Promise.allSettled(missing.map(u => fetchPlayerData(u)));
-}
-
-/**
- * Calculate human-readable tournament duration.
- * @param {number|string} startDate - Start timestamp or date string.
- * @param {number|string} endDate - End timestamp or date string.
- * @returns {string}
- */
-function calculateDuration(startDate, endDate) {
-    if (!startDate || !endDate) return 'N/A';
-
-    const start = typeof startDate === 'string' ? new Date(startDate) : new Date(startDate * 1000);
-    const end = typeof endDate === 'string' ? new Date(endDate) : new Date(endDate * 1000);
-
-    if (isNaN(start) || isNaN(end) || end < start) return 'N/A';
-
-    const diffMs = end - start;
-    const units = [
-        { name: 'ngày', ms: 86400000 },
-        { name: 'tiếng', ms: 3600000 },
-        { name: 'phút', ms: 60000 },
-        { name: 'giây', ms: 1000 }
-    ];
-
-    for (const unit of units) {
-        if (diffMs >= unit.ms) {
-            const value = Math.floor(diffMs / unit.ms);
-            const remainder = diffMs % unit.ms;
-
-            if (remainder === 0 || unit.name === 'giây') {
-                return `${value} ${unit.name}`;
-            }
-
-            // For hours, show remaining minutes
-            if (unit.name === 'tiếng') {
-                const minutes = Math.floor(remainder / 60000);
-                return minutes > 0 ? `${value} tiếng ${minutes} phút` : `${value} tiếng`;
-            }
-        }
-    }
-
-    return 'N/A';
-}
-
-/**
- * Format timestamp into local date string.
- * @param {number|string} timestamp - Unix timestamp or date string.
- * @returns {string}
- */
-function formatDate(timestamp) {
-    if (!timestamp) return 'N/A';
-
-    const date = typeof timestamp === 'string'
-        ? new Date(timestamp)
-        : new Date(parseInt(timestamp) * 1000);
-
-    if (isNaN(date)) return 'N/A';
-
-    const h = String(date.getHours()).padStart(2, '0');
-    const m = String(date.getMinutes()).padStart(2, '0');
-    const d = String(date.getDate()).padStart(2, '0');
-    const mo = String(date.getMonth() + 1).padStart(2, '0');
-    const y = date.getFullYear();
-
-    return `${h}h${m}, ngày ${d}/${mo}/${y}`;
-}
-
-/**
- * Parse raw time control string/number into "M+S" format.
- * @param {string|number} tcRaw - Raw time control data.
- * @returns {string}
- */
-function parseTimeControl(tcRaw) {
-    if (!tcRaw) return '3+0';
-
-    if (typeof tcRaw === 'number') {
-        return tcRaw >= 60 ? `${Math.floor(tcRaw / 60)}+0` : `${tcRaw}+0`;
-    }
-
-    if (typeof tcRaw === 'string') {
-        const match = tcRaw.match(TIME_CONTROL_REGEX);
-        if (match) {
-            const baseNum = parseInt(match[1]);
-            const incNum = parseInt(match[2]);
-            return baseNum >= 60 ? `${Math.floor(baseNum / 60)}+${incNum}` : `${baseNum}+${incNum}`;
-        }
-
-        const num = parseInt(tcRaw);
-        if (!isNaN(num)) {
-            return num >= 60 ? `${Math.floor(num / 60)}+0` : `${num}+0`;
-        }
-    }
-
-    return '3+0';
-}
-
-/**
- * Parse raw player API data into a standard object.
- * @param {Object} playerData - Raw player data.
- * @returns {Object}
- */
-function parsePlayerData(playerData) {
-    if (!playerData) {
-        return { username: 'unknown', status: 'N/A', avatar: 'N/A' };
-    }
-
-    const p = playerData.player || playerData;
-
-    return {
-        username: p?.username || 'unknown',
-        status: p?.status || 'N/A',
-        avatar: p?.avatar || 'N/A'
-    };
-}
-
-/**
- * Parse raw tournament API data into a standard display object.
- * @param {Object} data - Raw tournament data.
- * @param {string} tourId - Tournament ID.
- * @returns {Promise<Object|null>}
- */
-async function parseTournamentData(data, tourId) {
-    if (!data) {
-        console.error(`[parseTournamentData] No data for tournament ${tourId}`);
-        return null;
-    }
-
-    const tournament = data.tournament || data;
-
-    if (!tournament || typeof tournament !== 'object') {
-        console.error(`[parseTournamentData] Invalid tournament data for ${tourId}`);
-        return null;
-    }
-
-    const rounds = tournament.settings?.total_rounds || tournament.rounds || tournament.total_rounds || 0;
-    const playerPointsMap = new Map();
-    let roundPlayers = [];
-
-    // Fetch points from the latest round data
-    if (rounds > 0) {
-        const roundData = await fetchRoundData(tourId, rounds);
-        if (roundData) {
-            if (roundData.groups && roundData.groups.length > 0) {
-                const groupResults = await Promise.allSettled(
-                    roundData.groups.map(url => fetchGroupData(url))
-                );
-                groupResults.forEach(result => {
-                    if (result.status === 'fulfilled' && result.value?.players) {
-                        roundPlayers.push(...result.value.players);
+        },
+        set(key, val, type = 't') {
+            this.memory.set(key, val);
+            try {
+                const exp = Date.now() + (CONFIG.CACHE_TTL[type] || CONFIG.CACHE_TTL.t);
+                localStorage.setItem(CONFIG.CACHE_PREFIX + key, JSON.stringify({ val, exp }));
+            } catch (e) {
+                if (e.name === 'QuotaExceededError') {
+                    const keys = [];
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const k = localStorage.key(i);
+                        if (k && k.startsWith(CONFIG.CACHE_PREFIX)) keys.push(k);
                     }
-                });
-            } else if (roundData.players) {
-                roundPlayers = roundData.players;
+                    keys.forEach(k => localStorage.removeItem(k));
+                }
             }
         }
-    }
-
-    // Map points for easy lookup
-    roundPlayers.forEach(p => {
-        if (p.username) {
-            playerPointsMap.set(p.username.toLowerCase(), p.points || 0);
-        }
-    });
-
-    let allPlayers = [];
-    const tournamentPlayers = tournament.players || [];
-
-    if (tournamentPlayers.length > 0) {
-        // Trust the order of the players array in the main tournament object as it reflects the standings
-        allPlayers = tournamentPlayers.map(p => {
-            const username = typeof p === 'string' ? p : p.username;
-            const points = typeof p === 'object' && p.points !== undefined
-                ? p.points
-                : (playerPointsMap.get(username.toLowerCase()) || 0);
-
-            return {
-                username,
-                points,
-                rank: p.rank || p.place_finish || null
-            };
-        });
-
-        // Some Arena tournaments provide rank/points in the tournament object
-        // If not explicitly ranked but we have points from round data, the order should still be correct
-    } else {
-        // Fallback to round players if main players list is empty
-        allPlayers = roundPlayers.map(p => ({
-            username: p.username,
-            points: p.points || 0,
-            rank: p.rank || p.place_finish || null
-        }));
-
-        // Sort by rank then points if we don't trust the join order/random order
-        allPlayers.sort((a, b) => {
-            const rankA = a.rank || Infinity;
-            const rankB = b.rank || Infinity;
-            if (rankA !== rankB) return rankA - rankB;
-            return b.points - a.points;
-        });
-    }
-
-    const topPlayersData = allPlayers.slice(0, CONFIG.MAX_PLAYERS_DISPLAY);
-    const players = topPlayersData.map(p => p.username);
-    const points = topPlayersData.map(p => p.points || 0);
-
-    const startTime = formatDate(tournament.start_time || tournament.startTime);
-    const endTime = tournament.finish_time || tournament.endTime;
-    const duration = startTime !== 'N/A' && endTime
-        ? calculateDuration(tournament.start_time || tournament.startTime, endTime)
-        : 'N/A';
-
-    const timeControl = parseTimeControl(
-        tournament.settings?.time_control || tournament.time_control || tournament.timeControl
-    );
-
-    let variant = tournament.settings?.rules || tournament.rules || 'standard';
-    if (variant === 'standard' && tournament.settings?.initial_setup) {
-        variant = 'custom';
-    }
-
-    return {
-        name: tournament.name || tournament.title || 'N/A',
-        url: tournament.url || tournament.external_url || `${CONFIG.CHESS_COM_URL}/tournament/${tourId}`,
-        variant,
-        startTime,
-        duration,
-        totalRounds: rounds,
-        timeClass: tournament.settings?.time_class || tournament.time_class || 'classical',
-        timeControl,
-        playersCount: tournament.settings?.registered_user_count || tournament.players_registered || tournament.players?.length || 0,
-        players,
-        points
     };
-}
 
-/**
- * Generate player cell HTML with avatar and status.
- * @param {string} username - Player username.
- * @param {number} points - Player points.
- * @returns {Promise<string>}
- */
-async function generatePlayerCell(username, points) {
-    if (!username) {
-        return '<td style="color: var(--primary-warning)">Giải chưa kết thúc!</td>';
-    }
-
-    // Check special players
-    const special = SPECIAL_PLAYERS.get(username.toLowerCase());
-    if (special) {
-        return `<td><a href="${URLs.member(special.name)}" target="_top"><strong>${special.name}</strong></a></td>`;
-    }
-
-    // Fetch player data
-    const playerData = await fetchPlayerData(username);
-    const parsed = parsePlayerData(playerData);
-
-    const { username: name, status, avatar } = parsed;
-    const avatarUrl = avatar && avatar !== 'N/A'
-        ? avatar
-        : `${CONFIG.CHESS_COM_URL}/bundles/web/images/user-image.007dad08.svg`;
-
-    const badge = HTML.userBadge(status);
-
-    return `<td>
-        <div class="post-user-component">
-            <span class="cc-avatar-component post-user-avatar">
-                <img class="cc-avatar-img" src="${avatarUrl}" height="50" width="50" alt="${name}">
-            </span>
-            <div class="post-user-details">
-                <div class="user-tagline-component">
-                    <a class="user-username-component user-tagline-username" href="${URLs.member(name)}" target="_blank">${name}</a>
-                </div>
-                <div class="post-user-status">
-                    <span>${badge}</span>
-                    <span>${points} ĐIỂM</span>
-                </div>
-            </div>
-        </div>
-    </td>`;
-}
-
-/**
- * Generate a complete table row for a tournament.
- * @param {Object} parsed - Parsed tournament data.
- * @returns {Promise<string>}
- */
-async function generateTournamentRow(parsed) {
-    if (!parsed) return '';
-
-    const formatStr = HTML.timeControlFormat(parsed.timeControl, parsed.timeClass)
-        + HTML.variantLink(parsed.variant);
-
-    const tournamentFormat = parsed.totalRounds === 1
-        ? ` Đấu trường Arena ${parsed.duration}`
-        : ` Hệ Thụy Sĩ ${parsed.totalRounds} vòng`;
-
-    let html = '<tr>\n';
-    html += `    <td><a href="${parsed.url}" target="_top">${parsed.name}</a></td>\n`;
-    html += `    <td>${parsed.startTime}</td>\n`;
-    html += `    <td>${formatStr}${tournamentFormat}</td>\n`;
-    html += `    <td>${parsed.playersCount}</td>\n`;
-
-    for (let i = 0; i < CONFIG.MAX_PLAYERS_DISPLAY; i++) {
-        const username = parsed.players[i] || '';
-        const pts = parsed.points[i] || 0;
-        const playerCell = await generatePlayerCell(username, pts);
-        html += `    ${playerCell}\n`;
-    }
-
-    html += '</tr>\n';
-    return html;
-}
-
-/**
- * Main function: Fetch all tournaments and render the results table.
- * @param {string} [eventType='tvlt'] - Event type to fetch.
- * @param {string} [containerId='tournament-table'] - ID of the container element.
- */
-async function fetchAndRenderTournaments(eventType = 'tvlt', containerId = 'tournament-table') {
-    const container = document.getElementById(containerId);
-    if (!container) {
-        console.error(`[fetchAndRenderTournaments] Container ${containerId} not found`);
-        return;
-    }
-
-    container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
-
-    try {
-        const tourIds = await getIds(eventType);
-
-        if (tourIds.length === 0) {
-            container.innerHTML = '<div class="error">Không tìm thấy giải đấu nào.</div>';
-            return;
+    const HTML = {
+        img: (src, w = 15) => `<img src="${src}" width="${w}" height="${w}" alt="">`,
+        variantLink(v) {
+            const data = VARIANTS[v.toLowerCase()];
+            return data ? ` <a href="${CONFIG.CHESS_COM_URL}${data.url}" target="_blank">${data.name} ${this.img(CONFIG.CHESS_COM_URL + data.icon)}</a><br>` : '<br>';
+        },
+        timeFormat(tc, tcClass) {
+            const icon = TIME_CLASS_ICONS[tcClass];
+            return `${tc} ${icon?.name || 'Standard'} ${icon ? this.img(CONFIG.CHESS_COM_URL + icon.path) : ''}`;
+        },
+        badge(status) {
+            const badges = {
+                'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Closed: Abuse' },
+                'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Closed: Cheating' },
+                'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Closed: Inactive' },
+                'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Membership' }
+            }[status];
+            return badges ? `<div class="user-badges-component"><div class="user-badges-badge ${badges.c}"><span class="${badges.i}"></span><span>${badges.t}</span></div></div>` : '';
         }
+    };
 
-        const initialHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm trong bảng">
-            <div id="loading-status" style="text-align: center; padding: 20px; color: #666; font-size: 14px;">
-                Đang hiển thị:&nbsp;&nbsp;<span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>&nbsp;<span><span id="current-tournament">0</span>/<span id="total-tournaments">${tourIds.length}</span>&nbsp;giải đấu</span>
-            </div>
-            <div class="table">
-                <table class="styled-table" id="tournament-results-table">
-                    <thead>
-                    <tr>
-                        <th class="name-tour">Giải đấu</th>
-                        <th class="organization-day">Thời gian bắt đầu</th>
-                        <th class="rules">Thể lệ</th>
-                        <th class="players">Số kỳ thủ</th>
-                        <th class="winner">🥇 Top 1</th>
-                        <th class="winner">🥈 Top 2</th>
-                        <th class="winner">🥉 Top 3</th>
-                        <th class="winner">🎖️ Top 4</th>
-                        <th class="winner">🏅 Top 5</th>
-                        <th class="winner">⭐ Top 6</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tournament-tbody">
-                    </tbody>
-                </table>
-            </div>
-            <br><br><hr>
-        `;
+    async function fetchWithRetry(url, isJson = true) {
+        for (let i = 0; i < 2; i++) {
+            try {
+                const resp = await fetch(url);
+                if (resp.status === 429) { await new Promise(r => setTimeout(r, 2000)); continue; }
+                if (!resp.ok) return null;
+                return isJson ? await resp.json() : await resp.text();
+            } catch (e) { if (i === 1) return null; await new Promise(r => setTimeout(r, 1000)); }
+        }
+    }
 
-        container.innerHTML = initialHTML;
+    async function getTournamentData(id) {
+        const cached = Cache.get(`t_${id}`);
+        if (cached) return cached;
+        const data = await fetchWithRetry(`${CONFIG.CHESS_COM_BASE}/tournament/${id}`);
+        if (data) Cache.set(`t_${id}`, data, (data.status === 'finished' || data.tournament?.status === 'finished') ? 'f' : 't');
+        return data;
+    }
+
+    async function getPlayerData(u) {
+        const cached = Cache.get(`p_${u}`);
+        if (cached) return cached;
+        const data = await fetchWithRetry(`${CONFIG.CHESS_COM_BASE}/player/${u}`);
+        if (data) Cache.set(`p_${u}`, data, 'p');
+        return data;
+    }
+
+    function parseTimeControl(tc) {
+        if (!tc) return '3+0';
+        const match = String(tc).match(/^(\d+)\+(\d+)$/);
+        if (match) {
+            const b = parseInt(match[1]), i = parseInt(match[2]);
+            return b >= 60 ? `${Math.floor(b / 60)}+${i}` : `${b}+${i}`;
+        }
+        const n = parseInt(tc);
+        return !isNaN(n) ? (n >= 60 ? `${Math.floor(n / 60)}+0` : `${n}+0`) : '3+0';
+    }
+
+    async function generatePlayerCell(username, points) {
+        if (!username) return '<td style="color: var(--primary-warning)">Giải chưa kết thúc!</td>';
+        const special = SPECIAL_PLAYERS.get(username.toLowerCase());
+        if (special) return `<td><a href="${CONFIG.CHESS_COM_URL}/member/${special.name}" target="_top"><strong>${special.name}</strong></a></td>`;
+
+        const p = await getPlayerData(username);
+        return `<td><div class="post-user-component"><span class="cc-avatar-component post-user-avatar"><img class="cc-avatar-img" src="${p?.avatar || 'https://chess.com/bundles/web/images/user-image.007dad08.svg'}" height="50" width="50" alt="${username}"></span>
+            <div class="post-user-details"><div class="user-tagline-component"><a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${username}" target="_blank">${username}</a></div>
+            <div class="post-user-status"><span>${HTML.badge(p?.status)}</span><span>${points} ĐIỂM</span></div></div></div></td>`;
+    }
+
+    async function fetchAndRender(eventType = 'tvlt', containerId = 'tournament-table') {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
+
+        const text = await fetchWithRetry(`${CONFIG.GIST_BASE}/${eventType}.txt`, false);
+        const ids = text ? text.split('\n').filter(l => l.trim()) : [];
+        if (!ids.length) { container.innerHTML = '<div class="error">Không tìm thấy giải đấu.</div>'; return; }
+
+        container.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
+            <div id="loading-status" style="text-align: center; padding: 20px; font-size: 14px;">Đang hiển thị: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span> <span id="current-tournament">0</span>/${ids.length} giải đấu</div>
+            <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
+            <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"></tbody></table></div><br><br><hr>`;
 
         const tbody = document.getElementById('tournament-tbody');
-        const currentCountSpan = document.getElementById('current-tournament');
-        let successCount = 0;
-
-        // Add skeleton rows
-        tourIds.forEach((_, i) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = HTML.skeletonRow();
-            tr.classList.add('skeleton-row');
-            tr.id = `skeleton-${containerId}-${i}`;
-            tbody.appendChild(tr);
+        const skeletons = ids.map(() => {
+            const tr = document.createElement('tr'); tr.className = 'skeleton-row';
+            tr.innerHTML = Array(10).fill('<td><div class="skeleton"></div></td>').join('');
+            tbody.appendChild(tr); return tr;
         });
 
-        // Limit concurrency for fetching data
-        const pool = new Set();
-        const results = [];
+        let successCount = 0;
+        await Promise.allSettled(ids.map(async (id, index) => {
+            if (!Cache.get(`t_${id}`)) await new Promise(r => setTimeout(r, (index % 10) * 100));
+            try {
+                const data = await getTournamentData(id);
+                if (!data) return;
 
-        for (const [index, tourId] of tourIds.entries()) {
-            if (pool.size >= CONFIG.MAX_CONCURRENT_REQUESTS) {
-                await Promise.race(pool);
-            }
-
-            const promise = (async () => {
-                // Delay non-cached requests to respect API
-                if (!Cache.get(`t_${tourId}`)) {
-                    await new Promise(r => setTimeout(r, index * 50));
+                const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
+                let pointsMap = new Map();
+                if (rounds > 0) {
+                    const roundData = await fetchWithRetry(`${CONFIG.CHESS_COM_BASE}/tournament/${id}/${rounds}`);
+                    const groups = roundData?.groups || [];
+                    const pList = groups.length ? (await Promise.allSettled(groups.map(url => fetchWithRetry(url)))).filter(r => r.status === 'fulfilled').flatMap(r => r.value?.players || []) : (roundData?.players || []);
+                    pList.forEach(p => p.username && pointsMap.set(p.username.toLowerCase(), p.points || 0));
                 }
 
-                try {
-                    const tourData = await fetchTournamentData(tourId);
-                    if (!tourData) return;
+                const allPlayers = (data.players || []).map(p => {
+                    const u = typeof p === 'string' ? p : p.username;
+                    return { username: u, points: p.points ?? pointsMap.get(u.toLowerCase()) ?? 0, rank: p.rank || p.place_finish };
+                }).sort((a, b) => (a.rank || Infinity) - (b.rank || Infinity) || b.points - a.points);
 
-                    const parsed = await parseTournamentData(tourData, tourId);
-                    if (!parsed) return;
+                const top = allPlayers.slice(0, CONFIG.MAX_PLAYERS_DISPLAY);
+                await Promise.allSettled(top.map(p => getPlayerData(p.username)));
 
-                    await fetchPlayerDataBatch(parsed.players);
-                    const row = await generateTournamentRow(parsed);
+                let variant = data.settings?.rules || data.rules || 'standard';
+                if (variant === 'standard' && data.settings?.initial_setup) variant = 'custom';
 
-                    // Update UI immediately for this row
-                    const skeletonRow = document.getElementById(`skeleton-${containerId}-${index}`);
-                    if (skeletonRow) {
-                        const tdContent = row
-                            .replace(/^\s*<tr>\n\s*/, '')
-                            .replace(/\s*<\/tr>\s*$/, '');
-                        skeletonRow.innerHTML = tdContent;
-                        skeletonRow.classList.remove('skeleton-row');
-                    }
+                let rowHTML = `<td><a href="${data.url}" target="_top">${data.name}</a></td>
+                    <td>${new Date((data.start_time || data.startTime) * 1000).toLocaleString('vi-VN')}</td>
+                    <td>${HTML.timeFormat(parseTimeControl(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${HTML.variantLink(variant)}${rounds === 1 ? ' Arena' : ' Thụy Sĩ'}</td>
+                    <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
 
-                    successCount++;
-                    if (currentCountSpan) currentCountSpan.textContent = successCount;
-                } catch (err) {
-                    console.warn(`Failed to process tournament ${tourId}:`, err);
-                }
-            })();
+                for (let i = 0; i < CONFIG.MAX_PLAYERS_DISPLAY; i++) rowHTML += await generatePlayerCell(top[i]?.username, top[i]?.points || 0);
 
-            pool.add(promise);
-            promise.finally(() => pool.delete(promise));
-            results.push(promise);
-        }
+                const tr = skeletons[index];
+                if (tr) { tr.innerHTML = rowHTML; tr.className = ''; }
+                document.getElementById('current-tournament').textContent = ++successCount;
+            } catch (e) {}
+        }));
 
-        await Promise.allSettled(results);
-
-        // Update final status
-        if (successCount === 0) {
-            container.innerHTML = '<div class="error">Đã có lỗi xảy ra. Hãy thử tải lại trang!</div>';
-            return;
-        }
-
-        const statusIcon = document.getElementById('statusIcon');
-        if (statusIcon) {
-            if (successCount === tourIds.length) {
-                statusIcon.style.color = 'var(--primary-success)';
-                statusIcon.className = 'bx bx-check';
-            } else {
-                statusIcon.style.color = 'var(--color-red)';
-                statusIcon.className = 'bx bx-x';
-            }
-        }
-
-    } catch (error) {
-        console.error('[fetchAndRenderTournaments] Error:', error);
-        container.innerHTML = `<div class="error">Lỗi: ${error.message}</div>`;
+        const icon = document.getElementById('statusIcon');
+        if (icon) { icon.style.color = successCount === ids.length ? 'var(--primary-success)' : 'var(--color-red)'; icon.className = successCount === ids.length ? 'bx bx-check' : 'bx bx-x'; }
     }
-}
 
-/**
- * Auto-initialization on DOM content loaded.
- */
-document.addEventListener('DOMContentLoaded', function() {
-    const containers = document.querySelectorAll('[data-fetch-tournament]');
-    containers.forEach(container => {
-        const eventType = container.dataset.fetchTournament || 'tvlt';
-        const containerId = container.id || 'tournament-table';
-        fetchAndRenderTournaments(eventType, containerId);
-    });
-
-});
+    if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', () => document.querySelectorAll('[data-fetch-tournament]').forEach(c => fetchAndRender(c.dataset.fetchTournament, c.id)));
+    else document.querySelectorAll('[data-fetch-tournament]').forEach(c => fetchAndRender(c.dataset.fetchTournament, c.id));
+})();
