@@ -6,8 +6,7 @@
 (function() {
     const API = {
         CHESS_COM: 'https://api.chess.com/pub',
-        GIST_AGG: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/cttq',
-        GIST_TOURS: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw'
+        GIST: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw'
     };
 
     const CONFIG = {
@@ -133,7 +132,7 @@
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
-            const text = await RequestManager.fetch(`${API.GIST_TOURS}/${monthId}.txt`, false);
+            const text = await RequestManager.fetch(`${API.GIST}/${monthId}.txt`, false);
             const ids = text ? text.split('\n').filter(l => l.trim()) : [];
             if (!ids.length) return { playerScores: {}, tournaments: [] };
 
@@ -232,7 +231,7 @@
             const eventType = container.dataset.fetchAggregated || 'cttq';
             container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
-            const text = await RequestManager.fetch(`${API.GIST_AGG}/cttq.txt`, false);
+            const text = await RequestManager.fetch(`${API.GIST}/cttq`, false);
             const months = text ? text.split('\n').filter(l => l.trim()) : [];
             if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
 

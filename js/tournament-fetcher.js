@@ -246,7 +246,7 @@
             const link = e.target.closest('.custom-variant-link');
             if (link) {
                 const setup = link.dataset.setup;
-                ModalManager.show('Thiết lập ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;"><a href="https://lichess.org/analysis/${setup}" target="_blank"></a></div>`);
+                ModalManager.show('Thiết lập ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;"><a href="https://lichess.org/analysis/${setup}" target="_blank">${setup}</a></div>`);
             }
         });
     }
