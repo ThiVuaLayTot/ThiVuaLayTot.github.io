@@ -128,7 +128,7 @@
             return !isNaN(n) ? (n >= 60 ? `${Math.floor(n / 60)}+0` : `${n}+0`) : '3+0';
         },
         async getMonthlyAggregation(monthId, eventType) {
-            const cacheKey = `agg_${eventType}_${monthId}`;
+            const cacheKey = `agg_v2_${eventType}_${monthId}`;
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
@@ -144,28 +144,57 @@
                 if (!data) continue;
                 const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
                 let pointsMap = new Map();
+                let roundPlayersMap = new Map();
                 if (rounds > 0) {
                     const roundData = await RequestManager.fetch(`${API.CHESS_COM}/tournament/${ids[i]}/${rounds}`);
                     const groups = roundData?.groups || [];
                     const pList = groups.length ? (await Promise.allSettled(groups.map(url => RequestManager.fetch(url)))).filter(r => r.status === 'fulfilled').flatMap(r => r.value?.players || []) : (roundData?.players || []);
-                    pList.forEach(p => p.username && pointsMap.set(p.username.toLowerCase(), p.points || 0));
+                    pList.forEach(p => {
+                        if (p.username) {
+                            const uLower = p.username.toLowerCase();
+                            pointsMap.set(uLower, p.points || 0);
+                            roundPlayersMap.set(uLower, { username: p.username, points: p.points || 0 });
+                        }
+                    });
                 }
 
-                const tourPlayers = (data.players || []).map(p => {
+                const mainPlayers = (data.players || []).map(p => {
                     const u = typeof p === 'string' ? p : p.username;
-                    return { username: u, points: p.points ?? pointsMap.get(u.toLowerCase()) ?? 0 };
+                    const uLower = u.toLowerCase();
+                    return { username: u, points: p.points ?? pointsMap.get(uLower) ?? 0 };
                 });
+
+                const tourPlayersMap = new Map();
+                roundPlayersMap.forEach((val, key) => {
+                    tourPlayersMap.set(key, { username: val.username, points: val.points });
+                });
+                mainPlayers.forEach(p => {
+                    const uLower = p.username.toLowerCase();
+                    if (!tourPlayersMap.has(uLower)) {
+                        tourPlayersMap.set(uLower, p);
+                    } else {
+                        const existing = tourPlayersMap.get(uLower);
+                        existing.points = Math.max(existing.points, p.points);
+                    }
+                });
+                const tourPlayers = Array.from(tourPlayersMap.values());
 
                 const tc = this.parseTimeControl(data.settings?.time_control || data.time_control || data.timeControl);
                 let variant = data.settings?.rules || data.rules || 'standard';
                 const setup = data.settings?.initial_setup || null;
                 if ((variant === 'standard' || variant === 'chess') && setup) variant = 'custom';
 
+                const calculatedPlayersCount = Math.max(
+                    data.settings?.registered_user_count || 0,
+                    data.players_registered || 0,
+                    tourPlayers.length
+                );
+
                 tournaments.push({
                     id: ids[i], name: data.name || 'Unknown', url: data.url || `https://chess.com/tournament/${ids[i]}`,
                     variant, setup, timeClass: data.settings?.time_class || data.time_class || 'classical',
                     timeControl: tc, totalRounds: rounds, duration: this.calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime),
-                    playersCount: data.settings?.registered_user_count || data.players_registered || data.players?.length || 0
+                    playersCount: calculatedPlayersCount
                 });
 
                 tourPlayers.forEach(p => {
