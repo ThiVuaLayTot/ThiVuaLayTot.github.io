@@ -94,7 +94,7 @@
             const b = {
                 'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Bị khóa: Lạm dụng' },
                 'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Bị khóa: Fair Play' },
-                'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Bị khóa' },
+                'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Đã khóa' },
                 'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
             }[s];
             return b ? `<div class="user-badges-component"><div class="user-badges-badge ${b.c}"><span class="${b.i}"></span><span>${b.t}</span></div></div>` : '';
@@ -178,7 +178,7 @@
 
         el.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
             <div id="loading-status" style="text-align:center;padding:20px;font-size:14px">Đang hiển thị: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span> <span id="current-tournament">0</span>/${ids.length} giải đấu</div>
-            <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
+            <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian bắt đầu</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
             <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"></tbody></table></div><br><br><hr>`;
 
         const tbody = document.getElementById('tournament-tbody');
@@ -226,7 +226,7 @@
 
                 const fmtStr = rds === 1 ? ` Đấu trường Arena ${calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime)}` : ` Hệ Thụy Sĩ ${rds} vòng`;
 
-                let row = `<td><a href="${data.url}" target="_top">${data.name}</a></td>
+                let row = `<td><a href="${data.url}" target="_blank">${data.name}</a></td>
                     <td>${formatDate(data.start_time || data.startTime)}</td>
                     <td>${HTML.tFormat(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${HTML.vLink(v, s)}${fmtStr}</td>
                     <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
@@ -246,7 +246,7 @@
             const link = e.target.closest('.custom-variant-link');
             if (link) {
                 const setup = link.dataset.setup;
-                ModalManager.show('Thiết lập ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">${setup}</div>`);
+                ModalManager.show('Thiết lập ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">https://lichess.org/analysis/${setup}</div>`);
             }
         });
     }

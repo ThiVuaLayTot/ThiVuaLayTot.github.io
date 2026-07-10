@@ -6,7 +6,7 @@
 (function() {
     const API = {
         CHESS_COM: 'https://api.chess.com/pub',
-        GIST_AGG: 'https://gist.githubusercontent.com/M-DinhHoangViet/0ae047855007aacfc63886f9d60bc03d/raw',
+        GIST_AGG: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw/cttq',
         GIST_TOURS: 'https://gist.githubusercontent.com/M-DinhHoangViet/9c53a11fca709a656076bf6de7c118b0/raw'
     };
 
