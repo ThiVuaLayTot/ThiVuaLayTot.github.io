@@ -11,7 +11,7 @@ title: Bảng tổng giải Chiến Trường Thí Quân
     <li><a href="dttv">Đấu Trường Thí Vua</a></li>
 </ul><br>
 <p>Giải được quản lý bởi Admin <a href="/leaders#admin3">M-DinhHoangViet</a>. <a href="/events/cttq-chien-truong-thi-quan">Chi tiết về sự kiện này.</a></p>
-<div id="cttq-months-container"></div>
+<div id="cttq-months-container" data-fetch-aggregated="cttq"></div>
 
 <div id="scoreModal" class="cc-modal-overlay">
     <div class="cc-modal-dialog score-modal-dialog">
