@@ -144,11 +144,17 @@
                 if (!data) continue;
                 const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
                 let pointsMap = new Map();
+                let roundPlayersSet = new Set();
                 if (rounds > 0) {
                     const roundData = await RequestManager.fetch(`${API.CHESS_COM}/tournament/${ids[i]}/${rounds}`);
                     const groups = roundData?.groups || [];
                     const pList = groups.length ? (await Promise.allSettled(groups.map(url => RequestManager.fetch(url)))).filter(r => r.status === 'fulfilled').flatMap(r => r.value?.players || []) : (roundData?.players || []);
-                    pList.forEach(p => p.username && pointsMap.set(p.username.toLowerCase(), p.points || 0));
+                    pList.forEach(p => {
+                        if (p.username) {
+                            pointsMap.set(p.username.toLowerCase(), p.points || 0);
+                            roundPlayersSet.add(p.username.toLowerCase());
+                        }
+                    });
                 }
 
                 const tourPlayers = (data.players || []).map(p => {
@@ -161,11 +167,21 @@
                 const setup = data.settings?.initial_setup || null;
                 if ((variant === 'standard' || variant === 'chess') && setup) variant = 'custom';
 
+                const tourPlayersUsernames = (data.players || []).map(p => (typeof p === 'string' ? p : p.username).toLowerCase());
+                const uniquePlayersCount = new Set([...tourPlayersUsernames, ...roundPlayersSet]).size;
+                const calculatedPlayersCount = Math.max(
+                    data.settings?.registered_user_count || 0,
+                    data.players_registered || 0,
+                    tourPlayersUsernames.length,
+                    roundPlayersSet.size,
+                    uniquePlayersCount
+                );
+
                 tournaments.push({
                     id: ids[i], name: data.name || 'Unknown', url: data.url || `https://chess.com/tournament/${ids[i]}`,
                     variant, setup, timeClass: data.settings?.time_class || data.time_class || 'classical',
                     timeControl: tc, totalRounds: rounds, duration: this.calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime),
-                    playersCount: data.settings?.registered_user_count || data.players_registered || data.players?.length || 0
+                    playersCount: calculatedPlayersCount
                 });
 
                 tourPlayers.forEach(p => {
