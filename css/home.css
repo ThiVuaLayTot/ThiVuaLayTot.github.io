@@ -387,6 +387,7 @@ section,
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     z-index: 2;
+    pointer-events: none;
 }
 
 .about-img::after {
@@ -464,6 +465,7 @@ section,
     background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), transparent);
     opacity: 0;
     transition: var(--transition-base);
+    pointer-events: none;
 }
 
 .about-badge:hover {
@@ -753,6 +755,7 @@ section,
     background: linear-gradient(135deg, rgba(56, 189, 248, 0.05), transparent);
     opacity: 0;
     transition: var(--transition-slow);
+    pointer-events: none;
 }
 
 .timeline-item:hover .timeline-text {

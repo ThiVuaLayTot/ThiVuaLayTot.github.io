@@ -1129,3 +1129,36 @@ footer .bottom-details .bottom_text {
     font-size: var(--fs-lg);
   }
 }
+
+/* GLOBAL SELECTION HIGHLIGHTS & MODERN SCROLLBAR OVERRIDES */
+
+::selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: #ffffff;
+}
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.35);
+  border-radius: var(--border-radius-full);
+  border: 2px solid var(--color-bg-primary);
+  transition: var(--transition-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
+}
