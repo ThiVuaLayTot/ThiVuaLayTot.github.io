@@ -14,3 +14,5 @@ title: Bảng tổng giải Thí Vua Lấy Tốt
 <div id="tournament-table" data-fetch-tournament="tvlt"></div>
 
 <a href="/events/tvlt-thi-vua-lay-tot"><img src="/images/tvltlogo.png" alt="TungJohn Playing Chess"></a><i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
+
+<script src="/js/tournament-fetcher.js"></script>

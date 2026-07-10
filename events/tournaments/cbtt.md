@@ -14,3 +14,5 @@ title: Bảng tổng giải Cờ Bí Thí Tốt
 <p>Giải được quản lý bởi Admin <a href="/leaders#admin4">VN-SenJin</a>. <a href="/events/cbtt-co-bi-thi-tot">Chi tiết về sự kiện này.</a></p>
 <div id="tournament-table" data-fetch-tournament="cbtt"><a href="/events/cbtt-co-bi-thi-tot" style="display: block"><img src="/images/events/logo/cbtt-rapid.png" alt="CBTT Rapid" class="inl-bl"><img src="/images/events/logo/cbtt-blitz.png" alt="CBTT Blitz" class="inl-bl"><img src="/images/events/logo/cbtt-superblitz.png" alt="CBTT SuperBlitz" class="inl-bl"><img src="/images/events/logo/cbtt-bullet.png" alt="CBTT Bullet" class="inl-bl"><img src="/images/events/logo/cbtt-960.png" alt="CBTT Chess960" class="inl-bl"></a></div>
 <i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
+
+<script src="/js/tournament-fetcher.js"></script>
