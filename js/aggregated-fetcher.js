@@ -303,7 +303,7 @@
                 const customLink = e.target.closest('.custom-variant-link');
                 if (customLink) {
                     const setup = customLink.dataset.setup;
-                    ModalManager.show('Thiết lập ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">${setup}</div>`);
+                    ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">${setup}</div>`);
                 }
             });
             tbody.addEventListener('click', e => {

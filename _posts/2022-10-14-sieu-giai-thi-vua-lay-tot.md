@@ -18,7 +18,7 @@ Sau giai đoạn thử nghiệm, thể lệ chính thức được ổn định 
 
 - Tổ chức **định kỳ khoảng 1 giải/tháng** (có thể điều chỉnh theo thực tế).
 - Phần lớn giải đấu áp dụng thể thức
-  [**hệ Thụy Sĩ**](https://chess.com/terms/swiss-chess) và đôi khi sẽ là [**Đấu trường (Arena)](https://support.chess.com/articles/8562889-what-are-arena-tournaments).
+  [**hệ Thụy Sĩ**](https://chess.com/terms/swiss-chess) và đôi khi sẽ là [**Đấu trường (Arena)**](https://support.chess.com/articles/8562889-what-are-arena-tournaments).
 - **Cờ tiêu chuẩn** và  
   [**Chess960**](https://chess.com/article/chess-variants#Chess960) sẽ được chọn ngẫu nhiên mỗi tháng (cờ tiêu chuẩn là hình thức chủ đạo).
 - Tất cả các giải đều **có xếp hạng** trên Chess.com.

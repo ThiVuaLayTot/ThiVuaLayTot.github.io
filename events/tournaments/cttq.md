@@ -28,7 +28,7 @@ title: Bảng tổng giải Chiến Trường Thí Quân
 </div>
 
 <a href="/events/cttq-chien-truong-thi-quan"><img alt="Chiến Trường Thí Quân logo" src="/images/events/logo/cttq.png"></a>
-<i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admins" target="_top">quản trị viên</a>.</i>
+<i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admin3" target="_top">quản trị viên</a>.</i>
 <br>
 
 <script src="/js/aggregated-fetcher.js"></script>

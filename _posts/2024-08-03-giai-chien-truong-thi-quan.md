@@ -33,7 +33,7 @@ Bảng kết quả tổng hợp theo tháng được công bố **[tại đây](
 ## 📅 Lịch
 
 - Giải đấu thường diễn ra vào **tối thứ Bảy, Chủ nhật** hoặc các dịp đặc biệt.
-- Link giải đấu hằng tháng được cập nhật [tại forum này](//chess.com/forum/view/link-giai-chien-truong-thi-quan).
+- Link giải đấu hằng tháng được cập nhật [tại đây](/events/tournaments/cttq).
 
 ---
 
