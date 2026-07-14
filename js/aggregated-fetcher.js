@@ -102,6 +102,27 @@
     };
 
     const DataProcessor = {
+        toursByMonth: {},
+        parseUnifiedFormat(text) {
+            const lines = text ? text.split('\n').map(l => l.trim()) : [];
+            const months = [];
+            const toursByMonth = {};
+            let currentMonth = null;
+
+            for (const line of lines) {
+                if (!line) continue;
+                if (line.startsWith('*')) {
+                    currentMonth = line.slice(1).trim();
+                    if (currentMonth) {
+                        months.push(currentMonth);
+                        toursByMonth[currentMonth] = [];
+                    }
+                } else if (currentMonth) {
+                    toursByMonth[currentMonth].push(line);
+                }
+            }
+            return { months, toursByMonth };
+        },
         calculateDuration(start, end) {
             if (!start || !end) return 'N/A';
             const s = new Date(start * 1000), e = new Date(end * 1000);
@@ -132,8 +153,13 @@
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
-            const text = await RequestManager.fetch(`${API.GIST}/${monthId}.txt`, false);
-            const ids = text ? text.split('\n').filter(l => l.trim()) : [];
+            let ids = [];
+            if (DataProcessor.toursByMonth && DataProcessor.toursByMonth[monthId]) {
+                ids = DataProcessor.toursByMonth[monthId];
+            } else {
+                const text = await RequestManager.fetch(`${API.GIST}/${monthId}.txt`, false);
+                ids = text ? text.split('\n').filter(l => l.trim()) : [];
+            }
             if (!ids.length) return { playerScores: {}, tournaments: [] };
 
             const tourDataList = await Promise.all(ids.map(id => RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}`)));
@@ -260,8 +286,20 @@
             const eventType = container.dataset.fetchAggregated || 'cttq';
             container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
-            const text = await RequestManager.fetch(`${API.GIST}/cttq`, false);
-            const months = text ? text.split('\n').filter(l => l.trim()) : [];
+            let text = await RequestManager.fetch(`${API.GIST}/${eventType}.txt`, false);
+            if (!text) {
+                text = await RequestManager.fetch(`${API.GIST}/${eventType}`, false);
+            }
+
+            let months = [];
+            if (text && text.includes('*')) {
+                const parsed = DataProcessor.parseUnifiedFormat(text);
+                months = parsed.months;
+                DataProcessor.toursByMonth = parsed.toursByMonth;
+            } else if (text) {
+                months = text.split('\n').map(l => l.trim()).filter(l => l);
+            }
+
             if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
 
             container.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
