@@ -36,6 +36,29 @@
         'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
     };
 
+    /**
+     * Parses cttq.txt content into months list and month tournaments mapping.
+     * @param {string} text Raw content from cttq.txt
+     * @returns {Object} { months: string[], monthTours: Object }
+     */
+    function parseCttqText(text) {
+        const tokens = text ? text.trim().split(/\s+/) : [];
+        const months = [];
+        const monthTours = {};
+        let currentMonth = null;
+        for (const token of tokens) {
+            if (!token) continue;
+            if (token.startsWith('*')) {
+                currentMonth = token.substring(1);
+                months.push(currentMonth);
+                monthTours[currentMonth] = [];
+            } else if (currentMonth) {
+                monthTours[currentMonth].push(token);
+            }
+        }
+        return { months, monthTours };
+    }
+
     const Cache = {
         memory: new Map(),
         get(key) {
@@ -102,6 +125,7 @@
     };
 
     const DataProcessor = {
+        monthTours: {},
         calculateDuration(start, end) {
             if (!start || !end) return 'N/A';
             const s = new Date(start * 1000), e = new Date(end * 1000);
@@ -132,9 +156,12 @@
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
-            const text = await RequestManager.fetch(`${API.GIST}/${monthId}.txt`, false);
-            const ids = text ? text.split('\n').filter(l => l.trim()) : [];
-            if (!ids.length) return { playerScores: {}, tournaments: [] };
+            let ids = DataProcessor.monthTours[monthId];
+            if (ids === undefined) {
+                const text = await RequestManager.fetch(`${API.GIST}/${monthId}.txt`, false);
+                ids = text ? text.split('\n').filter(l => l.trim()) : [];
+            }
+            if (!ids || !ids.length) return { playerScores: {}, tournaments: [] };
 
             const tourDataList = await Promise.all(ids.map(id => RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}`)));
             const playerScores = {}, tournaments = [];
@@ -260,9 +287,28 @@
             const eventType = container.dataset.fetchAggregated || 'cttq';
             container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
-            const text = await RequestManager.fetch(`${API.GIST}/cttq`, false);
-            const months = text ? text.split('\n').filter(l => l.trim()) : [];
-            if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
+            let text = await RequestManager.fetch(`${API.GIST}/cttq.txt`, false);
+            let months = [];
+            let monthTours = {};
+
+            if (text) {
+                const parsed = parseCttqText(text);
+                months = parsed.months;
+                monthTours = parsed.monthTours;
+            }
+
+            // Fallback to old format if cttq.txt is missing or empty
+            if (!months.length) {
+                const fallbackText = await RequestManager.fetch(`${API.GIST}/cttq`, false);
+                months = fallbackText ? fallbackText.split('\n').filter(l => l.trim()) : [];
+            }
+
+            if (!months.length) {
+                container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>';
+                return;
+            }
+
+            DataProcessor.monthTours = monthTours;
 
             container.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
                 <div id="loading-status" style="text-align: center; padding: 20px; font-size: 14px;">Đang xử lý: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span> <span id="current-tournament">0</span>/${months.length} tháng</div>
