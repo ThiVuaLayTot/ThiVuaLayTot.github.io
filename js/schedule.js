@@ -221,7 +221,7 @@ function openModal(tournament) {
         newsUrl = tournament.newsLink || eventDetails[tournamentType] || "https://support.chess.com";
     }
 
-    document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
+    document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}" target="_blank">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
     document.getElementById('modal-category').textContent = tournament.prize || 'Giao lưu';
     document.getElementById('modal-organizer').innerHTML = tournament.organizer || 'Quản trị viên';
 
