@@ -114,7 +114,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
     </div>
 </div>
 <p align="center">Ngoài ra còn một số <a href="https://chess.com/clubs/members/thi-vua-lay-tot-tungjohn-playing-chess?filter=byRoles" target="_blank">thành viên khác.</a></p>
-<p><br /></p>
+<p><br /><strong>Bạn có muốn trở thành một điều phối viên? Xem <a href="/news/2024/08/10/tuyen-dieu-hanh-vien">chi tiết và ứng tuyển</a>.</strong></p>
 <hr id="contact"><br>
 <div class="pos_header">
     <h2>Liên hệ</h2>

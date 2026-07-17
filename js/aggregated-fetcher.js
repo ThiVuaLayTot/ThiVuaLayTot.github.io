@@ -334,7 +334,7 @@
             }));
 
             const icon = document.getElementById('statusIcon');
-            if (icon) { icon.style.color = count === months.length ? 'var(--primary-success)' : 'var(--color-red)'; icon.className = count === months.length ? 'bx bx-check' : 'bx bx-x'; }
+            if (icon) { icon.style.color = count === months.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = count === months.length ? 'bx bx-check' : 'bx bx-x'; }
 
             document.getElementById('scoreModal')?.addEventListener('click', e => {
                 if (e.target.id === 'scoreModal') ModalManager.close();
@@ -351,7 +351,7 @@
                     let h = `<div class="calendar-wrapper"><table class="styled-table score-detail-table"><thead><tr><th>Giải đấu</th><th style="text-align: center;">Điểm</th></tr></thead><tbody>`;
                     p.breakdown.forEach(item => h += `<tr><td><a href="${item.url}" target="_blank">${item.tourName}</a></td><td style="text-align: center; color: var(--cyan-300);">${item.points}</td></tr>`);
                     h += `</tbody><tfoot><tr><td style="text-align: right;">TỔNG CỘNG:</td><td style="text-align: center; color: var(--yellow-400);">${p.totalPoints}</td></tr></tfoot></table></div>`;
-                    ModalManager.show(`Chi tiết điểm: ${p.username}`, h);
+                    ModalManager.show(`Chi tiết điểm của ${p.username}`, h);
                     return;
                 }
                 const month = e.target.closest('.month-clickable');

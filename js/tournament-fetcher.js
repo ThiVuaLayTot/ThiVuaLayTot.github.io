@@ -239,7 +239,7 @@
         }));
 
         const icon = document.getElementById('statusIcon');
-        if (icon) { icon.style.color = success === ids.length ? 'var(--primary-success)' : 'var(--color-red)'; icon.className = success === ids.length ? 'bx bx-check' : 'bx bx-x'; }
+        if (icon) { icon.style.color = success === ids.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = success === ids.length ? 'bx bx-check' : 'bx bx-x'; }
 
         document.getElementById('scoreModal')?.addEventListener('click', e => { if (e.target.id === 'scoreModal') ModalManager.close(); });
         tbody.addEventListener('click', e => {

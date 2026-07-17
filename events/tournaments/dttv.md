@@ -12,4 +12,3 @@ title: Bảng tổng giải Đấu Trường Thí Vua
 </ul><br>
 <p>Giải được quản lý bởi Admin <a href="/leaders#admin2">FR-CH_TheClanTeamIsMine</a>.</p>
 <div id="tournament-table" data-fetch-tournament="dttv"></div>
-<i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admin3" target="_top">quản trị viên</a>.</i>

@@ -15,4 +15,3 @@ title: Bảng tổng giải Cờ Bí Thí Tốt
 <div id="tournament-table" data-fetch-tournament="cbtt"></div>
 
 <a href="/events/cbtt-co-bi-thi-tot" style="display: block"><img src="/images/events/logo/cbtt-rapid.png" alt="CBTT Rapid" class="inl-bl"><img src="/images/events/logo/cbtt-blitz.png" alt="CBTT Blitz" class="inl-bl"><img src="/images/events/logo/cbtt-superblitz.png" alt="CBTT SuperBlitz" class="inl-bl"><img src="/images/events/logo/cbtt-bullet.png" alt="CBTT Bullet" class="inl-bl"><img src="/images/events/logo/cbtt-960.png" alt="CBTT Chess960" class="inl-bl"></a>
-<i>Nếu có vấn đề thì xin hãy liên hệ <a href="/leaders#admin3" target="_top">quản trị viên</a>.</i>
