@@ -240,7 +240,7 @@
         img: (src, w = 15) => `<img src="${src}" width="${w}" height="${w}" alt="" style="display: inline-block; vertical-align: middle;">`,
         timeFormat(tc, tcClass) {
             const icon = TIME_ICONS[tcClass];
-            return `${tc} ${icon?.name || 'Standard'} ${icon ? this.img('https://www.chess.com' + icon.path) : ''}`;
+            return `${tc} ${icon?.name || 'Standard'}${icon ? this.img('https://www.chess.com' + icon.path) : ''}`;
         },
         variantInfo(v) {
             const data = VARIANTS[v.toLowerCase()];
@@ -360,7 +360,7 @@
                     let h = `<div class="calendar-wrapper"><table class="styled-table score-detail-table"><thead><tr><th>Vòng đấu</th><th>Thể lệ</th><th style="text-align: center;">Kỳ thủ</th></tr></thead><tbody>`;
                     tours.forEach(t => {
                         const v = Renderer.variantInfo(t.variant);
-                        const variantHTML = v ? (t.setup ? ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${t.setup}">${v.name} ${Renderer.img(v.icon)}</a>` : ` <a href="${v.url}" target="_blank">${v.name} ${Renderer.img(v.icon)}</a>`) : '';
+                        const variantHTML = v ? (t.setup ? ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${t.setup}">${v.name}${Renderer.img(v.icon)}</a>` : ` <a href="${v.url}" target="_blank">${v.name} ${Renderer.img(v.icon)}</a>`) : '';
                         const formatStr = t.totalRounds === 1 ? `Đấu trường Arena ${t.duration}` : `Hệ Thụy Sĩ ${t.totalRounds} vòng`;
                         h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}${variantHTML}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
                     });

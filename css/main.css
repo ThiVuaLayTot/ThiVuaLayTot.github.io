@@ -940,7 +940,7 @@ footer .bottom-details .bottom_text {
   margin-bottom: var(--space-sm);
   font-weight: var(--fw-bold);
   font-size: var(--fs-lg);
-  color: var(--color-text-primary);
+  color: var(--green-400);
   transition: color var(--transition-base);
   line-height: 1.4;
 }

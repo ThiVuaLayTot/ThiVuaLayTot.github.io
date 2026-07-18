@@ -172,7 +172,7 @@
 
   --color-text-primary: #ffffff;
   --color-text-secondary: var(--neutral-200);
-  --color-text-muted: var(--neutral-500);
+  --color-text-muted: var(--neutral-400);
   --color-text-disabled: var(--neutral-600);
 
   --color-bg-primary: #050811;

@@ -12,7 +12,7 @@ title: Bảng tổng giải Cờ Bí Thí Tốt
 </ul><br>
 <style>.inl-bl {display:inline-block}</style>
 <p>Giải được quản lý bởi Admin <a href="/leaders#admin4">VN-SenJin</a>. <a href="/events/cbtt-co-bi-thi-tot">Chi tiết về sự kiện này</a>.</p>
-<p><i>Nếu có vấn đề thì xin hãy bình luận tại <a href="https://chess.com/clubs/forum/view/danh-sach-cac-giai-da-to-chuc-clb-tvlt?clubId=325849&quote_id=131524731&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">Admin M-DinhHoangViet</a>.</i></p>
+<p><i>Nếu có đề xuất hoặc vấn đề gì thì hãy bình luận <a href="https://chess.com/clubs/forum/view/danh-sach-cac-giai-da-to-chuc-clb-tvlt?clubId=325849&quote_id=131524731&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">Admin M-DinhHoangViet</a>.</i></p>
 <div id="tournament-table" data-fetch-tournament="cbtt"></div>
 
 <a href="/events/cbtt-co-bi-thi-tot" style="display: block"><img src="/images/events/logo/cbtt-rapid.png" alt="CBTT Rapid" class="inl-bl"><img src="/images/events/logo/cbtt-blitz.png" alt="CBTT Blitz" class="inl-bl"><img src="/images/events/logo/cbtt-superblitz.png" alt="CBTT SuperBlitz" class="inl-bl"><img src="/images/events/logo/cbtt-bullet.png" alt="CBTT Bullet" class="inl-bl"><img src="/images/events/logo/cbtt-960.png" alt="CBTT Chess960" class="inl-bl"></a>

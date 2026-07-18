@@ -11,7 +11,7 @@ title: Bảng tổng giải Chiến Trường Thí Quân
     <li><a href="dttv">Đấu Trường Thí Vua</a></li>
 </ul><br>
 <p>Giải được quản lý bởi Admin <a href="/leaders#admin3">M-DinhHoangViet</a>. <a href="/events/cttq-chien-truong-thi-quan">Chi tiết về sự kiện này</a>.</p>
-<p><i>Nếu có vấn đề thì xin hãy bình luận tại <a href="https://chess.com/clubs/forum/view/danh-sach-cac-giai-da-to-chuc-clb-tvlt?clubId=325849&quote_id=131524731&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">Admin M-DinhHoangViet</a>.</i></p>
+<p><i>Nếu có đề xuất hoặc vấn đề gì thì hãy bình luận <a href="https://chess.com/clubs/forum/view/danh-sach-cac-giai-da-to-chuc-clb-tvlt?clubId=325849&quote_id=131524731&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">Admin M-DinhHoangViet</a>.</i></p>
 <div id="cttq-months-container" data-fetch-aggregated="cttq"></div>
 
 <div id="scoreModal" class="cc-modal-overlay">
