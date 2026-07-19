@@ -323,19 +323,7 @@
                 tbody.appendChild(tr); return tr;
             });
 
-            let count = 0;
-            await Promise.allSettled(months.map(async (m, i) => {
-                try {
-                    const html = await Renderer.monthRow(m, eventType);
-                    const temp = document.createElement('tbody'); temp.innerHTML = html;
-                    skeletons[i].replaceWith(temp.firstElementChild);
-                    document.getElementById('current-tournament').textContent = ++count;
-                } catch (e) {}
-            }));
-
-            const icon = document.getElementById('statusIcon');
-            if (icon) { icon.style.color = count === months.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = count === months.length ? 'bx bx-check' : 'bx bx-x'; }
-
+            // Set up event listeners early so users can click loaded months while remaining months load
             document.getElementById('scoreModal')?.addEventListener('click', e => {
                 if (e.target.id === 'scoreModal') ModalManager.close();
                 const customLink = e.target.closest('.custom-variant-link');
@@ -367,6 +355,19 @@
                     ModalManager.show(`Chi tiết tháng ${month.dataset.month}`, h + '</tbody></table></div>');
                 }
             });
+
+            let count = 0;
+            await Promise.allSettled(months.map(async (m, i) => {
+                try {
+                    const html = await Renderer.monthRow(m, eventType);
+                    const temp = document.createElement('tbody'); temp.innerHTML = html;
+                    skeletons[i].replaceWith(temp.firstElementChild);
+                    document.getElementById('current-tournament').textContent = ++count;
+                } catch (e) {}
+            }));
+
+            const icon = document.getElementById('statusIcon');
+            if (icon) { icon.style.color = count === months.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = count === months.length ? 'bx bx-check' : 'bx bx-x'; }
         }
     };
 

@@ -870,9 +870,18 @@ a
 }
 
 .score-modal-dialog {
+  display: block !important;
   max-width: 500px !important;
-  grid-template-columns: 1fr !important;
+  width: 90vw !important;
+  grid-template-columns: unset !important;
+  grid-template-rows: unset !important;
   padding: 1.5rem !important;
+}
+
+.score-modal-dialog .cc-modal-content-wrapper {
+  grid-column: unset !important;
+  grid-row: unset !important;
+  padding: 0 !important;
 }
 
 .score-detail-table {
