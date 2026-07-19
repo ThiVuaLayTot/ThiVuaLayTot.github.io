@@ -274,35 +274,95 @@ a
 }
 
 /* ========================================
-   SEARCH BAR
+   SEARCH BAR & FILTERS
    ======================================== */
 
-.search-bar {
-  padding: var(--space-md);
+.filter-group-container {
+  display: flex;
+  gap: var(--space-md);
   margin: var(--space-lg) 0;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+
+.filter-group-container .search-bar {
+  margin: 0;
+  flex: 1;
+  min-width: 250px;
+  padding: var(--space-md);
   border: var(--border-width-base) solid rgba(56, 189, 248, 0.3);
   background: rgba(25, 40, 75, 0.6);
   color: var(--neutral-100);
   border-radius: var(--border-radius-lg);
   font-size: var(--fs-sm);
   transition: all var(--transition-base);
-  width: 350px;
-  max-width: 100%;
   font-family: var(--primary-font);
   font-weight: var(--fw-medium);
 }
 
-.search-bar::placeholder {
+.filter-group-container .search-bar::placeholder {
   color: var(--neutral-600);
 }
 
-.search-bar:focus {
+.filter-group-container .search-bar:focus {
   outline: none;
   border-color: var(--color-primary-light);
   background: rgba(25, 40, 75, 0.95);
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.3),
     inset 0 1px 3px rgba(56, 189, 248, 0.1);
   transform: translateY(-2px);
+}
+
+.select-filters {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.select-filters select {
+  padding: var(--space-md);
+  border: var(--border-width-base) solid rgba(56, 189, 248, 0.3);
+  background: rgba(25, 40, 75, 0.6);
+  color: var(--neutral-100);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--fs-sm);
+  transition: all var(--transition-base);
+  font-family: var(--primary-font);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  outline: none;
+  min-width: 150px;
+}
+
+.select-filters select:focus {
+  border-color: var(--color-primary-light);
+  background: rgba(25, 40, 75, 0.95);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .filter-group-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .filter-group-container .search-bar {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .select-filters {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .select-filters select {
+    width: 100%;
+    min-width: unset;
+  }
 }
 
 /* ========================================

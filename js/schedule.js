@@ -48,6 +48,8 @@ async function loadTournaments() {
             document.getElementById('empty').style.display = 'block';
         } else {
             document.getElementById('calendar-wrapper').style.display = 'block';
+            const filtersDiv = document.getElementById('schedule-filters');
+            if (filtersDiv) filtersDiv.style.display = 'flex';
             renderCalendar();
         }
     } catch (error) {
@@ -66,6 +68,11 @@ function renderCalendar() {
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth();
+
+    // Get filter values
+    const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
+    const prizeVal = document.getElementById('schedule-prize-filter')?.value || 'all';
+    const typeVal = document.getElementById('schedule-type-filter')?.value || 'all';
 
     // Update header
     const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
@@ -147,19 +154,39 @@ function renderCalendar() {
                 });
 
                 dayTournaments.forEach(tournament => {
-                    const icon = document.createElement('span');
-                    icon.className = 'event-icon';
+                    // Match Search
+                    const eventName = (tournament.eventName || '').toLowerCase();
+                    const matchesSearch = !searchVal || eventName.includes(searchVal);
 
-                    const img = document.createElement('img');
-                    img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
-                    img.title = tournament.eventName || 'Tournament';
-                    img.onclick = (e) => {
-                        e.stopPropagation();
-                        openModal(tournament);
-                    };
+                    // Match Prize
+                    let matchesPrize = true;
+                    if (prizeVal === 'prize') {
+                        const prize = (tournament.prize || '').toLowerCase().trim();
+                        matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                    }
 
-                    icon.appendChild(img);
-                    eventsDiv.appendChild(icon);
+                    // Match Type
+                    let matchesType = true;
+                    if (typeVal !== 'all') {
+                        const tType = tournament.eventType;
+                        matchesType = (tType === typeVal);
+                    }
+
+                    if (matchesSearch && matchesPrize && matchesType) {
+                        const icon = document.createElement('span');
+                        icon.className = 'event-icon';
+
+                        const img = document.createElement('img');
+                        img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
+                        img.title = tournament.eventName || 'Tournament';
+                        img.onclick = (e) => {
+                            e.stopPropagation();
+                            openModal(tournament);
+                        };
+
+                        icon.appendChild(img);
+                        eventsDiv.appendChild(icon);
+                    }
                 });
             }
 
@@ -170,6 +197,15 @@ function renderCalendar() {
         tbody.appendChild(tr);
     }
 }
+
+/**
+ * Filter schedule function triggered by input/select changes.
+ */
+function filterSchedule() {
+    renderCalendar();
+}
+
+window.filterSchedule = filterSchedule;
 
 /**
  * Opens the event detail modal with tournament information.

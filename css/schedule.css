@@ -679,3 +679,62 @@ td.today .day-number {
         font-size: 1.2rem;
     }
 }
+
+/* Schedule Filters */
+.schedule-filters {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.schedule-filters input,
+.schedule-filters select {
+    background: rgba(10, 25, 47, 0.7);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: 8px;
+    color: var(--cyan-100);
+    padding: 10px 15px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+}
+
+.schedule-filters input::placeholder {
+    color: rgba(0, 242, 255, 0.5);
+}
+
+.schedule-filters input:focus,
+.schedule-filters select:focus {
+    border-color: var(--cyan-300);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+.schedule-filters input {
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.schedule-filters select {
+    min-width: 180px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .schedule-filters {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .schedule-filters input,
+    .schedule-filters select {
+        width: 100%;
+        max-width: none;
+        min-width: unset;
+    }
+}

@@ -25,6 +25,28 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
             <p><i>Lần cuối cập nhật: <span id="last-updated"></span></i>.<br>Nếu có vấn đề hãy bình luận trong <a href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3">M-DinhHoangViet</a>.</p>
             <br>
             <div class="month-title" id="month-title">Processing...</div>
+
+            <div id="schedule-filters" class="schedule-filters" style="display: none;">
+                <input type="text" id="schedule-search" placeholder="Tìm tên sự kiện..." oninput="filterSchedule()">
+                <select id="schedule-prize-filter" onchange="filterSchedule()">
+                    <option value="all">Tất cả giải đấu</option>
+                    <option value="prize">Chỉ giải có thưởng</option>
+                </select>
+                <select id="schedule-type-filter" onchange="filterSchedule()">
+                    <option value="all">Tất cả thể loại</option>
+                    <option value="tvlt">Thí Vua Lấy Tốt</option>
+                    <option value="cttq">Chiến Trường Thí Quân</option>
+                    <option value="cbtt">Cờ Bí Thí Tốt</option>
+                    <option value="dttv">Đấu Trường Thí Vua</option>
+                    <option value="multi-club-arena">Multi-Club Arena</option>
+                    <option value="club-arena">Đấu trường Arena</option>
+                    <option value="swiss">Hệ Thụy Sĩ (Swiss)</option>
+                    <option value="1wl">One World League</option>
+                    <option value="vote">Cờ vua bỏ phiếu</option>
+                    <option value="daily">Cờ hàng ngày (Daily)</option>
+                </select>
+            </div>
+
             <div id="loading" class="loading">
                 <div class="loading-spinner"></div>
                 <p style="font-size: 1.1em; margin-top: 20px;">Đang tải lịch...</p>

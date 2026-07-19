@@ -176,7 +176,35 @@
         const ids = txt ? txt.split('\n').filter(l => l.trim()) : [];
         if (!ids.length) { el.innerHTML = '<div class="error">Không tìm thấy giải đấu.</div>'; return; }
 
-        el.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
+        el.innerHTML = `
+            <div class="filter-group-container">
+                <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm tên giải hoặc kỳ thủ...">
+                <div class="select-filters">
+                    <select id="sortFilter" onchange="searchTable()">
+                        <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
+                        <option value="date-asc">Ngày tổ chức (Cũ nhất)</option>
+                        <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
+                        <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
+                    </select>
+                    <select id="timeClassFilter" onchange="searchTable()">
+                        <option value="all">Tất cả tốc độ</option>
+                        <option value="bullet">Bullet</option>
+                        <option value="blitz">Blitz</option>
+                        <option value="rapid">Rapid</option>
+                        <option value="classical">Classical</option>
+                    </select>
+                    <select id="variantFilter" onchange="searchTable()">
+                        <option value="all">Tất cả biến thể</option>
+                        <option value="standard">Cờ tiêu chuẩn</option>
+                        <option value="chess960">Chess960</option>
+                        <option value="crazyhouse">Crazyhouse</option>
+                        <option value="bughouse">Bughouse</option>
+                        <option value="kingofthehill">King of the Hill</option>
+                        <option value="threecheck">3 Chiếu</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+            </div>
             <div id="loading-status" style="text-align:center;padding:20px;font-size:14px">Đang hiển thị: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span> <span id="current-tournament">0</span>/${ids.length} giải đấu</div>
             <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian bắt đầu</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
             <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display:none"><td style="color:var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>`;
@@ -233,8 +261,17 @@
 
                 for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) row += await renderPlayer(top[i]?.u, top[i]?.pts || 0);
 
-                skeletons[idx].innerHTML = row; skeletons[idx].className = '';
+                skeletons[idx].innerHTML = row;
+                skeletons[idx].setAttribute('data-start-time', data.start_time || data.startTime || 0);
+                skeletons[idx].setAttribute('data-players-count', data.settings?.registered_user_count || data.players_registered || data.players?.length || 0);
+                skeletons[idx].setAttribute('data-time-class', data.settings?.time_class || data.time_class || 'classical');
+                skeletons[idx].setAttribute('data-variant', v.toLowerCase());
+                skeletons[idx].className = '';
                 document.getElementById('current-tournament').textContent = ++success;
+
+                if (typeof window.searchTable === 'function') {
+                    window.searchTable();
+                }
             } catch (e) {}
         }));
 
