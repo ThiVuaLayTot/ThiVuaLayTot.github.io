@@ -30,13 +30,7 @@ window.searchTable = debounce(function() {
     if (!table) return;
 
     const rows = table.getElementsByTagName('tr');
-
-    if (rows.length < 2) {
-        table.querySelector('.not-match').style.display = '';
-    }
-    else {
-        table.querySelector('.not-match').style.display = 'none';
-    }
+    let matched = false;
 
     // Iterate through all table rows, skipping the header (i=1)
     for (let i = 1; i < rows.length; i++) {
@@ -48,6 +42,7 @@ window.searchTable = debounce(function() {
             const cell = cells[j];
             if (cell && cell.textContent.toUpperCase().indexOf(filter) > -1) {
                 match = true;
+                matched = true;
                 break;
             }
         }
@@ -55,4 +50,5 @@ window.searchTable = debounce(function() {
         // Toggle row visibility based on match result
         rows[i].style.display = match ? '' : 'none';
     }
+    table.querySelector('.not-match').style.display = matched ? 'none' : '';
 }, 100);
