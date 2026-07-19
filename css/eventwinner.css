@@ -9,7 +9,7 @@
   width: 100%;
   overflow: auto;
   max-width: inherit;
-  max-height: inherit;
+  max-height: 70vh;
   margin: var(--space-2xl) 0;
   border-radius: var(--border-radius-lg);
   background: linear-gradient(
