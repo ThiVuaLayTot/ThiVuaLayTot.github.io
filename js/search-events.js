@@ -31,7 +31,7 @@ window.searchTable = debounce(function() {
 
     const rows = table.getElementsByTagName('tr');
 
-    if (!rows.length) {
+    if (rows.length > 1) {
         table.querySelector('.not-match').style.display = '';
         return;
     }
