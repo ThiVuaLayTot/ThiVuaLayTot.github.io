@@ -32,8 +32,8 @@ window.searchTable = debounce(function() {
     const rows = table.getElementsByTagName('tr');
     let matched = false;
 
-    // Iterate through all table rows, skipping the header (i=1)
-    for (let i = 1; i < rows.length; i++) {
+    // Iterate through all table rows, skipping the header & alert
+    for (let i = 2; i < rows.length; i++) {
         const cells = rows[i].getElementsByTagName('td');
         let match = false;
 
