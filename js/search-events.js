@@ -31,6 +31,14 @@ window.searchTable = debounce(function() {
 
     const rows = table.getElementsByTagName('tr');
 
+    if (!rows.length) {
+        table.querySelector('.not-match').style.display = '';
+        return;
+    }
+    else {
+        table.querySelector('.not-match').style.display = 'none';
+    }
+
     // Iterate through all table rows, skipping the header (i=1)
     for (let i = 1; i < rows.length; i++) {
         const cells = rows[i].getElementsByTagName('td');

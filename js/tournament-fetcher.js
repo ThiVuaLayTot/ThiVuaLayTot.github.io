@@ -82,7 +82,7 @@
         vLink(v, setup = null) {
             const d = VARIANTS[v.toLowerCase()] || { name: v, url: '/terms', icon: '/bundles/web/images/icons/smileys/2x/board.png' };
             if (setup) {
-                return ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${d.name}${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
+                return `<br><a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${d.name}${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
             }
             return ` <a href="${CONFIG.CHESS_COM_URL}${d.url}" target="_blank">${d.name} ${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
         },
