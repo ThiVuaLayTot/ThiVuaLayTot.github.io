@@ -16,4 +16,4 @@ title: Bảng tổng giải Chiến Trường Thí Quân
 
 <script src="/js/aggregated-fetcher.js"></script>
 
-<a href="/events/cttq-chien-truong-thi-quan"><img alt="Chiến Trường Thí Quân logo" src="/images/events/logo/cttq.png"></a>
+<a href="/events/cttq-chien-truong-thi-quan"><img alt="Chiến Trường Thí Quân logo" src="/images/events/logo/cttq.png" width="250"></a>
