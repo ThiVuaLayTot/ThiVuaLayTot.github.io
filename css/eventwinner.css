@@ -20,6 +20,51 @@
   padding: 4px;
   box-shadow: var(--shadow-xl);
   transition: all var(--transition-base);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.5) rgba(12, 20, 38, 0.4);
+}
+
+.table::-webkit-scrollbar {
+  height: 8px;
+}
+.table::-webkit-scrollbar-track {
+  background: rgba(12, 20, 38, 0.4);
+  border-radius: var(--border-radius-lg);
+}
+.table::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.5);
+  border-radius: var(--border-radius-lg);
+}
+.table::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.8);
+}
+
+/* Chỉ báo còn nội dung ẩn: bóng mờ 2 bên trái/phải */
+.table::before,
+.table::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 28px;
+  pointer-events: none;
+  z-index: var(--z-sticky);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+.table::before {
+  left: 4px;
+  background: linear-gradient(to right, rgba(10, 15, 26, 0.9), rgba(10, 15, 26, 0));
+}
+.table::after {
+  right: 4px;
+  background: linear-gradient(to left, rgba(10, 15, 26, 0.9), rgba(10, 15, 26, 0));
+}
+.table.can-scroll-left::before {
+  opacity: 1;
+}
+.table.can-scroll-right::after {
+  opacity: 1;
 }
 
 .styled-table {

@@ -96,3 +96,42 @@ if (backToTopBtn) {
         document.documentElement.scrollTop = 0;
     });
 }
+
+/* ============================================================
+   BẢNG GIẢI ĐẤU: cuộn ngang bằng chuột lăn, chỉ báo cuộn
+   ============================================================ */
+(function () {
+    const isScrollableTable = (table) => table && table.scrollWidth > table.clientWidth;
+
+    // Bật/tắt class báo hiệu còn nội dung để cuộn, dùng để hiện bóng mờ 2 bên
+    function updateScrollIndicators(table) {
+        if (!table) return;
+        const maxScroll = table.scrollWidth - table.clientWidth;
+        table.classList.toggle("can-scroll-left", table.scrollLeft > 4);
+        table.classList.toggle("can-scroll-right", table.scrollLeft < maxScroll - 4);
+    }
+
+    function initTable(table) {
+        if (!table || table.dataset.scrollEnhanced) return;
+        table.dataset.scrollEnhanced = "true";
+        updateScrollIndicators(table);
+        table.addEventListener("scroll", () => updateScrollIndicators(table), { passive: true });
+        window.addEventListener("resize", () => updateScrollIndicators(table));
+    }
+
+    // Bắt các bảng được chèn động sau khi tournament-fetcher.js tải xong dữ liệu
+    const observer = new MutationObserver(() => {
+        document.querySelectorAll(".table").forEach(initTable);
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    document.querySelectorAll(".table").forEach(initTable);
+
+    // Lăn chuột dọc -> cuộn ngang (cho PC không có touchpad)
+    document.addEventListener("wheel", function (e) {
+        const table = e.target.closest(".table");
+        if (!table || !isScrollableTable(table)) return;
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+        e.preventDefault();
+        table.scrollLeft += e.deltaY;
+    }, { passive: false });
+})();
