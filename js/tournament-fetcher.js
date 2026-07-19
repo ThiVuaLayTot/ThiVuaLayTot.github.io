@@ -82,7 +82,7 @@
         vLink(v, setup = null) {
             const d = VARIANTS[v.toLowerCase()] || { name: v, url: '/terms', icon: '/bundles/web/images/icons/smileys/2x/board.png' };
             if (setup) {
-                return ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${d.name}${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
+                return `<br><a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${d.name}${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
             }
             return ` <a href="${CONFIG.CHESS_COM_URL}${d.url}" target="_blank">${d.name} ${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
         },
@@ -179,7 +179,7 @@
         el.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
             <div id="loading-status" style="text-align:center;padding:20px;font-size:14px">Đang hiển thị: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span> <span id="current-tournament">0</span>/${ids.length} giải đấu</div>
             <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian bắt đầu</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
-            <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"></tbody></table></div><br><br><hr>`;
+            <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display:none"><td style="color:var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>`;
 
         const tbody = document.getElementById('tournament-tbody');
         const skeletons = ids.map(() => {

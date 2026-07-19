@@ -14,19 +14,6 @@ title: Bảng tổng giải Chiến Trường Thí Quân
 <p><i>Nếu có đề xuất hoặc vấn đề gì thì hãy bình luận <a href="https://chess.com/clubs/forum/view/danh-sach-cac-giai-da-to-chuc-clb-tvlt?clubId=325849&quote_id=131524731&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">Admin M-DinhHoangViet</a>.</i></p>
 <div id="cttq-months-container" data-fetch-aggregated="cttq"></div>
 
-<div id="scoreModal" class="cc-modal-overlay">
-    <div class="cc-modal-dialog score-modal-dialog">
-        <button class="cc-modal-close" onclick="ModalManager.close()">×</button>
-        <div class="cc-modal-content-wrapper">
-            <div class="cc-modal-header-row">
-                <div class="cc-modal-title-section">
-                    <h2 id="modal-player-name">Chi tiết điểm</h2>
-                </div>
-            </div>
-            <div id="modal-score-breakdown"></div>
-        </div>
-    </div>
-</div>
 <script src="/js/aggregated-fetcher.js"></script>
 
-<a href="/events/cttq-chien-truong-thi-quan"><img alt="Chiến Trường Thí Quân logo" src="/images/events/logo/cttq.png"></a>
+<a href="/events/cttq-chien-truong-thi-quan"><img alt="Chiến Trường Thí Quân logo" src="/images/events/logo/cttq.png" width="250"></a>

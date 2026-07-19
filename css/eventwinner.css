@@ -1,15 +1,11 @@
 @import url("./variables.css");
 
-/* ========================================
-   TOURNAMENT TABLE - NEW DESIGN
-   ======================================== */
-
 .table {
   position: relative;
   width: 100%;
   overflow: auto;
   max-width: inherit;
-  max-height: inherit;
+  max-height: 75vh;
   margin: var(--space-2xl) 0;
   border-radius: var(--border-radius-lg);
   background: linear-gradient(
@@ -17,7 +13,7 @@
     rgba(10, 15, 26, 0.9) 0%,
     rgba(15, 25, 45, 0.8) 100%
   );
-  padding: 4px;
+  padding: 0;
   box-shadow: var(--shadow-xl);
   transition: all var(--transition-base);
 }
@@ -664,7 +660,6 @@ a
   display: flex;
   gap: 1rem;
   align-items: flex-start;
-  margin-bottom: 1.2rem;
 }
 
 .cc-modal-logo-box {
@@ -870,9 +865,19 @@ a
 }
 
 .score-modal-dialog {
-  max-width: 500px !important;
-  grid-template-columns: 1fr !important;
+  display: block !important;
+  max-width: 90vw !important;
+  width: 90vw !important;
+  grid-template-columns: unset !important;
+  grid-template-rows: unset !important;
   padding: 1.5rem !important;
+  overflow: scroll;
+}
+
+.score-modal-dialog .cc-modal-content-wrapper {
+  grid-column: unset !important;
+  grid-row: unset !important;
+  padding: 0 !important;
 }
 
 .score-detail-table {

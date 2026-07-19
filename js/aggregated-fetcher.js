@@ -305,7 +305,7 @@
             container.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
                 <div id="loading-status" style="text-align: center; padding: 20px; font-size: 14px;">Đang xử lý: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span> <span id="current-tournament">0</span>/${months.length} tháng</div>
                 <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Tháng</th><th class="organization-day">Thống kê</th><th class="players">Kỳ thủ</th>
-                <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"></tbody></table></div>`;
+                <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div>`;
 
             const tbody = document.getElementById('tournament-tbody');
             const skeletons = months.map(() => {
@@ -323,19 +323,7 @@
                 tbody.appendChild(tr); return tr;
             });
 
-            let count = 0;
-            await Promise.allSettled(months.map(async (m, i) => {
-                try {
-                    const html = await Renderer.monthRow(m, eventType);
-                    const temp = document.createElement('tbody'); temp.innerHTML = html;
-                    skeletons[i].replaceWith(temp.firstElementChild);
-                    document.getElementById('current-tournament').textContent = ++count;
-                } catch (e) {}
-            }));
-
-            const icon = document.getElementById('statusIcon');
-            if (icon) { icon.style.color = count === months.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = count === months.length ? 'bx bx-check' : 'bx bx-x'; }
-
+            // Set up event listeners early so users can click loaded months while remaining months load
             document.getElementById('scoreModal')?.addEventListener('click', e => {
                 if (e.target.id === 'scoreModal') ModalManager.close();
                 const customLink = e.target.closest('.custom-variant-link');
@@ -367,6 +355,19 @@
                     ModalManager.show(`Chi tiết tháng ${month.dataset.month}`, h + '</tbody></table></div>');
                 }
             });
+
+            let count = 0;
+            await Promise.allSettled(months.map(async (m, i) => {
+                try {
+                    const html = await Renderer.monthRow(m, eventType);
+                    const temp = document.createElement('tbody'); temp.innerHTML = html;
+                    skeletons[i].replaceWith(temp.firstElementChild);
+                    document.getElementById('current-tournament').textContent = ++count;
+                } catch (e) {}
+            }));
+
+            const icon = document.getElementById('statusIcon');
+            if (icon) { icon.style.color = count === months.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = count === months.length ? 'bx bx-check' : 'bx bx-x'; }
         }
     };
 
