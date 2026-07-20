@@ -27,8 +27,8 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
             <div class="month-title" id="month-title">Processing...</div>
 
             <div id="schedule-filters" style="display: none; margin-bottom: 25px;">
-                <!-- FIDE style top bar with 3 columns -->
-                <div class="fide-top-grid">
+                <!-- FIDE style top bar with 1 column centered -->
+                <div class="fide-top-grid" style="grid-template-columns: 1fr; max-width: 320px; margin: 0 auto 15px auto;">
                     <!-- Column 1: Multi-Select Category Dropdown -->
                     <div class="fide-dropdown" id="schedule-category-dropdown">
                         <div class="fide-dropdown-btn" onclick="toggleDropdown('schedule-category-dropdown')">
@@ -68,10 +68,6 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                                 <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
                             </label>
                             <label class="custom-checkbox-container">
-                                <input type="checkbox" value="1wl" checked onchange="filterSchedule()">
-                                <span class="checkmark"></span> One World League
-                            </label>
-                            <label class="custom-checkbox-container">
                                 <input type="checkbox" value="vote" checked onchange="filterSchedule()">
                                 <span class="checkmark"></span> Cờ vua bỏ phiếu
                             </label>
@@ -80,25 +76,6 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                                 <span class="checkmark"></span> Cờ hàng ngày (Daily)
                             </label>
                         </div>
-                    </div>
-
-                    <!-- Column 2: Organizer Filter -->
-                    <div class="fide-select-container">
-                        <select id="schedule-organizer-filter" class="fide-select-btn" onchange="filterSchedule()">
-                            <option value="all">Tất cả ban tổ chức</option>
-                            <option value="tvlt">CLB Thí Vua Lấy Tốt</option>
-                            <option value="1wl">One World League</option>
-                            <option value="other">Quản trị viên khác</option>
-                        </select>
-                    </div>
-
-                    <!-- Column 3: Day Filter -->
-                    <div class="fide-select-container">
-                        <select id="schedule-day-filter" class="fide-select-btn" onchange="filterSchedule()">
-                            <option value="all">Tất cả các ngày</option>
-                            <option value="weekday">Ngày thường (T2 - T6)</option>
-                            <option value="weekend">Cuối tuần (T7 - CN)</option>
-                        </select>
                     </div>
                 </div>
 

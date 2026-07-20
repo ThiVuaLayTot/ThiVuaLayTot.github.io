@@ -74,8 +74,6 @@ function renderCalendar() {
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
     const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
     const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
-    const organizerVal = document.getElementById('schedule-organizer-filter')?.value || 'all';
-    const dayVal = document.getElementById('schedule-day-filter')?.value || 'all';
 
     // Update header
     const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
@@ -171,34 +169,7 @@ function renderCalendar() {
                     // Match Type
                     const matchesType = checkedTypes.includes(tournament.eventType);
 
-                    // Match Organizer
-                    let matchesOrganizer = true;
-                    if (organizerVal !== 'all') {
-                        const organizer = (tournament.organizer || '').toLowerCase();
-                        const tType = tournament.eventType;
-                        if (organizerVal === 'tvlt') {
-                            matchesOrganizer = tType === 'tvlt' || organizer.includes('tvlt') || organizer.includes('thí vua') || organizer.includes('clb');
-                        } else if (organizerVal === '1wl') {
-                            matchesOrganizer = tType === '1wl' || organizer.includes('owl') || organizer.includes('one world') || organizer.includes('league');
-                        } else {
-                            matchesOrganizer = !(tType === 'tvlt' || organizer.includes('tvlt') || organizer.includes('thí vua') || organizer.includes('clb') || tType === '1wl' || organizer.includes('owl') || organizer.includes('one world'));
-                        }
-                    }
-
-                    // Match Day
-                    let matchesDay = true;
-                    if (dayVal !== 'all') {
-                        const tDate = new Date(tournament.startTime);
-                        const day = tDate.getDay();
-                        const isWeekend = (day === 0 || day === 6);
-                        if (dayVal === 'weekday') {
-                            matchesDay = !isWeekend;
-                        } else {
-                            matchesDay = isWeekend;
-                        }
-                    }
-
-                    if (matchesSearch && matchesPrize && matchesType && matchesOrganizer && matchesDay) {
+                    if (matchesSearch && matchesPrize && matchesType) {
                         const icon = document.createElement('span');
                         icon.className = 'event-icon';
 
@@ -333,11 +304,7 @@ function openModal(tournament) {
     let newsUrl = "";
     let resultUrl = "";
 
-    if (tournamentType === "1wl") {
-        newsUrl = "https://chess.com/clubs/forum/view/multi-club-arena-seasons-2026";
-        bannerUrl = "https://images.chesscomfiles.com/uploads/v1/blog/1036746.ca7cfdc5.668x375o.1821c106decb.jpg";
-        resultUrl = "https://chess.com/blog/OneWorldLeague";
-    } else if (["cttq", "tvlt", "cbtt", "dttv"].includes(tournamentType)) {
+    if (["cttq", "tvlt", "cbtt", "dttv"].includes(tournamentType)) {
         resultUrl = `/events/tournaments/${tournamentType}`;
         const eventInfo = {
             "tvlt": "/events/tvlt-thi-vua-lay-tot",
@@ -356,6 +323,7 @@ function openModal(tournament) {
     } else {
         resultUrl = `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?cid=325849&ref_id=89365835&type=${tournamentType}`;
         const bannerDefault = {
+            "1wl": "https://images.chesscomfiles.com/uploads/v1/blog/1036746.ca7cfdc5.668x375o.1821c106decb.jpg",
             "club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpjs58p98gfqbbaDynSFJ.png",
             "multi-club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/php4oaq7r23q7n79I3kRE6.png",
             "swiss": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpt9ef43prdg6f80YfkLo.png",
@@ -363,6 +331,7 @@ function openModal(tournament) {
             "daily": "https://images.chesscomfiles.com/uploads/v1/chess_term/f1e3ca50-b739-11ea-a14a-a1c9be904231.1fc2467a.630x354o.73dd2efd0681.png"
         };
         const eventDetails = {
+            "1wl": "https://chess.com/blog/OneWorldLeague",
             "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
             "swiss": "https://chess.com/terms/swiss-chess",
             "vote": "https://support.chess.com/articles/8614177-how-do-i-play-vote-chess",

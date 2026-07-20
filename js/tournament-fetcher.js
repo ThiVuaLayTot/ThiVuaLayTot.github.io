@@ -178,7 +178,7 @@
 
         el.innerHTML = `
             <div class="filter-group-container" style="margin-bottom: 25px;">
-                <!-- FIDE style top bar with 3 columns -->
+                <!-- FIDE style top bar with 4 columns -->
                 <div class="fide-top-grid">
                     <!-- Column 1: Multi-Select Speed Dropdown -->
                     <div class="fide-dropdown" id="tournament-speed-dropdown">
@@ -250,7 +250,28 @@
                         </div>
                     </div>
 
-                    <!-- Column 3: Sắp xếp -->
+                    <!-- Column 3: Multi-Select Format Dropdown -->
+                    <div class="fide-dropdown" id="tournament-format-dropdown">
+                        <div class="fide-dropdown-btn" onclick="toggleDropdown('tournament-format-dropdown')">
+                            <div class="fide-dropdown-btn-content">
+                                <i class="bx bx-git-commit"></i>
+                                <span>Thể thức</span>
+                            </div>
+                            <span class="bx bx-chevron-down fide-dropdown-arrow"></span>
+                        </div>
+                        <div class="fide-dropdown-menu" id="format-checkbox-group">
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="swiss" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="arena" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Đấu trường Arena
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Column 4: Sắp xếp -->
                     <div class="fide-select-container">
                         <select id="sortFilter" class="fide-select-btn" onchange="searchTable()">
                             <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
@@ -338,6 +359,7 @@
                 skeletons[idx].setAttribute('data-players-count', data.settings?.registered_user_count || data.players_registered || data.players?.length || 0);
                 skeletons[idx].setAttribute('data-time-class', data.settings?.time_class || data.time_class || 'classical');
                 skeletons[idx].setAttribute('data-variant', v.toLowerCase());
+                skeletons[idx].setAttribute('data-format', rds === 1 ? 'arena' : 'swiss');
                 skeletons[idx].className = '';
                 document.getElementById('current-tournament').textContent = ++success;
 

@@ -57,6 +57,17 @@ window.loadTournamentFiltersFromURL = function() {
             cb.checked = selectedVars.includes(cb.value.toLowerCase());
         });
     }
+
+    // 5. Format filter joined by space or plus
+    const formatVal = params.get('format');
+    const formatGroup = document.getElementById('format-checkbox-group');
+    if (formatGroup && formatVal !== null) {
+        const selectedFormats = formatVal.toLowerCase().split(/[\s+]+/);
+        const checkboxes = formatGroup.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.checked = selectedFormats.includes(cb.value.toLowerCase());
+        });
+    }
 };
 
 /**
@@ -98,6 +109,16 @@ window.saveTournamentFiltersToURL = function() {
         }
     }
 
+    // 5. Format filter
+    const formatGroup = document.getElementById('format-checkbox-group');
+    if (formatGroup) {
+        const checked = Array.from(formatGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+        const all = Array.from(formatGroup.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value);
+        if (checked.length < all.length) {
+            params.set('format', checked.join(' '));
+        }
+    }
+
     // Update URL without page reload
     const newQuery = params.toString();
     const newURL = window.location.pathname + (newQuery ? '?' + newQuery : '');
@@ -123,6 +144,7 @@ window.searchTable = debounce(function() {
     const sortFilterSelect = document.getElementById('sortFilter');
     const timeClassGroup = document.getElementById('timeclass-checkbox-group');
     const variantGroup = document.getElementById('variant-checkbox-group');
+    const formatGroup = document.getElementById('format-checkbox-group');
 
     const tbody = document.getElementById('tournament-tbody') || table.querySelector('tbody');
     if (!tbody) return;
@@ -168,6 +190,10 @@ window.searchTable = debounce(function() {
 
     const checkedVariants = variantGroup
         ? Array.from(variantGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
+        : null;
+
+    const checkedFormats = formatGroup
+        ? Array.from(formatGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
         : null;
 
     // Iterate through all table rows, skipping 'not-match'
@@ -229,7 +255,31 @@ window.searchTable = debounce(function() {
             }
         }
 
-        const finalMatch = textMatch && timeClassMatch && variantMatch;
+        // 4. Check format filter
+        let formatMatch = true;
+        if (checkedFormats !== null) {
+            const rowFormat = row.getAttribute('data-format');
+            if (rowFormat) {
+                if (!checkedFormats.includes(rowFormat.toLowerCase())) {
+                    formatMatch = false;
+                }
+            } else {
+                formatMatch = false;
+            }
+        }
+
+        // 5. Check CTTQ status filter
+        const cttqStatusSelect = document.getElementById('cttq-status-filter');
+        const cttqStatusVal = cttqStatusSelect ? cttqStatusSelect.value : 'all';
+        let cttqStatusMatch = true;
+        if (cttqStatusVal !== 'all') {
+            const rowStatus = row.getAttribute('data-status');
+            if (rowStatus && rowStatus !== cttqStatusVal) {
+                cttqStatusMatch = false;
+            }
+        }
+
+        const finalMatch = textMatch && timeClassMatch && variantMatch && formatMatch && cttqStatusMatch;
         if (finalMatch) {
             row.style.display = '';
             matched = true;

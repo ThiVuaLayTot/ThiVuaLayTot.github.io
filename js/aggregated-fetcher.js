@@ -160,14 +160,18 @@
                 const text = await RequestManager.fetch(`${API.GIST}/${monthId}.txt`, false);
                 ids = text ? text.split('\n').filter(l => l.trim()) : [];
             }
-            if (!ids.length) return { playerScores: {}, tournaments: [] };
+            if (!ids.length) return { playerScores: {}, tournaments: [], status: 'finished' };
 
             const tourDataList = await Promise.all(ids.map(id => RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}`)));
             const playerScores = {}, tournaments = [];
+            let monthStatus = 'finished';
 
             for (let i = 0; i < ids.length; i++) {
                 const data = tourDataList[i];
                 if (!data) continue;
+                const isFinished = (data.status === 'finished' || data.settings?.status === 'finished');
+                if (!isFinished) monthStatus = 'unfinished';
+
                 const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
                 let pointsMap = new Map();
                 let roundPlayersMap = new Map();
@@ -230,7 +234,7 @@
                     playerScores[u].breakdown.push({ tourName: data.name || 'Unknown', points: p.points, url: data.url });
                 });
             }
-            const result = { playerScores, tournaments };
+            const result = { playerScores, tournaments, status: monthStatus };
             Cache.set(cacheKey, result, CONFIG.CACHE_TTL.a);
             return result;
         }
@@ -318,21 +322,12 @@
                             </select>
                         </div>
 
-                        <!-- Column 2: Status/Type (Decorative/Unused) -->
-                        <div class="fide-select-container">
+                        <!-- Column 2: Status/Type -->
+                        <div class="fide-select-container" style="grid-column: span 2;">
                             <select id="cttq-status-filter" class="fide-select-btn" onchange="searchTable()">
                                 <option value="all">Tất cả trạng thái</option>
                                 <option value="finished">Đã hoàn thành</option>
-                            </select>
-                        </div>
-
-                        <!-- Column 3: Year (Decorative/Unused) -->
-                        <div class="fide-select-container">
-                            <select id="cttq-year-filter" class="fide-select-btn" onchange="searchTable()">
-                                <option value="all">Tất cả các năm</option>
-                                <option value="2026">Năm 2026</option>
-                                <option value="2025">Năm 2025</option>
-                                <option value="2024">Năm 2024</option>
+                                <option value="unfinished">Chưa hoàn thành</option>
                             </select>
                         </div>
                     </div>
@@ -413,7 +408,7 @@
                     const temp = document.createElement('tbody'); temp.innerHTML = html;
 
                     const newTr = temp.firstElementChild;
-                    const { playerScores, tournaments } = await DataProcessor.getMonthlyAggregation(m, eventType);
+                    const { playerScores, tournaments, status } = await DataProcessor.getMonthlyAggregation(m, eventType);
                     const parts = m.split('-');
                     const monthInt = parseInt(parts[0]) - 1;
                     const yearInt = parseInt(parts[1]);
@@ -422,6 +417,7 @@
                     newTr.setAttribute('data-start-time', timestamp);
                     newTr.setAttribute('data-players-count', Object.keys(playerScores).length);
                     newTr.setAttribute('data-tours-count', tournaments.length);
+                    newTr.setAttribute('data-status', status || 'finished');
 
                     skeletons[i].replaceWith(newTr);
                     document.getElementById('current-tournament').textContent = ++count;
