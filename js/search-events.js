@@ -239,3 +239,20 @@ window.searchTable = debounce(function() {
         notMatchRow.style.display = matched ? 'none' : '';
     }
 }, 100);
+
+/**
+ * Toggles the visibility of the advanced collapsible tournament filter panel.
+ */
+window.toggleTournamentFilters = function() {
+    const panel = document.getElementById('tournament-collapsible-panel');
+    const btn = document.getElementById('tournament-toggle-btn');
+    if (panel) {
+        if (panel.style.display === 'none') {
+            panel.style.display = 'flex';
+            btn.classList.add('active');
+        } else {
+            panel.style.display = 'none';
+            btn.classList.remove('active');
+        }
+    }
+};

@@ -815,6 +815,50 @@ td.today .day-number {
     align-items: flex-start;
 }
 
+/* Filter toggle button styling */
+.btn-toggle-filters {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: rgba(10, 25, 47, 0.7);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: 8px;
+    color: var(--cyan-100);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    outline: none;
+    height: max-content;
+}
+
+.btn-toggle-filters:hover,
+.btn-toggle-filters.active {
+    background: rgba(0, 242, 255, 0.15);
+    border-color: var(--cyan-300);
+    color: var(--cyan-300);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Collapsible Panel styling */
+.collapsible-panel {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .filter-label {
     font-size: 14px;
     font-weight: bold;

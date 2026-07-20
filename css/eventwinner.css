@@ -401,6 +401,50 @@ a
   gap: var(--space-md);
 }
 
+/* Filter toggle button styling */
+.btn-toggle-filters {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(25, 40, 75, 0.6);
+  border: var(--border-width-base) solid rgba(56, 189, 248, 0.3);
+  border-radius: var(--border-radius-lg);
+  color: var(--neutral-100);
+  padding: var(--space-md);
+  font-size: var(--fs-sm);
+  font-family: var(--primary-font);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  outline: none;
+  height: max-content;
+}
+
+.btn-toggle-filters:hover,
+.btn-toggle-filters.active {
+  background: rgba(25, 40, 75, 0.95);
+  border-color: var(--color-primary-light);
+  color: var(--neutral-100);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Collapsible Panel styling */
+.collapsible-panel {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .sort-select-wrapper select {
   padding: var(--space-md);
   border: var(--border-width-base) solid rgba(56, 189, 248, 0.3);

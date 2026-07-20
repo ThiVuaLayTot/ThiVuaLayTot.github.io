@@ -29,12 +29,15 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
             <div id="schedule-filters" class="schedule-filters" style="display: none;">
                 <div class="filter-row-top">
                     <input type="text" id="schedule-search" placeholder="Tìm tên sự kiện..." oninput="filterSchedule()">
-                    <label class="custom-checkbox-container">
+                    <button type="button" id="schedule-toggle-btn" class="btn-toggle-filters" onclick="toggleScheduleFilters()">
+                        <span class="bx bx-filter-alt"></span> Bộ lọc
+                    </button>
+                    <label class="custom-checkbox-container" style="margin-bottom: 0;">
                         <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
-                        <span class="checkmark"></span> Chỉ hiển thị giải có thưởng
+                        <span class="checkmark"></span> Chỉ giải có thưởng
                     </label>
                 </div>
-                <div class="filter-row-bottom">
+                <div class="filter-row-bottom collapsible-panel" id="schedule-collapsible-panel" style="display: none;">
                     <span class="filter-label">Thể loại giải:</span>
                     <div class="checkbox-group" id="schedule-type-group">
                         <label class="custom-checkbox-container">

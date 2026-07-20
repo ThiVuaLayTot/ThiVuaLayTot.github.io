@@ -262,6 +262,23 @@ function saveFiltersToURL() {
 }
 
 /**
+ * Toggles the visibility of the advanced collapsible filter panel.
+ */
+function toggleScheduleFilters() {
+    const panel = document.getElementById('schedule-collapsible-panel');
+    const btn = document.getElementById('schedule-toggle-btn');
+    if (panel) {
+        if (panel.style.display === 'none') {
+            panel.style.display = 'flex';
+            btn.classList.add('active');
+        } else {
+            panel.style.display = 'none';
+            btn.classList.remove('active');
+        }
+    }
+}
+
+/**
  * Filter schedule function triggered by input/select changes.
  */
 function filterSchedule() {
@@ -270,6 +287,7 @@ function filterSchedule() {
 }
 
 window.filterSchedule = filterSchedule;
+window.toggleScheduleFilters = toggleScheduleFilters;
 
 /**
  * Opens the event detail modal with tournament information.

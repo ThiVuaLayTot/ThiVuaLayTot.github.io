@@ -189,13 +189,16 @@
                             <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
                         </select>
                     </div>
+                    <button type="button" id="tournament-toggle-btn" class="btn-toggle-filters" onclick="toggleTournamentFilters()">
+                        <span class="bx bx-filter-alt"></span> Bộ lọc
+                    </button>
                     <div id="loading-status" class="loading-status-badge">
                         <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span>
                         <span id="current-tournament">0</span>/${ids.length} giải
                     </div>
                 </div>
 
-                <div class="filter-checkboxes-section">
+                <div class="filter-checkboxes-section collapsible-panel" id="tournament-collapsible-panel" style="display: none;">
                     <div class="filter-checkbox-group">
                         <span class="filter-label">Thể lệ (Tốc độ):</span>
                         <div class="checkbox-group" id="timeclass-checkbox-group">
