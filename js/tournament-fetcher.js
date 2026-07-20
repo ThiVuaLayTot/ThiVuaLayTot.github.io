@@ -180,36 +180,34 @@
             <div class="filter-group-container" style="margin-bottom: 25px;">
                 <!-- Top bar with 4 columns -->
                 <div class="tour-top-grid">
-                    <!-- Column 1: Multi-Select Speed Dropdown -->
                     <div class="tour-dropdown" id="tournament-speed-dropdown">
                         <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-speed-dropdown')">
                             <div class="tour-dropdown-btn-content">
                                 <i class="bx bx-time"></i>
-                                <span>Thể lệ (Tốc độ)</span>
+                                <span>Thể lệ</span>
                             </div>
                             <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
                         </div>
                         <div class="tour-dropdown-menu" id="timeclass-checkbox-group">
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="bullet" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Bullet
+                                <span class="checkmark"></span> Bullet (Cờ Siêu chớp)
                             </label>
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="blitz" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Blitz
+                                <span class="checkmark"></span> Blitz (Cờ chớp)
                             </label>
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="rapid" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Rapid
+                                <span class="checkmark"></span> Rapid (Cờ Nhanh)
                             </label>
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="classical" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Classical
+                                <span class="checkmark"></span> Classical (Cờ chậm)
                             </label>
                         </div>
                     </div>
 
-                    <!-- Column 2: Multi-Select Variant Dropdown -->
                     <div class="tour-dropdown" id="tournament-variant-dropdown">
                         <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-variant-dropdown')">
                             <div class="tour-dropdown-btn-content">
@@ -250,7 +248,6 @@
                         </div>
                     </div>
 
-                    <!-- Column 3: Multi-Select Format Dropdown -->
                     <div class="tour-dropdown" id="tournament-format-dropdown">
                         <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-format-dropdown')">
                             <div class="tour-dropdown-btn-content">
@@ -271,7 +268,6 @@
                         </div>
                     </div>
 
-                    <!-- Column 4: Sắp xếp -->
                     <div class="tour-select-container">
                         <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
                             <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
