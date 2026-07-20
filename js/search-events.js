@@ -144,6 +144,10 @@ window.searchTable = debounce(function() {
                 return (parseInt(b.getAttribute('data-players-count')) || 0) - (parseInt(a.getAttribute('data-players-count')) || 0);
             } else if (sortVal === 'players-asc') {
                 return (parseInt(a.getAttribute('data-players-count')) || 0) - (parseInt(b.getAttribute('data-players-count')) || 0);
+            } else if (sortVal === 'tours-desc') {
+                return (parseInt(b.getAttribute('data-tours-count')) || 0) - (parseInt(a.getAttribute('data-tours-count')) || 0);
+            } else if (sortVal === 'tours-asc') {
+                return (parseInt(a.getAttribute('data-tours-count')) || 0) - (parseInt(b.getAttribute('data-tours-count')) || 0);
             }
             return 0;
         });

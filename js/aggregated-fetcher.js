@@ -302,10 +302,33 @@
 
             if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
 
-            container.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
-                <div id="loading-status" style="text-align: center; padding: 20px; font-size: 14px;">Đang xử lý: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span> <span id="current-tournament">0</span>/${months.length} tháng</div>
+            container.innerHTML = `
+                <div class="filter-group-container">
+                    <div class="filter-row-top">
+                        <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
+                        <div class="sort-select-wrapper">
+                            <span class="filter-label">Sắp xếp:</span>
+                            <select id="sortFilter" onchange="searchTable()">
+                                <option value="date-desc">Tháng tổ chức (Mới nhất)</option>
+                                <option value="date-asc">Tháng tổ chức (Cũ nhất)</option>
+                                <option value="players-desc">Số lượng kỳ thủ (Nhiều nhất)</option>
+                                <option value="players-asc">Số lượng kỳ thủ (Ít nhất)</option>
+                                <option value="tours-desc">Số lượng giải đấu (Nhiều nhất)</option>
+                                <option value="tours-asc">Số lượng giải đấu (Ít nhất)</option>
+                            </select>
+                        </div>
+                        <div id="loading-status" class="loading-status-badge">
+                            <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>
+                            <span id="current-tournament">0</span>/${months.length} tháng
+                        </div>
+                    </div>
+                </div>
                 <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Tháng</th><th class="organization-day">Thống kê</th><th class="players">Kỳ thủ</th>
                 <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div>`;
+
+            if (typeof window.loadTournamentFiltersFromURL === 'function') {
+                window.loadTournamentFiltersFromURL();
+            }
 
             const tbody = document.getElementById('tournament-tbody');
             const skeletons = months.map(() => {
@@ -361,8 +384,24 @@
                 try {
                     const html = await Renderer.monthRow(m, eventType);
                     const temp = document.createElement('tbody'); temp.innerHTML = html;
-                    skeletons[i].replaceWith(temp.firstElementChild);
+
+                    const newTr = temp.firstElementChild;
+                    const { playerScores, tournaments } = await DataProcessor.getMonthlyAggregation(m, eventType);
+                    const parts = m.split('-');
+                    const monthInt = parseInt(parts[0]) - 1;
+                    const yearInt = parseInt(parts[1]);
+                    const timestamp = new Date(yearInt, monthInt, 1).getTime();
+
+                    newTr.setAttribute('data-start-time', timestamp);
+                    newTr.setAttribute('data-players-count', Object.keys(playerScores).length);
+                    newTr.setAttribute('data-tours-count', tournaments.length);
+
+                    skeletons[i].replaceWith(newTr);
                     document.getElementById('current-tournament').textContent = ++count;
+
+                    if (typeof window.searchTable === 'function') {
+                        window.searchTable();
+                    }
                 } catch (e) {}
             }));
 
