@@ -211,7 +211,7 @@
                     <div class="tour-dropdown" id="tournament-variant-dropdown">
                         <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-variant-dropdown')">
                             <div class="tour-dropdown-btn-content">
-                                <i class="bx bxs-category"></i>
+                                <i class="bx bxs-chess"></i>
                                 <span>Biến thể</span>
                             </div>
                             <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
@@ -235,7 +235,7 @@
                             </label>
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="kingofthehill" checked onchange="searchTable()">
-                                <span class="checkmark"></span> KOTH
+                                <span class="checkmark"></span> King of the hill
                             </label>
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="threecheck" checked onchange="searchTable()">
@@ -243,7 +243,7 @@
                             </label>
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="custom" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Custom
+                                <span class="checkmark"></span> Custom Position
                             </label>
                         </div>
                     </div>
@@ -251,7 +251,7 @@
                     <div class="tour-dropdown" id="tournament-format-dropdown">
                         <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-format-dropdown')">
                             <div class="tour-dropdown-btn-content">
-                                <i class="bx bx-git-commit"></i>
+                                <i class="bx bx-medal"></i>
                                 <span>Thể thức</span>
                             </div>
                             <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
