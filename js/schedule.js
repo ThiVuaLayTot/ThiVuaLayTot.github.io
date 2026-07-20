@@ -15,6 +15,7 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbzMq-aqPlXihBjjC62ykxba
  * Initialize calendar on DOM content loaded.
  */
 window.addEventListener('DOMContentLoaded', () => {
+    loadFiltersFromURL();
     loadTournaments();
 });
 
@@ -195,9 +196,76 @@ function renderCalendar() {
 }
 
 /**
+ * Loads filter states from URL query parameters.
+ */
+function loadFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    // 1. Search filter
+    const searchVal = params.get('search');
+    const searchInput = document.getElementById('schedule-search');
+    if (searchInput && searchVal !== null) {
+        searchInput.value = searchVal;
+    }
+
+    // 2. Prize filter (1 = prize, 0 = all)
+    const prizeVal = params.get('prize');
+    const prizeCheckbox = document.getElementById('schedule-prize-filter');
+    if (prizeCheckbox && prizeVal !== null) {
+        prizeCheckbox.checked = (prizeVal === '1');
+    }
+
+    // 3. Category/Type filter joined by space or plus
+    const tcVal = params.get('tc');
+    if (tcVal !== null) {
+        const selectedTypes = tcVal.toLowerCase().split(/[\s+]+/);
+        const checkboxes = document.querySelectorAll('#schedule-type-group input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.checked = selectedTypes.includes(cb.value.toLowerCase());
+        });
+    }
+}
+
+/**
+ * Saves current filter states to the URL query parameters.
+ */
+function saveFiltersToURL() {
+    const params = new URLSearchParams();
+
+    // 1. Search filter
+    const searchVal = (document.getElementById('schedule-search')?.value || '').trim();
+    if (searchVal) {
+        params.set('search', searchVal);
+    }
+
+    // 2. Prize filter
+    const prizeCheckbox = document.getElementById('schedule-prize-filter');
+    if (prizeCheckbox && prizeCheckbox.checked) {
+        params.set('prize', '1');
+    } else {
+        params.set('prize', '0');
+    }
+
+    // 3. Category/Type filter
+    const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
+    const allTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]')).map(cb => cb.value);
+
+    // If not all are checked, serialize the active ones joined by space
+    if (checkedTypes.length < allTypes.length) {
+        params.set('tc', checkedTypes.join(' '));
+    }
+
+    // Update URL without page reload
+    const newQuery = params.toString();
+    const newURL = window.location.pathname + (newQuery ? '?' + newQuery : '');
+    window.history.replaceState(null, '', newURL);
+}
+
+/**
  * Filter schedule function triggered by input/select changes.
  */
 function filterSchedule() {
+    saveFiltersToURL();
     renderCalendar();
 }
 
