@@ -279,10 +279,9 @@ a
 
 .filter-group-container {
   display: flex;
+  flex-direction: column;
   gap: var(--space-md);
   margin: var(--space-lg) 0;
-  flex-wrap: wrap;
-  align-items: center;
   width: 100%;
 }
 
@@ -314,13 +313,95 @@ a
   transform: translateY(-2px);
 }
 
-.select-filters {
-  display: flex;
-  gap: var(--space-md);
-  flex-wrap: wrap;
+/* Custom Checkbox Container */
+.custom-checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding-left: 28px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  color: var(--neutral-200);
+  user-select: none;
+  transition: all var(--transition-base);
 }
 
-.select-filters select {
+.custom-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Checkmark box */
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 18px;
+  width: 18px;
+  background-color: rgba(10, 25, 47, 0.7);
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 0 5px rgba(56, 189, 248, 0.1);
+  transition: all var(--transition-base);
+}
+
+/* Hover effect */
+.custom-checkbox-container:hover .checkmark {
+  border-color: rgba(56, 189, 248, 0.8);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+
+/* Checked state */
+.custom-checkbox-container input:checked ~ .checkmark {
+  background-color: rgba(56, 189, 248, 0.2);
+  border-color: var(--color-primary-light);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+/* Checked checkmark shape */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox-container .checkmark:after {
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid rgba(56, 189, 248, 0.9);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Filter checkboxes layout */
+.filter-row-top {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-md);
+}
+
+.sort-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.sort-select-wrapper select {
   padding: var(--space-md);
   border: var(--border-width-base) solid rgba(56, 189, 248, 0.3);
   background: rgba(25, 40, 75, 0.6);
@@ -332,36 +413,72 @@ a
   font-weight: var(--fw-medium);
   cursor: pointer;
   outline: none;
-  min-width: 150px;
 }
 
-.select-filters select:focus {
+.sort-select-wrapper select:focus {
   border-color: var(--color-primary-light);
   background: rgba(25, 40, 75, 0.95);
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
   transform: translateY(-2px);
 }
 
+.filter-checkboxes-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.filter-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.filter-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: rgba(56, 189, 248, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+  width: 100%;
+  background: rgba(10, 25, 47, 0.3);
+  padding: 10px 15px;
+  border-radius: var(--border-radius-lg);
+  border: var(--border-width-thin) solid rgba(56, 189, 248, 0.2);
+}
+
 @media (max-width: 768px) {
-  .filter-group-container {
+  .filter-row-top {
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-sm);
   }
 
-  .filter-group-container .search-bar {
+  .filter-row-top .search-bar {
     width: 100%;
     min-width: unset;
   }
 
-  .select-filters {
+  .sort-select-wrapper {
     flex-direction: column;
-    gap: var(--space-sm);
+    align-items: stretch;
+    gap: var(--space-xs);
   }
 
-  .select-filters select {
+  .sort-select-wrapper select {
     width: 100%;
-    min-width: unset;
+  }
+
+  .checkbox-group {
+    padding: 8px 12px;
   }
 }
 

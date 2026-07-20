@@ -71,8 +71,8 @@ function renderCalendar() {
 
     // Get filter values
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
-    const prizeVal = document.getElementById('schedule-prize-filter')?.value || 'all';
-    const typeVal = document.getElementById('schedule-type-filter')?.value || 'all';
+    const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
+    const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
 
     // Update header
     const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
@@ -160,17 +160,13 @@ function renderCalendar() {
 
                     // Match Prize
                     let matchesPrize = true;
-                    if (prizeVal === 'prize') {
+                    if (onlyPrize) {
                         const prize = (tournament.prize || '').toLowerCase().trim();
                         matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
                     }
 
                     // Match Type
-                    let matchesType = true;
-                    if (typeVal !== 'all') {
-                        const tType = tournament.eventType;
-                        matchesType = (tType === typeVal);
-                    }
+                    const matchesType = checkedTypes.includes(tournament.eventType);
 
                     if (matchesSearch && matchesPrize && matchesType) {
                         const icon = document.createElement('span');

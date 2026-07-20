@@ -178,31 +178,75 @@
 
         el.innerHTML = `
             <div class="filter-group-container">
-                <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm tên giải hoặc kỳ thủ...">
-                <div class="select-filters">
-                    <select id="sortFilter" onchange="searchTable()">
-                        <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
-                        <option value="date-asc">Ngày tổ chức (Cũ nhất)</option>
-                        <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
-                        <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
-                    </select>
-                    <select id="timeClassFilter" onchange="searchTable()">
-                        <option value="all">Tất cả tốc độ</option>
-                        <option value="bullet">Bullet</option>
-                        <option value="blitz">Blitz</option>
-                        <option value="rapid">Rapid</option>
-                        <option value="classical">Classical</option>
-                    </select>
-                    <select id="variantFilter" onchange="searchTable()">
-                        <option value="all">Tất cả biến thể</option>
-                        <option value="standard">Cờ tiêu chuẩn</option>
-                        <option value="chess960">Chess960</option>
-                        <option value="crazyhouse">Crazyhouse</option>
-                        <option value="bughouse">Bughouse</option>
-                        <option value="kingofthehill">King of the Hill</option>
-                        <option value="threecheck">3 Chiếu</option>
-                        <option value="custom">Custom</option>
-                    </select>
+                <div class="filter-row-top">
+                    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm tên giải hoặc kỳ thủ...">
+                    <div class="sort-select-wrapper">
+                        <span class="filter-label">Sắp xếp:</span>
+                        <select id="sortFilter" onchange="searchTable()">
+                            <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
+                            <option value="date-asc">Ngày tổ chức (Cũ nhất)</option>
+                            <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
+                            <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filter-checkboxes-section">
+                    <div class="filter-checkbox-group">
+                        <span class="filter-label">Thể lệ (Tốc độ):</span>
+                        <div class="checkbox-group" id="timeclass-checkbox-group">
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="bullet" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Bullet
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="blitz" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Blitz
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="rapid" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Rapid
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="classical" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Classical
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-checkbox-group">
+                        <span class="filter-label">Biến thể:</span>
+                        <div class="checkbox-group" id="variant-checkbox-group">
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="standard" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Cờ tiêu chuẩn
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="chess960" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Chess960
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="crazyhouse" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Crazyhouse
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="bughouse" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Bughouse
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="kingofthehill" checked onchange="searchTable()">
+                                <span class="checkmark"></span> KOTH
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="threecheck" checked onchange="searchTable()">
+                                <span class="checkmark"></span> 3 Chiếu
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="custom" checked onchange="searchTable()">
+                                <span class="checkmark"></span> Custom
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="loading-status" style="text-align:center;padding:20px;font-size:14px">Đang hiển thị: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span> <span id="current-tournament">0</span>/${ids.length} giải đấu</div>

@@ -27,24 +27,58 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
             <div class="month-title" id="month-title">Processing...</div>
 
             <div id="schedule-filters" class="schedule-filters" style="display: none;">
-                <input type="text" id="schedule-search" placeholder="Tìm tên sự kiện..." oninput="filterSchedule()">
-                <select id="schedule-prize-filter" onchange="filterSchedule()">
-                    <option value="all">Tất cả giải đấu</option>
-                    <option value="prize">Chỉ giải có thưởng</option>
-                </select>
-                <select id="schedule-type-filter" onchange="filterSchedule()">
-                    <option value="all">Tất cả thể loại</option>
-                    <option value="tvlt">Thí Vua Lấy Tốt</option>
-                    <option value="cttq">Chiến Trường Thí Quân</option>
-                    <option value="cbtt">Cờ Bí Thí Tốt</option>
-                    <option value="dttv">Đấu Trường Thí Vua</option>
-                    <option value="multi-club-arena">Multi-Club Arena</option>
-                    <option value="club-arena">Đấu trường Arena</option>
-                    <option value="swiss">Hệ Thụy Sĩ (Swiss)</option>
-                    <option value="1wl">One World League</option>
-                    <option value="vote">Cờ vua bỏ phiếu</option>
-                    <option value="daily">Cờ hàng ngày (Daily)</option>
-                </select>
+                <div class="filter-row-top">
+                    <input type="text" id="schedule-search" placeholder="Tìm tên sự kiện..." oninput="filterSchedule()">
+                    <label class="custom-checkbox-container">
+                        <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
+                        <span class="checkmark"></span> Chỉ hiển thị giải có thưởng
+                    </label>
+                </div>
+                <div class="filter-row-bottom">
+                    <span class="filter-label">Thể loại giải:</span>
+                    <div class="checkbox-group" id="schedule-type-group">
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="tvlt" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Thí Vua Lấy Tốt
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="cttq" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Chiến Trường Thí Quân
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="cbtt" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Cờ Bí Thí Tốt
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="dttv" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Đấu Trường Thí Vua
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="multi-club-arena" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Multi-Club Arena
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="club-arena" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Đấu trường Arena
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="swiss" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="1wl" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> One World League
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="vote" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Cờ vua bỏ phiếu
+                        </label>
+                        <label class="custom-checkbox-container">
+                            <input type="checkbox" value="daily" checked onchange="filterSchedule()">
+                            <span class="checkmark"></span> Cờ hàng ngày (Daily)
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <div id="loading" class="loading">

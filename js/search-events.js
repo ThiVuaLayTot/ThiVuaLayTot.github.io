@@ -28,8 +28,8 @@ window.searchTable = debounce(function() {
     if (!table) return;
 
     const sortFilterSelect = document.getElementById('sortFilter');
-    const timeClassSelect = document.getElementById('timeClassFilter');
-    const variantSelect = document.getElementById('variantFilter');
+    const timeClassGroup = document.getElementById('timeclass-checkbox-group');
+    const variantGroup = document.getElementById('variant-checkbox-group');
 
     const tbody = document.getElementById('tournament-tbody') || table.querySelector('tbody');
     if (!tbody) return;
@@ -64,8 +64,14 @@ window.searchTable = debounce(function() {
     const rows = tbody.getElementsByTagName('tr');
     let matched = false;
 
-    const timeClassVal = timeClassSelect ? timeClassSelect.value : 'all';
-    const variantVal = variantSelect ? variantSelect.value : 'all';
+    // Read checkbox lists
+    const checkedTimeClasses = timeClassGroup
+        ? Array.from(timeClassGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
+        : null;
+
+    const checkedVariants = variantGroup
+        ? Array.from(variantGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
+        : null;
 
     // Iterate through all table rows, skipping 'not-match'
     for (let i = 0; i < rows.length; i++) {
@@ -94,7 +100,7 @@ window.searchTable = debounce(function() {
 
         // 2. Check time class filter
         let timeClassMatch = true;
-        if (timeClassVal !== 'all') {
+        if (checkedTimeClasses !== null) {
             const rowTimeClass = row.getAttribute('data-time-class');
             if (rowTimeClass) {
                 // Map lightning/bullet -> bullet, rapid/standard -> rapid, blitz -> blitz, classical -> classical
@@ -102,7 +108,7 @@ window.searchTable = debounce(function() {
                 if (rowMapped === 'lightning') rowMapped = 'bullet';
                 if (rowMapped === 'standard') rowMapped = 'rapid';
 
-                if (rowMapped !== timeClassVal.toLowerCase()) {
+                if (!checkedTimeClasses.includes(rowMapped)) {
                     timeClassMatch = false;
                 }
             } else {
@@ -112,13 +118,13 @@ window.searchTable = debounce(function() {
 
         // 3. Check variant filter
         let variantMatch = true;
-        if (variantVal !== 'all') {
+        if (checkedVariants !== null) {
             const rowVariant = row.getAttribute('data-variant');
             if (rowVariant) {
                 let rowMapped = rowVariant.toLowerCase();
                 if (rowMapped === 'chess') rowMapped = 'standard';
 
-                if (rowMapped !== variantVal.toLowerCase()) {
+                if (!checkedVariants.includes(rowMapped)) {
                     variantMatch = false;
                 }
             } else {
