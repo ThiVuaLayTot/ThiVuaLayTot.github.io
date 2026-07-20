@@ -68,6 +68,13 @@ window.loadTournamentFiltersFromURL = function() {
             cb.checked = selectedFormats.includes(cb.value.toLowerCase());
         });
     }
+
+    // 6. Premium Toggle
+    const premiumVal = params.get('premium');
+    const premiumToggle = document.getElementById('premiumToggle');
+    if (premiumToggle && premiumVal !== null) {
+        premiumToggle.checked = (premiumVal !== '0');
+    }
 };
 
 /**
@@ -119,10 +126,31 @@ window.saveTournamentFiltersToURL = function() {
         }
     }
 
+    // 6. Premium Toggle
+    const premiumToggle = document.getElementById('premiumToggle');
+    if (premiumToggle && !premiumToggle.checked) {
+        params.set('premium', '0');
+    }
+
     // Update URL without page reload
     const newQuery = params.toString();
     const newURL = window.location.pathname + (newQuery ? '?' + newQuery : '');
     window.history.replaceState(null, '', newURL);
+};
+
+/**
+ * Toggles the visibility of Premium user badges inside tbody.
+ */
+window.togglePremium = function() {
+    const checked = document.getElementById('premiumToggle')?.checked ?? true;
+    const tbody = document.getElementById('tournament-tbody');
+    if (tbody) {
+        if (checked) {
+            tbody.classList.remove('hide-premium');
+        } else {
+            tbody.classList.add('hide-premium');
+        }
+    }
 };
 
 /**
@@ -131,6 +159,11 @@ window.saveTournamentFiltersToURL = function() {
 window.searchTable = debounce(function() {
     const input = document.getElementById('searchInput');
     if (!input) return;
+
+    // Toggle Premium Badges class on the table body
+    if (typeof window.togglePremium === 'function') {
+        window.togglePremium();
+    }
 
     // Save state to URL query parameters
     if (typeof window.saveTournamentFiltersToURL === 'function') {

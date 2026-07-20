@@ -332,12 +332,20 @@
                         </div>
                     </div>
 
-                    <!-- FIDE style second bar (Search + Status Badge) -->
+                    <!-- FIDE style second bar (Search + Switch + Status Badge) -->
                     <div class="fide-search-row">
                         <div class="fide-search-wrapper">
                             <span class="bx bx-search fide-search-icon"></span>
                             <input type="text" id="searchInput" class="fide-search-input" placeholder="Tìm kiếm..." onkeyup="searchTable()">
                         </div>
+
+                        <label class="fide-switch-container">
+                            <span class="fide-switch">
+                                <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
+                                <span class="fide-slider"></span>
+                            </span>
+                            <span>Hiện Premium Badge</span>
+                        </label>
 
                         <div id="loading-status" class="loading-status-badge">
                             <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>
