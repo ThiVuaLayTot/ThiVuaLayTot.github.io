@@ -245,18 +245,22 @@ window.searchTable = debounce(function() {
 }, 100);
 
 /**
- * Toggles the visibility of the advanced collapsible tournament filter panel.
+ * Toggles visibility of FIDE dropdown boxes.
  */
-window.toggleTournamentFilters = function() {
-    const panel = document.getElementById('tournament-collapsible-panel');
-    const btn = document.getElementById('tournament-toggle-btn');
-    if (panel) {
-        if (panel.style.display === 'none') {
-            panel.style.display = 'flex';
-            btn.classList.add('active');
-        } else {
-            panel.style.display = 'none';
-            btn.classList.remove('active');
-        }
-    }
+window.toggleDropdown = function(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    document.querySelectorAll('.fide-dropdown').forEach(d => {
+        if (d.id !== id) d.classList.remove('open');
+    });
+
+    el.classList.toggle('open');
 };
+
+// Close dropdowns on click outside
+window.addEventListener('click', (e) => {
+    if (!e.target.closest('.fide-dropdown')) {
+        document.querySelectorAll('.fide-dropdown').forEach(d => d.classList.remove('open'));
+    }
+});

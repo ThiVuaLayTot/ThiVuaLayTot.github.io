@@ -303,12 +303,12 @@
             if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
 
             container.innerHTML = `
-                <div class="filter-group-container">
-                    <div class="filter-row-top">
-                        <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
-                        <div class="sort-select-wrapper">
-                            <span class="filter-label">Sắp xếp:</span>
-                            <select id="sortFilter" onchange="searchTable()">
+                <div class="filter-group-container" style="margin-bottom: 25px;">
+                    <!-- FIDE style top bar with 3 columns -->
+                    <div class="fide-top-grid">
+                        <!-- Column 1: Sắp xếp -->
+                        <div class="fide-select-container">
+                            <select id="sortFilter" class="fide-select-btn" onchange="searchTable()">
                                 <option value="date-desc">Tháng tổ chức (Mới nhất)</option>
                                 <option value="date-asc">Tháng tổ chức (Cũ nhất)</option>
                                 <option value="players-desc">Số lượng kỳ thủ (Nhiều nhất)</option>
@@ -317,6 +317,33 @@
                                 <option value="tours-asc">Số lượng giải đấu (Ít nhất)</option>
                             </select>
                         </div>
+
+                        <!-- Column 2: Status/Type (Decorative/Unused) -->
+                        <div class="fide-select-container">
+                            <select id="cttq-status-filter" class="fide-select-btn" onchange="searchTable()">
+                                <option value="all">Tất cả trạng thái</option>
+                                <option value="finished">Đã hoàn thành</option>
+                            </select>
+                        </div>
+
+                        <!-- Column 3: Year (Decorative/Unused) -->
+                        <div class="fide-select-container">
+                            <select id="cttq-year-filter" class="fide-select-btn" onchange="searchTable()">
+                                <option value="all">Tất cả các năm</option>
+                                <option value="2026">Năm 2026</option>
+                                <option value="2025">Năm 2025</option>
+                                <option value="2024">Năm 2024</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- FIDE style second bar (Search + Status Badge) -->
+                    <div class="fide-search-row">
+                        <div class="fide-search-wrapper">
+                            <span class="bx bx-search fide-search-icon"></span>
+                            <input type="text" id="searchInput" class="fide-search-input" placeholder="Tìm kiếm..." onkeyup="searchTable()">
+                        </div>
+
                         <div id="loading-status" class="loading-status-badge">
                             <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>
                             <span id="current-tournament">0</span>/${months.length} tháng

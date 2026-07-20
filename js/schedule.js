@@ -50,7 +50,7 @@ async function loadTournaments() {
         } else {
             document.getElementById('calendar-wrapper').style.display = 'block';
             const filtersDiv = document.getElementById('schedule-filters');
-            if (filtersDiv) filtersDiv.style.display = 'flex';
+            if (filtersDiv) filtersDiv.style.display = 'block';
             renderCalendar();
         }
     } catch (error) {
@@ -74,6 +74,8 @@ function renderCalendar() {
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
     const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
     const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
+    const organizerVal = document.getElementById('schedule-organizer-filter')?.value || 'all';
+    const dayVal = document.getElementById('schedule-day-filter')?.value || 'all';
 
     // Update header
     const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
@@ -169,7 +171,34 @@ function renderCalendar() {
                     // Match Type
                     const matchesType = checkedTypes.includes(tournament.eventType);
 
-                    if (matchesSearch && matchesPrize && matchesType) {
+                    // Match Organizer
+                    let matchesOrganizer = true;
+                    if (organizerVal !== 'all') {
+                        const organizer = (tournament.organizer || '').toLowerCase();
+                        const tType = tournament.eventType;
+                        if (organizerVal === 'tvlt') {
+                            matchesOrganizer = tType === 'tvlt' || organizer.includes('tvlt') || organizer.includes('thí vua') || organizer.includes('clb');
+                        } else if (organizerVal === '1wl') {
+                            matchesOrganizer = tType === '1wl' || organizer.includes('owl') || organizer.includes('one world') || organizer.includes('league');
+                        } else {
+                            matchesOrganizer = !(tType === 'tvlt' || organizer.includes('tvlt') || organizer.includes('thí vua') || organizer.includes('clb') || tType === '1wl' || organizer.includes('owl') || organizer.includes('one world'));
+                        }
+                    }
+
+                    // Match Day
+                    let matchesDay = true;
+                    if (dayVal !== 'all') {
+                        const tDate = new Date(tournament.startTime);
+                        const day = tDate.getDay();
+                        const isWeekend = (day === 0 || day === 6);
+                        if (dayVal === 'weekday') {
+                            matchesDay = !isWeekend;
+                        } else {
+                            matchesDay = isWeekend;
+                        }
+                    }
+
+                    if (matchesSearch && matchesPrize && matchesType && matchesOrganizer && matchesDay) {
                         const icon = document.createElement('span');
                         icon.className = 'event-icon';
 
@@ -262,21 +291,25 @@ function saveFiltersToURL() {
 }
 
 /**
- * Toggles the visibility of the advanced collapsible filter panel.
+ * Toggles visibility of dropdown boxes.
  */
-function toggleScheduleFilters() {
-    const panel = document.getElementById('schedule-collapsible-panel');
-    const btn = document.getElementById('schedule-toggle-btn');
-    if (panel) {
-        if (panel.style.display === 'none') {
-            panel.style.display = 'flex';
-            btn.classList.add('active');
-        } else {
-            panel.style.display = 'none';
-            btn.classList.remove('active');
-        }
-    }
+function toggleDropdown(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    document.querySelectorAll('.fide-dropdown').forEach(d => {
+        if (d.id !== id) d.classList.remove('open');
+    });
+
+    el.classList.toggle('open');
 }
+
+// Close dropdowns on click outside
+window.addEventListener('click', (e) => {
+    if (!e.target.closest('.fide-dropdown')) {
+        document.querySelectorAll('.fide-dropdown').forEach(d => d.classList.remove('open'));
+    }
+});
 
 /**
  * Filter schedule function triggered by input/select changes.
@@ -287,7 +320,7 @@ function filterSchedule() {
 }
 
 window.filterSchedule = filterSchedule;
-window.toggleScheduleFilters = toggleScheduleFilters;
+window.toggleDropdown = toggleDropdown;
 
 /**
  * Opens the event detail modal with tournament information.

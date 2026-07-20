@@ -26,61 +26,96 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
             <br>
             <div class="month-title" id="month-title">Processing...</div>
 
-            <div id="schedule-filters" class="schedule-filters" style="display: none;">
-                <div class="filter-row-top">
-                    <input type="text" id="schedule-search" placeholder="Tìm tên sự kiện..." oninput="filterSchedule()">
-                    <button type="button" id="schedule-toggle-btn" class="btn-toggle-filters" onclick="toggleScheduleFilters()">
-                        <span class="bx bx-filter-alt"></span> Bộ lọc
-                    </button>
-                    <label class="custom-checkbox-container" style="margin-bottom: 0;">
-                        <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
-                        <span class="checkmark"></span> Chỉ giải có thưởng
-                    </label>
-                </div>
-                <div class="filter-row-bottom collapsible-panel" id="schedule-collapsible-panel" style="display: none;">
-                    <span class="filter-label">Thể loại giải:</span>
-                    <div class="checkbox-group" id="schedule-type-group">
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="tvlt" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Thí Vua Lấy Tốt
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="cttq" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Chiến Trường Thí Quân
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="cbtt" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Cờ Bí Thí Tốt
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="dttv" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Đấu Trường Thí Vua
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="multi-club-arena" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Multi-Club Arena
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="club-arena" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Đấu trường Arena
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="swiss" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="1wl" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> One World League
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="vote" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Cờ vua bỏ phiếu
-                        </label>
-                        <label class="custom-checkbox-container">
-                            <input type="checkbox" value="daily" checked onchange="filterSchedule()">
-                            <span class="checkmark"></span> Cờ hàng ngày (Daily)
-                        </label>
+            <div id="schedule-filters" style="display: none; margin-bottom: 25px;">
+                <!-- FIDE style top bar with 3 columns -->
+                <div class="fide-top-grid">
+                    <!-- Column 1: Multi-Select Category Dropdown -->
+                    <div class="fide-dropdown" id="schedule-category-dropdown">
+                        <div class="fide-dropdown-btn" onclick="toggleDropdown('schedule-category-dropdown')">
+                            <div class="fide-dropdown-btn-content">
+                                <i class="bx bxs-category"></i>
+                                <span>Thể loại giải</span>
+                            </div>
+                            <span class="bx bx-chevron-down fide-dropdown-arrow"></span>
+                        </div>
+                        <div class="fide-dropdown-menu" id="schedule-type-group">
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="tvlt" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Thí Vua Lấy Tốt
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="cttq" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Chiến Trường Thí Quân
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="cbtt" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Cờ Bí Thí Tốt
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="dttv" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Đấu Trường Thí Vua
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="multi-club-arena" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Multi-Club Arena
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="club-arena" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Đấu trường Arena
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="swiss" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="1wl" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> One World League
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="vote" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Cờ vua bỏ phiếu
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="daily" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Cờ hàng ngày (Daily)
+                            </label>
+                        </div>
                     </div>
+
+                    <!-- Column 2: Organizer Filter -->
+                    <div class="fide-select-container">
+                        <select id="schedule-organizer-filter" class="fide-select-btn" onchange="filterSchedule()">
+                            <option value="all">Tất cả ban tổ chức</option>
+                            <option value="tvlt">CLB Thí Vua Lấy Tốt</option>
+                            <option value="1wl">One World League</option>
+                            <option value="other">Quản trị viên khác</option>
+                        </select>
+                    </div>
+
+                    <!-- Column 3: Day Filter -->
+                    <div class="fide-select-container">
+                        <select id="schedule-day-filter" class="fide-select-btn" onchange="filterSchedule()">
+                            <option value="all">Tất cả các ngày</option>
+                            <option value="weekday">Ngày thường (T2 - T6)</option>
+                            <option value="weekend">Cuối tuần (T7 - CN)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- FIDE style second bar (Search + Switch) -->
+                <div class="fide-search-row">
+                    <div class="fide-search-wrapper">
+                        <span class="bx bx-search fide-search-icon"></span>
+                        <input type="text" id="schedule-search" class="fide-search-input" placeholder="Tìm tên sự kiện hoặc thông tin giải đấu..." oninput="filterSchedule()">
+                    </div>
+
+                    <label class="fide-switch-container">
+                        <span class="fide-switch">
+                            <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
+                            <span class="fide-slider"></span>
+                        </span>
+                        <span>Chỉ giải có thưởng</span>
+                    </label>
                 </div>
             </div>
 

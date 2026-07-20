@@ -177,31 +177,19 @@
         if (!ids.length) { el.innerHTML = '<div class="error">Không tìm thấy giải đấu.</div>'; return; }
 
         el.innerHTML = `
-            <div class="filter-group-container">
-                <div class="filter-row-top">
-                    <input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm tên giải hoặc kỳ thủ...">
-                    <div class="sort-select-wrapper">
-                        <span class="filter-label">Sắp xếp:</span>
-                        <select id="sortFilter" onchange="searchTable()">
-                            <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
-                            <option value="date-asc">Ngày tổ chức (Cũ nhất)</option>
-                            <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
-                            <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
-                        </select>
-                    </div>
-                    <button type="button" id="tournament-toggle-btn" class="btn-toggle-filters" onclick="toggleTournamentFilters()">
-                        <span class="bx bx-filter-alt"></span> Bộ lọc
-                    </button>
-                    <div id="loading-status" class="loading-status-badge">
-                        <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span>
-                        <span id="current-tournament">0</span>/${ids.length} giải
-                    </div>
-                </div>
-
-                <div class="filter-checkboxes-section collapsible-panel" id="tournament-collapsible-panel" style="display: none;">
-                    <div class="filter-checkbox-group">
-                        <span class="filter-label">Thể lệ (Tốc độ):</span>
-                        <div class="checkbox-group" id="timeclass-checkbox-group">
+            <div class="filter-group-container" style="margin-bottom: 25px;">
+                <!-- FIDE style top bar with 3 columns -->
+                <div class="fide-top-grid">
+                    <!-- Column 1: Multi-Select Speed Dropdown -->
+                    <div class="fide-dropdown" id="tournament-speed-dropdown">
+                        <div class="fide-dropdown-btn" onclick="toggleDropdown('tournament-speed-dropdown')">
+                            <div class="fide-dropdown-btn-content">
+                                <i class="bx bx-time"></i>
+                                <span>Thể lệ (Tốc độ)</span>
+                            </div>
+                            <span class="bx bx-chevron-down fide-dropdown-arrow"></span>
+                        </div>
+                        <div class="fide-dropdown-menu" id="timeclass-checkbox-group">
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="bullet" checked onchange="searchTable()">
                                 <span class="checkmark"></span> Bullet
@@ -221,9 +209,16 @@
                         </div>
                     </div>
 
-                    <div class="filter-checkbox-group">
-                        <span class="filter-label">Biến thể:</span>
-                        <div class="checkbox-group" id="variant-checkbox-group">
+                    <!-- Column 2: Multi-Select Variant Dropdown -->
+                    <div class="fide-dropdown" id="tournament-variant-dropdown">
+                        <div class="fide-dropdown-btn" onclick="toggleDropdown('tournament-variant-dropdown')">
+                            <div class="fide-dropdown-btn-content">
+                                <i class="bx bxs-category"></i>
+                                <span>Biến thể</span>
+                            </div>
+                            <span class="bx bx-chevron-down fide-dropdown-arrow"></span>
+                        </div>
+                        <div class="fide-dropdown-menu" id="variant-checkbox-group">
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="standard" checked onchange="searchTable()">
                                 <span class="checkmark"></span> Cờ tiêu chuẩn
@@ -253,6 +248,29 @@
                                 <span class="checkmark"></span> Custom
                             </label>
                         </div>
+                    </div>
+
+                    <!-- Column 3: Sắp xếp -->
+                    <div class="fide-select-container">
+                        <select id="sortFilter" class="fide-select-btn" onchange="searchTable()">
+                            <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
+                            <option value="date-asc">Ngày tổ chức (Cũ nhất)</option>
+                            <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
+                            <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- FIDE style second bar (Search + Status Badge) -->
+                <div class="fide-search-row">
+                    <div class="fide-search-wrapper">
+                        <span class="bx bx-search fide-search-icon"></span>
+                        <input type="text" id="searchInput" class="fide-search-input" placeholder="Tìm kiếm tên giải hoặc kỳ thủ..." onkeyup="searchTable()">
+                    </div>
+
+                    <div id="loading-status" class="loading-status-badge">
+                        <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span>
+                        <span id="current-tournament">0</span>/${ids.length} giải
                     </div>
                 </div>
             </div>
