@@ -264,21 +264,20 @@ function saveFiltersToURL() {
 /**
  * Toggles visibility of dropdown boxes.
  */
-function toggleDropdown(id) {
+function toggleTourDropdown(id) {
     const el = document.getElementById(id);
     if (!el) return;
 
-    document.querySelectorAll('.fide-dropdown').forEach(d => {
+    document.querySelectorAll('.tour-dropdown').forEach(d => {
         if (d.id !== id) d.classList.remove('open');
     });
 
     el.classList.toggle('open');
 }
 
-// Close dropdowns on click outside
 window.addEventListener('click', (e) => {
-    if (!e.target.closest('.fide-dropdown')) {
-        document.querySelectorAll('.fide-dropdown').forEach(d => d.classList.remove('open'));
+    if (!e.target.closest('.tour-dropdown')) {
+        document.querySelectorAll('.tour-dropdown').forEach(d => d.classList.remove('open'));
     }
 });
 
@@ -291,7 +290,7 @@ function filterSchedule() {
 }
 
 window.filterSchedule = filterSchedule;
-window.toggleDropdown = toggleDropdown;
+window.toggleTourDropdown = toggleTourDropdown;
 
 /**
  * Opens the event detail modal with tournament information.

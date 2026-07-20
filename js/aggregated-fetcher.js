@@ -308,11 +308,11 @@
 
             container.innerHTML = `
                 <div class="filter-group-container" style="margin-bottom: 25px;">
-                    <!-- FIDE style top bar with 3 columns -->
-                    <div class="fide-top-grid">
+                    <!-- Top bar with 3 columns -->
+                    <div class="tour-top-grid">
                         <!-- Column 1: Sắp xếp -->
-                        <div class="fide-select-container">
-                            <select id="sortFilter" class="fide-select-btn" onchange="searchTable()">
+                        <div class="tour-select-container">
+                            <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
                                 <option value="date-desc">Tháng tổ chức (Mới nhất)</option>
                                 <option value="date-asc">Tháng tổ chức (Cũ nhất)</option>
                                 <option value="players-desc">Số lượng kỳ thủ (Nhiều nhất)</option>
@@ -323,8 +323,8 @@
                         </div>
 
                         <!-- Column 2: Status/Type -->
-                        <div class="fide-select-container" style="grid-column: span 2;">
-                            <select id="cttq-status-filter" class="fide-select-btn" onchange="searchTable()">
+                        <div class="tour-select-container" style="grid-column: span 2;">
+                            <select id="cttq-status-filter" class="tour-select-btn" onchange="searchTable()">
                                 <option value="all">Tất cả trạng thái</option>
                                 <option value="finished">Đã hoàn thành</option>
                                 <option value="unfinished">Chưa hoàn thành</option>
@@ -332,17 +332,17 @@
                         </div>
                     </div>
 
-                    <!-- FIDE style second bar (Search + Switch + Status Badge) -->
-                    <div class="fide-search-row">
-                        <div class="fide-search-wrapper">
-                            <span class="bx bx-search fide-search-icon"></span>
-                            <input type="text" id="searchInput" class="fide-search-input" placeholder="Tìm kiếm..." onkeyup="searchTable()">
+                    <!-- Second bar (Search + Switch + Status Badge) -->
+                    <div class="tour-search-row">
+                        <div class="tour-search-wrapper">
+                            <span class="bx bx-search tour-search-icon"></span>
+                            <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm..." onkeyup="searchTable()">
                         </div>
 
-                        <label class="fide-switch-container">
-                            <span class="fide-switch">
+                        <label class="tour-switch-container">
+                            <span class="tour-switch">
                                 <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
-                                <span class="fide-slider"></span>
+                                <span class="tour-slider"></span>
                             </span>
                             <span>Hiện Premium Badge</span>
                         </label>

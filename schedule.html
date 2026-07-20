@@ -27,18 +27,18 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
             <div class="month-title" id="month-title">Processing...</div>
 
             <div id="schedule-filters" style="display: none; margin-bottom: 25px;">
-                <!-- FIDE style top bar with 1 column centered -->
-                <div class="fide-top-grid" style="grid-template-columns: 1fr; max-width: 320px; margin: 0 auto 15px auto;">
+                <!-- Top bar with 1 column centered -->
+                <div class="tour-top-grid" style="grid-template-columns: 1fr; max-width: 320px; margin: 0 auto 15px auto;">
                     <!-- Column 1: Multi-Select Category Dropdown -->
-                    <div class="fide-dropdown" id="schedule-category-dropdown">
-                        <div class="fide-dropdown-btn" onclick="toggleDropdown('schedule-category-dropdown')">
-                            <div class="fide-dropdown-btn-content">
+                    <div class="tour-dropdown" id="schedule-category-dropdown">
+                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('schedule-category-dropdown')">
+                            <div class="tour-dropdown-btn-content">
                                 <i class="bx bxs-category"></i>
                                 <span>Thể loại giải</span>
                             </div>
-                            <span class="bx bx-chevron-down fide-dropdown-arrow"></span>
+                            <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
                         </div>
-                        <div class="fide-dropdown-menu" id="schedule-type-group">
+                        <div class="tour-dropdown-menu" id="schedule-type-group">
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="tvlt" checked onchange="filterSchedule()">
                                 <span class="checkmark"></span> Thí Vua Lấy Tốt
@@ -79,17 +79,17 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                     </div>
                 </div>
 
-                <!-- FIDE style second bar (Search + Switch) -->
-                <div class="fide-search-row">
-                    <div class="fide-search-wrapper">
-                        <span class="bx bx-search fide-search-icon"></span>
-                        <input type="text" id="schedule-search" class="fide-search-input" placeholder="Tìm tên sự kiện hoặc thông tin giải đấu..." oninput="filterSchedule()">
+                <!-- Second bar (Search + Switch) -->
+                <div class="tour-search-row">
+                    <div class="tour-search-wrapper">
+                        <span class="bx bx-search tour-search-icon"></span>
+                        <input type="text" id="schedule-search" class="tour-search-input" placeholder="Tìm tên sự kiện hoặc thông tin giải đấu..." oninput="filterSchedule()">
                     </div>
 
-                    <label class="fide-switch-container">
-                        <span class="fide-switch">
+                    <label class="tour-switch-container">
+                        <span class="tour-switch">
                             <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
-                            <span class="fide-slider"></span>
+                            <span class="tour-slider"></span>
                         </span>
                         <span>Chỉ giải có thưởng</span>
                     </label>

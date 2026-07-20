@@ -178,18 +178,18 @@
 
         el.innerHTML = `
             <div class="filter-group-container" style="margin-bottom: 25px;">
-                <!-- FIDE style top bar with 4 columns -->
-                <div class="fide-top-grid">
+                <!-- Top bar with 4 columns -->
+                <div class="tour-top-grid">
                     <!-- Column 1: Multi-Select Speed Dropdown -->
-                    <div class="fide-dropdown" id="tournament-speed-dropdown">
-                        <div class="fide-dropdown-btn" onclick="toggleDropdown('tournament-speed-dropdown')">
-                            <div class="fide-dropdown-btn-content">
+                    <div class="tour-dropdown" id="tournament-speed-dropdown">
+                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-speed-dropdown')">
+                            <div class="tour-dropdown-btn-content">
                                 <i class="bx bx-time"></i>
                                 <span>Thể lệ (Tốc độ)</span>
                             </div>
-                            <span class="bx bx-chevron-down fide-dropdown-arrow"></span>
+                            <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
                         </div>
-                        <div class="fide-dropdown-menu" id="timeclass-checkbox-group">
+                        <div class="tour-dropdown-menu" id="timeclass-checkbox-group">
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="bullet" checked onchange="searchTable()">
                                 <span class="checkmark"></span> Bullet
@@ -210,15 +210,15 @@
                     </div>
 
                     <!-- Column 2: Multi-Select Variant Dropdown -->
-                    <div class="fide-dropdown" id="tournament-variant-dropdown">
-                        <div class="fide-dropdown-btn" onclick="toggleDropdown('tournament-variant-dropdown')">
-                            <div class="fide-dropdown-btn-content">
+                    <div class="tour-dropdown" id="tournament-variant-dropdown">
+                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-variant-dropdown')">
+                            <div class="tour-dropdown-btn-content">
                                 <i class="bx bxs-category"></i>
                                 <span>Biến thể</span>
                             </div>
-                            <span class="bx bx-chevron-down fide-dropdown-arrow"></span>
+                            <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
                         </div>
-                        <div class="fide-dropdown-menu" id="variant-checkbox-group">
+                        <div class="tour-dropdown-menu" id="variant-checkbox-group">
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="standard" checked onchange="searchTable()">
                                 <span class="checkmark"></span> Cờ tiêu chuẩn
@@ -251,15 +251,15 @@
                     </div>
 
                     <!-- Column 3: Multi-Select Format Dropdown -->
-                    <div class="fide-dropdown" id="tournament-format-dropdown">
-                        <div class="fide-dropdown-btn" onclick="toggleDropdown('tournament-format-dropdown')">
-                            <div class="fide-dropdown-btn-content">
+                    <div class="tour-dropdown" id="tournament-format-dropdown">
+                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-format-dropdown')">
+                            <div class="tour-dropdown-btn-content">
                                 <i class="bx bx-git-commit"></i>
                                 <span>Thể thức</span>
                             </div>
-                            <span class="bx bx-chevron-down fide-dropdown-arrow"></span>
+                            <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
                         </div>
-                        <div class="fide-dropdown-menu" id="format-checkbox-group">
+                        <div class="tour-dropdown-menu" id="format-checkbox-group">
                             <label class="custom-checkbox-container">
                                 <input type="checkbox" value="swiss" checked onchange="searchTable()">
                                 <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
@@ -272,8 +272,8 @@
                     </div>
 
                     <!-- Column 4: Sắp xếp -->
-                    <div class="fide-select-container">
-                        <select id="sortFilter" class="fide-select-btn" onchange="searchTable()">
+                    <div class="tour-select-container">
+                        <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
                             <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
                             <option value="date-asc">Ngày tổ chức (Cũ nhất)</option>
                             <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
@@ -282,17 +282,17 @@
                     </div>
                 </div>
 
-                <!-- FIDE style second bar (Search + Switch + Status Badge) -->
-                <div class="fide-search-row">
-                    <div class="fide-search-wrapper">
-                        <span class="bx bx-search fide-search-icon"></span>
-                        <input type="text" id="searchInput" class="fide-search-input" placeholder="Tìm kiếm tên giải hoặc kỳ thủ..." onkeyup="searchTable()">
+                <!-- Second bar (Search + Switch + Status Badge) -->
+                <div class="tour-search-row">
+                    <div class="tour-search-wrapper">
+                        <span class="bx bx-search tour-search-icon"></span>
+                        <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm tên giải hoặc kỳ thủ..." onkeyup="searchTable()">
                     </div>
 
-                    <label class="fide-switch-container">
-                        <span class="fide-switch">
+                    <label class="tour-switch-container">
+                        <span class="tour-switch">
                             <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
-                            <span class="fide-slider"></span>
+                            <span class="tour-slider"></span>
                         </span>
                         <span>Hiện Premium Badge</span>
                     </label>

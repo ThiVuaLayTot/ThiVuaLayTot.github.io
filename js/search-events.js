@@ -328,13 +328,13 @@ window.searchTable = debounce(function() {
 }, 100);
 
 /**
- * Toggles visibility of FIDE dropdown boxes.
+ * Toggles visibility of tour dropdown boxes.
  */
-window.toggleDropdown = function(id) {
+window.toggleTourDropdown = function(id) {
     const el = document.getElementById(id);
     if (!el) return;
 
-    document.querySelectorAll('.fide-dropdown').forEach(d => {
+    document.querySelectorAll('.tour-dropdown').forEach(d => {
         if (d.id !== id) d.classList.remove('open');
     });
 
@@ -343,7 +343,7 @@ window.toggleDropdown = function(id) {
 
 // Close dropdowns on click outside
 window.addEventListener('click', (e) => {
-    if (!e.target.closest('.fide-dropdown')) {
-        document.querySelectorAll('.fide-dropdown').forEach(d => d.classList.remove('open'));
+    if (!e.target.closest('.tour-dropdown')) {
+        document.querySelectorAll('.tour-dropdown').forEach(d => d.classList.remove('open'));
     }
 });
