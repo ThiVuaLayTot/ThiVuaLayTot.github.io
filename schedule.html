@@ -22,8 +22,74 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                 <li style="text-align: center;"><strong><span style="font-size: 14px;">Ấn vào icon để xem chi tiết th&ocirc;ng tin sự kiện</span></strong></li>
             </ul>
             <br>
-            <p><i>Lần cuối cập nhật: <span id="last-updated"></span></i>.<br>Nếu có vấn đề hãy bình luận trong <a href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3">M-DinhHoangViet</a>.</p>
+            <p><i>Lần cuối cập nhật: <span id="last-updated"></span></i>.<br>Nếu có vấn đề hãy bình luận trong <a href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">M-DinhHoangViet</a>.</p>
             <br>
+
+            <div id="schedule-filters" style="display: none; margin-bottom: 25px;">
+                <div class="tour-search-row">
+                    <div class="tour-search-wrapper">
+                        <span class="bx bx-search tour-search-icon"></span>
+                        <input type="text" id="schedule-search" class="tour-search-input" placeholder="Tìm tên sự kiện hoặc thông tin giải đấu..." oninput="filterSchedule()">
+                    </div>
+
+                    <label class="tour-switch-container">
+                        <span class="tour-switch">
+                            <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
+                            <span class="tour-slider"></span>
+                        </span>
+                        <span>Chỉ giải có thưởng</span>
+                    </label>
+                </div>
+                <div class="tour-top-grid" style="grid-template-columns: 1fr; max-width: 320px; margin: 0 auto 15px auto;">
+                    <div class="tour-dropdown" id="schedule-category-dropdown">
+                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('schedule-category-dropdown')">
+                            <div class="tour-dropdown-btn-content">
+                                <i class="bx bx-medal"></i>
+                                <span>Thể loại giải</span>
+                            </div>
+                            <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
+                        </div>
+                        <div class="tour-dropdown-menu" id="schedule-type-group">
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="tvlt" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Thí Vua Lấy Tốt
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="cttq" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Chiến Trường Thí Quân
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="cbtt" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Cờ Bí Thí Tốt
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="dttv" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Đấu Trường Thí Vua
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="multi-club-arena" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Multi-Club Arena (Đấu trường đa CLB)
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="club-arena" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Đấu trường Arena
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="swiss" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="vote" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Cờ vua bỏ phiếu (Votechess)
+                            </label>
+                            <label class="custom-checkbox-container">
+                                <input type="checkbox" value="daily" checked onchange="filterSchedule()">
+                                <span class="checkmark"></span> Cờ hàng ngày (Daily)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="month-title" id="month-title">Processing...</div>
             <div id="loading" class="loading">
                 <div class="loading-spinner"></div>

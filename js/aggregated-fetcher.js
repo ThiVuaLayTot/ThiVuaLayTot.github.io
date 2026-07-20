@@ -160,14 +160,18 @@
                 const text = await RequestManager.fetch(`${API.GIST}/${monthId}.txt`, false);
                 ids = text ? text.split('\n').filter(l => l.trim()) : [];
             }
-            if (!ids.length) return { playerScores: {}, tournaments: [] };
+            if (!ids.length) return { playerScores: {}, tournaments: [], status: 'finished' };
 
             const tourDataList = await Promise.all(ids.map(id => RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}`)));
             const playerScores = {}, tournaments = [];
+            let monthStatus = 'finished';
 
             for (let i = 0; i < ids.length; i++) {
                 const data = tourDataList[i];
                 if (!data) continue;
+                const isFinished = (data.status === 'finished' || data.settings?.status === 'finished');
+                if (!isFinished) monthStatus = 'unfinished';
+
                 const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
                 let pointsMap = new Map();
                 let roundPlayersMap = new Map();
@@ -230,7 +234,7 @@
                     playerScores[u].breakdown.push({ tourName: data.name || 'Unknown', points: p.points, url: data.url });
                 });
             }
-            const result = { playerScores, tournaments };
+            const result = { playerScores, tournaments, status: monthStatus };
             Cache.set(cacheKey, result, CONFIG.CACHE_TTL.a);
             return result;
         }
@@ -302,10 +306,59 @@
 
             if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
 
-            container.innerHTML = `<input type="text" id="searchInput" class="search-bar" onkeyup="searchTable()" placeholder="Tìm kiếm...">
-                <div id="loading-status" style="text-align: center; padding: 20px; font-size: 14px;">Đang xử lý: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span> <span id="current-tournament">0</span>/${months.length} tháng</div>
+            container.innerHTML = `
+                <div class="filter-group-container" style="margin-bottom: 25px;">
+                    <!-- Top bar with 3 columns -->
+                    <div class="tour-top-grid">
+                        <!-- Column 1: Sắp xếp -->
+                        <div class="tour-select-container">
+                            <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
+                                <option value="date-desc">Tháng tổ chức (Mới nhất)</option>
+                                <option value="date-asc">Tháng tổ chức (Cũ nhất)</option>
+                                <option value="players-desc">Số lượng kỳ thủ (Nhiều nhất)</option>
+                                <option value="players-asc">Số lượng kỳ thủ (Ít nhất)</option>
+                                <option value="tours-desc">Số lượng giải đấu (Nhiều nhất)</option>
+                                <option value="tours-asc">Số lượng giải đấu (Ít nhất)</option>
+                            </select>
+                        </div>
+
+                        <!-- Column 2: Status/Type -->
+                        <div class="tour-select-container" style="grid-column: span 2;">
+                            <select id="cttq-status-filter" class="tour-select-btn" onchange="searchTable()">
+                                <option value="all">Tất cả trạng thái</option>
+                                <option value="finished">Đã hoàn thành</option>
+                                <option value="unfinished">Chưa hoàn thành</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Second bar (Search + Switch + Status Badge) -->
+                    <div class="tour-search-row">
+                        <div class="tour-search-wrapper">
+                            <span class="bx bx-search tour-search-icon"></span>
+                            <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm..." onkeyup="searchTable()">
+                        </div>
+
+                        <label class="tour-switch-container">
+                            <span class="tour-switch">
+                                <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
+                                <span class="tour-slider"></span>
+                            </span>
+                            <span>Hiện Premium Badge</span>
+                        </label>
+
+                        <div id="loading-status" class="loading-status-badge">
+                            <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>
+                            <span id="current-tournament">0</span>/${months.length} tháng
+                        </div>
+                    </div>
+                </div>
                 <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Tháng</th><th class="organization-day">Thống kê</th><th class="players">Kỳ thủ</th>
                 <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div>`;
+
+            if (typeof window.loadTournamentFiltersFromURL === 'function') {
+                window.loadTournamentFiltersFromURL();
+            }
 
             const tbody = document.getElementById('tournament-tbody');
             const skeletons = months.map(() => {
@@ -361,8 +414,25 @@
                 try {
                     const html = await Renderer.monthRow(m, eventType);
                     const temp = document.createElement('tbody'); temp.innerHTML = html;
-                    skeletons[i].replaceWith(temp.firstElementChild);
+
+                    const newTr = temp.firstElementChild;
+                    const { playerScores, tournaments, status } = await DataProcessor.getMonthlyAggregation(m, eventType);
+                    const parts = m.split('-');
+                    const monthInt = parseInt(parts[0]) - 1;
+                    const yearInt = parseInt(parts[1]);
+                    const timestamp = new Date(yearInt, monthInt, 1).getTime();
+
+                    newTr.setAttribute('data-start-time', timestamp);
+                    newTr.setAttribute('data-players-count', Object.keys(playerScores).length);
+                    newTr.setAttribute('data-tours-count', tournaments.length);
+                    newTr.setAttribute('data-status', status || 'finished');
+
+                    skeletons[i].replaceWith(newTr);
                     document.getElementById('current-tournament').textContent = ++count;
+
+                    if (typeof window.searchTable === 'function') {
+                        window.searchTable();
+                    }
                 } catch (e) {}
             }));
 

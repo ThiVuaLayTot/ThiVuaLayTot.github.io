@@ -679,3 +679,476 @@ td.today .day-number {
         font-size: 1.2rem;
     }
 }
+
+/* Schedule Filters */
+.schedule-filters {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.schedule-filters input,
+.schedule-filters select {
+    background: rgba(10, 25, 47, 0.7);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: 8px;
+    color: var(--cyan-100);
+    padding: 10px 15px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+}
+
+.schedule-filters input::placeholder {
+    color: rgba(0, 242, 255, 0.5);
+}
+
+.schedule-filters input:focus,
+.schedule-filters select:focus {
+    border-color: var(--cyan-300);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+.schedule-filters input {
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.schedule-filters select {
+    min-width: 180px;
+    cursor: pointer;
+}
+
+/* Custom Checkbox Container */
+.custom-checkbox-container {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    padding-left: 28px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--cyan-100);
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Checkmark box */
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 18px;
+    width: 18px;
+    background-color: rgba(10, 25, 47, 0.7);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 242, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.custom-checkbox-container:hover .checkmark {
+    border-color: var(--cyan-300);
+    box-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
+}
+
+/* Checked state */
+.custom-checkbox-container input:checked ~ .checkmark {
+    background-color: rgba(0, 242, 255, 0.2);
+    border-color: var(--cyan-300);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+}
+
+/* Checked checkmark shape */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox-container .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--cyan-300);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Layout for Filter Groups */
+.filter-row-top {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.filter-row-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+/* Filter toggle button styling */
+.btn-toggle-filters {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: rgba(10, 25, 47, 0.7);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: 8px;
+    color: var(--cyan-100);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    outline: none;
+    height: max-content;
+}
+
+.btn-toggle-filters:hover,
+.btn-toggle-filters.active {
+    background: rgba(0, 242, 255, 0.15);
+    border-color: var(--cyan-300);
+    color: var(--cyan-300);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Collapsible Panel styling */
+.collapsible-panel {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.filter-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--cyan-300);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 12px;
+    width: 100%;
+    background: rgba(10, 25, 47, 0.3);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(53, 201, 252, 0.2);
+}
+
+@media (max-width: 768px) {
+    .schedule-filters {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .schedule-filters input,
+    .schedule-filters select {
+        width: 100%;
+        max-width: none;
+        min-width: unset;
+    }
+}
+
+/* Tour Filter System */
+.tour-top-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    width: 100%;
+}
+
+.tour-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.tour-dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 20px;
+    background: rgba(10, 25, 47, 0.7);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: var(--border-radius-lg);
+    color: var(--cyan-100);
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+}
+
+.tour-dropdown-btn:hover {
+    background: rgba(25, 40, 75, 0.8);
+    border-color: var(--cyan-300);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+}
+
+.tour-dropdown-btn-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.tour-dropdown-btn-content i {
+    font-size: 20px;
+    color: var(--cyan-300);
+}
+
+.tour-dropdown-arrow {
+    transition: transform 0.3s ease;
+    font-size: 14px;
+    color: var(--neutral-400);
+}
+
+.tour-dropdown.open .tour-dropdown-arrow {
+    transform: rotate(180deg);
+    color: var(--cyan-300);
+}
+
+.tour-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: rgba(12, 20, 38, 0.98);
+    border: 1.5px solid var(--cyan-300);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 242, 255, 0.2);
+    padding: 8px;
+    z-index: 150;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.tour-dropdown.open .tour-dropdown-menu {
+    display: flex;
+}
+
+.tour-dropdown-menu .custom-checkbox-container {
+    width: 100%;
+    padding: 8px 8px 8px 34px;
+    margin: 0;
+    border-radius: var(--border-radius-md);
+    transition: all 0.2s ease;
+}
+
+.tour-dropdown-menu .custom-checkbox-container:hover {
+    background: rgba(0, 242, 255, 0.1);
+    color: var(--neutral-100);
+}
+
+.tour-dropdown-menu .checkmark {
+    left: 8px;
+}
+
+.tour-select-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 20px;
+    background: rgba(10, 25, 47, 0.7);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: var(--border-radius-lg);
+    color: var(--cyan-100);
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300f2ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 16px;
+    padding-right: 44px;
+    outline: none;
+}
+
+.tour-select-btn:hover {
+    background: rgba(25, 40, 75, 0.8);
+    border-color: var(--cyan-300);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+}
+
+.tour-select-btn option {
+    background-color: rgba(12, 20, 38, 0.98);
+    color: var(--neutral-100);
+}
+
+.tour-search-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.tour-search-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 250px;
+}
+
+.tour-search-input {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    background: rgba(10, 25, 47, 0.7);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: var(--border-radius-lg);
+    color: var(--cyan-100);
+    font-size: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.tour-search-input:focus {
+    border-color: var(--cyan-300);
+    background: rgba(25, 40, 75, 0.95);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+.tour-search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(0, 242, 255, 0.5);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.tour-switch-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    color: var(--neutral-200);
+    font-weight: var(--fw-medium);
+}
+
+.tour-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+}
+
+.tour-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.tour-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(30, 41, 59, 0.8);
+    border: 1.5px solid rgba(0, 242, 255, 0.3);
+    transition: .3s;
+    border-radius: 34px;
+}
+
+.tour-slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 2.5px;
+    background-color: var(--neutral-400);
+    transition: .3s;
+    border-radius: 50%;
+}
+
+.tour-switch input:checked + .tour-slider {
+    background-color: rgba(0, 242, 255, 0.2);
+    border-color: var(--cyan-300);
+}
+
+.tour-switch input:checked + .tour-slider:before {
+    transform: translateX(20px);
+    background-color: var(--cyan-300);
+    box-shadow: 0 0 8px var(--cyan-300);
+}
+
+@media (max-width: 768px) {
+    .tour-top-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    .tour-dropdown-btn,
+    .tour-select-btn {
+        padding: 10px 14px;
+        font-size: 13px;
+        border-radius: var(--border-radius-md);
+    }
+    .tour-dropdown-btn-content {
+        gap: var(--space-xs);
+    }
+    .tour-dropdown-btn-content i {
+        font-size: 18px;
+    }
+    .tour-dropdown-arrow {
+        font-size: 12px;
+    }
+}

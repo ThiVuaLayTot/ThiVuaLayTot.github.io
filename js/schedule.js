@@ -15,6 +15,7 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbzMq-aqPlXihBjjC62ykxba
  * Initialize calendar on DOM content loaded.
  */
 window.addEventListener('DOMContentLoaded', () => {
+    loadFiltersFromURL();
     loadTournaments();
 });
 
@@ -48,6 +49,8 @@ async function loadTournaments() {
             document.getElementById('empty').style.display = 'block';
         } else {
             document.getElementById('calendar-wrapper').style.display = 'block';
+            const filtersDiv = document.getElementById('schedule-filters');
+            if (filtersDiv) filtersDiv.style.display = 'block';
             renderCalendar();
         }
     } catch (error) {
@@ -66,6 +69,11 @@ function renderCalendar() {
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth();
+
+    // Get filter values
+    const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
+    const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
+    const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
 
     // Update header
     const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
@@ -147,19 +155,35 @@ function renderCalendar() {
                 });
 
                 dayTournaments.forEach(tournament => {
-                    const icon = document.createElement('span');
-                    icon.className = 'event-icon';
+                    // Match Search
+                    const eventName = (tournament.eventName || '').toLowerCase();
+                    const matchesSearch = !searchVal || eventName.includes(searchVal);
 
-                    const img = document.createElement('img');
-                    img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
-                    img.title = tournament.eventName || 'Tournament';
-                    img.onclick = (e) => {
-                        e.stopPropagation();
-                        openModal(tournament);
-                    };
+                    // Match Prize
+                    let matchesPrize = true;
+                    if (onlyPrize) {
+                        const prize = (tournament.prize || '').toLowerCase().trim();
+                        matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                    }
 
-                    icon.appendChild(img);
-                    eventsDiv.appendChild(icon);
+                    // Match Type
+                    const matchesType = checkedTypes.includes(tournament.eventType);
+
+                    if (matchesSearch && matchesPrize && matchesType) {
+                        const icon = document.createElement('span');
+                        icon.className = 'event-icon';
+
+                        const img = document.createElement('img');
+                        img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
+                        img.title = tournament.eventName || 'Tournament';
+                        img.onclick = (e) => {
+                            e.stopPropagation();
+                            openModal(tournament);
+                        };
+
+                        icon.appendChild(img);
+                        eventsDiv.appendChild(icon);
+                    }
                 });
             }
 
@@ -172,6 +196,103 @@ function renderCalendar() {
 }
 
 /**
+ * Loads filter states from URL query parameters.
+ */
+function loadFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    // 1. Search filter
+    const searchVal = params.get('search');
+    const searchInput = document.getElementById('schedule-search');
+    if (searchInput && searchVal !== null) {
+        searchInput.value = searchVal;
+    }
+
+    // 2. Prize filter (1 = prize, 0 = all)
+    const prizeVal = params.get('prize');
+    const prizeCheckbox = document.getElementById('schedule-prize-filter');
+    if (prizeCheckbox && prizeVal !== null) {
+        prizeCheckbox.checked = (prizeVal === '1');
+    }
+
+    // 3. Category/Type filter joined by space or plus
+    const tcVal = params.get('tc');
+    if (tcVal !== null) {
+        const selectedTypes = tcVal.toLowerCase().split(/[\s+]+/);
+        const checkboxes = document.querySelectorAll('#schedule-type-group input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.checked = selectedTypes.includes(cb.value.toLowerCase());
+        });
+    }
+}
+
+/**
+ * Saves current filter states to the URL query parameters.
+ */
+function saveFiltersToURL() {
+    const params = new URLSearchParams();
+
+    // 1. Search filter
+    const searchVal = (document.getElementById('schedule-search')?.value || '').trim();
+    if (searchVal) {
+        params.set('search', searchVal);
+    }
+
+    // 2. Prize filter
+    const prizeCheckbox = document.getElementById('schedule-prize-filter');
+    if (prizeCheckbox && prizeCheckbox.checked) {
+        params.set('prize', '1');
+    } else {
+        params.set('prize', '0');
+    }
+
+    // 3. Category/Type filter
+    const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
+    const allTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]')).map(cb => cb.value);
+
+    // If not all are checked, serialize the active ones joined by space
+    if (checkedTypes.length < allTypes.length) {
+        params.set('tc', checkedTypes.join(' '));
+    }
+
+    // Update URL without page reload
+    const newQuery = params.toString();
+    const newURL = window.location.pathname + (newQuery ? '?' + newQuery : '');
+    window.history.replaceState(null, '', newURL);
+}
+
+/**
+ * Toggles visibility of dropdown boxes.
+ */
+function toggleTourDropdown(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    document.querySelectorAll('.tour-dropdown').forEach(d => {
+        if (d.id !== id) d.classList.remove('open');
+    });
+
+    el.classList.toggle('open');
+}
+
+window.addEventListener('click', (e) => {
+    if (!e.target.closest('.tour-dropdown')) {
+        document.querySelectorAll('.tour-dropdown').forEach(d => d.classList.remove('open'));
+    }
+});
+
+/**
+ * Filter schedule function triggered by input/select changes.
+ */
+function filterSchedule() {
+    saveFiltersToURL();
+    renderCalendar();
+}
+
+window.filterSchedule = filterSchedule;
+window.toggleTourDropdown = toggleTourDropdown;
+
+/**
  * Opens the event detail modal with tournament information.
  * @param {Object} tournament - The tournament data object.
  */
@@ -182,11 +303,7 @@ function openModal(tournament) {
     let newsUrl = "";
     let resultUrl = "";
 
-    if (tournamentType === "1wl") {
-        newsUrl = "https://chess.com/clubs/forum/view/multi-club-arena-seasons-2026";
-        bannerUrl = "https://images.chesscomfiles.com/uploads/v1/blog/1036746.ca7cfdc5.668x375o.1821c106decb.jpg";
-        resultUrl = "https://chess.com/blog/OneWorldLeague";
-    } else if (["cttq", "tvlt", "cbtt", "dttv"].includes(tournamentType)) {
+    if (["cttq", "tvlt", "cbtt", "dttv"].includes(tournamentType)) {
         resultUrl = `/events/tournaments/${tournamentType}`;
         const eventInfo = {
             "tvlt": "/events/tvlt-thi-vua-lay-tot",
@@ -205,6 +322,7 @@ function openModal(tournament) {
     } else {
         resultUrl = `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?cid=325849&ref_id=89365835&type=${tournamentType}`;
         const bannerDefault = {
+            "1wl": "https://images.chesscomfiles.com/uploads/v1/blog/1036746.ca7cfdc5.668x375o.1821c106decb.jpg",
             "club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpjs58p98gfqbbaDynSFJ.png",
             "multi-club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/php4oaq7r23q7n79I3kRE6.png",
             "swiss": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpt9ef43prdg6f80YfkLo.png",
@@ -212,6 +330,7 @@ function openModal(tournament) {
             "daily": "https://images.chesscomfiles.com/uploads/v1/chess_term/f1e3ca50-b739-11ea-a14a-a1c9be904231.1fc2467a.630x354o.73dd2efd0681.png"
         };
         const eventDetails = {
+            "1wl": "https://chess.com/blog/OneWorldLeague",
             "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
             "swiss": "https://chess.com/terms/swiss-chess",
             "vote": "https://support.chess.com/articles/8614177-how-do-i-play-vote-chess",
