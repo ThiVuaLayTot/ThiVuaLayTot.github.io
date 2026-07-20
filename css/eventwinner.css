@@ -535,6 +535,25 @@ a
   font-weight: var(--fw-medium);
 }
 
+#loading-status.loading-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 6px 12px;
+  margin: 0;
+  background: rgba(30, 41, 59, 0.6);
+  border: var(--border-width-thin) solid rgba(56, 189, 248, 0.2);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--neutral-200);
+  white-space: nowrap;
+  flex-shrink: 0;
+  height: max-content;
+  width: max-content;
+}
+
 #pause-status {
   color: var(--red-300);
   font-weight: var(--fw-bold);

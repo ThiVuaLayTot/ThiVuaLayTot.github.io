@@ -189,6 +189,10 @@
                             <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
                         </select>
                     </div>
+                    <div id="loading-status" class="loading-status-badge">
+                        <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span>
+                        <span id="current-tournament">0</span>/${ids.length} giải
+                    </div>
                 </div>
 
                 <div class="filter-checkboxes-section">
@@ -249,7 +253,6 @@
                     </div>
                 </div>
             </div>
-            <div id="loading-status" style="text-align:center;padding:20px;font-size:14px">Đang hiển thị: <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span> <span id="current-tournament">0</span>/${ids.length} giải đấu</div>
             <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian bắt đầu</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
             <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display:none"><td style="color:var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>`;
 
