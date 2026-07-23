@@ -84,7 +84,7 @@
             if (setup) {
                 return `<br><a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${d.name}${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
             }
-            return ` <a href="${CONFIG.CHESS_COM_URL}${d.url}" target="_blank">${d.name} ${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
+            return `<br><a href="${CONFIG.CHESS_COM_URL}${d.url}" target="_blank">${d.name} ${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
         },
         tFormat(tc, cl) {
             const i = TIME_ICONS[cl];
@@ -163,7 +163,7 @@
         const sp = SPECIAL_PLAYERS.get(u.toLowerCase());
         if (sp) return `<td><a href="${CONFIG.CHESS_COM_URL}/member/${sp}" target="_top"><strong>${sp}</strong></a></td>`;
         const p = await getPlayer(u);
-        return `<td><div class="post-user-component"><span class="cc-avatar-component post-user-avatar"><img class="cc-avatar-img" src="${p?.avatar || 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'}" height="50" width="50" alt="${u}"></span>
+        return `<td><div class="post-user-component"><a class="cc-avatar-component post-user-avatar" href="https://chess.com/member/${p.username}"><img class="cc-avatar-img" src="${p?.avatar || 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'}" height="50" width="50" alt="${u}"></a>
             <div class="post-user-details"><div class="user-tagline-component"><a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${u}" target="_blank">${u}</a></div>
             <div class="post-user-status"><span>${HTML.badge(p?.status)}</span><span>${pts} ĐIỂM</span></div></div></div></td>`;
     }

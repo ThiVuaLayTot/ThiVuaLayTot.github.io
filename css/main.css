@@ -77,6 +77,10 @@ a:hover {
   text-decoration: underline;
 }
 
+a img:hover {
+  text-decoration: none;
+}
+
 hr {
   height: 3px;
   border: 0;

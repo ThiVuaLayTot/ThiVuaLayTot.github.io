@@ -260,7 +260,7 @@
                 'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
             }[p.status];
             const badgeHTML = badges ? `<div class="user-badges-component"><div class="user-badges-badge ${badges.c}"><span class="${badges.i}"></span><span>${badges.t}</span></div></div>` : '';
-            return `<td><div class="post-user-component"><a class="cc-avatar-component post-user-avatar"><img class="cc-avatar-img" src="${p.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${p.username}"></a>
+            return `<td><div class="post-user-component"><a class="cc-avatar-component post-user-avatar" href="https://chess.com/member/${p.username}"><img class="cc-avatar-img" src="${p.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${p.username}"></a>
                 <div class="post-user-details"><div class="user-tagline-component"><a class="user-username-component user-tagline-username" href="https://www.chess.com/member/${p.username}" target="_blank">${p.username}</a></div>
                 <div class="post-user-status"><span>${badgeHTML}</span><span class="score-pill" data-player='${JSON.stringify(player).replace(/'/g, "&apos;")}'>${player.totalPoints} ĐIỂM</span></div></div></div></td>`;
         },
@@ -269,7 +269,7 @@
             const top = Object.values(playerScores).sort((a, b) => b.totalPoints - a.totalPoints).slice(0, CONFIG.TOP_PLAYERS);
             const details = await Promise.all(top.map(p => RequestManager.fetch(`${API.CHESS_COM}/player/${p.username}`)));
             let html = `<tr><td class="name-tour month-clickable" data-tournaments='${JSON.stringify(tournaments).replace(/'/g, "&apos;")}' data-month="${monthId}">Tháng ${monthId} <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i></td>
-                <td class="organization-day">${tournaments.length} giải đấu</td><td class="players">${Object.keys(playerScores).length}</td>`;
+                <td class="organization-day month-clickable" data-tournaments='${JSON.stringify(tournaments).replace(/'/g, "&apos;")}' data-month="${monthId}">${tournaments.length} giải đấu <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i></td><td class="players">${Object.keys(playerScores).length}</td>`;
             for (let i = 0; i < CONFIG.TOP_PLAYERS; i++) html += await this.playerCell(top[i], details[i]);
             return html + '</tr>';
         }
@@ -403,7 +403,7 @@
                         const v = Renderer.variantInfo(t.variant);
                         const variantHTML = v ? (t.setup ? ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${t.setup}">${v.name}${Renderer.img(v.icon)}</a>` : ` <a href="${v.url}" target="_blank">${v.name} ${Renderer.img(v.icon)}</a>`) : '';
                         const formatStr = t.totalRounds === 1 ? `Đấu trường Arena ${t.duration}` : `Hệ Thụy Sĩ ${t.totalRounds} vòng`;
-                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}${variantHTML}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
+                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}<br>${variantHTML}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
                     });
                     ModalManager.show(`Chi tiết tháng ${month.dataset.month}`, h + '</tbody></table></div>');
                 }
