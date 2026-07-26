@@ -150,6 +150,18 @@ td.today .day-number {
     transform: scale(1.15) translateY(-2px);
 }
 
+.event-icon.tentative {
+    opacity: 0.75;
+    filter: drop-shadow(0 0 4px var(--yellow-400));
+    border: 1.5px dashed var(--yellow-400);
+}
+
+.event-icon.tentative:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 7px var(--yellow-300));
+    border-color: var(--yellow-300);
+}
+
 .event-icon img {
     width: 55px;
     height: 55px;

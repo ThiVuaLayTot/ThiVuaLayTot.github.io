@@ -9,7 +9,47 @@ let tournaments = [];
 let selectedEvent = null;
 
 /** @type {string} Google Apps Script API endpoint */
-const API_URL = 'https://script.google.com/macros/s/AKfycbzMq-aqPlXihBjjC62ykxbaWqC8sL30Wn0uvpjzIeLLpVYFsVXubYhujNbkDudgeMZ0Aw/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbLA4yW1KrvwzNzyOuWcCp3SQMmTvqcRhjkqAHUVMN4y35BOMaBhRwuSOsDgDKAVlLk7g/exec';
+
+/**
+ * Parses any date string and returns its parts in GMT+7 (Vietnam Time)
+ * @param {string} dateStr - The date string to parse
+ * @returns {Object} Date parts { year, month, date, hours, minutes }
+ */
+function getVietnamDateParts(dateStr) {
+    if (!dateStr) return { year: 1970, month: 0, date: 1, hours: 0, minutes: 0 };
+    let date;
+    if (dateStr.includes('Z') || dateStr.includes('+')) {
+        date = new Date(dateStr);
+    } else {
+        let formatted = dateStr.trim();
+        if (formatted.includes(' ')) {
+            formatted = formatted.replace(' ', 'T');
+        }
+        if (!formatted.includes('+') && !formatted.includes('Z')) {
+            formatted += '+07:00';
+        }
+        date = new Date(formatted);
+    }
+    if (isNaN(date.getTime())) {
+        date = new Date(dateStr);
+    }
+    if (isNaN(date.getTime())) {
+        return { year: 1970, month: 0, date: 1, hours: 0, minutes: 0 };
+    }
+
+    // Add 7 hours to the UTC millisecond value to get GMT+7 epoch time,
+    // then get the UTC components of that new date. This gives exactly the GMT+7 parts!
+    const vnEpoch = date.getTime() + (7 * 3600 * 1000);
+    const vnDate = new Date(vnEpoch);
+    return {
+        year: vnDate.getUTCFullYear(),
+        month: vnDate.getUTCMonth(),
+        date: vnDate.getUTCDate(),
+        hours: vnDate.getUTCHours(),
+        minutes: vnDate.getUTCMinutes()
+    };
+}
 
 /**
  * Initialize calendar on DOM content loaded.
@@ -29,8 +69,21 @@ async function loadTournaments() {
         const response = await fetch(API_URL);
         const data = await response.json();
 
-        const lastUpdated = data.lastUpdated || new Date().toISOString();
-        const updateDate = new Date(lastUpdated);
+        const lastUpdatedStr = data.lastUpdated || (data.events && data.events.length > 0 ? data.events[0].timestamp : null) || '';
+        let updateDate;
+        if (lastUpdatedStr) {
+            let formatted = lastUpdatedStr.trim();
+            if (formatted.includes(' ')) {
+                formatted = formatted.replace(' ', 'T');
+            }
+            if (!formatted.includes('+') && !formatted.includes('Z')) {
+                formatted += '+07:00';
+            }
+            updateDate = new Date(formatted);
+        }
+        if (!updateDate || isNaN(updateDate.getTime())) {
+            updateDate = new Date();
+        }
         const options = {
             year: 'numeric',
             month: 'long',
@@ -42,7 +95,7 @@ async function loadTournaments() {
         const formattedDate = updateDate.toLocaleString('vi-VN', options);
         document.getElementById('last-updated').innerText = formattedDate;
 
-        tournaments = data.tournaments || [];
+        tournaments = data.events || data.tournaments || [];
         document.getElementById('loading').style.display = 'none';
 
         if (tournaments.length === 0) {
@@ -67,8 +120,10 @@ async function loadTournaments() {
  */
 function renderCalendar() {
     const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
+    const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+    const vnToday = new Date(vnTodayEpoch);
+    const year = vnToday.getUTCFullYear();
+    const month = vnToday.getUTCMonth();
 
     // Get filter values
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
@@ -129,9 +184,9 @@ function renderCalendar() {
 
             // Check if today
             if (dayObj.isCurrentMonth &&
-                today.getFullYear() === year &&
-                today.getMonth() === month &&
-                today.getDate() === dayObj.day) {
+                vnToday.getUTCFullYear() === year &&
+                vnToday.getUTCMonth() === month &&
+                vnToday.getUTCDate() === dayObj.day) {
                 td.classList.add('today');
             }
 
@@ -148,10 +203,10 @@ function renderCalendar() {
 
             if (dayObj.isCurrentMonth) {
                 const dayTournaments = tournaments.filter(t => {
-                    const tDate = new Date(t.startTime);
-                    return tDate.getFullYear() === year &&
-                        tDate.getMonth() === month &&
-                        tDate.getDate() === dayObj.day;
+                    const tParts = getVietnamDateParts(t.startTime);
+                    return tParts.year === year &&
+                        tParts.month === month &&
+                        tParts.date === dayObj.day;
                 });
 
                 dayTournaments.forEach(tournament => {
@@ -172,6 +227,9 @@ function renderCalendar() {
                     if (matchesSearch && matchesPrize && matchesType) {
                         const icon = document.createElement('span');
                         icon.className = 'event-icon';
+                        if (tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative') {
+                            icon.classList.add('tentative');
+                        }
 
                         const img = document.createElement('img');
                         img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
@@ -342,11 +400,22 @@ function openModal(tournament) {
     }
 
     document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}" target="_blank">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
-    document.getElementById('modal-category').textContent = tournament.prize || 'Giao lưu';
+
+    let categoryText = tournament.prize || 'Giao lưu';
+    if (tournament.isTentative) {
+        categoryText += ` • ${tournament.isTentative}`;
+    }
+    document.getElementById('modal-category').textContent = categoryText;
     document.getElementById('modal-organizer').innerHTML = tournament.organizer || 'Quản trị viên';
 
-    const date = new Date(tournament.startTime);
-    document.getElementById('modal-time').innerText = date.toLocaleString('vi-VN');
+    const tParts = getVietnamDateParts(tournament.startTime);
+    const paddedMinutes = String(tParts.minutes).padStart(2, '0');
+    const paddedHours = String(tParts.hours).padStart(2, '0');
+    const paddedDate = String(tParts.date).padStart(2, '0');
+    const paddedMonth = String(tParts.month + 1).padStart(2, '0');
+    const formattedTime = `${paddedHours}:${paddedMinutes}, ngày ${paddedDate}/${paddedMonth}/${tParts.year}`;
+    document.getElementById('modal-time').innerText = formattedTime;
+
     document.getElementById('modal-game-rules').textContent = tournament.gameRules || 'Chưa có thông tin';
     document.getElementById('modal-event-rules').textContent = tournament.eventRules || 'Chưa có thông tin';
 
