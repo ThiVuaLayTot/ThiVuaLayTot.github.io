@@ -36,6 +36,15 @@
         'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
     };
 
+    function formatDate(ts) {
+        if (!ts) return 'N/A';
+        const d = new Date(ts * 1000);
+        if (isNaN(d)) return 'N/A';
+        const h = String(d.getHours()).padStart(2, '0'), m = String(d.getMinutes()).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0'), mo = String(d.getMonth() + 1).padStart(2, '0'), y = d.getFullYear();
+        return `${h}:${m}, ngày ${day}/${mo}/${y}`;
+    }
+
     const Cache = {
         memory: new Map(),
         get(key) {
@@ -149,7 +158,7 @@
             return !isNaN(n) ? (n >= 60 ? `${Math.floor(n / 60)}+0` : `${n}+0`) : '3+0';
         },
         async getMonthlyAggregation(monthId, eventType) {
-            const cacheKey = `agg_v2_${eventType}_${monthId}`;
+            const cacheKey = `agg_v3_${eventType}_${monthId}`;
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
@@ -224,7 +233,8 @@
                     id: ids[i], name: data.name || 'Unknown', url: data.url || `https://chess.com/tournament/${ids[i]}`,
                     variant, setup, timeClass: data.settings?.time_class || data.time_class || 'classical',
                     timeControl: tc, totalRounds: rounds, duration: this.calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime),
-                    playersCount: calculatedPlayersCount
+                    playersCount: calculatedPlayersCount,
+                    startTime: data.start_time || data.startTime || 0
                 });
 
                 tourPlayers.forEach(p => {
@@ -398,12 +408,13 @@
                 const month = e.target.closest('.month-clickable');
                 if (month) {
                     const tours = JSON.parse(month.dataset.tournaments);
-                    let h = `<div class="calendar-wrapper"><table class="styled-table score-detail-table"><thead><tr><th>Vòng đấu</th><th>Thể lệ</th><th style="text-align: center;">Kỳ thủ</th></tr></thead><tbody>`;
+                    let h = `<div class="calendar-wrapper"><table class="styled-table score-detail-table"><thead><tr><th>Vòng đấu</th><th>Thời gian bắt đầu</th><th>Thể lệ</th><th style="text-align: center;">Kỳ thủ</th></tr></thead><tbody>`;
                     tours.forEach(t => {
                         const v = Renderer.variantInfo(t.variant);
                         const variantHTML = v ? (t.setup ? ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${t.setup}">${v.name}${Renderer.img(v.icon)}</a>` : ` <a href="${v.url}" target="_blank">${v.name} ${Renderer.img(v.icon)}</a>`) : '';
                         const formatStr = t.totalRounds === 1 ? `Đấu trường Arena ${t.duration}` : `Hệ Thụy Sĩ ${t.totalRounds} vòng`;
-                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}<br>${variantHTML}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
+                        const startTimeStr = formatDate(t.startTime);
+                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${startTimeStr}</td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}<br>${variantHTML}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
                     });
                     ModalManager.show(`Chi tiết tháng ${month.dataset.month}`, h + '</tbody></table></div>');
                 }
