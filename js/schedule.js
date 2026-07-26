@@ -413,11 +413,24 @@ function openModal(tournament) {
     const paddedHours = String(tParts.hours).padStart(2, '0');
     const paddedDate = String(tParts.date).padStart(2, '0');
     const paddedMonth = String(tParts.month + 1).padStart(2, '0');
-    const formattedTime = `${paddedHours}:${paddedMinutes}, ngày ${paddedDate}/${paddedMonth}/${tParts.year}`;
-    document.getElementById('modal-time').innerText = formattedTime;
+    let formattedTime = `${paddedHours}:${paddedMinutes}, ngày ${paddedDate}/${paddedMonth}/${tParts.year}`;
 
-    document.getElementById('modal-game-rules').textContent = tournament.gameRules || 'Chưa có thông tin';
-    document.getElementById('modal-event-rules').textContent = tournament.eventRules || 'Chưa có thông tin';
+    let gameRulesText = tournament.gameRules || 'Chưa có thông tin';
+    let eventRulesText = tournament.eventRules || 'Chưa có thông tin';
+
+    if (tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative') {
+        formattedTime = 'Dự kiến ' + formattedTime;
+        if (gameRulesText !== 'Chưa có thông tin') {
+            gameRulesText = 'Dự kiến ' + gameRulesText;
+        }
+        if (eventRulesText !== 'Chưa có thông tin') {
+            eventRulesText = 'Dự kiến ' + eventRulesText;
+        }
+    }
+
+    document.getElementById('modal-time').innerText = formattedTime;
+    document.getElementById('modal-game-rules').textContent = gameRulesText;
+    document.getElementById('modal-event-rules').textContent = eventRulesText;
 
     document.getElementById('modal-logo').src = tournament.logo;
     document.getElementById('modal-banner').src = bannerUrl;
