@@ -9,7 +9,7 @@ let tournaments = [];
 let selectedEvent = null;
 
 /** @type {string} Google Apps Script API endpoint */
-const API_URL = 'https://script.google.com/macros/s/AKfycbLA4yW1KrvwzNzyOuWcCp3SQMmTvqcRhjkqAHUVMN4y35BOMaBhRwuSOsDgDKAVlLk7g/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzFGWAfhBVWiDApE4MQS688fAS7FIVFtV7HgTMhiYbOoEVTS-KjOBEuZnd7SS_NfEt4sQ/exec';
 
 /**
  * Parses any date string and returns its parts in GMT+7 (Vietnam Time)
