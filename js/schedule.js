@@ -9,7 +9,129 @@ let tournaments = [];
 let selectedEvent = null;
 
 /** @type {string} Google Apps Script API endpoint */
-const API_URL = 'https://script.google.com/macros/s/AKfycbzMq-aqPlXihBjjC62ykxbaWqC8sL30Wn0uvpjzIeLLpVYFsVXubYhujNbkDudgeMZ0Aw/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzQSXlw8AFu70j5-HFos3U21G2QNo190N6aXXxidrflAOfmObC_CH-DF9QuNY4DJY_HCw/exec';
+
+/** @type {Object} Mapping of known tournament organizer names to interactive rich HTML links */
+const ORGANIZER_MAP = {
+    'M-DinhHoangViet': '<a href="/leaders#admin3" target="_blank">M-DinhHoangViet</a> (CLB <a href="/leaders" target="_blank">Thí Vua Lấy Tốt</a>)',
+    'Mr. TungJohn': '<a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank">Mr. TungJohn</a> (CLB <a href="/leaders" target="_blank">Thí Vua Lấy Tốt</a>)',
+    'Chess123-2k': '<a href="https://chess.com/member/Chess123-2k" target="_blank">Chess123-2k</a> (CLB <a href="https://link.chess.com/club/0CVQh6" target="_blank">Thí Vua Lấy Tốt</a>)',
+    'VN-SenJin': '<a href="/leaders#admin5" target="_blank">VN-SenJin</a> (CLB <a href="/leaders" target="_blank">Thí Vua Lấy Tốt</a>)',
+    'FR-CH_TheClanTeamIsMine': '<a href="/leaders#admin2" target="_blank">FR-CH_TheClanTeamIsMine</a> (CLB <a href="/leaders" target="_blank">Thí Vua Lấy Tốt</a>)'
+};
+
+/**
+ * Converts markdown style links [Text](URL) to safe HTML anchor tags with target="_blank".
+ * @param {string} text - The input text containing potential markdown links.
+ * @returns {string} The HTML string with replaced links.
+ */
+function parseMarkdownLinks(text) {
+    if (!text || text === 'Chưa có thông tin') return text;
+    return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+}
+
+/**
+ * Helper to replace specific chess keywords with HTML anchor links to Chess.com terms.
+ * @param {string} text - The input text.
+ * @returns {string} Text with keywords wrapped in <a> tags.
+ */
+function linkifyChessTerms(text) {
+    if (!text || text === 'Chưa có thông tin') return text;
+
+    const placeholders = [];
+    // Protect existing <a> tags by tokenizing them
+    let result = text.replace(/<a\b[^>]*>.*?<\/a>/gi, (match) => {
+        placeholders.push(match);
+        return `___PLACEHOLDER_${placeholders.length - 1}___`;
+    });
+
+    // Define rules mapping terms to their URLs
+    const rules = [
+        { regex: /Đấu trường Arena/gi, url: 'https://support.chess.com/articles/8562889-what-are-arena-tournaments' },
+        { regex: /Hệ Thụy Sĩ/gi, url: 'https://chess.com/terms/swiss-chess' },
+        { regex: /King of the Hill/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
+        { regex: /Crazyhouse/gi, url: 'https://www.chess.com/terms/crazyhouse' },
+        { regex: /Bughouse/gi, url: 'https://www.chess.com/terms/bughouse' },
+        { regex: /Three Check/gi, url: 'https://www.chess.com/terms/3-check-chess' },
+        { regex: /3 Check/gi, url: 'https://www.chess.com/terms/3-check-chess' },
+        { regex: /3 chiếu/gi, url: 'https://www.chess.com/terms/3-check-chess' },
+        { regex: /Chess960/gi, url: 'https://www.chess.com/terms/chess960' },
+        { regex: /960/gi, url: 'https://www.chess.com/terms/chess960' },
+        { regex: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' }
+    ];
+
+    // Apply keyword replacements and tokenize them to avoid nested/double replacements
+    rules.forEach(({ regex, url }) => {
+        result = result.replace(regex, (match) => {
+            placeholders.push(`<a href="${url}" target="_blank" class="rule-helper-link">${match}</a>`);
+            return `___PLACEHOLDER_${placeholders.length - 1}___`;
+        });
+    });
+
+    // Restore all placeholders in reverse order
+    for (let i = placeholders.length - 1; i >= 0; i--) {
+        result = result.replace(`___PLACEHOLDER_${i}___`, placeholders[i]);
+    }
+
+    return result;
+}
+
+/**
+ * Parses any date string and returns its parts in GMT+7 (Vietnam Time)
+ * @param {string} dateStr - The date string to parse
+ * @returns {Object} Date parts { year, month, date, hours, minutes }
+ */
+function getVietnamDateParts(dateStr) {
+    if (!dateStr) return { year: 1970, month: 0, date: 1, hours: 0, minutes: 0 };
+    let formatted = dateStr.trim().replace(' ', 'T');
+    if (!formatted.includes('+') && !formatted.includes('Z')) {
+        formatted += '+07:00';
+    }
+    const date = new Date(formatted);
+    if (isNaN(date.getTime())) {
+        return { year: 1970, month: 0, date: 1, hours: 0, minutes: 0 };
+    }
+    const vnDate = new Date(date.getTime() + 7 * 3600000);
+    return {
+        year: vnDate.getUTCFullYear(),
+        month: vnDate.getUTCMonth(),
+        date: vnDate.getUTCDate(),
+        hours: vnDate.getUTCHours(),
+        minutes: vnDate.getUTCMinutes()
+    };
+}
+
+/**
+ * Detects chess game type and returns the HTML string with the appropriate icon appended.
+ * @param {string} rulesText - The game rules text.
+ * @returns {string} The HTML with icon added.
+ */
+function getGameRulesWithIcon(rulesText) {
+    if (!rulesText || rulesText === 'Chưa có thông tin') return rulesText;
+    const lower = rulesText.toLowerCase();
+
+    const iconRules = [
+        { keys: ['blitz', 'biltz'], url: 'icons/smileys/2x/blitz.png', alt: 'blitz' },
+        { keys: ['bullet', 'lightning'], url: 'icons/smileys/2x/bullet.png', alt: 'bullet' },
+        { keys: ['rapid'], url: 'icons/smileys/2x/live.png', alt: 'rapid' },
+        { keys: ['daily', 'ngày', 'nước đi'], url: 'icons/smileys/2x/daily.png', alt: 'daily' },
+        { keys: ['chess960', '960'], url: 'variants/live_960_orange.svg', alt: 'chess960' },
+        { keys: ['crazyhouse'], url: 'variants/crazyhouse.svg', alt: 'crazyhouse' },
+        { keys: ['bughouse'], url: 'variants/bughouse.svg', alt: 'bughouse' },
+        { keys: ['king of the hill', 'koth'], url: 'variants/koth.svg', alt: 'king of the hill' },
+        { keys: ['three check', '3 chiếu', '3check'], url: 'variants/3check.svg', alt: 'three check' }
+    ];
+
+    const matchedIcons = iconRules
+        .filter(rule => rule.keys.some(k => lower.includes(k)))
+        .map(rule => {
+            const fullUrl = `https://www.chess.com/bundles/web/images/${rule.url}`;
+            return `<img src="${fullUrl}" width="17" height="17" alt="${rule.alt}" style="vertical-align:middle; margin-left: 4px;">`;
+        })
+        .join('');
+
+    return rulesText + matchedIcons;
+}
 
 /**
  * Initialize calendar on DOM content loaded.
@@ -29,20 +151,20 @@ async function loadTournaments() {
         const response = await fetch(API_URL);
         const data = await response.json();
 
-        const lastUpdated = data.lastUpdated || new Date().toISOString();
-        const updateDate = new Date(lastUpdated);
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        };
-        const formattedDate = updateDate.toLocaleString('vi-VN', options);
-        document.getElementById('last-updated').innerText = formattedDate;
+        const lastUpdatedStr = data.lastUpdated || (data.events?.[0]?.timestamp) || '';
+        let formatted = lastUpdatedStr.trim().replace(' ', 'T');
+        if (formatted && !formatted.includes('+') && !formatted.includes('Z')) {
+            formatted += '+07:00';
+        }
+        let updateDate = new Date(formatted);
+        if (isNaN(updateDate.getTime())) {
+            updateDate = new Date();
+        }
 
-        tournaments = data.tournaments || [];
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        document.getElementById('last-updated').innerText = updateDate.toLocaleString('vi-VN', options);
+
+        tournaments = data.events || data.tournaments || [];
         document.getElementById('loading').style.display = 'none';
 
         if (tournaments.length === 0) {
@@ -67,8 +189,10 @@ async function loadTournaments() {
  */
 function renderCalendar() {
     const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
+    const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+    const vnToday = new Date(vnTodayEpoch);
+    const year = vnToday.getUTCFullYear();
+    const month = vnToday.getUTCMonth();
 
     // Get filter values
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
@@ -129,9 +253,9 @@ function renderCalendar() {
 
             // Check if today
             if (dayObj.isCurrentMonth &&
-                today.getFullYear() === year &&
-                today.getMonth() === month &&
-                today.getDate() === dayObj.day) {
+                vnToday.getUTCFullYear() === year &&
+                vnToday.getUTCMonth() === month &&
+                vnToday.getUTCDate() === dayObj.day) {
                 td.classList.add('today');
             }
 
@@ -148,10 +272,10 @@ function renderCalendar() {
 
             if (dayObj.isCurrentMonth) {
                 const dayTournaments = tournaments.filter(t => {
-                    const tDate = new Date(t.startTime);
-                    return tDate.getFullYear() === year &&
-                        tDate.getMonth() === month &&
-                        tDate.getDate() === dayObj.day;
+                    const tParts = getVietnamDateParts(t.startTime);
+                    return tParts.year === year &&
+                        tParts.month === month &&
+                        tParts.date === dayObj.day;
                 });
 
                 dayTournaments.forEach(tournament => {
@@ -172,6 +296,16 @@ function renderCalendar() {
                     if (matchesSearch && matchesPrize && matchesType) {
                         const icon = document.createElement('span');
                         icon.className = 'event-icon';
+                        if (tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative') {
+                            icon.classList.add('tentative');
+                        }
+
+                        // Check for prize highlight
+                        const prize = (tournament.prize || '').toLowerCase().trim();
+                        const isCoThuong = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                        if (isCoThuong) {
+                            icon.classList.add('has-prize');
+                        }
 
                         const img = document.createElement('img');
                         img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
@@ -298,30 +432,28 @@ window.toggleTourDropdown = toggleTourDropdown;
  */
 function openModal(tournament) {
     selectedEvent = tournament;
-    const tournamentType = tournament.eventType;
-    let bannerUrl = tournament.bannerLink || "https://chess.com/bundles/web/images/404-pawn.f17f262c.gif";
-    let newsUrl = "";
-    let resultUrl = "";
+    const type = tournament.eventType;
+    let bannerUrl, newsUrl, resultUrl;
 
-    if (["cttq", "tvlt", "cbtt", "dttv"].includes(tournamentType)) {
-        resultUrl = `/events/tournaments/${tournamentType}`;
-        const eventInfo = {
-            "tvlt": "/events/tvlt-thi-vua-lay-tot",
-            "cttq": "/events/cttq-chien-truong-thi-quan",
-            "cbtt": "/events/cbtt-co-bi-thi-tot",
-            "dttv": "/events/tournaments/dttv"
+    const internalTypes = ["cttq", "tvlt", "cbtt", "dttv"];
+    if (internalTypes.includes(type)) {
+        const infoMap = {
+            tvlt: "/events/tvlt-thi-vua-lay-tot",
+            cttq: "/events/cttq-chien-truong-thi-quan",
+            cbtt: "/events/cbtt-co-bi-thi-tot",
+            dttv: "/events/tournaments/dttv"
         };
-        const bannerDefault = {
-            "tvlt": "/images/events/sieu-giai-thi-vua-lay-tot.png",
-            "cttq": "/images/events/giai-chien-truong-thi-quan.png",
-            "cbtt": "/images/events/su-kien-co-bi-thi-tot.png",
-            "dttv": "/images/events/dau-truong-thi-vua.png"
+        const bannerMap = {
+            tvlt: "/images/events/sieu-giai-thi-vua-lay-tot.png",
+            cttq: "/images/events/giai-chien-truong-thi-quan.png",
+            cbtt: "/images/events/su-kien-co-bi-thi-tot.png",
+            dttv: "/images/events/dau-truong-thi-vua.png"
         };
-        bannerUrl = tournament.bannerLink || bannerDefault[tournamentType];
-        newsUrl = tournament.newsLink || eventInfo[tournamentType];
+        resultUrl = `/events/tournaments/${type}`;
+        bannerUrl = tournament.bannerLink || bannerMap[type];
+        newsUrl = tournament.newsLink || infoMap[type];
     } else {
-        resultUrl = `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?cid=325849&ref_id=89365835&type=${tournamentType}`;
-        const bannerDefault = {
+        const bannerMap = {
             "1wl": "https://images.chesscomfiles.com/uploads/v1/blog/1036746.ca7cfdc5.668x375o.1821c106decb.jpg",
             "club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpjs58p98gfqbbaDynSFJ.png",
             "multi-club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/php4oaq7r23q7n79I3kRE6.png",
@@ -329,7 +461,7 @@ function openModal(tournament) {
             "vote": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/M-DinhHoangViet/php8s3ooliju70kciI1yut.png",
             "daily": "https://images.chesscomfiles.com/uploads/v1/chess_term/f1e3ca50-b739-11ea-a14a-a1c9be904231.1fc2467a.630x354o.73dd2efd0681.png"
         };
-        const eventDetails = {
+        const detailMap = {
             "1wl": "https://chess.com/blog/OneWorldLeague",
             "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
             "swiss": "https://chess.com/terms/swiss-chess",
@@ -337,18 +469,54 @@ function openModal(tournament) {
             "daily": "https://chess.com/terms/correspondence-chess",
             "multi-club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments"
         };
-        bannerUrl = tournament.bannerLink || bannerDefault[tournamentType] || "https://chess.com/bundles/web/images/404-pawn.f17f262c.gif";
-        newsUrl = tournament.newsLink || eventDetails[tournamentType] || "https://support.chess.com";
+        resultUrl = `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?cid=325849&ref_id=89365835&type=${type}`;
+        bannerUrl = tournament.bannerLink || bannerMap[type] || "https://chess.com/bundles/web/images/404-pawn.f17f262c.gif";
+        newsUrl = tournament.newsLink || detailMap[type] || "https://support.chess.com";
     }
 
     document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}" target="_blank">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
-    document.getElementById('modal-category').textContent = tournament.prize || 'Giao lưu';
-    document.getElementById('modal-organizer').innerHTML = tournament.organizer || 'Quản trị viên';
 
-    const date = new Date(tournament.startTime);
-    document.getElementById('modal-time').innerText = date.toLocaleString('vi-VN');
-    document.getElementById('modal-game-rules').textContent = tournament.gameRules || 'Chưa có thông tin';
-    document.getElementById('modal-event-rules').textContent = tournament.eventRules || 'Chưa có thông tin';
+    // Highlight Có thưởng / Giao lưu / Dự kiến with badge UI
+    const prize = (tournament.prize || '').toLowerCase().trim();
+    const isCoThuong = (prize && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+    const isTentative = tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative';
+
+    let categoryHTML = isCoThuong
+        ? `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`
+        : `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
+
+    if (isTentative) {
+        categoryHTML += `<span class="badge-schedule badge-tentative"><i class="bx bx-time-five"></i> Dự kiến</span>`;
+    }
+
+    document.getElementById('modal-category').innerHTML = categoryHTML;
+
+    const rawOrganizer = (tournament.organizer || '').trim();
+    let mappedOrganizer = ORGANIZER_MAP[rawOrganizer] || parseMarkdownLinks(rawOrganizer) || 'Quản trị viên';
+    document.getElementById('modal-organizer').innerHTML = mappedOrganizer;
+
+    const pad = n => String(n).padStart(2, '0');
+    const tParts = getVietnamDateParts(tournament.startTime);
+    let formattedTime = `${pad(tParts.hours)}:${pad(tParts.minutes)}, ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
+
+    let gameRulesText = tournament.gameRules || 'Chưa có thông tin';
+    let eventRulesText = tournament.eventRules || 'Chưa có thông tin';
+
+    if (isTentative) {
+        formattedTime = `Dự kiến ${formattedTime}`;
+        if (gameRulesText !== 'Chưa có thông tin') gameRulesText = `Dự kiến ${gameRulesText}`;
+        if (eventRulesText !== 'Chưa có thông tin') eventRulesText = `Dự kiến ${eventRulesText}`;
+    }
+
+    document.getElementById('modal-time').innerText = formattedTime;
+
+    const parsedGameRules = parseMarkdownLinks(gameRulesText);
+    const linkifiedGameRules = linkifyChessTerms(parsedGameRules);
+    document.getElementById('modal-game-rules').innerHTML = getGameRulesWithIcon(linkifiedGameRules);
+
+    const parsedEventRules = parseMarkdownLinks(eventRulesText);
+    const linkifiedEventRules = linkifyChessTerms(parsedEventRules);
+    document.getElementById('modal-event-rules').innerHTML = linkifiedEventRules;
 
     document.getElementById('modal-logo').src = tournament.logo;
     document.getElementById('modal-banner').src = bannerUrl;

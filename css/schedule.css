@@ -143,11 +143,41 @@ td.today .day-number {
     transition: all var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: var(--border-radius-sm);
     flex-shrink: 0;
+    position: relative;
 }
 
 .event-icon:hover {
     filter: drop-shadow(0 0 6px rgba(125, 211, 255, 0.9));
     transform: scale(1.15) translateY(-2px);
+}
+
+.event-icon.tentative {
+    filter: drop-shadow(0 0 4px var(--yellow-400));
+}
+
+.event-icon.tentative:hover {
+    filter: drop-shadow(0 0 7px var(--yellow-300));
+}
+
+/* Badge overlay on the calendar icon for has-prize */
+.event-icon.has-prize::after {
+    content: "🏆";
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    font-size: 14px;
+    line-height: 1;
+    filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.8));
+    animation: bouncePrize 2s infinite ease-in-out;
+}
+
+@keyframes bouncePrize {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
 }
 
 .event-icon img {
@@ -280,7 +310,7 @@ td.today .day-number {
 .btn-group {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
+    gap: 12px;
     padding: 1.5rem;
     grid-column: 1;
     grid-row: 3;
@@ -289,44 +319,64 @@ td.today .day-number {
 }
 
 .btn-group a {
+    display: block;
     width: 100%;
+    text-decoration: none;
 }
 
 .btn {
     width: 100%;
-    padding: 8px;
+    height: 44px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s;
-    font-size: 0.9em;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+    white-space: nowrap;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, rgba(0, 102, 204, 0.3) 0%, rgba(0, 242, 255, 0.3) 100%);
-    color: var(--cyan-300);
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.45) 0%, rgba(0, 242, 255, 0.45) 100%);
+    color: var(--cyan-200);
     border: var(--border-width-base) solid var(--cyan-400);
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 242, 255, 0.15);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.6) 0%, rgba(0, 242, 255, 0.6) 100%);
+    box-shadow: 0 6px 20px rgba(0, 242, 255, 0.35);
     border-color: var(--cyan-300);
+    color: #ffffff;
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .btn-secondary {
-    background: rgba(31, 60, 100, 0.3);
-    color: var(--cyan-400);
-    border: var(--border-width-base) solid var(--cyan-400);
-    box-shadow: 0 0 5px rgba(0, 242, 255, 0.2);
+    background: rgba(13, 27, 42, 0.5);
+    color: var(--cyan-300);
+    border: var(--border-width-base) solid rgba(0, 242, 255, 0.3);
+    box-shadow: none;
 }
 
 .btn-secondary:hover {
-    background: rgba(31, 60, 100, 0.5);
-    color: var(--cyan-300);
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+    transform: translateY(-2px);
+    background: rgba(31, 60, 100, 0.45);
+    color: var(--cyan-200);
+    border-color: var(--cyan-400);
+    box-shadow: 0 4px 15px rgba(0, 242, 255, 0.15);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
 }
 
 .loading {
@@ -488,6 +538,45 @@ td.today .day-number {
     color: var(--blue-400);
     margin-bottom: 0.5em;
     letter-spacing: 0.5px;
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.badge-schedule {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.badge-schedule i {
+    font-size: 15px;
+}
+
+.badge-giao-luu {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--green-400);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-co-thuong {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--orange-300);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+}
+
+.badge-tentative {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--red-400);
+    border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
 .cc-modal-info-section {
@@ -630,12 +719,21 @@ td.today .day-number {
     }
 
     .btn-group a {
+        display: block;
         width: 100%;
     }
 
     .btn {
-        padding: 10px 12px;
-        white-space: pre-line;
+        height: 44px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+        .btn-group {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
     }
 
     .cc-modal-header-row {
@@ -1151,4 +1249,18 @@ td.today .day-number {
     .tour-dropdown-arrow {
         font-size: 12px;
     }
+}
+
+/* Chess Term Helper Links */
+.rule-helper-link {
+    color: var(--cyan-300);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dashed var(--cyan-300);
+    transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+
+.rule-helper-link:hover {
+    color: var(--cyan-200);
+    border-bottom: 1px solid var(--cyan-200);
 }
