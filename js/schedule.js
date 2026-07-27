@@ -51,6 +51,82 @@ function getVietnamDateParts(dateStr) {
 }
 
 /**
+ * Detects chess game type and returns the HTML string with the appropriate icon appended.
+ * @param {string} rulesText - The game rules text.
+ * @returns {string} The HTML with icon added.
+ */
+function getGameRulesWithIcon(rulesText) {
+    if (!rulesText || rulesText === 'Chưa có thông tin') {
+        return rulesText;
+    }
+    const lower = rulesText.toLowerCase();
+    const icons = [];
+
+    // Format speed controls
+    if (lower.includes('blitz') || lower.includes('biltz')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/icons/smileys/2x/blitz.png',
+            alt: 'blitz'
+        });
+    } else if (lower.includes('bullet') || lower.includes('lightning')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/icons/smileys/2x/bullet.png',
+            alt: 'bullet'
+        });
+    } else if (lower.includes('rapid')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/icons/smileys/2x/live.png',
+            alt: 'rapid'
+        });
+    } else if (lower.includes('daily') || lower.includes('ngày') || lower.includes('nước đi')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/icons/smileys/2x/daily.png',
+            alt: 'daily'
+        });
+    }
+
+    // Variants
+    if (lower.includes('chess960') || lower.includes('960')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/variants/live_960_orange.svg',
+            alt: 'chess960'
+        });
+    }
+    if (lower.includes('crazyhouse')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/variants/crazyhouse.svg',
+            alt: 'crazyhouse'
+        });
+    }
+    if (lower.includes('bughouse')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/variants/bughouse.svg',
+            alt: 'bughouse'
+        });
+    }
+    if (lower.includes('king of the hill') || lower.includes('koth')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/variants/koth.svg',
+            alt: 'king of the hill'
+        });
+    }
+    if (lower.includes('three check') || lower.includes('3 chiếu') || lower.includes('3check')) {
+        icons.push({
+            url: 'https://www.chess.com/bundles/web/images/variants/3check.svg',
+            alt: 'three check'
+        });
+    }
+
+    if (icons.length > 0) {
+        const imgTags = icons.map(icon =>
+            `<img src="${icon.url}" width="17" height="17" alt="${icon.alt}" style="vertical-align:middle; margin-left: 4px;">`
+        ).join('');
+        return `${rulesText}${imgTags}`;
+    }
+    return rulesText;
+}
+
+/**
  * Initialize calendar on DOM content loaded.
  */
 window.addEventListener('DOMContentLoaded', () => {
@@ -230,6 +306,13 @@ function renderCalendar() {
                             icon.classList.add('tentative');
                         }
 
+                        // Check for prize highlight
+                        const prize = (tournament.prize || '').toLowerCase().trim();
+                        const isCoThuong = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                        if (isCoThuong) {
+                            icon.classList.add('has-prize');
+                        }
+
                         const img = document.createElement('img');
                         img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
                         img.title = tournament.eventName || 'Tournament';
@@ -400,11 +483,22 @@ function openModal(tournament) {
 
     document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}" target="_blank">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
 
-    let categoryText = tournament.prize || 'Giao lưu';
-    if (tournament.isTentative) {
-        categoryText += ` • ${tournament.isTentative}`;
+    // Highlight Có thưởng / Giao lưu / Dự kiến with badge UI
+    const prize = (tournament.prize || '').toLowerCase().trim();
+    const isCoThuong = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+    let categoryHTML = '';
+
+    if (isCoThuong) {
+        categoryHTML += `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
+    } else {
+        categoryHTML += `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
     }
-    document.getElementById('modal-category').textContent = categoryText;
+
+    if (tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative') {
+        categoryHTML += `<span class="badge-schedule badge-tentative"><i class="bx bx-time-five"></i> Dự kiến</span>`;
+    }
+
+    document.getElementById('modal-category').innerHTML = categoryHTML;
     document.getElementById('modal-organizer').innerHTML = tournament.organizer || 'Quản trị viên';
 
     const tParts = getVietnamDateParts(tournament.startTime);
@@ -428,7 +522,7 @@ function openModal(tournament) {
     }
 
     document.getElementById('modal-time').innerText = formattedTime;
-    document.getElementById('modal-game-rules').textContent = gameRulesText;
+    document.getElementById('modal-game-rules').innerHTML = getGameRulesWithIcon(gameRulesText);
     document.getElementById('modal-event-rules').textContent = eventRulesText;
 
     document.getElementById('modal-logo').src = tournament.logo;
