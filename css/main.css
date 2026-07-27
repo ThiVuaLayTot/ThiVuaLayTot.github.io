@@ -74,6 +74,14 @@ a {
 
 a:hover {
   color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* Maintain clean visual readability for actual prose text links on hover */
+p a:hover,
+article a:hover,
+.post-content a:hover,
+.blog-content a:hover {
   text-decoration: underline;
 }
 
