@@ -12,6 +12,59 @@ let selectedEvent = null;
 const API_URL = 'https://script.google.com/macros/s/AKfycbzFGWAfhBVWiDApE4MQS688fAS7FIVFtV7HgTMhiYbOoEVTS-KjOBEuZnd7SS_NfEt4sQ/exec';
 
 /**
+ * Helper to replace specific chess keywords with HTML anchor links to Chess.com terms.
+ * @param {string} text - The input text.
+ * @returns {string} Text with keywords wrapped in <a> tags.
+ */
+function linkifyChessTerms(text) {
+    if (!text || text === 'Chưa có thông tin') return text;
+
+    // We want to linkify specified keywords with links:
+    // "Đấu trường Arena" -> https://support.chess.com/articles/8562889-what-are-arena-tournaments
+    // "Hệ Thụy Sĩ" -> https://chess.com/terms/swiss-chess
+    // "Chess960" or "960" -> https://www.chess.com/terms/chess960
+    // "King of the Hill" or "KOTH" -> https://www.chess.com/terms/king-of-the-hill
+    // "Crazyhouse" -> https://www.chess.com/terms/crazyhouse
+    // "Bughouse" -> https://www.chess.com/terms/bughouse
+    // "Three Check" or "3 Check" or "3 check" or "3 chiếu" -> https://www.chess.com/terms/3-check-chess
+
+    const termMap = [
+        { pattern: /Đấu trường Arena/gi, url: 'https://support.chess.com/articles/8562889-what-are-arena-tournaments' },
+        { pattern: /Hệ Thụy Sĩ/gi, url: 'https://chess.com/terms/swiss-chess' },
+        { pattern: /King of the Hill/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
+        { pattern: /Crazyhouse/gi, url: 'https://www.chess.com/terms/crazyhouse' },
+        { pattern: /Bughouse/gi, url: 'https://www.chess.com/terms/bughouse' },
+        { pattern: /Three Check/gi, url: 'https://www.chess.com/terms/3-check-chess' },
+        { pattern: /3 Check/gi, url: 'https://www.chess.com/terms/3-check-chess' },
+        { pattern: /3 chiếu/gi, url: 'https://www.chess.com/terms/3-check-chess' },
+        { pattern: /Chess960/gi, url: 'https://www.chess.com/terms/chess960' },
+        { pattern: /960/gi, url: 'https://www.chess.com/terms/chess960' },
+        { pattern: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' }
+    ];
+
+    let result = text;
+    // Replace terms one by one, using placeholders to prevent double-wrapping
+    const placeholders = [];
+    termMap.forEach((item, index) => {
+        result = result.replace(item.pattern, (match) => {
+            const placeholder = `___CHESS_TERM_PLACEHOLDER_${index}_${placeholders.length}___`;
+            placeholders.push({
+                placeholder: placeholder,
+                html: `<a href="${item.url}" target="_blank" class="rule-helper-link">${match}</a>`
+            });
+            return placeholder;
+        });
+    });
+
+    // Restore placeholders
+    placeholders.forEach(item => {
+        result = result.replace(item.placeholder, item.html);
+    });
+
+    return result;
+}
+
+/**
  * Parses any date string and returns its parts in GMT+7 (Vietnam Time)
  * @param {string} dateStr - The date string to parse
  * @returns {Object} Date parts { year, month, date, hours, minutes }
@@ -522,8 +575,10 @@ function openModal(tournament) {
     }
 
     document.getElementById('modal-time').innerText = formattedTime;
-    document.getElementById('modal-game-rules').innerHTML = getGameRulesWithIcon(gameRulesText);
-    document.getElementById('modal-event-rules').textContent = eventRulesText;
+
+    const linkifiedGameRules = linkifyChessTerms(gameRulesText);
+    document.getElementById('modal-game-rules').innerHTML = getGameRulesWithIcon(linkifiedGameRules);
+    document.getElementById('modal-event-rules').innerHTML = linkifyChessTerms(eventRulesText);
 
     document.getElementById('modal-logo').src = tournament.logo;
     document.getElementById('modal-banner').src = bannerUrl;
