@@ -310,7 +310,7 @@ td.today .day-number {
 .btn-group {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
+    gap: 12px;
     padding: 1.5rem;
     grid-column: 1;
     grid-row: 3;
@@ -319,44 +319,64 @@ td.today .day-number {
 }
 
 .btn-group a {
+    display: block;
     width: 100%;
+    text-decoration: none;
 }
 
 .btn {
     width: 100%;
-    padding: 8px;
+    height: 44px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s;
-    font-size: 0.9em;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+    white-space: nowrap;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, rgba(0, 102, 204, 0.3) 0%, rgba(0, 242, 255, 0.3) 100%);
-    color: var(--cyan-300);
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.45) 0%, rgba(0, 242, 255, 0.45) 100%);
+    color: var(--cyan-200);
     border: var(--border-width-base) solid var(--cyan-400);
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 242, 255, 0.15);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.6) 0%, rgba(0, 242, 255, 0.6) 100%);
+    box-shadow: 0 6px 20px rgba(0, 242, 255, 0.35);
     border-color: var(--cyan-300);
+    color: #ffffff;
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .btn-secondary {
-    background: rgba(31, 60, 100, 0.3);
-    color: var(--cyan-400);
-    border: var(--border-width-base) solid var(--cyan-400);
-    box-shadow: 0 0 5px rgba(0, 242, 255, 0.2);
+    background: rgba(13, 27, 42, 0.5);
+    color: var(--cyan-300);
+    border: var(--border-width-base) solid rgba(0, 242, 255, 0.3);
+    box-shadow: none;
 }
 
 .btn-secondary:hover {
-    background: rgba(31, 60, 100, 0.5);
-    color: var(--cyan-300);
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+    transform: translateY(-2px);
+    background: rgba(31, 60, 100, 0.45);
+    color: var(--cyan-200);
+    border-color: var(--cyan-400);
+    box-shadow: 0 4px 15px rgba(0, 242, 255, 0.15);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
 }
 
 .loading {
@@ -699,12 +719,21 @@ td.today .day-number {
     }
 
     .btn-group a {
+        display: block;
         width: 100%;
     }
 
     .btn {
-        padding: 10px 12px;
-        white-space: pre-line;
+        height: 44px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+        .btn-group {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
     }
 
     .cc-modal-header-row {

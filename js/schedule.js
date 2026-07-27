@@ -11,6 +11,15 @@ let selectedEvent = null;
 /** @type {string} Google Apps Script API endpoint */
 const API_URL = 'https://script.google.com/macros/s/AKfycbzFGWAfhBVWiDApE4MQS688fAS7FIVFtV7HgTMhiYbOoEVTS-KjOBEuZnd7SS_NfEt4sQ/exec';
 
+/** @type {Object} Mapping of known tournament organizer names to interactive rich HTML links */
+const ORGANIZER_MAP = {
+    'M-DinhHoangViet': '<a href="/leaders#admin3" target="_blank">M-DinhHoangViet</a> (CLB <a href="/leaders" target="_blank">Thí Vua Lấy Tốt</a>)',
+    'Mr. TungJohn': '<a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ" target="_blank">Mr. TungJohn</a> (CLB <a href="/leaders" target="_blank">Thí Vua Lấy Tốt</a>)',
+    'Chess123-2k': '<a href="https://chess.com/member/Chess123-2k" target="_blank">Chess123-2k</a> (CLB <a href="https://link.chess.com/club/0CVQh6" target="_blank">Thí Vua Lấy Tốt</a>)',
+    'VN-SenJin': '<a href="/leaders#admin5" target="_blank">VN-SenJin</a> (CLB <a href="/leaders" target="_blank">Thí Vua Lấy Tốt</a>)',
+    'FR-CH_TheClanTeamIsMine': '<a href="/leaders#admin2" target="_blank">FR-CH_TheClanTeamIsMine</a> (CLB <a href="/leaders" target="_blank">Thí Vua Lấy Tốt</a>)'
+};
+
 /**
  * Helper to replace specific chess keywords with HTML anchor links to Chess.com terms.
  * @param {string} text - The input text.
@@ -552,7 +561,10 @@ function openModal(tournament) {
     }
 
     document.getElementById('modal-category').innerHTML = categoryHTML;
-    document.getElementById('modal-organizer').innerHTML = tournament.organizer || 'Quản trị viên';
+
+    const rawOrganizer = (tournament.organizer || '').trim();
+    const mappedOrganizer = ORGANIZER_MAP[rawOrganizer] || rawOrganizer || 'Quản trị viên';
+    document.getElementById('modal-organizer').innerHTML = mappedOrganizer;
 
     const tParts = getVietnamDateParts(tournament.startTime);
     const paddedMinutes = String(tParts.minutes).padStart(2, '0');
