@@ -9,7 +9,7 @@ let tournaments = [];
 let selectedEvent = null;
 
 /** @type {string} Google Apps Script API endpoint */
-const API_URL = 'https://script.google.com/macros/s/AKfycbzFGWAfhBVWiDApE4MQS688fAS7FIVFtV7HgTMhiYbOoEVTS-KjOBEuZnd7SS_NfEt4sQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzQSXlw8AFu70j5-HFos3U21G2QNo190N6aXXxidrflAOfmObC_CH-DF9QuNY4DJY_HCw/exec';
 
 /** @type {Object} Mapping of known tournament organizer names to interactive rich HTML links */
 const ORGANIZER_MAP = {
