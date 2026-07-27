@@ -21,12 +21,32 @@ const ORGANIZER_MAP = {
 };
 
 /**
+ * Converts markdown style links [Text](URL) to safe HTML anchor tags with target="_blank".
+ * @param {string} text - The input text containing potential markdown links.
+ * @returns {string} The HTML string with replaced links.
+ */
+function parseMarkdownLinks(text) {
+    if (!text || text === 'Chưa có thông tin') return text;
+    return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+}
+
+/**
  * Helper to replace specific chess keywords with HTML anchor links to Chess.com terms.
  * @param {string} text - The input text.
  * @returns {string} Text with keywords wrapped in <a> tags.
  */
 function linkifyChessTerms(text) {
     if (!text || text === 'Chưa có thông tin') return text;
+
+    let result = text;
+
+    // First, tokenize any existing <a> tags to prevent double-wrapping or mangling URLs
+    const aPlaceholders = [];
+    result = result.replace(/<a\b[^>]*>(.*?)<\/a>/gi, (match) => {
+        const placeholder = `___A_TAG_PLACEHOLDER_${aPlaceholders.length}___`;
+        aPlaceholders.push({ placeholder: placeholder, html: match });
+        return placeholder;
+    });
 
     // We want to linkify specified keywords with links:
     // "Đấu trường Arena" -> https://support.chess.com/articles/8562889-what-are-arena-tournaments
@@ -51,7 +71,6 @@ function linkifyChessTerms(text) {
         { pattern: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' }
     ];
 
-    let result = text;
     // Replace terms one by one, using placeholders to prevent double-wrapping
     const placeholders = [];
     termMap.forEach((item, index) => {
@@ -65,8 +84,13 @@ function linkifyChessTerms(text) {
         });
     });
 
-    // Restore placeholders
+    // Restore chess term placeholders
     placeholders.forEach(item => {
+        result = result.replace(item.placeholder, item.html);
+    });
+
+    // Restore original <a> tag placeholders
+    aPlaceholders.forEach(item => {
         result = result.replace(item.placeholder, item.html);
     });
 
@@ -563,7 +587,10 @@ function openModal(tournament) {
     document.getElementById('modal-category').innerHTML = categoryHTML;
 
     const rawOrganizer = (tournament.organizer || '').trim();
-    const mappedOrganizer = ORGANIZER_MAP[rawOrganizer] || rawOrganizer || 'Quản trị viên';
+    let mappedOrganizer = ORGANIZER_MAP[rawOrganizer];
+    if (!mappedOrganizer) {
+        mappedOrganizer = parseMarkdownLinks(rawOrganizer) || 'Quản trị viên';
+    }
     document.getElementById('modal-organizer').innerHTML = mappedOrganizer;
 
     const tParts = getVietnamDateParts(tournament.startTime);
@@ -588,9 +615,13 @@ function openModal(tournament) {
 
     document.getElementById('modal-time').innerText = formattedTime;
 
-    const linkifiedGameRules = linkifyChessTerms(gameRulesText);
+    const parsedGameRules = parseMarkdownLinks(gameRulesText);
+    const linkifiedGameRules = linkifyChessTerms(parsedGameRules);
     document.getElementById('modal-game-rules').innerHTML = getGameRulesWithIcon(linkifiedGameRules);
-    document.getElementById('modal-event-rules').innerHTML = linkifyChessTerms(eventRulesText);
+
+    const parsedEventRules = parseMarkdownLinks(eventRulesText);
+    const linkifiedEventRules = linkifyChessTerms(parsedEventRules);
+    document.getElementById('modal-event-rules').innerHTML = linkifiedEventRules;
 
     document.getElementById('modal-logo').src = tournament.logo;
     document.getElementById('modal-banner').src = bannerUrl;
