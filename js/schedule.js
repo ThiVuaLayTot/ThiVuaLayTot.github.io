@@ -151,7 +151,21 @@ window.addEventListener('DOMContentLoaded', () => {
 async function loadTournaments() {
     try {
         const response = await fetch(API_URL);
-        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(`Mã phản hồi từ máy chủ: ${response.status}`);
+        }
+
+        let data;
+        const text = await response.text();
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            if (text.trim().startsWith('<')) {
+                throw new Error('Máy chủ Google Apps Script trả về trang HTML thay vì dữ liệu JSON. Có thể do dịch vụ tạm thời bị giới hạn hoặc bảo trì. Vui lòng thử lại sau ít phút.');
+            } else {
+                throw new Error('Dữ liệu phản hồi từ máy chủ không đúng định dạng JSON.');
+            }
+        }
 
         const lastUpdatedStr = data.lastUpdated || (data.events?.[0]?.timestamp) || '';
         let formatted = lastUpdatedStr.trim().replace(' ', 'T');
@@ -512,7 +526,9 @@ function openModal(tournament) {
 
     const pad = n => String(n).padStart(2, '0');
     const tParts = getVietnamDateParts(tournament.startTime);
-    let formattedTime = `${pad(tParts.hours)}:${pad(tParts.minutes)}, ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
+    const dayVn = getDayOfWeekVn(tournament.startTime);
+    const dayPrefix = dayVn === 'Chủ Nhật' ? '' : 'Thứ ';
+    let formattedTime = `${pad(tParts.hours)}:${pad(tParts.minutes)}, ${dayPrefix}${dayVn} - ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
 
     let gameRulesText = tournament.gameRules || 'Chưa có thông tin';
     let eventRulesText = tournament.eventRules || 'Chưa có thông tin';
@@ -672,33 +688,66 @@ function renderListView() {
     const currentYear = vnToday.getUTCFullYear();
     const currentMonth = vnToday.getUTCMonth();
 
-    // Filters
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
     const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
     const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
 
-    // Get sorted events for current month
     const currentMonthEvents = getSortedEvents().filter(t => {
         const tParts = getVietnamDateParts(t.startTime);
         return tParts.year === currentYear && tParts.month === currentMonth;
     });
 
     const filteredEvents = currentMonthEvents.filter(t => {
-        // Match Search
         const eventName = (t.eventName || '').toLowerCase();
         const matchesSearch = !searchVal || eventName.includes(searchVal);
 
-        // Match Prize
         let matchesPrize = true;
         if (onlyPrize) {
             const prize = (t.prize || '').toLowerCase().trim();
             matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
         }
 
-        // Match Type
         const matchesType = checkedTypes.includes(t.eventType);
-
         return matchesSearch && matchesPrize && matchesType;
+    });
+
+    const nowMs = Date.now();
+    const EVENT_DURATION = 2 * 60 * 60 * 1000;
+
+    filteredEvents.sort((a, b) => {
+        const getHasPrize = (t) => {
+            const prize = (t.prize || '').toLowerCase().trim();
+            return (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+        };
+
+        const getEventTime = (t) => {
+            if (!t.startTime) return 0;
+            let formatted = t.startTime.trim().replace(' ', 'T');
+            if (!formatted.includes('+') && !formatted.includes('Z')) {
+                formatted += '+07:00';
+            }
+            const dateObj = new Date(formatted);
+            return isNaN(dateObj.getTime()) ? 0 : dateObj.getTime();
+        };
+
+        const getIsEnded = (t) => {
+            const startTimeMs = getEventTime(t);
+            return nowMs > (startTimeMs + EVENT_DURATION);
+        };
+
+        const prizeA = getHasPrize(a);
+        const prizeB = getHasPrize(b);
+
+        if (prizeA && !prizeB) return -1;
+        if (!prizeA && prizeB) return 1;
+
+        const endedA = getIsEnded(a);
+        const endedB = getIsEnded(b);
+
+        if (!endedA && endedB) return -1;
+        if (endedA && !endedB) return 1;
+
+        return getEventTime(a) - getEventTime(b);
     });
 
     if (filteredEvents.length === 0) {
