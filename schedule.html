@@ -90,6 +90,16 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                     </div>
                 </div>
             </div>
+            <!-- View Switcher -->
+            <div id="view-switcher-container" style="display: none; justify-content: center; margin-bottom: 25px; gap: 15px;">
+                <button id="btn-view-calendar" class="btn-switcher" onclick="switchView('calendar')">
+                    <span class="bx bx-calendar"></span> Xem dạng lịch
+                </button>
+                <button id="btn-view-list" class="btn-switcher" onclick="switchView('list')">
+                    <span class="bx bx-list-ul"></span> Xem dạng danh sách
+                </button>
+            </div>
+
             <div class="month-title" id="month-title">Processing...</div>
             <div id="loading" class="loading">
                 <div class="loading-spinner"></div>
@@ -112,6 +122,11 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                     <tbody id="calendar-body">
                     </tbody>
                 </table>
+            </div>
+
+            <!-- List View Container -->
+            <div id="list-wrapper" style="display: none;">
+                <div id="list-container" class="events-list-grid"></div>
             </div>
 
             <div id="error" style="display: none;"></div>
