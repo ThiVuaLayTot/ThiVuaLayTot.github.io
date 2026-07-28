@@ -49,16 +49,28 @@
 }
 
 .styled-table th {
-  background: linear-gradient(90deg, var(--blue-700) 0%, var(--blue-600) 50%, var(--blue-700) 100%);
-  color: var(--color-text-primary);
+  background: linear-gradient(180deg, rgba(10, 18, 36, 0.95) 0%, rgba(16, 28, 54, 0.95) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--cyan-300);
   font-weight: var(--fw-bold);
   padding: var(--space-lg);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   font-size: var(--fs-xs);
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border-bottom: var(--border-width-base) solid rgba(37, 99, 235, 0.4);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+  box-shadow: 0 4px 15px rgba(56, 189, 248, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-bottom: var(--border-width-thick) solid var(--color-primary-light);
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+  border-right: 1px solid rgba(56, 189, 248, 0.15);
+  transition: all var(--transition-base);
+}
+
+.styled-table th:hover {
+  background: linear-gradient(180deg, rgba(16, 28, 54, 0.95) 0%, rgba(22, 40, 78, 0.95) 100%);
+  color: var(--color-text-primary);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 8px var(--cyan-300);
 }
 
 .styled-table th:first-child {
