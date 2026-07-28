@@ -74,14 +74,6 @@ a {
 
 a:hover {
   color: var(--color-accent);
-  text-decoration: none;
-}
-
-/* Maintain clean visual readability for actual prose text links on hover */
-p a:hover,
-article a:hover,
-.post-content a:hover,
-.blog-content a:hover {
   text-decoration: underline;
 }
 
@@ -318,7 +310,7 @@ hr {
   }
 
   .dropdown-menu a::after {
-    display: none !important; /* Eliminate underline on dropdown items */
+    display: none !important; /* Eliminate underline effect line on dropdown items */
   }
 
   .dropdown-menu a span.bx {
@@ -331,12 +323,20 @@ hr {
     background: rgba(53, 201, 252, 0.08) !important;
     color: #00f2ff !important;
     padding-left: 1.6rem !important;
+    text-decoration: none !important;
   }
 
   .dropdown-menu a:hover span.bx {
     color: #00f2ff;
     transform: scale(1.15);
   }
+}
+
+/* Ensure navbar hovers never show text underline */
+.topnav a:hover,
+.dropdown-trigger:hover,
+.dropdown-menu a:hover {
+  text-decoration: none !important;
 }
 
 #menu {
@@ -427,6 +427,7 @@ hr {
 
   .dropdown-menu a:hover {
     color: #00f2ff !important;
+    text-decoration: none !important;
   }
 
   .dropdown-menu a span.bx {
