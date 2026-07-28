@@ -4,9 +4,11 @@
  */
 
 /**
- * Mobile Navigation Toggle
+ * Mobile Navigation Toggle and Dropdowns
  */
 const menuBtn = document.getElementById("menu");
+const dropdowns = document.querySelectorAll(".section.dropdown");
+
 if (menuBtn) {
     menuBtn.addEventListener("click", function() {
         const nav = document.getElementById("tvltTopnav");
@@ -27,8 +29,54 @@ if (menuBtn) {
                 menuIcon.classList.add("bx-menu");
             }
         }
+
+        // Close all dropdowns when the mobile navigation bar is closed
+        if (!isActive) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove("active");
+                const trigger = dropdown.querySelector(".dropdown-trigger");
+                if (trigger) {
+                    trigger.setAttribute("aria-expanded", "false");
+                }
+            });
+        }
     });
 }
+
+// Mobile Dropdown toggles click handler
+dropdowns.forEach(dropdown => {
+    const trigger = dropdown.querySelector(".dropdown-trigger");
+    if (trigger) {
+        trigger.addEventListener("click", function(e) {
+            if (window.innerWidth <= 1024) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const isActive = dropdown.classList.contains("active");
+
+                // Collapse all other dropdowns
+                dropdowns.forEach(other => {
+                    if (other !== dropdown) {
+                        other.classList.remove("active");
+                        const otherTrigger = other.querySelector(".dropdown-trigger");
+                        if (otherTrigger) {
+                            otherTrigger.setAttribute("aria-expanded", "false");
+                        }
+                    }
+                });
+
+                // Toggle current dropdown
+                if (isActive) {
+                    dropdown.classList.remove("active");
+                    this.setAttribute("aria-expanded", "false");
+                } else {
+                    dropdown.classList.add("active");
+                    this.setAttribute("aria-expanded", "true");
+                }
+            }
+        });
+    }
+});
 
 /**
  * Page Load Events
