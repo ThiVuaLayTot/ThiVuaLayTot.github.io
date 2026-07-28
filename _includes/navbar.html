@@ -12,8 +12,17 @@
         <div class="nav_content">
             <button id="menu" aria-label="Mở menu điều hướng" aria-expanded="false"><span class="bx bx-menu" id="menuIcon"></span></button>
             <div class="topnav_content" id="tvltTopnav">
-                <div class="section">
-                    <a href="/" target="_top"><span class="bx bx-home"></span>Trang chủ</a>
+                <!-- Dropdown 0: Trang chủ -->
+                <div class="section dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span class="bx bx-home"></span>Trang chủ <span class="bx bx-chevron-down dropdown-arrow"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/" target="_top"><span class="bx bx-home-alt"></span>Trang chủ chính</a>
+                        <a href="/#service" target="_top"><span class="bx bx-cube"></span>Về chúng tôi</a>
+                        <a href="/#about" target="_top"><span class="bx bx-user-circle"></span>Chủ câu lạc bộ</a>
+                        <a href="/#experience" target="_top"><span class="bx bx-history"></span>Lịch sử phát triển</a>
+                    </div>
                 </div>
 
                 <!-- Dropdown 1: Nội dung -->
@@ -50,6 +59,7 @@
                         <a href="/#about" target="_top"><span class="bx bx-id-card"></span>Giới thiệu CLB</a>
                         <a href="/leaders" target="_top"><span class="bx bx-shield-quarter"></span>Các quản trị viên</a>
                         <a href="/social" target="_top"><span class="bx bx-share-alt"></span>Social</a>
+                        <a href="/contact" target="_top"><span class="bx bx-envelope"></span>Liên hệ</a>
                     </div>
                 </div>
             </div>
