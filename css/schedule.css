@@ -547,17 +547,17 @@ td.today .day-number {
 .badge-schedule {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    border-radius: 6px;
-    font-size: 13px;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.4px;
 }
 
 .badge-schedule i {
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .badge-giao-luu {
@@ -1364,8 +1364,8 @@ td.today .day-number {
 
 .event-card-logo {
     flex-shrink: 0;
-    width: 60px;
-    height: 60px;
+    width: 68px;
+    height: 68px;
     border-radius: var(--border-radius-md);
     background: rgba(10, 25, 47, 0.7);
     border: 1.5px solid rgba(53, 201, 252, 0.4);
@@ -1376,8 +1376,8 @@ td.today .day-number {
 }
 
 .event-card-logo img {
-    width: 80%;
-    height: 80%;
+    width: 85%;
+    height: 85%;
     object-fit: contain;
 }
 
@@ -1423,9 +1423,9 @@ td.today .day-number {
 }
 
 .event-card-detail-item i {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--cyan-400);
-    margin-top: 2px;
+    margin-top: 1px;
     flex-shrink: 0;
 }
 
@@ -1456,7 +1456,7 @@ td.today .day-number {
     background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(245, 158, 11, 0.18) 50%, rgba(239, 68, 68, 0.18) 100%);
     color: #34d399 !important;
     border: 1px dashed rgba(52, 211, 153, 0.6) !important;
-    box-shadow: 0 0 10px rgba(52, 211, 153, 0.25), inset 0 0 8px rgba(52, 211, 153, 0.1);
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.2), inset 0 0 6px rgba(52, 211, 153, 0.08);
     position: relative;
     overflow: hidden;
     animation: premiumPulse 3s infinite ease-in-out;
@@ -1464,13 +1464,25 @@ td.today .day-number {
 
 .badge-pulse-dot {
     display: inline-block;
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background-color: #f59e0b;
     border-radius: 50%;
-    margin: 0 6px;
-    box-shadow: 0 0 6px #f59e0b;
+    margin: 0 4px;
+    box-shadow: 0 0 4px #f59e0b;
     animation: pulseDot 1.5s infinite ease-in-out;
+    vertical-align: middle;
+}
+
+.badge-pulse-dot-prize {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background-color: #f59e0b;
+    border-radius: 50%;
+    margin: 0 4px;
+    box-shadow: 0 0 4px #f59e0b;
+    animation: pulseDotPrize 1.5s infinite ease-in-out;
     vertical-align: middle;
 }
 
@@ -1482,17 +1494,51 @@ td.today .day-number {
     50% {
         transform: scale(1.2);
         opacity: 1;
-        box-shadow: 0 0 10px #f59e0b;
+        box-shadow: 0 0 6px #f59e0b;
+    }
+}
+
+@keyframes pulseDotPrize {
+    0%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+        box-shadow: 0 0 6px #ef4444;
     }
 }
 
 @keyframes premiumPulse {
     0%, 100% {
         border-color: rgba(52, 211, 153, 0.5);
-        box-shadow: 0 0 10px rgba(52, 211, 153, 0.2);
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.2);
     }
     50% {
         border-color: rgba(245, 158, 11, 0.8);
-        box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+        box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+    }
+}
+
+/* Premium Prize + Tentative Combined Badge */
+.badge-prize-combined-premium {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(239, 68, 68, 0.18) 100%);
+    color: #f59e0b !important;
+    border: 1px dashed rgba(245, 158, 11, 0.6) !important;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.25), inset 0 0 6px rgba(245, 158, 11, 0.1);
+    position: relative;
+    overflow: hidden;
+    animation: prizePremiumPulse 3s infinite ease-in-out;
+}
+
+@keyframes prizePremiumPulse {
+    0%, 100% {
+        border-color: rgba(245, 158, 11, 0.5);
+        box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+    }
+    50% {
+        border-color: rgba(239, 68, 68, 0.8);
+        box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
     }
 }

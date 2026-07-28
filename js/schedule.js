@@ -49,6 +49,7 @@ function linkifyChessTerms(text) {
 
     // Define rules mapping terms to their URLs
     const rules = [
+        { regex: /Đấu trường đa CLB/gi, url: 'https://support.chess.com/articles/8724653-how-can-i-create-a-multi-club-arena' },
         { regex: /Đấu trường Arena/gi, url: 'https://support.chess.com/articles/8562889-what-are-arena-tournaments' },
         { regex: /Hệ Thụy Sĩ/gi, url: 'https://chess.com/terms/swiss-chess' },
         { regex: /King of the Hill/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
@@ -59,7 +60,10 @@ function linkifyChessTerms(text) {
         { regex: /3 chiếu/gi, url: 'https://www.chess.com/terms/3-check-chess' },
         { regex: /Chess960/gi, url: 'https://www.chess.com/terms/chess960' },
         { regex: /960/gi, url: 'https://www.chess.com/terms/chess960' },
-        { regex: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' }
+        { regex: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
+        { regex: /Daily/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
+        { regex: /Cờ Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
+        { regex: /Đấu Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' }
     ];
 
     // Apply keyword replacements and tokenize them to avoid nested/double replacements
@@ -489,10 +493,10 @@ function openModal(tournament) {
             "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
             "swiss": "https://chess.com/terms/swiss-chess",
             "vote": "https://support.chess.com/articles/8614177-how-do-i-play-vote-chess",
-            "daily": "https://chess.com/terms/correspondence-chess",
-            "multi-club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments"
+            "daily": "https://support.chess.com/articles/8649115-what-are-club-matches",
+            "multi-club-arena": "https://support.chess.com/articles/8724653-how-can-i-create-a-multi-club-arena"
         };
-        resultUrl = `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?cid=325849&ref_id=89365835&type=${type}`;
+        resultUrl = `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835&type=${type}`;
         bannerUrl = tournament.bannerLink || bannerMap[type] || "https://chess.com/bundles/web/images/404-pawn.f17f262c.gif";
         newsUrl = tournament.newsLink || detailMap[type] || "https://support.chess.com";
     }
@@ -506,9 +510,10 @@ function openModal(tournament) {
 
     let categoryHTML = '';
     if (isCoThuong) {
-        categoryHTML = `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
         if (isTentative) {
-            categoryHTML += `<span class="badge-schedule badge-tentative"><i class="bx bx-time-five"></i> Dự kiến</span>`;
+            categoryHTML = `<span class="badge-schedule badge-prize-combined-premium"><i class="bx bxs-award"></i><span class="badge-pulse-dot-prize"></span><i class="bx bx-time-five"></i> Có thưởng &bull; Dự kiến</span>`;
+        } else {
+            categoryHTML = `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
         }
     } else {
         if (isTentative) {
@@ -770,9 +775,10 @@ function renderListView() {
 
         let categoryHTML = '';
         if (isCoThuong) {
-            categoryHTML = `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
             if (isTentative) {
-                categoryHTML += `<span class="badge-schedule badge-tentative"><i class="bx bx-time-five"></i> Dự kiến</span>`;
+                categoryHTML = `<span class="badge-schedule badge-prize-combined-premium"><i class="bx bxs-award"></i><span class="badge-pulse-dot-prize"></span><i class="bx bx-time-five"></i> Có thưởng &bull; Dự kiến</span>`;
+            } else {
+                categoryHTML = `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
             }
         } else {
             if (isTentative) {
