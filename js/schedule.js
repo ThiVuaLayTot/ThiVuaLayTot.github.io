@@ -501,7 +501,29 @@ function openModal(tournament) {
         newsUrl = tournament.newsLink || detailMap[type] || "https://support.chess.com";
     }
 
-    document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}" target="_blank">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
+    if (tournament.joinLink) {
+        document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}" target="_blank">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
+    } else {
+        document.getElementById('modal-name').innerHTML = `<a href="#" onclick="event.preventDefault(); alert('Hiện chưa có link giải, hãy hỏi các quản trị viên hoặc người tổ chức giải này để tìm hiểu thêm!');">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
+    }
+
+    const defaultRulesMap = {
+        tvlt: "/events/tvlt-thi-vua-lay-tot",
+        cttq: "/events/cttq-chien-truong-thi-quan",
+        cbtt: "/events/cbtt-co-bi-thi-tot",
+        dttv: "/events/tournaments/dttv",
+        "1wl": "https://chess.com/blog/OneWorldLeague",
+        "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
+        "swiss": "https://chess.com/terms/swiss-chess",
+        "vote": "https://support.chess.com/articles/8614177-how-do-i-play-vote-chess",
+        "daily": "https://support.chess.com/articles/8649115-what-are-club-matches",
+        "multi-club-arena": "https://support.chess.com/articles/8724653-how-can-i-create-a-multi-club-arena"
+    };
+    const rulesPageUrl = defaultRulesMap[type] || "https://support.chess.com";
+    const logoLink = document.getElementById('modal-logo-link');
+    if (logoLink) {
+        logoLink.href = rulesPageUrl;
+    }
 
     // Highlight Có thưởng / Giao lưu / Dự kiến with badge UI
     const prize = (tournament.prize || '').toLowerCase().trim();
@@ -561,7 +583,6 @@ function openModal(tournament) {
     const ruleLink = document.getElementById('modal-rule');
     const resultLink = document.getElementById('modal-results');
 
-    ruleLink.href = newsUrl || '#';
     resultLink.href = resultUrl || '#';
 
     if (tournament.joinLink) {
@@ -572,6 +593,18 @@ function openModal(tournament) {
         joinLink.onclick = function(e) {
             e.preventDefault();
             alert('Hiện chưa có link giải, hãy hỏi các quản trị viên hoặc người tổ chức giải này để tìm hiểu thêm!');
+            return false;
+        };
+    }
+
+    if (tournament.newsLink) {
+        ruleLink.href = tournament.newsLink;
+        ruleLink.onclick = null;
+    } else {
+        ruleLink.href = '#';
+        ruleLink.onclick = function(e) {
+            e.preventDefault();
+            alert('Hiện chưa có bài viết thể lệ chi tiết cho giải đấu này!');
             return false;
         };
     }
@@ -822,7 +855,7 @@ function renderListView() {
                 </div>
                 <div class="event-card-detail-item">
                     <i class="bx bxs-chess"></i>
-                    <span><strong>Trận đấu:</strong> ${getGameRulesWithIcon(linkifyChessTerms(parseMarkdownLinks(t.gameRules || 'Chưa có thông tin')))}</span>
+                    <span><strong>Ván đấu:</strong> ${getGameRulesWithIcon(linkifyChessTerms(parseMarkdownLinks(t.gameRules || 'Chưa có thông tin')))}</span>
                 </div>
                 <div class="event-card-detail-item">
                     <i class="bx bxs-user-check"></i>
