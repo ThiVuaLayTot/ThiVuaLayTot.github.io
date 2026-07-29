@@ -38,7 +38,6 @@ thead {
     text-shadow: 0 0 10px var(--blue-400);
     position: sticky;
     top: 0;
-    z-index: var(--z-sticky);
 }
 
 thead tr {
