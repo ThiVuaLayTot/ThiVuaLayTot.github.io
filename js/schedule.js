@@ -192,10 +192,10 @@ async function loadTournaments() {
         } else {
             // Display switcher container
             const switcherDiv = document.getElementById('view-switcher-container');
-            if (switcherDiv) switcherDiv.style.display = 'flex';
+            if (switcherDiv) switcherDiv.style.display = 'inline-flex';
 
             const filtersDiv = document.getElementById('schedule-filters');
-            if (filtersDiv) filtersDiv.style.display = 'block';
+            if (filtersDiv) filtersDiv.style.display = 'flex';
 
             // Set default view based on device width (list for mobile <= 768px, calendar for desktop)
             currentView = window.innerWidth <= 768 ? 'list' : 'calendar';
@@ -481,7 +481,6 @@ function openModal(tournament) {
         newsUrl = tournament.newsLink || infoMap[type];
     } else {
         const bannerMap = {
-            "1wl": "https://images.chesscomfiles.com/uploads/v1/blog/1036746.ca7cfdc5.668x375o.1821c106decb.jpg",
             "club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpjs58p98gfqbbaDynSFJ.png",
             "multi-club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/php4oaq7r23q7n79I3kRE6.png",
             "swiss": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpt9ef43prdg6f80YfkLo.png",
@@ -489,7 +488,6 @@ function openModal(tournament) {
             "daily": "https://images.chesscomfiles.com/uploads/v1/chess_term/f1e3ca50-b739-11ea-a14a-a1c9be904231.1fc2467a.630x354o.73dd2efd0681.png"
         };
         const detailMap = {
-            "1wl": "https://chess.com/blog/OneWorldLeague",
             "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
             "swiss": "https://chess.com/terms/swiss-chess",
             "vote": "https://support.chess.com/articles/8614177-how-do-i-play-vote-chess",
@@ -512,7 +510,6 @@ function openModal(tournament) {
         cttq: "/events/cttq-chien-truong-thi-quan",
         cbtt: "/events/cbtt-co-bi-thi-tot",
         dttv: "/events/tournaments/dttv",
-        "1wl": "https://chess.com/blog/OneWorldLeague",
         "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
         "swiss": "https://chess.com/terms/swiss-chess",
         "vote": "https://support.chess.com/articles/8614177-how-do-i-play-vote-chess",
@@ -532,17 +529,12 @@ function openModal(tournament) {
 
     let categoryHTML = '';
     if (isCoThuong) {
-        if (isTentative) {
-            categoryHTML = `<span class="badge-schedule badge-prize-combined-premium"><i class="bx bxs-award"></i><span class="badge-pulse-dot-prize"></span><i class="bx bx-time-five"></i> Có thưởng &bull; Dự kiến</span>`;
-        } else {
-            categoryHTML = `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
-        }
+        categoryHTML += `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
     } else {
-        if (isTentative) {
-            categoryHTML = `<span class="badge-schedule badge-combined-premium"><i class="bx bx-coffee"></i><span class="badge-pulse-dot"></span><i class="bx bx-time-five"></i> Giao lưu &bull; Dự kiến</span>`;
-        } else {
-            categoryHTML = `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
-        }
+        categoryHTML += `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
+    }
+    if (isTentative) {
+        categoryHTML += ` <span class="badge-schedule badge-tentative"><span class="badge-pulse-dot"></span><i class="bx bx-time-five"></i> Dự kiến</span>`;
     }
 
     document.getElementById('modal-category').innerHTML = categoryHTML;
@@ -597,17 +589,8 @@ function openModal(tournament) {
         };
     }
 
-    if (tournament.newsLink) {
-        ruleLink.href = tournament.newsLink;
-        ruleLink.onclick = null;
-    } else {
-        ruleLink.href = '#';
-        ruleLink.onclick = function(e) {
-            e.preventDefault();
-            alert('Hiện chưa có bài viết thể lệ chi tiết cho giải đấu này!');
-            return false;
-        };
-    }
+    ruleLink.href = tournament.newsLink || rulesPageUrl;
+    ruleLink.onclick = null;
 
     const modal = document.getElementById('eventModal');
     modal.classList.add('open');
@@ -808,17 +791,12 @@ function renderListView() {
 
         let categoryHTML = '';
         if (isCoThuong) {
-            if (isTentative) {
-                categoryHTML = `<span class="badge-schedule badge-prize-combined-premium"><i class="bx bxs-award"></i><span class="badge-pulse-dot-prize"></span><i class="bx bx-time-five"></i> Có thưởng &bull; Dự kiến</span>`;
-            } else {
-                categoryHTML = `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
-            }
+            categoryHTML += `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
         } else {
-            if (isTentative) {
-                categoryHTML = `<span class="badge-schedule badge-combined-premium"><i class="bx bx-coffee"></i><span class="badge-pulse-dot"></span><i class="bx bx-time-five"></i> Giao lưu &bull; Dự kiến</span>`;
-            } else {
-                categoryHTML = `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
-            }
+            categoryHTML += `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
+        }
+        if (isTentative) {
+            categoryHTML += ` <span class="badge-schedule badge-tentative"><span class="badge-pulse-dot"></span><i class="bx bx-time-five"></i> Dự kiến</span>`;
         }
 
         const pad = n => String(n).padStart(2, '0');

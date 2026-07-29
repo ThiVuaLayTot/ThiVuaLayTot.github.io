@@ -517,6 +517,14 @@ td.today .day-number {
     flex-shrink: 0;
 }
 
+.cc-modal-logo-box a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .cc-modal-logo-box img {
     width: 80%;
     height: 80%;
@@ -544,39 +552,68 @@ td.today .day-number {
     align-items: center;
 }
 
+/* Premium Badge System */
 .badge-schedule {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-size: 11px;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 50px; /* Modern Pill Shape */
+    font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.8px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
 }
 
 .badge-schedule i {
-    font-size: 13px;
+    font-size: 12px;
 }
 
+/* Giao lưu Badge */
 .badge-giao-luu {
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--green-400);
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.1);
+    color: #34d399; /* Bright Emerald Green */
+    border: 1px solid rgba(16, 185, 129, 0.45);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.15), inset 0 0 4px rgba(16, 185, 129, 0.1);
 }
 
+.badge-giao-luu:hover {
+    background: rgba(16, 185, 129, 0.18);
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.35), inset 0 0 6px rgba(16, 185, 129, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Có thưởng Badge */
 .badge-co-thuong {
-    background: rgba(245, 158, 11, 0.15);
-    color: var(--orange-300);
-    border: 1px solid rgba(245, 158, 11, 0.4);
-    box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24; /* Radiant Amber Gold */
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.22), inset 0 0 4px rgba(245, 158, 11, 0.1);
+    animation: goldShimmer 3s infinite ease-in-out;
 }
 
+.badge-co-thuong:hover {
+    background: rgba(245, 158, 11, 0.18);
+    box-shadow: 0 0 18px rgba(245, 158, 11, 0.45), inset 0 0 6px rgba(245, 158, 11, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Dự kiến (Tentative) Badge */
 .badge-tentative {
-    background: rgba(239, 68, 68, 0.15);
-    color: var(--red-400);
-    border: 1px solid rgba(239, 68, 68, 0.4);
+    background: rgba(244, 63, 94, 0.08);
+    color: #f43f5e; /* Elegant Rose/Crimson */
+    border: 1px solid rgba(244, 63, 94, 0.4);
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.15), inset 0 0 4px rgba(244, 63, 94, 0.1);
+}
+
+.badge-tentative:hover {
+    background: rgba(244, 63, 94, 0.15);
+    box-shadow: 0 0 14px rgba(244, 63, 94, 0.35), inset 0 0 6px rgba(244, 63, 94, 0.2);
+    transform: translateY(-1px);
 }
 
 .cc-modal-info-section {
@@ -778,49 +815,194 @@ td.today .day-number {
     }
 }
 
-/* Schedule Filters */
-.schedule-filters {
+/* Space-Saving Schedule Control Bar */
+.schedule-control-bar {
     display: flex;
-    gap: 15px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+    background: rgba(10, 25, 47, 0.4);
+    border: 1px solid rgba(53, 201, 252, 0.25);
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), inset 0 0 10px rgba(0, 242, 255, 0.02);
 }
 
-.schedule-filters input,
-.schedule-filters select {
-    background: rgba(10, 25, 47, 0.7);
-    border: 1.5px solid var(--cyan-400);
+/* Control item inside the bar */
+.control-item {
+    display: flex;
+    align-items: center;
+}
+
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 160px;
+    max-width: 260px;
+}
+
+.control-input {
+    width: 100%;
+    background: rgba(10, 25, 47, 0.6);
+    border: 1px solid rgba(53, 201, 252, 0.4);
     border-radius: 8px;
     color: var(--cyan-100);
-    padding: 10px 15px;
-    font-size: 14px;
+    padding: 6px 12px 6px 32px;
+    font-size: 13px;
     outline: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    transition: all 0.25s ease;
 }
 
-.schedule-filters input::placeholder {
-    color: rgba(0, 242, 255, 0.5);
-}
-
-.schedule-filters input:focus,
-.schedule-filters select:focus {
+.control-input:focus {
     border-color: var(--cyan-300);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    background: rgba(10, 25, 47, 0.8);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
 }
 
-.schedule-filters input {
-    flex: 1;
-    min-width: 200px;
-    max-width: 400px;
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(0, 242, 255, 0.55);
+    font-size: 15px;
+    pointer-events: none;
 }
 
-.schedule-filters select {
-    min-width: 180px;
+/* Control Group holding dropdown, switch and segmented control */
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+}
+
+/* Compact Dropdown Button */
+.tour-dropdown-btn.compact-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    background: rgba(10, 25, 47, 0.6);
+    border: 1px solid rgba(53, 201, 252, 0.4);
+    height: 30px;
+    box-shadow: none;
+}
+
+.tour-dropdown-btn.compact-btn .tour-dropdown-btn-content {
+    gap: 6px;
+}
+
+.tour-dropdown-btn.compact-btn .tour-dropdown-btn-content i {
+    font-size: 14px;
+}
+
+.tour-dropdown-btn.compact-btn .tour-dropdown-arrow {
+    font-size: 11px;
+    margin-left: 4px;
+}
+
+/* Compact Switch Container */
+.compact-switch-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+    color: var(--neutral-300);
+}
+
+.compact-switch {
+    position: relative;
+    display: inline-block;
+    width: 32px;
+    height: 18px;
+}
+
+.compact-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.compact-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(0, 242, 255, 0.25);
+    transition: .2s ease;
+    border-radius: 18px;
+}
+
+.compact-slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--neutral-400);
+    transition: .2s ease;
+    border-radius: 50%;
+}
+
+.compact-switch input:checked + .compact-slider {
+    background-color: rgba(0, 242, 255, 0.15);
+    border-color: var(--cyan-300);
+}
+
+.compact-switch input:checked + .compact-slider:before {
+    transform: translateX(14px);
+    background-color: var(--cyan-300);
+    box-shadow: 0 0 5px var(--cyan-300);
+}
+
+/* High-tech Space-Saving Segmented Control */
+.segmented-control {
+    display: flex;
+    background: rgba(10, 25, 47, 0.7);
+    border: 1px solid rgba(53, 201, 252, 0.4);
+    border-radius: 8px;
+    padding: 2px;
+    height: 30px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.segment-btn {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--cyan-300);
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    outline: none;
+    white-space: nowrap;
+}
+
+.segment-btn:hover {
+    color: var(--cyan-100);
+    background: rgba(0, 242, 255, 0.05);
+}
+
+.segment-btn.active {
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.6) 0%, rgba(0, 242, 255, 0.6) 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 242, 255, 0.25);
 }
 
 /* Custom Checkbox Container */
@@ -977,16 +1159,48 @@ td.today .day-number {
 }
 
 @media (max-width: 768px) {
-    .schedule-filters {
+    .schedule-control-bar {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
+        padding: 12px;
+    }
+    .search-wrapper {
+        max-width: none;
+        width: 100%;
+    }
+    .control-group {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
         gap: 10px;
     }
-    .schedule-filters input,
-    .schedule-filters select {
-        width: 100%;
-        max-width: none;
-        min-width: unset;
+    .tour-dropdown {
+        flex: 1 1 calc(60% - 5px);
+        min-width: 0;
+    }
+    .tour-dropdown-btn.compact-btn {
+        height: 36px !important;
+        padding: 0 12px !important;
+        box-sizing: border-box;
+    }
+    .compact-switch-container {
+        flex: 0 0 auto;
+        height: 36px;
+        display: flex;
+        align-items: center;
+    }
+    .segmented-control {
+        flex: 1 1 100%; /* Take full width on mobile */
+        height: 36px !important;
+        margin-top: 4px;
+    }
+    .segment-btn {
+        flex: 1;
+        justify-content: center;
+        height: 100% !important;
+        font-size: 13px;
     }
 }
 
