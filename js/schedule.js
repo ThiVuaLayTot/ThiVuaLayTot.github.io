@@ -454,6 +454,29 @@ window.filterSchedule = filterSchedule;
 window.toggleTourDropdown = toggleTourDropdown;
 
 /**
+ * Helper to generate premium badge HTML for schedule events.
+ * Handles combined premium state when Giao lưu/Có thưởng and Dự kiến appear together.
+ * @param {boolean} isCoThuong
+ * @param {boolean} isTentative
+ * @returns {string} Safe HTML string of badges
+ */
+function getEventBadgesHTML(isCoThuong, isTentative) {
+    if (isTentative) {
+        if (isCoThuong) {
+            return `<span class="badge-schedule badge-prize-combined-premium"><span class="badge-pulse-dot-prize"></span><i class="bx bxs-award"></i> Có thưởng (Dự kiến)</span>`;
+        } else {
+            return `<span class="badge-schedule badge-combined-premium"><span class="badge-pulse-dot"></span><i class="bx bx-coffee"></i> Giao lưu (Dự kiến)</span>`;
+        }
+    } else {
+        if (isCoThuong) {
+            return `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
+        } else {
+            return `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
+        }
+    }
+}
+
+/**
  * Opens the event detail modal with tournament information.
  * @param {Object} tournament - The tournament data object.
  */
@@ -527,16 +550,7 @@ function openModal(tournament) {
     const isCoThuong = (prize && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
     const isTentative = tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative';
 
-    let categoryHTML = '';
-    if (isCoThuong) {
-        categoryHTML += `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
-    } else {
-        categoryHTML += `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
-    }
-    if (isTentative) {
-        categoryHTML += ` <span class="badge-schedule badge-tentative"><span class="badge-pulse-dot"></span><i class="bx bx-time-five"></i> Dự kiến</span>`;
-    }
-
+    const categoryHTML = getEventBadgesHTML(isCoThuong, isTentative);
     document.getElementById('modal-category').innerHTML = categoryHTML;
 
     const rawOrganizer = (tournament.organizer || '').trim();
@@ -789,15 +803,7 @@ function renderListView() {
         const isCoThuong = (prize && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
         const isTentative = t.isTentative === 'Dự kiến' || t.isTentative === 'Tentative';
 
-        let categoryHTML = '';
-        if (isCoThuong) {
-            categoryHTML += `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
-        } else {
-            categoryHTML += `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
-        }
-        if (isTentative) {
-            categoryHTML += ` <span class="badge-schedule badge-tentative"><span class="badge-pulse-dot"></span><i class="bx bx-time-five"></i> Dự kiến</span>`;
-        }
+        const categoryHTML = getEventBadgesHTML(isCoThuong, isTentative);
 
         const pad = n => String(n).padStart(2, '0');
         const tParts = getVietnamDateParts(t.startTime);

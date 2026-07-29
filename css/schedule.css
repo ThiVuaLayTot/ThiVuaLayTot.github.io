@@ -817,6 +817,8 @@ td.today .day-number {
 
 /* Space-Saving Schedule Control Bar */
 .schedule-control-bar {
+    position: relative;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -841,7 +843,7 @@ td.today .day-number {
     position: relative;
     flex: 1;
     min-width: 160px;
-    max-width: 260px;
+    max-width: 300px;
 }
 
 .control-input {
@@ -850,10 +852,12 @@ td.today .day-number {
     border: 1px solid rgba(53, 201, 252, 0.4);
     border-radius: 8px;
     color: var(--cyan-100);
-    padding: 6px 12px 6px 32px;
+    padding: 0 12px 0 32px;
     font-size: 13px;
     outline: none;
     transition: all 0.25s ease;
+    height: 30px;
+    box-sizing: border-box;
 }
 
 .control-input:focus {
@@ -913,6 +917,7 @@ td.today .day-number {
     user-select: none;
     font-size: 13px;
     color: var(--neutral-300);
+    white-space: nowrap;
 }
 
 .compact-switch {
@@ -1169,6 +1174,9 @@ td.today .day-number {
         max-width: none;
         width: 100%;
     }
+    .control-input {
+        height: 36px !important;
+    }
     .control-group {
         width: 100%;
         display: flex;
@@ -1267,7 +1275,9 @@ td.today .day-number {
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
-    width: 100%;
+    min-width: 260px;
+    width: max-content;
+    max-width: calc(100vw - 40px);
     background: rgba(12, 20, 38, 0.98);
     border: 1.5px solid var(--cyan-300);
     border-radius: var(--border-radius-lg);

@@ -566,7 +566,9 @@ a
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  width: 100%;
+  min-width: 260px;
+  width: max-content;
+  max-width: calc(100vw - 40px);
   background: rgba(12, 20, 38, 0.98);
   border: var(--border-width-base) solid var(--color-primary-light);
   border-radius: var(--border-radius-lg);

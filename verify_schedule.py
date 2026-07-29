@@ -11,19 +11,27 @@ def verify_schedule():
         page_desktop = context_desktop.new_page()
 
         # Navigate to the schedule page
-        page_desktop.goto("http://127.0.0.1:4000/schedule")
-        # Wait for the network idle and a small delay for API and content rendering
+        page_desktop.goto("http://127.0.0.1:4000/schedule.html")
         page_desktop.wait_for_load_state("networkidle")
         time.sleep(3) # Ensure Google API fetch is finished and calendar is loaded
 
-        # Take desktop calendar screenshot
-        page_desktop.screenshot(path="verification_schedule_desktop_calendar.png")
-        print("Saved desktop calendar view.")
+        # Wait for the dropdown button to be visible
+        dropdown_btn = page_desktop.locator(".tour-dropdown-btn").first
+        dropdown_btn.wait_for(state="visible", timeout=10000)
 
-        # Let's find an event icon to click in calendar view
-        # The icon has an img element that opens the modal
+        print("Opening Thể loại dropdown on Desktop...")
+        dropdown_btn.click()
+        time.sleep(0.5)
+        page_desktop.screenshot(path="verification_schedule_desktop_calendar.png")
+        print("Saved desktop calendar view with open dropdown.")
+
+        # Click again to close it
+        dropdown_btn.click()
+        time.sleep(0.3)
+
+        # Let's see if we have event icons in calendar
         event_icon = page_desktop.locator(".event-icon img").first
-        if event_icon.count() > 0:
+        if event_icon.is_visible():
             print("Found event icon, opening modal...")
             event_icon.click()
             time.sleep(1) # wait for modal animations
@@ -32,11 +40,11 @@ def verify_schedule():
 
             # Close the modal
             close_btn = page_desktop.locator(".cc-modal-close").first
-            if close_btn.count() > 0:
+            if close_btn.is_visible():
                 close_btn.click()
                 time.sleep(0.5)
         else:
-            print("No event icons found in calendar view (maybe no events this month or load error).")
+            print("No event icons visible in calendar view.")
 
         context_desktop.close()
 
@@ -48,24 +56,33 @@ def verify_schedule():
         )
         page_mobile = context_mobile.new_page()
 
-        page_mobile.goto("http://127.0.0.1:4000/schedule")
+        page_mobile.goto("http://127.0.0.1:4000/schedule.html")
         page_mobile.wait_for_load_state("networkidle")
         time.sleep(3) # wait for API and cards load
 
-        # Take mobile list screenshot
+        mob_dropdown_btn = page_mobile.locator(".tour-dropdown-btn").first
+        mob_dropdown_btn.wait_for(state="visible", timeout=10000)
+
+        print("Opening Thể loại dropdown on Mobile...")
+        mob_dropdown_btn.click()
+        time.sleep(0.5)
         page_mobile.screenshot(path="verification_schedule_mobile_list.png")
-        print("Saved mobile list view.")
+        print("Saved mobile list view with open dropdown.")
+
+        # Close it
+        mob_dropdown_btn.click()
+        time.sleep(0.3)
 
         # Let's find a card in list view to click and open modal
         event_card = page_mobile.locator(".event-list-card").first
-        if event_card.count() > 0:
+        if event_card.is_visible():
             print("Found event card, opening modal...")
             event_card.click()
             time.sleep(1)
             page_mobile.screenshot(path="verification_schedule_mobile_modal.png")
             print("Saved mobile modal view.")
         else:
-            print("No event cards found in list view.")
+            print("No event cards visible in list view.")
 
         context_mobile.close()
         browser.close()
