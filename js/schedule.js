@@ -7,6 +7,8 @@
 let tournaments = [];
 /** @type {Object|null} Currently selected event for modal display */
 let selectedEvent = null;
+/** @type {string} Active display view ('calendar' or 'list') */
+let currentView = 'calendar';
 
 /** @type {string} Google Apps Script API endpoint */
 const API_URL = 'https://script.google.com/macros/s/AKfycbzQSXlw8AFu70j5-HFos3U21G2QNo190N6aXXxidrflAOfmObC_CH-DF9QuNY4DJY_HCw/exec';
@@ -47,6 +49,7 @@ function linkifyChessTerms(text) {
 
     // Define rules mapping terms to their URLs
     const rules = [
+        { regex: /Đấu trường đa CLB/gi, url: 'https://support.chess.com/articles/8724653-how-can-i-create-a-multi-club-arena' },
         { regex: /Đấu trường Arena/gi, url: 'https://support.chess.com/articles/8562889-what-are-arena-tournaments' },
         { regex: /Hệ Thụy Sĩ/gi, url: 'https://chess.com/terms/swiss-chess' },
         { regex: /King of the Hill/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
@@ -57,7 +60,10 @@ function linkifyChessTerms(text) {
         { regex: /3 chiếu/gi, url: 'https://www.chess.com/terms/3-check-chess' },
         { regex: /Chess960/gi, url: 'https://www.chess.com/terms/chess960' },
         { regex: /960/gi, url: 'https://www.chess.com/terms/chess960' },
-        { regex: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' }
+        { regex: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
+        { regex: /Daily/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
+        { regex: /Cờ Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
+        { regex: /Đấu Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' }
     ];
 
     // Apply keyword replacements and tokenize them to avoid nested/double replacements
@@ -149,7 +155,21 @@ window.addEventListener('DOMContentLoaded', () => {
 async function loadTournaments() {
     try {
         const response = await fetch(API_URL);
-        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(`Mã phản hồi từ máy chủ: ${response.status}`);
+        }
+
+        let data;
+        const text = await response.text();
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            if (text.trim().startsWith('<')) {
+                throw new Error('Máy chủ Google Apps Script trả về trang HTML thay vì dữ liệu JSON. Có thể do dịch vụ tạm thời bị giới hạn hoặc bảo trì. Vui lòng thử lại sau ít phút.');
+            } else {
+                throw new Error('Dữ liệu phản hồi từ máy chủ không đúng định dạng JSON.');
+            }
+        }
 
         const lastUpdatedStr = data.lastUpdated || (data.events?.[0]?.timestamp) || '';
         let formatted = lastUpdatedStr.trim().replace(' ', 'T');
@@ -170,10 +190,17 @@ async function loadTournaments() {
         if (tournaments.length === 0) {
             document.getElementById('empty').style.display = 'block';
         } else {
-            document.getElementById('calendar-wrapper').style.display = 'block';
+            // Display switcher container
+            const switcherDiv = document.getElementById('view-switcher-container');
+            if (switcherDiv) switcherDiv.style.display = 'inline-flex';
+
             const filtersDiv = document.getElementById('schedule-filters');
-            if (filtersDiv) filtersDiv.style.display = 'block';
-            renderCalendar();
+            if (filtersDiv) filtersDiv.style.display = 'flex';
+
+            // Set default view based on device width (list for mobile <= 768px, calendar for desktop)
+            currentView = window.innerWidth <= 768 ? 'list' : 'calendar';
+            updateViewSwitcherButtons();
+            renderActiveView();
         }
     } catch (error) {
         console.error('Error:', error);
@@ -420,11 +447,34 @@ window.addEventListener('click', (e) => {
  */
 function filterSchedule() {
     saveFiltersToURL();
-    renderCalendar();
+    renderActiveView();
 }
 
 window.filterSchedule = filterSchedule;
 window.toggleTourDropdown = toggleTourDropdown;
+
+/**
+ * Helper to generate premium badge HTML for schedule events.
+ * Handles combined premium state when Giao lưu/Có thưởng and Dự kiến appear together.
+ * @param {boolean} isCoThuong
+ * @param {boolean} isTentative
+ * @returns {string} Safe HTML string of badges
+ */
+function getEventBadgesHTML(isCoThuong, isTentative) {
+    if (isTentative) {
+        if (isCoThuong) {
+            return `<span class="badge-schedule badge-prize-combined-premium"><span class="badge-pulse-dot-prize"></span><i class="bx bxs-award"></i> Có thưởng (Dự kiến)</span>`;
+        } else {
+            return `<span class="badge-schedule badge-combined-premium"><span class="badge-pulse-dot"></span><i class="bx bx-coffee"></i> Giao lưu (Dự kiến)</span>`;
+        }
+    } else {
+        if (isCoThuong) {
+            return `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
+        } else {
+            return `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
+        }
+    }
+}
 
 /**
  * Opens the event detail modal with tournament information.
@@ -454,7 +504,6 @@ function openModal(tournament) {
         newsUrl = tournament.newsLink || infoMap[type];
     } else {
         const bannerMap = {
-            "1wl": "https://images.chesscomfiles.com/uploads/v1/blog/1036746.ca7cfdc5.668x375o.1821c106decb.jpg",
             "club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpjs58p98gfqbbaDynSFJ.png",
             "multi-club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/php4oaq7r23q7n79I3kRE6.png",
             "swiss": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpt9ef43prdg6f80YfkLo.png",
@@ -462,33 +511,46 @@ function openModal(tournament) {
             "daily": "https://images.chesscomfiles.com/uploads/v1/chess_term/f1e3ca50-b739-11ea-a14a-a1c9be904231.1fc2467a.630x354o.73dd2efd0681.png"
         };
         const detailMap = {
-            "1wl": "https://chess.com/blog/OneWorldLeague",
             "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
             "swiss": "https://chess.com/terms/swiss-chess",
             "vote": "https://support.chess.com/articles/8614177-how-do-i-play-vote-chess",
-            "daily": "https://chess.com/terms/correspondence-chess",
-            "multi-club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments"
+            "daily": "https://support.chess.com/articles/8649115-what-are-club-matches",
+            "multi-club-arena": "https://support.chess.com/articles/8724653-how-can-i-create-a-multi-club-arena"
         };
-        resultUrl = `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?cid=325849&ref_id=89365835&type=${type}`;
+        resultUrl = `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835&type=${type}`;
         bannerUrl = tournament.bannerLink || bannerMap[type] || "https://chess.com/bundles/web/images/404-pawn.f17f262c.gif";
         newsUrl = tournament.newsLink || detailMap[type] || "https://support.chess.com";
     }
 
-    document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}" target="_blank">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
+    if (tournament.joinLink) {
+        document.getElementById('modal-name').innerHTML = `<a href="${tournament.joinLink}" target="_blank">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
+    } else {
+        document.getElementById('modal-name').innerHTML = `<a href="#" onclick="event.preventDefault(); alert('Hiện chưa có link giải, hãy hỏi các quản trị viên hoặc người tổ chức giải này để tìm hiểu thêm!');">${tournament.eventName || 'Chi tiết giải đấu'}</a>`;
+    }
+
+    const defaultRulesMap = {
+        tvlt: "/events/tvlt-thi-vua-lay-tot",
+        cttq: "/events/cttq-chien-truong-thi-quan",
+        cbtt: "/events/cbtt-co-bi-thi-tot",
+        dttv: "/events/tournaments/dttv",
+        "club-arena": "https://support.chess.com/articles/8562889-what-are-arena-tournaments",
+        "swiss": "https://chess.com/terms/swiss-chess",
+        "vote": "https://support.chess.com/articles/8614177-how-do-i-play-vote-chess",
+        "daily": "https://support.chess.com/articles/8649115-what-are-club-matches",
+        "multi-club-arena": "https://support.chess.com/articles/8724653-how-can-i-create-a-multi-club-arena"
+    };
+    const rulesPageUrl = defaultRulesMap[type] || "https://support.chess.com";
+    const logoLink = document.getElementById('modal-logo-link');
+    if (logoLink) {
+        logoLink.href = rulesPageUrl;
+    }
 
     // Highlight Có thưởng / Giao lưu / Dự kiến with badge UI
     const prize = (tournament.prize || '').toLowerCase().trim();
     const isCoThuong = (prize && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
     const isTentative = tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative';
 
-    let categoryHTML = isCoThuong
-        ? `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`
-        : `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
-
-    if (isTentative) {
-        categoryHTML += `<span class="badge-schedule badge-tentative"><i class="bx bx-time-five"></i> Dự kiến</span>`;
-    }
-
+    const categoryHTML = getEventBadgesHTML(isCoThuong, isTentative);
     document.getElementById('modal-category').innerHTML = categoryHTML;
 
     const rawOrganizer = (tournament.organizer || '').trim();
@@ -497,7 +559,9 @@ function openModal(tournament) {
 
     const pad = n => String(n).padStart(2, '0');
     const tParts = getVietnamDateParts(tournament.startTime);
-    let formattedTime = `${pad(tParts.hours)}:${pad(tParts.minutes)}, ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
+    const dayVn = getDayOfWeekVn(tournament.startTime);
+    const dayPrefix = dayVn === 'Chủ Nhật' ? '' : 'Thứ ';
+    let formattedTime = `${pad(tParts.hours)}:${pad(tParts.minutes)}, ${dayPrefix}${dayVn} - ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
 
     let gameRulesText = tournament.gameRules || 'Chưa có thông tin';
     let eventRulesText = tournament.eventRules || 'Chưa có thông tin';
@@ -525,7 +589,6 @@ function openModal(tournament) {
     const ruleLink = document.getElementById('modal-rule');
     const resultLink = document.getElementById('modal-results');
 
-    ruleLink.href = newsUrl || '#';
     resultLink.href = resultUrl || '#';
 
     if (tournament.joinLink) {
@@ -539,6 +602,9 @@ function openModal(tournament) {
             return false;
         };
     }
+
+    ruleLink.href = tournament.newsLink || rulesPageUrl;
+    ruleLink.onclick = null;
 
     const modal = document.getElementById('eventModal');
     modal.classList.add('open');
@@ -571,3 +637,249 @@ window.onclick = (event) => {
         closeModal();
     }
 };
+
+/**
+ * Switch between 'calendar' and 'list' views.
+ * @param {string} view - The view to switch to.
+ */
+function switchView(view) {
+    currentView = view;
+    updateViewSwitcherButtons();
+    renderActiveView();
+}
+
+/**
+ * Update the active status of switcher buttons.
+ */
+function updateViewSwitcherButtons() {
+    const btnCal = document.getElementById('btn-view-calendar');
+    const btnList = document.getElementById('btn-view-list');
+
+    if (btnCal && btnList) {
+        if (currentView === 'calendar') {
+            btnCal.classList.add('active');
+            btnList.classList.remove('active');
+        } else {
+            btnList.classList.add('active');
+            btnCal.classList.remove('active');
+        }
+    }
+}
+
+/**
+ * Render the active view.
+ */
+function renderActiveView() {
+    const calendarWrapper = document.getElementById('calendar-wrapper');
+    const listWrapper = document.getElementById('list-wrapper');
+    const emptyMsg = document.getElementById('empty');
+
+    if (calendarWrapper) calendarWrapper.style.display = 'none';
+    if (listWrapper) listWrapper.style.display = 'none';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    if (tournaments.length === 0) {
+        if (emptyMsg) emptyMsg.style.display = 'block';
+        return;
+    }
+
+    if (currentView === 'calendar') {
+        if (calendarWrapper) calendarWrapper.style.display = 'block';
+        renderCalendar();
+    } else {
+        if (listWrapper) listWrapper.style.display = 'block';
+        renderListView();
+    }
+}
+
+/**
+ * Sort events chronologically.
+ * @returns {Array} Sorted tournament array.
+ */
+function getSortedEvents() {
+    return [...tournaments].sort((a, b) => {
+        const aParts = getVietnamDateParts(a.startTime);
+        const bParts = getVietnamDateParts(b.startTime);
+
+        const aTime = new Date(aParts.year, aParts.month, aParts.date, aParts.hours, aParts.minutes).getTime();
+        const bTime = new Date(bParts.year, bParts.month, bParts.date, bParts.hours, bParts.minutes).getTime();
+
+        return aTime - bTime;
+    });
+}
+
+/**
+ * Render the events in list format.
+ */
+function renderListView() {
+    const listContainer = document.getElementById('list-container');
+    if (!listContainer) return;
+
+    listContainer.innerHTML = '';
+
+    const today = new Date();
+    const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+    const vnToday = new Date(vnTodayEpoch);
+    const currentYear = vnToday.getUTCFullYear();
+    const currentMonth = vnToday.getUTCMonth();
+
+    const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
+    const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
+    const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
+
+    const currentMonthEvents = getSortedEvents().filter(t => {
+        const tParts = getVietnamDateParts(t.startTime);
+        return tParts.year === currentYear && tParts.month === currentMonth;
+    });
+
+    const filteredEvents = currentMonthEvents.filter(t => {
+        const eventName = (t.eventName || '').toLowerCase();
+        const matchesSearch = !searchVal || eventName.includes(searchVal);
+
+        let matchesPrize = true;
+        if (onlyPrize) {
+            const prize = (t.prize || '').toLowerCase().trim();
+            matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+        }
+
+        const matchesType = checkedTypes.includes(t.eventType);
+        return matchesSearch && matchesPrize && matchesType;
+    });
+
+    const nowMs = Date.now();
+    const EVENT_DURATION = 2 * 60 * 60 * 1000;
+
+    filteredEvents.sort((a, b) => {
+        const getHasPrize = (t) => {
+            const prize = (t.prize || '').toLowerCase().trim();
+            return (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+        };
+
+        const getEventTime = (t) => {
+            if (!t.startTime) return 0;
+            let formatted = t.startTime.trim().replace(' ', 'T');
+            if (!formatted.includes('+') && !formatted.includes('Z')) {
+                formatted += '+07:00';
+            }
+            const dateObj = new Date(formatted);
+            return isNaN(dateObj.getTime()) ? 0 : dateObj.getTime();
+        };
+
+        const getIsEnded = (t) => {
+            const startTimeMs = getEventTime(t);
+            return nowMs > (startTimeMs + EVENT_DURATION);
+        };
+
+        const prizeA = getHasPrize(a);
+        const prizeB = getHasPrize(b);
+
+        if (prizeA && !prizeB) return -1;
+        if (!prizeA && prizeB) return 1;
+
+        const endedA = getIsEnded(a);
+        const endedB = getIsEnded(b);
+
+        if (!endedA && endedB) return -1;
+        if (endedA && !endedB) return 1;
+
+        return getEventTime(a) - getEventTime(b);
+    });
+
+    if (filteredEvents.length === 0) {
+        listContainer.innerHTML = `
+            <div class="empty-list-message" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--neutral-500);">
+                <i class="bx bx-calendar-x" style="font-size: 3rem; color: var(--cyan-400); margin-bottom: 15px; display: block;"></i>
+                <p style="font-size: 1.15rem; font-weight: 500;">Không có sự kiện nào khớp với bộ lọc hiện tại</p>
+            </div>`;
+        return;
+    }
+
+    filteredEvents.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'event-list-card';
+
+        // Check types of badges
+        const prize = (t.prize || '').toLowerCase().trim();
+        const isCoThuong = (prize && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+        const isTentative = t.isTentative === 'Dự kiến' || t.isTentative === 'Tentative';
+
+        const categoryHTML = getEventBadgesHTML(isCoThuong, isTentative);
+
+        const pad = n => String(n).padStart(2, '0');
+        const tParts = getVietnamDateParts(t.startTime);
+        const dayVn = getDayOfWeekVn(t.startTime);
+        const dayPrefix = dayVn === 'Chủ Nhật' ? '' : 'Thứ ';
+        let formattedTime = `${pad(tParts.hours)}:${pad(tParts.minutes)}, ${dayPrefix}${dayVn} - ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
+
+        if (isTentative) {
+            formattedTime = `Dự kiến: ${formattedTime}`;
+        }
+
+        const rawOrganizer = (t.organizer || '').trim();
+        let mappedOrganizer = ORGANIZER_MAP[rawOrganizer] || parseMarkdownLinks(rawOrganizer) || 'Quản trị viên';
+
+        card.innerHTML = `
+            <div class="event-card-header">
+                <div class="event-card-logo">
+                    <img src="${t.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg'}" alt="Logo">
+                </div>
+                <div class="event-card-title-group">
+                    <div class="event-card-badges">${categoryHTML}</div>
+                    <h3 class="event-card-title">${t.eventName || 'Tournament'}</h3>
+                </div>
+            </div>
+            <div class="event-card-details">
+                <div class="event-card-detail-item">
+                    <i class="bx bx-calendar"></i>
+                    <span><strong>Thời gian:</strong> ${formattedTime}</span>
+                </div>
+                <div class="event-card-detail-item">
+                    <i class="bx bx-grid-alt"></i>
+                    <span><strong>Thể lệ:</strong> ${parseMarkdownLinks(t.eventRules || 'Chưa có thông tin')}</span>
+                </div>
+                <div class="event-card-detail-item">
+                    <i class="bx bxs-chess"></i>
+                    <span><strong>Ván đấu:</strong> ${getGameRulesWithIcon(linkifyChessTerms(parseMarkdownLinks(t.gameRules || 'Chưa có thông tin')))}</span>
+                </div>
+                <div class="event-card-detail-item">
+                    <i class="bx bxs-user-check"></i>
+                    <span><strong>Tổ chức:</strong> ${mappedOrganizer}</span>
+                </div>
+            </div>
+            <div class="event-card-footer">
+                <button class="btn btn-secondary card-detail-btn" onclick="event.stopPropagation();"><i class="bx bx-info-circle"></i> Chi tiết</button>
+                <a href="${t.joinLink || '#'}" target="_blank" class="card-join-link" onclick="if (!this.getAttribute('href') || this.getAttribute('href') === '#') { event.preventDefault(); event.stopPropagation(); alert('Hiện chưa có link giải, hãy hỏi các quản trị viên hoặc người tổ chức giải này để tìm hiểu thêm!'); } else { event.stopPropagation(); }">
+                    <button class="btn btn-primary"><i class="bx bx-user-plus"></i> Tham gia</button>
+                </a>
+            </div>
+        `;
+
+        // Make the details button and overall card click open modal
+        card.querySelector('.card-detail-btn').onclick = (e) => {
+            e.stopPropagation();
+            openModal(t);
+        };
+        card.onclick = () => {
+            openModal(t);
+        };
+
+        listContainer.appendChild(card);
+    });
+}
+
+/**
+ * Get the Vietnamese name of the day of the week.
+ * @param {string} dateStr - Date string.
+ * @returns {string} Day of the week.
+ */
+function getDayOfWeekVn(dateStr) {
+    const dateParts = getVietnamDateParts(dateStr);
+    const date = new Date(dateParts.year, dateParts.month, dateParts.date);
+    const day = date.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    const map = ['Chủ Nhật', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'];
+    return map[day];
+}
+
+// Make functions globally available
+window.switchView = switchView;
+window.renderActiveView = renderActiveView;
