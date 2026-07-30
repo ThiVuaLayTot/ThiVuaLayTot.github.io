@@ -740,6 +740,19 @@ function changeMonth(offset) {
     renderActiveView();
 }
 
+/**
+ * Updates a navigation button's state and styling.
+ * @param {HTMLElement|null} button - The button element.
+ * @param {boolean} isDisabled - Whether the button should be disabled.
+ */
+function updateNavButtonState(button, isDisabled) {
+    if (!button) return;
+    button.disabled = isDisabled;
+    button.style.opacity = isDisabled ? '0.3' : '1';
+    button.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
+    button.style.pointerEvents = isDisabled ? 'none' : 'auto';
+}
+
 function renderActiveView() {
     const calendarWrapper = document.getElementById('calendar-wrapper');
     const listWrapper = document.getElementById('list-wrapper');
@@ -775,33 +788,8 @@ function renderActiveView() {
         const btnPrev = document.getElementById('btn-prev-month');
         const btnNext = document.getElementById('btn-next-month');
 
-        if (btnPrev) {
-            if (displayAbsoluteMonth <= currentAbsoluteMonth - 1) {
-                btnPrev.disabled = true;
-                btnPrev.style.opacity = '0.3';
-                btnPrev.style.cursor = 'not-allowed';
-                btnPrev.style.pointerEvents = 'none';
-            } else {
-                btnPrev.disabled = false;
-                btnPrev.style.opacity = '1';
-                btnPrev.style.cursor = 'pointer';
-                btnPrev.style.pointerEvents = 'auto';
-            }
-        }
-
-        if (btnNext) {
-            if (displayAbsoluteMonth >= currentAbsoluteMonth + 1) {
-                btnNext.disabled = true;
-                btnNext.style.opacity = '0.3';
-                btnNext.style.cursor = 'not-allowed';
-                btnNext.style.pointerEvents = 'none';
-            } else {
-                btnNext.disabled = false;
-                btnNext.style.opacity = '1';
-                btnNext.style.cursor = 'pointer';
-                btnNext.style.pointerEvents = 'auto';
-            }
-        }
+        updateNavButtonState(btnPrev, displayAbsoluteMonth <= currentAbsoluteMonth - 1);
+        updateNavButtonState(btnNext, displayAbsoluteMonth >= currentAbsoluteMonth + 1);
     }
 
     if (currentView === 'calendar') {
@@ -815,18 +803,18 @@ function renderActiveView() {
 
 /**
  * Sort events chronologically.
+ * Optimizes performance by using a Schwartzian transform to precompute timestamps
+ * and avoid repeated date parsing inside the sorting callback.
  * @returns {Array} Sorted tournament array.
  */
 function getSortedEvents() {
-    return [...tournaments].sort((a, b) => {
-        const aParts = getVietnamDateParts(a.startTime);
-        const bParts = getVietnamDateParts(b.startTime);
-
-        const aTime = new Date(aParts.year, aParts.month, aParts.date, aParts.hours, aParts.minutes).getTime();
-        const bTime = new Date(bParts.year, bParts.month, bParts.date, bParts.hours, bParts.minutes).getTime();
-
-        return aTime - bTime;
+    const mapped = tournaments.map(t => {
+        const tParts = getVietnamDateParts(t.startTime);
+        const time = new Date(tParts.year, tParts.month, tParts.date, tParts.hours, tParts.minutes).getTime();
+        return { t, time };
     });
+    mapped.sort((a, b) => a.time - b.time);
+    return mapped.map(item => item.t);
 }
 
 /**
@@ -875,43 +863,39 @@ function renderListView() {
     const nowMs = Date.now();
     const EVENT_DURATION = 2 * 60 * 60 * 1000;
 
-    filteredEvents.sort((a, b) => {
-        const getHasPrize = (t) => {
-            const prize = (t.prize || '').toLowerCase().trim();
-            return (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
-        };
+    // Precompute sorting metadata for high performance (O(N) instead of O(N log N) date parses & helper recreation)
+    const mappedFiltered = filteredEvents.map(t => {
+        const prize = (t.prize || '').toLowerCase().trim();
+        const hasPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
 
-        const getEventTime = (t) => {
-            if (!t.startTime) return 0;
+        let eventTime = 0;
+        if (t.startTime) {
             let formatted = t.startTime.trim().replace(' ', 'T');
             if (!formatted.includes('+') && !formatted.includes('Z')) {
                 formatted += '+07:00';
             }
             const dateObj = new Date(formatted);
-            return isNaN(dateObj.getTime()) ? 0 : dateObj.getTime();
-        };
+            eventTime = isNaN(dateObj.getTime()) ? 0 : dateObj.getTime();
+        }
 
-        const getIsEnded = (t) => {
-            const startTimeMs = getEventTime(t);
-            return nowMs > (startTimeMs + EVENT_DURATION);
-        };
+        const isEnded = nowMs > (eventTime + EVENT_DURATION);
 
-        const prizeA = getHasPrize(a);
-        const prizeB = getHasPrize(b);
-
-        if (prizeA && !prizeB) return -1;
-        if (!prizeA && prizeB) return 1;
-
-        const endedA = getIsEnded(a);
-        const endedB = getIsEnded(b);
-
-        if (!endedA && endedB) return -1;
-        if (endedA && !endedB) return 1;
-
-        return getEventTime(a) - getEventTime(b);
+        return { t, hasPrize, isEnded, eventTime };
     });
 
-    if (filteredEvents.length === 0) {
+    mappedFiltered.sort((a, b) => {
+        if (a.hasPrize && !b.hasPrize) return -1;
+        if (!a.hasPrize && b.hasPrize) return 1;
+
+        if (!a.isEnded && b.isEnded) return -1;
+        if (a.isEnded && !b.isEnded) return 1;
+
+        return a.eventTime - b.eventTime;
+    });
+
+    const sortedFilteredEvents = mappedFiltered.map(item => item.t);
+
+    if (sortedFilteredEvents.length === 0) {
         listContainer.innerHTML = `
             <div class="empty-list-message" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--neutral-500);">
                 <i class="bx bx-calendar-x" style="font-size: 3rem; color: var(--cyan-400); margin-bottom: 15px; display: block;"></i>
@@ -920,7 +904,7 @@ function renderListView() {
         return;
     }
 
-    filteredEvents.forEach(t => {
+    sortedFilteredEvents.forEach(t => {
         const card = document.createElement('div');
         card.className = 'event-list-card';
 
