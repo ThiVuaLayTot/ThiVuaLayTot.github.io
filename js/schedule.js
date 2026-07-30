@@ -10,6 +10,11 @@ let selectedEvent = null;
 /** @type {string} Active display view ('calendar' or 'list') */
 let currentView = 'calendar';
 
+/** @type {number} Displayed calendar year */
+let displayYear;
+/** @type {number} Displayed calendar month (0-11) */
+let displayMonth;
+
 /** @type {string} Google Apps Script API endpoint */
 const API_URL = 'https://script.google.com/macros/s/AKfycbzQSXlw8AFu70j5-HFos3U21G2QNo190N6aXXxidrflAOfmObC_CH-DF9QuNY4DJY_HCw/exec';
 
@@ -200,6 +205,14 @@ async function loadTournaments() {
             // Set default view based on device width (list for mobile <= 768px, calendar for desktop)
             currentView = window.innerWidth <= 768 ? 'list' : 'calendar';
             updateViewSwitcherButtons();
+
+            // Initialize displayYear and displayMonth with current Vietnam time
+            const today = new Date();
+            const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+            const vnToday = new Date(vnTodayEpoch);
+            displayYear = vnToday.getUTCFullYear();
+            displayMonth = vnToday.getUTCMonth();
+
             renderActiveView();
         }
     } catch (error) {
@@ -218,32 +231,38 @@ function renderCalendar() {
     const today = new Date();
     const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
     const vnToday = new Date(vnTodayEpoch);
-    const year = vnToday.getUTCFullYear();
-    const month = vnToday.getUTCMonth();
 
-    // Get filter values
+    if (displayYear === undefined || displayMonth === undefined) {
+        displayYear = vnToday.getUTCFullYear();
+        displayMonth = vnToday.getUTCMonth();
+    }
+    const year = displayYear;
+    const month = displayMonth;
+
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
     const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
     const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
 
-    // Update header
-    const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-        'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
-    document.getElementById('month-title').textContent = `${monthNames[month]}/${year}`;
-
-    // Get first day
     const firstDay = new Date(year, month, 1).getDay();
     const startDay = firstDay === 0 ? 6 : firstDay - 1;
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const daysInPrevMonth = new Date(year, month, 0).getDate();
 
-    // Create days array
     const days = [];
+
+    let prevMonth = month - 1;
+    let prevYear = year;
+    if (prevMonth < 0) {
+        prevMonth = 11;
+        prevYear--;
+    }
 
     for (let i = startDay - 1; i >= 0; i--) {
         days.push({
             day: daysInPrevMonth - i,
+            month: prevMonth,
+            year: prevYear,
             isCurrentMonth: false
         });
     }
@@ -251,14 +270,26 @@ function renderCalendar() {
     for (let i = 1; i <= daysInMonth; i++) {
         days.push({
             day: i,
+            month: month,
+            year: year,
             isCurrentMonth: true
         });
     }
 
-    const remainingDays = 35 - days.length;
+    let nextMonth = month + 1;
+    let nextYear = year;
+    if (nextMonth > 11) {
+        nextMonth = 0;
+        nextYear++;
+    }
+
+    const totalCells = days.length > 35 ? 42 : 35;
+    const remainingDays = totalCells - days.length;
     for (let i = 1; i <= remainingDays; i++) {
         days.push({
             day: i,
+            month: nextMonth,
+            year: nextYear,
             isCurrentMonth: false
         });
     }
@@ -279,9 +310,8 @@ function renderCalendar() {
             }
 
             // Check if today
-            if (dayObj.isCurrentMonth &&
-                vnToday.getUTCFullYear() === year &&
-                vnToday.getUTCMonth() === month &&
+            if (vnToday.getUTCFullYear() === dayObj.year &&
+                vnToday.getUTCMonth() === dayObj.month &&
                 vnToday.getUTCDate() === dayObj.day) {
                 td.classList.add('today');
             }
@@ -297,56 +327,54 @@ function renderCalendar() {
             const eventsDiv = document.createElement('div');
             eventsDiv.className = 'events-container';
 
-            if (dayObj.isCurrentMonth) {
-                const dayTournaments = tournaments.filter(t => {
-                    const tParts = getVietnamDateParts(t.startTime);
-                    return tParts.year === year &&
-                        tParts.month === month &&
-                        tParts.date === dayObj.day;
-                });
+            const dayTournaments = tournaments.filter(t => {
+                const tParts = getVietnamDateParts(t.startTime);
+                return tParts.year === dayObj.year &&
+                    tParts.month === dayObj.month &&
+                    tParts.date === dayObj.day;
+            });
 
-                dayTournaments.forEach(tournament => {
-                    // Match Search
-                    const eventName = (tournament.eventName || '').toLowerCase();
-                    const matchesSearch = !searchVal || eventName.includes(searchVal);
+            dayTournaments.forEach(tournament => {
+                // Match Search
+                const eventName = (tournament.eventName || '').toLowerCase();
+                const matchesSearch = !searchVal || eventName.includes(searchVal);
 
-                    // Match Prize
-                    let matchesPrize = true;
-                    if (onlyPrize) {
-                        const prize = (tournament.prize || '').toLowerCase().trim();
-                        matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                // Match Prize
+                let matchesPrize = true;
+                if (onlyPrize) {
+                    const prize = (tournament.prize || '').toLowerCase().trim();
+                    matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                }
+
+                // Match Type
+                const matchesType = checkedTypes.includes(tournament.eventType);
+
+                if (matchesSearch && matchesPrize && matchesType) {
+                    const icon = document.createElement('span');
+                    icon.className = 'event-icon';
+                    if (tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative') {
+                        icon.classList.add('tentative');
                     }
 
-                    // Match Type
-                    const matchesType = checkedTypes.includes(tournament.eventType);
-
-                    if (matchesSearch && matchesPrize && matchesType) {
-                        const icon = document.createElement('span');
-                        icon.className = 'event-icon';
-                        if (tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative') {
-                            icon.classList.add('tentative');
-                        }
-
-                        // Check for prize highlight
-                        const prize = (tournament.prize || '').toLowerCase().trim();
-                        const isCoThuong = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
-                        if (isCoThuong) {
-                            icon.classList.add('has-prize');
-                        }
-
-                        const img = document.createElement('img');
-                        img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
-                        img.title = tournament.eventName || 'Tournament';
-                        img.onclick = (e) => {
-                            e.stopPropagation();
-                            openModal(tournament);
-                        };
-
-                        icon.appendChild(img);
-                        eventsDiv.appendChild(icon);
+                    // Check for prize highlight
+                    const prize = (tournament.prize || '').toLowerCase().trim();
+                    const isCoThuong = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                    if (isCoThuong) {
+                        icon.classList.add('has-prize');
                     }
-                });
-            }
+
+                    const img = document.createElement('img');
+                    img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
+                    img.title = tournament.eventName || 'Tournament';
+                    img.onclick = (e) => {
+                        e.stopPropagation();
+                        openModal(tournament);
+                    };
+
+                    icon.appendChild(img);
+                    eventsDiv.appendChild(icon);
+                }
+            });
 
             td.appendChild(eventsDiv);
             tr.appendChild(td);
@@ -362,21 +390,18 @@ function renderCalendar() {
 function loadFiltersFromURL() {
     const params = new URLSearchParams(window.location.search);
 
-    // 1. Search filter
     const searchVal = params.get('search');
     const searchInput = document.getElementById('schedule-search');
     if (searchInput && searchVal !== null) {
         searchInput.value = searchVal;
     }
 
-    // 2. Prize filter (1 = prize, 0 = all)
     const prizeVal = params.get('prize');
     const prizeCheckbox = document.getElementById('schedule-prize-filter');
     if (prizeCheckbox && prizeVal !== null) {
         prizeCheckbox.checked = (prizeVal === '1');
     }
 
-    // 3. Category/Type filter joined by space or plus
     const tcVal = params.get('tc');
     if (tcVal !== null) {
         const selectedTypes = tcVal.toLowerCase().split(/[\s+]+/);
@@ -393,13 +418,11 @@ function loadFiltersFromURL() {
 function saveFiltersToURL() {
     const params = new URLSearchParams();
 
-    // 1. Search filter
     const searchVal = (document.getElementById('schedule-search')?.value || '').trim();
     if (searchVal) {
         params.set('search', searchVal);
     }
 
-    // 2. Prize filter
     const prizeCheckbox = document.getElementById('schedule-prize-filter');
     if (prizeCheckbox && prizeCheckbox.checked) {
         params.set('prize', '1');
@@ -407,11 +430,9 @@ function saveFiltersToURL() {
         params.set('prize', '0');
     }
 
-    // 3. Category/Type filter
     const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
     const allTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]')).map(cb => cb.value);
 
-    // If not all are checked, serialize the active ones joined by space
     if (checkedTypes.length < allTypes.length) {
         params.set('tc', checkedTypes.join(' '));
     }
@@ -669,6 +690,59 @@ function updateViewSwitcherButtons() {
 /**
  * Render the active view.
  */
+/**
+ * Changes display month by offset and updates display.
+ * @param {number} offset - Number of months to offset (-1 or 1).
+ */
+function changeMonth(offset) {
+    if (displayYear === undefined || displayMonth === undefined) {
+        const today = new Date();
+        const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+        const vnToday = new Date(vnTodayEpoch);
+        displayYear = vnToday.getUTCFullYear();
+        displayMonth = vnToday.getUTCMonth();
+    }
+
+    const today = new Date();
+    const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+    const vnToday = new Date(vnTodayEpoch);
+    const realYear = vnToday.getUTCFullYear();
+    const realMonth = vnToday.getUTCMonth();
+    const currentAbsoluteMonth = realYear * 12 + realMonth;
+
+    const displayAbsoluteMonth = displayYear * 12 + displayMonth;
+    const targetAbsoluteMonth = displayAbsoluteMonth + offset;
+
+    // Strictly limit navigation to only 1 month before and after the current real month
+    if (targetAbsoluteMonth < currentAbsoluteMonth - 1 || targetAbsoluteMonth > currentAbsoluteMonth + 1) {
+        return;
+    }
+
+    displayMonth += offset;
+    if (displayMonth < 0) {
+        displayMonth = 11;
+        displayYear--;
+    } else if (displayMonth > 11) {
+        displayMonth = 0;
+        displayYear++;
+    }
+
+    renderActiveView();
+}
+
+/**
+ * Updates a navigation button's state and styling.
+ * @param {HTMLElement|null} button - The button element.
+ * @param {boolean} isDisabled - Whether the button should be disabled.
+ */
+function updateNavButtonState(button, isDisabled) {
+    if (!button) return;
+    button.disabled = isDisabled;
+    button.style.opacity = isDisabled ? '0.3' : '1';
+    button.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
+    button.style.pointerEvents = isDisabled ? 'none' : 'auto';
+}
+
 function renderActiveView() {
     const calendarWrapper = document.getElementById('calendar-wrapper');
     const listWrapper = document.getElementById('list-wrapper');
@@ -683,6 +757,31 @@ function renderActiveView() {
         return;
     }
 
+    // Always update header with the currently navigated month
+    const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+        'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+    const titleEl = document.getElementById('month-title');
+    if (titleEl) {
+        titleEl.textContent = `${monthNames[displayMonth]}/${displayYear}`;
+    }
+
+    // Enable/Disable navigation buttons based on previous and next month limits
+    const today = new Date();
+    const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+    const vnToday = new Date(vnTodayEpoch);
+    const realYear = vnToday.getUTCFullYear();
+    const realMonth = vnToday.getUTCMonth();
+    const currentAbsoluteMonth = realYear * 12 + realMonth;
+
+    if (displayYear !== undefined && displayMonth !== undefined) {
+        const displayAbsoluteMonth = displayYear * 12 + displayMonth;
+        const btnPrev = document.getElementById('btn-prev-month');
+        const btnNext = document.getElementById('btn-next-month');
+
+        updateNavButtonState(btnPrev, displayAbsoluteMonth <= currentAbsoluteMonth - 1);
+        updateNavButtonState(btnNext, displayAbsoluteMonth >= currentAbsoluteMonth + 1);
+    }
+
     if (currentView === 'calendar') {
         if (calendarWrapper) calendarWrapper.style.display = 'block';
         renderCalendar();
@@ -692,20 +791,14 @@ function renderActiveView() {
     }
 }
 
-/**
- * Sort events chronologically.
- * @returns {Array} Sorted tournament array.
- */
 function getSortedEvents() {
-    return [...tournaments].sort((a, b) => {
-        const aParts = getVietnamDateParts(a.startTime);
-        const bParts = getVietnamDateParts(b.startTime);
-
-        const aTime = new Date(aParts.year, aParts.month, aParts.date, aParts.hours, aParts.minutes).getTime();
-        const bTime = new Date(bParts.year, bParts.month, bParts.date, bParts.hours, bParts.minutes).getTime();
-
-        return aTime - bTime;
+    const mapped = tournaments.map(t => {
+        const tParts = getVietnamDateParts(t.startTime);
+        const time = new Date(tParts.year, tParts.month, tParts.date, tParts.hours, tParts.minutes).getTime();
+        return { t, time };
     });
+    mapped.sort((a, b) => a.time - b.time);
+    return mapped.map(item => item.t);
 }
 
 /**
@@ -720,8 +813,13 @@ function renderListView() {
     const today = new Date();
     const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
     const vnToday = new Date(vnTodayEpoch);
-    const currentYear = vnToday.getUTCFullYear();
-    const currentMonth = vnToday.getUTCMonth();
+
+    if (displayYear === undefined || displayMonth === undefined) {
+        displayYear = vnToday.getUTCFullYear();
+        displayMonth = vnToday.getUTCMonth();
+    }
+    const currentYear = displayYear;
+    const currentMonth = displayMonth;
 
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
     const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
@@ -749,43 +847,38 @@ function renderListView() {
     const nowMs = Date.now();
     const EVENT_DURATION = 2 * 60 * 60 * 1000;
 
-    filteredEvents.sort((a, b) => {
-        const getHasPrize = (t) => {
-            const prize = (t.prize || '').toLowerCase().trim();
-            return (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
-        };
+    const mappedFiltered = filteredEvents.map(t => {
+        const prize = (t.prize || '').toLowerCase().trim();
+        const hasPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
 
-        const getEventTime = (t) => {
-            if (!t.startTime) return 0;
+        let eventTime = 0;
+        if (t.startTime) {
             let formatted = t.startTime.trim().replace(' ', 'T');
             if (!formatted.includes('+') && !formatted.includes('Z')) {
                 formatted += '+07:00';
             }
             const dateObj = new Date(formatted);
-            return isNaN(dateObj.getTime()) ? 0 : dateObj.getTime();
-        };
+            eventTime = isNaN(dateObj.getTime()) ? 0 : dateObj.getTime();
+        }
 
-        const getIsEnded = (t) => {
-            const startTimeMs = getEventTime(t);
-            return nowMs > (startTimeMs + EVENT_DURATION);
-        };
+        const isEnded = nowMs > (eventTime + EVENT_DURATION);
 
-        const prizeA = getHasPrize(a);
-        const prizeB = getHasPrize(b);
-
-        if (prizeA && !prizeB) return -1;
-        if (!prizeA && prizeB) return 1;
-
-        const endedA = getIsEnded(a);
-        const endedB = getIsEnded(b);
-
-        if (!endedA && endedB) return -1;
-        if (endedA && !endedB) return 1;
-
-        return getEventTime(a) - getEventTime(b);
+        return { t, hasPrize, isEnded, eventTime };
     });
 
-    if (filteredEvents.length === 0) {
+    mappedFiltered.sort((a, b) => {
+        if (a.hasPrize && !b.hasPrize) return -1;
+        if (!a.hasPrize && b.hasPrize) return 1;
+
+        if (!a.isEnded && b.isEnded) return -1;
+        if (a.isEnded && !b.isEnded) return 1;
+
+        return a.eventTime - b.eventTime;
+    });
+
+    const sortedFilteredEvents = mappedFiltered.map(item => item.t);
+
+    if (sortedFilteredEvents.length === 0) {
         listContainer.innerHTML = `
             <div class="empty-list-message" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--neutral-500);">
                 <i class="bx bx-calendar-x" style="font-size: 3rem; color: var(--cyan-400); margin-bottom: 15px; display: block;"></i>
@@ -794,7 +887,7 @@ function renderListView() {
         return;
     }
 
-    filteredEvents.forEach(t => {
+    sortedFilteredEvents.forEach(t => {
         const card = document.createElement('div');
         card.className = 'event-list-card';
 
@@ -883,3 +976,4 @@ function getDayOfWeekVn(dateStr) {
 // Make functions globally available
 window.switchView = switchView;
 window.renderActiveView = renderActiveView;
+window.changeMonth = changeMonth;

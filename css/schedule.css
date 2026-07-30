@@ -1,4 +1,44 @@
+.month-nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.month-nav-btn {
+    background: rgba(10, 25, 47, 0.65);
+    border: 1.5px solid var(--cyan-400);
+    border-radius: var(--border-radius-lg);
+    color: var(--cyan-300);
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 10px rgba(0, 242, 255, 0.05);
+    outline: none;
+}
+
+.month-nav-btn:hover {
+    background: rgba(0, 242, 255, 0.1);
+    color: var(--cyan-100);
+    border-color: var(--cyan-300);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.month-nav-btn:active {
+    transform: translateY(0);
+}
+
 .month-title {
+    flex: 1;
+    max-width: 400px;
     text-align: center;
     font-size: var(--fs-2xl);
     font-family: cursive;
