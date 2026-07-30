@@ -713,6 +713,21 @@ function changeMonth(offset) {
         displayMonth = vnToday.getUTCMonth();
     }
 
+    const today = new Date();
+    const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+    const vnToday = new Date(vnTodayEpoch);
+    const realYear = vnToday.getUTCFullYear();
+    const realMonth = vnToday.getUTCMonth();
+    const currentAbsoluteMonth = realYear * 12 + realMonth;
+
+    const displayAbsoluteMonth = displayYear * 12 + displayMonth;
+    const targetAbsoluteMonth = displayAbsoluteMonth + offset;
+
+    // Strictly limit navigation to only 1 month before and after the current real month
+    if (targetAbsoluteMonth < currentAbsoluteMonth - 1 || targetAbsoluteMonth > currentAbsoluteMonth + 1) {
+        return;
+    }
+
     displayMonth += offset;
     if (displayMonth < 0) {
         displayMonth = 11;
@@ -745,6 +760,48 @@ function renderActiveView() {
     const titleEl = document.getElementById('month-title');
     if (titleEl) {
         titleEl.textContent = `${monthNames[displayMonth]}/${displayYear}`;
+    }
+
+    // Enable/Disable navigation buttons based on previous and next month limits
+    const today = new Date();
+    const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+    const vnToday = new Date(vnTodayEpoch);
+    const realYear = vnToday.getUTCFullYear();
+    const realMonth = vnToday.getUTCMonth();
+    const currentAbsoluteMonth = realYear * 12 + realMonth;
+
+    if (displayYear !== undefined && displayMonth !== undefined) {
+        const displayAbsoluteMonth = displayYear * 12 + displayMonth;
+        const btnPrev = document.getElementById('btn-prev-month');
+        const btnNext = document.getElementById('btn-next-month');
+
+        if (btnPrev) {
+            if (displayAbsoluteMonth <= currentAbsoluteMonth - 1) {
+                btnPrev.disabled = true;
+                btnPrev.style.opacity = '0.3';
+                btnPrev.style.cursor = 'not-allowed';
+                btnPrev.style.pointerEvents = 'none';
+            } else {
+                btnPrev.disabled = false;
+                btnPrev.style.opacity = '1';
+                btnPrev.style.cursor = 'pointer';
+                btnPrev.style.pointerEvents = 'auto';
+            }
+        }
+
+        if (btnNext) {
+            if (displayAbsoluteMonth >= currentAbsoluteMonth + 1) {
+                btnNext.disabled = true;
+                btnNext.style.opacity = '0.3';
+                btnNext.style.cursor = 'not-allowed';
+                btnNext.style.pointerEvents = 'none';
+            } else {
+                btnNext.disabled = false;
+                btnNext.style.opacity = '1';
+                btnNext.style.cursor = 'pointer';
+                btnNext.style.pointerEvents = 'auto';
+            }
+        }
     }
 
     if (currentView === 'calendar') {
