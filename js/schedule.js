@@ -10,6 +10,11 @@ let selectedEvent = null;
 /** @type {string} Active display view ('calendar' or 'list') */
 let currentView = 'calendar';
 
+/** @type {number} Displayed calendar year */
+let displayYear;
+/** @type {number} Displayed calendar month (0-11) */
+let displayMonth;
+
 /** @type {string} Google Apps Script API endpoint */
 const API_URL = 'https://script.google.com/macros/s/AKfycbzQSXlw8AFu70j5-HFos3U21G2QNo190N6aXXxidrflAOfmObC_CH-DF9QuNY4DJY_HCw/exec';
 
@@ -200,6 +205,14 @@ async function loadTournaments() {
             // Set default view based on device width (list for mobile <= 768px, calendar for desktop)
             currentView = window.innerWidth <= 768 ? 'list' : 'calendar';
             updateViewSwitcherButtons();
+
+            // Initialize displayYear and displayMonth with current Vietnam time
+            const today = new Date();
+            const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+            const vnToday = new Date(vnTodayEpoch);
+            displayYear = vnToday.getUTCFullYear();
+            displayMonth = vnToday.getUTCMonth();
+
             renderActiveView();
         }
     } catch (error) {
@@ -218,18 +231,18 @@ function renderCalendar() {
     const today = new Date();
     const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
     const vnToday = new Date(vnTodayEpoch);
-    const year = vnToday.getUTCFullYear();
-    const month = vnToday.getUTCMonth();
+
+    if (displayYear === undefined || displayMonth === undefined) {
+        displayYear = vnToday.getUTCFullYear();
+        displayMonth = vnToday.getUTCMonth();
+    }
+    const year = displayYear;
+    const month = displayMonth;
 
     // Get filter values
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
     const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
     const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
-
-    // Update header
-    const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-        'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
-    document.getElementById('month-title').textContent = `${monthNames[month]}/${year}`;
 
     // Get first day
     const firstDay = new Date(year, month, 1).getDay();
@@ -241,9 +254,18 @@ function renderCalendar() {
     // Create days array
     const days = [];
 
+    let prevMonth = month - 1;
+    let prevYear = year;
+    if (prevMonth < 0) {
+        prevMonth = 11;
+        prevYear--;
+    }
+
     for (let i = startDay - 1; i >= 0; i--) {
         days.push({
             day: daysInPrevMonth - i,
+            month: prevMonth,
+            year: prevYear,
             isCurrentMonth: false
         });
     }
@@ -251,14 +273,26 @@ function renderCalendar() {
     for (let i = 1; i <= daysInMonth; i++) {
         days.push({
             day: i,
+            month: month,
+            year: year,
             isCurrentMonth: true
         });
     }
 
-    const remainingDays = 35 - days.length;
+    let nextMonth = month + 1;
+    let nextYear = year;
+    if (nextMonth > 11) {
+        nextMonth = 0;
+        nextYear++;
+    }
+
+    const totalCells = days.length > 35 ? 42 : 35;
+    const remainingDays = totalCells - days.length;
     for (let i = 1; i <= remainingDays; i++) {
         days.push({
             day: i,
+            month: nextMonth,
+            year: nextYear,
             isCurrentMonth: false
         });
     }
@@ -279,9 +313,8 @@ function renderCalendar() {
             }
 
             // Check if today
-            if (dayObj.isCurrentMonth &&
-                vnToday.getUTCFullYear() === year &&
-                vnToday.getUTCMonth() === month &&
+            if (vnToday.getUTCFullYear() === dayObj.year &&
+                vnToday.getUTCMonth() === dayObj.month &&
                 vnToday.getUTCDate() === dayObj.day) {
                 td.classList.add('today');
             }
@@ -297,56 +330,54 @@ function renderCalendar() {
             const eventsDiv = document.createElement('div');
             eventsDiv.className = 'events-container';
 
-            if (dayObj.isCurrentMonth) {
-                const dayTournaments = tournaments.filter(t => {
-                    const tParts = getVietnamDateParts(t.startTime);
-                    return tParts.year === year &&
-                        tParts.month === month &&
-                        tParts.date === dayObj.day;
-                });
+            const dayTournaments = tournaments.filter(t => {
+                const tParts = getVietnamDateParts(t.startTime);
+                return tParts.year === dayObj.year &&
+                    tParts.month === dayObj.month &&
+                    tParts.date === dayObj.day;
+            });
 
-                dayTournaments.forEach(tournament => {
-                    // Match Search
-                    const eventName = (tournament.eventName || '').toLowerCase();
-                    const matchesSearch = !searchVal || eventName.includes(searchVal);
+            dayTournaments.forEach(tournament => {
+                // Match Search
+                const eventName = (tournament.eventName || '').toLowerCase();
+                const matchesSearch = !searchVal || eventName.includes(searchVal);
 
-                    // Match Prize
-                    let matchesPrize = true;
-                    if (onlyPrize) {
-                        const prize = (tournament.prize || '').toLowerCase().trim();
-                        matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                // Match Prize
+                let matchesPrize = true;
+                if (onlyPrize) {
+                    const prize = (tournament.prize || '').toLowerCase().trim();
+                    matchesPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                }
+
+                // Match Type
+                const matchesType = checkedTypes.includes(tournament.eventType);
+
+                if (matchesSearch && matchesPrize && matchesType) {
+                    const icon = document.createElement('span');
+                    icon.className = 'event-icon';
+                    if (tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative') {
+                        icon.classList.add('tentative');
                     }
 
-                    // Match Type
-                    const matchesType = checkedTypes.includes(tournament.eventType);
-
-                    if (matchesSearch && matchesPrize && matchesType) {
-                        const icon = document.createElement('span');
-                        icon.className = 'event-icon';
-                        if (tournament.isTentative === 'Dự kiến' || tournament.isTentative === 'Tentative') {
-                            icon.classList.add('tentative');
-                        }
-
-                        // Check for prize highlight
-                        const prize = (tournament.prize || '').toLowerCase().trim();
-                        const isCoThuong = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
-                        if (isCoThuong) {
-                            icon.classList.add('has-prize');
-                        }
-
-                        const img = document.createElement('img');
-                        img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
-                        img.title = tournament.eventName || 'Tournament';
-                        img.onclick = (e) => {
-                            e.stopPropagation();
-                            openModal(tournament);
-                        };
-
-                        icon.appendChild(img);
-                        eventsDiv.appendChild(icon);
+                    // Check for prize highlight
+                    const prize = (tournament.prize || '').toLowerCase().trim();
+                    const isCoThuong = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
+                    if (isCoThuong) {
+                        icon.classList.add('has-prize');
                     }
-                });
-            }
+
+                    const img = document.createElement('img');
+                    img.src = tournament.logo || 'https://chess.com/bundles/web/images/image-default.445cb543.svg';
+                    img.title = tournament.eventName || 'Tournament';
+                    img.onclick = (e) => {
+                        e.stopPropagation();
+                        openModal(tournament);
+                    };
+
+                    icon.appendChild(img);
+                    eventsDiv.appendChild(icon);
+                }
+            });
 
             td.appendChild(eventsDiv);
             tr.appendChild(td);
@@ -669,6 +700,31 @@ function updateViewSwitcherButtons() {
 /**
  * Render the active view.
  */
+/**
+ * Changes display month by offset and updates display.
+ * @param {number} offset - Number of months to offset (-1 or 1).
+ */
+function changeMonth(offset) {
+    if (displayYear === undefined || displayMonth === undefined) {
+        const today = new Date();
+        const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
+        const vnToday = new Date(vnTodayEpoch);
+        displayYear = vnToday.getUTCFullYear();
+        displayMonth = vnToday.getUTCMonth();
+    }
+
+    displayMonth += offset;
+    if (displayMonth < 0) {
+        displayMonth = 11;
+        displayYear--;
+    } else if (displayMonth > 11) {
+        displayMonth = 0;
+        displayYear++;
+    }
+
+    renderActiveView();
+}
+
 function renderActiveView() {
     const calendarWrapper = document.getElementById('calendar-wrapper');
     const listWrapper = document.getElementById('list-wrapper');
@@ -681,6 +737,14 @@ function renderActiveView() {
     if (tournaments.length === 0) {
         if (emptyMsg) emptyMsg.style.display = 'block';
         return;
+    }
+
+    // Always update header with the currently navigated month
+    const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+        'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+    const titleEl = document.getElementById('month-title');
+    if (titleEl) {
+        titleEl.textContent = `${monthNames[displayMonth]}/${displayYear}`;
     }
 
     if (currentView === 'calendar') {
@@ -720,8 +784,13 @@ function renderListView() {
     const today = new Date();
     const vnTodayEpoch = today.getTime() + (7 * 3600 * 1000);
     const vnToday = new Date(vnTodayEpoch);
-    const currentYear = vnToday.getUTCFullYear();
-    const currentMonth = vnToday.getUTCMonth();
+
+    if (displayYear === undefined || displayMonth === undefined) {
+        displayYear = vnToday.getUTCFullYear();
+        displayMonth = vnToday.getUTCMonth();
+    }
+    const currentYear = displayYear;
+    const currentMonth = displayMonth;
 
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
     const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
@@ -883,3 +952,4 @@ function getDayOfWeekVn(dateStr) {
 // Make functions globally available
 window.switchView = switchView;
 window.renderActiveView = renderActiveView;
+window.changeMonth = changeMonth;
