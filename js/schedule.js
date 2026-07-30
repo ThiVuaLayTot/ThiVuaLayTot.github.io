@@ -239,19 +239,16 @@ function renderCalendar() {
     const year = displayYear;
     const month = displayMonth;
 
-    // Get filter values
     const searchVal = (document.getElementById('schedule-search')?.value || '').toLowerCase().trim();
     const onlyPrize = document.getElementById('schedule-prize-filter')?.checked || false;
     const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
 
-    // Get first day
     const firstDay = new Date(year, month, 1).getDay();
     const startDay = firstDay === 0 ? 6 : firstDay - 1;
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const daysInPrevMonth = new Date(year, month, 0).getDate();
 
-    // Create days array
     const days = [];
 
     let prevMonth = month - 1;
@@ -393,21 +390,18 @@ function renderCalendar() {
 function loadFiltersFromURL() {
     const params = new URLSearchParams(window.location.search);
 
-    // 1. Search filter
     const searchVal = params.get('search');
     const searchInput = document.getElementById('schedule-search');
     if (searchInput && searchVal !== null) {
         searchInput.value = searchVal;
     }
 
-    // 2. Prize filter (1 = prize, 0 = all)
     const prizeVal = params.get('prize');
     const prizeCheckbox = document.getElementById('schedule-prize-filter');
     if (prizeCheckbox && prizeVal !== null) {
         prizeCheckbox.checked = (prizeVal === '1');
     }
 
-    // 3. Category/Type filter joined by space or plus
     const tcVal = params.get('tc');
     if (tcVal !== null) {
         const selectedTypes = tcVal.toLowerCase().split(/[\s+]+/);
@@ -424,13 +418,11 @@ function loadFiltersFromURL() {
 function saveFiltersToURL() {
     const params = new URLSearchParams();
 
-    // 1. Search filter
     const searchVal = (document.getElementById('schedule-search')?.value || '').trim();
     if (searchVal) {
         params.set('search', searchVal);
     }
 
-    // 2. Prize filter
     const prizeCheckbox = document.getElementById('schedule-prize-filter');
     if (prizeCheckbox && prizeCheckbox.checked) {
         params.set('prize', '1');
@@ -438,11 +430,9 @@ function saveFiltersToURL() {
         params.set('prize', '0');
     }
 
-    // 3. Category/Type filter
     const checkedTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]:checked')).map(cb => cb.value);
     const allTypes = Array.from(document.querySelectorAll('#schedule-type-group input[type="checkbox"]')).map(cb => cb.value);
 
-    // If not all are checked, serialize the active ones joined by space
     if (checkedTypes.length < allTypes.length) {
         params.set('tc', checkedTypes.join(' '));
     }
@@ -801,12 +791,6 @@ function renderActiveView() {
     }
 }
 
-/**
- * Sort events chronologically.
- * Optimizes performance by using a Schwartzian transform to precompute timestamps
- * and avoid repeated date parsing inside the sorting callback.
- * @returns {Array} Sorted tournament array.
- */
 function getSortedEvents() {
     const mapped = tournaments.map(t => {
         const tParts = getVietnamDateParts(t.startTime);
@@ -863,7 +847,6 @@ function renderListView() {
     const nowMs = Date.now();
     const EVENT_DURATION = 2 * 60 * 60 * 1000;
 
-    // Precompute sorting metadata for high performance (O(N) instead of O(N log N) date parses & helper recreation)
     const mappedFiltered = filteredEvents.map(t => {
         const prize = (t.prize || '').toLowerCase().trim();
         const hasPrize = (prize !== '' && prize !== 'giao lưu' && prize !== 'không' && prize !== 'không có');
