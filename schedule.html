@@ -103,7 +103,15 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                 </div>
             </div>
 
-            <div class="month-title" id="month-title">Processing...</div>
+            <div class="month-nav-wrapper">
+                <button class="month-nav-btn" id="btn-prev-month" onclick="changeMonth(-1)" title="Tháng trước">
+                    <i class="bx bx-chevron-left"></i>
+                </button>
+                <div class="month-title" id="month-title">Processing...</div>
+                <button class="month-nav-btn" id="btn-next-month" onclick="changeMonth(1)" title="Tháng sau">
+                    <i class="bx bx-chevron-right"></i>
+                </button>
+            </div>
             <div id="loading" class="loading">
                 <div class="loading-spinner"></div>
                 <p style="font-size: 1.1em; margin-top: 20px;">Đang tải lịch...</p>
