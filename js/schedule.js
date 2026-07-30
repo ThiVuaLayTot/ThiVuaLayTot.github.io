@@ -320,7 +320,6 @@ function renderCalendar() {
             const dayNum = document.createElement('span');
             dayNum.className = 'day-number';
             dayNum.textContent = dayObj.day;
-            dayNum.title = 'Hôm nay';
             td.appendChild(dayNum);
 
             // Events container
