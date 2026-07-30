@@ -25,27 +25,20 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
             <p><i>Lần cuối cập nhật: <span id="last-updated"></span></i>.<br>Nếu có vấn đề hãy bình luận trong <a href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">M-DinhHoangViet</a>.</p>
             <br>
 
-            <div id="schedule-filters" style="display: none; margin-bottom: 25px;">
-                <div class="tour-search-row">
-                    <div class="tour-search-wrapper">
-                        <span class="bx bx-search tour-search-icon"></span>
-                        <input type="text" id="schedule-search" class="tour-search-input" placeholder="Tìm tên sự kiện hoặc thông tin giải đấu..." oninput="filterSchedule()">
-                    </div>
-
-                    <label class="tour-switch-container">
-                        <span class="tour-switch">
-                            <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
-                            <span class="tour-slider"></span>
-                        </span>
-                        <span>Chỉ giải có thưởng</span>
-                    </label>
+            <div id="schedule-filters" class="schedule-control-bar" style="display: none;">
+                <!-- Left: Search input -->
+                <div class="control-item search-wrapper">
+                    <span class="bx bx-search search-icon"></span>
+                    <input type="text" id="schedule-search" class="control-input search-input" placeholder="Tìm kiếm sự kiện..." oninput="filterSchedule()">
                 </div>
-                <div class="tour-top-grid" style="grid-template-columns: 1fr; max-width: 320px; margin: 0 auto 15px auto;">
+
+                <!-- Right: Controls group (Dropdown, Switch, Segmented Switcher) -->
+                <div class="control-group">
                     <div class="tour-dropdown" id="schedule-category-dropdown">
-                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('schedule-category-dropdown')">
+                        <div class="tour-dropdown-btn compact-btn" onclick="toggleTourDropdown('schedule-category-dropdown')">
                             <div class="tour-dropdown-btn-content">
-                                <i class="bx bx-medal"></i>
-                                <span>Thể loại giải</span>
+                                <i class="bx bx-filter-alt"></i>
+                                <span>Thể loại</span>
                             </div>
                             <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
                         </div>
@@ -88,8 +81,28 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                             </label>
                         </div>
                     </div>
+
+                    <label class="compact-switch-container">
+                        <span class="compact-switch">
+                            <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
+                            <span class="compact-slider"></span>
+                        </span>
+                        <span class="switch-label">Có thưởng</span>
+                    </label>
+
+                    <div id="view-switcher-container" class="segmented-control" style="display: none;">
+                        <button id="btn-view-calendar" class="segment-btn" onclick="switchView('calendar')" title="Xem dạng lịch">
+                            <i class="bx bx-calendar"></i>
+                            <span>Lịch</span>
+                        </button>
+                        <button id="btn-view-list" class="segment-btn" onclick="switchView('list')" title="Xem dạng danh sách">
+                            <i class="bx bx-list-ul"></i>
+                            <span>Danh sách</span>
+                        </button>
+                    </div>
                 </div>
             </div>
+
             <div class="month-title" id="month-title">Processing...</div>
             <div id="loading" class="loading">
                 <div class="loading-spinner"></div>
@@ -112,6 +125,11 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                     <tbody id="calendar-body">
                     </tbody>
                 </table>
+            </div>
+
+            <!-- List View Container -->
+            <div id="list-wrapper" style="display: none;">
+                <div id="list-container" class="events-list-grid"></div>
             </div>
 
             <div id="error" style="display: none;"></div>
@@ -141,7 +159,9 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
                 <div class="cc-modal-content-wrapper">
                     <div class="cc-modal-header-row">
                         <div class="cc-modal-logo-box">
-                            <img src="/images/tvltlogo.png" alt="Logo" id="modal-logo">
+                            <a id="modal-logo-link" href="#" target="_blank" title="Xem trang thể lệ của giải đấu">
+                                <img src="/images/tvltlogo.png" alt="Logo" id="modal-logo">
+                            </a>
                         </div>
                         <div class="cc-modal-title-section" style="flex: 1;">
                             <div class="cc-modal-category" id="modal-category"></div>
@@ -183,14 +203,14 @@ title: Lịch sự kiện của tháng - CLB Thí Vua Lấy Tốt
 
                 <div class="btn-group">
                     <a id="modal-join" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class="bx bx-user-plus"></span> Tham gia</button></a>
-                    <a id="modal-rule" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class="bx bx-task"></span> Đọc thể lệ</button></a>
-                    <a id="modal-results" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class="bx bx-trophy"></span> Kết quả</button></a>
+                    <a id="modal-rule" href="#" target="_blank"><button class="btn btn-secondary" type="button"><span class="bx bx-task"></span> Thể lệ</button></a>
+                    <a id="modal-results" href="#" target="_blank"><button class="btn btn-secondary" type="button"><span class="bx bx-trophy"></span> Kết quả</button></a>
                 </div>
             </div>
         </div>
         <br><hr><br>
         <button id="back-to-top" title="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
-        <script src="/js/schedule.js"></script>
+        <script src="/js/schedule.js" charset="utf-8"></script>
         {% include footer.html %}
         <script src="/js/main.js"></script>
 </body>

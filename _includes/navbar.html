@@ -12,23 +12,55 @@
         <div class="nav_content">
             <button id="menu" aria-label="Mở menu điều hướng" aria-expanded="false"><span class="bx bx-menu" id="menuIcon"></span></button>
             <div class="topnav_content" id="tvltTopnav">
-                <div class="section">
-                    <a href="/#home" target="_top"><span class="bx bx-home"></span>Trang chủ</a>
+                <!-- Dropdown 0: Trang chủ -->
+                <div class="section dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span class="bx bx-home"></span>Trang chủ <span class="bx bx-chevron-down dropdown-arrow"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/" target="_top"><span class="bx bx-home-alt"></span>Trang chủ chính</a>
+                        <a href="/#service" target="_top"><span class="bx bx-cube"></span>Về chúng tôi</a>
+                        <a href="/#about" target="_top"><span class="bx bx-user-circle"></span>Chủ câu lạc bộ</a>
+                        <a href="/#experience" target="_top"><span class="bx bx-history"></span>Lịch sử phát triển</a>
+                    </div>
                 </div>
-                <div class="section">
-                    <a href="/#about" target="_top"><span class="bx bx-user"></span>Giới thiệu</a>
+
+                <!-- Dropdown 1: Nội dung -->
+                <div class="section dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span class="bx bx-category"></span>Nội dung <span class="bx bx-chevron-down dropdown-arrow"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/video" target="_top"><span class="bx bx-movie-play"></span>Thư viện Video</a>
+                        <a href="/events" target="_top"><span class="bx bx-medal"></span>Sự kiện/Giải đấu</a>
+                        <a href="/news" target="_top"><span class="bx bx-news"></span>Thông báo/Tin tức</a>
+                        <a href="/chess" target="_top"><span class="bx bxs-chess"></span>Kiến thức cờ vua</a>
+                    </div>
                 </div>
-                <div class="section">
-                    <a href="/blog" target="_top"><span class="bx bx-news"></span>Các bài đăng</a>
+
+                <!-- Dropdown 2: Sự kiện -->
+                <div class="section dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span class="bx bx-calendar-star"></span>Sự kiện <span class="bx bx-chevron-down dropdown-arrow"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/events" target="_top"><span class="bx bx-trophy"></span>Các giải đấu</a>
+                        <a href="/schedule" target="_top"><span class="bx bx-calendar"></span>Lịch tổ chức</a>
+                        <a href="/events/tournaments/" target="_top"><span class="bx bx-history"></span>Đã tổ chức</a>
+                    </div>
                 </div>
-                <div class="section">
-                    <a href="/video" target="_top"><span class="bx bx-movie-play"></span>Thư viện Video</a>
-                </div>
-                <div class="section">
-                    <a href="/events" target="_top"><span class="bx bx-medal"></span>Giải đấu</a>
-                </div>
-                <div class="section">
-                    <a href="/leaders" target="_top"><span class="bx bx-shield-quarter"></span>Quản trị viên</a>
+
+                <!-- Dropdown 3: Thông tin về CLB -->
+                <div class="section dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span class="bx bx-info-circle"></span>Thông tin về CLB <span class="bx bx-chevron-down dropdown-arrow"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/#about" target="_top"><span class="bx bx-id-card"></span>Giới thiệu CLB</a>
+                        <a href="/leaders" target="_top"><span class="bx bx-shield-quarter"></span>Các quản trị viên</a>
+                        <a href="/social" target="_top"><span class="bx bx-share-alt"></span>Social</a>
+                        <a href="/contact" target="_top"><span class="bx bx-envelope"></span>Liên hệ</a>
+                    </div>
                 </div>
             </div>
         </div>
