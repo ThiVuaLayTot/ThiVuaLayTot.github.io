@@ -68,7 +68,8 @@ function linkifyChessTerms(text) {
         { regex: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
         { regex: /Daily/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
         { regex: /Cờ Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
-        { regex: /Đấu Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' }
+        { regex: /Đấu Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
+        { regex: /Cờ bỏ phiếu/gi, url: 'https://support.chess.com/articles/8614177-how-do-i-play-vote-chess' }
     ];
 
     // Apply keyword replacements and tokenize them to avoid nested/double replacements
@@ -901,7 +902,7 @@ function renderListView() {
         const tParts = getVietnamDateParts(t.startTime);
         const dayVn = getDayOfWeekVn(t.startTime);
         const dayPrefix = dayVn === 'Chủ Nhật' ? '' : 'Thứ ';
-        let formattedTime = `${pad(tParts.hours)}:${pad(tParts.minutes)}, ${dayPrefix}${dayVn} - ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
+        let formattedTime = `${pad(tParts.hours)}h${pad(tParts.minutes)}, ${dayPrefix}${dayVn} - ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
 
         if (isTentative) {
             formattedTime = `Dự kiến: ${formattedTime}`;
