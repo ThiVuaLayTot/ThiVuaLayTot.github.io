@@ -86,6 +86,8 @@ window.addEventListener("load", function() {
     if (loader) {
         loader.classList.remove("show");
     }
+
+    handleScrollEffects();
 });
 
 /**
@@ -93,7 +95,24 @@ window.addEventListener("load", function() {
  */
 const backToTopBtn = document.getElementById("back-to-top");
 const timeline = document.querySelector('.timeline');
-const rootStyle = document.documentElement.style;
+const timelineItems = document.querySelectorAll('[data-timeline-item]');
+
+if (timelineItems.length) {
+    if ('IntersectionObserver' in window) {
+        const timelineObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.18 });
+
+        timelineItems.forEach(item => timelineObserver.observe(item));
+    } else {
+        timelineItems.forEach(item => item.classList.add('is-visible'));
+    }
+}
 
 let isScrolling = false;
 
@@ -130,7 +149,7 @@ function handleScrollEffects() {
             let scrollPercent = ((current - start) / (end - start)) * 100;
             scrollPercent = Math.min(Math.max(scrollPercent, 0), 100);
 
-            rootStyle.setProperty('--timeline-progress', scrollPercent + '%');
+            timeline.style.setProperty('--timeline-progress', scrollPercent + '%');
         }
     }
 }
