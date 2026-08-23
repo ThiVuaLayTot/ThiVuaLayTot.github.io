@@ -124,13 +124,26 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 /**
+ * Keep the navbar full-width on mobile even when resizing from desktop.
+ * Floating mode is intentionally desktop-only.
+ */
+window.addEventListener("resize", () => {
+    if (window.innerWidth <= 1024 && navHeader) {
+        navHeader.classList.remove("scrolled");
+    } else if (window.innerWidth > 1024) {
+        handleScrollEffects();
+    }
+}, { passive: true });
+
+/**
  * Handles all scroll-based UI updates
  */
 function handleScrollEffects() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
     if (navHeader) {
-        navHeader.classList.toggle("scrolled", scrollTop > 48);
+        const isDesktop = window.innerWidth > 1024;
+        navHeader.classList.toggle("scrolled", isDesktop && scrollTop > 48);
     }
 
     if (backToTopBtn) {
