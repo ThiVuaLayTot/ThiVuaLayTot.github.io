@@ -7,7 +7,6 @@
  * Mobile Navigation Toggle and Dropdowns
  */
 const menuBtn = document.getElementById("menu");
-const navHeader = document.querySelector(".page-header");
 const dropdowns = document.querySelectorAll(".section.dropdown");
 
 if (menuBtn) {
@@ -124,27 +123,10 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 /**
- * Keep the navbar full-width on mobile even when resizing from desktop.
- * Floating mode is intentionally desktop-only.
- */
-window.addEventListener("resize", () => {
-    if (window.innerWidth <= 1024 && navHeader) {
-        navHeader.classList.remove("scrolled");
-    } else if (window.innerWidth > 1024) {
-        handleScrollEffects();
-    }
-}, { passive: true });
-
-/**
- * Handles all scroll-based UI updates
+ * Handles scroll-based UI updates
  */
 function handleScrollEffects() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-    if (navHeader) {
-        const isDesktop = window.innerWidth > 1024;
-        navHeader.classList.toggle("scrolled", isDesktop && scrollTop > 48);
-    }
 
     if (backToTopBtn) {
         backToTopBtn.style.display = scrollTop > 100 ? "flex" : "none";
