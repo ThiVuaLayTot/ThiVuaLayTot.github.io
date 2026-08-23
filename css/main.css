@@ -10,11 +10,134 @@
 
 body {
   font-family: var(--primary-font);
-  background: var(--legacy-primary-dark);
+  background:
+    radial-gradient(
+      circle 22rem at 10% 16%,
+      rgba(0, 174, 255, 0.09),
+      transparent 72%
+    ),
+    radial-gradient(
+      circle 18rem at 90% 78%,
+      rgba(153, 61, 255, 0.085),
+      transparent 70%
+    ),
+    linear-gradient(
+      145deg,
+      #02040a 0%,
+      #050914 48%,
+      #070511 100%
+    );
+  background-attachment: fixed;
   color: var(--color-text-primary);
   font-size: var(--fs-base);
   font-weight: var(--fw-normal);
   line-height: 1.6;
+  position: relative;
+  isolation: isolate;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(72, 166, 255, 0.032) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(72, 166, 255, 0.032) 1px,
+      transparent 1px
+    );
+
+  background-size: 72px 72px;
+
+  -webkit-mask-image:
+    radial-gradient(
+      ellipse at center,
+      #000 0%,
+      rgba(0, 0, 0, 0.7) 45%,
+      transparent 88%
+    );
+
+  mask-image:
+    radial-gradient(
+      ellipse at center,
+      #000 0%,
+      rgba(0, 0, 0, 0.7) 45%,
+      transparent 88%
+    );
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 32rem;
+  height: 32rem;
+  left: -13rem;
+  top: 12rem;
+  z-index: -1;
+  pointer-events: none;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 190, 255, 0.14) 0%,
+      rgba(35, 108, 255, 0.06) 32%,
+      rgba(80, 45, 255, 0.018) 52%,
+      transparent 72%
+    );
+
+  filter: blur(18px);
+
+  animation:
+    tvlt-nebula-drift 30s
+    ease-in-out
+    infinite alternate;
+}
+
+@keyframes tvlt-nebula-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+  }
+
+  50% {
+    transform: translate3d(8vw, 7vh, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(16vw, 2vh, 0) scale(1.07);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  body::before {
+    background-size: 56px 56px;
+  }
+
+  body::after {
+    width: 22rem;
+    height: 22rem;
+    left: -11rem;
+    top: 10rem;
+    filter: blur(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
 }
 
 /* TYPOGRAPHY */
