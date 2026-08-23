@@ -4,44 +4,33 @@
  */
 
 /**
- * Mobile Navigation Toggle and Dropdowns
+ * Mobile Navigation
  */
 const menuBtn = document.getElementById("menu");
 const dropdowns = document.querySelectorAll(".section.dropdown");
 const mobileNav = document.getElementById("tvltTopnav");
 
-function syncMobileNavLayout() {
-    if (!mobileNav) return;
+const isMobileNav = () => window.matchMedia("(max-width: 1024px)").matches;
 
-    if (window.innerWidth <= 1024 && mobileNav.classList.contains("active")) {
-        mobileNav.style.left = "auto";
-        mobileNav.style.right = "0";
-        mobileNav.style.width = "min(360px, calc(100vw - 20px))";
-        mobileNav.style.marginTop = "8px";
-        mobileNav.style.paddingLeft = "10px";
-        mobileNav.style.paddingRight = "10px";
-        mobileNav.style.border = "1px solid rgba(148, 163, 184, 0.14)";
-        mobileNav.style.borderRadius = "14px";
-        mobileNav.style.boxShadow = "0 18px 42px rgba(0, 0, 0, 0.38)";
-    } else {
-        mobileNav.style.removeProperty("left");
-        mobileNav.style.removeProperty("right");
-        mobileNav.style.removeProperty("width");
-        mobileNav.style.removeProperty("margin-top");
-        mobileNav.style.removeProperty("padding-left");
-        mobileNav.style.removeProperty("padding-right");
-        mobileNav.style.removeProperty("border");
-        mobileNav.style.removeProperty("border-radius");
-        mobileNav.style.removeProperty("box-shadow");
-    }
+function setDropdownState(dropdown, open) {
+    const trigger = dropdown.querySelector(".dropdown-trigger");
+    dropdown.classList.toggle("active", open);
+    if (trigger) trigger.setAttribute("aria-expanded", String(open));
 }
 
-function closeMobileNav() {
+function closeDropdowns() {
+    dropdowns.forEach(dropdown => setDropdownState(dropdown, false));
+}
+
+function closeMobileNav({ restoreFocus = false } = {}) {
     if (!mobileNav || !menuBtn) return;
 
     mobileNav.classList.remove("active");
     menuBtn.setAttribute("aria-expanded", "false");
     menuBtn.setAttribute("aria-label", "Mở menu điều hướng");
+    document.documentElement.classList.remove("nav-open");
+    document.body.classList.remove("nav-open");
+    closeDropdowns();
 
     const menuIcon = document.getElementById("menuIcon");
     if (menuIcon) {
@@ -49,86 +38,88 @@ function closeMobileNav() {
         menuIcon.classList.add("bx-menu");
     }
 
-    dropdowns.forEach(dropdown => {
-        dropdown.classList.remove("active");
-        const trigger = dropdown.querySelector(".dropdown-trigger");
-        if (trigger) trigger.setAttribute("aria-expanded", "false");
-    });
+    if (restoreFocus) menuBtn.focus();
+}
 
-    syncMobileNavLayout();
+function openMobileNav() {
+    if (!mobileNav || !menuBtn) return;
+
+    mobileNav.classList.add("active");
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.setAttribute("aria-label", "Đóng menu điều hướng");
+    document.documentElement.classList.add("nav-open");
+    document.body.classList.add("nav-open");
+
+    const menuIcon = document.getElementById("menuIcon");
+    if (menuIcon) {
+        menuIcon.classList.remove("bx-menu");
+        menuIcon.classList.add("bx-x");
+    }
 }
 
 if (menuBtn) {
-    menuBtn.addEventListener("click", function() {
-        if (!mobileNav) return;
+    menuBtn.addEventListener("click", () => {
+        if (!mobileNav || !isMobileNav()) return;
 
-        mobileNav.classList.toggle("active");
-        const isActive = mobileNav.classList.contains("active");
-
-        this.setAttribute("aria-expanded", isActive);
-        this.setAttribute("aria-label", isActive ? "Đóng menu điều hướng" : "Mở menu điều hướng");
-
-        const menuIcon = document.getElementById("menuIcon");
-        if (menuIcon) {
-            menuIcon.classList.toggle("bx-menu", !isActive);
-            menuIcon.classList.toggle("bx-x", isActive);
+        if (mobileNav.classList.contains("active")) {
+            closeMobileNav();
+        } else {
+            openMobileNav();
         }
-
-        if (!isActive) {
-            dropdowns.forEach(dropdown => {
-                dropdown.classList.remove("active");
-                const trigger = dropdown.querySelector(".dropdown-trigger");
-                if (trigger) trigger.setAttribute("aria-expanded", "false");
-            });
-        }
-
-        syncMobileNavLayout();
     });
 }
 
 dropdowns.forEach(dropdown => {
     const trigger = dropdown.querySelector(".dropdown-trigger");
-    if (trigger) {
-        trigger.addEventListener("click", function(e) {
-            if (window.innerWidth <= 1024) {
-                e.preventDefault();
-                e.stopPropagation();
+    if (!trigger) return;
 
-                const isActive = dropdown.classList.contains("active");
+    trigger.addEventListener("click", event => {
+        if (!isMobileNav()) return;
 
-                dropdowns.forEach(other => {
-                    if (other !== dropdown) {
-                        other.classList.remove("active");
-                        const otherTrigger = other.querySelector(".dropdown-trigger");
-                        if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
-                    }
-                });
+        event.preventDefault();
+        event.stopPropagation();
 
-                dropdown.classList.toggle("active", !isActive);
-                this.setAttribute("aria-expanded", String(!isActive));
-            }
+        const shouldOpen = !dropdown.classList.contains("active");
+        dropdowns.forEach(other => {
+            if (other !== dropdown) setDropdownState(other, false);
         });
-    }
+        setDropdownState(dropdown, shouldOpen);
+    });
 });
 
-window.addEventListener("resize", syncMobileNavLayout, { passive: true });
+document.addEventListener("click", event => {
+    if (!isMobileNav() || !mobileNav?.classList.contains("active")) return;
+
+    const target = event.target;
+    if (mobileNav.contains(target) || menuBtn?.contains(target)) return;
+
+    closeMobileNav();
+});
 
 document.addEventListener("keydown", event => {
     if (event.key === "Escape" && mobileNav?.classList.contains("active")) {
-        closeMobileNav();
-        menuBtn?.focus();
+        closeMobileNav({ restoreFocus: true });
     }
 });
+
+window.addEventListener("resize", () => {
+    if (!isMobileNav()) closeMobileNav();
+});
+
+if (mobileNav) {
+    mobileNav.querySelectorAll("a:not(.dropdown-trigger)").forEach(link => {
+        link.addEventListener("click", () => {
+            if (isMobileNav()) closeMobileNav();
+        });
+    });
+}
 
 /**
  * Page Load Events
  */
 window.addEventListener("load", function() {
     const loader = document.getElementById("loader");
-    if (loader) {
-        loader.classList.remove("show");
-    }
-
+    if (loader) loader.classList.remove("show");
     handleScrollEffects();
 });
 
@@ -174,9 +165,7 @@ window.addEventListener("scroll", () => {
 function handleScrollEffects() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-    if (backToTopBtn) {
-        backToTopBtn.style.display = scrollTop > 100 ? "flex" : "none";
-    }
+    if (backToTopBtn) backToTopBtn.style.display = scrollTop > 100 ? "flex" : "none";
 
     if (timeline) {
         const rect = timeline.getBoundingClientRect();
@@ -186,10 +175,8 @@ function handleScrollEffects() {
             const start = rect.top;
             const end = rect.bottom;
             const current = windowHeight * 0.7;
-
             let scrollPercent = ((current - start) / (end - start)) * 100;
             scrollPercent = Math.min(Math.max(scrollPercent, 0), 100);
-
             timeline.style.setProperty('--timeline-progress', scrollPercent + '%');
         }
     }
