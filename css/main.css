@@ -93,7 +93,7 @@ hr {
 /* CONTAINER & LAYOUT */
 
 .container {
-  padding: 0 var(--space-5xl);
+  padding: var(--space-6xl) var(--space-5xl);
   margin: 0 auto;
 }
 
@@ -107,19 +107,19 @@ hr {
 
 @media (max-width: 1024px) {
   .container {
-    padding: 0 var(--space-4xl);
+    padding: var(--space-6xl) var(--space-4xl);
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 var(--space-2xl);
+    padding: var(--space-6xl) var(--space-2xl);
   }
 }
 
 @media (max-width: 600px) {
   .container {
-    padding: 0 var(--space-lg);
+    padding: var(--space-6xl) var(--space-lg);
   }
 }
 
