@@ -174,9 +174,6 @@ hr {
 .tvlt-brand .logo {
   flex: 0 0 46px;
   object-fit: cover;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 5px 16px rgba(59, 130, 246, 0.18);
 }
 .tvlt-brand__text {
   display: grid;
@@ -195,7 +192,7 @@ hr {
 }
 .tvlt-brand__text small {
   color: #94a3b8;
-  font-size: 0.64rem;
+  font-size: 0.67rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -253,21 +250,6 @@ hr {
 .dropdown-trigger:hover .bx:first-child,
 .section.dropdown.active .dropdown-trigger .bx:first-child {
   color: #a78bfa;
-}
-.nav-link--active {
-  color: #fff;
-  background: rgba(139, 92, 246, 0.14);
-  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.11);
-}
-.nav-link--active::after {
-  content: "";
-  position: absolute;
-  right: 12px;
-  bottom: 5px;
-  left: 12px;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #8b5cf6, #38bdf8);
 }
 .dropdown {
   position: relative;
@@ -477,13 +459,6 @@ hr {
     justify-content: flex-start;
     padding: 0 12px;
     box-sizing: border-box;
-  }
-  .nav-link--active::after {
-    right: auto;
-    bottom: 10px;
-    left: 7px;
-    width: 2px;
-    height: 23px;
   }
   .dropdown {
     width: 100%;
@@ -903,27 +878,27 @@ footer {
   justify-content: center;
 }
 
-.footer_content .logo {
+.footer_content .col_1 .logo {
   animation: leftSideAni 1s ease forwards;
 }
 
-.footer_content .logo img {
+.footer_content .col_1 .logo img {
   width: 50px;
   height: 50px;
 }
 
-.footer_content .logo:hover {
+.footer_content .col_1 .logo:hover {
     transform: scale(1.2);
 }
 
-.footer_content .tvlt_name {
+.footer_content .col_1 .tvlt_name {
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 700;
   color: aliceblue;
 }
 
-.footer_content .tungjohn {
+.footer_content .col_1 .tungjohn {
   color: antiquewhite;
   font-size: .875rem;
   line-height: 1.25rem;
