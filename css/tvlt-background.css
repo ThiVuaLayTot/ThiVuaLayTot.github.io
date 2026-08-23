@@ -4,10 +4,11 @@ body {
   position: relative;
   isolation: isolate;
   background:
-    radial-gradient(circle at 12% 18%, rgb(78 112 255 / 0.11), transparent 28%),
-    radial-gradient(circle at 88% 24%, rgb(156 92 255 / 0.10), transparent 30%),
-    radial-gradient(circle at 50% 100%, rgb(0 191 255 / 0.07), transparent 34%),
-    var(--legacy-primary-dark);
+    radial-gradient(circle at 10% 12%, rgb(0 174 255 / 0.16), transparent 30%),
+    radial-gradient(circle at 88% 16%, rgb(151 70 255 / 0.15), transparent 30%),
+    radial-gradient(circle at 78% 82%, rgb(0 225 255 / 0.09), transparent 28%),
+    radial-gradient(circle at 28% 92%, rgb(91 62 255 / 0.09), transparent 30%),
+    linear-gradient(145deg, #020611 0%, #061127 48%, #0b061b 100%);
 }
 
 body::before,
@@ -20,25 +21,26 @@ body::after {
 
 body::before {
   z-index: -1;
-  opacity: 0.38;
+  opacity: 0.44;
   background-image:
-    linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+    linear-gradient(rgb(91 190 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(91 190 255 / 0.035) 1px, transparent 1px);
   background-size: 72px 72px;
-  mask-image: linear-gradient(to bottom, black, transparent 88%);
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
-  animation: tvlt-grid-drift 30s linear infinite;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 90%);
+  animation: tvlt-grid-drift 32s linear infinite;
 }
 
 body::after {
   z-index: -1;
-  opacity: 0.55;
+  opacity: 0.72;
   background:
-    radial-gradient(circle at 20% 35%, rgb(70 130 255 / 0.08), transparent 20%),
-    radial-gradient(circle at 80% 65%, rgb(170 90 255 / 0.07), transparent 22%),
-    linear-gradient(to bottom, transparent 65%, rgb(3 8 22 / 0.28));
-  filter: blur(22px);
-  animation: tvlt-ambient-drift 24s ease-in-out infinite alternate;
+    radial-gradient(circle at 18% 30%, rgb(0 174 255 / 0.08), transparent 21%),
+    radial-gradient(circle at 82% 36%, rgb(157 72 255 / 0.08), transparent 23%),
+    radial-gradient(circle at 52% 86%, rgb(0 225 255 / 0.05), transparent 25%),
+    linear-gradient(to bottom, transparent 64%, rgb(2 6 17 / 0.3));
+  filter: blur(24px);
+  animation: tvlt-ambient-drift 26s ease-in-out infinite alternate;
 }
 
 @keyframes tvlt-grid-drift {
@@ -55,18 +57,18 @@ body::after {
     transform: translate3d(-1.5%, -1%, 0) scale(1);
   }
   100% {
-    transform: translate3d(1.5%, 1%, 0) scale(1.035);
+    transform: translate3d(1.5%, 1.2%, 0) scale(1.04);
   }
 }
 
 @media (max-width: 768px) {
   body::before {
-    opacity: 0.25;
+    opacity: 0.28;
     background-size: 56px 56px;
   }
 
   body::after {
-    opacity: 0.38;
+    opacity: 0.48;
     filter: blur(18px);
   }
 }
