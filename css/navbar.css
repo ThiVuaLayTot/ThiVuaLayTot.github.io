@@ -1,4 +1,4 @@
-/* TVLT navigation — full-width cinematic header */
+/* TVLT navigation */
 
 .page-header {
   position: fixed;
@@ -14,10 +14,26 @@
   border: 0;
   border-bottom: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 0;
-  background: rgba(5, 8, 22, 0.72);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), inset 0 -1px rgba(255, 255, 255, 0.025);
-  backdrop-filter: blur(18px) saturate(135%);
-  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  background: rgba(5, 8, 22, 0.62);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1), inset 0 -1px rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(16px) saturate(135%);
+  -webkit-backdrop-filter: blur(16px) saturate(135%);
+  transition: width 320ms ease, max-width 320ms ease, top 320ms ease, left 320ms ease, padding 320ms ease, border-radius 320ms ease, background 320ms ease, box-shadow 320ms ease, border-color 320ms ease;
+}
+
+.page-header.scrolled {
+  top: 12px;
+  right: auto;
+  left: 50%;
+  width: calc(100% - 32px);
+  max-width: 1280px;
+  min-height: 64px;
+  padding: 8px 18px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 16px;
+  background: rgba(8, 12, 29, 0.86);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(139, 92, 246, 0.04);
+  transform: translateX(-50%);
 }
 
 .page-header::after {
@@ -30,6 +46,13 @@
   background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.55) 30%, rgba(56, 189, 248, 0.45) 70%, transparent);
   opacity: 0.7;
   pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.page-header.scrolled::after {
+  right: 16px;
+  left: 16px;
+  opacity: 0.9;
 }
 
 .tvlt-brand {
@@ -47,6 +70,14 @@
   border-radius: 11px;
   object-fit: cover;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 5px 16px rgba(59, 130, 246, 0.18);
+  transition: width 320ms ease, height 320ms ease, flex-basis 320ms ease, border-radius 320ms ease;
+}
+
+.page-header.scrolled .tvlt-brand .logo {
+  flex-basis: 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
 }
 
 .tvlt-brand__text {
@@ -295,6 +326,14 @@
     padding: 9px 20px;
   }
 
+  .page-header.scrolled {
+    top: 10px;
+    width: calc(100% - 24px);
+    min-height: 60px;
+    padding: 8px 14px;
+    border-radius: 14px;
+  }
+
   .topnav {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -364,7 +403,15 @@
     padding: 8px 14px;
   }
 
-  .tvlt-brand .logo {
+  .page-header.scrolled {
+    width: calc(100% - 16px);
+    top: 8px;
+    padding: 7px 10px;
+    border-radius: 13px;
+  }
+
+  .tvlt-brand .logo,
+  .page-header.scrolled .tvlt-brand .logo {
     flex-basis: 40px;
     width: 40px;
     height: 40px;
@@ -381,6 +428,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .page-header,
   .page-header *,
   .page-header::after {
     transition: none !important;
