@@ -1,14 +1,14 @@
-/* TVLT global background */
+/* TVLT Deep Space + Chess Nebula background */
 
 body {
   position: relative;
   isolation: isolate;
   background:
-    radial-gradient(circle at 10% 12%, rgb(0 174 255 / 0.16), transparent 30%),
-    radial-gradient(circle at 88% 16%, rgb(151 70 255 / 0.15), transparent 30%),
-    radial-gradient(circle at 78% 82%, rgb(0 225 255 / 0.09), transparent 28%),
-    radial-gradient(circle at 28% 92%, rgb(91 62 255 / 0.09), transparent 30%),
-    linear-gradient(145deg, #020611 0%, #061127 48%, #0b061b 100%);
+    radial-gradient(circle at 14% 18%, rgb(0 174 255 / 0.15) 0, rgb(0 174 255 / 0.07) 7%, transparent 18%),
+    radial-gradient(circle at 84% 28%, rgb(155 72 255 / 0.14) 0, rgb(155 72 255 / 0.06) 8%, transparent 19%),
+    radial-gradient(circle at 68% 78%, rgb(0 220 255 / 0.09) 0, rgb(0 220 255 / 0.035) 7%, transparent 16%),
+    radial-gradient(circle at 30% 92%, rgb(100 65 255 / 0.07) 0, transparent 15%),
+    linear-gradient(145deg, #02050d 0%, #050b19 48%, #080516 100%);
 }
 
 body::before,
@@ -19,57 +19,68 @@ body::after {
   pointer-events: none;
 }
 
+/* Subtle chessboard grid with scattered star points */
 body::before {
   z-index: -1;
-  opacity: 0.44;
+  opacity: 0.34;
   background-image:
-    linear-gradient(rgb(91 190 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(91 190 255 / 0.035) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: linear-gradient(to bottom, black, transparent 90%);
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent 90%);
-  animation: tvlt-grid-drift 32s linear infinite;
+    radial-gradient(circle at 13% 23%, rgb(89 208 255 / 0.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 27% 67%, rgb(150 100 255 / 0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 71% 31%, rgb(75 207 255 / 0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 74%, rgb(179 104 255 / 0.17) 0 1px, transparent 2px),
+    linear-gradient(90deg, rgb(91 190 255 / 0.028) 1px, transparent 1px),
+    linear-gradient(rgb(91 190 255 / 0.028) 1px, transparent 1px),
+    repeating-conic-gradient(from 45deg at 50% 50%, rgb(96 154 255 / 0.018) 0 25%, transparent 0 50%);
+  background-size: auto, auto, auto, auto, 72px 72px, 72px 72px, 144px 144px;
+  mask-image: linear-gradient(to bottom, black 0%, rgb(0 0 0 / 0.8) 58%, transparent 94%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgb(0 0 0 / 0.8) 58%, transparent 94%);
+  animation: tvlt-grid-drift 38s linear infinite;
 }
 
+/* Compact nebula clouds instead of a full-screen wash */
 body::after {
   z-index: -1;
-  opacity: 0.72;
+  opacity: 0.78;
   background:
-    radial-gradient(circle at 18% 30%, rgb(0 174 255 / 0.08), transparent 21%),
-    radial-gradient(circle at 82% 36%, rgb(157 72 255 / 0.08), transparent 23%),
-    radial-gradient(circle at 52% 86%, rgb(0 225 255 / 0.05), transparent 25%),
-    linear-gradient(to bottom, transparent 64%, rgb(2 6 17 / 0.3));
-  filter: blur(24px);
-  animation: tvlt-ambient-drift 26s ease-in-out infinite alternate;
+    radial-gradient(ellipse 22% 15% at 16% 24%, rgb(0 174 255 / 0.12), transparent 72%),
+    radial-gradient(ellipse 19% 16% at 83% 29%, rgb(157 72 255 / 0.11), transparent 70%),
+    radial-gradient(ellipse 17% 13% at 68% 78%, rgb(0 225 255 / 0.065), transparent 72%),
+    radial-gradient(circle at 48% 52%, transparent 0 34%, rgb(2 6 17 / 0.18) 64%, rgb(2 6 17 / 0.42) 100%);
+  filter: blur(14px);
+  animation: tvlt-nebula-drift 30s ease-in-out infinite alternate;
 }
 
 @keyframes tvlt-grid-drift {
   from {
-    background-position: 0 0, 0 0;
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
   }
   to {
-    background-position: 72px 72px, 72px 72px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 36px 36px, 36px 36px, 18px 18px;
   }
 }
 
-@keyframes tvlt-ambient-drift {
-  0% {
-    transform: translate3d(-1.5%, -1%, 0) scale(1);
+@keyframes tvlt-nebula-drift {
+  from {
+    transform: translate3d(-1.2%, -0.8%, 0) scale(1);
   }
-  100% {
-    transform: translate3d(1.5%, 1.2%, 0) scale(1.04);
+  to {
+    transform: translate3d(1.2%, 0.8%, 0) scale(1.035);
   }
 }
 
 @media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+
   body::before {
-    opacity: 0.28;
-    background-size: 56px 56px;
+    opacity: 0.25;
+    background-size: auto, auto, auto, auto, 56px 56px, 56px 56px, 112px 112px;
   }
 
   body::after {
-    opacity: 0.48;
-    filter: blur(18px);
+    opacity: 0.58;
+    filter: blur(11px);
   }
 }
 
