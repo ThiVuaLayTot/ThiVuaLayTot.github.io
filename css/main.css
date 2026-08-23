@@ -897,6 +897,46 @@ footer {
   justify-content: center;
 }
 
+.footer_content .tvlt_details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer_content .logo {
+  animation: leftSideAni 1s ease forwards;
+}
+
+.footer_content .logo img {
+  width: 50px;
+  height: 50px;
+}
+
+.footer_content .logo:hover {
+    transform: scale(1.2);
+}
+
+.footer_content .tvlt_name {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: aliceblue;
+}
+
+.footer_content .tungjohn {
+  color: antiquewhite;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.cc_club_banner {
+  width: auto;
+  height: auto;
+  aspect-ratio: auto 1171 / 614;
+  max-width: 300px;
+}
+
 .footer_content .link_boxes {
   width: 100%;
   display: flex;
