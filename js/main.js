@@ -7,6 +7,7 @@
  * Mobile Navigation Toggle and Dropdowns
  */
 const menuBtn = document.getElementById("menu");
+const navHeader = document.querySelector(".page-header");
 const dropdowns = document.querySelectorAll(".section.dropdown");
 
 if (menuBtn) {
@@ -30,7 +31,6 @@ if (menuBtn) {
             }
         }
 
-        // Close all dropdowns when the mobile navigation bar is closed
         if (!isActive) {
             dropdowns.forEach(dropdown => {
                 dropdown.classList.remove("active");
@@ -43,7 +43,6 @@ if (menuBtn) {
     });
 }
 
-// Mobile Dropdown toggles click handler
 dropdowns.forEach(dropdown => {
     const trigger = dropdown.querySelector(".dropdown-trigger");
     if (trigger) {
@@ -54,7 +53,6 @@ dropdowns.forEach(dropdown => {
 
                 const isActive = dropdown.classList.contains("active");
 
-                // Collapse all other dropdowns
                 dropdowns.forEach(other => {
                     if (other !== dropdown) {
                         other.classList.remove("active");
@@ -65,7 +63,6 @@ dropdowns.forEach(dropdown => {
                     }
                 });
 
-                // Toggle current dropdown
                 if (isActive) {
                     dropdown.classList.remove("active");
                     this.setAttribute("aria-expanded", "false");
@@ -132,11 +129,14 @@ window.addEventListener("scroll", () => {
 function handleScrollEffects() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
+    if (navHeader) {
+        navHeader.classList.toggle("scrolled", scrollTop > 48);
+    }
+
     if (backToTopBtn) {
         backToTopBtn.style.display = scrollTop > 100 ? "flex" : "none";
     }
 
-    // Timeline Scroll Progress
     if (timeline) {
         const rect = timeline.getBoundingClientRect();
         const windowHeight = window.innerHeight;
@@ -144,7 +144,7 @@ function handleScrollEffects() {
         if (rect.top < windowHeight && rect.bottom > 0) {
             const start = rect.top;
             const end = rect.bottom;
-            const current = windowHeight * 0.7; // Target line progress to 70% of viewport
+            const current = windowHeight * 0.7;
 
             let scrollPercent = ((current - start) / (end - start)) * 100;
             scrollPercent = Math.min(Math.max(scrollPercent, 0), 100);
