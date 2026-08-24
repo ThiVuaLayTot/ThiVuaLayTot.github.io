@@ -15,16 +15,16 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 .leaders-only .list-item-people{display:flex;flex-direction:column;justify-content:space-between;gap:15px;min-width:0;padding:17px;border:1px solid rgba(56,189,248,.1);border-radius:var(--border-radius-lg);background:rgba(255,255,255,.025);transition:.2s ease}
 .leaders-only .list-item-people:first-child{grid-column:1/-1;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(139,92,246,.055));border-color:rgba(56,189,248,.2)}
 .leaders-only .list-item-people:hover{transform:translateY(-2px);border-color:rgba(56,189,248,.28);background:rgba(56,189,248,.045)}
-.leaders-only .list-item-info{display:flex;align-items:flex-start;gap:13px;min-width:0}
+.leaders-only .list-item-info{display:inline-flex;align-items:center;gap:13px;min-width:0}
 .leaders-only .profile-thumbnail{width:60px;height:60px;flex:0 0 60px;object-fit:cover;border:2px solid rgba(56,189,248,.28);border-radius:16px;background:var(--color-bg-tertiary)}
 .leaders-only .list-item-people:first-child .profile-thumbnail{width:72px;height:72px;flex-basis:72px}
-.leaders-only .list-people-detail{min-width:0}
-.leaders-only .name{margin:1px 0 7px;font-size:1.05rem;font-weight:700}
+.leaders-only .list-people-detail{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.leaders-only .name{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 6px;font-size:1.05rem;font-weight:700}
 .leaders-only .list-item-people:first-child .name{font-size:1.18rem}
 .leaders-only .name a{color:#fff;text-decoration:none}
 .leaders-only .name a:hover{color:var(--color-accent-light)}
-.leaders-only .list-detail p{margin:5px 0;color:var(--color-text-secondary);font-size:.82rem;line-height:1.5}
-.leaders-only .list-detail .role-admin,.leaders-only .list-detail .role-success{display:inline-flex;align-items:center;gap:5px;width:max-content;padding:4px 9px;border-radius:999px;font-weight:600}
+.leaders-only .list-detail{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.leaders-only .list-detail p{margin:0;color:var(--color-text-secondary);font-size:.82rem;line-height:1.5}
+.leaders-only .list-detail .role-admin,.leaders-only .list-detail .role-success{display:inline-flex;align-items:center;gap:5px;width:max-content;margin:0;padding:4px 9px;border-radius:999px;font-weight:600}
 .leaders-only .list-detail .role-admin{color:var(--color-accent-light);border:1px solid rgba(56,189,248,.18);background:rgba(56,189,248,.08)}
 .leaders-only .list-detail .role-success{color:#86efac;border:1px solid rgba(74,222,128,.15);background:rgba(74,222,128,.06)}
 .leaders-only .social_btn.social{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
