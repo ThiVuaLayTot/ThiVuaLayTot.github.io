@@ -90,18 +90,3 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 <p align="center">Ngoài ra còn một số <a href="https://chess.com/clubs/members/thi-vua-lay-tot-tungjohn-playing-chess?filter=byRoles" target="_blank" rel="noopener">thành viên khác.</a></p>
 <p><br><strong>Bạn có muốn trở thành một điều phối viên? Xem <a href="/news/2024/08/10/tuyen-dieu-hanh-vien">chi tiết và ứng tuyển</a>.</strong></p>
 </div>
-
-<hr id="contact"><br>
-<div class="pos_header">
-    <h2>Liên hệ</h2>
-    <strong>Vui lòng hãy tham gia các câu lạc bộ, cộng đồng trên một số nền tảng sau giúp bạn có thể dễ dàng trao đổi và trò chuyện với mọi người:</strong>
-    <div class="social_btn">
-        <a href="https://link.chess.com/club/0CVQh6" target="_blank"><img width="22" src="https://images.chesscomfiles.com/uploads/v1/user/33.862d5ff1.160x160o.578dc76c0662.png"></a>
-        <a href="https://facebook.com/groups/586909589413729" target="_blank" title="Nhóm Facebook của Thí Vua Lấy Tốt"><span class="bx bxl-facebook-square"></span></a>
-        <a href="https://zalo.me/g/zhrwtn779" title="Nhóm chat Thí Vua Lấy Tốt trên Zalo"><img width="14" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
-        <a href="https://discord.gg/bggkufa4nE" target="_blank" title="Máy chủ Discord của Thí Vua Lấy Tốt"><span class="bx bxl-discord"></span></a>
-    </div>
-    <strong>Bạn cũng có thể liên hệ tới một trong <a href="#admins">các quản trị viên</a> để nhận được hỗ trợ.</strong>
-    <p>Đánh giá câu lạc bộ: <a href="https://forms.gle/iCYUAbVD5GUmbdsL8" target="_blank">https://forms.gle/iCYUAbVD5GUmbdsL8</a></p>
-    Ủng hộ cho Mr.TungJohn: <img src="/images/tvlt/payment.jpg" width="170" height="189" alt="QR Code">
-</div>
