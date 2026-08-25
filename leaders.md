@@ -10,7 +10,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 .leaders-only .nav-tabs a{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;color:var(--color-text-secondary);font-weight:600;text-decoration:none;transition:.2s ease}
 .leaders-only .nav-tabs a:hover,.leaders-only .nav-tabs a:focus-visible{color:#fff;background:var(--color-bg-hover);text-decoration:none}
 .leaders-only .pos_header{margin:0 0 22px;padding:clamp(18px,3vw,28px);border:1px solid var(--color-border);border-radius:var(--border-radius-xl);background:linear-gradient(145deg,rgba(11,18,35,.82),rgba(7,10,22,.68));box-shadow:var(--shadow-xl)}
-.leaders-only .pos_header>h2{margin-bottom:18px}
+.leaders-only .pos_header>h2{margin-bottom:18px;text-align:center}
 .leaders-only .people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .leaders-only .list-item-people{display:flex;flex-direction:column;justify-content:space-between;gap:15px;min-width:0;padding:17px;border:1px solid rgba(56,189,248,.1);border-radius:var(--border-radius-lg);background:rgba(255,255,255,.025);transition:.2s ease}
 .leaders-only .list-item-people:first-child{grid-column:1/-1;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(139,92,246,.055));border-color:rgba(56,189,248,.2)}
@@ -24,9 +24,12 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 .leaders-only .name a{color:#fff;text-decoration:none}
 .leaders-only .name a:hover{color:var(--color-accent-light)}
 .leaders-only .list-detail{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.leaders-only .list-detail p{margin:0;color:var(--color-text-secondary);font-size:.82rem;line-height:1.5}
+.leaders-only .list-detail .task-icon{color:var(--yellow-300);font-size:var(--fs-lg)}
 .leaders-only .name .role-admin,.leaders-only .name .role-success{display:inline-flex;align-items:center;gap:3px;width:max-content;margin:0;padding:3px 7px;border-radius:999px;font-weight:600}
 .leaders-only .name .role-admin{color:var(--color-accent-light);border:1px solid rgba(56,189,248,.18);background:rgba(56,189,248,.08)}
 .leaders-only .name .role-success{color:#86efac;border:1px solid rgba(74,222,128,.15);background:rgba(74,222,128,.06)}
+.leaders-only .name .role-success .admin-icon{transform:scale(1.25);transition:.3s ease}
+.leaders-only .name .role-success:hover .admin-icon{transform:scale(1.25)}
 .leaders-only .social_btn.social{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
 .leaders-only .social_btn.social a{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.07);border-radius:10px;background:rgba(255,255,255,.035);color:var(--color-text-secondary);text-decoration:none;transition:.2s ease}
 .leaders-only .social_btn.social a:hover,.leaders-only .social_btn.social a:focus-visible{color:#fff;border-color:rgba(56,189,248,.32);background:rgba(56,189,248,.1);transform:translateY(-1px);text-decoration:none}
@@ -40,11 +43,11 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 <div class="leaders-only">
 <h1 class="title"><span>Các thành viên điều hành chính</span></h1>
 <ul class="nav-tabs">
-    <li><a href="#admins"><span class="bx bxs-shield admin-icon"></span>Các điều hành viên</a></li>
-    <li><a href="/contact"><span class="bx bxs-help-circle admin-icon"></span>Liên hệ & Hỗ trợ</a></li>
+    <li><a href="#admins"><span class="bx bxs-shield" style="color:var(--color-accent-dark)"></span>Các điều hành viên</a></li>
+    <li><a href="/contact"><span class="bx bxs-help-circle" style="color:var(--yellow-300)"></span>Liên hệ & Hỗ trợ</a></li>
 </ul>
 <div id="admins" class="pos_header">
-    <h2>Các thành viên điều hành</h2>
+    <h2 align="center">Các thành viên điều hành</h2>
     <div class="people">
         <div id="own" class="list-item-people">
             <div class="list-item-info">
