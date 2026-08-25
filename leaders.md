@@ -24,7 +24,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 .leaders-only .name a{color:#fff;text-decoration:none}
 .leaders-only .name a:hover{color:var(--color-accent-light)}
 .leaders-only .list-detail{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.leaders-only .list-detail p{margin:0;color:var(--color-text-secondary);font-size:.82rem;line-height:1.5}
-.leaders-only .name .role-admin,.leaders-only .list-detail .role-success{display:inline-flex;align-items:center;gap:5px;width:max-content;margin:0;padding:4px 9px;border-radius:999px;font-weight:600}
+.leaders-only .name .role-admin,.leaders-only .name .role-success{display:inline-flex;align-items:center;gap:5px;width:max-content;margin:0;padding:4px 9px;border-radius:999px;font-weight:600}
 .leaders-only .name .role-admin{color:var(--color-accent-light);border:1px solid rgba(56,189,248,.18);background:rgba(56,189,248,.08)}
 .leaders-only .name .role-success{color:#86efac;border:1px solid rgba(74,222,128,.15);background:rgba(74,222,128,.06)}
 .leaders-only .social_btn.social{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
