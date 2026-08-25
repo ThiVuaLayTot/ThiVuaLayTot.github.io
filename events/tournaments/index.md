@@ -105,7 +105,6 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
                     <div class="tournament-organizer">Tổ chức bởi <a href="/leaders#admin2">FR-CH_TheClanTeamIsMine</a></div>
                     <div class="tournament-actions">
                         <a class="tournament-action" href="/events/tournaments/dttv">Bảng tổng kết <span aria-hidden="true">→</span></a>
-                        <a class="tournament-action" href="/events/dau-truong-thi-vua">Thông tin sự kiện <span aria-hidden="true">↗</span></a>
                     </div>
                 </div>
             </div>
