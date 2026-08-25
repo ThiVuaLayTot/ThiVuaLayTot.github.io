@@ -19,7 +19,6 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
 .tournament-logo { display: block; object-fit: contain; }
 .tournament-placeholder { display: grid; place-items: center; border: 1px solid rgba(72,166,255,.12); border-radius: 14px; background: rgba(72,166,255,.06); color: #48a6ff; font-size: 42px; }
 .tournament-content { min-width: 0; }
-.tournament-code { display: inline-block; margin-bottom: 6px; color: #48a6ff; font-size: .78rem; font-weight: 700; letter-spacing: .1em; }
 .tournament-content h3, .event-type-card h3 { margin: 0 0 8px; line-height: 1.25; }
 .tournament-content p, .event-type-card p { margin: 0; color: #aeb9c8; font-size: .9rem; line-height: 1.55; }
 .tournament-organizer { margin-top: 10px; color: #8996a8; font-size: .82rem; }
@@ -50,16 +49,14 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
         <h1>Các giải trong CLB <span>Thí Vua Lấy Tốt</span></h1>
         <p>Tổng hợp các hệ thống giải đấu và những thể loại cờ vua đã được tổ chức trong CLB.</p>
     </header>
-
     <section class="tournaments-section">
         <h2>Hệ thống giải đấu</h2>
         <div class="tournament-grid">
             <div class="tournament-card">
                 <img class="tournament-logo" src="/images/tvltlogo.png" alt="TVLT" title="Thí Vua Lấy Tốt">
                 <div class="tournament-content">
-                    <span class="tournament-code">TVLT</span>
                     <h3>Thí Vua Lấy Tốt</h3>
-                    <p>Siêu giải Thí Vua Lấy Tốt.</p>
+                    <p>Siêu giải Thí Vua Lấy Tốt được tổ chức có thưởng và được phát trực tiếp.</p>
                     <div class="tournament-organizer">Tổ chức bởi <a href="/leaders#owner">Mr.TungJohn</a></div>
                     <div class="tournament-actions">
                         <a class="tournament-action" href="/events/tournaments/tvlt">Bảng tổng kết <span aria-hidden="true">→</span></a>
@@ -67,13 +64,11 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
                     </div>
                 </div>
             </div>
-
             <div class="tournament-card">
                 <img class="tournament-logo" src="/images/events/logo/cttq.png" alt="CTTQ" title="Chiến Trường Thí Quân">
                 <div class="tournament-content">
-                    <span class="tournament-code">CTTQ</span>
                     <h3>Chiến Trường Thí Quân</h3>
-                    <p>Sự kiện thi đấu đặc biệt của CLB.</p>
+                    <p>Sự kiện Chiến Trường Thí Quân với giải thưởng <a href="https://chess.com/membership">1 tháng Chess.com Diamond Membership</a>.</p>
                     <div class="tournament-organizer">Tổ chức bởi <a href="/leaders#admin3">M-DinhHoangViet</a></div>
                     <div class="tournament-actions">
                         <a class="tournament-action" href="/events/tournaments/cttq">Bảng tổng kết <span aria-hidden="true">→</span></a>
@@ -81,13 +76,11 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
                     </div>
                 </div>
             </div>
-
             <div class="tournament-card">
-                <img class="tournament-logo" src="/images/events/logo/cbtt-rapid.png" alt="CBTT" title="Cờ Bí Thí Tốt">
+                <img class="tournament-logo" src="/images/events/logo/cbtt-superblitz.png" alt="CBTT" title="Cờ Bí Thí Tốt">
                 <div class="tournament-content">
-                    <span class="tournament-code">CBTT</span>
                     <h3>Cờ Bí Thí Tốt</h3>
-                    <p>Rapid, Blitz, SuperBlitz, Bullet và Chess960.</p>
+                    <p>Bao gồm các thể thức Rapid, Blitz, SuperBlitz, Bullet và Chess960.</p>
                     <div class="tournament-organizer">Tổ chức bởi <a href="/leaders#admin4">VN-SenJin</a></div>
                     <div class="tournament-actions">
                         <a class="tournament-action" href="/events/tournaments/cbtt">Bảng tổng kết <span aria-hidden="true">→</span></a>
@@ -95,11 +88,9 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
                     </div>
                 </div>
             </div>
-
             <div class="tournament-card">
                 <div class="tournament-placeholder" aria-hidden="true"><span class="bx bx-trophy"></span></div>
                 <div class="tournament-content">
-                    <span class="tournament-code">ĐTTV</span>
                     <h3>Đấu Trường Thí Vua</h3>
                     <p>Một hệ thống giải đấu do quản trị viên CLB tổ chức.</p>
                     <div class="tournament-organizer">Tổ chức bởi <a href="/leaders#admin2">FR-CH_TheClanTeamIsMine</a></div>
@@ -110,7 +101,6 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
             </div>
         </div>
     </section>
-
     <section class="tournaments-section">
         <h2>Các thể loại giải đấu khác</h2>
         <div class="event-types-grid">
