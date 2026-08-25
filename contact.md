@@ -7,28 +7,31 @@ permalink: /contact
 <div class="contact-page">
     <section class="contact-hero">
         <h1><span>Liên hệ và đóng góp</span></h1>
-        <p>Chọn đúng hình thức liên hệ cho nhu cầu của bạn. Từ  góp ý về câu lạc bộ đến liên hệ với các quản trị viên, mọi phản hồi đều giúp Thí Vua Lấy Tốt tốt hơn.</p>
+        <p>Chọn đúng hình thức liên hệ cho nhu cầu của bạn. Từ góp ý về câu lạc bộ đến liên hệ với các quản trị viên, mọi phản hồi đều giúp Thí Vua Lấy Tốt tốt hơn.</p>
     </section>
+
     <section class="contact-methods">
-        <div class="contact-method" href="/leaders">
+        <article class="contact-method">
             <div class="method-icon"><span class="bx bx-user-voice"></span></div>
             <div class="method-content">
                 <span class="method-label">Liên hệ trực tiếp</span>
                 <h2>Ban điều hành</h2>
                 <p>Cần trao đổi trực tiếp với quản trị viên? Xem danh sách Ban điều hành và vai trò của từng thành viên.</p>
-                <span class="method-link"><a href="/leaders">Xem Ban điều hành <span class="bx bx-right-arrow-alt"></span></a></span>
+                <a class="method-link" href="/leaders">Xem Ban điều hành <span class="bx bx-right-arrow-alt"></span></a>
             </div>
-        </div>
-        <div class="contact-method contact-method--primary">
+        </article>
+
+        <article class="contact-method contact-method--primary">
             <div class="method-icon"><span class="bx bx-edit-alt"></span></div>
             <div class="method-content">
                 <span class="method-label">Gửi đánh giá và góp ý</span>
-                <h2>Góp ý & phản hồi</h2>
+                <h2>Góp ý &amp; phản hồi</h2>
                 <p>Gửi đánh giá, đề xuất hoặc báo cáo vấn đề để Ban điều hành có thể tiếp nhận và xem xét cải thiện.</p>
-                <span class="method-link"><a href="https://forms.gle/iCYUAbVD5GUmbdsL8" target="_blank">Mở form phản hồi <span class="bx bx-right-arrow-alt"></span></a></span>
+                <a class="method-link" href="https://forms.gle/iCYUAbVD5GUmbdsL8" target="_blank" rel="noopener noreferrer">Mở form phản hồi <span class="bx bx-right-arrow-alt"></span></a>
             </div>
-        </div>
+        </article>
     </section>
+
     <section class="contact-donation">
         <div class="donation-copy">
             <div class="donation-icon"><span class="bx bx-heart"></span></div>
@@ -38,27 +41,21 @@ permalink: /contact
                 <p>Khoản ủng hộ giúp duy trì các giải đấu và những hoạt động của <a href="/leaders#own">Mr.TungJohn</a>.</p>
             </div>
         </div>
-        <div class="donation-qr">
-            <div class="qr-frame">
-                <a href="/images/tvlt/payment.jpg" target="_blank"><img src="/images/tvlt/payment.jpg" alt="Mã QR ủng hộ Mr.TungJohn" loading="lazy"></a>
-            </div>
-            <div class="qr-copy">
-                <a href="/images/tvlt/payment.jpg" target="_blank"><strong>Quét mã QR để ủng hộ</strong>
-                <span>Sử dụng ứng dụng ngân hàng để thực hiện thanh toán.</span></a>
-            </div>
-        </div>
+        <a class="donation-qr" href="/images/tvlt/payment.jpg" target="_blank" rel="noopener noreferrer">
+            <span class="qr-frame"><img src="/images/tvlt/payment.jpg" alt="Mã QR ủng hộ Mr.TungJohn" loading="lazy"></span>
+            <span class="qr-copy"><strong>Quét mã QR để ủng hộ</strong><span>Sử dụng ứng dụng ngân hàng để thực hiện thanh toán.</span></span>
+        </a>
     </section>
 </div>
 
 <style>
 .contact-page {
-    --contact-accent: var(--color-accent, #35c9fc);
-    --contact-purple: #9b7cff;
-    --contact-text: var(--color-text-primary, #f8fafc);
-    --contact-muted: var(--color-text-secondary, #aeb9c8);
-    --contact-border: rgba(255, 255, 255, 0.08);
+    --accent: var(--color-accent, #35c9fc);
+    --purple: #9b7cff;
+    --text: var(--color-text-primary, #f8fafc);
+    --muted: var(--color-text-secondary, #aeb9c8);
     max-width: 1080px;
-    margin: 0 auto;
+    margin: auto;
     padding: 1rem 1rem 2.5rem;
 }
 
@@ -78,37 +75,21 @@ permalink: /contact
     width: 360px;
     height: 260px;
     transform: translateX(-50%);
-    background: radial-gradient(circle, rgba(53, 201, 252, 0.13), transparent 68%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(53,201,252,.13), transparent 68%);
     filter: blur(18px);
-    pointer-events: none;
-}
-
-.contact-hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    margin-bottom: 1rem;
-    padding: 0.42rem 0.78rem;
-    border: 1px solid rgba(53, 201, 252, 0.2);
-    border-radius: 999px;
-    background: rgba(53, 201, 252, 0.06);
-    color: var(--contact-accent);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
 }
 
 .contact-hero h1 {
     margin: 0;
-    color: var(--contact-text);
+    color: var(--text);
     font-size: clamp(2.1rem, 5vw, 3.45rem);
     line-height: 1.08;
-    letter-spacing: -0.04em;
+    letter-spacing: -.04em;
 }
 
 .contact-hero h1 span {
-    background: linear-gradient(110deg, var(--contact-accent), var(--contact-purple));
+    background: linear-gradient(110deg, var(--accent), var(--purple));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -117,8 +98,8 @@ permalink: /contact
 .contact-hero p {
     max-width: 680px;
     margin: 1rem auto 0;
-    color: var(--contact-muted);
-    font-size: 0.95rem;
+    color: var(--muted);
+    font-size: .95rem;
     line-height: 1.7;
 }
 
@@ -128,21 +109,23 @@ permalink: /contact
     gap: 1rem;
 }
 
+.contact-method,
+.contact-donation {
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 1.15rem;
+    background: rgba(12,19,32,.52);
+    box-shadow: 0 16px 40px rgba(0,0,0,.16);
+}
+
 .contact-method {
     position: relative;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: auto minmax(0,1fr);
     gap: 1rem;
     min-height: 215px;
     padding: 1.5rem;
     overflow: hidden;
-    border: 1px solid var(--contact-border);
-    border-radius: 1.15rem;
-    background: rgba(12, 19, 32, 0.58);
-    color: inherit;
-    text-decoration: none;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
-    transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    transition: transform .22s ease, border-color .22s ease, background .22s ease;
 }
 
 .contact-method::after {
@@ -153,179 +136,108 @@ permalink: /contact
     width: 220px;
     height: 220px;
     border-radius: 50%;
-    background: rgba(53, 201, 252, 0.07);
+    background: rgba(53,201,252,.07);
     filter: blur(22px);
     pointer-events: none;
 }
 
 .contact-method--primary {
-    border-color: rgba(53, 201, 252, 0.24);
-    background: linear-gradient(135deg, rgba(53, 201, 252, 0.08), rgba(12, 19, 32, 0.65) 52%);
+    border-color: rgba(53,201,252,.24);
+    background: linear-gradient(135deg, rgba(53,201,252,.08), rgba(12,19,32,.65) 52%);
 }
 
-.contact-method--primary::after {
-    background: rgba(155, 124, 255, 0.1);
-}
+.contact-method--primary::after { background: rgba(155,124,255,.1); }
 
 .contact-method:hover,
-.contact-method:focus-visible {
+.contact-method:focus-within {
     transform: translateY(-3px);
-    border-color: rgba(53, 201, 252, 0.35);
-    background: rgba(17, 27, 44, 0.78);
+    border-color: rgba(53,201,252,.35);
+    background: rgba(17,27,44,.78);
+}
+
+.method-icon,
+.donation-icon {
+    display: grid;
+    place-items: center;
+    border-radius: .85rem;
+    background: rgba(53,201,252,.09);
+    color: var(--accent);
 }
 
 .method-icon {
-    display: grid;
-    place-items: center;
     width: 46px;
     height: 46px;
-    border: 1px solid rgba(53, 201, 252, 0.18);
-    border-radius: 0.85rem;
-    background: rgba(53, 201, 252, 0.09);
-    color: var(--contact-accent);
+    border: 1px solid rgba(53,201,252,.18);
     font-size: 1.35rem;
 }
 
-.contact-method:nth-child(2) .method-icon {
-    border-color: rgba(155, 124, 255, 0.2);
-    background: rgba(155, 124, 255, 0.09);
+.contact-method--primary .method-icon {
+    border-color: rgba(155,124,255,.2);
+    background: rgba(155,124,255,.09);
     color: #b7a3ff;
 }
 
-.method-content {
-    position: relative;
-    z-index: 1;
-}
-
+.method-content { position: relative; z-index: 1; }
 .method-label,
 .section-label {
     display: block;
     color: #8290a3;
-    font-size: 0.67rem;
+    font-size: .67rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: .1em;
     text-transform: uppercase;
 }
 
-.method-content h2 {
-    margin: 0.3rem 0 0.45rem;
-    color: var(--contact-text);
+.method-content h2,
+.donation-copy h2 {
+    margin: .3rem 0 .45rem;
+    color: var(--text);
     font-size: 1.25rem;
 }
 
-.method-content p {
+.method-content p,
+.donation-copy p {
     margin: 0;
-    color: var(--contact-muted);
-    font-size: 0.82rem;
+    color: var(--muted);
+    font-size: .82rem;
     line-height: 1.6;
 }
 
 .method-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: .35rem;
     margin-top: 1rem;
-    color: var(--contact-accent);
-    font-size: 0.78rem;
+    color: var(--accent);
+    font-size: .78rem;
     font-weight: 700;
+    text-decoration: none;
 }
 
-.contact-method:hover .method-link,
-.contact-method:focus-visible .method-link {
-    color: #fff;
-}
-
-.contact-support,
-.contact-donation {
-    margin-top: 1rem;
-    padding: 1.5rem;
-    border: 1px solid var(--contact-border);
-    border-radius: 1.15rem;
-    background: rgba(12, 19, 32, 0.48);
-}
-
-.contact-support {
-    display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: 2rem;
-    align-items: center;
-}
-
-.support-copy h2,
-.donation-copy h2 {
-    margin: 0.35rem 0 0.5rem;
-    color: var(--contact-text);
-    font-size: 1.2rem;
-}
-
-.support-copy p,
-.donation-copy p {
-    margin: 0;
-    color: var(--contact-muted);
-    font-size: 0.82rem;
-    line-height: 1.65;
-}
-
-.support-points {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.7rem;
-}
-
-.support-point {
-    display: flex;
-    gap: 0.55rem;
-    padding: 0.8rem;
-    border-radius: 0.8rem;
-    background: rgba(255, 255, 255, 0.025);
-}
-
-.support-point > span {
-    flex: 0 0 auto;
-    color: var(--contact-accent);
-    font-size: 1rem;
-}
-
-.support-point div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-}
-
-.support-point strong {
-    color: var(--contact-text);
-    font-size: 0.74rem;
-}
-
-.support-point span:not(.bx) {
-    color: #7f8da0;
-    font-size: 0.68rem;
-    line-height: 1.45;
-}
+.method-link:hover { color: #fff; }
 
 .contact-donation {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
-    background: linear-gradient(100deg, rgba(155, 124, 255, 0.06), rgba(12, 19, 32, 0.48));
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(100deg, rgba(155,124,255,.06), rgba(12,19,32,.48));
 }
 
 .donation-copy {
     display: flex;
     align-items: flex-start;
-    gap: 0.9rem;
+    gap: .9rem;
     max-width: 570px;
 }
 
 .donation-icon {
-    display: grid;
-    place-items: center;
     flex: 0 0 42px;
     width: 42px;
     height: 42px;
-    border-radius: 0.8rem;
-    background: rgba(155, 124, 255, 0.1);
+    background: rgba(155,124,255,.1);
     color: #b7a3ff;
     font-size: 1.2rem;
 }
@@ -333,19 +245,21 @@ permalink: /contact
 .donation-qr {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    gap: .85rem;
     flex: 0 0 auto;
-    padding: 0.65rem;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 0.9rem;
-    background: rgba(255, 255, 255, 0.025);
+    padding: .65rem;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: .9rem;
+    background: rgba(255,255,255,.025);
+    text-decoration: none;
 }
 
 .qr-frame {
+    display: block;
     width: 86px;
     height: 86px;
-    padding: 0.3rem;
-    border-radius: 0.55rem;
+    padding: .3rem;
+    border-radius: .55rem;
     background: #fff;
 }
 
@@ -353,7 +267,7 @@ permalink: /contact
     display: block;
     width: 100%;
     height: 100%;
-    border-radius: 0.3rem;
+    border-radius: .3rem;
     object-fit: cover;
 }
 
@@ -361,79 +275,35 @@ permalink: /contact
     display: flex;
     max-width: 155px;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: .25rem;
 }
 
-.qr-copy strong {
-    color: var(--contact-text);
-    font-size: 0.76rem;
-}
-
-.qr-copy span {
-    color: #7f8da0;
-    font-size: 0.67rem;
-    line-height: 1.45;
-}
+.qr-copy strong { color: var(--text); font-size: .76rem; }
+.qr-copy span { color: #7f8da0; font-size: .67rem; line-height: 1.45; }
 
 .contact-page a:focus-visible {
-    outline: 2px solid var(--contact-accent);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
 }
 
 @media (max-width: 820px) {
-    .contact-methods,
-    .contact-support {
-        grid-template-columns: 1fr;
-    }
-
-    .support-points {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    .contact-methods { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
-    .contact-page {
-        padding: 0.5rem 0.75rem 2rem;
-    }
-
-    .contact-hero {
-        margin-bottom: 1.75rem;
-    }
-
-    .contact-hero h1 {
-        font-size: clamp(1.9rem, 9vw, 2.5rem);
-    }
-
-    .contact-hero p {
-        font-size: 0.86rem;
-    }
-
+    .contact-page { padding: .5rem .75rem 2rem; }
+    .contact-hero { margin-bottom: 1.75rem; }
+    .contact-hero h1 { font-size: clamp(1.9rem, 9vw, 2.5rem); }
+    .contact-hero p { font-size: .86rem; }
     .contact-method,
-    .contact-support,
-    .contact-donation {
-        padding: 1rem;
-        border-radius: 1rem;
-    }
+    .contact-donation { padding: 1rem; border-radius: 1rem; }
+    .contact-method { min-height: 0; }
+    .contact-donation { flex-direction: column; align-items: stretch; }
+    .donation-copy { max-width: none; }
+    .donation-qr { width: 100%; }
+}
 
-    .contact-method {
-        min-height: 0;
-    }
-
-    .support-points {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-donation {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .donation-copy {
-        max-width: none;
-    }
-
-    .donation-qr {
-        width: 100%;
-    }
+@media (prefers-reduced-motion: reduce) {
+    .contact-method { transition: none; }
 }
 </style>
