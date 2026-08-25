@@ -11,26 +11,26 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
 .tournaments-hero p { margin: 0; color: #aeb9c8; font-size: 1rem; line-height: 1.7; }
 .tournaments-section + .tournaments-section { margin-top: 48px; }
 .tournaments-section > h2 { margin: 0 0 20px; text-align: center; }
-.tournament-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.tournament-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
 .tournament-card, .event-type-card { box-sizing: border-box; min-width: 0; border: 1px solid rgba(72,166,255,.14); border-radius: 16px; background: rgba(8,12,25,.72); box-shadow: 0 12px 32px rgba(0,0,0,.18); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
 .tournament-card:hover, .event-type-card:hover { transform: translateY(-3px); border-color: rgba(72,166,255,.4); box-shadow: 0 18px 38px rgba(0,0,0,.25); }
 .tournament-card { display: grid; grid-template-columns: 96px minmax(0,1fr); align-items: center; gap: 20px; min-height: 190px; padding: 20px; }
-.tournament-logo, .tournament-placeholder { width: 96px; height: 96px; box-sizing: border-box; flex: none; }
+.tournament-logo, .tournament-placeholder { width: 96px; height: 96px; box-sizing: border-box; }
 .tournament-logo { display: block; object-fit: contain; }
 .tournament-placeholder { display: grid; place-items: center; border: 1px solid rgba(72,166,255,.12); border-radius: 14px; background: rgba(72,166,255,.06); color: #48a6ff; font-size: 42px; }
 .tournament-content { min-width: 0; }
-.tournament-content h3, .event-type-card h3 { margin: 0 0 8px; line-height: 1.25; }
-.tournament-content p, .event-type-card p { margin: 0; color: #aeb9c8; font-size: .9rem; line-height: 1.55; }
+.tournament-content h3 { margin: 0 0 8px; font-size: 1.08rem; line-height: 1.35; }
+.tournament-content p { margin: 0; color: #aeb9c8; font-size: .88rem; line-height: 1.55; }
 .tournament-organizer { margin-top: 10px; color: #8996a8; font-size: .82rem; }
-.tournament-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.tournament-action { display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border: 1px solid rgba(72,166,255,.2); border-radius: 8px; background: rgba(72,166,255,.06); font-size: .82rem; font-weight: 700; text-decoration: none; }
-.tournament-action:hover { border-color: rgba(72,166,255,.45); background: rgba(72,166,255,.12); text-decoration: none; }
+.tournament-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.tournament-action { display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border: 1px solid rgba(72,166,255,.2); border-radius: 10px; background: rgba(72,166,255,.08); color: inherit; font-size: .82rem; font-weight: 700; text-decoration: none; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
+.tournament-action:hover { transform: translateY(-1px); border-color: rgba(72,166,255,.42); background: rgba(72,166,255,.14); text-decoration: none; }
 .event-types-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 14px; }
 .event-type-card { display: flex; min-height: 156px; padding: 18px 14px; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; }
 .event-type-card:hover { text-decoration: none; }
 .event-type-icon { width: 54px; height: 54px; margin-bottom: 10px; object-fit: contain; }
-.event-type-card h3 { font-size: .98rem; }
-.event-type-card p { font-size: .82rem; }
+.event-type-card h3 { margin: 0 0 8px; font-size: .98rem; line-height: 1.35; }
+.event-type-card p { margin: 0; color: #aeb9c8; font-size: .82rem; line-height: 1.5; }
 @media (max-width: 900px) { .event-types-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
 @media (max-width: 700px) { .tournament-grid { grid-template-columns: 1fr; } .tournaments-section + .tournaments-section { margin-top: 40px; } }
 @media (max-width: 520px) {
@@ -38,10 +38,12 @@ title: Bảng tổng kết các giải trong CLB Thí Vua Lấy Tốt
     .tournament-card { grid-template-columns: 72px minmax(0,1fr); gap: 14px; min-height: 0; padding: 16px; }
     .tournament-logo, .tournament-placeholder { width: 72px; height: 72px; }
     .tournament-placeholder { font-size: 32px; }
+    .tournament-actions { gap: 7px; }
+    .tournament-action { padding: 7px 9px; font-size: .78rem; }
     .event-types-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
     .event-type-card { min-height: 140px; padding: 14px 10px; }
 }
-@media (prefers-reduced-motion: reduce) { .tournament-card, .event-type-card { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .tournament-card, .event-type-card, .tournament-action { transition: none; } }
 </style>
 
 <section class="tournaments-page">
