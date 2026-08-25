@@ -4,7 +4,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 ---
 
 <style>
-.leaders-only{max-width:1120px;margin:0 auto;padding:clamp(24px,5vw,48px) 0}
+.leaders-only{max-width:1120px;margin:0 auto}
 .leaders-only .title{text-align:center;margin-bottom:18px}
 .leaders-only .nav-tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 auto 28px;padding:5px;width:max-content;max-width:100%;list-style:none;border:1px solid var(--color-border);border-radius:999px;background:rgba(10,15,30,.7)}
 .leaders-only .nav-tabs a{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;color:var(--color-text-secondary);font-weight:600;text-decoration:none;transition:.2s ease}
@@ -28,7 +28,7 @@ title: Ban cán sự của Thí Vua Lấy Tốt
 .leaders-only .name .role-admin,.leaders-only .name .role-success{display:inline-flex;align-items:center;gap:3px;width:max-content;margin:0;padding:3px 7px;border-radius:999px;font-weight:600}
 .leaders-only .name .role-admin{color:var(--color-accent-light);border:1px solid rgba(56,189,248,.18);background:rgba(56,189,248,.08)}
 .leaders-only .name .role-success{color:#86efac;border:1px solid rgba(74,222,128,.15);background:rgba(74,222,128,.06)}
-.leaders-only .name .role-success .admin-icon{transform:scale(1.25);transition:.3s ease}
+.leaders-only .name .role-success .admin-icon{transform:scale(1);transition:.3s ease}
 .leaders-only .name .role-success:hover .admin-icon{transform:scale(1.25)}
 .leaders-only .social_btn.social{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
 .leaders-only .social_btn.social a{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.07);border-radius:10px;background:rgba(255,255,255,.035);color:var(--color-text-secondary);text-decoration:none;transition:.2s ease}
