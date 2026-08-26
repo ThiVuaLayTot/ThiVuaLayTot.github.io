@@ -1,12 +1,12 @@
 ---
 layout: event
 title: Bảng tổng giải Thí Vua Lấy Tốt
+decription: Sự kiện nổi bật nhất với giải thưởng đa dang và được livestream trực tiếp trên Youtube của Mr.TungJohn
 ---
 
-<header class="tournament-page-header">
-    <div class="tournament-page-kicker">Bảng thành tích</div>
-    <h1>Các kỳ thủ đạt giải <a href="/events/tvlt-thi-vua-lay-tot">Thí Vua Lấy Tốt</a></h1>
-    <p>Tổng hợp thứ hạng và thành tích của kỳ thủ qua từng kỳ giải.</p>
+<header>
+    <h1 class="page-title">Các kỳ thủ đạt giải <a href="/events/tvlt-thi-vua-lay-tot">Thí Vua Lấy Tốt</a></h1>
+    <p class="page-decription">Sự kiện nổi bật nhất với giải thưởng đa dang và được livestream trực tiếp trên <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ/live" target="_blank">Youtube</a></p>
 </header>
 
 <ul class="nav-tabs tournament-nav-tabs">
@@ -17,23 +17,12 @@ title: Bảng tổng giải Thí Vua Lấy Tốt
 </ul>
 
 <div class="tournament-page-context">
-    <div>
-        <span class="tournament-context-label">Phạm vi</span>
-        <span>Thành tích qua các kỳ Thí Vua Lấy Tốt</span>
-    </div>
-    <div>
-        <span class="tournament-context-label">Quản lý</span>
-        <a href="/leaders#owner">Mr. TungJohn</a>
-    </div>
-    <a class="tournament-context-link" href="/events/tvlt-thi-vua-lay-tot">Thông tin sự kiện <span>↗</span></a>
+    <p>Sự kiện được quản lý bởi <a href="/leaders#own">Mr.TungJohn</a>. Xem <a href="/events/tvlt-thi-vua-lay-tot">Thông tin chi tiết về sự kiện</a>.</p>
+    <p><i>Nếu có đề xuất hoặc vấn đề gì thì hãy bình luận tại <a href="https://chess.com/clubs/forum/view/danh-sach-cac-giai-da-to-chuc-clb-tvlt?clubId=325849&quote_id=131524731&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3">Admin M-DinhHoangViet</a>.</i></p>
 </div>
-
-<p class="tournament-page-note"><strong>Hỗ trợ &amp; phản hồi:</strong> gửi đề xuất tại <a href="https://chess.com/clubs/forum/view/danh-sach-cac-giai-da-to-chuc-clb-tvlt?clubId=325849&quote_id=131524731&page=1#comment_box" target="_blank" rel="noopener noreferrer">forum của CLB</a> hoặc liên hệ <a href="/leaders#admin3">Admin M-DinhHoangViet</a>.</p>
-
 <section class="tournament-results-section">
     <div id="tournament-table" data-fetch-tournament="tvlt"></div>
 </section>
-
 <div class="tournament-page-brand">
     <a href="/events/tvlt-thi-vua-lay-tot">
         <img src="/images/tvltlogo.png" alt="Thí Vua Lấy Tốt">
