@@ -10,14 +10,14 @@
 <body>
     {% include navbar.html %}
 
-    <div id="section-page" style="padding-top: var(--space-4xl);">
+    <div id="section-page">
         <div class="container">
             <div id="post">
                 <div class="information" style="text-align: center;">
                     <img src="/images/{{ page.id }}.png" alt="{{ page.title }}" class="banner">
                     <h1 class="title">{{ page.title }}</h1>
                     <i class="short_text" style="display: block; margin-bottom: var(--space-md);">{{ page.description }}</i>
-                <p align="center"><a href="/{{ page.category }}" class="card_tag"><span class="bx bx-purchase-tag-alt"></span> {{ page.tags }}</a> - <i style="color: var(--color-text-muted)">by <span style="color: var(--green-500)">{{ page.author }}</span></i></p>
+                <p align="center"><a href="/{{ page.category }}" class="card_tag"><span class="bx bx-purchase-tag-alt"></span> {{ page.tags }}</a> - <i style="color: var(--color-text-muted)">bởi <span style="color: var(--green-500)">{{ page.author }}</span></i></p>
                 <ul class="nav-tabs">
                     <li><a href="/blog">Tất cả bài đăng</a></li>
                     <li><a href="/chess">Kiến thức cờ vua</a></li>
@@ -31,8 +31,7 @@
                 <h3>Một số bài đăng khác</h3>
                 <div class="main"><a href="/blog"><span class="btn">Đọc thêm một số bài đăng khác</span></a></div>
             </div>
-            <br><br>
-            <hr>
+            <br>
             <button id="back-to-top" title="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
         </div>
     </div>
