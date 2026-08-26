@@ -16,14 +16,25 @@
                 <h1 class="page-title">{{ page.title }}</h1>
                 <p class="page-decription">{{ page.description }} <a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
             </header>
-            <ul class="nav-tabs">
-                <li><a href="/blog" {% if page.category == "blog" %}class="active"{% endif %}><span class="bx bxs-news"></span>Tất cả bài đăng</a></li>
-                <li><a href="/chess" {% if page.category == "chess" %}class="active"{% endif %}><span class="bx bxs-chess"></span>Kiến thức cờ vua</a></li>
-                <li><a href="/news" {% if page.category == "news" %}class="active"{% endif %}><span class="bx bx-news"></span>Thông báo/Tin tức</a></li>
-                <li><a href="/events" {% if page.category == "events" %}class="active"{% endif %}><span class="bx bx-medal"></span>Sự kiện/Giải đấu</a></li>
-            </ul>
 
-            <br>
+            <nav class="nav-tabs" aria-label="Danh mục bài viết">
+                <a href="/blog" {% if page.category == "blog" %}class="active" aria-current="page"{% endif %}>
+                    <span class="bx bxs-news"></span>
+                    <span>Tất cả bài đăng</span>
+                </a>
+                <a href="/chess" {% if page.category == "chess" %}class="active" aria-current="page"{% endif %}>
+                    <span class="bx bxs-chess"></span>
+                    <span>Kiến thức cờ vua</span>
+                </a>
+                <a href="/news" {% if page.category == "news" %}class="active" aria-current="page"{% endif %}>
+                    <span class="bx bx-news"></span>
+                    <span>Thông báo/Tin tức</span>
+                </a>
+                <a href="/events" {% if page.category == "events" %}class="active" aria-current="page"{% endif %}>
+                    <span class="bx bx-medal"></span>
+                    <span>Sự kiện/Giải đấu</span>
+                </a>
+            </nav>
 
             <section class="category-card-list">
                 {% if page.category == "blog" %}
@@ -51,9 +62,8 @@
                 </article>
                 {% endfor %}
             </section>
-            <br>
+
             {{ content }}
-            <br>
             <button id="back-to-top" title="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
         </div>
     </div>
