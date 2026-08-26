@@ -750,6 +750,16 @@ hr {
   }
 }
 
+html {
+  scroll-padding-top: 78px;
+}
+
+@media (max-width: 620px) {
+  html {
+    scroll-padding-top: 70px;
+  }
+}
+
 /* BUTTONS */
 
 .btn {
