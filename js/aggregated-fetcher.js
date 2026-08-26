@@ -319,7 +319,7 @@
             container.innerHTML = `
                 <div class="filter-group-container" style="margin-bottom: 25px;">
                     <!-- Top bar with 3 columns -->
-                    <div class="tour-top-grid">
+                    <div class="tour-top-grid" style="grid-column: span 2;">
                         <!-- Column 1: Sắp xếp -->
                         <div class="tour-select-container">
                             <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
