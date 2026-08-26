@@ -12,10 +12,16 @@ permalink: /events/
 .events-hero p { margin: 0; color: #aeb9c8; font-size: 1rem; line-height: 1.7; }
 .events-rss { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; margin-top: 14px; border: 1px solid rgba(72,166,255,.16); border-radius: 50%; background: rgba(8,12,25,.7); color: inherit; font-size: 20px; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
 .events-rss:hover { text-decoration: none; transform: translateY(-2px); border-color: rgba(72,166,255,.45); background: rgba(72,166,255,.08); }
-.events-actions { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-bottom: 48px; }
-.events-action { display: flex; min-height: 76px; box-sizing: border-box; padding: 14px 16px; align-items: center; justify-content: center; gap: 9px; border: 1px solid rgba(72,166,255,.14); border-radius: 16px; background: rgba(8,12,25,.72); color: inherit; text-align: center; font-weight: 700; box-shadow: 0 12px 32px rgba(0,0,0,.18); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease; }
-.events-action:hover { text-decoration: none; transform: translateY(-3px); border-color: rgba(72,166,255,.4); background: rgba(8,12,25,.82); box-shadow: 0 18px 38px rgba(0,0,0,.25); }
-.events-action .bx { color: #48a6ff; font-size: 21px; }
+.events-actions { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-bottom: 48px; }
+.events-action { position: relative; display: grid; min-height: 112px; box-sizing: border-box; padding: 18px 20px; grid-template-columns: 48px minmax(0,1fr) auto; grid-template-rows: auto auto; column-gap: 14px; align-items: center; overflow: hidden; border: 1px solid rgba(72,166,255,.14); border-radius: 18px; background: linear-gradient(145deg, rgba(18,27,49,.88), rgba(8,12,25,.76)); color: inherit; text-align: left; box-shadow: 0 12px 32px rgba(0,0,0,.18); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+.events-action::before { position: absolute; top: 0; left: 0; width: 34%; height: 2px; background: linear-gradient(90deg, #48a6ff, transparent); content: ""; opacity: .8; }
+.events-action::after { position: absolute; right: -34px; bottom: -44px; width: 110px; height: 110px; border-radius: 50%; background: rgba(72,166,255,.06); content: ""; pointer-events: none; }
+.events-action:hover { text-decoration: none; transform: translateY(-4px); border-color: rgba(72,166,255,.42); background: linear-gradient(145deg, rgba(20,34,60,.94), rgba(8,12,25,.84)); box-shadow: 0 20px 42px rgba(0,0,0,.27); }
+.events-action-icon { display: flex; width: 48px; height: 48px; grid-row: 1 / 3; align-items: center; justify-content: center; border: 1px solid rgba(72,166,255,.16); border-radius: 14px; background: rgba(72,166,255,.08); color: #48a6ff; font-size: 23px; }
+.events-action-label { align-self: end; color: #7f91a8; font-size: .72rem; font-weight: 700; letter-spacing: .1em; line-height: 1.2; text-transform: uppercase; }
+.events-action-title { align-self: start; margin-top: 3px; font-size: .98rem; font-weight: 700; line-height: 1.35; }
+.events-action-arrow { position: relative; z-index: 1; align-self: center; color: #48a6ff; font-size: 20px; transition: transform .2s ease; }
+.events-action:hover .events-action-arrow { transform: translateX(3px); }
 .events-section-title { margin: 0 0 20px; text-align: center; }
 .events-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
 .event-card { display: flex; min-width: 0; overflow: hidden; flex-direction: column; border: 1px solid rgba(72,166,255,.14); border-radius: 16px; background: rgba(8,12,25,.72); box-shadow: 0 12px 32px rgba(0,0,0,.18); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
@@ -35,9 +41,9 @@ permalink: /events/
 .events-more a { display: inline-flex; padding: 10px 18px; align-items: center; gap: 7px; border: 1px solid rgba(72,166,255,.14); border-radius: 10px; background: rgba(72,166,255,.08); font-weight: 700; }
 .events-more a:hover { text-decoration: none; border-color: rgba(72,166,255,.3); background: rgba(72,166,255,.14); }
 @media (max-width: 900px) { .events-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 700px) { .events-actions { grid-template-columns: 1fr; margin-bottom: 40px; } .events-grid { grid-template-columns: 1fr; } }
-@media (max-width: 520px) { .events-page { padding: 4px 10px 24px; } .event-card-content { padding: 16px; } .event-card-footer { align-items: flex-start; flex-direction: column; } }
-@media (prefers-reduced-motion: reduce) { .events-rss, .events-action, .event-card, .event-card-image { transition: none; } }
+@media (max-width: 700px) { .events-actions { grid-template-columns: 1fr; gap: 12px; margin-bottom: 40px; } .events-action { min-height: 96px; } .events-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .events-page { padding: 4px 10px 24px; } .events-action { grid-template-columns: 44px minmax(0,1fr) auto; padding: 16px; } .events-action-icon { width: 44px; height: 44px; border-radius: 12px; font-size: 21px; } .events-action-label { font-size: .66rem; } .event-card-content { padding: 16px; } .event-card-footer { align-items: flex-start; flex-direction: column; } }
+@media (prefers-reduced-motion: reduce) { .events-rss, .events-action, .events-action-arrow, .event-card, .event-card-image { transition: none; } }
 </style>
 
 <section class="events-page">
@@ -48,9 +54,24 @@ permalink: /events/
     </header>
 
     <div class="events-actions">
-        <a class="events-action" href="/schedule"><span class="bx bx-calendar" aria-hidden="true"></span>Lịch sự kiện</a>
-        <a class="events-action" href="//chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835"><span class="bx bx-trophy" aria-hidden="true"></span>Các giải khác trong CLB</a>
-        <a class="events-action" href="/events/tournaments"><span class="bx bx-medal" aria-hidden="true"></span>Bảng tổng hợp giải đấu</a>
+        <a class="events-action" href="/schedule">
+            <span class="events-action-icon"><span class="bx bx-calendar" aria-hidden="true"></span></span>
+            <span class="events-action-label">Lịch</span>
+            <span class="events-action-title">Lịch sự kiện</span>
+            <span class="events-action-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="events-action" href="//chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835">
+            <span class="events-action-icon"><span class="bx bx-trophy" aria-hidden="true"></span></span>
+            <span class="events-action-label">Chess.com</span>
+            <span class="events-action-title">Các giải khác trong CLB</span>
+            <span class="events-action-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="events-action" href="/events/tournaments">
+            <span class="events-action-icon"><span class="bx bx-medal" aria-hidden="true"></span></span>
+            <span class="events-action-label">Tổng hợp</span>
+            <span class="events-action-title">Bảng tổng hợp giải đấu</span>
+            <span class="events-action-arrow" aria-hidden="true">→</span>
+        </a>
     </div>
 
     <section>
