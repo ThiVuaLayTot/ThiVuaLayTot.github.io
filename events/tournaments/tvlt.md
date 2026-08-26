@@ -9,7 +9,7 @@ decription: Sự kiện nổi bật nhất với giải thưởng đa dang và �
     <p class="page-decription">Sự kiện nổi bật nhất với giải thưởng đa dang và được livestream trực tiếp trên <a href="https://youtube.com/channel/UCvNW1NAWWjblgrP6JQI4MbQ/live" target="_blank">Youtube</a></p>
 </header>
 
-<ul class="nav-tabs tournament-nav-tabs">
+<ul class="nav-tabs">
     <li><a href="tvlt" class="active">Thí Vua Lấy Tốt</a></li>
     <li><a href="cbtt">Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>

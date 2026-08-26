@@ -8,7 +8,7 @@ title: Bảng tổng giải Đấu Trường Thí Vua
     <p class="page-decription">Tổng hợp kỳ thủ và thứ hạng đạt được qua những kỳ giải đã tổ chức.</p>
 </header>
 
-<ul class="nav-tabs tournament-nav-tabs">
+<ul class="nav-tabs">
     <li><a href="tvlt">Thí Vua Lấy Tốt</a></li>
     <li><a href="cbtt">Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>

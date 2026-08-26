@@ -9,7 +9,7 @@ title: Bảng tổng giải Cờ Bí Thí Tốt
     <p>Một sự kiện diễn ra trong câu lạc bộ Thí Vua Lấy Tốt và được tổ chức với tiền thưởng...</p>
 </header>
 
-<ul class="nav-tabs tournament-nav-tabs">
+<ul class="nav-tabs">
     <li><a href="tvlt">Thí Vua Lấy Tốt</a></li>
     <li><a href="cbtt" class="active">Cờ Bí Thí Tốt</a></li>
     <li><a href="cttq">Chiến Trường Thí Quân</a></li>
