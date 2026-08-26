@@ -12,19 +12,19 @@ permalink: /chess/
     <li><a href="/news"><span class="bx bx-news"></span>Thông báo/Tin tức</a></li>
     <li><a href="/events"><span class="bx bx-medal"></span>Sự kiện/Giải đấu</a></li>
 </ul><br>
-<section class="card-list">
+<section class="category-card-list">
     {% for post in site.posts %} {% if post.category == "chess" %}
-    <article class="card">
-        <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="card_image"></a>
-        <div class="card_content">
+    <article class="category-card">
+        <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="category-card__image"></a>
+        <div class="category-card__content">
             <div class="post_in4">
-                <div class="card_detail">
-                    <b class="card_author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="card_date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
+                <div class="category-card__detail">
+                    <b class="category-card__author"><span class="bx bx-user"></span>{{ post.author }}</b><span class="category-card__date"><span class="bx bx-time"></span><span>{{ post.date | date:"%d thg %m, %Y" }}</span></span>
                 </div>
             </div>
-            <a href="{{ post.url }}"><h4 class="card_title">{{ post.title }}</h4></a>
-            <i class="card_in4">{{ post.description }}</i>
-            <span class="card_tag"><a href="{{ post.category }}"><span class="bx bx-purchase-tag-alt"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
+            <a href="{{ post.url }}"><h4 class="category-card__title">{{ post.title }}</h4></a>
+            <i class="category-card__description">{{ post.description }}</i>
+            <span class="category-card__tag"><a href="{{ post.category }}"><span class="bx bx-purchase-tag-alt"></span><span style="display: inline-block">{{ post.tags }}</span></a></span>
         </div>
     </article>
 {% endif %} {% endfor %}
