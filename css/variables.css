@@ -254,14 +254,3 @@
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 }
-
-/* Fixed navbar offset for fragment navigation */
-html {
-  scroll-padding-top: 78px;
-}
-
-@media (max-width: 620px) {
-  html {
-    scroll-padding-top: 70px;
-  }
-}
