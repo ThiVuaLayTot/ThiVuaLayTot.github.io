@@ -10,19 +10,16 @@ permalink: /events/
 .events-hero h1 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.15; }
 .events-hero h1 span { color: #48a6ff; }
 .events-hero p { margin: 0; color: #aeb9c8; font-size: 1rem; line-height: 1.7; }
-.events-rss { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; margin-top: 14px; border: 1px solid rgba(72,166,255,.16); border-radius: 50%; background: rgba(8,12,25,.7); color: inherit; font-size: 20px; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
-.events-rss:hover { text-decoration: none; transform: translateY(-2px); border-color: rgba(72,166,255,.45); background: rgba(72,166,255,.08); }
+.events-rss { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; margin-top: 14px; border: 1px solid rgba(72,166,255,.16); border-radius: 50%; color: inherit; font-size: 20px; transition: border-color .2s ease, transform .2s ease; }
+.events-rss:hover { text-decoration: none; transform: translateY(-2px); border-color: rgba(72,166,255,.45); }
 .events-actions { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-bottom: 48px; }
-.events-action { position: relative; display: grid; min-height: 126px; box-sizing: border-box; padding: 20px; grid-template-columns: 58px minmax(0,1fr); grid-template-rows: auto 1fr auto; column-gap: 15px; align-items: start; overflow: hidden; border: 1px solid rgba(72,166,255,.15); border-radius: 20px; background: linear-gradient(145deg, rgba(18,27,49,.9), rgba(8,12,25,.78)); color: inherit; text-align: left; box-shadow: 0 14px 34px rgba(0,0,0,.2); transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease; isolation: isolate; }
-.events-action::before { position: absolute; inset: 0; z-index: -2; background: radial-gradient(circle at 12% 12%, rgba(72,166,255,.18), transparent 38%), radial-gradient(circle at 100% 100%, rgba(72,166,255,.08), transparent 42%); content: ""; }
-.events-action::after { position: absolute; right: -48px; bottom: -58px; z-index: -1; width: 150px; height: 150px; border: 1px solid rgba(72,166,255,.08); border-radius: 50%; box-shadow: 0 0 0 18px rgba(72,166,255,.025), 0 0 0 38px rgba(72,166,255,.015); content: ""; pointer-events: none; }
-.events-action:hover { text-decoration: none; transform: translateY(-5px); border-color: rgba(72,166,255,.48); background: linear-gradient(145deg, rgba(22,38,68,.96), rgba(8,12,25,.86)); box-shadow: 0 22px 46px rgba(0,0,0,.3), 0 0 28px rgba(72,166,255,.08); }
-.events-action-icon { position: relative; display: flex; width: 58px; height: 58px; grid-row: 1 / 4; align-items: center; justify-content: center; border: 1px solid rgba(72,166,255,.28); border-radius: 17px; background: linear-gradient(145deg, rgba(72,166,255,.18), rgba(72,166,255,.05)); color: #48a6ff; font-size: 27px; box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 8px 20px rgba(0,0,0,.16); }
-.events-action-icon::after { position: absolute; inset: 5px; border: 1px solid rgba(255,255,255,.05); border-radius: 12px; content: ""; }
-.events-action-label { align-self: end; color: #7f91a8; font-size: .68rem; font-weight: 800; letter-spacing: .12em; line-height: 1.2; text-transform: uppercase; }
-.events-action-title { align-self: start; margin-top: 4px; font-size: 1.02rem; font-weight: 750; line-height: 1.35; }
-.events-action-arrow { display: inline-flex; width: 30px; height: 30px; margin-top: 13px; align-items: center; justify-content: center; grid-column: 2; justify-self: start; border: 1px solid rgba(72,166,255,.18); border-radius: 50%; background: rgba(72,166,255,.07); color: #48a6ff; font-size: 16px; transition: transform .22s ease, background .22s ease, border-color .22s ease; }
-.events-action:hover .events-action-arrow { transform: translateX(5px); border-color: rgba(72,166,255,.4); background: rgba(72,166,255,.14); }
+.events-action { display: grid; min-height: 92px; box-sizing: border-box; padding: 18px 6px; grid-template-columns: 42px minmax(0,1fr) 24px; column-gap: 13px; align-items: center; border: 0; color: inherit; text-align: left; text-decoration: none; }
+.events-action:hover { text-decoration: none; }
+.events-action-icon { display: flex; width: 42px; height: 42px; align-items: center; justify-content: center; color: #48a6ff; font-size: 27px; }
+.events-action-label { margin-bottom: 3px; color: #7f91a8; font-size: .68rem; font-weight: 800; letter-spacing: .12em; line-height: 1.2; text-transform: uppercase; }
+.events-action-title { display: block; font-size: 1rem; font-weight: 750; line-height: 1.35; }
+.events-action-arrow { display: flex; width: 24px; height: 24px; align-items: center; justify-content: center; color: #48a6ff; font-size: 17px; transition: transform .2s ease; }
+.events-action:hover .events-action-arrow { transform: translateX(4px); }
 .events-section-title { margin: 0 0 20px; text-align: center; }
 .events-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
 .event-card { display: flex; min-width: 0; overflow: hidden; flex-direction: column; border: 1px solid rgba(72,166,255,.14); border-radius: 16px; background: rgba(8,12,25,.72); box-shadow: 0 12px 32px rgba(0,0,0,.18); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
@@ -42,9 +39,9 @@ permalink: /events/
 .events-more a { display: inline-flex; padding: 10px 18px; align-items: center; gap: 7px; border: 1px solid rgba(72,166,255,.14); border-radius: 10px; background: rgba(72,166,255,.08); font-weight: 700; }
 .events-more a:hover { text-decoration: none; border-color: rgba(72,166,255,.3); background: rgba(72,166,255,.14); }
 @media (max-width: 900px) { .events-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 700px) { .events-actions { grid-template-columns: 1fr; gap: 12px; margin-bottom: 40px; } .events-action { min-height: 104px; } .events-grid { grid-template-columns: 1fr; } }
-@media (max-width: 520px) { .events-page { padding: 4px 10px 24px; } .events-action { min-height: 98px; grid-template-columns: 48px minmax(0,1fr); column-gap: 13px; padding: 15px; } .events-action-icon { width: 48px; height: 48px; border-radius: 14px; font-size: 23px; } .events-action-label { font-size: .64rem; } .events-action-title { font-size: .94rem; } .events-action-arrow { width: 27px; height: 27px; margin-top: 9px; } .event-card-content { padding: 16px; } .event-card-footer { align-items: flex-start; flex-direction: column; } }
-@media (prefers-reduced-motion: reduce) { .events-rss, .events-action, .events-action-arrow, .event-card, .event-card-image { transition: none; } }
+@media (max-width: 700px) { .events-actions { grid-template-columns: 1fr; gap: 6px; margin-bottom: 40px; } .events-action { min-height: 76px; padding: 12px 4px; } .events-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .events-page { padding: 4px 10px 24px; } .events-action { grid-template-columns: 38px minmax(0,1fr) 22px; column-gap: 10px; min-height: 68px; } .events-action-icon { width: 38px; height: 38px; font-size: 23px; } .events-action-label { font-size: .64rem; } .events-action-title { font-size: .94rem; } .event-card-content { padding: 16px; } .event-card-footer { align-items: flex-start; flex-direction: column; } }
+@media (prefers-reduced-motion: reduce) { .events-rss, .events-action-arrow, .event-card, .event-card-image { transition: none; } }
 </style>
 
 <section class="events-page">
@@ -57,20 +54,17 @@ permalink: /events/
     <div class="events-actions">
         <a class="events-action" href="/schedule">
             <span class="events-action-icon"><span class="bx bx-calendar" aria-hidden="true"></span></span>
-            <span class="events-action-label">Lịch</span>
-            <span class="events-action-title">Lịch sự kiện</span>
+            <span><span class="events-action-label">Lịch</span><span class="events-action-title">Lịch sự kiện</span></span>
             <span class="events-action-arrow" aria-hidden="true">→</span>
         </a>
         <a class="events-action" href="//chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835">
             <span class="events-action-icon"><span class="bx bx-trophy" aria-hidden="true"></span></span>
-            <span class="events-action-label">Chess.com</span>
-            <span class="events-action-title">Các giải khác trong CLB</span>
+            <span><span class="events-action-label">Chess.com</span><span class="events-action-title">Các giải khác trong CLB</span></span>
             <span class="events-action-arrow" aria-hidden="true">→</span>
         </a>
         <a class="events-action" href="/events/tournaments">
             <span class="events-action-icon"><span class="bx bx-medal" aria-hidden="true"></span></span>
-            <span class="events-action-label">Tổng hợp</span>
-            <span class="events-action-title">Bảng tổng hợp giải đấu</span>
+            <span><span class="events-action-label">Tổng hợp</span><span class="events-action-title">Bảng tổng hợp giải đấu</span></span>
             <span class="events-action-arrow" aria-hidden="true">→</span>
         </a>
     </div>
