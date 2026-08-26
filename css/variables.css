@@ -9,15 +9,15 @@
   --mono-font: "Courier New", monospace;
 
   /* Font Sizes - Modular Scale (1.125x) */
-  --fs-xs: 0.75rem;
-  --fs-sm: 0.875rem;
-  --fs-base: 1rem;
-  --fs-lg: 1.125rem;
-  --fs-xl: 1.25rem;
-  --fs-2xl: 1.5rem;
-  --fs-3xl: 1.875rem;
-  --fs-4xl: 2.25rem;
-  --fs-5xl: 2.813rem;
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-sm: 0.875rem; /* 14px */
+  --fs-base: 1rem; /* 16px */
+  --fs-lg: 1.125rem; /* 18px */
+  --fs-xl: 1.25rem; /* 20px */
+  --fs-2xl: 1.5rem; /* 24px */
+  --fs-3xl: 1.875rem; /* 30px */
+  --fs-4xl: 2.25rem; /* 36px */
+  --fs-5xl: 2.813rem; /* 45px */
 
   /* Font Weights */
   --fw-light: 300;
@@ -27,18 +27,20 @@
   --fw-bold: 700;
 
   /* SPACING - 8px Base Grid */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 2.5rem;
-  --space-3xl: 3rem;
-  --space-4xl: 3.5rem;
-  --space-5xl: 4rem;
-  --space-6xl: 4.5rem;
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 2.5rem; /* 40px */
+  --space-3xl: 3rem; /* 48px */
+  --space-4xl: 3.5rem; /* 56px */
+  --space-5xl: 4rem; /* 64px */
+  --space-6xl: 4.5rem; /* 72px */
 
   /* COLOR PALETTE - CHESS THEMED */
+
+  /* Neutrals */
   --neutral-50: #f9fafb;
   --neutral-100: #f3f4f6;
   --neutral-200: #e5e7eb;
@@ -50,6 +52,7 @@
   --neutral-800: #1f2937;
   --neutral-900: #111827;
 
+  /* Primary Blues (Chess Board Theme) */
   --blue-50: #eff6ff;
   --blue-100: #dbeafe;
   --blue-200: #bfdbfe;
@@ -61,6 +64,7 @@
   --blue-800: #1e40af;
   --blue-900: #1e3a8a;
 
+  /* Cyan/Teal (Accent - Chess Light Square) */
   --cyan-50: #ecf8ff;
   --cyan-100: #cef2ff;
   --cyan-200: #a5e8ff;
@@ -72,6 +76,7 @@
   --cyan-800: #155e75;
   --cyan-900: #164e63;
 
+  /* Purple (Secondary Accent) */
   --purple-50: #faf5ff;
   --purple-100: #f3e8ff;
   --purple-200: #e9d5ff;
@@ -83,6 +88,7 @@
   --purple-800: #6b21a8;
   --purple-900: #581c87;
 
+  /* Green (Success) */
   --green-50: #f0fdf4;
   --green-100: #dcfce7;
   --green-200: #bbf7d0;
@@ -94,6 +100,7 @@
   --green-800: #166534;
   --green-900: #145231;
 
+  /* Orange (Primary Action - Chess King) */
   --orange-50: #fff7ed;
   --orange-100: #feed7aa;
   --orange-200: #fdba74;
@@ -105,6 +112,7 @@
   --orange-800: #7c2d12;
   --orange-900: #431407;
 
+  /* Red (Danger/Warning) */
   --red-50: #fef2f2;
   --red-100: #fee2e2;
   --red-200: #fecaca;
@@ -116,6 +124,7 @@
   --red-800: #991b1b;
   --red-900: #7f1d1d;
 
+  /* Yellow (Warning) */
   --yellow-50: #fefce8;
   --yellow-100: #fef3c7;
   --yellow-200: #fde047;
@@ -131,12 +140,15 @@
   --color-primary: var(--blue-500);
   --color-primary-dark: var(--blue-700);
   --color-primary-light: #409EFF;
-  --color-accent: #38bdf8;
+
+  --color-accent: #38bdf8; /* Brighter Cyan */
   --color-accent-dark: #0ea5e9;
   --color-accent-light: #7dd3fc;
+
   --color-secondary: #a855f7;
   --color-secondary-dark: #7e22ce;
   --color-secondary-light: #d8b4fe;
+
   --color-success: var(--green-500);
   --color-success-dark: var(--green-700);
   --color-warning: var(--yellow-500);
@@ -145,25 +157,31 @@
   --color-danger-dark: var(--red-700);
 
   /* Legacy / Compatibility Aliases */
-  --legacy-primary-dark: linear-gradient(135deg, #0a0f1a 0%, #0f172a 40%, #08192d 100%), radial-gradient(ellipse at 100% 100%, rgba(53, 201, 252, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 0% 0%, rgba(201, 36, 243, 0.03) 0%, transparent 60%);
+  --legacy-primary-dark: linear-gradient(135deg, #0a0f1a 0%, #0f172a 40%, #08192d 100%),
+                    radial-gradient(ellipse at 100% 100%, rgba(53, 201, 252, 0.08) 0%, transparent 50%),
+                    radial-gradient(ellipse at 0% 0%, rgba(201, 36, 243, 0.03) 0%, transparent 60%);
   --legacy-pink: #c924f3;
   --legacy-blue: #409EFF;
   --legacy-purple: #8342f3;
   --legacy-green: #26d23d;
   --legacy-light-green: #31ff4c;
+
   --primary-color: var(--color-primary);
   --primary-success: var(--color-success);
-  --primary-sucess: var(--color-success);
+  --primary-sucess: var(--color-success); /* Legacy typo fallback */
   --primary-warning: var(--color-warning);
+
   --color-text-primary: #ffffff;
   --color-text-secondary: var(--neutral-200);
   --color-text-muted: var(--neutral-400);
   --color-text-disabled: var(--neutral-600);
+
   --color-bg-primary: #050811;
   --bg-pattern-chess: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
   --color-bg-secondary: #0a0f1e;
   --color-bg-tertiary: #111a2e;
   --color-bg-hover: rgba(56, 189, 248, 0.08);
+
   --color-border: rgba(56, 189, 248, 0.15);
   --color-border-light: rgba(56, 189, 248, 0.08);
   --color-border-dark: rgba(56, 189, 248, 0.25);
@@ -172,8 +190,21 @@
   --gradient-primary: linear-gradient(135deg, var(--blue-600) 0%, var(--blue-500) 100%);
   --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
   --gradient-purple-cyan: linear-gradient(135deg, #a855f7 0%, #38bdf8 100%);
-  --gradient-dark-bg: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 50%, #081021 100%);
-  --gradient-radial-dark: radial-gradient(circle at top right, rgba(56, 189, 248, 0.12) 0%, transparent 40%), radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
+  --gradient-dark-bg: linear-gradient(
+    135deg,
+    var(--color-bg-primary) 0%,
+    var(--color-bg-secondary) 50%,
+    #081021 100%
+  );
+  --gradient-radial-dark: radial-gradient(
+    circle at top right,
+    rgba(56, 189, 248, 0.12) 0%,
+    transparent 40%
+  ), radial-gradient(
+    circle at bottom left,
+    rgba(168, 85, 247, 0.08) 0%,
+    transparent 40%
+  );
 
   /* BORDERS & SHADOWS */
   --border-radius-sm: 0.25rem;
@@ -182,14 +213,17 @@
   --border-radius-xl: 1.5rem;
   --border-radius-2xl: 2rem;
   --border-radius-full: 9999px;
+
   --border-width-thin: 1px;
   --border-width-base: 2px;
   --border-width-thick: 3px;
+
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.2);
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+
   --shadow-glow: 0 0 15px rgba(53, 201, 252, 0.4);
   --shadow-glow-strong: 0 0 30px rgba(53, 201, 252, 0.5);
   --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.4);
@@ -198,6 +232,7 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
   --animation-duration-short: 0.6s;
   --animation-duration-base: 1s;
   --animation-duration-long: 2s;
