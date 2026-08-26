@@ -142,9 +142,14 @@ body::after {
 
 /* TYPOGRAPHY */
 
-.title {
+.page-title {
   text-align: center;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+
+.page-decription {
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 h1 {

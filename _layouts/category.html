@@ -12,9 +12,10 @@
 
     <div id="section-page">
         <div class="container">
-            <h1 class="title">{{ page.title }}</h1>
-            <p>{{ page.description }} <a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
-
+            <header>
+                <h1 class="page-title">{{ page.title }}</h1>
+                <p class="page-decription">{{ page.description }} <a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
+            </header>
             <ul class="nav-tabs">
                 <li><a href="/blog" {% if page.category == "blog" %}class="active"{% endif %}><span class="bx bxs-news"></span>Tất cả bài đăng</a></li>
                 <li><a href="/chess" {% if page.category == "chess" %}class="active"{% endif %}><span class="bx bxs-chess"></span>Kiến thức cờ vua</a></li>
