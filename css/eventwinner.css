@@ -1,30 +1,10 @@
 @import url("./variables.css");
 
-.table {
-  position: relative;
-  width: 100%;
-  max-width: inherit;
-  max-height: 75vh;
-  margin: var(--space-2xl) 0;
-  overflow: auto;
-  border-radius: var(--border-radius-lg);
-  background: linear-gradient(135deg, rgba(10, 15, 26, 0.9), rgba(15, 25, 45, 0.8));
-  box-shadow: var(--shadow-xl);
-}
-
-.styled-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: var(--border-width-base) solid rgba(56, 189, 248, 0.2);
-  border-radius: var(--border-radius-lg);
-  background: rgba(12, 20, 38, 0.95);
-  font-size: var(--fs-sm);
-}
-
+.table { position: relative; width: 100%; max-width: inherit; max-height: 75vh; margin: var(--space-2xl) 0; overflow: auto; border-radius: var(--border-radius-lg); background: linear-gradient(135deg, rgba(10, 15, 26, .9), rgba(15, 25, 45, .8)); box-shadow: var(--shadow-xl); }
+.styled-table { width: 100%; border-collapse: collapse; border: var(--border-width-base) solid rgba(56, 189, 248, .2); border-radius: var(--border-radius-lg); background: rgba(12, 20, 38, .95); font-size: var(--fs-sm); }
 .styled-table thead { position: sticky; top: 0; z-index: var(--z-sticky); }
-.styled-table th,
-.styled-table td { padding: var(--space-md); border-bottom: var(--border-width-thin) solid rgba(56, 189, 248, 0.15); text-align: left; overflow: hidden; text-overflow: ellipsis; }
-.styled-table th { padding: 10px 14px; background: linear-gradient(180deg, rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.9)); color: var(--neutral-50); font-size: var(--fs-xs); font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: .5px; text-shadow: 0 1px 2px rgba(0, 0, 0, .4); border-top: 1px solid rgba(255, 255, 255, .1); border-right: 1px solid rgba(255, 255, 255, .08); }
+.styled-table th, .styled-table td { padding: var(--space-md); border-bottom: var(--border-width-thin) solid rgba(56, 189, 248, .15); text-align: left; overflow: hidden; text-overflow: ellipsis; }
+.styled-table th { padding: 10px 14px; background: linear-gradient(180deg, rgba(37, 99, 235, .9), rgba(29, 78, 216, .9)); color: var(--neutral-50); font-size: var(--fs-xs); font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: .5px; text-shadow: 0 1px 2px rgba(0, 0, 0, .4); border-top: 1px solid rgba(255, 255, 255, .1); border-right: 1px solid rgba(255, 255, 255, .08); }
 .styled-table th:first-child { border-radius: var(--border-radius-lg) 0 0 0; }
 .styled-table th:last-child { border-radius: 0 var(--border-radius-lg) 0 0; }
 .styled-table tbody tr { position: relative; background: rgba(25, 40, 75, .4); border-bottom: var(--border-width-thin) solid rgba(56, 189, 248, .1); transition: background-color var(--transition-base), transform var(--transition-base); }
@@ -34,7 +14,6 @@
 .styled-table tbody tr:hover td { color: var(--neutral-100); }
 .styled-table a { color: var(--color-primary-light); font-weight: var(--fw-semibold); text-decoration: none; }
 .styled-table a:hover { color: var(--color-accent); text-shadow: 0 0 12px rgba(96, 165, 250, .4); }
-
 .name-tour { min-width: 15em; width: 33vw; color: var(--neutral-100); font-weight: var(--fw-semibold); text-transform: capitalize; }
 .organization-day { min-width: 8rem; color: var(--neutral-200); font-family: var(--mono-font); }
 .rules { min-width: 13.5rem; color: var(--neutral-200); }
@@ -96,6 +75,15 @@
 .tour-switch input:checked + .tour-slider { border-color: var(--color-primary-light); background: rgba(56, 189, 248, .2); }
 .tour-switch input:checked + .tour-slider:before { background: var(--color-primary-light); box-shadow: 0 0 8px var(--color-primary-light); transform: translateX(20px); }
 
+.tournament-page-context { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 22px 0; padding: 12px 0; border-top: 1px solid rgba(148, 163, 184, .12); border-bottom: 1px solid rgba(148, 163, 184, .12); }
+.tournament-page-context p { margin: 0; color: var(--neutral-500, #64748b); font-size: .82rem; line-height: 1.6; }
+.tournament-page-context a { color: var(--color-primary-light, #60a5fa); font-weight: 700; }
+.tournament-page-brand { display: flex; justify-content: center; margin: 26px auto 4px; padding-top: 20px; border-top: 1px solid rgba(148, 163, 184, .1); }
+.tournament-page-brand > a { display: inline-flex; align-items: center; justify-content: center; max-width: 100%; text-decoration: none; }
+.tournament-page-brand img { display: block; width: min(190px, 42vw); height: auto; max-height: 100px; object-fit: contain; }
+.tournament-page-brand--multi > a { gap: clamp(8px, 1.5vw, 18px); flex-wrap: wrap; }
+.tournament-page-brand--multi img { width: clamp(70px, 12vw, 110px); max-height: 78px; }
+
 .loading, .error { margin: var(--space-lg) 0; padding: var(--space-4xl) var(--space-lg); border-radius: var(--border-radius-lg); font-size: var(--fs-base); font-weight: var(--fw-medium); text-align: center; }
 .loading { border: var(--border-width-base) solid rgba(56, 189, 248, .3); background: linear-gradient(135deg, rgba(56, 189, 248, .1), rgba(37, 99, 235, .08)); color: var(--color-primary-light); }
 .error { border: var(--border-width-base) solid rgba(239, 68, 68, .3); background: linear-gradient(135deg, rgba(239, 68, 68, .1), rgba(220, 38, 38, .08)); color: var(--red-300); }
@@ -133,7 +121,6 @@
   .name-tour { min-width: 15rem; }
   .winner { min-width: 12.5rem; }
   .styled-table th, .styled-table td { padding: var(--space-md); font-size: var(--fs-xs); }
-  .styled-table th { padding: 10px 14px; }
 }
 
 @media (max-width: 768px) {
@@ -161,6 +148,8 @@
   .cc-modal-title-section { flex: 1; min-width: 0; }
   .cc-modal-title-section h2 { font-size: 1.4rem; }
   .cc-modal-close { width: 2.2rem; height: 2.2rem; font-size: 1.2rem; }
+  .tournament-page-context { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .tournament-page-brand { margin-top: 20px; padding-top: 16px; }
 }
 
 @media (max-width: 480px) {
