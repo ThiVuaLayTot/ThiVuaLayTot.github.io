@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<h1 class="title">{{ page.title }}</h1>
+<p align="right"><a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
+
+<ul class="nav-tabs">
+    <li><a href="/blog" {% if page.category == "blog" %}class="active"{% endif %}><span class="bx bxs-news"></span>Tất cả bài đăng</a></li>
+    <li><a href="/chess" {% if page.category == "chess" %}class="active"{% endif %}><span class="bx bxs-chess"></span>Kiến thức cờ vua</a></li>
+    <li><a href="/news" {% if page.category == "news" %}class="active"{% endif %}><span class="bx bx-news"></span>Thông báo/Tin tức</a></li>
+    <li><a href="/events" {% if page.category == "events" %}class="active"{% endif %}><span class="bx bx-medal"></span>Sự kiện/Giải đấu</a></li>
+</ul>
+
+<br>
+
+<section class="category-card-list">
+    {% if page.category == "blog" %}
+        {% assign category_posts = site.posts %}
+    {% else %}
+        {% assign category_posts = site.posts | where: "category", page.category %}
+    {% endif %}
+
+    {% for post in category_posts %}
+    <article class="category-card">
+        <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="category-card__image"></a>
+        <div class="category-card__content">
+            <div class="post_in4">
+                <div class="category-card__detail">
+                    <b class="category-card__author"><span class="bx bx-user"></span>{{ post.author }}</b>
+                    <span class="category-card__date"><span class="bx bx-time"></span>{{ post.date | date:"%d thg %m, %Y" }}</span>
+                </div>
+            </div>
+            <a href="{{ post.url }}"><h4 class="category-card__title">{{ post.title }}</h4></a>
+            <i class="category-card__description">{{ post.description }}</i>
+            <span class="category-card__tag">
+                <a href="/{{ post.category }}"><span class="bx bx-purchase-tag-alt"></span><span style="display: inline-block">{{ post.tags }}</span></a>
+            </span>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+{{ content }}
