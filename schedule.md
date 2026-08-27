@@ -1,0 +1,199 @@
+---
+layout: default
+title: Mạng xã hội - Thí Vua Lấy Tốt
+---
+
+<h1 class="title">Các sự kiện của tháng</h1>
+<ul style="list-style-type: circle;">
+    <li style="text-align: center;"><strong><span style="font-size: 14px;">Lịch sẽ được cập nhật thường xuyên và thường không báo trước khi có thay đổi</span></strong></li>
+    <li style="text-align: center;"><strong><span style="font-size: 14px;">Ấn vào icon để xem chi tiết thông sự kiện</span></strong></li>
+</ul>
+<br>
+<p><i>Lần cuối cập nhật: <span id="last-updated"></span></i>.<br>Nếu có vấn đề hãy bình luận trong <a
+        href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box"
+        target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">M-DinhHoangViet</a>.</p>
+<br>
+<div id="schedule-filters" class="schedule-control-bar" style="display: none;">
+    <!-- Left: Search input -->
+    <div class="control-item search-wrapper">
+        <span class="bx bx-search search-icon"></span>
+        <input type="text" id="schedule-search" class="control-input search-input" placeholder="Tìm kiếm sự kiện..."
+            oninput="filterSchedule()">
+    </div>
+    <!-- Right: Controls group (Dropdown, Switch, Segmented Switcher) -->
+    <div class="control-group">
+        <div class="tour-dropdown" id="schedule-category-dropdown">
+            <div class="tour-dropdown-btn compact-btn" onclick="toggleTourDropdown('schedule-category-dropdown')">
+                <div class="tour-dropdown-btn-content">
+                    <i class="bx bx-filter-alt"></i>
+                    <span>Thể loại</span>
+                </div>
+                <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
+            </div>
+            <div class="tour-dropdown-menu" id="schedule-type-group">
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="tvlt" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Thí Vua Lấy Tốt
+                </label>
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="cttq" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Chiến Trường Thí Quân
+                </label>
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="cbtt" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Cờ Bí Thí Tốt
+                </label>
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="dttv" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Đấu Trường Thí Vua
+                </label>
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="multi-club-arena" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Multi-Club Arena (Đấu trường đa CLB)
+                </label>
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="club-arena" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Đấu trường Arena
+                </label>
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="swiss" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
+                </label>
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="vote" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Cờ vua bỏ phiếu (Votechess)
+                </label>
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" value="daily" checked onchange="filterSchedule()">
+                    <span class="checkmark"></span> Cờ hàng ngày (Daily)
+                </label>
+            </div>
+        </div>
+        <label class="compact-switch-container">
+            <span class="compact-switch">
+                <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
+                <span class="compact-slider"></span>
+            </span>
+            <span class="switch-label">Chỉ có thưởng</span>
+        </label>
+        <div id="view-switcher-container" class="segmented-control" style="display: none;">
+            <button id="btn-view-calendar" class="segment-btn" onclick="switchView('calendar')" title="Xem dạng lịch">
+                <i class="bx bx-calendar"></i>
+                <span>Lịch</span>
+            </button>
+            <button id="btn-view-list" class="segment-btn" onclick="switchView('list')" title="Xem dạng danh sách">
+                <i class="bx bx-list-ul"></i>
+                <span>Danh sách</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="month-nav-wrapper">
+    <button class="month-nav-btn" id="btn-prev-month" onclick="changeMonth(-1)" title="Tháng trước">
+        <i class="bx bx-chevron-left"></i>
+    </button>
+    <div class="month-title" id="month-title">Processing...</div>
+    <button class="month-nav-btn" id="btn-next-month" onclick="changeMonth(1)" title="Tháng sau">
+        <i class="bx bx-chevron-right"></i>
+    </button>
+</div>
+<div id="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p style="font-size: 1.1em; margin-top: 20px;">Đang tải dữ liệu...</p>
+</div>
+
+<div id="calendar-wrapper" style="display: none;">
+    <table id="calendar-table">
+        <thead>
+            <tr>
+                <th title="Thứ Hai">Mon</th>
+                <th title="Thứ Ba">Tue</th>
+                <th title="Thứ Tư">Wed</th>
+                <th title="Thứ Năm">Thu</th>
+                <th title="Thứ Sáu">Fri</th>
+                <th title="Thứ Bảy">Sat</th>
+                <th title="Chủ Nhật">Sun</th>
+            </tr>
+        </thead>
+        <tbody id="calendar-body">
+        </tbody>
+    </table>
+</div>
+
+<!-- List View Container -->
+<div id="list-wrapper" style="display: none;">
+    <div id="list-container" class="events-list-grid"></div>
+</div>
+
+<div id="error" style="display: none;"></div>
+<div id="empty" style="display: none;" class="empty-message">
+    <i class="bx bx-calendar" style="color: #00f2ff; font-size: 2em; margin-bottom: 10px;"></i>
+    <p>Không có giải đấu trong tháng này</p>
+</div>
+<br>
+<style>.inl-bl{display: inline-block;width: 50px}</style>
+<div>
+    <a href="/events/tvlt-thi-vua-lay-tot" style="display: block" target="_top"><img src="/images/tvltlogo.png" alt="TVLT" title="Thí Vua Lấy Tốt" class="inl-bl">: <b>Siêu giải Thí Vua Lấy Tốt</b></a><br>
+    <a href="/events/cttq-chien-truong-thi-quan" style="display: block" target="_top"><img src="/images/events/logo/cttq.png" alt="CTTQ" title="Chiến Trường Thí Quân" class="inl-bl">: <b>Sự kiện Chiến Trường Thí Quân</b></a><br>
+    <a href="/events/cbtt-co-bi-thi-tot" style="display: block" target="_top"><img src="/images/events/logo/cbtt-rapid.png" alt="CBTT Rapid" title="Cờ Bí Thí Tốt Rapid" class="inl-bl"><img src="/images/events/logo/cbtt-blitz.png" alt="CBTT Blitz" title="Cờ Bí Thí Tốt Blitz" class="inl-bl"><img src="/images/events/logo/cbtt-superblitz.png" alt="CBTT SuperBlitz" title="Cờ Bí Thí Tốt SuperBlitz" class="inl-bl"><img src="/images/events/logo/cbtt-bullet.png" alt="CBTT Bullet" title="Cờ Bí Thí Tốt Bullet" class="inl-bl"><img src="/images/events/logo/cbtt-960.png" title="Cờ Bí Thí Tốt Chess960" alt="CBTT Chess960" class="inl-bl">: <b>Giải đấu Cờ Bí Thí Tốt</b></a><br>
+    <a href="https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835&cid=325849" target="_blank" style="display: block"><img src="https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpkp4hguhbq2as714LLnI.png" title="Daily Chess Matches" class="inl-bl"><img src="https://chess.com/bundles/web/images/color-icons/tournaments.3a561883.svg" title="Giải đấu hệ Thụy Sĩ (Swiss tournament)" class="inl-bl"><img src="https://chess.com/bundles/web/images/color-icons/arena-club-multi.b56c9ae4.svg" title="Đấu trường đa câu lạc bộ (Multi-Club Arena)" class="inl-bl"><img src="https://chess.com/bundles/web/images/color-icons/clipboard-vote.svg" title="Cờ vua bỏ phiếu (Votechess)" class="inl-bl"><img src="https://chess.com/bundles/web/images/color-icons/arena-club.495ffa75.svg" title="Giải đấu Đấu trường (Arena)" class="inl-bl">: <b>Các thể loại giải đấu khác</b></a>
+</div>
+</div>
+<!-- Modal -->
+<div id="eventModal" class="cc-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="cc-modal-dialog" role="document">
+        <div class="cc-modal-banner-section">
+            <img id="modal-banner" src="/" alt="Banner">
+        </div>
+        <button class="cc-modal-close" onclick="closeModal()" aria-label="Đóng cửa sổ">×</button>
+        <div class="cc-modal-content-wrapper">
+            <div class="cc-modal-header-row">
+                <div class="cc-modal-logo-box">
+                    <a id="modal-logo-link" href="#" target="_blank" title="Xem trang thể lệ của giải đấu">
+                        <img src="/images/tvltlogo.png" alt="Logo" id="modal-logo">
+                    </a>
+                </div>
+                <div class="cc-modal-title-section" style="flex: 1;">
+                    <div class="cc-modal-category" id="modal-category"></div>
+                    <h2 id="modal-name"></h2>
+                </div>
+            </div>
+            <div class="cc-modal-info-section">
+                <div class="cc-modal-info-item">
+                    <i class="icon-font-chess events-list-icon chess-board"></i>
+                    <div>
+                        <strong><span class="bx bx-grid-alt"></span> Thể lệ giải đấu:</strong>
+                        <span id="modal-event-rules"></span>
+                    </div>
+                </div>
+                <div class="cc-modal-info-item">
+                    <i class="icon-font-chess events-list-icon chess-board"></i>
+                    <div>
+                        <strong><span class="bx bxs-chess"></span> Thể lệ ván đấu:</strong>
+                        <span id="modal-game-rules"></span>
+                    </div>
+                </div>
+                <div class="cc-modal-info-item">
+                    <i class="icon-font-chess calendar events-list-icon"></i>
+                    <div>
+                        <strong><span class="bx bx-calendar"></span> Thời gian bắt đầu:</strong>
+                        <span id="modal-time"></span>
+                    </div>
+                </div>
+                <div class="cc-modal-info-item">
+                    <i class="icon-font-chess post-view-meta-club-admin user-shield"></i>
+                    <div>
+                        <strong><span class="bx bxs-user-check"></span> Tổ chức bởi:</strong>
+                        <span id="modal-organizer"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <a id="modal-join" href="#" target="_blank"><button class="btn btn-primary" type="button"><span class="bx bx-user-plus"></span> Tham gia</button></a>
+            <a id="modal-rule" href="#" target="_blank"><button class="btn btn-secondary" type="button"><span class="bx bx-task"></span> Thể lệ</button></a>
+            <a id="modal-results" href="#" target="_blank"><button class="btn btn-secondary" type="button"><span class="bx bx-trophy"></span> Kết quả</button></a>
+        </div>
+    </div>
+<script src="/js/schedule.js"></script>

@@ -208,6 +208,36 @@
   transform: scale(1.05);
 }
 
+.category-card__footer {
+  display: flex;
+  margin-top: auto;
+  padding-top: 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+.category-card__tag {
+  min-width: 0;
+  overflow: hidden;
+  color: #48a6ff;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.category-card__link {
+  flex: none;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .category-card__footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 .category-card__ribbon {
   position: absolute;
   top: 0;

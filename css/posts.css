@@ -25,12 +25,14 @@
     margin: var(--space-lg) 0;
 }
 
-.short_text {
+.short-text {
     color: var(--color-text-muted);
     font-style: italic;
     display: block;
     margin-bottom: var(--space-lg);
 }
+
+.post-tag
 
 #post .content p {
     line-height: 1.8;
