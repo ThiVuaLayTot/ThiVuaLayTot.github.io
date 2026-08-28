@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <title>{{ page.title }} - Blog posts - CLB Thí Vua Lấy Tốt</title>
+    {% include head.html %}
+    <link rel="stylesheet" type="text/css" href="/css/category.css">
+</head>
+
+<body>
+    {% include navbar.html %}
+
+    <div id="section-page">
+        <div class="container">
+            <header>
+                <h1 class="page-title">{{ page.title }}</h1>
+                <p class="page-decription">{{ page.description }} <a href="https://thivualaytot.github.io/atom.xml"><span class="bx bx-rss" title="Atom RSS"></span></a></p>
+            </header>
+
+            <nav class="nav-tabs" aria-label="Danh mục bài viết">
+                <a href="/blog" {% if page.category == "blog" %}class="active" aria-current="page"{% endif %}>
+                    <span class="bx bx-edit-alt" style="color:var(--legacy-green)"></span>
+                    <span>Tất cả bài đăng</span>
+                </a>
+                <a href="/chess" {% if page.category == "chess" %}class="active" aria-current="page"{% endif %}>
+                    <span class="bx bxs-chess" style="color:var(--color-accent-dark)"></span>
+                    <span>Kiến thức cờ vua</span>
+                </a>
+                <a href="/news" {% if page.category == "news" %}class="active" aria-current="page"{% endif %}>
+                    <span class="bx bx-news" style="color:var(--orange-200)"></span>
+                    <span>Thông báo/Tin tức</span>
+                </a>
+                <a href="/events" {% if page.category == "events" %}class="active" aria-current="page"{% endif %}>
+                    <span class="bx bx-medal" style="color:gold"></span>
+                    <span>Sự kiện/Giải đấu</span>
+                </a>
+            </nav>
+
+            <section class="category-card-list">
+                {% if page.category == "blog" %}
+                    {% assign category_posts = site.posts %}
+                {% else %}
+                    {% assign category_posts = site.posts | where: "category", page.category %}
+                {% endif %}
+
+                {% for post in category_posts %}
+                <article class="category-card">
+                    <a href="{{ post.url }}" title="{{ post.title }}"><img src="/images/{{ post.id }}.png" class="category-card__image"></a>
+                    <div class="category-card__content">
+                        <div class="post_in4">
+                            <div class="category-card__detail">
+                                <b class="category-card__author"><span class="bx bx-user"></span>{{ post.author }}</b>
+                                <span class="category-card__date"><span class="bx bx-time"></span>{{ post.date | date:"%d thg %m, %Y" }}</span>
+                            </div>
+                        </div>
+                        <a href="{{ post.url }}"><h4 class="category-card__title">{{ post.title }}</h4></a>
+                        <i class="category-card__description">{{ post.description }}</i>
+                        <div class="category-card__footer">
+                            <a href="/{{ post.category }}"class="category-card__tag"><span class="bx bx-purchase-tag-alt"></span> {{ post.tags }}</a>
+                            <a class="category-card__link" href="{{ post.url }}">Xem chi tiết <span aria-hidden="true">→</span></a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </section>
+            <br>
+            {{ content }}
+            <button id="back-to-top" title="Quay lại đầu trang"><span class="bx bxs-to-top"></span></button>
+        </div>
+    </div>
+
+    {% include footer.html %}
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

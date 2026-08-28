@@ -321,7 +321,7 @@
                     <!-- Top bar with 3 columns -->
                     <div class="tour-top-grid">
                         <!-- Column 1: Sắp xếp -->
-                        <div class="tour-select-container">
+                        <div class="tour-select-container" style="grid-column: span 2;">
                             <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
                                 <option value="date-desc">Tháng tổ chức (Mới nhất)</option>
                                 <option value="date-asc">Tháng tổ chức (Cũ nhất)</option>

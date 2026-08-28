@@ -57,15 +57,15 @@ function linkifyChessTerms(text) {
         { regex: /Đấu trường đa CLB/gi, url: 'https://support.chess.com/articles/8724653-how-can-i-create-a-multi-club-arena' },
         { regex: /Đấu trường Arena/gi, url: 'https://support.chess.com/articles/8562889-what-are-arena-tournaments' },
         { regex: /Hệ Thụy Sĩ/gi, url: 'https://chess.com/terms/swiss-chess' },
-        { regex: /King of the Hill/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
-        { regex: /Crazyhouse/gi, url: 'https://www.chess.com/terms/crazyhouse' },
-        { regex: /Bughouse/gi, url: 'https://www.chess.com/terms/bughouse' },
-        { regex: /Three Check/gi, url: 'https://www.chess.com/terms/3-check-chess' },
-        { regex: /3 Check/gi, url: 'https://www.chess.com/terms/3-check-chess' },
-        { regex: /3 chiếu/gi, url: 'https://www.chess.com/terms/3-check-chess' },
-        { regex: /Chess960/gi, url: 'https://www.chess.com/terms/chess960' },
-        { regex: /960/gi, url: 'https://www.chess.com/terms/chess960' },
-        { regex: /\bKOTH\b/gi, url: 'https://www.chess.com/terms/king-of-the-hill' },
+        { regex: /King of the Hill/gi, url: 'https://chess.com/terms/king-of-the-hill' },
+        { regex: /Crazyhouse/gi, url: 'https://chess.com/terms/crazyhouse' },
+        { regex: /Bughouse/gi, url: 'https://chess.com/terms/bughouse' },
+        { regex: /Three Check/gi, url: 'https://chess.com/terms/3-check-chess' },
+        { regex: /3 Check/gi, url: 'https://chess.com/terms/3-check-chess' },
+        { regex: /3 chiếu/gi, url: 'https://chess.com/terms/3-check-chess' },
+        { regex: /Chess960/gi, url: 'https://chess.com/terms/chess960' },
+        { regex: /960/gi, url: 'https://chess.com/terms/chess960' },
+        { regex: /\bKOTH\b/gi, url: 'https://chess.com/terms/king-of-the-hill' },
         { regex: /Daily/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
         { regex: /Cờ Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
         { regex: /Đấu Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
@@ -123,7 +123,7 @@ function getGameRulesWithIcon(rulesText) {
     const lower = rulesText.toLowerCase();
 
     const iconRules = [
-        { keys: ['blitz', 'biltz'], url: 'icons/smileys/2x/blitz.png', alt: 'blitz' },
+        { keys: ['blitz'], url: 'icons/smileys/2x/blitz.png', alt: 'blitz' },
         { keys: ['bullet', 'lightning'], url: 'icons/smileys/2x/bullet.png', alt: 'bullet' },
         { keys: ['rapid'], url: 'icons/smileys/2x/live.png', alt: 'rapid' },
         { keys: ['daily', 'ngày', 'nước đi'], url: 'icons/smileys/2x/daily.png', alt: 'daily' },
@@ -137,7 +137,7 @@ function getGameRulesWithIcon(rulesText) {
     const matchedIcons = iconRules
         .filter(rule => rule.keys.some(k => lower.includes(k)))
         .map(rule => {
-            const fullUrl = `https://www.chess.com/bundles/web/images/${rule.url}`;
+            const fullUrl = `https://chess.com/bundles/web/images/${rule.url}`;
             return `<img src="${fullUrl}" width="17" height="17" alt="${rule.alt}" style="vertical-align:middle; margin-left: 4px;">`;
         })
         .join('');
@@ -506,7 +506,7 @@ function openModal(tournament) {
     const type = tournament.eventType;
     let bannerUrl, newsUrl, resultUrl;
 
-    const internalTypes = ["cttq", "tvlt", "cbtt", "dttv"];
+    const internalTypes = ["cttq", "tvlt", "cbtt-superblitz", "dttv"];
     if (internalTypes.includes(type)) {
         const infoMap = {
             tvlt: "/events/tvlt-thi-vua-lay-tot",
@@ -582,7 +582,7 @@ function openModal(tournament) {
     const tParts = getVietnamDateParts(tournament.startTime);
     const dayVn = getDayOfWeekVn(tournament.startTime);
     const dayPrefix = dayVn === 'Chủ Nhật' ? '' : 'Thứ ';
-    let formattedTime = `${pad(tParts.hours)}:${pad(tParts.minutes)}, ${dayPrefix}${dayVn} - ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year}`;
+    let formattedTime = `${dayPrefix}${dayVn} - ngày ${pad(tParts.date)}/${pad(tParts.month + 1)}/${tParts.year} lúc ${pad(tParts.hours)}h${pad(tParts.minutes)}`;
 
     let gameRulesText = tournament.gameRules || 'Chưa có thông tin';
     let eventRulesText = tournament.eventRules || 'Chưa có thông tin';

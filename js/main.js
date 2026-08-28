@@ -4,88 +4,123 @@
  */
 
 /**
- * Mobile Navigation Toggle and Dropdowns
+ * Mobile Navigation
  */
 const menuBtn = document.getElementById("menu");
 const dropdowns = document.querySelectorAll(".section.dropdown");
+const mobileNav = document.getElementById("tvltTopnav");
+
+const isMobileNav = () => window.matchMedia("(max-width: 1024px)").matches;
+
+function setDropdownState(dropdown, open) {
+    const trigger = dropdown.querySelector(".dropdown-trigger");
+    dropdown.classList.toggle("active", open);
+    if (trigger) trigger.setAttribute("aria-expanded", String(open));
+}
+
+function closeDropdowns() {
+    dropdowns.forEach(dropdown => setDropdownState(dropdown, false));
+}
+
+function closeMobileNav({ restoreFocus = false } = {}) {
+    if (!mobileNav || !menuBtn) return;
+
+    mobileNav.classList.remove("active");
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Mở menu điều hướng");
+    document.documentElement.classList.remove("nav-open");
+    document.body.classList.remove("nav-open");
+    closeDropdowns();
+
+    const menuIcon = document.getElementById("menuIcon");
+    if (menuIcon) {
+        menuIcon.classList.remove("bx-x");
+        menuIcon.classList.add("bx-menu");
+    }
+
+    if (restoreFocus) menuBtn.focus();
+}
+
+function openMobileNav() {
+    if (!mobileNav || !menuBtn) return;
+
+    mobileNav.classList.add("active");
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.setAttribute("aria-label", "Đóng menu điều hướng");
+    document.documentElement.classList.add("nav-open");
+    document.body.classList.add("nav-open");
+
+    const menuIcon = document.getElementById("menuIcon");
+    if (menuIcon) {
+        menuIcon.classList.remove("bx-menu");
+        menuIcon.classList.add("bx-x");
+    }
+}
 
 if (menuBtn) {
-    menuBtn.addEventListener("click", function() {
-        const nav = document.getElementById("tvltTopnav");
-        const menuIcon = document.getElementById("menuIcon");
+    menuBtn.addEventListener("click", () => {
+        if (!mobileNav || !isMobileNav()) return;
 
-        nav.classList.toggle("active");
-        const isActive = nav.classList.contains("active");
-
-        this.setAttribute("aria-expanded", isActive);
-        this.setAttribute("aria-label", isActive ? "Đóng menu điều hướng" : "Mở menu điều hướng");
-
-        if (menuIcon) {
-            if (menuIcon.classList.contains("bx-menu")) {
-                menuIcon.classList.remove("bx-menu");
-                menuIcon.classList.add("bx-x");
-            } else {
-                menuIcon.classList.remove("bx-x");
-                menuIcon.classList.add("bx-menu");
-            }
-        }
-
-        // Close all dropdowns when the mobile navigation bar is closed
-        if (!isActive) {
-            dropdowns.forEach(dropdown => {
-                dropdown.classList.remove("active");
-                const trigger = dropdown.querySelector(".dropdown-trigger");
-                if (trigger) {
-                    trigger.setAttribute("aria-expanded", "false");
-                }
-            });
+        if (mobileNav.classList.contains("active")) {
+            closeMobileNav();
+        } else {
+            openMobileNav();
         }
     });
 }
 
-// Mobile Dropdown toggles click handler
 dropdowns.forEach(dropdown => {
     const trigger = dropdown.querySelector(".dropdown-trigger");
-    if (trigger) {
-        trigger.addEventListener("click", function(e) {
-            if (window.innerWidth <= 1024) {
-                e.preventDefault();
-                e.stopPropagation();
+    if (!trigger) return;
 
-                const isActive = dropdown.classList.contains("active");
+    trigger.addEventListener("click", event => {
+        if (!isMobileNav()) return;
 
-                // Collapse all other dropdowns
-                dropdowns.forEach(other => {
-                    if (other !== dropdown) {
-                        other.classList.remove("active");
-                        const otherTrigger = other.querySelector(".dropdown-trigger");
-                        if (otherTrigger) {
-                            otherTrigger.setAttribute("aria-expanded", "false");
-                        }
-                    }
-                });
+        event.preventDefault();
+        event.stopPropagation();
 
-                // Toggle current dropdown
-                if (isActive) {
-                    dropdown.classList.remove("active");
-                    this.setAttribute("aria-expanded", "false");
-                } else {
-                    dropdown.classList.add("active");
-                    this.setAttribute("aria-expanded", "true");
-                }
-            }
+        const shouldOpen = !dropdown.classList.contains("active");
+        dropdowns.forEach(other => {
+            if (other !== dropdown) setDropdownState(other, false);
         });
+        setDropdownState(dropdown, shouldOpen);
+    });
+});
+
+document.addEventListener("click", event => {
+    if (!isMobileNav() || !mobileNav?.classList.contains("active")) return;
+
+    const target = event.target;
+    if (mobileNav.contains(target) || menuBtn?.contains(target)) return;
+
+    closeMobileNav();
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && mobileNav?.classList.contains("active")) {
+        closeMobileNav({ restoreFocus: true });
     }
 });
+
+window.addEventListener("resize", () => {
+    if (!isMobileNav()) closeMobileNav();
+});
+
+if (mobileNav) {
+    mobileNav.querySelectorAll("a:not(.dropdown-trigger)").forEach(link => {
+        link.addEventListener("click", () => {
+            if (isMobileNav()) closeMobileNav();
+        });
+    });
+}
 
 /**
  * Page Load Events
  */
 window.addEventListener("load", function() {
     const loader = document.getElementById("loader");
-    if (loader) {
-        loader.classList.remove("show");
-    }
+    if (loader) loader.classList.remove("show");
+    handleScrollEffects();
 });
 
 /**
@@ -93,7 +128,24 @@ window.addEventListener("load", function() {
  */
 const backToTopBtn = document.getElementById("back-to-top");
 const timeline = document.querySelector('.timeline');
-const rootStyle = document.documentElement.style;
+const timelineItems = document.querySelectorAll('[data-timeline-item]');
+
+if (timelineItems.length) {
+    if ('IntersectionObserver' in window) {
+        const timelineObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.18 });
+
+        timelineItems.forEach(item => timelineObserver.observe(item));
+    } else {
+        timelineItems.forEach(item => item.classList.add('is-visible'));
+    }
+}
 
 let isScrolling = false;
 
@@ -108,16 +160,13 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 /**
- * Handles all scroll-based UI updates
+ * Handles scroll-based UI updates
  */
 function handleScrollEffects() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-    if (backToTopBtn) {
-        backToTopBtn.style.display = scrollTop > 100 ? "flex" : "none";
-    }
+    if (backToTopBtn) backToTopBtn.style.display = scrollTop > 100 ? "flex" : "none";
 
-    // Timeline Scroll Progress
     if (timeline) {
         const rect = timeline.getBoundingClientRect();
         const windowHeight = window.innerHeight;
@@ -125,12 +174,10 @@ function handleScrollEffects() {
         if (rect.top < windowHeight && rect.bottom > 0) {
             const start = rect.top;
             const end = rect.bottom;
-            const current = windowHeight * 0.7; // Target line progress to 70% of viewport
-
+            const current = windowHeight * 0.7;
             let scrollPercent = ((current - start) / (end - start)) * 100;
             scrollPercent = Math.min(Math.max(scrollPercent, 0), 100);
-
-            rootStyle.setProperty('--timeline-progress', scrollPercent + '%');
+            timeline.style.setProperty('--timeline-progress', scrollPercent + '%');
         }
     }
 }
