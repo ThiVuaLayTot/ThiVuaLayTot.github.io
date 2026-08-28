@@ -2,6 +2,7 @@
 layout: category
 category: blog
 title: Các thông báo quan trọng và các bài đăng nổi bật
+description: Các thông báo quan trọng và các bài đăng nổi bật của câu lạc bộ
 ---
 
 <h2>Các bài đăng khác</h2>

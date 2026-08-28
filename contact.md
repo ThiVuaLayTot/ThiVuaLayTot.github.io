@@ -1,52 +1,45 @@
 ---
 layout: default
-title: Liên hệ & Đóng góp - Thí Vua Lấy Tốt
-permalink: /contact
+title: Liên hệ và Đóng góp
+decription: Chọn đúng hình thức liên hệ cho nhu cầu của bạn. Từ góp ý về câu lạc bộ đến liên hệ với các quản trị viên, mọi phản hồi đều giúp Thí Vua Lấy Tốt tốt hơn.
 ---
 
-<div class="contact-page">
-    <section class="contact-hero">
-        <h1><span>Liên hệ và đóng góp</span></h1>
-        <p>Chọn đúng hình thức liên hệ cho nhu cầu của bạn. Từ góp ý về câu lạc bộ đến liên hệ với các quản trị viên, mọi phản hồi đều giúp Thí Vua Lấy Tốt tốt hơn.</p>
-    </section>
-
-    <section class="contact-methods">
-        <article class="contact-method">
-            <div class="method-icon"><span class="bx bx-user-voice"></span></div>
-            <div class="method-content">
-                <span class="method-label">Liên hệ trực tiếp</span>
-                <h2>Ban điều hành</h2>
-                <p>Cần trao đổi trực tiếp với quản trị viên? Xem danh sách Ban điều hành và vai trò của từng thành viên.</p>
-                <a class="method-link" href="/leaders">Xem Ban điều hành <span class="bx bx-right-arrow-alt"></span></a>
-            </div>
-        </article>
-
-        <article class="contact-method contact-method--primary">
-            <div class="method-icon"><span class="bx bx-edit-alt"></span></div>
-            <div class="method-content">
-                <span class="method-label">Gửi đánh giá và góp ý</span>
-                <h2>Góp ý &amp; phản hồi</h2>
-                <p>Gửi đánh giá, đề xuất hoặc báo cáo vấn đề để Ban điều hành có thể tiếp nhận và xem xét cải thiện.</p>
-                <a class="method-link" href="https://forms.gle/iCYUAbVD5GUmbdsL8" target="_blank" rel="noopener noreferrer">Mở form phản hồi <span class="bx bx-right-arrow-alt"></span></a>
-            </div>
-        </article>
-    </section>
-
-    <section class="contact-donation">
-        <div class="donation-copy">
-            <div class="donation-icon"><span class="bx bx-heart"></span></div>
-            <div>
-                <span class="section-label">Đồng hành cùng Mr.TungJohn</span>
-                <h2>Ủng hộ hoạt động của TungJohn</h2>
-                <p>Khoản ủng hộ giúp duy trì các giải đấu và những hoạt động của <a href="/leaders#own">Mr.TungJohn</a>.</p>
-            </div>
+<section class="contact-methods">
+    <article class="contact-method">
+        <div class="method-icon"><span class="bx bx-user-voice"></span></div>
+        <div class="method-content">
+            <span class="method-label">Liên hệ trực tiếp</span>
+            <h2>Ban điều hành</h2>
+            <p>Cần trao đổi trực tiếp với quản trị viên? Xem danh sách Ban điều hành và vai trò của từng thành viên.</p>
+            <a class="method-link" href="/leaders">Xem Ban điều hành <span class="bx bx-right-arrow-alt"></span></a>
         </div>
-        <a class="donation-qr" href="/images/tvlt/payment.jpg" target="_blank" rel="noopener noreferrer">
-            <span class="qr-frame"><img src="/images/tvlt/payment.jpg" alt="Mã QR ủng hộ Mr.TungJohn" loading="lazy"></span>
-            <span class="qr-copy"><strong>Quét mã QR để ủng hộ</strong><span>Sử dụng ứng dụng ngân hàng để thực hiện thanh toán.</span></span>
-        </a>
-    </section>
-</div>
+    </article>
+    <article class="contact-method contact-method--primary">
+        <div class="method-icon"><span class="bx bx-edit-alt"></span></div>
+        <div class="method-content">
+            <span class="method-label">Gửi đánh giá và góp ý</span>
+            <h2>Góp ý &amp; phản hồi</h2>
+            <p>Gửi đánh giá, đề xuất hoặc báo cáo vấn đề để Ban điều hành có thể tiếp nhận và xem xét cải thiện.</p>
+            <a class="method-link" href="https://forms.gle/iCYUAbVD5GUmbdsL8" target="_blank"
+                rel="noopener noreferrer">Mở form phản hồi <span class="bx bx-right-arrow-alt"></span></a>
+        </div>
+    </article>
+</section>
+<section class="contact-donation">
+    <div class="donation-copy">
+        <div class="donation-icon"><span class="bx bx-heart"></span></div>
+        <div>
+            <span class="section-label">Đồng hành cùng Mr.TungJohn</span>
+            <h2>Ủng hộ hoạt động của TungJohn</h2>
+            <p>Khoản ủng hộ giúp duy trì các giải đấu và những hoạt động của <a href="/leaders#own">Mr.TungJohn</a>.</p>
+        </div>
+    </div>
+    <a class="donation-qr" href="/images/tvlt/payment.jpg" target="_blank" rel="noopener noreferrer">
+        <span class="qr-frame"><img src="/images/tvlt/payment.jpg" alt="Mã QR ủng hộ Mr.TungJohn" loading="lazy"></span>
+        <span class="qr-copy"><strong>Quét mã QR để ủng hộ</strong><span>Sử dụng ứng dụng ngân hàng để thực hiện thanh
+                toán.</span></span>
+    </a>
+</section>
 
 <style>
 .contact-page {

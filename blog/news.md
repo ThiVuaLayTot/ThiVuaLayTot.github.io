@@ -2,6 +2,7 @@
 layout: category
 category: news
 title: Thông báo và tin tức
+description: Các thông báo quan trọng và tin tức của câu lạc bộ
 permalink: /news/
 ---
 

@@ -6,7 +6,7 @@ title: Bảng tổng giải Cờ Bí Thí Tốt
 <header class="tournament-page-header">
     <div class="tournament-page-kicker">Bảng thành tích</div>
     <h1>Các kỳ thủ đạt giải <a href="/events/cbtt-co-bi-thi-tot">Cờ Bí Thí Tốt</a></h1>
-    <p>Một sự kiện diễn ra trong câu lạc bộ Thí Vua Lấy Tốt và được tổ chức với tiền thưởng...</p>
+    <p>Một sự kiện diễn ra hàng tháng trong câu lạc bộ Thí Vua Lấy Tốt và được tổ chức với tiền thưởng...</p>
 </header>
 
 <ul class="nav-tabs">

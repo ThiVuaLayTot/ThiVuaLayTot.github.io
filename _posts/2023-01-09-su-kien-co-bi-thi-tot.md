@@ -8,84 +8,60 @@ description: Một sự kiện diễn ra trong câu lạc bộ Thí Vua Lấy T�
 permalink: /events/cbtt-co-bi-thi-tot
 ---
 
-#🔥 **CỜ BÍ THÍ TỐT – GIẢI ĐẤU CÓ THƯỞNG**
+**Thể lệ đã được thay đổi và áp dụng từ tháng 9/2026*
+# 🔥 Cờ Bí Thí Tốt
 
----
+**Cờ Bí Thí Tốt (CBTT)** là chuỗi giải đấu có thưởng của câu lạc bộ Thí Vua Lấy Tốt, được tổ chức lần đầu vào [**09/01/2023**](/events/tournaments/cbtt?sort=date-asc) và do [**VN-SenJin**](/leaders#admin4) quản lý.
 
-👉 Tham gia câu lạc bộ để đủ điều kiện dự giải: [Chess.com](https://link.chess.com/club/0CVQh6) | [Lichess](https://lichess.org/team/thi-vua-lay-tot-tungjohn-playing-chess)
+👉 [Xem các giải đã tổ chức](/events/tournaments/cbtt)
 
-*Giải đấu được quản lý bởi Admin [VN-SenJin](/leaders#admin4)*. Kết quả các giải đã tổ chức sẽ được liệt kê **[ở đây](/events/tournaments/cbtt)**.
+## ♟️ Thể lệ
 
----
+- Giải được tổ chức vào thứ 7 hàng tuần.
+- [Thể thức tổ chức](#-các-thể-loại) mặc định được chọn là SuperBlitz (3|1) [Đấu trường Arena](https://support.chess.com/articles/8562889-what-are-arena-tournaments) 90 phút
+- Các giải tổ chức đều tính Elo.
 
-## 🏁 Giới thiệu
+### 🔄 Các thể loại
 
-**Cờ Bí Thí Tốt** được tổ chức lần đầu vào **ngày 09 tháng 01 năm 2023**,  
-là chuỗi giải đấu **định kỳ hằng tháng**, hướng đến cộng đồng yêu thích thi đấu cờ vua với **lịch ổn định – luật rõ ràng – giải thưởng minh bạch**.
+Giải có thể sử dụng: các thể thức với logo như bên dưới
 
----
-
-## ⚙️ Thể lệ thi đấu
-
-📌 **Tần suất & thời gian**
-- Mỗi tháng thường sẽ tổ chức **02 giải đấu**.
-- Trong một số tháng đặc biệt, có thể tổ chức **03 giải** (khi có đủ kinh phí).
-- Thể loại đã tổ chức xong sẽ không xuất hiện vào tháng kế tiếp.
-- Thể thức giải có thể thay đổi tuỳ vào góp ý của cộng đồng.
-
-📌 **Cơ chế xoay tua**
-- Các thể loại thi đấu được **xoay tua đều đặn theo tháng** như bảng bên dưới:
-
-![Quy tắc xoay tua](https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/php7h8grpo62vnof298Thp.png)
-
-### 🔁 Quy tắc xoay tua
-- Bình thường mỗi tháng sẽ có 02 giải đấu.
-- **Blitz** và **SuperBlitz** luôn được tổ chức vào **cuối tháng**.
-- Thể loại đã tổ chức sẽ **không lặp lại ở tháng kế tiếp**, trừ trường hợp đặc biệt.
-
----
+<div>
+  <a href="/events/cbtt-co-bi-thi-tot" aria-label="Các thể loại Cờ Bí Thí Tốt">
+  <img src="/images/events/logo/cbtt-superblitz.png" alt="CBTT SuperBlitz" width="50">
+    <img src="/images/events/logo/cbtt-rapid.png" alt="CBTT Rapid" width="50">
+    <img src="/images/events/logo/cbtt-blitz.png" alt="CBTT Blitz" width="50">
+    <img src="/images/events/logo/cbtt-bullet.png" alt="CBTT Bullet" width="50">
+    <img src="/images/events/logo/cbtt-960.png" alt="CBTT Chess960" width="50">
+  </a>
+</div>
+<style>.inl-bl {display:inline-block; width: 50px;}</style>
 
 ## 🏆 Giải thưởng
 
-💰 **Giải thưởng cố định** cho mỗi vị trí:
-- 🥇 Top 1: 50.000₫
-- 🥈 Top 2: 50.000₫
-- 🥉 Top 3: 50.000₫
+| Hạng | Giải thưởng |
+|---|---:|
+| 🥇 Top 1 | 100.000₫ |
+| 🥈 Top 2 | 50.000₫ |
+| 🥉 Top 3 | 50.000₫ |
 
-📤 Hình thức trao thưởng: **MoMo hoặc chuyển khoản ngân hàng**  
-⏳ Thời gian trao thưởng: **sau 07 ngày** kể từ khi giải kết thúc
+**Hình thức trao thưởng:** MoMo hoặc chuyển khoản ngân hàng hoặc quy đổi dưới dạng thẻ cào.
 
-_Đối với giải theo thể thức [Swiss](https://chess.com/terms/swiss-chess): nếu bằng điểm sẽ xét [tie-break](https://support.chess.com/articles/8572860-how-do-ties-in-tournaments-work) để phân định thứ hạng._
-🗿_Lưu ý_:Nếu như mình liên hệ nhận giải mà sau 3 tháng không có phản hồi là mình sẽ coi như các bạn từ chối nhận giải và huỷ giải thưởng. Cứ cách 1 tháng mình sẽ liên hệ lại 1-2 lần.
+**Thời gian trao thưởng:** dự kiến trong vòng **7 ngày** sau khi giải kết thúc.
 
----
+Nếu các kỳ thủ bằng điểm trong thể thức Swiss, thứ hạng được xác định bằng [tie-break](https://support.chess.com/articles/8572860-how-do-ties-in-tournaments-work).
 
-## ⚠️ Lưu ý quan trọng
+## ⚠️ Một số nội dung lưu ý
 
-Người chơi bắt buộc tuân thủ các quy định sau.  
-Mọi hành vi vi phạm có thể dẫn đến **không được nhận giải hoặc bị xử phạt**:
+- Thời gian trao giải có thể được kéo dài thêm **7 ngày** nếu có nghi vấn cần xác minh.
+- Chỉ tài khoản bị Chess.com khóa vì **Fair Play** mới được xác định là gian lận.
+- Nếu như có 2 kì thủ trở lên bằng điểm nhau (tính cả [*tie-break*](https://support.chess.com/articles/8572860-how-do-ties-in-tournaments-work)) ở trong top 1 2 3, hai kì thủ đó sẽ đồng hạng.
+- Nếu như mình liên hệ nhận giải mà sau 1 tháng không có phản hồi là sẽ coi như các bạn từ chối nhận giải và huỷ giải thưởng.
+- Một tài khoản chỉ được tính là gian lận khi tài khoản bị đóng bởi chesscom bởi lí do "Fair Play". Nên mọi người nếu có nghi ngờ ai gian lận thì hãy [Report cho Chess.com](https://support.chess.com/articles/8562517-how-do-i-report-someone)
+- Người chơi phải tuân thủ:
+  - [Luật Câu lạc bộ](https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024)
+  - [Luật Fair Play](https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot)
+- Giá trị giải thưởng có thể thay đổi tùy theo kinh phí của chủ giải 🐧
 
-🚫 Không vi phạm  
-- [Luật Câu lạc bộ](https://chess.com/news/quy-dinh-cua-clb-tungjohn-playing-chess-7-2024)  
-- [Luật Fair Play](https://chess.com/news/luat-choi-cong-bang-cua-clb-thi-vua-lay-tot)
+## ♟️ Tham gia
 
----
-
-## 📜 Luật bổ sung (áp dụng cho thể thức Thụy Sĩ)
-
-- Kỳ thủ **gặp tài khoản gian lận** sẽ được **tính điểm bù**:
-  - +1 điểm nếu thua
-  - +0.5 điểm nếu hòa
-  - +0 điểm (thắng)  
-  * Áp dụng trên **Bảng điểm cuối cùng**, chỉ khi có kỳ thủ gian lận trong **Top 10**.
-
-- **[Tie-break](https://support.chess.com/articles/8572860-how-do-ties-in-tournaments-work) không được chỉnh sửa lại** nếu có gian lận trong Top 10.
-
-- Các kỳ thủ đạt **Top 1–3 ngay khi giải kết thúc** vẫn **giữ nguyên giải thưởng**, kể cả khi bị vượt hạng sau khi cộng điểm bù *(trừ trường hợp chính kỳ thủ đó gian lận)*.
-  → Kỳ thủ này được đánh dấu **🏅** trên bảng điểm forum.
-
-- Một tài khoản **chỉ bị coi là gian lận** khi **bị Chess.com khóa vì “Fair Play”**. Nếu có **nghi vấn từ nhiều người**, thời gian trao giải sẽ **dời thêm 07 ngày**; kỳ thủ bị nghi ngờ được đánh dấu **📌** và phải tự chứng minh trong thời gian này.  
-Và nếu không chứng minh được → **có thể hủy kết quả và giải thưởng**.
-
-<style>.inl-bl {display:inline-block; width: 50px;}</style>
-<div><a href="/events/cbtt-co-bi-thi-tot" style="display: block"><img src="/images/events/logo/cbtt-rapid.png" alt="CBTT Rapid" class="inl-bl"><img src="/images/events/logo/cbtt-blitz.png" alt="CBTT Blitz" class="inl-bl"><img src="/images/events/logo/cbtt-superblitz.png" alt="CBTT SuperBlitz" class="inl-bl"><img src="/images/events/logo/cbtt-bullet.png" alt="CBTT Bullet" class="inl-bl"><img src="/images/events/logo/cbtt-960.png" alt="CBTT Chess960" class="inl-bl"></a></div>
+- [Chess.com](https://link.chess.com/club/0CVQh6)

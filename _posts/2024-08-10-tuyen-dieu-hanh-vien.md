@@ -18,6 +18,7 @@ Câu lạc bộ Thí Vua Lấy Tốt hiện đang tìm kiếm những người �
 - Chiêu mộ thành viên biết đến Thí Vua Lấy Tốt
 - Giúp phát triển câu lạc bộ ở những [nền tảng khác](https://thivualaytot.github.io/social#group)
 - Người sáng tạo, đồ họa, viết nội dung cho [các Admin](https://thivualaytot.github.io/leaders#admins) nếu cần.
+- Hãy tùy theo điểm mạnh và kỹ năng của bạn
 
 # Tôi có thích hợp với chức vụ này không?
 ## Yêu cầu của chúng tôi rất thoải mái:
@@ -37,6 +38,6 @@ Câu lạc bộ Thí Vua Lấy Tốt hiện đang tìm kiếm những người �
 
 ### Nộp đơn ứng tuyển của bạn qua mẫu Google Form sau: [https://forms.gle/XRJUNcJgrZcMHVpL9](https://forms.gle/XRJUNcJgrZcMHVpL9).
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScDYc1eX0HF5kWinYbpXuapL4GTPPsVZCYbPgHorogUziViIg/viewform?embedded=true" width="700" height="1000" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScDYc1eX0HF5kWinYbpXuapL4GTPPsVZCYbPgHorogUziViIg/viewform?embedded=true" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
 
 *Đã được phê duyệt bởi [Mr.TungJohn](https://thivualaytot.github.io/leaders#owner) và [Các quản trị viên](https://thivualaytot.github.io/leaders#admins)*
