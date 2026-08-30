@@ -1,8 +1,3 @@
-/**
- * @file CTTQ Aggregated Tournament Fetcher
- * @description Fetches and aggregates monthly tournament data.
- */
-
 (function() {
     const API = {
         CHESS_COM: 'https://api.chess.com/pub',
@@ -15,13 +10,6 @@
         DEFAULT_AVATAR: 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg',
         CACHE_PREFIX: 'agg_cache_',
         CACHE_TTL: { p: 604800000, t: 86400000, a: 43200000 }
-    };
-
-    const BADGE_CONFIG = {
-        'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Bị khóa: Lạm dụng' },
-        'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Bị khóa: Fair Play' },
-        'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Bị khóa' },
-        'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
     };
 
     const VARIANTS = {
@@ -43,6 +31,14 @@
         'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
     };
 
+    const BADGE_CONFIG = {
+        'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Bị khóa: Lạm dụng' },
+        'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Bị khóa: Fair Play' },
+        'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Bị khóa' },
+        'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
+    };
+
+    // ========== Utility Functions ==========
     function formatDate(timestamp) {
         if (!timestamp) return 'N/A';
         const date = new Date(timestamp * 1000);
@@ -392,8 +388,8 @@
             const badgeHtml = this.formatBadge(data.status);
             const playerDataJson = JSON.stringify(player).replace(/'/g, "&apos;");
 
-            return `<td>
-                <div class="post-user-component">
+            return `<td class="player-cell clickable-player" data-player='${playerDataJson}'>
+                <div class="post-user-component" style="cursor: pointer;">
                     <a class="cc-avatar-component post-user-avatar" href="https://chess.com/member/${data.username}">
                         <img class="cc-avatar-img" src="${data.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${data.username}">
                     </a>
@@ -403,7 +399,7 @@
                         </div>
                         <div class="post-user-status">
                             <span>${badgeHtml}</span>
-                            <span class="score-pill" data-player='${playerDataJson}'>${player.totalPoints} ĐIỂM</span>
+                            <span class="score-display">${player.totalPoints} ĐIỂM</span>
                         </div>
                     </div>
                 </div>
@@ -460,7 +456,7 @@
 
     // ========== Event Handler Builder ==========
     const EventHandlers = {
-        handleScorePillClick(playerData) {
+        handlePlayerClick(playerData) {
             let html = `<div class="calendar-wrapper">
                 <table class="styled-table score-detail-table">
                     <thead><tr><th>Giải đấu</th><th style="text-align: center;">Điểm</th></tr></thead>
@@ -610,13 +606,15 @@
 
             const tbody = document.getElementById('tournament-tbody');
             tbody.addEventListener('click', (e) => {
-                const scorePill = e.target.closest('.score-pill');
-                if (scorePill) {
-                    const playerData = JSON.parse(scorePill.dataset.player);
-                    EventHandlers.handleScorePillClick(playerData);
+                // Click on player cell
+                const playerCell = e.target.closest('.clickable-player');
+                if (playerCell) {
+                    const playerData = JSON.parse(playerCell.dataset.player);
+                    EventHandlers.handlePlayerClick(playerData);
                     return;
                 }
 
+                // Month click
                 const monthElement = e.target.closest('.month-clickable');
                 if (monthElement) {
                     const tournaments = JSON.parse(monthElement.dataset.tournaments);
