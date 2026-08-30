@@ -7,6 +7,7 @@
     const CONFIG = {
         MAX_CONCURRENT: 10,
         TOP_PLAYERS: 6,
+        CHESS_COM_URL: 'https://www.chess.com',
         DEFAULT_AVATAR: 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg',
         CACHE_PREFIX: 'agg_cache_',
         CACHE_TTL: { p: 604800000, t: 86400000, a: 43200000 }
@@ -315,7 +316,7 @@
                 tournaments.push({
                     id: tournamentIds[i],
                     name: data.name || 'Unknown',
-                    url: data.url || `https://chess.com/tournament/${tournamentIds[i]}`,
+                    url: data.url || `${CONFIG.CHESS_COM_URL}/tournament/${tournamentIds[i]}`,
                     variant: meta.variant,
                     setup: meta.setup,
                     timeClass: meta.timeClass,
@@ -355,7 +356,7 @@
     const Renderer = {
         timeFormat(tc, timeClass) {
             const icon = TIME_ICONS[timeClass];
-            const iconHtml = icon ? createImg(`https://www.chess.com${icon.path}`) : '';
+            const iconHtml = icon ? createImg(`${CONFIG.CHESS_COM_URL}${icon.path}`) : '';
             return `${tc} ${icon?.name || 'Standard'}${iconHtml}`;
         },
 
@@ -363,8 +364,8 @@
             const data = VARIANTS[variant.toLowerCase()];
             return data ? {
                 name: data.name,
-                url: `https://www.chess.com${data.url}`,
-                icon: `https://www.chess.com${data.icon}`
+                url: `${CONFIG.CHESS_COM_URL}${data.url}`,
+                icon: `${CONFIG.CHESS_COM_URL}${data.icon}`
             } : null;
         },
 
@@ -386,20 +387,19 @@
             };
 
             const badgeHtml = this.formatBadge(data.status);
-            const playerDataJson = JSON.stringify(player).replace(/'/g, "&apos;");
 
-            return `<td class="player-cell clickable-player" data-player='${playerDataJson}'>
-                <div class="post-user-component" style="cursor: pointer;">
-                    <a class="cc-avatar-component post-user-avatar" href="https://chess.com/member/${data.username}">
+            return `<td class="player-cell clickable-player" data-player='${JSON.stringify(player).replace(/'/g, "&apos;")}' data-avatar='${(data.avatar || CONFIG.DEFAULT_AVATAR).replace(/'/g, "&apos;")}' data-status='${data.status || "N/A"}' style="cursor: pointer;">
+                <div class="post-user-component">
+                    <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${data.username}" target="_blank">
                         <img class="cc-avatar-img" src="${data.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${data.username}">
                     </a>
                     <div class="post-user-details">
                         <div class="user-tagline-component">
-                            <a class="user-username-component user-tagline-username" href="https://www.chess.com/member/${data.username}" target="_blank">${data.username}</a>
+                            <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${data.username}" target="_blank">${data.username}</a>
                         </div>
                         <div class="post-user-status">
                             <span>${badgeHtml}</span>
-                            <span class="score-display">${player.totalPoints} ĐIỂM</span>
+                            <span class="score-display" style="font-weight: bold;">${player.totalPoints} ĐIỂM</span>
                         </div>
                     </div>
                 </div>
@@ -456,21 +456,26 @@
 
     // ========== Event Handler Builder ==========
     const EventHandlers = {
-        handlePlayerClick(playerData) {
+        handlePlayerClick(playerData, avatar) {
             let html = `<div class="calendar-wrapper">
-                <table class="styled-table score-detail-table">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="${avatar || CONFIG.DEFAULT_AVATAR}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--cyan-300);" alt="${playerData.username}">
+                    <h3 style="margin: 10px 0 5px 0;"><a href="${CONFIG.CHESS_COM_URL}/member/${playerData.username}" target="_blank">${playerData.username}</a></h3>
+                </div>
+
+                <table class="styled-table score-detail-table" style="width: 100%;">
                     <thead><tr><th>Giải đấu</th><th style="text-align: center;">Điểm</th></tr></thead>
                     <tbody>`;
 
             playerData.breakdown.forEach(item => {
-                html += `<tr><td><a href="${item.url}" target="_blank">${item.tourName}</a></td><td style="text-align: center; color: var(--cyan-300);">${item.points}</td></tr>`;
+                html += `<tr><td><a href="${item.url}" target="_blank" style="color: var(--cyan-300); text-decoration: none;">${item.tourName}</a></td><td style="text-align: center; color: var(--yellow-400); font-weight: bold;">${item.points}</td></tr>`;
             });
 
             html += `</tbody>
-                <tfoot><tr><td style="text-align: right;">TỔNG CỘNG:</td><td style="text-align: center; color: var(--yellow-400);">${playerData.totalPoints}</td></tr></tfoot>
+                <tfoot><tr style="border-top: 2px solid var(--cyan-300);"><td style="text-align: right; font-weight: bold;">TỔNG CỘNG:</td><td style="text-align: center; color: var(--yellow-400); font-weight: bold; font-size: 1.1em;">${playerData.totalPoints}</td></tr></tfoot>
                 </table></div>`;
 
-            ModalManager.show(`Chi tiết điểm của ${playerData.username}`, html);
+            ModalManager.show(`${playerData.username}`, html);
         },
 
         handleMonthClick(monthElement, tournaments) {
@@ -606,11 +611,12 @@
 
             const tbody = document.getElementById('tournament-tbody');
             tbody.addEventListener('click', (e) => {
-                // Click on player cell
+                // NEW: Click on player cell with avatar
                 const playerCell = e.target.closest('.clickable-player');
                 if (playerCell) {
                     const playerData = JSON.parse(playerCell.dataset.player);
-                    EventHandlers.handlePlayerClick(playerData);
+                    const avatar = playerCell.dataset.avatar;
+                    EventHandlers.handlePlayerClick(playerData, avatar);
                     return;
                 }
 

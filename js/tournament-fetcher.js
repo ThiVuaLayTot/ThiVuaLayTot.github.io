@@ -11,7 +11,8 @@
         MAX_PLAYERS: 6,
         MAX_CONCURRENT: 10,
         CACHE_PREFIX: 'tvlt_',
-        CACHE_TTL: { p: 604800000, t: 86400000, f: 2592000000 }
+        CACHE_TTL: { p: 604800000, t: 86400000, f: 2592000000 },
+        DEFAULT_AVATAR: 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'
     };
 
     const SPECIAL_PLAYERS = new Map([
@@ -75,6 +76,15 @@
         return `<div class="user-badges-component"><div class="user-badges-badge ${badge.c}"><span class="${badge.i}"></span><span>${badge.t}</span></div></div>`;
     }
 
+    function formatDate(ts) {
+        if (!ts) return 'N/A';
+        const d = new Date(ts * 1000);
+        if (isNaN(d)) return 'N/A';
+        const h = String(d.getHours()).padStart(2, '0'), m = String(d.getMinutes()).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0'), mo = String(d.getMonth() + 1).padStart(2, '0'), y = d.getFullYear();
+        return `${h}h${m}, ngày ${day}/${mo}/${y}`;
+    }
+
     // ========== Cache System ==========
     const Cache = {
         mem: new Map(),
@@ -117,6 +127,75 @@
         close() { const m = document.getElementById('scoreModal'); if (m) { m.classList.remove('open'); document.body.style.overflow = ''; } }
     };
 
+    // ========== Store Player Data (Global) ==========
+    const PLAYER_DATA_STORE = new Map();
+
+    function storePlayerData(username, data) {
+        PLAYER_DATA_STORE.set(username.toLowerCase(), data);
+    }
+
+    function getStoredPlayerData(username) {
+        return PLAYER_DATA_STORE.get(username.toLowerCase());
+    }
+
+    // ========== Event Handlers ==========
+    const EventHandlers = {
+        handlePlayerClick(username, points) {
+            const playerData = getStoredPlayerData(username);
+            
+            if (!playerData) {
+                // Fallback if data not found
+                ModalManager.show(username, `<div class="calendar-wrapper" style="padding: 20px;">
+                    <div style="text-align: center;">
+                        <p>Đang tải dữ liệu...</p>
+                    </div>
+                </div>`);
+                return;
+            }
+
+            const { avatar, status, breakdown } = playerData;
+
+            // Build modal content with avatar and breakdown
+            let html = `<div class="calendar-wrapper">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="${avatar || CONFIG.DEFAULT_AVATAR}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--cyan-300);" alt="${username}">
+                    <h3 style="margin: 10px 0 5px 0;"><a href="${CONFIG.CHESS_COM_URL}/member/${username}" target="_blank">${username}</a></h3>
+                </div>
+
+                <table class="styled-table score-detail-table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Giải Đấu</th>
+                            <th style="text-align: center;">Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+            breakdown.forEach(item => {
+                html += `<tr>
+                    <td><a href="${item.url}" target="_blank" style="color: var(--cyan-300); text-decoration: none;">${item.tourName}</a></td>
+                    <td style="text-align: center; color: var(--yellow-400); font-weight: bold;">${item.points}</td>
+                </tr>`;
+            });
+
+            html += `</tbody>
+                    <tfoot>
+                        <tr style="border-top: 2px solid var(--cyan-300);">
+                            <td style="text-align: right; font-weight: bold;">TỔNG CỘNG:</td>
+                            <td style="text-align: center; color: var(--yellow-400); font-weight: bold; font-size: 1.1em;">${points}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>`;
+
+            ModalManager.show(`Chi tiết điểm của ${username}`, html);
+        },
+
+        handleCustomVariantClick(setup) {
+            ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;"><a href="https://lichess.org/analysis/${setup}" target="_blank">${setup}</a></div>`);
+        }
+    };
+
     // ========== Fetch & Data Processing ==========
     async function fetchRetry(url, json = true) {
         for (let i = 0; i < 2; i++) {
@@ -143,15 +222,6 @@
         return d;
     }
 
-    function formatDate(ts) {
-        if (!ts) return 'N/A';
-        const d = new Date(ts * 1000);
-        if (isNaN(d)) return 'N/A';
-        const h = String(d.getHours()).padStart(2, '0'), m = String(d.getMinutes()).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0'), mo = String(d.getMonth() + 1).padStart(2, '0'), y = d.getFullYear();
-        return `${h}h${m}, ngày ${day}/${mo}/${y}`;
-    }
-
     function calculateDuration(start, end) {
         if (!start || !end) return 'N/A';
         const s = new Date(start * 1000), e = new Date(end * 1000);
@@ -175,54 +245,42 @@
         const n = parseInt(tc); return !isNaN(n) ? (n >= 60 ? `${Math.floor(n/60)}+0` : `${n}+0`) : '3+0';
     }
 
-    // ========== Event Handlers ==========
-    const EventHandlers = {
-        handlePlayerClick(username, points) {
-            // For tournament-fetcher, we show basic info + tournament stats
-            // Since we don't have breakdown data in the fetcher context,
-            // we show the player's rank and points in this tournament
-            let html = `<div class="calendar-wrapper" style="padding: 20px;">
-                <div style="text-align: center;">
-                    <h3 style="margin-bottom: 15px;">${username}</h3>
-                    <table class="styled-table" style="margin: 0 auto;">
-                        <tbody>
-                            <tr>
-                                <td style="padding: 10px 20px;"><strong>Điểm trong giải:</strong></td>
-                                <td style="padding: 10px 20px; color: var(--yellow-400);">${points} ĐIỂM</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="padding: 10px 20px; text-align: center;">
-                                    <a href="${CONFIG.CHESS_COM_URL}/member/${username}" target="_blank" style="color: var(--cyan-300);">
-                                        Xem hồ sơ trên Chess.com →
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>`;
-            ModalManager.show(`${username}`, html);
-        },
-
-        handleCustomVariantClick(setup) {
-            ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;"><a href="https://lichess.org/analysis/${setup}" target="_blank">${setup}</a></div>`);
-        }
-    };
-
     // ========== Render Player Cell ==========
-    async function renderPlayer(u, pts) {
+    async function renderPlayer(u, pts, tournamentName, tournamentUrl) {
         if (!u) return '<td style="color:var(--primary-warning)">Giải chưa kết thúc!</td>';
         
         const sp = SPECIAL_PLAYERS.get(u.toLowerCase());
-        if (sp) return `<td class="player-cell clickable-player" data-username="${sp}" data-points="${pts}"><a href="${CONFIG.CHESS_COM_URL}/member/${sp}" target="_top" onclick="event.stopPropagation();"><strong>${sp}</strong></a></td>`;
+        const specialUsername = sp || u;
         
         const p = await getPlayer(u);
+        const playerDataJson = JSON.stringify({
+            username: u,
+            avatar: p?.avatar || CONFIG.DEFAULT_AVATAR,
+            status: p?.status || 'N/A',
+            breakdown: [{
+                tourName: tournamentName,
+                points: pts,
+                url: tournamentUrl
+            }]
+        }).replace(/'/g, "&apos;");
+
+        // Store in global for modal
+        storePlayerData(u, {
+            avatar: p?.avatar || CONFIG.DEFAULT_AVATAR,
+            status: p?.status || 'N/A',
+            breakdown: [{
+                tourName: tournamentName,
+                points: pts,
+                url: tournamentUrl
+            }]
+        });
+
         return `<td class="player-cell clickable-player" data-username="${u}" data-points="${pts}" style="cursor: pointer;">
             <div class="post-user-component">
-                <a class="cc-avatar-component post-user-avatar" href="https://chess.com/member/${p.username}" onclick="event.stopPropagation();"><img class="cc-avatar-img" src="${p?.avatar || 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'}" height="50" width="50" alt="${u}"></a>
+                <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${u}"><img class="cc-avatar-img" src="${p?.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${u}"></a>
                 <div class="post-user-details">
                     <div class="user-tagline-component">
-                        <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${u}" target="_blank" onclick="event.stopPropagation();">${u}</a>
+                        <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${u}" target="_blank">${u}</a>
                     </div>
                     <div class="post-user-status">
                         <span>${formatBadge(p?.status)}</span>
@@ -422,7 +480,9 @@
                     <td>${formatTimeControl(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${formatVariantLink(v, s)}${fmtStr}</td>
                     <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
 
-                for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) row += await renderPlayer(top[i]?.u, top[i]?.pts || 0);
+                for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) {
+                    row += await renderPlayer(top[i]?.u, top[i]?.pts || 0, data.name, data.url);
+                }
 
                 skeletons[idx].innerHTML = row;
                 skeletons[idx].setAttribute('data-start-time', data.start_time || data.startTime || 0);
