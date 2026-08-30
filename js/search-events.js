@@ -16,65 +16,143 @@ function debounce(func, wait) {
     };
 }
 
+// ========== Filter Configuration ==========
+/**
+ * Centralized filter configuration to reduce duplication
+ */
+const FILTER_CONFIG = {
+    search: {
+        elementId: 'searchInput',
+        paramName: 'search',
+        getValue: (el) => (el?.value || '').trim(),
+        setValue: (el, val) => { if (el) el.value = val; },
+        shouldSave: (val) => !!val,
+        isSaved: (val, default_val) => val !== default_val
+    },
+    sort: {
+        elementId: 'sortFilter',
+        paramName: 'sort',
+        getValue: (el) => el?.value,
+        setValue: (el, val) => { if (el) el.value = val; },
+        shouldSave: (val) => val !== 'date-desc',
+        isSaved: (val, default_val) => val !== default_val
+    },
+    speed: {
+        groupId: 'timeclass-checkbox-group',
+        paramName: 'speed',
+        separator: ' '
+    },
+    variant: {
+        groupId: 'variant-checkbox-group',
+        paramName: 'var',
+        separator: ' '
+    },
+    format: {
+        groupId: 'format-checkbox-group',
+        paramName: 'format',
+        separator: ' '
+    },
+    premium: {
+        elementId: 'premiumToggle',
+        paramName: 'premium',
+        getValue: (el) => el?.checked ?? true,
+        setValue: (el, val) => { if (el) el.checked = (val !== '0' && val !== false); },
+        shouldSave: (val) => !val,
+        isSaved: (val, default_val) => val !== default_val
+    }
+};
+
+// ========== Helper Functions ==========
+
+/**
+ * Gets checked checkbox values from a group
+ * @param {string} groupId - The container element ID
+ * @returns {Array<string>} Array of checked values
+ */
+function getCheckedValues(groupId) {
+    const group = document.getElementById(groupId);
+    if (!group) return [];
+    return Array.from(group.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+}
+
+/**
+ * Gets all checkbox values from a group
+ * @param {string} groupId - The container element ID
+ * @returns {Array<string>} Array of all values
+ */
+function getAllCheckboxValues(groupId) {
+    const group = document.getElementById(groupId);
+    if (!group) return [];
+    return Array.from(group.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value);
+}
+
+/**
+ * Sets checkbox states from array of values
+ * @param {string} groupId - The container element ID
+ * @param {Array<string>} values - Values to check
+ */
+function setCheckboxValues(groupId, values) {
+    const group = document.getElementById(groupId);
+    if (!group) return;
+    const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+        cb.checked = values.includes(cb.value.toLowerCase());
+    });
+}
+
+/**
+ * Processes checkbox group for URL parameter handling
+ * @param {Object} config - Filter config object with groupId, paramName, separator
+ * @returns {Object} { checked: Array, all: Array, shouldSave: boolean }
+ */
+function processCheckboxGroup(config) {
+    const checked = getCheckedValues(config.groupId);
+    const all = getAllCheckboxValues(config.groupId);
+    return {
+        checked,
+        all,
+        shouldSave: checked.length < all.length // Only save if not all checked
+    };
+}
+
+/**
+ * Parse multiple checkbox values from URL parameter string
+ * @param {string} paramValue - URL parameter value (space or + separated)
+ * @returns {Array<string>} Parsed values
+ */
+function parseCheckboxParam(paramValue) {
+    return paramValue.toLowerCase().split(/[\s+]+/).filter(Boolean);
+}
+
+// ========== URL Parameter Functions ==========
+
 /**
  * Loads tournament filter states from URL query parameters.
  */
 window.loadTournamentFiltersFromURL = function() {
     const params = new URLSearchParams(window.location.search);
 
-    // 1. Search filter
-    const searchVal = params.get('search');
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput && searchVal !== null) {
-        searchInput.value = searchVal;
-    }
+    // Process single-element filters (search, sort, premium)
+    Object.entries(FILTER_CONFIG).forEach(([key, config]) => {
+        if (config.elementId) {
+            const element = document.getElementById(config.elementId);
+            const paramValue = params.get(config.paramName);
+            if (element && paramValue !== null) {
+                config.setValue(element, paramValue);
+            }
+        }
+    });
 
-    // 2. Sort filter
-    const sortVal = params.get('sort');
-    const sortSelect = document.getElementById('sortFilter');
-    if (sortSelect && sortVal !== null) {
-        sortSelect.value = sortVal;
-    }
-
-    // 3. Time Class (speed) filter joined by space or plus
-    const speedVal = params.get('speed');
-    const timeClassGroup = document.getElementById('timeclass-checkbox-group');
-    if (timeClassGroup && speedVal !== null) {
-        const selectedSpeeds = speedVal.toLowerCase().split(/[\s+]+/);
-        const checkboxes = timeClassGroup.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(cb => {
-            cb.checked = selectedSpeeds.includes(cb.value.toLowerCase());
-        });
-    }
-
-    // 4. Variant (var) filter joined by space or plus
-    const varVal = params.get('var');
-    const variantGroup = document.getElementById('variant-checkbox-group');
-    if (variantGroup && varVal !== null) {
-        const selectedVars = varVal.toLowerCase().split(/[\s+]+/);
-        const checkboxes = variantGroup.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(cb => {
-            cb.checked = selectedVars.includes(cb.value.toLowerCase());
-        });
-    }
-
-    // 5. Format filter joined by space or plus
-    const formatVal = params.get('format');
-    const formatGroup = document.getElementById('format-checkbox-group');
-    if (formatGroup && formatVal !== null) {
-        const selectedFormats = formatVal.toLowerCase().split(/[\s+]+/);
-        const checkboxes = formatGroup.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(cb => {
-            cb.checked = selectedFormats.includes(cb.value.toLowerCase());
-        });
-    }
-
-    // 6. Premium Toggle
-    const premiumVal = params.get('premium');
-    const premiumToggle = document.getElementById('premiumToggle');
-    if (premiumToggle && premiumVal !== null) {
-        premiumToggle.checked = (premiumVal !== '0');
-    }
+    // Process checkbox group filters (speed, variant, format)
+    Object.entries(FILTER_CONFIG).forEach(([key, config]) => {
+        if (config.groupId) {
+            const paramValue = params.get(config.paramName);
+            if (paramValue !== null) {
+                const values = parseCheckboxParam(paramValue);
+                setCheckboxValues(config.groupId, values);
+            }
+        }
+    });
 };
 
 /**
@@ -83,54 +161,28 @@ window.loadTournamentFiltersFromURL = function() {
 window.saveTournamentFiltersToURL = function() {
     const params = new URLSearchParams();
 
-    // 1. Search filter
-    const searchInput = document.getElementById('searchInput');
-    const searchVal = (searchInput?.value || '').trim();
-    if (searchVal) {
-        params.set('search', searchVal);
-    }
-
-    // 2. Sort filter
-    const sortSelect = document.getElementById('sortFilter');
-    if (sortSelect && sortSelect.value !== 'date-desc') {
-        params.set('sort', sortSelect.value);
-    }
-
-    // 3. Time Class (speed) filter
-    const timeClassGroup = document.getElementById('timeclass-checkbox-group');
-    if (timeClassGroup) {
-        const checked = Array.from(timeClassGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
-        const all = Array.from(timeClassGroup.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value);
-        if (checked.length < all.length) {
-            params.set('speed', checked.join(' '));
+    // Process single-element filters
+    Object.entries(FILTER_CONFIG).forEach(([key, config]) => {
+        if (config.elementId) {
+            const element = document.getElementById(config.elementId);
+            if (element) {
+                const value = config.getValue(element);
+                if (config.shouldSave(value)) {
+                    params.set(config.paramName, value);
+                }
+            }
         }
-    }
+    });
 
-    // 4. Variant (var) filter
-    const variantGroup = document.getElementById('variant-checkbox-group');
-    if (variantGroup) {
-        const checked = Array.from(variantGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
-        const all = Array.from(variantGroup.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value);
-        if (checked.length < all.length) {
-            params.set('var', checked.join(' '));
+    // Process checkbox group filters
+    Object.entries(FILTER_CONFIG).forEach(([key, config]) => {
+        if (config.groupId) {
+            const { checked, all, shouldSave } = processCheckboxGroup(config);
+            if (shouldSave) {
+                params.set(config.paramName, checked.join(config.separator));
+            }
         }
-    }
-
-    // 5. Format filter
-    const formatGroup = document.getElementById('format-checkbox-group');
-    if (formatGroup) {
-        const checked = Array.from(formatGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
-        const all = Array.from(formatGroup.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value);
-        if (checked.length < all.length) {
-            params.set('format', checked.join(' '));
-        }
-    }
-
-    // 6. Premium Toggle
-    const premiumToggle = document.getElementById('premiumToggle');
-    if (premiumToggle && !premiumToggle.checked) {
-        params.set('premium', '0');
-    }
+    });
 
     // Update URL without page reload
     const newQuery = params.toString();
@@ -138,192 +190,168 @@ window.saveTournamentFiltersToURL = function() {
     window.history.replaceState(null, '', newURL);
 };
 
+// ========== Filter Functions ==========
+
 /**
  * Toggles the visibility of Premium user badges inside tbody.
  */
 window.togglePremium = function() {
-    const checked = document.getElementById('premiumToggle')?.checked ?? true;
+    const premiumToggle = document.getElementById('premiumToggle');
+    const checked = premiumToggle?.checked ?? true;
     const tbody = document.getElementById('tournament-tbody');
     if (tbody) {
-        if (checked) {
-            tbody.classList.remove('hide-premium');
-        } else {
-            tbody.classList.add('hide-premium');
-        }
+        tbody.classList.toggle('hide-premium', !checked);
     }
 };
+
+/**
+ * Mapping for filter values to normalize data attributes
+ */
+const FILTER_MAPPINGS = {
+    timeclass: {
+        'lightning': 'bullet',
+        'standard': 'rapid'
+    },
+    variant: {
+        'chess': 'standard'
+    }
+};
+
+/**
+ * Normalizes a filter value using predefined mappings
+ * @param {string} filterType - Type of filter (timeclass, variant, etc)
+ * @param {string} value - Value to normalize
+ * @returns {string} Normalized value
+ */
+function normalizeFilterValue(filterType, value) {
+    if (!value) return value;
+    const mapping = FILTER_MAPPINGS[filterType];
+    return mapping ? (mapping[value.toLowerCase()] || value.toLowerCase()) : value.toLowerCase();
+}
+
+/**
+ * Checks if a row matches the given filter criteria
+ * @param {HTMLTableRowElement} row - Table row element
+ * @param {Object} filters - Filter state object
+ * @returns {boolean} True if row matches all filters
+ */
+function rowMatchesFilters(row, filters) {
+    // Text match check
+    if (!filters.textMatch(row)) return false;
+
+    // Attribute-based filters
+    const attributeFilters = [
+        { attr: 'data-time-class', checked: filters.timeClass, normalize: (v) => normalizeFilterValue('timeclass', v) },
+        { attr: 'data-variant', checked: filters.variant, normalize: (v) => normalizeFilterValue('variant', v) },
+        { attr: 'data-format', checked: filters.format, normalize: (v) => v.toLowerCase() },
+        { attr: 'data-status', checked: filters.cttqStatus, normalize: (v) => v }
+    ];
+
+    for (const filter of attributeFilters) {
+        if (filter.checked === null) continue; // Filter not active
+        
+        const rowAttrValue = row.getAttribute(filter.attr);
+        if (!rowAttrValue) return false;
+        
+        const normalized = filter.normalize(rowAttrValue);
+        if (!filter.checked.includes(normalized)) return false;
+    }
+
+    return true;
+}
 
 /**
  * Filters and sorts the events table based on search input and dropdown selectors.
  */
 window.searchTable = debounce(function() {
-    const input = document.getElementById('searchInput');
-    if (!input) return;
+    const searchInput = document.getElementById('searchInput');
+    if (!searchInput) return;
 
-    // Toggle Premium Badges class on the table body
+    // Toggle premium badges
     if (typeof window.togglePremium === 'function') {
         window.togglePremium();
     }
 
-    // Save state to URL query parameters
+    // Save state to URL
     if (typeof window.saveTournamentFiltersToURL === 'function') {
         window.saveTournamentFiltersToURL();
     }
 
-    const filter = input.value.toUpperCase();
+    const searchFilter = searchInput.value.toUpperCase();
     const table = document.querySelector('.styled-table');
     if (!table) return;
-
-    const sortFilterSelect = document.getElementById('sortFilter');
-    const timeClassGroup = document.getElementById('timeclass-checkbox-group');
-    const variantGroup = document.getElementById('variant-checkbox-group');
-    const formatGroup = document.getElementById('format-checkbox-group');
 
     const tbody = document.getElementById('tournament-tbody') || table.querySelector('tbody');
     if (!tbody) return;
 
-    // 1. Sort the table rows first if sortFilter is present and there are loaded rows
-    if (sortFilterSelect) {
-        const sortVal = sortFilterSelect.value;
-        const allRows = Array.from(tbody.querySelectorAll('tr'));
-        const loadedRows = allRows.filter(r => r.getAttribute('data-start-time') !== null && !r.classList.contains('not-match'));
-        const skeletonRows = allRows.filter(r => r.classList.contains('skeleton-row'));
-        const notMatchRow = allRows.find(r => r.classList.contains('not-match'));
+    // Prepare filter state
+    const sortValue = document.getElementById('sortFilter')?.value || 'date-desc';
+    const timeClassChecked = getCheckedValues('timeclass-checkbox-group');
+    const variantChecked = getCheckedValues('variant-checkbox-group');
+    const formatChecked = getCheckedValues('format-checkbox-group');
+    const cttqStatusValue = document.getElementById('cttq-status-filter')?.value || 'all';
 
-        loadedRows.sort((a, b) => {
-            if (sortVal === 'date-desc') {
-                return (parseInt(b.getAttribute('data-start-time')) || 0) - (parseInt(a.getAttribute('data-start-time')) || 0);
-            } else if (sortVal === 'date-asc') {
-                return (parseInt(a.getAttribute('data-start-time')) || 0) - (parseInt(b.getAttribute('data-start-time')) || 0);
-            } else if (sortVal === 'players-desc') {
-                return (parseInt(b.getAttribute('data-players-count')) || 0) - (parseInt(a.getAttribute('data-players-count')) || 0);
-            } else if (sortVal === 'players-asc') {
-                return (parseInt(a.getAttribute('data-players-count')) || 0) - (parseInt(b.getAttribute('data-players-count')) || 0);
-            } else if (sortVal === 'tours-desc') {
-                return (parseInt(b.getAttribute('data-tours-count')) || 0) - (parseInt(a.getAttribute('data-tours-count')) || 0);
-            } else if (sortVal === 'tours-asc') {
-                return (parseInt(a.getAttribute('data-tours-count')) || 0) - (parseInt(b.getAttribute('data-tours-count')) || 0);
-            }
-            return 0;
-        });
+    // Sort rows
+    const allRows = Array.from(tbody.querySelectorAll('tr'));
+    const loadedRows = allRows.filter(r => r.getAttribute('data-start-time') !== null && !r.classList.contains('not-match'));
+    const skeletonRows = allRows.filter(r => r.classList.contains('skeleton-row'));
+    const notMatchRow = allRows.find(r => r.classList.contains('not-match'));
 
-        // Re-append to order them on screen
+    // Sort mapping
+    const sortComparators = {
+        'date-desc': (a, b) => (parseInt(b.getAttribute('data-start-time')) || 0) - (parseInt(a.getAttribute('data-start-time')) || 0),
+        'date-asc': (a, b) => (parseInt(a.getAttribute('data-start-time')) || 0) - (parseInt(b.getAttribute('data-start-time')) || 0),
+        'players-desc': (a, b) => (parseInt(b.getAttribute('data-players-count')) || 0) - (parseInt(a.getAttribute('data-players-count')) || 0),
+        'players-asc': (a, b) => (parseInt(a.getAttribute('data-players-count')) || 0) - (parseInt(b.getAttribute('data-players-count')) || 0),
+        'tours-desc': (a, b) => (parseInt(b.getAttribute('data-tours-count')) || 0) - (parseInt(a.getAttribute('data-tours-count')) || 0),
+        'tours-asc': (a, b) => (parseInt(a.getAttribute('data-tours-count')) || 0) - (parseInt(b.getAttribute('data-tours-count')) || 0)
+    };
+
+    const comparator = sortComparators[sortValue];
+    if (comparator) {
+        loadedRows.sort(comparator);
         loadedRows.forEach(row => tbody.appendChild(row));
         skeletonRows.forEach(row => tbody.appendChild(row));
         if (notMatchRow) tbody.appendChild(notMatchRow);
     }
 
+    // Apply filters
+    const filters = {
+        textMatch: (row) => {
+            if (!searchFilter) return true;
+            const cells = row.getElementsByTagName('td');
+            for (const cell of cells) {
+                if (cell.textContent.toUpperCase().indexOf(searchFilter) > -1) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        timeClass: timeClassChecked.length < getAllCheckboxValues('timeclass-checkbox-group').length ? timeClassChecked : null,
+        variant: variantChecked.length < getAllCheckboxValues('variant-checkbox-group').length ? variantChecked : null,
+        format: formatChecked.length < getAllCheckboxValues('format-checkbox-group').length ? formatChecked : null,
+        cttqStatus: cttqStatusValue !== 'all' ? [cttqStatusValue] : null
+    };
+
+    let matchedCount = 0;
     const rows = tbody.getElementsByTagName('tr');
-    let matched = false;
 
-    // Read checkbox lists
-    const checkedTimeClasses = timeClassGroup
-        ? Array.from(timeClassGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
-        : null;
-
-    const checkedVariants = variantGroup
-        ? Array.from(variantGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
-        : null;
-
-    const checkedFormats = formatGroup
-        ? Array.from(formatGroup.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
-        : null;
-
-    // Iterate through all table rows, skipping 'not-match'
-    for (let i = 0; i < rows.length; i++) {
-        const row = rows[i];
+    for (const row of rows) {
         if (row.classList.contains('not-match')) continue;
+        
         if (row.classList.contains('skeleton-row')) {
             row.style.display = '';
             continue;
         }
 
-        const cells = row.getElementsByTagName('td');
-
-        // 1. Check text search
-        let textMatch = false;
-        if (!filter) {
-            textMatch = true;
-        } else {
-            for (let j = 0; j < cells.length; j++) {
-                const cell = cells[j];
-                if (cell && cell.textContent.toUpperCase().indexOf(filter) > -1) {
-                    textMatch = true;
-                    break;
-                }
-            }
-        }
-
-        // 2. Check time class filter
-        let timeClassMatch = true;
-        if (checkedTimeClasses !== null) {
-            const rowTimeClass = row.getAttribute('data-time-class');
-            if (rowTimeClass) {
-                // Map lightning/bullet -> bullet, rapid/standard -> rapid, blitz -> blitz, classical -> classical
-                let rowMapped = rowTimeClass.toLowerCase();
-                if (rowMapped === 'lightning') rowMapped = 'bullet';
-                if (rowMapped === 'standard') rowMapped = 'rapid';
-
-                if (!checkedTimeClasses.includes(rowMapped)) {
-                    timeClassMatch = false;
-                }
-            } else {
-                timeClassMatch = false;
-            }
-        }
-
-        // 3. Check variant filter
-        let variantMatch = true;
-        if (checkedVariants !== null) {
-            const rowVariant = row.getAttribute('data-variant');
-            if (rowVariant) {
-                let rowMapped = rowVariant.toLowerCase();
-                if (rowMapped === 'chess') rowMapped = 'standard';
-
-                if (!checkedVariants.includes(rowMapped)) {
-                    variantMatch = false;
-                }
-            } else {
-                variantMatch = false;
-            }
-        }
-
-        // 4. Check format filter
-        let formatMatch = true;
-        if (checkedFormats !== null) {
-            const rowFormat = row.getAttribute('data-format');
-            if (rowFormat) {
-                if (!checkedFormats.includes(rowFormat.toLowerCase())) {
-                    formatMatch = false;
-                }
-            } else {
-                formatMatch = false;
-            }
-        }
-
-        // 5. Check CTTQ status filter
-        const cttqStatusSelect = document.getElementById('cttq-status-filter');
-        const cttqStatusVal = cttqStatusSelect ? cttqStatusSelect.value : 'all';
-        let cttqStatusMatch = true;
-        if (cttqStatusVal !== 'all') {
-            const rowStatus = row.getAttribute('data-status');
-            if (rowStatus && rowStatus !== cttqStatusVal) {
-                cttqStatusMatch = false;
-            }
-        }
-
-        const finalMatch = textMatch && timeClassMatch && variantMatch && formatMatch && cttqStatusMatch;
-        if (finalMatch) {
-            row.style.display = '';
-            matched = true;
-        } else {
-            row.style.display = 'none';
-        }
+        const matches = rowMatchesFilters(row, filters);
+        row.style.display = matches ? '' : 'none';
+        if (matches) matchedCount++;
     }
 
-    const notMatchRow = tbody.querySelector('.not-match');
+    // Show/hide no-match message
     if (notMatchRow) {
-        notMatchRow.style.display = matched ? 'none' : '';
+        notMatchRow.style.display = matchedCount === 0 ? '' : 'none';
     }
 }, 100);
 
@@ -331,19 +359,20 @@ window.searchTable = debounce(function() {
  * Toggles visibility of tour dropdown boxes.
  */
 window.toggleTourDropdown = function(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
+    const element = document.getElementById(id);
+    if (!element) return;
 
-    document.querySelectorAll('.tour-dropdown').forEach(d => {
-        if (d.id !== id) d.classList.remove('open');
+    // Close all other dropdowns
+    document.querySelectorAll('.tour-dropdown').forEach(dropdown => {
+        if (dropdown.id !== id) dropdown.classList.remove('open');
     });
 
-    el.classList.toggle('open');
+    element.classList.toggle('open');
 };
 
 // Close dropdowns on click outside
 window.addEventListener('click', (e) => {
     if (!e.target.closest('.tour-dropdown')) {
-        document.querySelectorAll('.tour-dropdown').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.tour-dropdown').forEach(dropdown => dropdown.classList.remove('open'));
     }
 });

@@ -1,5 +1,5 @@
 /**
- * @file CTTQ/TVLT Aggregated Tournament Fetcher
+ * @file CTTQ Aggregated Tournament Fetcher
  * @description Fetches and aggregates monthly tournament data.
  */
 
@@ -15,6 +15,13 @@
         DEFAULT_AVATAR: 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg',
         CACHE_PREFIX: 'agg_cache_',
         CACHE_TTL: { p: 604800000, t: 86400000, a: 43200000 }
+    };
+
+    const BADGE_CONFIG = {
+        'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Bị khóa: Lạm dụng' },
+        'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Bị khóa: Fair Play' },
+        'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Bị khóa' },
+        'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
     };
 
     const VARIANTS = {
@@ -36,26 +43,76 @@
         'standard': { name: 'Rapid', path: '/bundles/web/images/icons/smileys/2x/live.png' }
     };
 
-    function formatDate(ts) {
-        if (!ts) return 'N/A';
-        const d = new Date(ts * 1000);
-        if (isNaN(d)) return 'N/A';
-        const h = String(d.getHours()).padStart(2, '0'), m = String(d.getMinutes()).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0'), mo = String(d.getMonth() + 1).padStart(2, '0'), y = d.getFullYear();
-        return `${h}:${m}, ngày ${day}/${mo}/${y}`;
+    function formatDate(timestamp) {
+        if (!timestamp) return 'N/A';
+        const date = new Date(timestamp * 1000);
+        if (isNaN(date)) return 'N/A';
+        const h = String(date.getHours()).padStart(2, '0');
+        const m = String(date.getMinutes()).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${h}:${m}, ngày ${day}/${month}/${year}`;
     }
 
+    function calculateDuration(startTs, endTs) {
+        if (!startTs || !endTs) return 'N/A';
+        const start = new Date(startTs * 1000);
+        const end = new Date(endTs * 1000);
+        if (isNaN(start) || isNaN(end) || end < start) return 'N/A';
+
+        const diff = end - start;
+        const units = [
+            { n: 'ngày', m: 86400000 },
+            { n: 'tiếng', m: 3600000 },
+            { n: 'phút', m: 60000 },
+            { n: 'giây', m: 1000 }
+        ];
+
+        for (const { n, m } of units) {
+            if (diff >= m) {
+                const val = Math.floor(diff / m);
+                const rem = diff % m;
+                if (n === 'tiếng' && rem >= 60000) {
+                    return `${val} tiếng ${Math.floor(rem / 60000)} phút`;
+                }
+                return `${val} ${n}`;
+            }
+        }
+        return 'N/A';
+    }
+
+    function parseTimeControl(tc) {
+        if (!tc) return '3+0';
+        const match = String(tc).match(/^(\d+)\+(\d+)$/);
+        if (match) {
+            const base = parseInt(match[1]);
+            const increment = parseInt(match[2]);
+            return base >= 60 ? `${Math.floor(base / 60)}+${increment}` : `${base}+${increment}`;
+        }
+        const num = parseInt(tc);
+        return !isNaN(num) ? (num >= 60 ? `${Math.floor(num / 60)}+0` : `${num}+0`) : '3+0';
+    }
+
+    function createImg(src, w = 15) {
+        return `<img src="${src}" width="${w}" height="${w}" alt="" style="display: inline-block; vertical-align: middle;">`;
+    }
+
+    // ========== Cache System ==========
     const Cache = {
         memory: new Map(),
         get(key) {
             if (this.memory.has(key)) return this.memory.get(key);
             try {
-                const item = JSON.parse(localStorage.getItem(CONFIG.CACHE_PREFIX + key));
-                if (item && Date.now() < item.exp) {
-                    this.memory.set(key, item.val);
-                    return item.val;
+                const stored = localStorage.getItem(CONFIG.CACHE_PREFIX + key);
+                if (stored) {
+                    const { val, exp } = JSON.parse(stored);
+                    if (Date.now() < exp) {
+                        this.memory.set(key, val);
+                        return val;
+                    }
+                    localStorage.removeItem(CONFIG.CACHE_PREFIX + key);
                 }
-                localStorage.removeItem(CONFIG.CACHE_PREFIX + key);
             } catch (e) {}
             return null;
         },
@@ -65,22 +122,22 @@
                 localStorage.setItem(CONFIG.CACHE_PREFIX + key, JSON.stringify({ val, exp: Date.now() + ttl }));
             } catch (e) {
                 if (e.name === 'QuotaExceededError') {
-                    const keys = [];
-                    for (let i = 0; i < localStorage.length; i++) {
-                        const k = localStorage.key(i);
-                        if (k && k.startsWith(CONFIG.CACHE_PREFIX)) keys.push(k);
-                    }
-                    keys.forEach(k => localStorage.removeItem(k));
+                    Object.keys(localStorage)
+                        .filter(k => k.startsWith(CONFIG.CACHE_PREFIX))
+                        .forEach(k => localStorage.removeItem(k));
                 }
             }
         }
     };
 
+    // ========== Request Manager ==========
     const RequestManager = {
         active: 0,
         queue: [],
         async acquire() {
-            if (this.active >= CONFIG.MAX_CONCURRENT) await new Promise(r => this.queue.push(r));
+            if (this.active >= CONFIG.MAX_CONCURRENT) {
+                await new Promise(r => this.queue.push(r));
+            }
             this.active++;
         },
         release() {
@@ -90,28 +147,42 @@
         async fetch(url, isJson = true) {
             const cached = Cache.get(url);
             if (cached) return cached;
+
             await this.acquire();
             try {
-                for (let i = 0; i < 2; i++) {
+                for (let attempt = 0; attempt < 2; attempt++) {
                     try {
-                        const resp = await fetch(url);
-                        if (resp.status === 429) { await new Promise(r => setTimeout(r, 2000)); continue; }
-                        if (!resp.ok) return null;
-                        const data = isJson ? await resp.json() : await resp.text();
+                        const response = await fetch(url);
+                        if (response.status === 429) {
+                            await new Promise(r => setTimeout(r, 2000));
+                            continue;
+                        }
+                        if (!response.ok) return null;
+
+                        const data = isJson ? await response.json() : await response.text();
+
                         if (url.startsWith(API.CHESS_COM)) {
-                            Cache.set(url, data, url.includes('/player/') ? CONFIG.CACHE_TTL.p : CONFIG.CACHE_TTL.t);
+                            const ttl = url.includes('/player/') ? CONFIG.CACHE_TTL.p : CONFIG.CACHE_TTL.t;
+                            Cache.set(url, data, ttl);
                         } else {
                             Cache.memory.set(url, data);
                         }
                         return data;
-                    } catch (e) { if (i === 1) return null; await new Promise(r => setTimeout(r, 1000)); }
+                    } catch (e) {
+                        if (attempt === 1) return null;
+                        await new Promise(r => setTimeout(r, 1000));
+                    }
                 }
-            } finally { this.release(); }
+            } finally {
+                this.release();
+            }
         }
     };
 
+    // ========== Data Processor ==========
     const DataProcessor = {
         toursByMonth: {},
+
         parseUnifiedFormat(text) {
             const lines = text ? text.split('\n').map(l => l.trim()) : [];
             const months = [];
@@ -132,171 +203,320 @@
             }
             return { months, toursByMonth };
         },
-        calculateDuration(start, end) {
-            if (!start || !end) return 'N/A';
-            const s = new Date(start * 1000), e = new Date(end * 1000);
-            if (isNaN(s) || isNaN(e) || e < s) return 'N/A';
-            const diff = e - s;
-            const units = [{ n: 'ngày', m: 86400000 }, { n: 'tiếng', m: 3600000 }, { n: 'phút', m: 60000 }, { n: 'giây', m: 1000 }];
-            for (const u of units) {
-                if (diff >= u.m) {
-                    const val = Math.floor(diff / u.m), rem = diff % u.m;
-                    if (u.n === 'tiếng' && rem >= 60000) return `${val} tiếng ${Math.floor(rem / 60000)} phút`;
-                    return `${val} ${u.n}`;
+
+        getTournamentMetadata(data) {
+            const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
+            const variant = data.settings?.rules || data.rules || 'standard';
+            const setup = data.settings?.initial_setup || null;
+            const finalVariant = (variant === 'standard' || variant === 'chess') && setup ? 'custom' : variant;
+
+            return {
+                rounds,
+                variant: finalVariant,
+                setup,
+                timeControl: parseTimeControl(data.settings?.time_control || data.time_control || data.timeControl),
+                timeClass: data.settings?.time_class || data.time_class || 'classical',
+                registeredCount: Math.max(
+                    data.settings?.registered_user_count || 0,
+                    data.players_registered || 0,
+                    (data.players || []).length
+                ),
+                startTime: data.start_time || data.startTime || 0,
+                endTime: data.finish_time || data.endTime || 0,
+                isFinished: data.status === 'finished' || data.settings?.status === 'finished'
+            };
+        },
+
+        buildPlayersMap(mainPlayers, pointsMap) {
+            const playerMap = new Map();
+
+            // Add round data players
+            pointsMap.forEach((points, username) => {
+                playerMap.set(username, { username: this.getOriginalUsername(username, mainPlayers), points });
+            });
+
+            // Add/update with main tournament players
+            mainPlayers.forEach(player => {
+                const username = typeof player === 'string' ? player : player.username;
+                const usernameLower = username.toLowerCase();
+                const points = player.points ?? pointsMap.get(usernameLower) ?? 0;
+
+                if (playerMap.has(usernameLower)) {
+                    const existing = playerMap.get(usernameLower);
+                    existing.points = Math.max(existing.points, points);
+                } else {
+                    playerMap.set(usernameLower, { username, points });
                 }
-            }
-            return 'N/A';
+            });
+
+            return Array.from(playerMap.values());
         },
-        parseTimeControl(tc) {
-            if (!tc) return '3+0';
-            const match = String(tc).match(/^(\d+)\+(\d+)$/);
-            if (match) {
-                const b = parseInt(match[1]), i = parseInt(match[2]);
-                return b >= 60 ? `${Math.floor(b / 60)}+${i}` : `${b}+${i}`;
+
+        getOriginalUsername(usernameLower, mainPlayers) {
+            for (const player of mainPlayers) {
+                const username = typeof player === 'string' ? player : player.username;
+                if (username.toLowerCase() === usernameLower) return username;
             }
-            const n = parseInt(tc);
-            return !isNaN(n) ? (n >= 60 ? `${Math.floor(n / 60)}+0` : `${n}+0`) : '3+0';
+            return usernameLower;
         },
+
         async getMonthlyAggregation(monthId, eventType) {
             const cacheKey = `agg_v3_${eventType}_${monthId}`;
             const cached = Cache.get(cacheKey);
             if (cached) return cached;
 
-            let ids = [];
-            if (DataProcessor.toursByMonth && DataProcessor.toursByMonth[monthId]) {
-                ids = DataProcessor.toursByMonth[monthId];
+            let tournamentIds = [];
+            if (this.toursByMonth?.[monthId]) {
+                tournamentIds = this.toursByMonth[monthId];
             } else {
                 const text = await RequestManager.fetch(`${API.GIST}/${monthId}.txt`, false);
-                ids = text ? text.split('\n').filter(l => l.trim()) : [];
+                tournamentIds = text ? text.split('\n').filter(l => l.trim()) : [];
             }
-            if (!ids.length) return { playerScores: {}, tournaments: [], status: 'finished' };
 
-            const tourDataList = await Promise.all(ids.map(id => RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}`)));
-            const playerScores = {}, tournaments = [];
+            if (!tournamentIds.length) {
+                return { playerScores: {}, tournaments: [], status: 'finished' };
+            }
+
+            // Fetch all tournaments
+            const tourDataList = await Promise.all(
+                tournamentIds.map(id => RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}`))
+            );
+
+            const playerScores = {};
+            const tournaments = [];
             let monthStatus = 'finished';
 
-            for (let i = 0; i < ids.length; i++) {
+            for (let i = 0; i < tournamentIds.length; i++) {
                 const data = tourDataList[i];
                 if (!data) continue;
-                const isFinished = (data.status === 'finished' || data.settings?.status === 'finished');
-                if (!isFinished) monthStatus = 'unfinished';
 
-                const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
+                const meta = this.getTournamentMetadata(data);
+                if (!meta.isFinished) monthStatus = 'unfinished';
+
+                // Fetch round data
                 let pointsMap = new Map();
-                let roundPlayersMap = new Map();
-                if (rounds > 0) {
-                    const roundData = await RequestManager.fetch(`${API.CHESS_COM}/tournament/${ids[i]}/${rounds}`);
+                if (meta.rounds > 0) {
+                    const roundData = await RequestManager.fetch(
+                        `${API.CHESS_COM}/tournament/${tournamentIds[i]}/${meta.rounds}`
+                    );
                     const groups = roundData?.groups || [];
-                    const pList = groups.length ? (await Promise.allSettled(groups.map(url => RequestManager.fetch(url)))).filter(r => r.status === 'fulfilled').flatMap(r => r.value?.players || []) : (roundData?.players || []);
-                    pList.forEach(p => {
+                    const playerList = groups.length
+                        ? (await Promise.allSettled(groups.map(url => RequestManager.fetch(url))))
+                            .filter(r => r.status === 'fulfilled')
+                            .flatMap(r => r.value?.players || [])
+                        : (roundData?.players || []);
+
+                    playerList.forEach(p => {
                         if (p.username) {
-                            const uLower = p.username.toLowerCase();
-                            pointsMap.set(uLower, p.points || 0);
-                            roundPlayersMap.set(uLower, { username: p.username, points: p.points || 0 });
+                            pointsMap.set(p.username.toLowerCase(), p.points || 0);
                         }
                     });
                 }
 
-                const mainPlayers = (data.players || []).map(p => {
-                    const u = typeof p === 'string' ? p : p.username;
-                    const uLower = u.toLowerCase();
-                    return { username: u, points: p.points ?? pointsMap.get(uLower) ?? 0 };
-                });
-
-                const tourPlayersMap = new Map();
-                roundPlayersMap.forEach((val, key) => {
-                    tourPlayersMap.set(key, { username: val.username, points: val.points });
-                });
-                mainPlayers.forEach(p => {
-                    const uLower = p.username.toLowerCase();
-                    if (!tourPlayersMap.has(uLower)) {
-                        tourPlayersMap.set(uLower, p);
-                    } else {
-                        const existing = tourPlayersMap.get(uLower);
-                        existing.points = Math.max(existing.points, p.points);
-                    }
-                });
-                const tourPlayers = Array.from(tourPlayersMap.values());
-
-                const tc = this.parseTimeControl(data.settings?.time_control || data.time_control || data.timeControl);
-                let variant = data.settings?.rules || data.rules || 'standard';
-                const setup = data.settings?.initial_setup || null;
-                if ((variant === 'standard' || variant === 'chess') && setup) variant = 'custom';
-
-                const calculatedPlayersCount = Math.max(
-                    data.settings?.registered_user_count || 0,
-                    data.players_registered || 0,
-                    tourPlayers.length
-                );
+                // Build tournament data
+                const tourPlayers = this.buildPlayersMap(data.players || [], pointsMap);
 
                 tournaments.push({
-                    id: ids[i], name: data.name || 'Unknown', url: data.url || `https://chess.com/tournament/${ids[i]}`,
-                    variant, setup, timeClass: data.settings?.time_class || data.time_class || 'classical',
-                    timeControl: tc, totalRounds: rounds, duration: this.calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime),
-                    playersCount: calculatedPlayersCount,
-                    startTime: data.start_time || data.startTime || 0
+                    id: tournamentIds[i],
+                    name: data.name || 'Unknown',
+                    url: data.url || `https://chess.com/tournament/${tournamentIds[i]}`,
+                    variant: meta.variant,
+                    setup: meta.setup,
+                    timeClass: meta.timeClass,
+                    timeControl: meta.timeControl,
+                    totalRounds: meta.rounds,
+                    duration: calculateDuration(meta.startTime, meta.endTime),
+                    playersCount: meta.registeredCount,
+                    startTime: meta.startTime
                 });
 
-                tourPlayers.forEach(p => {
-                    const u = p.username.toLowerCase();
-                    if (!playerScores[u]) playerScores[u] = { username: p.username, totalPoints: 0, breakdown: [] };
-                    playerScores[u].totalPoints += p.points;
-                    playerScores[u].breakdown.push({ tourName: data.name || 'Unknown', points: p.points, url: data.url });
+                // Aggregate player scores
+                tourPlayers.forEach(player => {
+                    const usernameLower = player.username.toLowerCase();
+                    if (!playerScores[usernameLower]) {
+                        playerScores[usernameLower] = {
+                            username: player.username,
+                            totalPoints: 0,
+                            breakdown: []
+                        };
+                    }
+                    playerScores[usernameLower].totalPoints += player.points;
+                    playerScores[usernameLower].breakdown.push({
+                        tourName: data.name || 'Unknown',
+                        points: player.points,
+                        url: data.url
+                    });
                 });
             }
+
             const result = { playerScores, tournaments, status: monthStatus };
             Cache.set(cacheKey, result, CONFIG.CACHE_TTL.a);
             return result;
         }
     };
 
+    // ========== Renderer ==========
     const Renderer = {
-        img: (src, w = 15) => `<img src="${src}" width="${w}" height="${w}" alt="" style="display: inline-block; vertical-align: middle;">`,
-        timeFormat(tc, tcClass) {
-            const icon = TIME_ICONS[tcClass];
-            return `${tc} ${icon?.name || 'Standard'}${icon ? this.img('https://www.chess.com' + icon.path) : ''}`;
+        timeFormat(tc, timeClass) {
+            const icon = TIME_ICONS[timeClass];
+            const iconHtml = icon ? createImg(`https://www.chess.com${icon.path}`) : '';
+            return `${tc} ${icon?.name || 'Standard'}${iconHtml}`;
         },
-        variantInfo(v) {
-            const data = VARIANTS[v.toLowerCase()];
-            return data ? { name: data.name, url: 'https://www.chess.com' + data.url, icon: 'https://www.chess.com' + data.icon } : null;
+
+        variantInfo(variant) {
+            const data = VARIANTS[variant.toLowerCase()];
+            return data ? {
+                name: data.name,
+                url: `https://www.chess.com${data.url}`,
+                icon: `https://www.chess.com${data.icon}`
+            } : null;
         },
-        async playerCell(player, details) {
-            if (!player) return '<td style="color: var(--primary-warning)">Chưa có dữ liệu!</td>';
-            const p = details?.player || details || { username: player.username, avatar: CONFIG.DEFAULT_AVATAR, status: 'N/A' };
-            const badges = {
-                'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Bị khóa: Lạm dụng' },
-                'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Bị khóa: Fair Play' },
-                'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Bị khóa' },
-                'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
-            }[p.status];
-            const badgeHTML = badges ? `<div class="user-badges-component"><div class="user-badges-badge ${badges.c}"><span class="${badges.i}"></span><span>${badges.t}</span></div></div>` : '';
-            return `<td><div class="post-user-component"><a class="cc-avatar-component post-user-avatar" href="https://chess.com/member/${p.username}"><img class="cc-avatar-img" src="${p.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${p.username}"></a>
-                <div class="post-user-details"><div class="user-tagline-component"><a class="user-username-component user-tagline-username" href="https://www.chess.com/member/${p.username}" target="_blank">${p.username}</a></div>
-                <div class="post-user-status"><span>${badgeHTML}</span><span class="score-pill" data-player='${JSON.stringify(player).replace(/'/g, "&apos;")}'>${player.totalPoints} ĐIỂM</span></div></div></div></td>`;
+
+        formatBadge(status) {
+            const badge = BADGE_CONFIG[status];
+            if (!badge) return '';
+            return `<div class="user-badges-component"><div class="user-badges-badge ${badge.c}"><span class="${badge.i}"></span><span>${badge.t}</span></div></div>`;
         },
+
+        async playerCell(player, playerData) {
+            if (!player) {
+                return '<td style="color: var(--primary-warning)">Chưa có dữ liệu!</td>';
+            }
+
+            const data = playerData?.player || playerData || {
+                username: player.username,
+                avatar: CONFIG.DEFAULT_AVATAR,
+                status: 'N/A'
+            };
+
+            const badgeHtml = this.formatBadge(data.status);
+            const playerDataJson = JSON.stringify(player).replace(/'/g, "&apos;");
+
+            return `<td>
+                <div class="post-user-component">
+                    <a class="cc-avatar-component post-user-avatar" href="https://chess.com/member/${data.username}">
+                        <img class="cc-avatar-img" src="${data.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${data.username}">
+                    </a>
+                    <div class="post-user-details">
+                        <div class="user-tagline-component">
+                            <a class="user-username-component user-tagline-username" href="https://www.chess.com/member/${data.username}" target="_blank">${data.username}</a>
+                        </div>
+                        <div class="post-user-status">
+                            <span>${badgeHtml}</span>
+                            <span class="score-pill" data-player='${playerDataJson}'>${player.totalPoints} ĐIỂM</span>
+                        </div>
+                    </div>
+                </div>
+            </td>`;
+        },
+
         async monthRow(monthId, eventType) {
             const { playerScores, tournaments } = await DataProcessor.getMonthlyAggregation(monthId, eventType);
-            const top = Object.values(playerScores).sort((a, b) => b.totalPoints - a.totalPoints).slice(0, CONFIG.TOP_PLAYERS);
-            const details = await Promise.all(top.map(p => RequestManager.fetch(`${API.CHESS_COM}/player/${p.username}`)));
-            let html = `<tr><td class="name-tour month-clickable" data-tournaments='${JSON.stringify(tournaments).replace(/'/g, "&apos;")}' data-month="${monthId}">Tháng ${monthId} <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i></td>
-                <td class="organization-day month-clickable" data-tournaments='${JSON.stringify(tournaments).replace(/'/g, "&apos;")}' data-month="${monthId}">${tournaments.length} giải đấu <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i></td><td class="players">${Object.keys(playerScores).length}</td>`;
-            for (let i = 0; i < CONFIG.TOP_PLAYERS; i++) html += await this.playerCell(top[i], details[i]);
+            const topPlayers = Object.values(playerScores)
+                .sort((a, b) => b.totalPoints - a.totalPoints)
+                .slice(0, CONFIG.TOP_PLAYERS);
+
+            const playerDetails = await Promise.all(
+                topPlayers.map(p => RequestManager.fetch(`${API.CHESS_COM}/player/${p.username}`))
+            );
+
+            const tournamentsJson = JSON.stringify(tournaments).replace(/'/g, "&apos;");
+            let html = `<tr>
+                <td class="name-tour month-clickable" data-tournaments='${tournamentsJson}' data-month="${monthId}">
+                    Tháng ${monthId} <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i>
+                </td>
+                <td class="organization-day month-clickable" data-tournaments='${tournamentsJson}' data-month="${monthId}">
+                    ${tournaments.length} giải đấu <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i>
+                </td>
+                <td class="players">${Object.keys(playerScores).length}</td>`;
+
+            for (let i = 0; i < CONFIG.TOP_PLAYERS; i++) {
+                html += await this.playerCell(topPlayers[i], playerDetails[i]);
+            }
+
             return html + '</tr>';
         }
     };
 
+    // ========== Modal Manager ==========
     const ModalManager = {
         show(title, content) {
-            const m = document.getElementById('scoreModal'), t = document.getElementById('modal-player-name'), b = document.getElementById('modal-score-breakdown');
-            if (m && t && b) { t.textContent = title; b.innerHTML = content; m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            const modal = document.getElementById('scoreModal');
+            if (modal) {
+                document.getElementById('modal-player-name').textContent = title;
+                document.getElementById('modal-score-breakdown').innerHTML = content;
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
         },
-        close() { const m = document.getElementById('scoreModal'); if (m) { m.classList.remove('open'); document.body.style.overflow = ''; } }
+        close() {
+            const modal = document.getElementById('scoreModal');
+            if (modal) {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
     };
 
+    // ========== Event Handler Builder ==========
+    const EventHandlers = {
+        handleScorePillClick(playerData) {
+            let html = `<div class="calendar-wrapper">
+                <table class="styled-table score-detail-table">
+                    <thead><tr><th>Giải đấu</th><th style="text-align: center;">Điểm</th></tr></thead>
+                    <tbody>`;
+
+            playerData.breakdown.forEach(item => {
+                html += `<tr><td><a href="${item.url}" target="_blank">${item.tourName}</a></td><td style="text-align: center; color: var(--cyan-300);">${item.points}</td></tr>`;
+            });
+
+            html += `</tbody>
+                <tfoot><tr><td style="text-align: right;">TỔNG CỘNG:</td><td style="text-align: center; color: var(--yellow-400);">${playerData.totalPoints}</td></tr></tfoot>
+                </table></div>`;
+
+            ModalManager.show(`Chi tiết điểm của ${playerData.username}`, html);
+        },
+
+        handleMonthClick(monthElement, tournaments) {
+            let html = `<div class="calendar-wrapper">
+                <table class="styled-table score-detail-table">
+                    <thead><tr><th>Vòng đấu</th><th>Thời gian bắt đầu</th><th>Thể lệ</th><th style="text-align: center;">Kỳ thủ</th></tr></thead>
+                    <tbody>`;
+
+            tournaments.forEach(tour => {
+                const variantInfo = Renderer.variantInfo(tour.variant);
+                let variantHtml = '';
+                if (variantInfo) {
+                    if (tour.setup) {
+                        variantHtml = ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${tour.setup}">${variantInfo.name}${createImg(variantInfo.icon)}</a>`;
+                    } else {
+                        variantHtml = ` <a href="${variantInfo.url}" target="_blank">${variantInfo.name} ${createImg(variantInfo.icon)}</a>`;
+                    }
+                }
+
+                const formatStr = tour.totalRounds === 1
+                    ? `Đấu trường Arena ${tour.duration}`
+                    : `Hệ Thụy Sĩ ${tour.totalRounds} vòng`;
+
+                const startTimeStr = formatDate(tour.startTime);
+                html += `<tr><td><a href="${tour.url}" target="_blank">${tour.name}</a></td><td>${startTimeStr}</td><td>${Renderer.timeFormat(tour.timeControl, tour.timeClass)}<br>${variantHtml}<br>${formatStr}</td><td style="text-align: center;">${tour.playersCount}</td></tr>`;
+            });
+
+            html += '</tbody></table></div>';
+            ModalManager.show(`Chi tiết tháng ${monthElement.dataset.month}`, html);
+        },
+
+        handleCustomVariantClick(setup) {
+            ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">${setup}</div>`);
+        }
+    };
+
+    // ========== Page Manager ==========
     const PageManager = {
         async init() {
             const container = document.querySelector('[data-fetch-aggregated]');
             if (!container) return;
+
             const eventType = container.dataset.fetchAggregated || 'cttq';
             container.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
@@ -306,7 +526,7 @@
             }
 
             let months = [];
-            if (text && text.includes('*')) {
+            if (text?.includes('*')) {
                 const parsed = DataProcessor.parseUnifiedFormat(text);
                 months = parsed.months;
                 DataProcessor.toursByMonth = parsed.toursByMonth;
@@ -314,13 +534,14 @@
                 months = text.split('\n').map(l => l.trim()).filter(l => l);
             }
 
-            if (!months.length) { container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>'; return; }
+            if (!months.length) {
+                container.innerHTML = '<div class="error">Không tìm thấy dữ liệu.</div>';
+                return;
+            }
 
             container.innerHTML = `
                 <div class="filter-group-container" style="margin-bottom: 25px;">
-                    <!-- Top bar with 3 columns -->
                     <div class="tour-top-grid">
-                        <!-- Column 1: Sắp xếp -->
                         <div class="tour-select-container" style="grid-column: span 2;">
                             <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
                                 <option value="date-desc">Tháng tổ chức (Mới nhất)</option>
@@ -331,8 +552,6 @@
                                 <option value="tours-asc">Số lượng giải đấu (Ít nhất)</option>
                             </select>
                         </div>
-
-                        <!-- Column 2: Status/Type -->
                         <div class="tour-select-container" style="grid-column: span 2;">
                             <select id="cttq-status-filter" class="tour-select-btn" onchange="searchTable()">
                                 <option value="all">Tất cả trạng thái</option>
@@ -341,14 +560,11 @@
                             </select>
                         </div>
                     </div>
-
-                    <!-- Second bar (Search + Switch + Status Badge) -->
                     <div class="tour-search-row">
                         <div class="tour-search-wrapper">
                             <span class="bx bx-search tour-search-icon"></span>
                             <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm..." onkeyup="searchTable()">
                         </div>
-
                         <label class="tour-switch-container">
                             <span class="tour-switch">
                                 <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
@@ -356,104 +572,139 @@
                             </span>
                             <span>Hiện Premium Badge</span>
                         </label>
-
                         <div id="loading-status" class="loading-status-badge">
                             <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>
                             <span id="current-tournament">0</span>/${months.length} tháng
                         </div>
                     </div>
                 </div>
-                <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Tháng</th><th class="organization-day">Thống kê</th><th class="players">Kỳ thủ</th>
-                <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div>`;
+                <div class="table">
+                    <table class="styled-table" id="tournament-results-table">
+                        <thead><tr><th class="name-tour">Tháng</th><th class="organization-day">Thống kê</th><th class="players">Kỳ thủ</th>
+                        <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead>
+                        <tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody>
+                    </table>
+                </div>`;
 
             if (typeof window.loadTournamentFiltersFromURL === 'function') {
                 window.loadTournamentFiltersFromURL();
             }
 
-            const tbody = document.getElementById('tournament-tbody');
-            const skeletons = months.map(() => {
-                const tr = document.createElement('tr'); tr.className = 'skeleton-row';
-                let row = `
-                    <td><div class="skeleton skeleton-text" style="width: 80%;"></div></td>
-                    <td><div class="skeleton skeleton-text" style="width: 60%;"></div></td>
-                    <td><div class="skeleton skeleton-text" style="width: 30px; margin: auto;"></div></td>`;
-                for (let i = 0; i < CONFIG.TOP_PLAYERS; i++) {
-                    row += `<td><div class="post-user-component"><div class="skeleton skeleton-avatar"></div>
-                        <div class="post-user-details"><div class="skeleton skeleton-text" style="width: 70px;"></div>
-                        <div class="skeleton skeleton-text" style="width: 40px;"></div></div></div></td>`;
-                }
-                tr.innerHTML = row;
-                tbody.appendChild(tr); return tr;
-            });
+            this.setupEventHandlers();
+            this.loadMonthsData(months);
+        },
 
-            // Set up event listeners early so users can click loaded months while remaining months load
-            document.getElementById('scoreModal')?.addEventListener('click', e => {
-                if (e.target.id === 'scoreModal') ModalManager.close();
-                const customLink = e.target.closest('.custom-variant-link');
-                if (customLink) {
-                    const setup = customLink.dataset.setup;
-                    ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">${setup}</div>`);
-                }
-            });
-            tbody.addEventListener('click', e => {
-                const pill = e.target.closest('.score-pill');
-                if (pill) {
-                    const p = JSON.parse(pill.dataset.player);
-                    let h = `<div class="calendar-wrapper"><table class="styled-table score-detail-table"><thead><tr><th>Giải đấu</th><th style="text-align: center;">Điểm</th></tr></thead><tbody>`;
-                    p.breakdown.forEach(item => h += `<tr><td><a href="${item.url}" target="_blank">${item.tourName}</a></td><td style="text-align: center; color: var(--cyan-300);">${item.points}</td></tr>`);
-                    h += `</tbody><tfoot><tr><td style="text-align: right;">TỔNG CỘNG:</td><td style="text-align: center; color: var(--yellow-400);">${p.totalPoints}</td></tr></tfoot></table></div>`;
-                    ModalManager.show(`Chi tiết điểm của ${p.username}`, h);
+        setupEventHandlers() {
+            const modal = document.getElementById('scoreModal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target.id === 'scoreModal') {
+                        ModalManager.close();
+                    }
+                    const customLink = e.target.closest('.custom-variant-link');
+                    if (customLink) {
+                        EventHandlers.handleCustomVariantClick(customLink.dataset.setup);
+                    }
+                });
+            }
+
+            const tbody = document.getElementById('tournament-tbody');
+            tbody.addEventListener('click', (e) => {
+                const scorePill = e.target.closest('.score-pill');
+                if (scorePill) {
+                    const playerData = JSON.parse(scorePill.dataset.player);
+                    EventHandlers.handleScorePillClick(playerData);
                     return;
                 }
-                const month = e.target.closest('.month-clickable');
-                if (month) {
-                    const tours = JSON.parse(month.dataset.tournaments);
-                    let h = `<div class="calendar-wrapper"><table class="styled-table score-detail-table"><thead><tr><th>Vòng đấu</th><th>Thời gian bắt đầu</th><th>Thể lệ</th><th style="text-align: center;">Kỳ thủ</th></tr></thead><tbody>`;
-                    tours.forEach(t => {
-                        const v = Renderer.variantInfo(t.variant);
-                        const variantHTML = v ? (t.setup ? ` <a href="javascript:void(0)" class="custom-variant-link" data-setup="${t.setup}">${v.name}${Renderer.img(v.icon)}</a>` : ` <a href="${v.url}" target="_blank">${v.name} ${Renderer.img(v.icon)}</a>`) : '';
-                        const formatStr = t.totalRounds === 1 ? `Đấu trường Arena ${t.duration}` : `Hệ Thụy Sĩ ${t.totalRounds} vòng`;
-                        const startTimeStr = formatDate(t.startTime);
-                        h += `<tr><td><a href="${t.url}" target="_blank">${t.name}</a></td><td>${startTimeStr}</td><td>${Renderer.timeFormat(t.timeControl, t.timeClass)}<br>${variantHTML}<br>${formatStr}</td><td style="text-align: center;">${t.playersCount}</td></tr>`;
-                    });
-                    ModalManager.show(`Chi tiết tháng ${month.dataset.month}`, h + '</tbody></table></div>');
+
+                const monthElement = e.target.closest('.month-clickable');
+                if (monthElement) {
+                    const tournaments = JSON.parse(monthElement.dataset.tournaments);
+                    EventHandlers.handleMonthClick(monthElement, tournaments);
                 }
             });
+        },
 
-            let count = 0;
-            await Promise.allSettled(months.map(async (m, i) => {
+        async loadMonthsData(months) {
+            const tbody = document.getElementById('tournament-tbody');
+            const skeletonRows = this.createSkeletonRows(months.length);
+            skeletonRows.forEach(row => tbody.appendChild(row));
+
+            let successCount = 0;
+            const eventType = document.querySelector('[data-fetch-aggregated]').dataset.fetchAggregated || 'cttq';
+
+            await Promise.allSettled(months.map(async (monthId, idx) => {
                 try {
-                    const html = await Renderer.monthRow(m, eventType);
-                    const temp = document.createElement('tbody'); temp.innerHTML = html;
+                    const html = await Renderer.monthRow(monthId, eventType);
+                    const tempContainer = document.createElement('tbody');
+                    tempContainer.innerHTML = html;
+                    const newRow = tempContainer.firstElementChild;
 
-                    const newTr = temp.firstElementChild;
-                    const { playerScores, tournaments, status } = await DataProcessor.getMonthlyAggregation(m, eventType);
-                    const parts = m.split('-');
-                    const monthInt = parseInt(parts[0]) - 1;
-                    const yearInt = parseInt(parts[1]);
-                    const timestamp = new Date(yearInt, monthInt, 1).getTime();
+                    const { playerScores, tournaments, status } = await DataProcessor.getMonthlyAggregation(monthId, eventType);
 
-                    newTr.setAttribute('data-start-time', timestamp);
-                    newTr.setAttribute('data-players-count', Object.keys(playerScores).length);
-                    newTr.setAttribute('data-tours-count', tournaments.length);
-                    newTr.setAttribute('data-status', status || 'finished');
+                    // Parse month for timestamp
+                    const [monthNum, year] = monthId.split('-').map(Number);
+                    const timestamp = new Date(year, monthNum - 1, 1).getTime();
 
-                    skeletons[i].replaceWith(newTr);
-                    document.getElementById('current-tournament').textContent = ++count;
+                    newRow.setAttribute('data-start-time', timestamp);
+                    newRow.setAttribute('data-players-count', Object.keys(playerScores).length);
+                    newRow.setAttribute('data-tours-count', tournaments.length);
+                    newRow.setAttribute('data-status', status || 'finished');
+
+                    skeletonRows[idx].replaceWith(newRow);
+                    document.getElementById('current-tournament').textContent = ++successCount;
 
                     if (typeof window.searchTable === 'function') {
                         window.searchTable();
                     }
-                } catch (e) {}
+                } catch (e) {
+                    console.error('Error loading month:', monthId, e);
+                }
             }));
 
-            const icon = document.getElementById('statusIcon');
-            if (icon) { icon.style.color = count === months.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = count === months.length ? 'bx bx-check' : 'bx bx-x'; }
+            this.updateStatus(successCount, months.length);
+        },
+
+        createSkeletonRows(count) {
+            return Array.from({ length: count }, () => {
+                const tr = document.createElement('tr');
+                tr.className = 'skeleton-row';
+                let html = `
+                    <td><div class="skeleton skeleton-text" style="width: 80%;"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 60%;"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 30px; margin: auto;"></div></td>`;
+
+                html += Array.from({ length: CONFIG.TOP_PLAYERS }, () => `
+                    <td>
+                        <div class="post-user-component">
+                            <div class="skeleton skeleton-avatar"></div>
+                            <div class="post-user-details">
+                                <div class="skeleton skeleton-text" style="width: 70px;"></div>
+                                <div class="skeleton skeleton-text" style="width: 40px;"></div>
+                            </div>
+                        </div>
+                    </td>`
+                ).join('');
+
+                tr.innerHTML = html;
+                return tr;
+            });
+        },
+
+        updateStatus(successCount, totalCount) {
+            const statusIcon = document.getElementById('statusIcon');
+            const isComplete = successCount === totalCount;
+            statusIcon.style.color = isComplete ? 'var(--primary-success)' : 'var(--color-danger)';
+            statusIcon.className = isComplete ? 'bx bx-check' : 'bx bx-x';
         }
     };
 
-    if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', () => PageManager.init());
-    else PageManager.init();
+    // ========== Initialization ==========
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => PageManager.init());
+    } else {
+        PageManager.init();
+    }
 
     window.TournamentModalManager = ModalManager;
 })();
