@@ -594,7 +594,7 @@
                     <table class="styled-table" id="tournament-results-table">
                         <thead><tr><th class="name-tour">Tháng</th><th class="organization-day">Thống kê</th><th class="players">Kỳ thủ</th>
                         <th class="winner">🥇 Hạng 1</th><th class="winner">🥈 Hạng 2</th><th class="winner">🥉 Hạng 3</th><th class="winner">🎖️ Hạng 4</th><th class="winner">🏅 Hạng 5</th><th class="winner">⭐ Hạng 6</th></tr></thead>
-                        <tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody>
+                        <tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning);font-size:medium">Không tìm thấy kết quả nào!</td></tr></tbody>
                     </table>
                 </div>`;
 

@@ -474,7 +474,7 @@
                             <span>Hiện Premium Badge</span>
                         </label>
                         <div id="loading-status" class="loading-status-badge">
-                            <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span>
+                            <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning);font-size:medium"></span>
                             <span id="current-tournament">0</span>/${ids.length} giải
                         </div>
                     </div>

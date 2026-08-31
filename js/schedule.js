@@ -530,7 +530,7 @@ function openModal(tournament) {
     const tParts = getVietnamDateParts(tournament.startTime);
     const dayVn = getDayOfWeekVn(tournament.startTime);
     const dayPrefix = dayVn === 'Chủ Nhật' ? '' : 'Thứ ';
-    let formattedTime = `${dayPrefix}${dayVn}, ngày ${padZero(tParts.date)} thg ${padZero(tParts.month + 1)} năm ${tParts.year} lúc ${padZero(tParts.hours)}h${padZero(tParts.minutes)}`;
+    let formattedTime = `${dayPrefix}${dayVn}, ngày ${padZero(tParts.date)} tháng ${padZero(tParts.month + 1)} năm ${tParts.year} lúc ${padZero(tParts.hours)}h${padZero(tParts.minutes)}`;
 
     let gameRulesText = tournament.gameRules || 'Chưa có thông tin';
     let eventRulesText = tournament.eventRules || 'Chưa có thông tin';
