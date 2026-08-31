@@ -39,7 +39,6 @@
         'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
     };
 
-    // ========== Utility Functions ==========
     function formatDate(timestamp) {
         if (!timestamp) return 'N/A';
         const date = new Date(timestamp * 1000);
@@ -57,7 +56,6 @@
         const start = new Date(startTs * 1000);
         const end = new Date(endTs * 1000);
         if (isNaN(start) || isNaN(end) || end < start) return 'N/A';
-
         const diff = end - start;
         const units = [
             { n: 'ngày', m: 86400000 },
@@ -65,14 +63,11 @@
             { n: 'phút', m: 60000 },
             { n: 'giây', m: 1000 }
         ];
-
         for (const { n, m } of units) {
             if (diff >= m) {
                 const val = Math.floor(diff / m);
                 const rem = diff % m;
-                if (n === 'tiếng' && rem >= 60000) {
-                    return `${val} tiếng ${Math.floor(rem / 60000)} phút`;
-                }
+                if (n === 'tiếng' && rem >= 60000) return `${val} tiếng ${Math.floor(rem / 60000)} phút`;
                 return `${val} ${n}`;
             }
         }
@@ -95,7 +90,6 @@
         return `<img src="${src}" width="${w}" height="${w}" alt="" style="display: inline-block; vertical-align: middle;">`;
     }
 
-    // ========== Cache System ==========
     const Cache = {
         memory: new Map(),
         get(key) {
@@ -127,7 +121,6 @@
         }
     };
 
-    // ========== Request Manager ==========
     const RequestManager = {
         active: 0,
         queue: [],
@@ -144,7 +137,6 @@
         async fetch(url, isJson = true) {
             const cached = Cache.get(url);
             if (cached) return cached;
-
             await this.acquire();
             try {
                 for (let attempt = 0; attempt < 2; attempt++) {
@@ -155,9 +147,7 @@
                             continue;
                         }
                         if (!response.ok) return null;
-
                         const data = isJson ? await response.json() : await response.text();
-
                         if (url.startsWith(API.CHESS_COM)) {
                             const ttl = url.includes('/player/') ? CONFIG.CACHE_TTL.p : CONFIG.CACHE_TTL.t;
                             Cache.set(url, data, ttl);
@@ -176,7 +166,6 @@
         }
     };
 
-    // ========== Data Processor ==========
     const DataProcessor = {
         toursByMonth: {},
 
@@ -185,7 +174,6 @@
             const months = [];
             const toursByMonth = {};
             let currentMonth = null;
-
             for (const line of lines) {
                 if (!line) continue;
                 if (line.startsWith('*')) {
@@ -206,7 +194,6 @@
             const variant = data.settings?.rules || data.rules || 'standard';
             const setup = data.settings?.initial_setup || null;
             const finalVariant = (variant === 'standard' || variant === 'chess') && setup ? 'custom' : variant;
-
             return {
                 rounds,
                 variant: finalVariant,
@@ -226,18 +213,13 @@
 
         buildPlayersMap(mainPlayers, pointsMap) {
             const playerMap = new Map();
-
-            // Add round data players
             pointsMap.forEach((points, username) => {
                 playerMap.set(username, { username: this.getOriginalUsername(username, mainPlayers), points });
             });
-
-            // Add/update with main tournament players
             mainPlayers.forEach(player => {
                 const username = typeof player === 'string' ? player : player.username;
                 const usernameLower = username.toLowerCase();
                 const points = player.points ?? pointsMap.get(usernameLower) ?? 0;
-
                 if (playerMap.has(usernameLower)) {
                     const existing = playerMap.get(usernameLower);
                     existing.points = Math.max(existing.points, points);
@@ -245,7 +227,6 @@
                     playerMap.set(usernameLower, { username, points });
                 }
             });
-
             return Array.from(playerMap.values());
         },
 
@@ -274,7 +255,6 @@
                 return { playerScores: {}, tournaments: [], status: 'finished' };
             }
 
-            // Fetch all tournaments
             const tourDataList = await Promise.all(
                 tournamentIds.map(id => RequestManager.fetch(`${API.CHESS_COM}/tournament/${id}`))
             );
@@ -290,7 +270,6 @@
                 const meta = this.getTournamentMetadata(data);
                 if (!meta.isFinished) monthStatus = 'unfinished';
 
-                // Fetch round data
                 let pointsMap = new Map();
                 if (meta.rounds > 0) {
                     const roundData = await RequestManager.fetch(
@@ -302,7 +281,6 @@
                             .filter(r => r.status === 'fulfilled')
                             .flatMap(r => r.value?.players || [])
                         : (roundData?.players || []);
-
                     playerList.forEach(p => {
                         if (p.username) {
                             pointsMap.set(p.username.toLowerCase(), p.points || 0);
@@ -310,8 +288,10 @@
                     });
                 }
 
-                // Build tournament data
                 const tourPlayers = this.buildPlayersMap(data.players || [], pointsMap);
+                const format = meta.rounds === 1 
+                    ? `Đấu trường Arena ${calculateDuration(meta.startTime, meta.endTime)}`
+                    : `Hệ Thụy Sĩ ${meta.rounds} vòng`;
 
                 tournaments.push({
                     id: tournamentIds[i],
@@ -324,10 +304,10 @@
                     totalRounds: meta.rounds,
                     duration: calculateDuration(meta.startTime, meta.endTime),
                     playersCount: meta.registeredCount,
-                    startTime: meta.startTime
+                    startTime: meta.startTime,
+                    format: format
                 });
 
-                // Aggregate player scores
                 tourPlayers.forEach(player => {
                     const usernameLower = player.username.toLowerCase();
                     if (!playerScores[usernameLower]) {
@@ -339,9 +319,16 @@
                     }
                     playerScores[usernameLower].totalPoints += player.points;
                     playerScores[usernameLower].breakdown.push({
+                        tourId: tournamentIds[i],
                         tourName: data.name || 'Unknown',
                         points: player.points,
-                        url: data.url
+                        url: data.url,
+                        variant: meta.variant,
+                        timeControl: meta.timeControl,
+                        timeClass: meta.timeClass,
+                        playersCount: meta.registeredCount,
+                        startTime: meta.startTime,
+                        format: format
                     });
                 });
             }
@@ -352,7 +339,6 @@
         }
     };
 
-    // ========== Renderer ==========
     const Renderer = {
         timeFormat(tc, timeClass) {
             const icon = TIME_ICONS[timeClass];
@@ -434,7 +420,6 @@
         }
     };
 
-    // ========== Modal Manager ==========
     const ModalManager = {
         show(title, content) {
             const modal = document.getElementById('scoreModal');
@@ -454,7 +439,6 @@
         }
     };
 
-    // ========== Event Handler Builder ==========
     const EventHandlers = {
         handlePlayerClick(playerData, avatar, status) {
             const badgeHtml = Renderer.formatBadge(status);
@@ -466,18 +450,53 @@
                 </div>
 
                 <table class="styled-table score-detail-table" style="width: 100%;">
-                    <thead><tr><th>Giải đấu</th><th style="text-align: center;">Điểm</th></tr></thead>
+                    <thead><tr><th>Giải đấu</th><th style="text-align: center;">Thể lệ</th><th style="text-align: center;">Kỳ thủ</th><th style="text-align: center;">Điểm</th></tr></thead>
                     <tbody>`;
 
             playerData.breakdown.forEach(item => {
-                html += `<tr><td><a href="${item.url}" target="_blank" style="color: var(--cyan-300); text-decoration: none;">${item.tourName}</a></td><td style="text-align: center; color: var(--yellow-400); font-weight: bold;">${item.points}</td></tr>`;
+                const variantInfo = VARIANTS[item.variant?.toLowerCase()] || {};
+                const variantIcon = variantInfo.icon ? createImg(CONFIG.CHESS_COM_URL + variantInfo.icon) : '';
+                const variantName = variantInfo.name || item.variant || 'N/A';
+
+                html += `<tr>
+                    <td>
+                        <a href="${item.url}" target="_blank" style="color: var(--cyan-300); text-decoration: none; font-weight: 500;">
+                            ${item.tourName}
+                        </a>
+                        <div style="font-size: 0.85em; color: var(--neutral-300); margin-top: 3px;">
+                            ${formatDate(item.startTime)}
+                        </div>
+                    </td>
+                    <td style="text-align: center; font-size: 0.9em;">
+                        <div>${Renderer.timeFormat(item.timeControl, item.timeClass)}</div>
+                        <div style="margin-top: 4px;">${variantName} ${variantIcon}</div>
+                        <div style="font-size: 0.8em; color: var(--neutral-400); margin-top: 2px;">
+                            ${item.format}
+                        </div>
+                    </td>
+                    <td style="text-align: center; color: var(--neutral-100);">
+                        ${item.playersCount}
+                    </td>
+                    <td style="text-align: center; color: var(--green-400); font-weight: bold; font-size: 1.05em;">
+                        ${item.points}
+                    </td>
+                </tr>`;
             });
 
             html += `</tbody>
-                <tfoot><tr style="border-top: 2px solid var(--cyan-300);"><td style="text-align: right; font-weight: bold;">TỔNG CỘNG:</td><td style="text-align: center; color: var(--yellow-400); font-weight: bold; font-size: 1.1em;">${playerData.totalPoints}</td></tr></tfoot>
+                <tfoot>
+                    <tr style="border-top: 2px solid var(--cyan-300); background-color: rgba(0, 255, 255, 0.05);">
+                        <td style="font-weight: bold; color: var(--cyan-300);">TỔNG CỘNG</td>
+                        <td style="text-align: center; color: var(--neutral-400);">${playerData.breakdown.length} giải</td>
+                        <td></td>
+                        <td style="text-align: center; color: var(--yellow-400); font-weight: bold; font-size: 1.15em;">
+                            ${playerData.totalPoints}
+                        </td>
+                    </tr>
+                </tfoot>
                 </table></div>`;
 
-            ModalManager.show(`${playerData.username}`, html);
+            ModalManager.show(`Lịch sử tháng của ${playerData.username}`, html);
         },
 
         handleMonthClick(monthElement, tournaments) {
@@ -497,12 +516,8 @@
                     }
                 }
 
-                const formatStr = tour.totalRounds === 1
-                    ? `Đấu trường Arena ${tour.duration}`
-                    : `Hệ Thụy Sĩ ${tour.totalRounds} vòng`;
-
                 const startTimeStr = formatDate(tour.startTime);
-                html += `<tr><td><a href="${tour.url}" target="_blank">${tour.name}</a></td><td>${startTimeStr}</td><td>${Renderer.timeFormat(tour.timeControl, tour.timeClass)}<br>${variantHtml}<br>${formatStr}</td><td style="text-align: center;">${tour.playersCount}</td></tr>`;
+                html += `<tr><td><a href="${tour.url}" target="_blank">${tour.name}</a></td><td>${startTimeStr}</td><td>${Renderer.timeFormat(tour.timeControl, tour.timeClass)}<br>${variantHtml}<br>${tour.format}</td><td style="text-align: center;">${tour.playersCount}</td></tr>`;
             });
 
             html += '</tbody></table></div>';
@@ -514,7 +529,6 @@
         }
     };
 
-    // ========== Page Manager ==========
     const PageManager = {
         async init() {
             const container = document.querySelector('[data-fetch-aggregated]');
@@ -613,7 +627,6 @@
 
             const tbody = document.getElementById('tournament-tbody');
             tbody.addEventListener('click', (e) => {
-                // NEW: Click on player cell with avatar
                 const playerCell = e.target.closest('.clickable-player');
                 if (playerCell) {
                     const playerData = JSON.parse(playerCell.dataset.player);
@@ -623,7 +636,6 @@
                     return;
                 }
 
-                // Month click
                 const monthElement = e.target.closest('.month-clickable');
                 if (monthElement) {
                     const tournaments = JSON.parse(monthElement.dataset.tournaments);
@@ -649,7 +661,6 @@
 
                     const { playerScores, tournaments, status } = await DataProcessor.getMonthlyAggregation(monthId, eventType);
 
-                    // Parse month for timestamp
                     const [monthNum, year] = monthId.split('-').map(Number);
                     const timestamp = new Date(year, monthNum - 1, 1).getTime();
 
@@ -706,7 +717,6 @@
         }
     };
 
-    // ========== Initialization ==========
     if (document.readyState === 'loading') {
         window.addEventListener('DOMContentLoaded', () => PageManager.init());
     } else {

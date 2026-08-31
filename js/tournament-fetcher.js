@@ -1,7 +1,3 @@
-/**
- * @file Tournament Data Fetcher
- * @description Fetches and renders chess tournament data from Chess.com API and Gist sources.
- */
 
 (function() {
     const CONFIG = {
@@ -85,6 +81,22 @@
         return `${h}h${m}, ngày ${day}/${mo}/${y}`;
     }
 
+    function calculateDuration(start, end) {
+        if (!start || !end) return 'N/A';
+        const s = new Date(start * 1000), e = new Date(end * 1000);
+        if (isNaN(s) || isNaN(e) || e < s) return 'N/A';
+        const diff = e - s;
+        const units = [{ n: 'ngày', m: 86400000 }, { n: 'tiếng', m: 3600000 }, { n: 'phút', m: 60000 }, { n: 'giây', m: 1000 }];
+        for (const u of units) {
+            if (diff >= u.m) {
+                const val = Math.floor(diff / u.m), rem = diff % u.m;
+                if (u.n === 'tiếng' && rem >= 60000) return `${val} tiếng ${Math.floor(rem / 60000)} phút`;
+                return `${val} ${u.n}`;
+            }
+        }
+        return 'N/A';
+    }
+
     // ========== Cache System ==========
     const Cache = {
         mem: new Map(),
@@ -122,12 +134,23 @@
     const ModalManager = {
         show(title, content) {
             const m = document.getElementById('scoreModal'), t = document.getElementById('modal-player-name'), b = document.getElementById('modal-score-breakdown');
-            if (m && t && b) { t.textContent = title; b.innerHTML = content; m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            if (m && t && b) { 
+                t.textContent = title; 
+                b.innerHTML = content; 
+                m.classList.add('open'); 
+                document.body.style.overflow = 'hidden'; 
+            }
         },
-        close() { const m = document.getElementById('scoreModal'); if (m) { m.classList.remove('open'); document.body.style.overflow = ''; } }
+        close() { 
+            const m = document.getElementById('scoreModal'); 
+            if (m) { 
+                m.classList.remove('open'); 
+                document.body.style.overflow = ''; 
+            } 
+        }
     };
 
-    // ========== Store Player Data (Global) ==========
+    // ========== Store Player Data with Tournament Details ==========
     const PLAYER_DATA_STORE = new Map();
 
     function storePlayerData(username, data) {
@@ -136,8 +159,9 @@
             const existing = PLAYER_DATA_STORE.get(key);
             existing.avatar = data.avatar || existing.avatar;
             existing.status = data.status || existing.status;
+            // Merge tournament breakdowns, avoiding duplicates
             data.breakdown.forEach(newBk => {
-                if (!existing.breakdown.some(item => item.tourName === newBk.tourName && item.url === newBk.url)) {
+                if (!existing.breakdown.some(item => item.tourId === newBk.tourId)) {
                     existing.breakdown.push(newBk);
                 }
             });
@@ -156,7 +180,6 @@
             const playerData = getStoredPlayerData(username);
             
             if (!playerData) {
-                // Fallback if data not found
                 ModalManager.show(username, `<div class="calendar-wrapper" style="padding: 20px;">
                     <div style="text-align: center;">
                         <p>Đang tải dữ liệu...</p>
@@ -179,29 +202,44 @@
                     <thead>
                         <tr>
                             <th>Giải Đấu</th>
+                            <th style="text-align: center;">Thể lệ</th>
                             <th style="text-align: center;">Điểm</th>
                         </tr>
                     </thead>
                     <tbody>`;
 
             breakdown.forEach(item => {
+                const variantInfo = VARIANTS[item.variant?.toLowerCase()] || {};
+                const variantIcon = variantInfo.icon ? createImg(CONFIG.CHESS_COM_URL + variantInfo.icon) : '';
+                const variantName = variantInfo.name || item.variant || 'N/A';
+
                 html += `<tr>
-                    <td><a href="${item.url}" target="_blank" style="color: var(--cyan-300); text-decoration: none;">${item.tourName}</a></td>
-                    <td style="text-align: center; color: var(--yellow-400); font-weight: bold;">${item.points}</td>
+                    <td>
+                        <a href="${item.url}" target="_blank" style="color: var(--cyan-300); text-decoration: none; font-weight: 500;">
+                            ${item.tourName}
+                        </a>
+                        <div style="font-size: 0.85em; color: var(--neutral-300); margin-top: 3px;">
+                            ${formatDate(item.startTime)}
+                        </div>
+                    </td>
+                    <td style="text-align: center; font-size: 0.9em;">
+                        <div>${formatTimeControl(item.timeControl, item.timeClass)}</div>
+                        <div style="margin-top: 4px;">${variantName} ${variantIcon}</div>
+                        <div style="font-size: 0.8em; color: var(--neutral-400); margin-top: 2px;">
+                            ${item.format}
+                        </div>
+                    </td>
+                    <td style="text-align: center; color: var(--green-400); font-weight: bold; font-size: 1.05em;">
+                        ${item.points}
+                    </td>
                 </tr>`;
             });
 
             html += `</tbody>
-                    <tfoot>
-                        <tr style="border-top: 2px solid var(--cyan-300);">
-                            <td style="text-align: right; font-weight: bold;">TỔNG CỘNG:</td>
-                            <td style="text-align: center; color: var(--yellow-400); font-weight: bold; font-size: 1.1em;">${points}</td>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>`;
 
-            ModalManager.show(`Chi tiết điểm của ${username}`, html);
+            ModalManager.show(`Lịch sử đạt lọt top 6 của ${username}`, html);
         },
 
         handleCustomVariantClick(setup) {
@@ -217,49 +255,42 @@
                 if (r.status === 429) { await new Promise(x => setTimeout(x, 2000)); continue; }
                 if (!r.ok) return null;
                 return json ? await r.json() : await r.text();
-            } catch (e) { if (i === 1) return null; await new Promise(x => setTimeout(x, 1000)); }
+            } catch (e) { 
+                if (i === 1) return null; 
+                await new Promise(x => setTimeout(x, 1000)); 
+            }
         }
     }
 
     async function getTour(id) {
-        const c = Cache.get(`t_${id}`); if (c) return c;
+        const c = Cache.get(`t_${id}`); 
+        if (c) return c;
         const d = await fetchRetry(`${CONFIG.CHESS_COM_BASE}/tournament/${id}`);
         if (d) Cache.set(`t_${id}`, d, (d.status === 'finished' || d.tournament?.status === 'finished') ? 'f' : 't');
         return d;
     }
 
     async function getPlayer(u) {
-        const c = Cache.get(`p_${u}`); if (c) return c;
+        const c = Cache.get(`p_${u}`); 
+        if (c) return c;
         const d = await fetchRetry(`${CONFIG.CHESS_COM_BASE}/player/${u}`);
         if (d) Cache.set(`p_${u}`, d, 'p');
         return d;
     }
 
-    function calculateDuration(start, end) {
-        if (!start || !end) return 'N/A';
-        const s = new Date(start * 1000), e = new Date(end * 1000);
-        if (isNaN(s) || isNaN(e) || e < s) return 'N/A';
-        const diff = e - s;
-        const units = [{ n: 'ngày', m: 86400000 }, { n: 'tiếng', m: 3600000 }, { n: 'phút', m: 60000 }, { n: 'giây', m: 1000 }];
-        for (const u of units) {
-            if (diff >= u.m) {
-                const val = Math.floor(diff / u.m), rem = diff % u.m;
-                if (u.n === 'tiếng' && rem >= 60000) return `${val} tiếng ${Math.floor(rem / 60000)} phút`;
-                return `${val} ${u.n}`;
-            }
-        }
-        return 'N/A';
-    }
-
     function parseTC(tc) {
         if (!tc) return '3+0';
         const m = String(tc).match(/^(\d+)\+(\d+)$/);
-        if (m) { const b = parseInt(m[1]), i = parseInt(m[2]); return b >= 60 ? `${Math.floor(b/60)}+${i}` : `${b}+${i}`; }
-        const n = parseInt(tc); return !isNaN(n) ? (n >= 60 ? `${Math.floor(n/60)}+0` : `${n}+0`) : '3+0';
+        if (m) { 
+            const b = parseInt(m[1]), i = parseInt(m[2]); 
+            return b >= 60 ? `${Math.floor(b/60)}+${i}` : `${b}+${i}`; 
+        }
+        const n = parseInt(tc); 
+        return !isNaN(n) ? (n >= 60 ? `${Math.floor(n/60)}+0` : `${n}+0`) : '3+0';
     }
 
-    // ========== Render Player Cell ==========
-    async function renderPlayer(u, pts, tournamentName, tournamentUrl) {
+    // ========== Render Player Cell with Enhanced Modal Data ==========
+    async function renderPlayer(u, pts, tourData) {
         if (!u) return '<td style="color:var(--primary-warning)">Giải chưa kết thúc!</td>';
         
         const sp = SPECIAL_PLAYERS.get(u.toLowerCase());
@@ -267,20 +298,41 @@
         
         const p = await getPlayer(specialUsername);
 
-        // Store in global for modal
+        // Extract variant and format
+        const variant = tourData.settings?.rules || tourData.rules || 'standard';
+        const isCustom = (variant === 'standard' || variant === 'chess') && tourData.settings?.initial_setup;
+        const finalVariant = isCustom ? 'custom' : variant;
+        
+        const rounds = tourData.settings?.total_rounds || tourData.rounds || tourData.total_rounds || 0;
+        const format = rounds === 1 
+            ? `Đấu trường Arena ${calculateDuration(tourData.start_time || tourData.startTime, tourData.finish_time || tourData.endTime)}`
+            : `Hệ Thụy Sĩ ${rounds} vòng`;
+
+        // Store in global with enhanced tournament details
+        const breakdownItem = {
+            tourId: tourData.id || tourData.url,
+            tourName: tourData.name || 'Unknown',
+            url: tourData.url || `${CONFIG.CHESS_COM_URL}/tournament/${tourData.id}`,
+            points: pts,
+            variant: finalVariant,
+            timeControl: parseTC(tourData.settings?.time_control || tourData.time_control || tourData.timeControl),
+            timeClass: tourData.settings?.time_class || tourData.time_class || 'classical',
+            playersCount: tourData.settings?.registered_user_count || tourData.players_registered || tourData.players?.length || 0,
+            startTime: tourData.start_time || tourData.startTime || 0,
+            format: format
+        };
+
         storePlayerData(specialUsername, {
             avatar: p?.avatar || CONFIG.DEFAULT_AVATAR,
             status: p?.status || 'N/A',
-            breakdown: [{
-                tourName: tournamentName,
-                points: pts,
-                url: tournamentUrl
-            }]
+            breakdown: [breakdownItem]
         });
 
         return `<td class="player-cell clickable-player" data-username="${specialUsername}" data-points="${pts}" style="cursor: pointer;">
             <div class="post-user-component">
-                <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank"><img class="cc-avatar-img" src="${p?.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${specialUsername}"></a>
+                <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank">
+                    <img class="cc-avatar-img" src="${p?.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${specialUsername}">
+                </a>
                 <div class="post-user-details">
                     <div class="user-tagline-component">
                         <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank">${specialUsername}</a>
@@ -296,12 +348,16 @@
 
     // ========== Main Init ==========
     async function init(type = 'tvlt', containerId = 'tournament-table') {
-        const el = document.getElementById(containerId); if (!el) return;
+        const el = document.getElementById(containerId); 
+        if (!el) return;
         el.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
         const txt = await fetchRetry(`${CONFIG.GIST_BASE}/${type}.txt`, false);
         const ids = txt ? txt.split('\n').filter(l => l.trim()) : [];
-        if (!ids.length) { el.innerHTML = '<div class="error">Không tìm thấy giải đấu.</div>'; return; }
+        if (!ids.length) { 
+            el.innerHTML = '<div class="error">Không tìm thấy giải đấu.</div>'; 
+            return; 
+        }
 
         el.innerHTML = `
             <div class="filter-group-container" style="margin-bottom: 25px;">
@@ -435,7 +491,8 @@
 
         const tbody = document.getElementById('tournament-tbody');
         const skeletons = ids.map(() => {
-            const tr = document.createElement('tr'); tr.className = 'skeleton-row';
+            const tr = document.createElement('tr'); 
+            tr.className = 'skeleton-row';
             let row = `
                 <td><div class="skeleton skeleton-text" style="width: 80%;"></div></td>
                 <td><div class="skeleton skeleton-text" style="width: 70%;"></div></td>
@@ -447,44 +504,63 @@
                     <div class="skeleton skeleton-text" style="width: 40px;"></div></div></div></td>`;
             }
             tr.innerHTML = row;
-            tbody.appendChild(tr); return tr;
+            tbody.appendChild(tr); 
+            return tr;
         });
 
         let success = 0;
         await Promise.allSettled(ids.map(async (id, idx) => {
             if (!Cache.get(`t_${id}`)) await new Promise(r => setTimeout(r, (idx % CONFIG.MAX_CONCURRENT) * 100));
             try {
-                const data = await getTour(id); if (!data) return;
+                const data = await getTour(id); 
+                if (!data) return;
+                
                 const rds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
                 let ptsMap = new Map();
+                
                 if (rds > 0) {
                     const rdData = await fetchRetry(`${CONFIG.CHESS_COM_BASE}/tournament/${id}/${rds}`);
                     const groups = rdData?.groups || [];
-                    const pList = groups.length ? (await Promise.allSettled(groups.map(url => fetchRetry(url)))).filter(r => r.status === 'fulfilled').flatMap(r => r.value?.players || []) : (rdData?.players || []);
+                    const pList = groups.length 
+                        ? (await Promise.allSettled(groups.map(url => fetchRetry(url))))
+                            .filter(r => r.status === 'fulfilled')
+                            .flatMap(r => r.value?.players || []) 
+                        : (rdData?.players || []);
                     pList.forEach(p => p.username && ptsMap.set(p.username.toLowerCase(), p.points || 0));
                 }
 
-                const players = (data.players || []).map(p => {
-                    const u = typeof p === 'string' ? p : p.username;
-                    return { u, pts: p.points ?? ptsMap.get(u.toLowerCase()) ?? 0, rank: p.rank || p.place_finish };
-                }).sort((a, b) => (a.rank || Infinity) - (b.rank || Infinity) || b.pts - a.pts);
+                const players = (data.players || [])
+                    .map(p => {
+                        const u = typeof p === 'string' ? p : p.username;
+                        return { 
+                            u, 
+                            pts: p.points ?? ptsMap.get(u.toLowerCase()) ?? 0, 
+                            rank: p.rank || p.place_finish 
+                        };
+                    })
+                    .sort((a, b) => (a.rank || Infinity) - (b.rank || Infinity) || b.pts - a.pts);
 
                 const top = players.slice(0, CONFIG.MAX_PLAYERS);
                 await Promise.allSettled(top.map(p => getPlayer(SPECIAL_PLAYERS.get(p.u.toLowerCase()) || p.u)));
+
+                // Add tournament ID to data
+                data.id = id;
 
                 let v = data.settings?.rules || data.rules || 'standard';
                 const s = data.settings?.initial_setup || null;
                 if ((v === 'standard' || v === 'chess') && s) v = 'custom';
 
-                const fmtStr = rds === 1 ? ` Đấu trường Arena ${calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime)}` : ` Hệ Thụy Sĩ ${rds} vòng`;
+                const fmtStr = rds === 1 
+                    ? ` Đấu trường Arena ${calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime)}` 
+                    : ` Hệ Thụy Sĩ ${rds} vòng`;
 
                 let row = `<td><a href="${data.url}" target="_blank">${data.name}</a></td>
                     <td>${formatDate(data.start_time || data.startTime)}</td>
-                    <td>${formatTimeControl(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${formatVariantLink(v, s)}${fmtStr}</td>
+                    <td>${formatTimeControl(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${formatVariantLink(v, s)}<br>${fmtStr}</td>
                     <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
 
                 for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) {
-                    row += await renderPlayer(top[i]?.u, top[i]?.pts || 0, data.name, data.url);
+                    row += await renderPlayer(top[i]?.u, top[i]?.pts || 0, data);
                 }
 
                 skeletons[idx].innerHTML = row;
@@ -499,11 +575,16 @@
                 if (typeof window.searchTable === 'function') {
                     window.searchTable();
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.error('Error loading tournament:', id, e);
+            }
         }));
 
         const icon = document.getElementById('statusIcon');
-        if (icon) { icon.style.color = success === ids.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = success === ids.length ? 'bx bx-check' : 'bx bx-x'; }
+        if (icon) { 
+            icon.style.color = success === ids.length ? 'var(--primary-success)' : 'var(--color-danger)'; 
+            icon.className = success === ids.length ? 'bx bx-check' : 'bx bx-x'; 
+        }
 
         // ========== Setup Event Listeners ==========
         document.getElementById('scoreModal')?.addEventListener('click', e => { 
@@ -511,7 +592,7 @@
         });
 
         tbody.addEventListener('click', e => {
-            // NEW: Click on player cell
+            // Click on player cell
             const playerCell = e.target.closest('.clickable-player');
             if (playerCell) {
                 const username = playerCell.dataset.username;
@@ -520,7 +601,7 @@
                 return;
             }
 
-            // Existing: Custom variant link
+            // Custom variant link
             const link = e.target.closest('.custom-variant-link');
             if (link) {
                 const setup = link.dataset.setup;
@@ -529,8 +610,13 @@
         });
     }
 
-    if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', () => document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id)));
-    else document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id));
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id));
+        });
+    } else {
+        document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id));
+    }
 
     window.TournamentModalManager = ModalManager;
 })();

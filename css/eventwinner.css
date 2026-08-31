@@ -97,7 +97,7 @@
 .skeleton-row { opacity: .7; }
 .skeleton-row td { padding: var(--space-md); }
 
-.cc-modal-overlay { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, .7); backdrop-filter: blur(4px); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease; }
+.cc-modal-overlay { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, .7); backdrop-filter: blur(4px); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease; }
 .cc-modal-overlay.open { opacity: 1; visibility: visible; }
 .cc-modal-dialog { display: grid; grid-template-columns: 470px 520px; gap: 0 1rem; width: max-content; max-width: max-content; max-height: 85vh; padding: 1rem; overflow: hidden; box-sizing: border-box; border: var(--border-width-base) solid var(--cyan-400); border-radius: var(--border-radius-xl); background: radial-gradient(circle at top left, var(--color-bg-tertiary), var(--color-bg-primary)); box-shadow: 0 0 20px rgba(0, 242, 255, .3), 0 0 40px rgba(0, 102, 204, .2); }
 .cc-modal-content-wrapper { grid-column: 2; grid-row: 1 / 4; display: flex; flex-direction: column; gap: 1rem; min-width: 0; padding: 1.5rem; overflow-y: auto; }
