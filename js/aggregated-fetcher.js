@@ -481,8 +481,7 @@
                 <tfoot>
                     <tr style="border-top: 2px solid var(--cyan-300); background-color: rgba(0, 255, 255, 0.05);">
                         <td style="font-weight: bold; color: var(--cyan-300);">TỔNG CỘNG</td>
-                        <td style="text-align: center; color: var(--neutral-400);">${playerData.breakdown.length} giải</td>
-                        <td></td>
+                        <td style="text-align: center; color: var(--blue-400);">${playerData.breakdown.length} giải</td>
                         <td style="text-align: center; color: var(--yellow-400); font-weight: bold; font-size: 1.15em;">
                             ${playerData.totalPoints}
                         </td>
@@ -555,8 +554,8 @@
                     <div class="tour-top-grid">
                         <div class="tour-select-container" style="grid-column: span 2;">
                             <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
-                                <option value="date-desc">Tháng tổ chức (Mới nhất)</option>
-                                <option value="date-asc">Tháng tổ chức (Cũ nhất)</option>
+                                <option value="date-desc">Tháng tổ chức (Gần đây nhất)</option>
+                                <option value="date-asc">Tháng tổ chức (Lâu đời nhất)</option>
                                 <option value="players-desc">Số lượng kỳ thủ (Nhiều nhất)</option>
                                 <option value="players-asc">Số lượng kỳ thủ (Ít nhất)</option>
                                 <option value="tours-desc">Số lượng giải đấu (Nhiều nhất)</option>
@@ -576,16 +575,18 @@
                             <span class="bx bx-search tour-search-icon"></span>
                             <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm..." onkeyup="searchTable()">
                         </div>
-                        <label class="tour-switch-container">
-                            <span class="tour-switch">
-                                <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
-                                <span class="tour-slider"></span>
-                            </span>
-                            <span>Hiện Premium Badge</span>
-                        </label>
-                        <div id="loading-status" class="loading-status-badge">
-                            <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>
-                            <span id="current-tournament">0</span>/${months.length} tháng
+                        <div class="tour-misc">
+                            <label class="tour-switch-container">
+                                <span class="tour-switch">
+                                    <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
+                                    <span class="tour-slider"></span>
+                                </span>
+                                <span>Hiện Premium Badge</span>
+                            </label>
+                            <div id="loading-status" class="loading-status-badge">
+                                <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>
+                                <span id="current-tournament">0</span>/${months.length} tháng
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -451,8 +451,8 @@
 
                     <div class="tour-select-container">
                         <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
-                            <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
-                            <option value="date-asc">Ngày tổ chức (Cũ nhất)</option>
+                            <option value="date-desc">Ngày tổ chức (Gần đây nhất)</option>
+                            <option value="date-asc">Ngày tổ chức (Lâu đời nhất)</option>
                             <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
                             <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
                         </select>
@@ -465,18 +465,18 @@
                         <span class="bx bx-search tour-search-icon"></span>
                         <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm tên giải hoặc kỳ thủ..." onkeyup="searchTable()">
                     </div>
-
-                    <label class="tour-switch-container">
-                        <span class="tour-switch">
-                            <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
-                            <span class="tour-slider"></span>
-                        </span>
-                        <span>Hiện Premium Badge</span>
-                    </label>
-
-                    <div id="loading-status" class="loading-status-badge">
-                        <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span>
-                        <span id="current-tournament">0</span>/${ids.length} giải
+                    <div class="tour-misc">
+                        <label class="tour-switch-container">
+                            <span class="tour-switch">
+                                <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
+                                <span class="tour-slider"></span>
+                            </span>
+                            <span>Hiện Premium Badge</span>
+                        </label>
+                        <div id="loading-status" class="loading-status-badge">
+                            <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span>
+                            <span id="current-tournament">0</span>/${ids.length} giải
+                        </div>
                     </div>
                 </div>
             </div>
