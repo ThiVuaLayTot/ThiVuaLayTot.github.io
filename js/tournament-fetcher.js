@@ -131,7 +131,19 @@
     const PLAYER_DATA_STORE = new Map();
 
     function storePlayerData(username, data) {
-        PLAYER_DATA_STORE.set(username.toLowerCase(), data);
+        const key = username.toLowerCase();
+        if (PLAYER_DATA_STORE.has(key)) {
+            const existing = PLAYER_DATA_STORE.get(key);
+            existing.avatar = data.avatar || existing.avatar;
+            existing.status = data.status || existing.status;
+            data.breakdown.forEach(newBk => {
+                if (!existing.breakdown.some(item => item.tourName === newBk.tourName && item.url === newBk.url)) {
+                    existing.breakdown.push(newBk);
+                }
+            });
+        } else {
+            PLAYER_DATA_STORE.set(key, data);
+        }
     }
 
     function getStoredPlayerData(username) {
@@ -154,12 +166,13 @@
             }
 
             const { avatar, status, breakdown } = playerData;
+            const badgeHtml = formatBadge(status);
 
-            // Build modal content with avatar and breakdown
             let html = `<div class="calendar-wrapper">
                 <div style="text-align: center; margin-bottom: 20px;">
                     <img src="${avatar || CONFIG.DEFAULT_AVATAR}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--cyan-300);" alt="${username}">
                     <h3 style="margin: 10px 0 5px 0;"><a href="${CONFIG.CHESS_COM_URL}/member/${username}" target="_blank">${username}</a></h3>
+                    ${badgeHtml ? `<div style="margin-top: 5px;">${badgeHtml}</div>` : ''}
                 </div>
 
                 <table class="styled-table score-detail-table" style="width: 100%;">
@@ -252,20 +265,10 @@
         const sp = SPECIAL_PLAYERS.get(u.toLowerCase());
         const specialUsername = sp || u;
         
-        const p = await getPlayer(u);
-        const playerDataJson = JSON.stringify({
-            username: u,
-            avatar: p?.avatar || CONFIG.DEFAULT_AVATAR,
-            status: p?.status || 'N/A',
-            breakdown: [{
-                tourName: tournamentName,
-                points: pts,
-                url: tournamentUrl
-            }]
-        }).replace(/'/g, "&apos;");
+        const p = await getPlayer(specialUsername);
 
         // Store in global for modal
-        storePlayerData(u, {
+        storePlayerData(specialUsername, {
             avatar: p?.avatar || CONFIG.DEFAULT_AVATAR,
             status: p?.status || 'N/A',
             breakdown: [{
@@ -275,12 +278,12 @@
             }]
         });
 
-        return `<td class="player-cell clickable-player" data-username="${u}" data-points="${pts}" style="cursor: pointer;">
+        return `<td class="player-cell clickable-player" data-username="${specialUsername}" data-points="${pts}" style="cursor: pointer;">
             <div class="post-user-component">
-                <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${u}"><img class="cc-avatar-img" src="${p?.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${u}"></a>
+                <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank"><img class="cc-avatar-img" src="${p?.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${specialUsername}"></a>
                 <div class="post-user-details">
                     <div class="user-tagline-component">
-                        <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${u}" target="_blank">${u}</a>
+                        <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank">${specialUsername}</a>
                     </div>
                     <div class="post-user-status">
                         <span>${formatBadge(p?.status)}</span>
@@ -467,7 +470,7 @@
                 }).sort((a, b) => (a.rank || Infinity) - (b.rank || Infinity) || b.pts - a.pts);
 
                 const top = players.slice(0, CONFIG.MAX_PLAYERS);
-                await Promise.allSettled(top.map(p => getPlayer(p.u)));
+                await Promise.allSettled(top.map(p => getPlayer(SPECIAL_PLAYERS.get(p.u.toLowerCase()) || p.u)));
 
                 let v = data.settings?.rules || data.rules || 'standard';
                 const s = data.settings?.initial_setup || null;

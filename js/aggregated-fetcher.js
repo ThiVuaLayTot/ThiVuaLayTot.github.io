@@ -456,11 +456,13 @@
 
     // ========== Event Handler Builder ==========
     const EventHandlers = {
-        handlePlayerClick(playerData, avatar) {
+        handlePlayerClick(playerData, avatar, status) {
+            const badgeHtml = Renderer.formatBadge(status);
             let html = `<div class="calendar-wrapper">
                 <div style="text-align: center; margin-bottom: 20px;">
                     <img src="${avatar || CONFIG.DEFAULT_AVATAR}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--cyan-300);" alt="${playerData.username}">
                     <h3 style="margin: 10px 0 5px 0;"><a href="${CONFIG.CHESS_COM_URL}/member/${playerData.username}" target="_blank">${playerData.username}</a></h3>
+                    ${badgeHtml ? `<div style="margin-top: 5px;">${badgeHtml}</div>` : ''}
                 </div>
 
                 <table class="styled-table score-detail-table" style="width: 100%;">
@@ -616,7 +618,8 @@
                 if (playerCell) {
                     const playerData = JSON.parse(playerCell.dataset.player);
                     const avatar = playerCell.dataset.avatar;
-                    EventHandlers.handlePlayerClick(playerData, avatar);
+                    const status = playerCell.dataset.status;
+                    EventHandlers.handlePlayerClick(playerData, avatar, status);
                     return;
                 }
 
