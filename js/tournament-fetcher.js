@@ -1,7 +1,3 @@
-/**
- * @file Tournament Data Fetcher
- * @description Fetches and renders chess tournament data from Chess.com API and Gist sources.
- */
 
 (function() {
     const CONFIG = {
@@ -11,7 +7,8 @@
         MAX_PLAYERS: 6,
         MAX_CONCURRENT: 10,
         CACHE_PREFIX: 'tvlt_',
-        CACHE_TTL: { p: 604800000, t: 86400000, f: 2592000000 }
+        CACHE_TTL: { p: 604800000, t: 86400000, f: 2592000000 },
+        DEFAULT_AVATAR: 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'
     };
 
     const SPECIAL_PLAYERS = new Map([
@@ -40,90 +37,39 @@
         'standard': { name: 'Rapid', p: '/bundles/web/images/icons/smileys/2x/live.png' }
     };
 
-    const Cache = {
-        mem: new Map(),
-        get(k) {
-            if (this.mem.has(k)) return this.mem.get(k);
-            try {
-                const item = JSON.parse(localStorage.getItem(CONFIG.CACHE_PREFIX + k));
-                if (item && Date.now() < item.exp) { this.mem.set(k, item.val); return item.val; }
-                localStorage.removeItem(CONFIG.CACHE_PREFIX + k);
-            } catch (e) {}
-            return null;
-        },
-        set(k, val, type = 't') {
-            this.mem.set(k, val);
-            try {
-                const exp = Date.now() + (CONFIG.CACHE_TTL[type] || CONFIG.CACHE_TTL.t);
-                localStorage.setItem(CONFIG.CACHE_PREFIX + k, JSON.stringify({ val, exp }));
-            } catch (e) {
-                if (e.name === 'QuotaExceededError') {
-                    const keys = [];
-                    for (let i = 0; i < localStorage.length; i++) {
-                        const key = localStorage.key(i);
-                        if (key && key.startsWith(CONFIG.CACHE_PREFIX)) keys.push(key);
-                    }
-                    keys.forEach(k => localStorage.removeItem(k));
-                }
-            }
-        }
+    const BADGE_CONFIG = {
+        'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Bị khóa: Lạm dụng' },
+        'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Bị khóa: Fair Play' },
+        'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Đã khóa' },
+        'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
     };
 
-    const ModalManager = {
-        show(title, content) {
-            const m = document.getElementById('scoreModal'), t = document.getElementById('modal-player-name'), b = document.getElementById('modal-score-breakdown');
-            if (m && t && b) { t.textContent = title; b.innerHTML = content; m.classList.add('open'); document.body.style.overflow = 'hidden'; }
-        },
-        close() { const m = document.getElementById('scoreModal'); if (m) { m.classList.remove('open'); document.body.style.overflow = ''; } }
-    };
-
-    const HTML = {
-        img: (src, w = 15) => `<img src="${src}" width="${w}" height="${w}" alt="" style="vertical-align:middle">`,
-        vLink(v, setup = null) {
-            const d = VARIANTS[v.toLowerCase()] || { name: v, url: '/terms', icon: '/bundles/web/images/icons/smileys/2x/board.png' };
-            if (setup) {
-                return `<br><a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${d.name}${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
-            }
-            return `<br><a href="${CONFIG.CHESS_COM_URL}${d.url}" target="_blank">${d.name} ${this.img(CONFIG.CHESS_COM_URL + d.icon)}</a><br>`;
-        },
-        tFormat(tc, cl) {
-            const i = TIME_ICONS[cl];
-            return `${tc} ${i?.name || 'Standard'}${i ? this.img(CONFIG.CHESS_COM_URL + i.p) : ''}`;
-        },
-        badge(s) {
-            const b = {
-                'closed:abuse': { c: 'user-badges-closed', i: 'bx bx-dislike', t: 'Bị khóa: Lạm dụng' },
-                'closed:fair_play_violations': { c: 'user-badges-closed', i: 'bx bx-block', t: 'Bị khóa: Fair Play' },
-                'closed': { c: 'user-badges-inactive', i: 'bx bx-no-signal', t: 'Đã khóa' },
-                'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
-            }[s];
-            return b ? `<div class="user-badges-component"><div class="user-badges-badge ${b.c}"><span class="${b.i}"></span><span>${b.t}</span></div></div>` : '';
-        }
-    };
-
-    async function fetchRetry(url, json = true) {
-        for (let i = 0; i < 2; i++) {
-            try {
-                const r = await fetch(url);
-                if (r.status === 429) { await new Promise(x => setTimeout(x, 2000)); continue; }
-                if (!r.ok) return null;
-                return json ? await r.json() : await r.text();
-            } catch (e) { if (i === 1) return null; await new Promise(x => setTimeout(x, 1000)); }
-        }
+    // ========== Utility Functions ==========
+    function createImg(src, w = 15) {
+        return `<img src="${src}" width="${w}" height="${w}" alt="" style="vertical-align:middle">`;
     }
 
-    async function getTour(id) {
-        const c = Cache.get(`t_${id}`); if (c) return c;
-        const d = await fetchRetry(`${CONFIG.CHESS_COM_BASE}/tournament/${id}`);
-        if (d) Cache.set(`t_${id}`, d, (d.status === 'finished' || d.tournament?.status === 'finished') ? 'f' : 't');
-        return d;
+    function formatVariantLink(variant, setup) {
+        const config = VARIANTS[variant.toLowerCase()] || { name: variant, url: '/terms', icon: '/bundles/web/images/icons/smileys/2x/board.png' };
+        const url = CONFIG.CHESS_COM_URL + config.url;
+        const img = createImg(CONFIG.CHESS_COM_URL + config.icon);
+        
+        if (setup) {
+            return `<br><a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${config.name} ${img}</a><br>`;
+        }
+        return `<br><a href="${url}" target="_blank">${config.name} ${img}</a><br>`;
     }
 
-    async function getPlayer(u) {
-        const c = Cache.get(`p_${u}`); if (c) return c;
-        const d = await fetchRetry(`${CONFIG.CHESS_COM_BASE}/player/${u}`);
-        if (d) Cache.set(`p_${u}`, d, 'p');
-        return d;
+    function formatTimeControl(tc, timeClass) {
+        const icon = TIME_ICONS[timeClass];
+        const iconHtml = icon ? createImg(CONFIG.CHESS_COM_URL + icon.p) : '';
+        return `${tc} ${icon?.name || 'Standard'}${iconHtml}`;
+    }
+
+    function formatBadge(status) {
+        const badge = BADGE_CONFIG[status];
+        if (!badge) return '';
+        return `<div class="user-badges-component"><div class="user-badges-badge ${badge.c}"><span class="${badge.i}"></span><span>${badge.t}</span></div></div>`;
     }
 
     function formatDate(ts) {
@@ -151,30 +97,265 @@
         return 'N/A';
     }
 
+    // ========== Cache System ==========
+    const Cache = {
+        mem: new Map(),
+        get(k) {
+            if (this.mem.has(k)) return this.mem.get(k);
+            try {
+                const stored = localStorage.getItem(CONFIG.CACHE_PREFIX + k);
+                if (stored) {
+                    const { val, exp } = JSON.parse(stored);
+                    if (Date.now() < exp) {
+                        this.mem.set(k, val);
+                        return val;
+                    }
+                    localStorage.removeItem(CONFIG.CACHE_PREFIX + k);
+                }
+            } catch (e) {}
+            return null;
+        },
+        set(k, val, type = 't') {
+            this.mem.set(k, val);
+            try {
+                const exp = Date.now() + (CONFIG.CACHE_TTL[type] || CONFIG.CACHE_TTL.t);
+                localStorage.setItem(CONFIG.CACHE_PREFIX + k, JSON.stringify({ val, exp }));
+            } catch (e) {
+                if (e.name === 'QuotaExceededError') {
+                    Object.keys(localStorage)
+                        .filter(k => k.startsWith(CONFIG.CACHE_PREFIX))
+                        .forEach(k => localStorage.removeItem(k));
+                }
+            }
+        }
+    };
+
+    // ========== Modal Manager ==========
+    const ModalManager = {
+        show(title, content) {
+            const m = document.getElementById('scoreModal'), t = document.getElementById('modal-player-name'), b = document.getElementById('modal-score-breakdown');
+            if (m && t && b) { 
+                t.textContent = title; 
+                b.innerHTML = content; 
+                m.classList.add('open'); 
+                document.body.style.overflow = 'hidden'; 
+            }
+        },
+        close() { 
+            const m = document.getElementById('scoreModal'); 
+            if (m) { 
+                m.classList.remove('open'); 
+                document.body.style.overflow = ''; 
+            } 
+        }
+    };
+
+    // ========== Store Player Data with Tournament Details ==========
+    const PLAYER_DATA_STORE = new Map();
+
+    function storePlayerData(username, data) {
+        const key = username.toLowerCase();
+        if (PLAYER_DATA_STORE.has(key)) {
+            const existing = PLAYER_DATA_STORE.get(key);
+            existing.avatar = data.avatar || existing.avatar;
+            existing.status = data.status || existing.status;
+            // Merge tournament breakdowns, avoiding duplicates
+            data.breakdown.forEach(newBk => {
+                if (!existing.breakdown.some(item => item.tourId === newBk.tourId)) {
+                    existing.breakdown.push(newBk);
+                }
+            });
+        } else {
+            PLAYER_DATA_STORE.set(key, data);
+        }
+    }
+
+    function getStoredPlayerData(username) {
+        return PLAYER_DATA_STORE.get(username.toLowerCase());
+    }
+
+    // ========== Event Handlers ==========
+    const EventHandlers = {
+        handlePlayerClick(username, points) {
+            const playerData = getStoredPlayerData(username);
+            
+            if (!playerData) {
+                ModalManager.show(username, `<div class="calendar-wrapper" style="padding: 20px;">
+                    <div style="text-align: center;">
+                        <p>Đang tải dữ liệu...</p>
+                    </div>
+                </div>`);
+                return;
+            }
+
+            const { avatar, status, breakdown } = playerData;
+            const badgeHtml = formatBadge(status);
+
+            let html = `<div class="calendar-wrapper">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="${avatar || CONFIG.DEFAULT_AVATAR}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--cyan-300);" alt="${username}">
+                    <h3 style="margin: 10px 0 5px 0;"><a href="${CONFIG.CHESS_COM_URL}/member/${username}" target="_blank">${username}</a></h3>
+                    ${badgeHtml ? `<div style="margin-top: 5px;">${badgeHtml}</div>` : ''}
+                </div>
+
+                <table class="styled-table score-detail-table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Giải Đấu</th>
+                            <th style="text-align: center;">Thể lệ</th>
+                            <th style="text-align: center;">Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+            breakdown.forEach(item => {
+                const variantInfo = VARIANTS[item.variant?.toLowerCase()] || {};
+                const variantIcon = variantInfo.icon ? createImg(CONFIG.CHESS_COM_URL + variantInfo.icon) : '';
+                const variantName = variantInfo.name || item.variant || 'N/A';
+
+                html += `<tr>
+                    <td>
+                        <a href="${item.url}" target="_blank" style="color: var(--cyan-300); text-decoration: none; font-weight: 500;">
+                            ${item.tourName}
+                        </a>
+                        <div style="font-size: 0.85em; color: var(--neutral-300); margin-top: 3px;">
+                            ${formatDate(item.startTime)}
+                        </div>
+                    </td>
+                    <td style="text-align: center; font-size: 0.9em;">
+                        <div>${formatTimeControl(item.timeControl, item.timeClass)}</div>
+                        <div>${variantName} ${variantIcon}</div>
+                        <div>${item.format}</div>
+                    </td>
+                    <td style="text-align: center; color: var(--green-400); font-weight: bold; font-size: 1.05em;">
+                        ${item.points}
+                    </td>
+                </tr>`;
+            });
+
+            html += `</tbody>
+                </table>
+            </div>`;
+
+            ModalManager.show(`Lịch sử lọt top 6 của ${username}`, html);
+        },
+
+        handleCustomVariantClick(setup) {
+            ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">Xem thế cờ: <a href="https://lichess.org/analysis/${setup}" target="_blank">${setup}</a></div>`);
+        }
+    };
+
+    // ========== Fetch & Data Processing ==========
+    async function fetchRetry(url, json = true) {
+        for (let i = 0; i < 2; i++) {
+            try {
+                const r = await fetch(url);
+                if (r.status === 429) { await new Promise(x => setTimeout(x, 2000)); continue; }
+                if (!r.ok) return null;
+                return json ? await r.json() : await r.text();
+            } catch (e) { 
+                if (i === 1) return null; 
+                await new Promise(x => setTimeout(x, 1000)); 
+            }
+        }
+    }
+
+    async function getTour(id) {
+        const c = Cache.get(`t_${id}`); 
+        if (c) return c;
+        const d = await fetchRetry(`${CONFIG.CHESS_COM_BASE}/tournament/${id}`);
+        if (d) Cache.set(`t_${id}`, d, (d.status === 'finished' || d.tournament?.status === 'finished') ? 'f' : 't');
+        return d;
+    }
+
+    async function getPlayer(u) {
+        const c = Cache.get(`p_${u}`); 
+        if (c) return c;
+        const d = await fetchRetry(`${CONFIG.CHESS_COM_BASE}/player/${u}`);
+        if (d) Cache.set(`p_${u}`, d, 'p');
+        return d;
+    }
+
     function parseTC(tc) {
         if (!tc) return '3+0';
         const m = String(tc).match(/^(\d+)\+(\d+)$/);
-        if (m) { const b = parseInt(m[1]), i = parseInt(m[2]); return b >= 60 ? `${Math.floor(b/60)}+${i}` : `${b}+${i}`; }
-        const n = parseInt(tc); return !isNaN(n) ? (n >= 60 ? `${Math.floor(n/60)}+0` : `${n}+0`) : '3+0';
+        if (m) { 
+            const b = parseInt(m[1]), i = parseInt(m[2]); 
+            return b >= 60 ? `${Math.floor(b/60)}+${i}` : `${b}+${i}`; 
+        }
+        const n = parseInt(tc); 
+        return !isNaN(n) ? (n >= 60 ? `${Math.floor(n/60)}+0` : `${n}+0`) : '3+0';
     }
 
-    async function renderPlayer(u, pts) {
+    // ========== Render Player Cell with Enhanced Modal Data ==========
+    async function renderPlayer(u, pts, tourData) {
         if (!u) return '<td style="color:var(--primary-warning)">Giải chưa kết thúc!</td>';
+        
         const sp = SPECIAL_PLAYERS.get(u.toLowerCase());
-        if (sp) return `<td><a href="${CONFIG.CHESS_COM_URL}/member/${sp}" target="_top"><strong>${sp}</strong></a></td>`;
-        const p = await getPlayer(u);
-        return `<td><div class="post-user-component"><a class="cc-avatar-component post-user-avatar" href="https://chess.com/member/${p.username}"><img class="cc-avatar-img" src="${p?.avatar || 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'}" height="50" width="50" alt="${u}"></a>
-            <div class="post-user-details"><div class="user-tagline-component"><a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${u}" target="_blank">${u}</a></div>
-            <div class="post-user-status"><span>${HTML.badge(p?.status)}</span><span>${pts} ĐIỂM</span></div></div></div></td>`;
+        const specialUsername = sp || u;
+        
+        const p = await getPlayer(specialUsername);
+
+        // Extract variant and format
+        const variant = tourData.settings?.rules || tourData.rules || 'standard';
+        const isCustom = (variant === 'standard' || variant === 'chess') && tourData.settings?.initial_setup;
+        const finalVariant = isCustom ? 'custom' : variant;
+        
+        const rounds = tourData.settings?.total_rounds || tourData.rounds || tourData.total_rounds || 0;
+        const format = rounds === 1 
+            ? `Đấu trường Arena ${calculateDuration(tourData.start_time || tourData.startTime, tourData.finish_time || tourData.endTime)}`
+            : `Hệ Thụy Sĩ ${rounds} vòng`;
+
+        // Store in global with enhanced tournament details
+        const breakdownItem = {
+            tourId: tourData.id || tourData.url,
+            tourName: tourData.name || 'Unknown',
+            url: tourData.url || `${CONFIG.CHESS_COM_URL}/tournament/${tourData.id}`,
+            points: pts,
+            variant: finalVariant,
+            timeControl: parseTC(tourData.settings?.time_control || tourData.time_control || tourData.timeControl),
+            timeClass: tourData.settings?.time_class || tourData.time_class || 'classical',
+            playersCount: tourData.settings?.registered_user_count || tourData.players_registered || tourData.players?.length || 0,
+            startTime: tourData.start_time || tourData.startTime || 0,
+            format: format
+        };
+
+        storePlayerData(specialUsername, {
+            avatar: p?.avatar || CONFIG.DEFAULT_AVATAR,
+            status: p?.status || 'N/A',
+            breakdown: [breakdownItem]
+        });
+
+        return `<td class="player-cell clickable-player" data-username="${specialUsername}" data-points="${pts}" style="cursor: pointer;">
+            <div class="post-user-component">
+                <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank">
+                    <img class="cc-avatar-img" src="${p?.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${specialUsername}">
+                </a>
+                <div class="post-user-details">
+                    <div class="user-tagline-component">
+                        <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank">${specialUsername}</a>
+                    </div>
+                    <div class="post-user-status">
+                        <span>${formatBadge(p?.status)}</span>
+                        <span class="score-display" style="font-weight: bold;">${pts} ĐIỂM</span>
+                    </div>
+                </div>
+            </div>
+        </td>`;
     }
 
+    // ========== Main Init ==========
     async function init(type = 'tvlt', containerId = 'tournament-table') {
-        const el = document.getElementById(containerId); if (!el) return;
+        const el = document.getElementById(containerId); 
+        if (!el) return;
         el.innerHTML = '<div class="loading">Đang xử lý dữ liệu...</div>';
 
         const txt = await fetchRetry(`${CONFIG.GIST_BASE}/${type}.txt`, false);
         const ids = txt ? txt.split('\n').filter(l => l.trim()) : [];
-        if (!ids.length) { el.innerHTML = '<div class="error">Không tìm thấy giải đấu.</div>'; return; }
+        if (!ids.length) { 
+            el.innerHTML = '<div class="error">Không tìm thấy giải đấu.</div>'; 
+            return; 
+        }
 
         el.innerHTML = `
             <div class="filter-group-container" style="margin-bottom: 25px;">
@@ -270,8 +451,8 @@
 
                     <div class="tour-select-container">
                         <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
-                            <option value="date-desc">Ngày tổ chức (Mới nhất)</option>
-                            <option value="date-asc">Ngày tổ chức (Cũ nhất)</option>
+                            <option value="date-desc">Ngày tổ chức (Gần đây nhất)</option>
+                            <option value="date-asc">Ngày tổ chức (Lâu đời nhất)</option>
                             <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
                             <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
                         </select>
@@ -284,23 +465,23 @@
                         <span class="bx bx-search tour-search-icon"></span>
                         <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm tên giải hoặc kỳ thủ..." onkeyup="searchTable()">
                     </div>
-
-                    <label class="tour-switch-container">
-                        <span class="tour-switch">
-                            <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
-                            <span class="tour-slider"></span>
-                        </span>
-                        <span>Hiện Premium Badge</span>
-                    </label>
-
-                    <div id="loading-status" class="loading-status-badge">
-                        <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning)"></span>
-                        <span id="current-tournament">0</span>/${ids.length} giải
+                    <div class="tour-misc">
+                        <label class="tour-switch-container">
+                            <span class="tour-switch">
+                                <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
+                                <span class="tour-slider"></span>
+                            </span>
+                            <span>Hiện Premium Badge</span>
+                        </label>
+                        <div id="loading-status" class="loading-status-badge">
+                            <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning);font-size:medium"></span>
+                            <span id="current-tournament">0</span>/${ids.length} giải
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian bắt đầu</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
-            <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display:none"><td style="color:var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>`;
+            <th class="winner">🥇 Hạng 1</th><th class="winner">🥈 Hạng 2</th><th class="winner">🥉 Hạng 3</th><th class="winner">🎖️ Hạng 4</th><th class="winner">🏅 Hạng 5</th><th class="winner">⭐ Hang 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display:none"><td style="color:var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>`;
 
         if (typeof window.loadTournamentFiltersFromURL === 'function') {
             window.loadTournamentFiltersFromURL();
@@ -308,7 +489,8 @@
 
         const tbody = document.getElementById('tournament-tbody');
         const skeletons = ids.map(() => {
-            const tr = document.createElement('tr'); tr.className = 'skeleton-row';
+            const tr = document.createElement('tr'); 
+            tr.className = 'skeleton-row';
             let row = `
                 <td><div class="skeleton skeleton-text" style="width: 80%;"></div></td>
                 <td><div class="skeleton skeleton-text" style="width: 70%;"></div></td>
@@ -320,43 +502,64 @@
                     <div class="skeleton skeleton-text" style="width: 40px;"></div></div></div></td>`;
             }
             tr.innerHTML = row;
-            tbody.appendChild(tr); return tr;
+            tbody.appendChild(tr); 
+            return tr;
         });
 
         let success = 0;
         await Promise.allSettled(ids.map(async (id, idx) => {
             if (!Cache.get(`t_${id}`)) await new Promise(r => setTimeout(r, (idx % CONFIG.MAX_CONCURRENT) * 100));
             try {
-                const data = await getTour(id); if (!data) return;
+                const data = await getTour(id); 
+                if (!data) return;
+                
                 const rds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
                 let ptsMap = new Map();
+                
                 if (rds > 0) {
                     const rdData = await fetchRetry(`${CONFIG.CHESS_COM_BASE}/tournament/${id}/${rds}`);
                     const groups = rdData?.groups || [];
-                    const pList = groups.length ? (await Promise.allSettled(groups.map(url => fetchRetry(url)))).filter(r => r.status === 'fulfilled').flatMap(r => r.value?.players || []) : (rdData?.players || []);
+                    const pList = groups.length 
+                        ? (await Promise.allSettled(groups.map(url => fetchRetry(url))))
+                            .filter(r => r.status === 'fulfilled')
+                            .flatMap(r => r.value?.players || []) 
+                        : (rdData?.players || []);
                     pList.forEach(p => p.username && ptsMap.set(p.username.toLowerCase(), p.points || 0));
                 }
 
-                const players = (data.players || []).map(p => {
-                    const u = typeof p === 'string' ? p : p.username;
-                    return { u, pts: p.points ?? ptsMap.get(u.toLowerCase()) ?? 0, rank: p.rank || p.place_finish };
-                }).sort((a, b) => (a.rank || Infinity) - (b.rank || Infinity) || b.pts - a.pts);
+                const players = (data.players || [])
+                    .map(p => {
+                        const u = typeof p === 'string' ? p : p.username;
+                        return { 
+                            u, 
+                            pts: p.points ?? ptsMap.get(u.toLowerCase()) ?? 0, 
+                            rank: p.rank || p.place_finish 
+                        };
+                    })
+                    .sort((a, b) => (a.rank || Infinity) - (b.rank || Infinity) || b.pts - a.pts);
 
                 const top = players.slice(0, CONFIG.MAX_PLAYERS);
-                await Promise.allSettled(top.map(p => getPlayer(p.u)));
+                await Promise.allSettled(top.map(p => getPlayer(SPECIAL_PLAYERS.get(p.u.toLowerCase()) || p.u)));
+
+                // Add tournament ID to data
+                data.id = id;
 
                 let v = data.settings?.rules || data.rules || 'standard';
                 const s = data.settings?.initial_setup || null;
                 if ((v === 'standard' || v === 'chess') && s) v = 'custom';
 
-                const fmtStr = rds === 1 ? ` Đấu trường Arena ${calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime)}` : ` Hệ Thụy Sĩ ${rds} vòng`;
+                const fmtStr = rds === 1 
+                    ? ` Đấu trường Arena ${calculateDuration(data.start_time || data.startTime, data.finish_time || data.endTime)}` 
+                    : ` Hệ Thụy Sĩ ${rds} vòng`;
 
                 let row = `<td><a href="${data.url}" target="_blank">${data.name}</a></td>
                     <td>${formatDate(data.start_time || data.startTime)}</td>
-                    <td>${HTML.tFormat(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${HTML.vLink(v, s)}${fmtStr}</td>
+                    <td>${formatTimeControl(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${formatVariantLink(v, s)}${fmtStr}</td>
                     <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
 
-                for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) row += await renderPlayer(top[i]?.u, top[i]?.pts || 0);
+                for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) {
+                    row += await renderPlayer(top[i]?.u, top[i]?.pts || 0, data);
+                }
 
                 skeletons[idx].innerHTML = row;
                 skeletons[idx].setAttribute('data-start-time', data.start_time || data.startTime || 0);
@@ -370,24 +573,48 @@
                 if (typeof window.searchTable === 'function') {
                     window.searchTable();
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.error('Error loading tournament:', id, e);
+            }
         }));
 
         const icon = document.getElementById('statusIcon');
-        if (icon) { icon.style.color = success === ids.length ? 'var(--primary-success)' : 'var(--color-danger)'; icon.className = success === ids.length ? 'bx bx-check' : 'bx bx-x'; }
+        if (icon) { 
+            icon.style.color = success === ids.length ? 'var(--primary-success)' : 'var(--color-danger)'; 
+            icon.className = success === ids.length ? 'bx bx-check' : 'bx bx-x'; 
+        }
 
-        document.getElementById('scoreModal')?.addEventListener('click', e => { if (e.target.id === 'scoreModal') ModalManager.close(); });
+        // ========== Setup Event Listeners ==========
+        document.getElementById('scoreModal')?.addEventListener('click', e => { 
+            if (e.target.id === 'scoreModal') ModalManager.close(); 
+        });
+
         tbody.addEventListener('click', e => {
+            // Click on player cell
+            const playerCell = e.target.closest('.clickable-player');
+            if (playerCell) {
+                const username = playerCell.dataset.username;
+                const points = playerCell.dataset.points;
+                EventHandlers.handlePlayerClick(username, points);
+                return;
+            }
+
+            // Custom variant link
             const link = e.target.closest('.custom-variant-link');
             if (link) {
                 const setup = link.dataset.setup;
-                ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;"><a href="https://lichess.org/analysis/${setup}" target="_blank">${setup}</a></div>`);
+                EventHandlers.handleCustomVariantClick(setup);
             }
         });
     }
 
-    if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', () => document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id)));
-    else document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id));
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id));
+        });
+    } else {
+        document.querySelectorAll('[data-fetch-tournament]').forEach(c => init(c.dataset.fetchTournament, c.id));
+    }
 
     window.TournamentModalManager = ModalManager;
 })();

@@ -159,28 +159,24 @@ title: Lịch sự kiện của tháng
             </div>
             <div class="cc-modal-info-section">
                 <div class="cc-modal-info-item">
-                    <i class="icon-font-chess events-list-icon chess-board"></i>
                     <div>
                         <strong><span class="bx bx-grid-alt"></span> Thể lệ giải đấu:</strong>
                         <span id="modal-event-rules"></span>
                     </div>
                 </div>
                 <div class="cc-modal-info-item">
-                    <i class="icon-font-chess events-list-icon chess-board"></i>
                     <div>
                         <strong><span class="bx bxs-chess"></span> Thể lệ ván đấu:</strong>
                         <span id="modal-game-rules"></span>
                     </div>
                 </div>
                 <div class="cc-modal-info-item">
-                    <i class="icon-font-chess calendar events-list-icon"></i>
                     <div>
                         <strong><span class="bx bx-calendar"></span> Thời gian bắt đầu:</strong>
                         <span id="modal-time"></span>
                     </div>
                 </div>
                 <div class="cc-modal-info-item">
-                    <i class="icon-font-chess post-view-meta-club-admin user-shield"></i>
                     <div>
                         <strong><span class="bx bxs-user-check"></span> Tổ chức bởi:</strong>
                         <span id="modal-organizer"></span>
@@ -258,12 +254,12 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 .error{background:rgba(239,68,68,.1);color:var(--red-300);padding:var(--space-md);border-radius:var(--border-radius-md);margin:var(--space-lg);border:var(--border-width-base) solid var(--red-400);box-shadow:0 0 10px rgba(239,68,68,.2)}
 .empty-message{text-align:center;padding:40px;color:var(--neutral-500);font-size:var(--fs-lg);text-shadow:0 0 3px rgba(0,242,255,.2)}
 
-.cc-modal-overlay{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;z-index:200}
+.cc-modal-overlay{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;z-index:2000}
 .cc-modal-overlay.open{opacity:1;visibility:visible}
 .cc-modal-dialog{background:radial-gradient(circle at top left,var(--color-bg-tertiary) 0%,var(--color-bg-primary) 100%);border-radius:var(--border-radius-xl);width:max-content;max-width:max-content;max-height:85vh;overflow:hidden;border:var(--border-width-base) solid var(--cyan-400);box-shadow:0 0 20px rgba(0,242,255,.3),0 0 40px rgba(0,102,204,.2);display:grid;grid-template-columns:470px 520px;grid-template-rows:auto;gap:0 1rem;padding:1rem;box-sizing:border-box}
 .cc-modal-banner-section{background:var(--color-bg-primary);max-height:320px;border-radius:14px;border:var(--border-width-thin) solid rgba(53,201,252,.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
 .cc-modal-banner-section img{width:100%;height:100%;object-fit:cover;display:block}
-.cc-modal-content-wrapper{padding:1.5rem;overflow-y:auto;grid-column:2;grid-row:1/4;display:flex;flex-direction:column;gap:1rem;min-width:0}
+.cc-modal-content-wrapper{padding:1.5rem;overflow-y:auto;grid-column:2;grid-row:1/4;display:flex;flex-direction:column;gap:.75rem;min-width:0}
 .cc-modal-header-row{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.2rem}
 .cc-modal-logo-box{flex:0 0 80px;width:80px;height:80px;border-radius:var(--border-radius-lg);overflow:hidden;background-color:rgba(9,27,47,.8);border:var(--border-width-base) solid var(--cyan-400);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cc-modal-logo-box a{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
@@ -280,7 +276,7 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 .badge-tentative{background:rgba(244,63,94,.08);color:#f43f5e;border:1px solid rgba(244,63,94,.4);box-shadow:0 0 10px rgba(244,63,94,.15),inset 0 0 4px rgba(244,63,94,.1)}
 .badge-tentative:hover{background:rgba(244,63,94,.15);box-shadow:0 0 14px rgba(244,63,94,.35),inset 0 0 6px rgba(244,63,94,.2);transform:translateY(-1px)}
 
-.cc-modal-info-section{display:grid;grid-template-columns:1fr;gap:1rem;padding:1rem;width:100%;background:rgba(255,255,255,.02);border-radius:10px;border:1px solid rgba(47,185,255,.2)}
+.cc-modal-info-section{display:grid;grid-template-columns:1fr;gap:1rem;padding:var(--space-md) var(--space-xl);width:100%;background:rgba(255,255,255,.02);border-radius:10px;border:1px solid rgba(47,185,255,.2)}
 .cc-modal-info-item{display:flex;align-items:flex-start;gap:.8rem;font-size:1rem}
 .cc-modal-info-item i{color:var(--cyan-300);min-width:20px;margin-top:2px;filter:drop-shadow(0 0 3px rgba(0,242,255,.3))}
 .cc-modal-info-item strong{color:var(--cyan-400);min-width:80px;font-weight:var(--fw-semibold)}
@@ -405,16 +401,16 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 
     .cc-modal-dialog{width:min(95vw,500px);display:flex;flex-direction:column;grid-template-columns:unset;grid-template-rows:unset;padding:0}
     .cc-modal-banner-section{width:100%;flex:0 0 auto;min-height:unset;border-radius:16px 16px 0 0;border-bottom:1px solid rgba(47,185,255,.18)}
-    .cc-modal-banner-section img{width:100%;height:auto;min-height:unset;max-height:220px}
-    .cc-modal-content-wrapper{padding:1.5rem;min-width:unset;max-width:unset;width:100%}
-    .btn-group{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 1.5rem 1.5rem}
+    .cc-modal-banner-section img{width:100%;height:auto;min-height:unset;max-height:247px}
+    .cc-modal-content-wrapper{padding:1.5rem;min-width:unset;max-width:unset;gap:var(--space-xs);width:100%}
+    .btn-group{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;padding:0 1.5rem 1.5rem}
     .btn-group a{display:block;width:100%}
     .btn{height:44px;font-size:13px;white-space:nowrap}
     .cc-modal-header-row{flex-direction:row;align-items:center;justify-content:flex-start;text-align:left;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
     .cc-modal-logo-box{flex:0 0 80px;width:80px;height:80px}
     .cc-modal-title-section{flex:1;min-width:0}
     .cc-modal-title-section h2{font-size:1.4rem}
-    .cc-modal-info-section{grid-template-columns:1fr;gap:.75rem;margin:0 0 1.5rem;max-width:unset;width:100%}
+    .cc-modal-info-section{grid-template-columns:1fr;gap:.75rem;padding:var(--space-sm) var(--space-lg);max-width:unset;width:100%}
     .cc-modal-close{right:1rem;top:1rem;width:2.2rem;height:2.2rem;font-size:1.2rem}
 
     .schedule-control-bar{flex-direction:column;align-items:stretch;gap:12px;padding:12px}
@@ -435,8 +431,8 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 }
 
 @media(max-width:480px){
-    .btn-group{grid-template-columns:1fr;gap:8px}
     .events-list-grid{grid-template-columns:1fr;gap:15px}
+    .btn{gap:1px;font-size:12px;}
 }
 </style>
 <script src="/js/schedule.js"></script>
