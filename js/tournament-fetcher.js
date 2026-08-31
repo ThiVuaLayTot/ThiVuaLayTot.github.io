@@ -55,7 +55,7 @@
         const img = createImg(CONFIG.CHESS_COM_URL + config.icon);
         
         if (setup) {
-            return `<br><a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${config.name}${img}</a><br>`;
+            return `<br><a href="javascript:void(0)" class="custom-variant-link" data-setup="${setup}">${config.name} ${img}</a><br>`;
         }
         return `<br><a href="${url}" target="_blank">${config.name} ${img}</a><br>`;
     }
@@ -224,10 +224,8 @@
                     </td>
                     <td style="text-align: center; font-size: 0.9em;">
                         <div>${formatTimeControl(item.timeControl, item.timeClass)}</div>
-                        <div style="margin-top: 4px;">${variantName} ${variantIcon}</div>
-                        <div style="font-size: 0.8em; color: var(--neutral-400); margin-top: 2px;">
-                            ${item.format}
-                        </div>
+                        <div>${variantName} ${variantIcon}</div>
+                        <div>${item.format}</div>
                     </td>
                     <td style="text-align: center; color: var(--green-400); font-weight: bold; font-size: 1.05em;">
                         ${item.points}
@@ -239,11 +237,11 @@
                 </table>
             </div>`;
 
-            ModalManager.show(`Lịch sử đạt lọt top 6 của ${username}`, html);
+            ModalManager.show(`Lịch sử lọt top 6 của ${username}`, html);
         },
 
         handleCustomVariantClick(setup) {
-            ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;"><a href="https://lichess.org/analysis/${setup}" target="_blank">${setup}</a></div>`);
+            ModalManager.show('Thế cờ ban đầu', `<div class="calendar-wrapper" style="padding: 20px; color: var(--neutral-100); word-break: break-all;">Xem thế cờ: <a href="https://lichess.org/analysis/${setup}" target="_blank">${setup}</a></div>`);
         }
     };
 
@@ -483,7 +481,7 @@
                 </div>
             </div>
             <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian bắt đầu</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
-            <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display:none"><td style="color:var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>`;
+            <th class="winner">🥇 Hạng 1</th><th class="winner">🥈 Hạng 2</th><th class="winner">🥉 Hạng 3</th><th class="winner">🎖️ Hạng 4</th><th class="winner">🏅 Hạng 5</th><th class="winner">⭐ Hang 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display:none"><td style="color:var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>`;
 
         if (typeof window.loadTournamentFiltersFromURL === 'function') {
             window.loadTournamentFiltersFromURL();
@@ -556,7 +554,7 @@
 
                 let row = `<td><a href="${data.url}" target="_blank">${data.name}</a></td>
                     <td>${formatDate(data.start_time || data.startTime)}</td>
-                    <td>${formatTimeControl(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${formatVariantLink(v, s)}<br>${fmtStr}</td>
+                    <td>${formatTimeControl(parseTC(data.settings?.time_control || data.time_control || data.timeControl), data.settings?.time_class || data.time_class)}${formatVariantLink(v, s)}${fmtStr}</td>
                     <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
 
                 for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) {

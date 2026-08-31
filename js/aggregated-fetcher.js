@@ -326,7 +326,6 @@
                         variant: meta.variant,
                         timeControl: meta.timeControl,
                         timeClass: meta.timeClass,
-                        playersCount: meta.registeredCount,
                         startTime: meta.startTime,
                         format: format
                     });
@@ -450,7 +449,7 @@
                 </div>
 
                 <table class="styled-table score-detail-table" style="width: 100%;">
-                    <thead><tr><th>Giải đấu</th><th style="text-align: center;">Thể lệ</th><th style="text-align: center;">Kỳ thủ</th><th style="text-align: center;">Điểm</th></tr></thead>
+                    <thead><tr><th>Giải đấu</th><th style="text-align: center;">Thể lệ</th><th style="text-align: center;">Điểm</th></tr></thead>
                     <tbody>`;
 
             playerData.breakdown.forEach(item => {
@@ -470,12 +469,7 @@
                     <td style="text-align: center; font-size: 0.9em;">
                         <div>${Renderer.timeFormat(item.timeControl, item.timeClass)}</div>
                         <div style="margin-top: 4px;">${variantName} ${variantIcon}</div>
-                        <div style="font-size: 0.8em; color: var(--neutral-400); margin-top: 2px;">
-                            ${item.format}
-                        </div>
-                    </td>
-                    <td style="text-align: center; color: var(--neutral-100);">
-                        ${item.playersCount}
+                        <div>${item.format}</div>
                     </td>
                     <td style="text-align: center; color: var(--green-400); font-weight: bold; font-size: 1.05em;">
                         ${item.points}
@@ -496,7 +490,7 @@
                 </tfoot>
                 </table></div>`;
 
-            ModalManager.show(`Lịch sử tháng của ${playerData.username}`, html);
+            ModalManager.show(`Tổng kết tháng của ${playerData.username}`, html);
         },
 
         handleMonthClick(monthElement, tournaments) {
@@ -598,7 +592,7 @@
                 <div class="table">
                     <table class="styled-table" id="tournament-results-table">
                         <thead><tr><th class="name-tour">Tháng</th><th class="organization-day">Thống kê</th><th class="players">Kỳ thủ</th>
-                        <th class="winner">🥇 Top 1</th><th class="winner">🥈 Top 2</th><th class="winner">🥉 Top 3</th><th class="winner">🎖️ Top 4</th><th class="winner">🏅 Top 5</th><th class="winner">⭐ Top 6</th></tr></thead>
+                        <th class="winner">🥇 Hạng 1</th><th class="winner">🥈 Hạng 2</th><th class="winner">🥉 Hạng 3</th><th class="winner">🎖️ Hạng 4</th><th class="winner">🏅 Hạng 5</th><th class="winner">⭐ Hạng 6</th></tr></thead>
                         <tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody>
                     </table>
                 </div>`;
