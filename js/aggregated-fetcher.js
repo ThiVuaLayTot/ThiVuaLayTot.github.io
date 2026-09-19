@@ -375,9 +375,9 @@
 
             return `<td class="player-cell clickable-player" data-player='${JSON.stringify(player).replace(/'/g, "&apos;")}' data-avatar='${(data.avatar || CONFIG.DEFAULT_AVATAR).replace(/'/g, "&apos;")}' data-status='${data.status || "N/A"}' style="cursor: pointer;">
                 <div class="post-user-component">
-                    <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${data.username}" target="_blank">
+                    <div class="cc-avatar-component post-user-avatar">
                         <img class="cc-avatar-img" src="${data.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${data.username}">
-                    </a>
+                    </div>
                     <div class="post-user-details">
                         <div class="user-tagline-component">
                             <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${data.username}" target="_blank">${data.username}</a>

@@ -2,12 +2,12 @@
 
 .table { position: relative; width: 100%; max-width: inherit; max-height: 75vh; margin: var(--space-2xl) 0; overflow: auto; border-radius: var(--border-radius-lg); background: linear-gradient(135deg, rgba(10, 15, 26, .9), rgba(15, 25, 45, .8)); box-shadow: var(--shadow-xl); }
 .styled-table { width: 100%; border-collapse: collapse; border: var(--border-width-base) solid rgba(56, 189, 248, .2); border-radius: var(--border-radius-lg); background: rgba(12, 20, 38, .95); font-size: var(--fs-sm); }
-.styled-table thead { position: sticky; top: 0; }
+.styled-table thead { position: sticky; top: 0; z-index: 10; }
 .styled-table th, .styled-table td { padding: var(--space-md); border-bottom: var(--border-width-thin) solid rgba(56, 189, 248, .15); text-align: left; overflow: hidden; text-overflow: ellipsis; }
 .styled-table th { padding: 10px 14px; background: linear-gradient(180deg, rgba(37, 99, 235, .9), rgba(29, 78, 216, .9)); color: var(--neutral-50); font-size: var(--fs-xs); font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: .5px; text-shadow: 0 1px 2px rgba(0, 0, 0, .4); border-top: 1px solid rgba(255, 255, 255, .1); border-right: 1px solid rgba(255, 255, 255, .08); }
 .styled-table th:first-child { border-radius: var(--border-radius-lg) 0 0 0; }
 .styled-table th:last-child { border-radius: 0 var(--border-radius-lg) 0 0; }
-.styled-table tbody tr { position: relative; background: rgba(25, 40, 75, .4); border-bottom: var(--border-width-thin) solid rgba(56, 189, 248, .1); transition: background-color var(--transition-base), transform var(--transition-base); }
+.styled-table tbody tr { position: relative; background: rgba(25, 40, 75, .4); border-bottom: var(--border-width-thin) solid rgba(56, 189, 248, .1); transition: all var(--transition-base); }
 .styled-table tbody tr:nth-child(even) { background: rgba(18, 30, 60, .3); }
 .styled-table tbody tr:hover { background: var(--color-bg-hover); box-shadow: inset 8px 0 15px rgba(56, 189, 248, .15), 0 4px 12px rgba(56, 189, 248, .2); transform: translateX(4px); }
 .styled-table td { border-color: rgba(56, 189, 248, .1); color: var(--neutral-300); }
