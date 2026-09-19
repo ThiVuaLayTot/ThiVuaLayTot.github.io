@@ -26,7 +26,7 @@ const CHESS_TERMS_RULES = [
     { regex: /Three Check|3 Check|3 chiếu/gi, url: 'https://chess.com/terms/3-check-chess' },
     { regex: /Chess960|960/gi, url: 'https://chess.com/terms/chess960' },
     { regex: /\bKOTH\b/gi, url: 'https://chess.com/terms/king-of-the-hill' },
-    { regex: /Daily |Cờ Hàng Ngày|Đấu Hàng Ngày/gi, url: 'https://chess.com/terms/correspondence-chess' },
+    { regex: /Daily|Cờ Hàng Ngày|Đấu Hàng Ngày/gi, url: 'https://chess.com/terms/correspondence-chess' },
     { regex: /Cờ bỏ phiếu/gi, url: 'https://support.chess.com/articles/8614177-how-do-i-play-vote-chess' }
 ];
 
@@ -276,7 +276,7 @@ function saveFiltersToURL() {
     const params = new URLSearchParams();
     const filters = getFilterState();
     if (filters.search) params.set('search', filters.search);
-    params.set('prize', DOM.schedulePrizeFilter?.checked ? '1' : '0');
+    if (DOM.schedulePrizeFilter?.checked) params.set('prize', '1');
     const allTypes = Array.from(DOM.scheduleTypeGroup?.querySelectorAll('input[type="checkbox"]') || [])
         .map(cb => cb.value);
     if (filters.types.length < allTypes.length && filters.types.length > 0) {

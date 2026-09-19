@@ -36,7 +36,7 @@
 .user-badges-premium { background: rgba(251, 191, 36, .15); color: var(--yellow-300); border-color: rgba(251, 191, 36, .4); }
 .hide-premium .user-badges-premium { display: none !important; }
 
-.filter-group-container { position: relative;z-index: 10; display: flex; flex-direction: column; gap: var(--space-xs); width: 100%; align-items: center;justify-content: space-between;background: rgba(10,25,47,.4);border: 1px solid rgba(53,201,252,.25);border-radius: 12px;padding: 8px 12px;margin-bottom: 20px;backdrop-filter: blur(8px);-webkit-backdrop-filter: blur(8px);box-shadow: 0 4px 15px rgba(0,0,0,.15),inset 0 0 10px rgba(0,242,255,.02); }
+.filter-group-container { position: relative; z-index: 15; display: flex; flex-direction: column; gap: var(--space-xs); width: 100%; align-items: center;justify-content: space-between;background: rgba(10,25,47,.4);border: 1px solid rgba(53,201,252,.25);border-radius: 12px;padding: 8px 12px;margin-bottom: 20px;backdrop-filter: blur(8px);-webkit-backdrop-filter: blur(8px);box-shadow: 0 4px 15px rgba(0,0,0,.15),inset 0 0 10px rgba(0,242,255,.02); }
 .custom-checkbox-container { position: relative; display: inline-flex; align-items: center; margin-right: 15px; margin-bottom: 8px; padding-left: 28px; color: var(--neutral-200); font-size: var(--fs-sm); cursor: pointer; user-select: none; }
 .custom-checkbox-container input { position: absolute; width: 0; height: 0; opacity: 0; }
 .checkmark { position: absolute; top: 50%; left: 0; width: 18px; height: 18px; transform: translateY(-50%); border: 1.5px solid rgba(56, 189, 248, .4); border-radius: var(--border-radius-sm); background: rgba(10, 25, 47, .7); }
