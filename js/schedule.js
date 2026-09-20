@@ -215,7 +215,7 @@ function getEventBadgesHTML(isCoThuong, isTentative, isEnded = false) {
     }
 
     if (isEnded) {
-        html += `<span class="badge-schedule badge-ended"><i class="bx bx-check-circle"></i> Đã kết thúc</span>`;
+        html += `<span class="badge-schedule badge-ended"><i class="bx bx-check-circle"></i> Đã bắt đầu</span>`;
     }
 
     return html;
