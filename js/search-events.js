@@ -96,7 +96,8 @@ function setCheckboxValues(groupId, values) {
     if (!group) return;
     const checkboxes = group.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(cb => {
-        cb.checked = values.includes(cb.value.toLowerCase());
+        const checkboxValues = cb.value.toLowerCase().split(/\s+/).filter(Boolean);
+        cb.checked = checkboxValues.some(value => values.includes(value));
     });
 }
 
@@ -287,7 +288,9 @@ window.searchTable = debounce(function() {
     // Prepare filter state
     const sortValue = document.getElementById('sortFilter')?.value || 'date-desc';
     const timeClassChecked = getCheckedValues('timeclass-checkbox-group');
-    const variantChecked = getCheckedValues('variant-checkbox-group');
+    const variantCheckedRaw = getCheckedValues('variant-checkbox-group');
+    const variantChecked = variantCheckedRaw
+        .flatMap(value => value.toLowerCase().split(/\s+/).filter(Boolean));
     const formatChecked = getCheckedValues('format-checkbox-group');
     const cttqStatusValue = document.getElementById('cttq-status-filter')?.value || 'all';
 
@@ -328,7 +331,7 @@ window.searchTable = debounce(function() {
             return false;
         },
         timeClass: timeClassChecked.length < getAllCheckboxValues('timeclass-checkbox-group').length ? timeClassChecked : null,
-        variant: variantChecked.length < getAllCheckboxValues('variant-checkbox-group').length ? variantChecked : null,
+        variant: variantCheckedRaw.length < getAllCheckboxValues('variant-checkbox-group').length ? variantChecked : null,
         format: formatChecked.length < getAllCheckboxValues('format-checkbox-group').length ? formatChecked : null,
         cttqStatus: cttqStatusValue !== 'all' ? [cttqStatusValue] : null
     };

@@ -357,131 +357,7 @@
             return; 
         }
 
-        el.innerHTML = `
-            <div class="filter-group-container" style="margin-bottom: 25px;">
-                <!-- Top bar with 4 columns -->
-                <div class="tour-top-grid">
-                    <div class="tour-dropdown" id="tournament-speed-dropdown">
-                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-speed-dropdown')">
-                            <div class="tour-dropdown-btn-content">
-                                <i class="bx bx-time"></i>
-                                <span>Thể lệ</span>
-                            </div>
-                            <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
-                        </div>
-                        <div class="tour-dropdown-menu" id="timeclass-checkbox-group">
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="bullet" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Bullet (Cờ Siêu chớp)
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="blitz" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Blitz (Cờ chớp)
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="rapid" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Rapid (Cờ Nhanh)
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="classical" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Classical (Cờ chậm)
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="tour-dropdown" id="tournament-variant-dropdown">
-                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-variant-dropdown')">
-                            <div class="tour-dropdown-btn-content">
-                                <i class="bx bxs-chess"></i>
-                                <span>Biến thể</span>
-                            </div>
-                            <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
-                        </div>
-                        <div class="tour-dropdown-menu" id="variant-checkbox-group">
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="standard" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Cờ tiêu chuẩn
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="chess960" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Chess960
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="crazyhouse" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Crazyhouse
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="bughouse" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Bughouse
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="kingofthehill" checked onchange="searchTable()">
-                                <span class="checkmark"></span> King of the hill
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="threecheck" checked onchange="searchTable()">
-                                <span class="checkmark"></span> 3 Chiếu
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="custom" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Custom Position
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="tour-dropdown" id="tournament-format-dropdown">
-                        <div class="tour-dropdown-btn" onclick="toggleTourDropdown('tournament-format-dropdown')">
-                            <div class="tour-dropdown-btn-content">
-                                <i class="bx bx-medal"></i>
-                                <span>Thể thức</span>
-                            </div>
-                            <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
-                        </div>
-                        <div class="tour-dropdown-menu" id="format-checkbox-group">
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="swiss" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
-                            </label>
-                            <label class="custom-checkbox-container">
-                                <input type="checkbox" value="arena" checked onchange="searchTable()">
-                                <span class="checkmark"></span> Đấu trường Arena
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="tour-select-container">
-                        <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
-                            <option value="date-desc">Ngày tổ chức (Gần đây nhất)</option>
-                            <option value="date-asc">Ngày tổ chức (Lâu đời nhất)</option>
-                            <option value="players-desc">Kỳ thủ tham gia (Nhiều nhất)</option>
-                            <option value="players-asc">Kỳ thủ tham gia (Ít nhất)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Second bar (Search + Switch + Status Badge) -->
-                <div class="tour-search-row">
-                    <div class="tour-search-wrapper">
-                        <span class="bx bx-search tour-search-icon"></span>
-                        <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm tên giải hoặc kỳ thủ..." onkeyup="searchTable()">
-                    </div>
-                    <div class="tour-misc">
-                        <label class="tour-switch-container">
-                            <span class="tour-switch">
-                                <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
-                                <span class="tour-slider"></span>
-                            </span>
-                            <span>Hiện Premium Badge</span>
-                        </label>
-                        <div id="loading-status" class="loading-status-badge">
-                            <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color:var(--primary-warning);font-size:medium"></span>
-                            <span id="current-tournament">0</span>/${ids.length} giải
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="table"><table class="styled-table" id="tournament-results-table"><thead><tr><th class="name-tour">Giải đấu</th><th class="organization-day">Thời gian bắt đầu</th><th class="rules">Thể lệ</th><th class="players">Kỳ thủ</th>
-            <th class="winner">🥇 Hạng 1</th><th class="winner">🥈 Hạng 2</th><th class="winner">🥉 Hạng 3</th><th class="winner">🎖️ Hạng 4</th><th class="winner">🏅 Hạng 5</th><th class="winner">⭐ Hang 6</th></tr></thead><tbody id="tournament-tbody"><tr class="not-match" style="display:none"><td style="color:var(--color-warning)">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>`;
+        el.innerHTML = "<div class=\"table\"><table class=\"styled-table\" id=\"tournament-results-table\"><thead><tr><th class=\"name-tour\">Giải đấu</th><th class=\"organization-day\">Thời gian bắt đầu</th><th class=\"rules\">Thể lệ</th><th class=\"players\">Kỳ thủ</th><th class=\"winner\">🥇 Hạng 1</th><th class=\"winner\">🥈 Hạng 2</th><th class=\"winner\">🥉 Hạng 3</th><th class=\"winner\">🎖️ Hạng 4</th><th class=\"winner\">🏅 Hạng 5</th><th class=\"winner\">⭐ Hạng 6</th></tr></thead><tbody id=\"tournament-tbody\"><tr class=\"not-match\" style=\"display:none\"><td style=\"color:var(--color-warning)\">Không tìm thấy kết quả nào!</td></tr></tbody></table></div><br><br><hr>";
 
         if (typeof window.loadTournamentFiltersFromURL === 'function') {
             window.loadTournamentFiltersFromURL();
@@ -568,7 +444,7 @@
                 skeletons[idx].setAttribute('data-variant', v.toLowerCase());
                 skeletons[idx].setAttribute('data-format', rds === 1 ? 'arena' : 'swiss');
                 skeletons[idx].className = '';
-                document.getElementById('current-tournament').textContent = ++success;
+                document.getElementById('current-tournament').textContent = `${++success}/${ids.length}`;
 
                 if (typeof window.searchTable === 'function') {
                     window.searchTable();

@@ -549,54 +549,7 @@
                 return;
             }
 
-            container.innerHTML = `
-                <div class="filter-group-container" style="margin-bottom: 25px;">
-                    <div class="tour-top-grid">
-                        <div class="tour-select-container" style="grid-column: span 2;">
-                            <select id="sortFilter" class="tour-select-btn" onchange="searchTable()">
-                                <option value="date-desc">Tháng tổ chức (Gần đây nhất)</option>
-                                <option value="date-asc">Tháng tổ chức (Lâu đời nhất)</option>
-                                <option value="players-desc">Số lượng kỳ thủ (Nhiều nhất)</option>
-                                <option value="players-asc">Số lượng kỳ thủ (Ít nhất)</option>
-                                <option value="tours-desc">Số lượng giải đấu (Nhiều nhất)</option>
-                                <option value="tours-asc">Số lượng giải đấu (Ít nhất)</option>
-                            </select>
-                        </div>
-                        <div class="tour-select-container" style="grid-column: span 2;">
-                            <select id="cttq-status-filter" class="tour-select-btn" onchange="searchTable()">
-                                <option value="all">Tất cả trạng thái</option>
-                                <option value="finished">Đã hoàn thành</option>
-                                <option value="unfinished">Chưa hoàn thành</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="tour-search-row">
-                        <div class="tour-search-wrapper">
-                            <span class="bx bx-search tour-search-icon"></span>
-                            <input type="text" id="searchInput" class="tour-search-input" placeholder="Tìm kiếm..." onkeyup="searchTable()">
-                        </div>
-                        <div class="tour-misc">
-                            <label class="tour-switch-container">
-                                <span class="tour-switch">
-                                    <input type="checkbox" id="premiumToggle" checked onchange="searchTable()">
-                                    <span class="tour-slider"></span>
-                                </span>
-                                <span>Hiện Premium Badge</span>
-                            </label>
-                            <div id="loading-status" class="loading-status-badge">
-                                <span id="statusIcon" class="bx bx-dots-horizontal-rounded" style="color: var(--primary-warning)"></span>
-                                <span id="current-tournament">0</span>/${months.length} tháng
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="table">
-                    <table class="styled-table" id="tournament-results-table">
-                        <thead><tr><th class="name-tour">Tháng</th><th class="organization-day">Thống kê</th><th class="players">Kỳ thủ</th>
-                        <th class="winner">🥇 Hạng 1</th><th class="winner">🥈 Hạng 2</th><th class="winner">🥉 Hạng 3</th><th class="winner">🎖️ Hạng 4</th><th class="winner">🏅 Hạng 5</th><th class="winner">⭐ Hạng 6</th></tr></thead>
-                        <tbody id="tournament-tbody"><tr class="not-match" style="display: none"><td style="color: var(--color-warning);font-size:medium">Không tìm thấy kết quả nào!</td></tr></tbody>
-                    </table>
-                </div>`;
+            container.innerHTML = "<div class=\"table\"><table class=\"styled-table\" id=\"tournament-results-table\"><thead><tr><th class=\"name-tour\">Tháng</th><th class=\"organization-day\">Thống kê</th><th class=\"players\">Kỳ thủ</th><th class=\"winner\">🥇 Hạng 1</th><th class=\"winner\">🥈 Hạng 2</th><th class=\"winner\">🥉 Hạng 3</th><th class=\"winner\">🎖️ Hạng 4</th><th class=\"winner\">🏅 Hạng 5</th><th class=\"winner\">⭐ Hạng 6</th></tr></thead><tbody id=\"tournament-tbody\"><tr class=\"not-match\" style=\"display: none\"><td style=\"color: var(--color-warning);font-size:medium\">Không tìm thấy kết quả nào!</td></tr></tbody></table></div>";
 
             if (typeof window.loadTournamentFiltersFromURL === 'function') {
                 window.loadTournamentFiltersFromURL();
@@ -665,7 +618,7 @@
                     newRow.setAttribute('data-status', status || 'finished');
 
                     skeletonRows[idx].replaceWith(newRow);
-                    document.getElementById('current-tournament').textContent = ++successCount;
+                    document.getElementById('current-tournament').textContent = `${++successCount}/${months.length}`;
 
                     if (typeof window.searchTable === 'function') {
                         window.searchTable();
