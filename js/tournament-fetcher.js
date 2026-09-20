@@ -328,9 +328,9 @@
 
         return `<td class="player-cell clickable-player" data-username="${specialUsername}" data-points="${pts}" style="cursor: pointer;">
             <div class="post-user-component">
-                <a class="cc-avatar-component post-user-avatar" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank">
+                <div class="cc-avatar-component post-user-avatar">
                     <img class="cc-avatar-img" src="${p?.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${specialUsername}">
-                </a>
+                </div>
                 <div class="post-user-details">
                     <div class="user-tagline-component">
                         <a class="user-username-component user-tagline-username" href="${CONFIG.CHESS_COM_URL}/member/${specialUsername}" target="_blank">${specialUsername}</a>

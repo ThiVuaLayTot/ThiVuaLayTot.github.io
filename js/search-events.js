@@ -55,9 +55,9 @@ const FILTER_CONFIG = {
     premium: {
         elementId: 'premiumToggle',
         paramName: 'premium',
-        getValue: (el) => el?.checked ?? true,
-        setValue: (el, val) => { if (el) el.checked = (val !== '0' && val !== false); },
-        shouldSave: (val) => !val,
+        getValue: (el) => (el?.checked ?? true) ? '1' : '0',
+        setValue: (el, val) => { if (el) el.checked = (val !== '0'); },
+        shouldSave: (val) => val === '0',
         isSaved: (val, default_val) => val !== default_val
     }
 };

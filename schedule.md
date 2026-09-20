@@ -9,15 +9,13 @@ title: Lịch sự kiện của tháng
 </ul>
 <br>
 <p><i>Lần cuối cập nhật: <span id="last-updated"></span></i>.<br>Nếu có vấn đề hãy bình luận trong <a
-        href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box"
-        target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">M-DinhHoangViet</a>.</p>
+        href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">M-DinhHoangViet</a>.</p>
 <br>
 <div id="schedule-filters" class="schedule-control-bar" style="display: none;">
     <!-- Left: Search input -->
     <div class="control-item search-wrapper">
         <span class="bx bx-search search-icon"></span>
-        <input type="text" id="schedule-search" class="control-input search-input" placeholder="Tìm kiếm sự kiện..."
-            oninput="filterSchedule()">
+        <input type="text" id="schedule-search" class="control-input search-input" placeholder="Tìm kiếm sự kiện..." oninput="filterSchedule()">
     </div>
     <!-- Right: Controls group (Dropdown, Switch, Segmented Switcher) -->
     <div class="control-group">
@@ -160,13 +158,13 @@ title: Lịch sự kiện của tháng
             <div class="cc-modal-info-section">
                 <div class="cc-modal-info-item">
                     <div>
-                        <strong><span class="bx bx-grid-alt"></span> Thể lệ giải đấu:</strong>
+                        <strong><span class="bx bx-grid-alt"></span> Kiểu giải đấu:</strong>
                         <span id="modal-event-rules"></span>
                     </div>
                 </div>
                 <div class="cc-modal-info-item">
                     <div>
-                        <strong><span class="bx bxs-chess"></span> Thể lệ ván đấu:</strong>
+                        <strong><span class="bx bxs-chess"></span> Thể thức ván đấu:</strong>
                         <span id="modal-game-rules"></span>
                     </div>
                 </div>

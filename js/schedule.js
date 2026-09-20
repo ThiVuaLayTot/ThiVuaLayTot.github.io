@@ -3,8 +3,7 @@ const CONFIG = {
     VIETNAM_OFFSET_MS: 7 * 3600 * 1000,
     EVENT_DURATION_MS: 2 * 60 * 60 * 1000,
     MOBILE_BREAKPOINT: 768,
-    MONTH_NAMES: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-                  'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+    MONTH_NAMES: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
     DAY_NAMES_VN: ['Chủ Nhật', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
     INTERNAL_EVENT_TYPES: ["cttq", "tvlt", "cbtt", "dttv"]
 };
@@ -27,7 +26,7 @@ const CHESS_TERMS_RULES = [
     { regex: /Three Check|3 Check|3 chiếu/gi, url: 'https://chess.com/terms/3-check-chess' },
     { regex: /Chess960|960/gi, url: 'https://chess.com/terms/chess960' },
     { regex: /\bKOTH\b/gi, url: 'https://chess.com/terms/king-of-the-hill' },
-    { regex: /Daily|Cờ Hàng Ngày|Đấu Hàng Ngày/gi, url: 'https://support.chess.com/articles/8649115-what-are-club-matches' },
+    { regex: /Daily|Cờ Hàng Ngày|Đấu Hàng Ngày/gi, url: 'https://chess.com/terms/correspondence-chess' },
     { regex: /Cờ bỏ phiếu/gi, url: 'https://support.chess.com/articles/8614177-how-do-i-play-vote-chess' }
 ];
 
@@ -50,9 +49,9 @@ const BANNER_MAP = {
     dttv: "/images/events/dau-truong-thi-vua.png",
     "club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpjs58p98gfqbbaDynSFJ.png",
     "multi-club-arena": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/php4oaq7r23q7n79I3kRE6.png",
-    "swiss": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/VN-SenJin/phpt9ef43prdg6f80YfkLo.png",
+    "swiss": "https://images.chesscomfiles.com/uploads/v1/chess_term/a4c9fe4c-9c0b-11ed-b393-4181bdd78517.3191b6e0.630x354o.10a700f2cb88.png",
     "vote": "https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/M-DinhHoangViet/php8s3ooliju70kciI1yut.png",
-    "daily": "https://images.chesscomfiles.com/uploads/v1/chess_term/f1e3ca50-b739-11ea-a14a-a1c9be904231.1fc2467a.630x354o.73dd2efd0681.png"
+    "daily": "https://images.chesscomfiles.com/uploads/v1/chess_term/f1e3ca50-b739-11ea-a14a-a1c9be904231.33918ce9.630x354o.8cae25a1ccc9.png"
 };
 
 const INFO_MAP = {
@@ -216,7 +215,7 @@ function getEventBadgesHTML(isCoThuong, isTentative, isEnded = false) {
     }
 
     if (isEnded) {
-        html += `<span class="badge-schedule badge-ended"><i class="bx bx-check-circle"></i> Đã kết thúc</span>`;
+        html += `<span class="badge-schedule badge-ended"><i class="bx bx-check-circle"></i> Đã bắt đầu</span>`;
     }
 
     return html;
@@ -277,7 +276,7 @@ function saveFiltersToURL() {
     const params = new URLSearchParams();
     const filters = getFilterState();
     if (filters.search) params.set('search', filters.search);
-    params.set('prize', DOM.schedulePrizeFilter?.checked ? '1' : '0');
+    if (DOM.schedulePrizeFilter?.checked) params.set('prize', '1');
     const allTypes = Array.from(DOM.scheduleTypeGroup?.querySelectorAll('input[type="checkbox"]') || [])
         .map(cb => cb.value);
     if (filters.types.length < allTypes.length && filters.types.length > 0) {
@@ -507,20 +506,31 @@ function renderEventCard(tournament, container) {
     container.appendChild(card);
 }
 
+function getDefaultResultUrl(type) {
+    if (CONFIG.INTERNAL_EVENT_TYPES.includes(type)) {
+        return `/events/tournaments/${type}`;
+    }
+    return `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835&type=${type}`;
+}
+
 function getModalURLs(tournament) {
     const type = tournament.eventType;
+    const resultUrl = tournament.resultLink !== undefined
+        ? tournament.resultLink
+        : getDefaultResultUrl(type);
+
     if (CONFIG.INTERNAL_EVENT_TYPES.includes(type)) {
         return {
             bannerUrl: tournament.bannerLink || BANNER_MAP[type],
             newsUrl: tournament.newsLink || INFO_MAP[type],
-            resultUrl: `/events/tournaments/${type}`,
+            resultUrl: resultUrl,
             rulesPageUrl: INFO_MAP[type] || "https://support.chess.com"
         };
     } else {
         return {
             bannerUrl: tournament.bannerLink || BANNER_MAP[type] || "https://chess.com/bundles/web/images/404-pawn.f17f262c.gif",
             newsUrl: tournament.newsLink || INFO_MAP[type] || "https://support.chess.com",
-            resultUrl: `https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835&type=${type}`,
+            resultUrl: resultUrl,
             rulesPageUrl: INFO_MAP[type] || "https://support.chess.com"
         };
     }
@@ -564,15 +574,15 @@ function openModal(tournament) {
     DOM.modalLogoLink.href = urls.rulesPageUrl;
 
     DOM.modalJoinBtn.href = tournament.joinLink || '#';
+    DOM.modalJoinBtn.onclick = null;
     if (!tournament.joinLink) {
         DOM.modalJoinBtn.onclick = (e) => {
-            e.preventDefault();
             alert('Hiện chưa có link giải, hãy hỏi các quản trị viên hoặc người tổ chức giải này để tìm hiểu thêm!');
         };
     }
 
     DOM.modalRuleBtn.href = urls.newsUrl;
-    DOM.modalResultsBtn.href = urls.resultUrl;
+    DOM.modalResultsBtn.href = urls.resultUrl || '#';
 
     if (DOM.eventModal) {
         DOM.eventModal.classList.add('open');
