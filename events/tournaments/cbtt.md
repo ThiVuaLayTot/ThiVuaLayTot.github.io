@@ -24,6 +24,8 @@ title: Bảng tổng giải Cờ Bí Thí Tốt
 </section>
 <div class="tournament-page-brand tournament-page-brand--multi">
     <a href="/events/cbtt-co-bi-thi-tot">
+        <img src="/images/events/logo/cbtt-arena.png" alt="CBTT Arena">
+        <img src="/images/events/logo/cbtt-swiss.png" alt="CBTT Swiss">
         <img src="/images/events/logo/cbtt-rapid.png" alt="CBTT Rapid">
         <img src="/images/events/logo/cbtt-blitz.png" alt="CBTT Blitz">
         <img src="/images/events/logo/cbtt-superblitz.png" alt="CBTT SuperBlitz">
