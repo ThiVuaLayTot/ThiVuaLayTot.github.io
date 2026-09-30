@@ -482,9 +482,6 @@ function renderEventCard(tournament, container) {
         </div>
         <div class="event-card-footer">
             <button class="btn btn-secondary card-detail-btn"><i class="bx bx-info-circle"></i> Chi tiết</button>
-            <a href="${tournament.joinLink || '#'}" target="_blank" class="card-join-link">
-                <button class="btn btn-primary"><i class="bx bx-user-plus"></i> Tham gia</button>
-            </a>
         </div>
     `;
 

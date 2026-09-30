@@ -38,7 +38,7 @@ Giải đầu tiên được tổ chức vào [**15/12/2022**](/events/tournamen
 | 2 giải may mắn | 20.000₫ |
 
 - Phần thưởng có thể gồm:
-  - Tiền thưởng
+  - Tiền thưởng (chính)
   - Huy chương
   - Chess.com Membership
   - Một số hiện vật khác
