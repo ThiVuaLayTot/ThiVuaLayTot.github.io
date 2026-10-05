@@ -3,82 +3,84 @@ layout: default
 title: Lịch sự kiện của tháng
 ---
 
-<ul style="list-style-type: circle;">
-    <li style="text-align: center;"><strong><span style="font-size: 14px;">Lịch sẽ được cập nhật thường xuyên và thường không báo trước khi có thay đổi</span></strong></li>
-    <li style="text-align: center;"><strong><span style="font-size: 14px;">Ấn vào icon để xem chi tiết thông sự kiện</span></strong></li>
-</ul>
-<br>
-<p><i>Lần cuối cập nhật: <span id="last-updated"></span></i>.<br>Nếu có vấn đề hãy bình luận trong <a
-        href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank">forum này</a> hoặc liên hệ <a href="/leaders#admin3" target="_top">M-DinhHoangViet</a>.</p>
-<br>
+<section class="schedule-intro" aria-label="Hướng dẫn sử dụng lịch">
+    <p class="schedule-intro-title"><i class="bx bx-info-circle" aria-hidden="true"></i> Tìm giải nhanh, rồi chọn một sự kiện để xem chi tiết và tham gia.</p>
+    <ul>
+        <li>Nhấn vào các icon để biết thêm thông tin về sự kiện đó.</li>
+        <li>Lịch được cập nhật thường xuyên; các mục <strong>Dự kiến</strong> có thể thay đổi.</li>
+        <li>Dùng ô tìm kiếm, bộ lọc thể loại hoặc nút <strong>Chỉ có thưởng</strong> để thu hẹp kết quả.</li>
+    </ul>
+    <p class="schedule-updated"><i class="bx bx-refresh" aria-hidden="true"></i> Lần cập nhật gần nhất: <span id="last-updated">Đang tải…</span>. Nếu có vấn đề, hãy bình luận trong <a href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank" rel="noopener">forum</a> hoặc liên hệ <a href="/leaders#admin3">M-DinhHoangViet</a>.</p>
+</section>
 <div id="schedule-filters" class="schedule-control-bar" style="display: none;">
     <!-- Left: Search input -->
     <div class="control-item search-wrapper">
         <span class="bx bx-search search-icon"></span>
-        <input type="text" id="schedule-search" class="control-input search-input" placeholder="Tìm kiếm sự kiện..." oninput="filterSchedule()">
+        <input type="search" id="schedule-search" class="control-input search-input" placeholder="Tìm tên giải đấu..." aria-label="Tìm kiếm sự kiện">
     </div>
     <!-- Right: Controls group (Dropdown, Switch, Segmented Switcher) -->
     <div class="control-group">
         <div class="tour-dropdown" id="schedule-category-dropdown">
-            <div class="tour-dropdown-btn compact-btn" onclick="toggleTourDropdown('schedule-category-dropdown')">
+            <button type="button" class="tour-dropdown-btn compact-btn" id="schedule-category-button" aria-expanded="false" aria-controls="schedule-type-group">
                 <div class="tour-dropdown-btn-content">
                     <i class="bx bx-filter-alt"></i>
-                    <span>Thể loại</span>
+                    <span>Thể loại (9/9)</span>
                 </div>
                 <span class="bx bx-chevron-down tour-dropdown-arrow"></span>
-            </div>
-            <div class="tour-dropdown-menu" id="schedule-type-group">
+            </button>
+            <div class="tour-dropdown-menu" id="schedule-type-group" aria-label="Lọc theo thể loại">
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="tvlt" checked onchange="filterSchedule()">
+                    <input type="checkbox" value="tvlt" checked>
                     <span class="checkmark"></span> Thí Vua Lấy Tốt
                 </label>
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="cttq" checked onchange="filterSchedule()">
+                    <input type="checkbox" value="cttq" checked>
                     <span class="checkmark"></span> Chiến Trường Thí Quân
                 </label>
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="cbtt" checked onchange="filterSchedule()">
+                    <input type="checkbox" value="cbtt" checked>
                     <span class="checkmark"></span> Cờ Bí Thí Tốt
                 </label>
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="dttv" checked onchange="filterSchedule()">
+                    <input type="checkbox" value="dttv" checked>
                     <span class="checkmark"></span> Đấu Trường Thí Vua
                 </label>
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="multi-club-arena" checked onchange="filterSchedule()">
-                    <span class="checkmark"></span> Multi-Club Arena (Đấu trường đa CLB)
+                    <input type="checkbox" value="multi-club-arena" checked>
+                    <span class="checkmark"></span> Đấu trường đa CLB (Multi-Club Arena)
                 </label>
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="club-arena" checked onchange="filterSchedule()">
+                    <input type="checkbox" value="club-arena" checked>
                     <span class="checkmark"></span> Đấu trường Arena
                 </label>
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="swiss" checked onchange="filterSchedule()">
+                    <input type="checkbox" value="swiss" checked>
                     <span class="checkmark"></span> Hệ Thụy Sĩ (Swiss)
                 </label>
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="vote" checked onchange="filterSchedule()">
+                    <input type="checkbox" value="vote" checked>
                     <span class="checkmark"></span> Cờ vua bỏ phiếu (Votechess)
                 </label>
                 <label class="custom-checkbox-container">
-                    <input type="checkbox" value="daily" checked onchange="filterSchedule()">
+                    <input type="checkbox" value="daily" checked>
                     <span class="checkmark"></span> Cờ hàng ngày (Daily)
                 </label>
             </div>
         </div>
         <label class="compact-switch-container">
             <span class="compact-switch">
-                <input type="checkbox" id="schedule-prize-filter" onchange="filterSchedule()">
+                <input type="checkbox" id="schedule-prize-filter">
                 <span class="compact-slider"></span>
             </span>
             <span class="switch-label">Chỉ có thưởng</span>
         </label>
+        <button type="button" id="schedule-reset-filters" class="reset-filters-btn" hidden><i class="bx bx-reset" aria-hidden="true"></i> Xóa lọc</button>
         <div id="view-switcher-container" class="segmented-control" style="display: none;">
-            <button id="btn-view-calendar" class="segment-btn" onclick="switchView('calendar')" title="Xem dạng lịch">
+            <button type="button" id="btn-view-calendar" class="segment-btn" title="Xem dạng lịch" aria-pressed="false">
                 <i class="bx bx-calendar"></i>
                 <span>Lịch</span>
             </button>
-            <button id="btn-view-list" class="segment-btn" onclick="switchView('list')" title="Xem dạng danh sách">
+            <button type="button" id="btn-view-list" class="segment-btn" title="Xem dạng danh sách" aria-pressed="false">
                 <i class="bx bx-list-ul"></i>
                 <span>Danh sách</span>
             </button>
@@ -87,11 +89,11 @@ title: Lịch sự kiện của tháng
 </div>
 
 <div class="month-nav-wrapper">
-    <button class="month-nav-btn" id="btn-prev-month" onclick="changeMonth(-1)" title="Tháng trước">
+    <button type="button" class="month-nav-btn" id="btn-prev-month" title="Tháng trước" aria-label="Xem tháng trước">
         <i class="bx bx-chevron-left"></i>
     </button>
-    <div class="month-title" id="month-title">Processing...</div>
-    <button class="month-nav-btn" id="btn-next-month" onclick="changeMonth(1)" title="Tháng sau">
+    <div class="month-title" id="month-title" aria-live="polite">Đang tải…</div>
+    <button type="button" class="month-nav-btn" id="btn-next-month" title="Tháng sau" aria-label="Xem tháng sau">
         <i class="bx bx-chevron-right"></i>
     </button>
 </div>
@@ -104,13 +106,13 @@ title: Lịch sự kiện của tháng
     <table id="calendar-table">
         <thead>
             <tr>
-                <th title="Thứ Hai">Mon</th>
-                <th title="Thứ Ba">Tue</th>
-                <th title="Thứ Tư">Wed</th>
-                <th title="Thứ Năm">Thu</th>
-                <th title="Thứ Sáu">Fri</th>
-                <th title="Thứ Bảy">Sat</th>
-                <th title="Chủ Nhật">Sun</th>
+                <th scope="col" title="Thứ Hai">Thứ 2</th>
+                <th scope="col" title="Thứ Ba">Thứ 3</th>
+                <th scope="col" title="Thứ Tư">Thứ 4</th>
+                <th scope="col" title="Thứ Năm">Thứ 5</th>
+                <th scope="col" title="Thứ Sáu">Thứ 6</th>
+                <th scope="col" title="Thứ Bảy">Thứ 7</th>
+                <th scope="col" title="Chủ Nhật">Chủ nhật</th>
             </tr>
         </thead>
         <tbody id="calendar-body">
@@ -123,7 +125,8 @@ title: Lịch sự kiện của tháng
     <div id="list-container" class="events-list-grid"></div>
 </div>
 
-<div id="error" style="display: none;"></div>
+<p id="schedule-results-summary" class="schedule-results-summary" aria-live="polite"></p>
+<div id="error" style="display: none;" role="alert"></div>
 <div id="empty" style="display: none;" class="empty-message">
     <i class="bx bx-calendar" style="color: #00f2ff; font-size: 2em; margin-bottom: 10px;"></i>
     <p>Không có giải đấu trong tháng này</p>
@@ -137,8 +140,8 @@ title: Lịch sự kiện của tháng
     <a href="https://chess.com/clubs/events/thi-vua-lay-tot-tungjohn-playing-chess?clubId=325849&ref_id=89365835" target="_blank" style="display: block"><img src="https://chess.com/bundles/web/images/color-icons/time-daily.a2f7bbb6.svg" title="Daily Chess Matches" class="inl-bl"><img src="https://chess.com/bundles/web/images/color-icons/tournaments.3a561883.svg" title="Giải đấu hệ Thụy Sĩ (Swiss tournament)" class="inl-bl"><img src="https://chess.com/bundles/web/images/color-icons/arena-club-multi.b56c9ae4.svg" title="Đấu trường đa câu lạc bộ (Multi-Club Arena)" class="inl-bl"><img src="https://chess.com/bundles/web/images/color-icons/clipboard-vote.svg" title="Cờ vua bỏ phiếu (Votechess)" class="inl-bl"><img src="https://chess.com/bundles/web/images/color-icons/arena-club.495ffa75.svg" title="Giải đấu Đấu trường (Arena)" class="inl-bl">: <b>Các thể loại giải đấu khác</b></a>
 </div>
 <!-- Modal -->
-<div id="eventModal" class="cc-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="cc-modal-dialog" role="document">
+<div id="eventModal" class="cc-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+    <div class="cc-modal-dialog" role="document" tabindex="-1">
         <div class="cc-modal-banner-section">
             <img id="modal-banner" src="/" alt="Banner">
         </div>
@@ -188,11 +191,22 @@ title: Lịch sự kiện của tháng
             <a id="modal-results" href="#" target="_blank"><button class="btn btn-secondary" type="button"><span class="bx bx-trophy"></span> Kết quả</button></a>
         </div>
     </div>
+</div>
 <style>
+.schedule-intro{margin:0 0 20px;padding:16px 20px;border:1px solid rgba(53,201,252,.28);border-left:4px solid var(--cyan-400);border-radius:var(--border-radius-lg);background:rgba(10,25,47,.38);color:var(--neutral-200)}
+.schedule-intro-title{margin:0 0 8px;color:var(--cyan-200);font-weight:var(--fw-semibold)}
+.schedule-intro-title i,.schedule-updated i{color:var(--cyan-400);margin-right:6px}
+.schedule-intro ul{margin:0 0 10px;padding-left:22px}
+.schedule-intro li+li{margin-top:4px}
+.schedule-updated{margin:0;font-size:var(--fs-sm);color:var(--neutral-300)}
+.schedule-results-summary{margin:16px 0 0;color:var(--neutral-400);font-size:var(--fs-sm);text-align:center}
 .month-nav-wrapper{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:20px;width:100%}
 .month-nav-btn{background:rgba(10,25,47,.65);border:1.5px solid var(--cyan-400);border-radius:var(--border-radius-lg);color:var(--cyan-300);width:44px;height:44px;font-size:24px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 10px rgba(0,242,255,.05);outline:none}
 .month-nav-btn:hover{background:rgba(0,242,255,.1);color:var(--cyan-100);border-color:var(--cyan-300);box-shadow:0 0 15px rgba(0,242,255,.25);transform:translateY(-2px)}
 .month-nav-btn:active,.btn-switcher:active,.btn-primary:active,.btn-secondary:active{transform:translateY(0)}
+.month-nav-btn:disabled{cursor:not-allowed;transform:none!important}
+.reset-filters-btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(53,201,252,.4);border-radius:8px;background:rgba(10,25,47,.6);color:var(--cyan-200);padding:7px 10px;font-size:13px;font-weight:var(--fw-semibold);cursor:pointer;white-space:nowrap;transition:all .2s ease}
+.reset-filters-btn:hover{background:rgba(0,242,255,.12);border-color:var(--cyan-300);color:var(--cyan-100)}
 .month-title{flex:1;text-align:center;font-size:var(--fs-2xl);font-family:cursive;font-weight:var(--fw-bold);color:var(--cyan-400);text-transform:uppercase;text-shadow:0 0 6px var(--cyan-300);padding:var(--space-md);background:linear-gradient(180deg,var(--color-bg-secondary) 0%,var(--color-bg-tertiary) 100%);border:var(--border-width-base) solid var(--cyan-400);border-radius:var(--border-radius-lg);box-shadow:0 0 15px var(--cyan-200),0 0 30px rgba(0,242,255,.4)}
 
 #calendar-wrapper,.calendar-wrapper{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:12px;border-radius:12px}
@@ -213,13 +227,13 @@ tbody tr:nth-child(odd) td:nth-child(even),tbody tr:nth-child(even) td:nth-child
 td.other-month .day-number{opacity:.35;color:var(--neutral-500)}
 td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-weight:var(--fw-bold);font-size:var(--fs-xl);text-shadow:0 0 5px rgba(250,204,21,.5)}
 
-.events-container{display:flex;width:100%;min-height:60px;justify-content:center;align-items:center}
-.event-icon{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;filter:drop-shadow(0 0 5px var(--cyan-300));transition:all var(--transition-fast) cubic-bezier(.4,0,.2,1);border-radius:var(--border-radius-sm);flex-shrink:0;position:relative}
-.event-icon:hover{filter:drop-shadow(0 0 6px rgba(125,211,255,.9));transform:scale(1.15) translateY(-2px)}
+.events-container{display:flex;width:100%;min-height:60px;justify-content:center;align-items:center;align-content:flex-start;flex-wrap:wrap;gap:4px}
+.event-icon{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;padding:0;background:transparent;border:0;filter:drop-shadow(0 0 5px var(--cyan-300));transition:all var(--transition-fast) cubic-bezier(.4,0,.2,1);border-radius:var(--border-radius-sm);flex-shrink:0;position:relative}
+.event-icon:hover,.event-icon:focus-visible{filter:drop-shadow(0 0 6px rgba(125,211,255,.9));transform:scale(1.15) translateY(-2px);outline:2px solid var(--cyan-200);outline-offset:3px}
 .event-icon.tentative{filter:drop-shadow(0 0 4px var(--yellow-400))}
 .event-icon.tentative:hover{filter:drop-shadow(0 0 7px var(--yellow-300))}
 .event-icon.has-prize::after{content:"🏆";position:absolute;top:-2px;right:-2px;font-size:14px;line-height:1;filter:drop-shadow(0 0 3px rgba(251,191,36,.8));animation:bouncePrize 2s infinite ease-in-out}
-.event-icon img{width:55px;height:55px;object-fit:contain;cursor:pointer}
+.event-icon img{width:55px;height:55px;object-fit:contain}
 
 @keyframes bouncePrize{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes slideIn{from{transform:translateY(-50px);opacity:0}to{transform:translateY(0);opacity:1}}
@@ -240,7 +254,7 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 
 .cc-modal-banner-section{width:100%;overflow:hidden;position:relative;grid-column:1;grid-row:1}
 .btn-group{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:1.5rem;grid-column:1;grid-row:3;width:100%;justify-items:stretch}
-.btn-group a{display:block;width:100%;text-decoration:none}
+.btn-group a{display:inline-flex;width:100%;text-decoration:none}
 .btn{width:100%;height:44px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:all .25s cubic-bezier(.4,0,.2,1);box-sizing:border-box;white-space:nowrap}
 .btn-primary{background:linear-gradient(135deg,rgba(0,102,204,.45) 0%,rgba(0,242,255,.45) 100%);color:var(--cyan-200);border:var(--border-width-base) solid var(--cyan-400);box-shadow:0 4px 12px rgba(0,242,255,.15)}
 .btn-primary:hover{transform:translateY(-2px);background:linear-gradient(135deg,rgba(0,102,204,.6) 0%,rgba(0,242,255,.6) 100%);box-shadow:0 6px 20px rgba(0,242,255,.35);border-color:var(--cyan-300);color:#fff}
@@ -290,6 +304,7 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 .control-input:focus{border-color:var(--cyan-300);background:rgba(10,25,47,.8);box-shadow:0 0 10px rgba(0,242,255,.2)}
 .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(0,242,255,.55);font-size:15px;pointer-events:none}
 .control-group{display:flex;align-items:center;gap:15px;flex-wrap:nowrap}
+.reset-filters-btn{height:30px;padding:0 9px}
 
 .tour-dropdown-btn.compact-btn{padding:6px 12px;border-radius:8px;font-size:13px;background:rgba(10,25,47,.6);border:1px solid rgba(53,201,252,.4);height:30px;box-shadow:none}
 .tour-dropdown-btn.compact-btn .tour-dropdown-btn-content{gap:6px}
@@ -415,6 +430,7 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
     .cc-modal-info-section{grid-template-columns:1fr;gap:.75rem;padding:var(--space-sm) var(--space-lg);max-width:unset;width:100%}
     .cc-modal-close{right:1rem;top:1rem;width:2.2rem;height:2.2rem;font-size:1.2rem}
 
+    .schedule-intro{padding:14px 16px}
     .schedule-control-bar{flex-direction:column;align-items:stretch;gap:12px;padding:12px}
     .search-wrapper{max-width:none;width:100%}
     .control-input{height:36px!important}
@@ -422,6 +438,7 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
     .tour-dropdown{flex:1 1 calc(60% - 5px);min-width:0}
     .tour-dropdown-btn.compact-btn{height:36px!important;padding:0 12px!important;box-sizing:border-box}
     .compact-switch-container{flex:0 0 auto;height:36px;display:flex;align-items:center}
+    .reset-filters-btn{height:36px;flex:0 0 auto}
     .segmented-control{flex:1 1 100%;height:36px!important;margin-top:4px}
     .segment-btn{flex:1;justify-content:center;height:100%!important;font-size:13px}
 
