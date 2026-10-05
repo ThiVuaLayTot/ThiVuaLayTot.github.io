@@ -208,18 +208,14 @@ function getGameRulesWithIcon(rulesText) {
 
 function getEventBadgesHTML(isCoThuong, isTentative, isEnded = false) {
     let html = '';
-    if (isTentative) {
-        if (isCoThuong) {
-            html += `<span class="badge-schedule badge-prize-combined-premium"><span class="badge-pulse-dot-prize"></span><i class="bx bxs-award"></i> Có thưởng (Dự kiến)</span>`;
-        } else {
-            html += `<span class="badge-schedule badge-combined-premium"><span class="badge-pulse-dot"></span><i class="bx bx-coffee"></i> Giao lưu (Dự kiến)</span>`;
-        }
+    if (isCoThuong) {
+        html += `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
     } else {
-        if (isCoThuong) {
-            html += `<span class="badge-schedule badge-co-thuong"><i class="bx bxs-award"></i> Có thưởng</span>`;
-        } else {
-            html += `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
-        }
+        html += `<span class="badge-schedule badge-giao-luu"><i class="bx bx-coffee"></i> Giao lưu</span>`;
+    }
+
+    if (isTentative) {
+        html += `<span class="badge-schedule badge-tentative"><i class="bx bx-time-five"></i> Dự kiến</span>`;
     }
 
     if (isEnded) {
@@ -772,7 +768,7 @@ async function loadTournaments() {
         if (DOM.loadingEl) DOM.loadingEl.style.display = 'none';
         if (DOM.errorEl) {
             DOM.errorEl.style.display = 'block';
-            DOM.errorEl.innerHTML = `<div class="error"><i class="bx bx-error-circle"></i> Lỗi: ${error.message}</div>`;
+            DOM.errorEl.innerHTML = `<div class="error"><i class="bx bx-error-circle"></i> Lỗi: ${error.message}<br><span style="font-size:0.9em;margin-top:6px;display:inline-block;">Nếu gặp sự cố, vui lòng báo cáo trong <a href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">diễn đàn (forum)</a> hoặc liên hệ <a href="/leaders#admin3" style="color:inherit;text-decoration:underline;">M-DinhHoangViet</a>.</span></div>`;
         }
     }
 }
