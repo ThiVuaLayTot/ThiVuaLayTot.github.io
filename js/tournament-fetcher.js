@@ -44,6 +44,18 @@
         'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
     };
 
+    function getRankBadge(rank) {
+        const badges = {
+            1: '🥇 Hạng 1',
+            2: '🥈 Hạng 2',
+            3: '🥉 Hạng 3',
+            4: '🎖️ Hạng 4',
+            5: '🏅 Hạng 5',
+            6: '⭐ Hạng 6'
+        };
+        return badges[rank] || (rank ? `Hạng ${rank}` : 'N/A');
+    }
+
     // ========== Utility Functions ==========
     function createImg(src, w = 15) {
         return `<img src="${src}" width="${w}" height="${w}" alt="" style="vertical-align:middle">`;
@@ -202,6 +214,7 @@
                     <thead>
                         <tr>
                             <th>Giải Đấu</th>
+                            <th style="text-align: center;">Thành tích</th>
                             <th style="text-align: center;">Thể lệ</th>
                             <th style="text-align: center;">Điểm</th>
                         </tr>
@@ -221,6 +234,9 @@
                         <div style="font-size: 0.85em; color: var(--neutral-300); margin-top: 3px;">
                             ${formatDate(item.startTime)}
                         </div>
+                    </td>
+                    <td style="text-align: center; font-weight: 600; font-size: 0.95em;">
+                        ${getRankBadge(item.rank)}
                     </td>
                     <td style="text-align: center; font-size: 0.9em;">
                         <div>${formatTimeControl(item.timeControl, item.timeClass)}</div>
@@ -288,7 +304,7 @@
     }
 
     // ========== Render Player Cell with Enhanced Modal Data ==========
-    async function renderPlayer(u, pts, tourData) {
+    async function renderPlayer(u, pts, tourData, rank) {
         if (!u) return '<td style="color:var(--primary-warning)">Giải chưa kết thúc!</td>';
         
         const sp = SPECIAL_PLAYERS.get(u.toLowerCase());
@@ -312,6 +328,7 @@
             tourName: tourData.name || 'Unknown',
             url: tourData.url || `${CONFIG.CHESS_COM_URL}/tournament/${tourData.id}`,
             points: pts,
+            rank: rank || 0,
             variant: finalVariant,
             timeControl: parseTC(tourData.settings?.time_control || tourData.time_control || tourData.timeControl),
             timeClass: tourData.settings?.time_class || tourData.time_class || 'classical',
@@ -434,7 +451,7 @@
                     <td>${data.settings?.registered_user_count || data.players_registered || data.players?.length || 0}</td>`;
 
                 for (let i = 0; i < CONFIG.MAX_PLAYERS; i++) {
-                    row += await renderPlayer(top[i]?.u, top[i]?.pts || 0, data);
+                    row += await renderPlayer(top[i]?.u, top[i]?.pts || 0, data, i + 1);
                 }
 
                 skeletons[idx].innerHTML = row;
@@ -466,7 +483,6 @@
         });
 
         tbody.addEventListener('click', e => {
-            // Click on player cell
             const playerCell = e.target.closest('.clickable-player');
             if (playerCell) {
                 const username = playerCell.dataset.username;
@@ -475,7 +491,6 @@
                 return;
             }
 
-            // Custom variant link
             const link = e.target.closest('.custom-variant-link');
             if (link) {
                 const setup = link.dataset.setup;

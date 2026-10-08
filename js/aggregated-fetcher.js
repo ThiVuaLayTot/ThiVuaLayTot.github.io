@@ -39,6 +39,65 @@
         'premium': { c: 'user-badges-premium', i: 'bx bxs-star', t: 'Premium' }
     };
 
+    const PLAYER_TOP6_STORE = new Map();
+
+    function recordTop6Finish(monthId, player, rank, totalMonthTours, finishedCount, monthStatus) {
+        const key = player.username.toLowerCase();
+        if (!PLAYER_TOP6_STORE.has(key)) {
+            PLAYER_TOP6_STORE.set(key, {
+                username: player.username,
+                finishes: []
+            });
+        }
+        const record = PLAYER_TOP6_STORE.get(key);
+        if (!record.finishes.some(f => f.monthId === monthId)) {
+            record.finishes.push({
+                monthId,
+                rank,
+                totalPoints: player.totalPoints,
+                tourCount: player.breakdown ? player.breakdown.length : 0,
+                totalMonthTours: totalMonthTours || (player.breakdown ? player.breakdown.length : 0),
+                finishedCount: finishedCount ?? 0,
+                monthStatus: monthStatus || 'finished',
+                breakdown: player.breakdown
+            });
+        }
+    }
+
+    function getRankBadge(rank) {
+        const badges = {
+            1: '🥇 Hạng 1',
+            2: '🥈 Hạng 2',
+            3: '🥉 Hạng 3',
+            4: '🎖️ Hạng 4',
+            5: '🏅 Hạng 5',
+            6: '⭐ Hạng 6'
+        };
+        return badges[rank] || `Hạng ${rank}`;
+    }
+
+    function formatTourStatus(status, isFinished) {
+        if (isFinished || status === 'finished') {
+            return `<span class="user-badges-badge" style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border-color: rgba(34, 197, 94, 0.4);"><i class="bx bx-check-circle" style="margin-right: 3px;"></i>Đã hoàn thành</span>`;
+        } else if (status === 'in_progress') {
+            return `<span class="user-badges-badge" style="background: rgba(234, 179, 8, 0.15); color: #facc15; border-color: rgba(234, 179, 8, 0.4);"><i class="bx bx-loader-circle bx-spin" style="margin-right: 3px;"></i>Đang diễn ra</span>`;
+        } else if (status === 'registration') {
+            return `<span class="user-badges-badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.4);"><i class="bx bx-user-plus" style="margin-right: 3px;"></i>Đang đăng ký</span>`;
+        } else if (status === 'scheduled') {
+            return `<span class="user-badges-badge" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8; border-color: rgba(148, 163, 184, 0.4);"><i class="bx bx-calendar" style="margin-right: 3px;"></i>Sắp diễn ra</span>`;
+        } else {
+            return `<span class="user-badges-badge" style="background: rgba(234, 179, 8, 0.15); color: #facc15; border-color: rgba(234, 179, 8, 0.4);"><i class="bx bx-time-five" style="margin-right: 3px;"></i>Chưa hoàn thành</span>`;
+        }
+    }
+
+    function parseMonthTimestamp(m) {
+        const parts = m.split('-');
+        if (parts.length === 2) {
+            return new Date(parseInt(parts[1]), parseInt(parts[0]) - 1, 1).getTime();
+        }
+        return 0;
+    }
+
     function formatDate(timestamp) {
         if (!timestamp) return 'N/A';
         const date = new Date(timestamp * 1000);
@@ -190,10 +249,29 @@
         },
 
         getTournamentMetadata(data) {
+            if (!data) {
+                return {
+                    rounds: 0,
+                    variant: 'standard',
+                    setup: null,
+                    timeControl: '3+0',
+                    timeClass: 'blitz',
+                    registeredCount: 0,
+                    startTime: 0,
+                    endTime: 0,
+                    status: 'unknown',
+                    isFinished: false
+                };
+            }
             const rounds = data.settings?.total_rounds || data.rounds || data.total_rounds || 0;
             const variant = data.settings?.rules || data.rules || 'standard';
             const setup = data.settings?.initial_setup || null;
             const finalVariant = (variant === 'standard' || variant === 'chess') && setup ? 'custom' : variant;
+            const status = data.status || data.settings?.status || 'unknown';
+            const finishTime = data.finish_time || data.endTime || data.finishTime || 0;
+            const nowSeconds = Math.floor(Date.now() / 1000);
+            const isFinished = status === 'finished' || (finishTime > 0 && finishTime <= nowSeconds);
+
             return {
                 rounds,
                 variant: finalVariant,
@@ -206,8 +284,9 @@
                     (data.players || []).length
                 ),
                 startTime: data.start_time || data.startTime || 0,
-                endTime: data.finish_time || data.endTime || 0,
-                isFinished: data.status === 'finished' || data.settings?.status === 'finished'
+                endTime: finishTime,
+                status,
+                isFinished
             };
         },
 
@@ -305,7 +384,9 @@
                     duration: calculateDuration(meta.startTime, meta.endTime),
                     playersCount: meta.registeredCount,
                     startTime: meta.startTime,
-                    format: format
+                    format: format,
+                    status: meta.status,
+                    isFinished: meta.isFinished
                 });
 
                 tourPlayers.forEach(player => {
@@ -360,7 +441,7 @@
             return `<div class="user-badges-component"><div class="user-badges-badge ${badge.c}"><span class="${badge.i}"></span><span>${badge.t}</span></div></div>`;
         },
 
-        async playerCell(player, playerData) {
+        async playerCell(player, playerData, monthId) {
             if (!player) {
                 return '<td style="color: var(--primary-warning)">Chưa có dữ liệu!</td>';
             }
@@ -373,7 +454,7 @@
 
             const badgeHtml = this.formatBadge(data.status);
 
-            return `<td class="player-cell clickable-player" data-player='${JSON.stringify(player).replace(/'/g, "&apos;")}' data-avatar='${(data.avatar || CONFIG.DEFAULT_AVATAR).replace(/'/g, "&apos;")}' data-status='${data.status || "N/A"}' style="cursor: pointer;">
+            return `<td class="player-cell clickable-player" data-month="${monthId || ''}" data-player='${JSON.stringify(player).replace(/'/g, "&apos;")}' data-avatar='${(data.avatar || CONFIG.DEFAULT_AVATAR).replace(/'/g, "&apos;")}' data-status='${data.status || "N/A"}' style="cursor: pointer;">
                 <div class="post-user-component">
                     <div class="cc-avatar-component post-user-avatar">
                         <img class="cc-avatar-img" src="${data.avatar || CONFIG.DEFAULT_AVATAR}" height="50" width="50" alt="${data.username}">
@@ -392,27 +473,41 @@
         },
 
         async monthRow(monthId, eventType) {
-            const { playerScores, tournaments } = await DataProcessor.getMonthlyAggregation(monthId, eventType);
+            const { playerScores, tournaments, status } = await DataProcessor.getMonthlyAggregation(monthId, eventType);
             const topPlayers = Object.values(playerScores)
                 .sort((a, b) => b.totalPoints - a.totalPoints)
                 .slice(0, CONFIG.TOP_PLAYERS);
+
+            const finishedCount = tournaments.filter(t => t.isFinished).length;
+            const totalCount = tournaments.length;
+
+            topPlayers.forEach((p, idx) => {
+                recordTop6Finish(monthId, p, idx + 1, totalCount, finishedCount, status);
+            });
 
             const playerDetails = await Promise.all(
                 topPlayers.map(p => RequestManager.fetch(`${API.CHESS_COM}/player/${p.username}`))
             );
 
             const tournamentsJson = JSON.stringify(tournaments).replace(/'/g, "&apos;");
+            const isAllFinished = totalCount > 0 && finishedCount === totalCount;
+            const statusBadgeStyle = isAllFinished
+                ? 'background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4);'
+                : 'background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4);';
+            const statusBadgeIcon = isAllFinished ? 'bx-check-circle' : 'bx-time-five';
+            const statsHtml = `<span style="white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;">${totalCount} giải đấu <i class="bx bx-info-circle" style="font-size: 0.85em; opacity: 0.7;"></i></span><div style="margin-top: 4px; white-space: nowrap;"><span class="user-badges-badge" style="${statusBadgeStyle} font-size: 0.82em; padding: 2px 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;"><i class="bx ${statusBadgeIcon}"></i>${finishedCount}/${totalCount} đã hoàn thành</span></div>`;
+
             let html = `<tr>
                 <td class="name-tour month-clickable" data-tournaments='${tournamentsJson}' data-month="${monthId}">
-                    Tháng ${monthId} <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i>
+                    <span style="white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">Tháng ${monthId} <i class="bx bx-info-circle" style="font-size: 0.85em; opacity: 0.7;"></i></span>
                 </td>
                 <td class="organization-day month-clickable" data-tournaments='${tournamentsJson}' data-month="${monthId}">
-                    ${tournaments.length} giải đấu <i class="bx bx-info-circle" style="font-size: 0.8em; opacity: 0.7;"></i>
+                    ${statsHtml}
                 </td>
                 <td class="players">${Object.keys(playerScores).length}</td>`;
 
             for (let i = 0; i < CONFIG.TOP_PLAYERS; i++) {
-                html += await this.playerCell(topPlayers[i], playerDetails[i]);
+                html += await this.playerCell(topPlayers[i], playerDetails[i], monthId);
             }
 
             return html + '</tr>';
@@ -439,7 +534,7 @@
     };
 
     const EventHandlers = {
-        handlePlayerClick(playerData, avatar, status) {
+        handlePlayerClick(playerData, avatar, status, monthId) {
             const badgeHtml = Renderer.formatBadge(status);
             let html = `<div class="calendar-wrapper">
                 <div style="text-align: center; margin-bottom: 20px;">
@@ -448,9 +543,13 @@
                     ${badgeHtml ? `<div style="margin-top: 5px;">${badgeHtml}</div>` : ''}
                 </div>
 
-                <table class="styled-table score-detail-table" style="width: 100%;">
-                    <thead><tr><th>Giải đấu</th><th style="text-align: center;">Thể lệ</th><th style="text-align: center;">Điểm</th></tr></thead>
-                    <tbody>`;
+                <div style="margin-bottom: 25px;">
+                    <h4 style="color: var(--cyan-300); margin: 0 0 10px 0; font-size: 1.05em; display: flex; align-items: center; gap: 6px;">
+                        <i class="bx bx-calendar"></i> Tổng kết Tháng ${monthId || ''}
+                    </h4>
+                    <table class="styled-table score-detail-table" style="width: 100%;">
+                        <thead><tr><th>Giải đấu</th><th style="text-align: center;">Thể lệ</th><th style="text-align: center;">Điểm</th></tr></thead>
+                        <tbody>`;
 
             playerData.breakdown.forEach(item => {
                 const variantInfo = VARIANTS[item.variant?.toLowerCase()] || {};
@@ -480,16 +579,58 @@
             html += `</tbody>
                 <tfoot>
                     <tr style="border-top: 2px solid var(--cyan-300); background-color: rgba(0, 255, 255, 0.05);">
-                        <td style="font-weight: bold; color: var(--cyan-300);">TỔNG CỘNG</td>
+                        <td style="font-weight: bold; color: var(--cyan-300);">TỔNG CỘNG THÁNG</td>
                         <td style="text-align: center; color: var(--blue-400);">${playerData.breakdown.length} giải</td>
                         <td style="text-align: center; color: var(--yellow-400); font-weight: bold; font-size: 1.15em;">
                             ${playerData.totalPoints}
                         </td>
                     </tr>
                 </tfoot>
-                </table></div>`;
+                </table>
+                </div>`;
 
-            ModalManager.show(`Tổng kết tháng của ${playerData.username}`, html);
+            const historyObj = PLAYER_TOP6_STORE.get(playerData.username.toLowerCase());
+            if (historyObj && historyObj.finishes && historyObj.finishes.length > 0) {
+                const sortedFinishes = [...historyObj.finishes].sort((a, b) => parseMonthTimestamp(b.monthId) - parseMonthTimestamp(a.monthId));
+
+                html += `<div style="margin-top: 25px;">
+                    <h4 style="color: var(--yellow-400); margin: 0 0 10px 0; font-size: 1.05em; display: flex; align-items: center; gap: 6px;">
+                        <i class="bx bx-trophy"></i> Lịch sử lọt top 6 (${sortedFinishes.length} tháng)
+                    </h4>
+                    <table class="styled-table score-detail-table" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Tháng tổ chức</th>
+                                <th style="text-align: center;">Thành tích</th>
+                                <th style="text-align: center;">Số giải đã chơi</th>
+                                <th style="text-align: center;">Tổng điểm</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                sortedFinishes.forEach(f => {
+                    let monthStatusNote = '';
+                    if (f.finishedCount < f.totalMonthTours || f.monthStatus === 'unfinished') {
+                        monthStatusNote = `<div style="font-size: 0.8em; color: var(--yellow-400, #f59e0b); font-weight: 500; margin-top: 2px;">(Chưa hoàn thành)</div>`;
+                    }
+
+                    html += `<tr>
+                        <td style="font-weight: 600; color: var(--neutral-100);">
+                            Tháng ${f.monthId}
+                            ${monthStatusNote}
+                        </td>
+                        <td style="text-align: center; font-weight: 600; font-size: 0.95em;">${getRankBadge(f.rank)}</td>
+                        <td style="text-align: center; color: var(--neutral-300);">${f.tourCount}/${f.totalMonthTours} giải</td>
+                        <td style="text-align: center; color: var(--yellow-400); font-weight: bold; font-size: 1.05em;">${f.totalPoints} ĐIỂM</td>
+                    </tr>`;
+                });
+
+                html += `</tbody></table></div>`;
+            }
+
+            html += `</div>`;
+
+            ModalManager.show(`Tổng kết kỳ thủ ${playerData.username}`, html);
         },
 
         handleMonthClick(monthElement, tournaments) {
@@ -510,7 +651,16 @@
                 }
 
                 const startTimeStr = formatDate(tour.startTime);
-                html += `<tr><td><a href="${tour.url}" target="_blank">${tour.name}</a></td><td>${startTimeStr}</td><td>${Renderer.timeFormat(tour.timeControl, tour.timeClass)}<br>${variantHtml}<br>${tour.format}</td><td style="text-align: center;">${tour.playersCount}</td></tr>`;
+                const statusBadge = formatTourStatus(tour.status, tour.isFinished);
+                html += `<tr>
+                    <td>
+                        <a href="${tour.url}" target="_blank">${tour.name}</a>
+                        <div style="margin-top: 4px;">${statusBadge}</div>
+                    </td>
+                    <td>${startTimeStr}</td>
+                    <td>${Renderer.timeFormat(tour.timeControl, tour.timeClass)}<br>${variantHtml}<br>${tour.format}</td>
+                    <td style="text-align: center;">${tour.playersCount}</td>
+                </tr>`;
             });
 
             html += '</tbody></table></div>';
@@ -580,7 +730,8 @@
                     const playerData = JSON.parse(playerCell.dataset.player);
                     const avatar = playerCell.dataset.avatar;
                     const status = playerCell.dataset.status;
-                    EventHandlers.handlePlayerClick(playerData, avatar, status);
+                    const monthId = playerCell.dataset.month;
+                    EventHandlers.handlePlayerClick(playerData, avatar, status, monthId);
                     return;
                 }
 
