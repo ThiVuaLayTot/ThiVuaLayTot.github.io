@@ -12,7 +12,7 @@ title: Lịch sự kiện của tháng
     </ul>
     <p class="schedule-updated"><i class="bx bx-refresh" aria-hidden="true"></i> Lần cập nhật gần nhất: <span id="last-updated">Đang tải…</span>. Nếu có vấn đề, hãy bình luận trong <a href="https://chess.com/clubs/forum/view/lich-su-kien-hang-thang-clb-tvlt?clubId=325849&quote_id=125015758&page=1#comment_box" target="_blank" rel="noopener">forum</a> hoặc liên hệ <a href="/leaders#admin3">M-DinhHoangViet</a>.</p>
 </section>
-<div id="schedule-filters" class="schedule-control-bar" style="display: none;">
+<div id="schedule-filters" class="schedule-control-bar" style="display: inline-flex;">
     <!-- Left: Search input -->
     <div class="control-item search-wrapper">
         <span class="bx bx-search search-icon"></span>
@@ -230,6 +230,9 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 .events-container{display:flex;width:100%;min-height:60px;justify-content:center;align-items:center;align-content:flex-start}
 .event-icon{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;padding:0;background:transparent;border:0;filter:drop-shadow(0 0 5px var(--cyan-300));transition:all var(--transition-fast) cubic-bezier(.4,0,.2,1);border-radius:var(--border-radius-sm);flex-shrink:0;position:relative}
 .event-icon:hover,.event-icon:focus-visible{filter:drop-shadow(0 0 6px rgba(125,211,255,.9));transform:scale(1.15) translateY(-2px);outline:2px solid var(--cyan-200);outline-offset:3px}
+.event-icon.ended{filter:grayscale(.55) drop-shadow(0 0 3px rgba(148,163,184,.35));opacity:.72}
+.event-icon.upcoming{filter:drop-shadow(0 0 5px rgba(96,165,250,.55))}
+.event-icon.ongoing{filter:drop-shadow(0 0 5px rgba(167,139,250,.65))}
 .event-icon.tentative{filter:drop-shadow(0 0 4px var(--yellow-400))}
 .event-icon.tentative:hover{filter:drop-shadow(0 0 7px var(--yellow-300))}
 .event-icon.has-prize::after{content:"🏆";position:absolute;top:-2px;right:-2px;font-size:14px;line-height:1;filter:drop-shadow(0 0 3px rgba(251,191,36,.8));animation:bouncePrize 2s infinite ease-in-out}
@@ -281,14 +284,22 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 
 .badge-schedule{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:50px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;flex-shrink:0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:all .3s cubic-bezier(.4,0,.2,1);user-select:none}
 .badge-schedule i{font-size:12px}
-.badge-giao-luu{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.45);box-shadow:0 0 10px rgba(16,185,129,.15),inset 0 0 4px rgba(16,185,129,.1)}
-.badge-giao-luu:hover{background:rgba(16,185,129,.18);box-shadow:0 0 14px rgba(16,185,129,.35),inset 0 0 6px rgba(16,185,129,.2)}
-.badge-co-thuong{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.45);box-shadow:0 0 12px rgba(245,158,11,.22),inset 0 0 4px rgba(245,158,11,.1);animation:goldShimmer 3s infinite ease-in-out}
-.badge-co-thuong:hover{background:rgba(245,158,11,.18);box-shadow:0 0 18px rgba(245,158,11,.45),inset 0 0 6px rgba(245,158,11,.25)}
-.badge-tentative{background:rgba(244,63,94,.08);color:#f43f5e;border:1px solid rgba(244,63,94,.4);box-shadow:0 0 10px rgba(244,63,94,.15),inset 0 0 4px rgba(244,63,94,.1)}
-.badge-tentative:hover{background:rgba(244,63,94,.15);box-shadow:0 0 14px rgba(244,63,94,.35),inset 0 0 6px rgba(244,63,94,.2)}
-.badge-ended{background:rgba(148,163,184,.1);color:#94a3b8;border:1px solid rgba(148,163,184,.35);box-shadow:0 0 8px rgba(148,163,184,.1)}
-.badge-ended:hover{background:rgba(148,163,184,.18);border-color:rgba(148,163,184,.5)}
+.badge-giao-luu{background:rgba(45,212,191,.1);color:#5eead4;border:1px solid rgba(45,212,191,.38);box-shadow:0 0 7px rgba(45,212,191,.08)}
+.badge-giao-luu:hover{background:rgba(45,212,191,.17);border-color:rgba(94,234,212,.62);box-shadow:0 0 11px rgba(45,212,191,.2)}
+.badge-co-thuong{background:rgba(250,204,21,.12);color:#facc15;border:1px solid rgba(250,204,21,.48);box-shadow:0 0 8px rgba(250,204,21,.13)}
+.badge-co-thuong:hover{background:rgba(250,204,21,.2);border-color:rgba(250,204,21,.7);box-shadow:0 0 13px rgba(250,204,21,.25)}
+.badge-special{background:rgba(168,85,247,.11);color:#d8b4fe;border:1px solid rgba(192,132,252,.4);box-shadow:0 0 7px rgba(168,85,247,.08)}
+.badge-special:hover{background:rgba(168,85,247,.17);border-color:rgba(216,180,254,.62);box-shadow:0 0 11px rgba(168,85,247,.18)}
+.badge-special-prize{background:rgba(168,85,247,.12);color:#facc15;border:1px solid rgba(250,204,21,.48);box-shadow:0 0 8px rgba(168,85,247,.1)}
+.badge-special-prize:hover{background:rgba(168,85,247,.18);border-color:rgba(250,204,21,.7);box-shadow:0 0 11px rgba(168,85,247,.2)}
+.badge-tentative{background:rgba(251,146,60,.1);color:#fdba74;border:1px solid rgba(251,146,60,.4);box-shadow:0 0 7px rgba(251,146,60,.1)}
+.badge-tentative:hover{background:rgba(251,146,60,.17);border-color:rgba(253,186,116,.65);box-shadow:0 0 11px rgba(251,146,60,.2)}
+.badge-ended{background:rgba(148,163,184,.09);color:#94a3b8;border:1px solid rgba(148,163,184,.3);box-shadow:0 0 5px rgba(148,163,184,.06)}
+.badge-ended:hover{background:rgba(148,163,184,.15);border-color:rgba(148,163,184,.45)}
+.badge-upcoming{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.38);box-shadow:0 0 7px rgba(59,130,246,.1)}
+.badge-upcoming:hover{background:rgba(59,130,246,.17);border-color:rgba(96,165,250,.6);box-shadow:0 0 11px rgba(59,130,246,.22)}
+.badge-ongoing{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(74,222,128,.42);box-shadow:0 0 8px rgba(34,197,94,.14)}
+.badge-ongoing:hover{background:rgba(34,197,94,.18);border-color:rgba(74,222,128,.65);box-shadow:0 0 12px rgba(34,197,94,.25)}
 
 .cc-modal-info-section{display:grid;grid-template-columns:1fr;gap:1rem;padding:var(--space-md) var(--space-xl);width:100%;background:rgba(255,255,255,.02);border-radius:10px;border:1px solid rgba(47,185,255,.2)}
 .cc-modal-info-item{display:flex;align-items:flex-start;gap:.8rem;font-size:1rem}
@@ -375,7 +386,7 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
 .btn-switcher:hover{background:rgba(0,242,255,.1);color:var(--cyan-100);border-color:var(--cyan-300);box-shadow:0 0 15px rgba(0,242,255,.25);transform:translateY(-2px)}
 .btn-switcher.active{background:linear-gradient(135deg,rgba(0,102,204,.55) 0%,rgba(0,242,255,.55) 100%);color:#fff;border-color:var(--cyan-300);box-shadow:0 0 20px rgba(0,242,255,.4),inset 0 0 10px rgba(255,255,255,.1)}
 
-.events-list-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-top:25px;animation:fadeIn .4s ease-out}
+.events-list-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:20px;margin-top:25px;animation:fadeIn .4s ease-out}
 .event-list-card{background:radial-gradient(circle at top left,var(--color-bg-tertiary) 0%,var(--color-bg-primary) 100%);border:1.5px solid rgba(53,201,252,.3);border-radius:var(--border-radius-xl);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:15px;transition:all .3s cubic-bezier(.4,0,.2,1);cursor:pointer;box-shadow:0 6px 15px rgba(0,0,0,.2),inset 0 0 10px rgba(0,242,255,.02);position:relative;overflow:hidden}
 .event-list-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,transparent,rgba(0,242,255,.5),transparent);transform:scaleX(0);transition:transform .4s ease}
 .event-list-card:hover{transform:translateY(-5px);border-color:var(--cyan-400);box-shadow:0 12px 30px rgba(0,242,255,.2),inset 0 0 15px rgba(0,242,255,.05)}
@@ -455,5 +466,8 @@ td.today .day-number{color:var(--yellow-400)!important;opacity:1!important;font-
     .events-list-grid{grid-template-columns:1fr;gap:15px}
     .btn{gap:1px;font-size:12px;}
 }
+@keyframes scheduleEntrance{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.schedule-entrance{animation:scheduleEntrance .38s ease-out both}
+@media(prefers-reduced-motion:reduce){.schedule-entrance{animation:none}}
 </style>
 <script src="/js/schedule.js"></script>
