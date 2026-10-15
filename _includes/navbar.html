@@ -1,6 +1,6 @@
 <nav class="page-header" aria-label="Điều hướng chính">
     <a class="tvlt-brand" href="/" target="_top" aria-label="Thí Vua Lấy Tốt - Trang chủ">
-        <img src="/images/tvltlogo.png" alt="" width="46" height="46" class="logo">
+        <img src="/images/tvltlogo.png" alt="" width="44" height="44" class="logo">
         <span class="tvlt-brand__text">
             <strong>Thí Vua Lấy Tốt</strong>
             <small>TungJohn Playing Chess</small>
@@ -14,52 +14,59 @@
             </button>
 
             <div class="topnav_content" id="tvltTopnav">
-                <a class="nav-link nav-link--active" href="/" target="_top">
+                <a class="nav-link" href="/" target="_top">
                     <span class="bx bx-home-alt-2" aria-hidden="true"></span>Trang chủ
                 </a>
                 <a class="nav-link" href="/schedule" target="_top">
                     <span class="bx bx-calendar" aria-hidden="true"></span>Lịch sự kiện
                 </a>
+
                 <div class="section dropdown">
-                    <a href="#" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="nav-events-menu">
                         <span class="bx bx-trophy" aria-hidden="true"></span>Sự kiện
                         <span class="bx bx-chevron-down dropdown-arrow" aria-hidden="true"></span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="/events" target="_top"><span class="bx bx-medal"></span>Các giải đấu & sự kiện</a>
-                        <a href="/schedule" target="_top"><span class="bx bx-calendar-event"></span>Lịch tổ chức sự kiện</a>
-                        <a href="/events/tournaments" target="_top"><span class="bx bx-history"></span>Các giải đấu đã tổ chức</a>
+                    </button>
+                    <div class="dropdown-menu" id="nav-events-menu">
+                        <a href="/events" target="_top"><span class="bx bx-medal" aria-hidden="true"></span>Các giải đấu &amp; sự kiện</a>
+                        <a href="/events/tournaments" target="_top"><span class="bx bx-history" aria-hidden="true"></span>Các giải đấu đã tổ chức</a>
                     </div>
                 </div>
+
                 <div class="section dropdown">
-                    <a href="#" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="nav-explore-menu">
                         <span class="bx bx-grid-alt" aria-hidden="true"></span>Khám phá
                         <span class="bx bx-chevron-down dropdown-arrow" aria-hidden="true"></span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="/video" target="_top"><span class="bx bx-play-circle"></span>Thư viện video</a>
-                        <a href="/news" target="_top"><span class="bx bx-news"></span>Tin tức & thông báo</a>
-                        <a href="/chess" target="_top"><span class="bxs-chess bx"></span>Kiến thức cờ vua</a>
-                        <a href="/blog" target="_top"><span class="bx bx-edit-alt"></span>Bài viết</a>
+                    </button>
+                    <div class="dropdown-menu" id="nav-explore-menu">
+                        <a href="/video" target="_top"><span class="bx bx-play-circle" aria-hidden="true"></span>Thư viện video</a>
+                        <a href="/news" target="_top"><span class="bx bx-news" aria-hidden="true"></span>Tin tức &amp; thông báo</a>
+                        <a href="/chess" target="_top"><span class="bx bxs-chess" aria-hidden="true"></span>Kiến thức cờ vua</a>
+                        <a href="/blog" target="_top"><span class="bx bx-edit-alt" aria-hidden="true"></span>Bài viết</a>
                     </div>
                 </div>
-                <div class="section dropdown">
-                    <a href="#" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+
+                <div class="section dropdown dropdown--end">
+                    <button type="button" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="nav-community-menu">
                         <span class="bx bx-group" aria-hidden="true"></span>Cộng đồng
                         <span class="bx bx-chevron-down dropdown-arrow" aria-hidden="true"></span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="/" target="_top"><span class="bx bx-user-circle"></span>Giới thiệu CLB</a>
-                        <a href="/leaders" target="_top"><span class="bx bx-shield-quarter"></span>Đội ngũ quản trị</a>
-                        <a href="/social" target="_top"><span class="bx bx-share-alt"></span>Mạng xã hội</a>
-                        <a href="/contact" target="_top"><span class="bx bx-envelope"></span>Liên hệ</a>
+                    </button>
+                    <div class="dropdown-menu" id="nav-community-menu">
+                        <a href="/#service" target="_top"><span class="bx bx-user-circle" aria-hidden="true"></span>Giới thiệu CLB</a>
+                        <a href="/leaders" target="_top"><span class="bx bx-shield-quarter" aria-hidden="true"></span>Đội ngũ quản trị</a>
+                        <a href="/social" target="_top"><span class="bx bx-share-alt" aria-hidden="true"></span>Mạng xã hội</a>
+                        <a href="/contact" target="_top"><span class="bx bx-envelope" aria-hidden="true"></span>Liên hệ</a>
                     </div>
                 </div>
+
+                <a class="nav-cta nav-cta--mobile" href="https://link.chess.com/club/0CVQh6" target="_blank" rel="noopener noreferrer">
+                    <span class="bx bxs-user-plus" aria-hidden="true"></span>
+                    <span>Tham gia CLB</span>
+                </a>
             </div>
         </div>
     </div>
 
-    <a class="nav-cta" href="/social" target="_blank">
+    <a class="nav-cta" href="https://link.chess.com/club/0CVQh6" target="_blank" rel="noopener noreferrer">
         <span class="bx bxs-user-plus" aria-hidden="true"></span>
         <span>Tham gia CLB</span>
     </a>

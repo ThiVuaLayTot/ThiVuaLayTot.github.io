@@ -1,24 +1,28 @@
 /**
- * Main JavaScript for Thí Vua Lấy Tốt
- * Handles navigation, scroll effects, and timeline animations.
- */
-
-/**
- * Mobile Navigation
+ * Main site navigation
  */
 const menuBtn = document.getElementById("menu");
-const dropdowns = document.querySelectorAll(".section.dropdown");
 const mobileNav = document.getElementById("tvltTopnav");
-
+const dropdowns = document.querySelectorAll(".section.dropdown");
 const isMobileNav = () => window.matchMedia("(max-width: 1024px)").matches;
+let dropdownCloseTimer = null;
+
+function cancelDropdownClose() {
+    if (dropdownCloseTimer !== null) {
+        window.clearTimeout(dropdownCloseTimer);
+        dropdownCloseTimer = null;
+    }
+}
 
 function setDropdownState(dropdown, open) {
     const trigger = dropdown.querySelector(".dropdown-trigger");
     dropdown.classList.toggle("active", open);
     if (trigger) trigger.setAttribute("aria-expanded", String(open));
+    if (open) delete dropdown.dataset.escapeClosed;
 }
 
 function closeDropdowns() {
+    cancelDropdownClose();
     dropdowns.forEach(dropdown => setDropdownState(dropdown, false));
 }
 
@@ -74,45 +78,162 @@ dropdowns.forEach(dropdown => {
     if (!trigger) return;
 
     trigger.addEventListener("click", event => {
-        if (!isMobileNav()) return;
-
         event.preventDefault();
-        event.stopPropagation();
 
         const shouldOpen = !dropdown.classList.contains("active");
-        dropdowns.forEach(other => {
-            if (other !== dropdown) setDropdownState(other, false);
-        });
+
+        closeDropdowns();
         setDropdownState(dropdown, shouldOpen);
+
+        if (!shouldOpen && !isMobileNav()) {
+            dropdown.dataset.escapeClosed = "true";
+            trigger.blur();
+        }
+    });
+
+    dropdown.addEventListener("pointerenter", () => {
+        if (isMobileNav()) return;
+
+        closeDropdowns();
+        if (dropdown.dataset.escapeClosed !== "true") {
+            setDropdownState(dropdown, true);
+        }
+    });
+
+    dropdown.addEventListener("pointerleave", () => {
+        if (isMobileNav()) return;
+
+        cancelDropdownClose();
+        dropdownCloseTimer = window.setTimeout(() => {
+            dropdownCloseTimer = null;
+
+            if (!dropdown.matches(":hover") && !dropdown.contains(document.activeElement)) {
+                delete dropdown.dataset.escapeClosed;
+                setDropdownState(dropdown, false);
+            }
+        }, 160);
+    });
+
+    dropdown.addEventListener("focusin", () => {
+        if (isMobileNav()) return;
+
+        closeDropdowns();
+        if (dropdown.dataset.escapeClosed !== "true") {
+            setDropdownState(dropdown, true);
+        }
+    });
+
+    dropdown.addEventListener("focusout", event => {
+        if (isMobileNav() || dropdown.contains(event.relatedTarget)) return;
+
+        cancelDropdownClose();
+        dropdownCloseTimer = window.setTimeout(() => {
+            dropdownCloseTimer = null;
+
+            if (!dropdown.contains(document.activeElement) && !dropdown.matches(":hover")) {
+                delete dropdown.dataset.escapeClosed;
+                setDropdownState(dropdown, false);
+            }
+        }, 100);
     });
 });
 
 document.addEventListener("click", event => {
-    if (!isMobileNav() || !mobileNav?.classList.contains("active")) return;
+    if (isMobileNav() && mobileNav?.classList.contains("active")) {
+        if (mobileNav.contains(event.target) || menuBtn?.contains(event.target)) return;
+        closeMobileNav();
+        return;
+    }
 
-    const target = event.target;
-    if (mobileNav.contains(target) || menuBtn?.contains(target)) return;
-
-    closeMobileNav();
+    if (!Array.from(dropdowns).some(dropdown => dropdown.contains(event.target))) {
+        closeDropdowns();
+    }
 });
 
 document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && mobileNav?.classList.contains("active")) {
+    if (event.key !== "Escape") return;
+
+    const openDropdown = Array.from(dropdowns)
+        .find(dropdown => dropdown.classList.contains("active"));
+
+    if (openDropdown) {
+        const trigger = openDropdown.querySelector(".dropdown-trigger");
+        setDropdownState(openDropdown, false);
+        openDropdown.dataset.escapeClosed = "true";
+        trigger?.focus();
+        return;
+    }
+
+    if (mobileNav?.classList.contains("active")) {
         closeMobileNav({ restoreFocus: true });
     }
 });
 
 window.addEventListener("resize", () => {
+    closeDropdowns();
     if (!isMobileNav()) closeMobileNav();
 });
 
 if (mobileNav) {
-    mobileNav.querySelectorAll("a:not(.dropdown-trigger)").forEach(link => {
+    mobileNav.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => {
             if (isMobileNav()) closeMobileNav();
         });
     });
 }
+
+function normalizePath(path) {
+    const normalized = path.replace(/\/+$/, "");
+    return normalized || "/";
+}
+
+function markCurrentRoute() {
+    if (!mobileNav) return;
+
+    const currentPath = normalizePath(window.location.pathname.toLowerCase());
+    const currentHash = window.location.hash;
+    const links = Array.from(
+        document.querySelectorAll(".page-header .nav-link, .page-header .dropdown-menu a")
+    );
+
+    links.forEach(link => {
+        link.classList.remove("nav-link--active");
+        link.removeAttribute("aria-current");
+    });
+    dropdowns.forEach(dropdown => dropdown.classList.remove("has-current"));
+
+    const candidates = links.filter(link => {
+        const url = new URL(link.href, window.location.origin);
+        if (url.origin !== window.location.origin) return false;
+
+        const linkPath = normalizePath(url.pathname.toLowerCase());
+        if (url.hash && url.hash !== currentHash) return false;
+        if (linkPath === "/" && currentPath !== "/") return false;
+
+        return currentPath === linkPath ||
+            (linkPath !== "/" && currentPath.startsWith(linkPath + "/"));
+    });
+
+    candidates.sort((a, b) => {
+        const urlA = new URL(a.href, window.location.origin);
+        const urlB = new URL(b.href, window.location.origin);
+        const scoreA = normalizePath(urlA.pathname).length +
+            (urlA.hash && urlA.hash === currentHash ? 10000 : 0);
+        const scoreB = normalizePath(urlB.pathname).length +
+            (urlB.hash && urlB.hash === currentHash ? 10000 : 0);
+        return scoreB - scoreA;
+    });
+
+    const activeLink = candidates[0];
+    if (!activeLink) return;
+
+    activeLink.classList.add("nav-link--active");
+    activeLink.setAttribute("aria-current", "page");
+    activeLink.closest(".section.dropdown")?.classList.add("has-current");
+}
+
+markCurrentRoute();
+
 
 /**
  * Page Load Events
